@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the unification of geometry and probability</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        tex: {
+          tags: 'ams',
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfm: ['\\mathfrak{M}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+          }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the unification of geometry and probability</h1>
+</div>
+
+<p>This section focuses on one of the most important mathematical theories in the foundation of machine learning: Probability theory. Among other things, the role of this theory in machine learning is to provide structure to our data; indeed, the datasets that we meet in applied machine learning are <em>not</em> completely and haphazardly random—they are often probabilistically structured, in the sense that they may be modelled via probability distributions.</p>
+
+<p>Another theory that relies heavily on probability theory is inferential statistics, whose program is to generate estimates for the parameters of the underlying data distributions, and to quantify the degree of our confidence in the accuracy in those estimates. On the other hand, theoretical machine learning is concerned more with prediction and quantifying the capacity of a model to perform well on out-of-sample data. Of course, described in this way, there is significant overlap between statistics and theoretical machine learning, and my attempt to separate the two might be excessively simplistic. In any case, no matter how they are described, both theories rely on and are supported by probability theory.</p>
+
+<p>My goal in this series of posts is to provide a high-level description of abstract probability theory. This necessitates a discussion of measure spaces. In this first post of the series, we will catch an initial glimpse of these basic mathematical structures as objects that I have called <em>semi-measure spaces</em>. My goal is to describe how they originate via abstraction from geometric and probabilistic considerations. The full definition of an abstract measure space will come in a later post, and then after that, we will move on to abstract integration theory and the Lebesgue integral, which will allow us to unify discrete and continuous probability, among other things. Perhaps the overarching theme of this series of posts is one of <em>unification</em>: First, the unification of geometry and probability, and then the unification of the discrete and the continuous.</p>
+
+<p>Probability theory is a huge subject, and may be studied in a “pure” form, independent of applications to statistics, machine learning, <em>etc</em>. We will only be studying a very small fraction of the foundations of probability theory, but you should know that there is much, <em>much</em> more beyond what I describe in these posts. My overarching goal in this series of posts is to develop enough of the foundations in order to state and describe the measure-theoretic definitions of independence and conditional expectations and probabilities.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>I had hoped to introduce these topics with a minimal requirement for prerequisites that included only basic calculus and probability theory, but it turns out that I need to assume more. In particular, you’ll need to have a light familiarity with the <em>theory</em> of the Riemann integral—not only how to compute the things, as you would learn in a calculus course, but also a little of the theory that you’d obtain in a real analysis course. In addition, you’ll need to know some basic terms and results from the topology of \(\mathbb{R}\), including open and closed sets, boundaries, <em>etc</em>.</p>
+
+<h2 id="uniting-geometry-and-probability">Uniting geometry and probability</h2>
+
+<p>A good theory is general enough to unify and bring together concepts, examples, and observations across several domains. In mathematics, the mechanism of unification often operates through abstraction, by which the theory identifies the most essential shared qualities of the objects under its scope, and uses these shared features to define general abstract structures via axioms that include the objects as specific examples. The theory is then developed around these abstract entities, and any theorem proved about these entities applies at once to <em>all</em> the specific domains from which the abstract theory grew.</p>
+
+<p>An indication that an abstract theory is lurking in the background is often made apparent from parallels and similarities that one discovers while working with specific examples. In your study of elementary probability, you likely encountered a series of properties about probabilities that included the following:</p>
+
+<div class="highlight-box" id="kolmogorov">
+  <p><strong>Kolmogorov axioms for probability.</strong></p>
+  <ol>
+<li>If \(A\) is an event in the sample space \(\Omega\), then \(P(A) \geq 0\).</li>
+<li> If \(A\) and \(B\) are disjoint events in \(\Omega\), then \(P(A\cup B) = P(A) + P(B)\).</li>
+<li>The probability that <i>any</i> outcome is observed is \(1\), i.e., \(P(\Omega)=1\).</li>
+</ol>
+</div>
+
+<p>These properties (or axioms) are sometimes named after the mathematician A. N. Kolmogorov who introduced them in his seminal work <em>Foundations of the Theory of Probability</em>, originally published in 1933. On the first page of the first chapter, he wrote:</p>
+
+<blockquote>
+  <p><em>The theory of probability, as a mathematical discipline, can and should be developed from axioms in exactly the same way as Geometry and Algebra. This means that after we have defined the elements to be studied and their basic relations, and have stated the axioms by which these relations are to be governed, all further exposition must be based exclusively on these axioms, independent of the usual concrete meaning of these elements and their relations.</em></p>
+</blockquote>
+
+<p>The inspiration for the axioms came from analogies between probability theory and geometry, the latter in the form of Lebesgue’s theory of measure and integration. In the preface to his book, Kolmogorov writes:</p>
+
+<blockquote>
+  <p><em>…after Lebesgue’s publication of his investigations, the analogies between measure of a set and probability of an event, and between integral of a function and mathematical expectation of a random variable, became apparent. … But if probability theory was to be based on the above analogies, it still was necessary to make the theories of measure and integration independent of the geometric elements which were in the foreground with Lebesgue. This has been done by Fréchet.</em></p>
+</blockquote>
+
+<p>Kolmogorov goes on to write that while specialists in probability theory already knew of the analogies between measure theory and probability theory, no systematic treatment of abstract probability theory based on measure theory had been published for a general mathematical audience. His book would fill that void.</p>
+
+<p>We will follow Kolmogorov’s hint of the analogy between probability theory and measure theory, and turn our attention toward (almost exclusively) geometric matters. It’s only later posts in this series, when probability theory will return to center stage.</p>
+
+<p>So, suppose that we consider the unit interval \(U = [0,1]\) on the real line \(\mathbb{R}\), along with the collection of all open intervals \(I=(a,b)\) in \(U\). Let’s agree to define the <em>length</em> of \(I\) to be the difference \(b-a\) of the endpoints of \(I\). We then obtain a <em>length function</em>, which we denote by \(\lambda\). Hence, by definition, we have</p>
+
+<p>\begin{equation}\notag
+\lambda(I) = \lambda\left((a,b)\right) = b-a.
+\end{equation}</p>
+
+<p>This length function \(\lambda\) can be realized as the Riemann integral</p>
+
+<p>\begin{equation}\notag
+\lambda(I) = \int_0^1 \chi_I \ \text{d}x,
+\end{equation}</p>
+
+<p>where \(\chi_I\) is the so-called <em>indicator function</em> for \(I\), defined via the formula</p>
+
+<p>\begin{equation}\notag
+\chi_I(x) = \begin{cases} 1 &amp; : x\in I, \\ 0 &amp; : x\notin I. \end{cases}
+\end{equation}</p>
+
+<p>This reinterpretation of \(\lambda\) as an integral suggests a method to extend its domain of definition to assign a “length” to <em>any</em> subset \(A\subseteq U\) by putting</p>
+
+<p>\begin{equation}
+\label{eqn:first}
+\lambda(A) = \int_0^1 \chi_A \ \text{d}x,
+\end{equation}</p>
+
+<p>provided, of course, that the integral exists. But if we ignore (for the moment) the question of existence of this integral, it is clear that:</p>
+
+<div class="highlight-box">
+  <p><strong>Length axioms.</strong></p>
+  <ol>
+<li>If \(A\) is a subset of \(U\), then \(\lambda(A) \geq 0\).</li>
+<li>If \(A\) and \(B\) are disjoint subsets of \(U\), then \(\lambda(A\cup B) = \lambda(A) + \lambda(B)\).</li>
+</ol>
+</div>
+
+<p>But these are precisely the geometric analogs to the first two <a href="#kolmogorov" class="article">Kolmogorov axioms</a> for probability! These similarities suggest that a sample space \(\Omega\) with its probability function \(P\), and the unit interval \(U\) with its length function \(\lambda\), are specific examples of the following type of abstract structure:</p>
+
+<div class="highlight-box">
+  <p><strong>Pre-definition.</strong>
+A <em>semi-measure space</em> is an ordered triple \( (\mathcal{X}, \mathfrak{M}, \mu) \), where \(\mathcal{X}\) is a nonempty set, \(\mathfrak{M}\) is a set of subsets of \(\mathcal{X}\), and \(\mu\) is a function that assigns a real number \(\mu(A)\) to every set \(A\) in \(\mathfrak{M}\). We require that the following two axioms are satisfied:</p>
+
+  <p>    1. If $A$ is a subset in $\mfm$, then $\mu(A)\geq 0$. <br />
+    2. If $A$ and $B$ are disjoint subsets in $\mfm$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.</p>
+
+  <p>The function \(\mu\) is called the <em>semi-measure</em> of the semi-measure space. We shall say that the semi-measure space \((\mathcal{X},\mathfrak{M},\mu)\) is a <em>semi-probability space</em> if, in addition to the first two axioms above, we have:</p>
+
+  <p>    3. $\mu(\calx) = 1$.</p>
+</div>
+
+<p>I have called this a “pre-definition” to indicate that this is <em>not</em> the final definition of semi-measure spaces. The official and final definition of a semi-measure space will come later, after we’ve investigated the role of the set \(\mfm\) more fully.</p>
+
+<p>With appropriate choices of \(\mfm\), you can see that a sample space \(\Omega\) is an example of a semi-probability space with semi-measure \(P\), and that the unit interval \(U\) is an example of a semi-measure space with semi-measure \(\lambda\). Of course, since \(\lambda(U)=1\), the latter is even a semi-probability space, but in these preliminary investigations I am thinking of \(U\) more as a geometric object than a probabilistic object.</p>
+
+<p>The set \(\mfm\) serves as the domain of the semi-measure \(\mu\). If \(\mfm\) happens to be the power set of \(\calx\), then the value \(\mu(A)\) would be defined for <em>all</em> subsets $A$ of \(\calx\). However, it might not make sense (or even be possible) to define \(\mu(A)\) for all such subsets. Indeed, we saw above that if the length function \(\lambda\) is defined as the Riemann integral \eqref{eqn:first}, then there are certain subsets \(A\) of \(U\) for which \(\lambda(A)\) is not defined. Here’s an example, which should be familiar to those of you who have had a course in real analysis:</p>
+
+<div class="highlight-box">
+  <p><strong>Example.</strong> Let $D$ be the Dirichlet set in $U$, defined as $D = \bbq \cap U$. As you learned in real analysis, the Riemann integral</p>
+
+  <p>\begin{equation}\notag
+\int_0^1 \chi_D \ \text{d}x
+\end{equation}</p>
+
+  <p>does not exist, and hence the length $\lambda(D)$ is <em>not</em> defined.</p>
+</div>
+
+<p>Thus, the set $\mfm$ plays a fundamental role, and it cannot be omitted from the definition of semi-measure space.</p>
+
+<p>We now seek to find a “natural” choice of $\mfj$ which leads to a semi-measure space $(U,\mfj,\lambda)$, where $\lambda$ is the length function on the unit interval $U=[0,1]$. This particular $\mfj$ will be called the <em>Jordan algebra</em> on $U$, and hence I have elected to name it $\mfj$ and not $\mfm$. Certainly, the Jordan algebra contains all open intervals $(a,b)$ in $U$, but we can enlarge it so that</p>
+
+<p>\begin{equation}
+\label{jordan-eqn}
+\mfj = \left\{ A \subseteq U : \int_0^1 \chi_A \ \text{d}x \text{ exists} \right\}.
+\end{equation}</p>
+
+<p>But we can do more to describe the sets in the Jordan algebra $\mfj$. Indeed, we first recall:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be a subset of the real line $\bbr$. The <em>boundary</em> of $A$, denoted $\bd A$, is the set of all points $x\in \bbr$ such that for every $\dev&gt;0$, the open interval $(x-\dev, x+\dev)$ contains points of both $A$ and the complement $\bbr\smallsetminus A$.</p>
+</div>
+
+<p>To make sure that you understand this definition, I would suggest proving that the Dirichlet set $D = \bbq \cap U$ considered earlier has boundary given by $\bd D = U$.</p>
+
+<p>The key property characterizing the sets in $\mfj$ given by \eqref{jordan-eqn} is described in the following pair of definitions. The first definition is our first glimpse of the general Lebesgue (outer) measure, which we will explore more fully in a later post in this series.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be a subset of the real line $\bbr$. We shall say $A$ has <em>measure $0$</em> if for every $\dev&gt;0$, there is a collection of open intervals $\{I_k\}_{k=1}^\infty$ such that $A \subseteq \bigcup_{k=1}^\infty I_k$ and $\sum_{k=1}^\infty \lambda(I_k) &lt; \dev$.</p>
+</div>
+
+<p><br /></p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be a bounded subset of the real line $\bbr$. We shall say $A$ is <em>Jordan measurable</em> if the boundary $\bd A$ has measure $0$.</p>
+</div>
+
+<p>With the definitions out of the way, we arrive at the following fundamental theorem which characterizes those sets $A$ in $\mfj$ as defined by \eqref{jordan-eqn}.</p>
+
+<div class="highlight-box">
+  <p><strong>The Existence Theorem for Length.</strong> Let $A$ be a subset of the closed unit interval $U=[0,1]$. Then the length</p>
+
+  <p>\begin{equation}\notag
+\lambda(A) = \int_0^1 \chi_A \ \text{d}x
+\end{equation}</p>
+
+  <p>exists if and only if $A$ is Jordan measurable.</p>
+</div>
+
+<p>The proof of the theorem requires much more preparation than I’ve given here. (To see a proof, see the references mentioned at the end of this post.) But, can you see how to use this theorem to provide another proof that the length $\lambda(D)$ is not defined, where $D=\bbq \cap U$ is the Dirichlet function in $U$? Remember, you proved that the boundary $\bd D$ is $U$ itself!</p>
+
+<p>We have thus identified the largest $\mfj$ such that $(U,\mfj, \lambda)$ is a semi-measure space: This $\mfj$ is equal to the set of all Jordan measurable subsets of $U$. I called this set $\mfj$ the Jordan <strong>algebra</strong>, and the reason for the name comes about because $\mfj$ happens to satisfy the three axioms in the following definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\calx$ be a set. A set $\mfm$ of subsets of $\calx$ is called an <em>algebra</em> of sets (on $\calx$) if:</p>
+
+  <ol>
+    <li>We have $\calx \in \mfm$.</li>
+    <li>If $A\in \mfm$, then $A^c \in \mfm$, where $A^c$ is the complement of $A$ in $\calx$.</li>
+    <li>If $A$ and $B$ are in $\mfm$, then $A\cup B \in \mfm$.</li>
+  </ol>
+</div>
+
+<p>Again, to make sure you understand the definitions, I would suggest proving yourself that the Jordan algebra $\mfj$ on $U$ really is an algebra of sets (take $\calx = U$ and $\mfm = \mfj$ in the definition).</p>
+
+<p>Fantastic! We’ve successfully applied the theory of the Riemann integral to identify the Jordan algebra $\mfj$, which has led us to the semi-measure space $(U,\mfj,\lambda)$. Now, because the Jordan algebra happens to be an algebra of sets, it seems natural to add an axiom to our pre-definition of a semi-measure space that requires the set $\mfm$ in a semi-measure space $(\calx,\mfm, \mu)$ to be an algebra of sets on $\calx$. Let’s make this official, by giving the final definition of a semi-measure space:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>semi-measure space</em> is an ordered triple $(\calx, \mfm, \mu)$, where $\calx$ is a nonempty set, $\mfm$ is a set of subsets of $\calx$, and $\mu$ is a function that assigns a real number $\mu(A)$ to every set $A$ in $\mfm$. We require that the following three axioms are satisfied:</p>
+
+  <p>    1. The set $\mfm$ is an algebra of sets on $\calx$. <br />
+    2. If $A$ is a subset in $\mfm$, then $\mu(A)\geq 0$. <br />
+    3. If $A$ and $B$ are disjoint subsets in $\mfm$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.</p>
+
+  <p>The function $\mu$ is called the <em>semi-measure</em> of the semi-measure space. We shall say that the semi-measure space $(\calx,\mfm,\mu)$ is a <em>semi-probability space</em> if, in addition to the first three axioms above, the semi-measure also satisfies:</p>
+
+  <p>    4. $\mu(\calx) = 1$.</p>
+</div>
+
+<p>In mathematics, when you add axioms or other requirements to your definitions, it is with the hope that they will lead to desirable properties and nice theorems. In our case, the addition of the “algebra axiom” leads directly to a proof of:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(\calx,\mfm,\mu)$ be a semi-measure space. Then:</p>
+
+  <ol>
+    <li>(Monotonicity) If $A$ and $B$ are in $\mfm$ and $A\subseteq B$, then $\mu(A) \leq \mu(B)$.</li>
+    <li>(Subadditivity) If $A$ and $B$ are in $\mfm$, then $\mu(A\cup B) \leq \mu(A) + \mu(B)$.</li>
+  </ol>
+</div>
+
+<p>Indeed, without the “algebra axiom”, the value $\mu(A\cup B)$ in the statement of subadditivity might not even be <em>defined</em>. I suggest that you try and prove this theorem on your own, just so that you can see how and where the “algebra axiom” is used.</p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>In the next post in this series, we will investigate one of the main shortcomings of the definition of a semi-measure space, which will motivate the definition of abstract measure space.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>After a full sequence of calculus courses in university, my first introduction to real analysis was via Spivak’s <em>Calculus</em><sup id="fnref:Spivak2008" role="doc-noteref"><a href="#fn:Spivak2008" class="footnote" rel="footnote">1</a></sup>. I used the fourth edition, which is (I think) still the newest one. Don’t let the name of the text fool you—it’s a baby analysis book, <em>not</em> a cookbook-style calculus book. I cannot recommend this text enough! I loved it!</p>
+
+<p>My next exposure to real analysis was in a formal real analysis course at university; however, I was rather bored with the course, and decided to tackle Rudin’s <em>Principles of Mathematical Analysis</em><sup id="fnref:Rudin1976" role="doc-noteref"><a href="#fn:Rudin1976" class="footnote" rel="footnote">2</a></sup> in parallel. Rudin’s style is almost the exact opposite of Spivak’s; whereas Spivak is chatty, Rudin is concise. I’m not the kind of person that <em>always</em> prefers one style over the other—I like them both. It depends on my mood, I suppose, which type is appealing on a given day. Now, some years later as a professional mathematician, if I need a quick reference for a basic real analysis fact, Rudin’s text is the first book I pull off the shelf.</p>
+
+<p>You would learn more than enough about the topology of $\bbr$ and the basic theory of the Riemann integral from either of these sources to understand the goings-on in this post. Start with Spivak, though.</p>
+
+<p>My reference for the material on Jordan measurability comes from another one of Spivak’s texts called <em>Calculus on Manifolds</em><sup id="fnref:Spivak1965" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">3</a></sup>. See Chapter 3.</p>
+
+<p>Kolmogorov’s book <em>Foundations of the Theory of Probability</em><sup id="fnref:Kolmogorov1956" role="doc-noteref"><a href="#fn:Kolmogorov1956" class="footnote" rel="footnote">4</a></sup>, while rather old-fashioned, is still very readable and enlightening. The quotes that I used in this post came from the second English edition from 1956—the first edition from 1933 was originally published in German. You can get a brand-new paperback copy of the book through Dover for a very reasonable price.</p>
+
+<h2 id="footnotes-and-references">Footnotes and references</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Spivak2008" role="doc-endnote">
+      <p>M. Spivak. <em>Calculus.</em> Publish or Perish, Houston, TX, fouth edition, 2008. <a href="#fnref:Spivak2008" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Rudin1976" role="doc-endnote">
+      <p>W. Rudin. <em>Principles of mathematical analysis.</em> McGraw-Hill Book Co., New York-Auckland-Düsseldorf, third edition, 1976. International Series in Pure and Applied Mathematics. <a href="#fnref:Rudin1976" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Spivak1965" role="doc-endnote">
+      <p>M. Spivak. <em>Calculus on manifolds. A modern approach to classical theorems of advanced calculus.</em> W. A. Benjamin, Inc., New York-Amsterdam, 1965. <a href="#fnref:Spivak1965" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Kolmogorov1956" role="doc-endnote">
+      <p>A. N. Kolmogorov. <em>Foundations of the theory of probability.</em> Chelsea Publishing Co., New York, 1956. <a href="#fnref:Kolmogorov1956" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+    
+  </body>
+</html>

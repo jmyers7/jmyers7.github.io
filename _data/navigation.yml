@@ -1,0 +1,6 @@
+- name: root
+  link: /
+- name: about
+  link: /about.html
+- name: projects + writings
+  link: /projects.html

@@ -1,0 +1,12 @@
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  math_engine: mathjax
+  parse_block_html: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"

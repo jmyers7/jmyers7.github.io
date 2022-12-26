@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>from algebras to $\sigma$-algebras&#58 measure spaces</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        tex: {
+          tags: 'ams',
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfm: ['\\mathfrak{M}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+          }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">from algebras to $\sigma$-algebras: measure spaces</h1>
+</div>
+
+<p>I gave the definition of a “semi-measure space” in the <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">first post</a> of this series, a concept of my own invention. These spaces serve only as a stepping stone toward the complete definition of an (abstract) <em>measure space</em>, which I give in this post. These measure spaces serve as the foundation for the general theory of (abstract) integration that we will define in later posts.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You’ll need to know the definition of a semi-measure space, the Jordan algebra $\mfj$, and the Jordan semi-measure $\lambda$ from the <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">first post</a> in the series. As in that first post, it will also be convenient to have a familiarity with the theory of the Riemann integral, in order to appreciate the “pre-definition” of the Lebesgue integral that I give here.</p>
+
+<h2 id="a-reformulation-of-riemann-integrability">A reformulation of Riemann integrability</h2>
+
+<p>In most first courses on real analysis, one defines the Riemann integral of a bounded function $f:[a,b] \to \bbr$ via the so-called <em>upper</em> and <em>lower Riemann integrals</em>. The latter is always less than or equal to the former, and when they coincide, the function $f$ is called <em>Riemann integrable</em> and their common value is defined to be the <em>Riemann integral</em>, denoted</p>
+
+<p>\begin{equation}\notag
+\int_a^b f(x) \ \text{d}x.
+\end{equation}</p>
+
+<p>The constructions of the upper and lower Riemann integrals rely on <em>partitions</em> of the interval $[a,b]$, by which I mean a finite set of points $x_0,x_1,\ldots, x_n$ such that</p>
+
+<p>\begin{equation}
+\label{partition-eqn}
+a=x_0 &lt; x_1 &lt; \cdots &lt; x_n=b.
+\end{equation}</p>
+
+<p>Indeed, the upper and lower Riemann integral of $f$ are defined as a certain infimum and supremum over partitions of $[a,b]$.</p>
+
+<p>Now, it turns out that these definitions of Riemann integrability and the Riemann integral can be rephrased in an equivalent form that does not reference partitions of $[a,b]$ directly, but rather indirectly through the notion of a <em>step function</em>. If we understand this equivalent reformulation of integrability, then the definition of the general Lebesgue integral will present no difficulties.</p>
+
+<p>First, let’s define a step function:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $[a,b]$ be a closed interval on the real line $\bbr$. A function $s:[a,b]\to \bbr$ is called a <em>step function</em> if there exists a finite partition \eqref{partition-eqn} of the interval $[a,b]$ such that $s$ is constant on each open subinterval $(x_{i-1},x_i)$. The values of $s$ at each $x_i$ may be arbitrary.</p>
+</div>
+
+<p>If $s$ is a step function (as in the definition) that takes the value $y_i$ on the subinterval $I_i = (x_{i-1},x_i)$, then $s$ is clearly Riemann integrable and</p>
+
+<p>\begin{equation}
+\label{riemann-step-eqn}
+\int_a^b s(x) \ \text{d}x = \sum_{i=1}^n y_i \lambda(I_i).
+\end{equation}</p>
+
+<p>Here, $\lambda$ is the Jordan semi-measure studied in the <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">previous post</a>, so that $\lambda(I_i) = x_i - x_{i-1}$ for each $i$.</p>
+
+<p>The key reformulation of Riemann integrability is given in:</p>
+
+<div class="highlight-box" id="criterion">
+  <p><strong>Criterion for Riemann Integrability.</strong> Let $f:[a,b]\to \bbr$ be a bounded function. Then $f$ is Riemann integrable if and only if for every $\dev&gt;0$ there are step functions $s,t:[a,b]\to \bbr$ such that $s \leq f \leq t$ and</p>
+
+  <p>\begin{equation}\notag
+\int_a^b t(x) \ \text{d}x - \int_a^b s(x) \ \text{d}x &lt; \dev.
+\end{equation}</p>
+
+  <p>If $f$ is Riemann integrable, then the Riemann integral of $f$ coincides with the value</p>
+
+  <p>\begin{equation}
+\label{criterion-yup-eqn}
+\sup \left\{ \int_a^b s(x) \ \text{d}x : \text{$s$ is a step function with $s\leq f$} \right\}.
+\end{equation}</p>
+</div>
+
+<p>One can take this criterion for integrability as the <em>definition</em> of the Riemann integral of $f$, if we first define the Riemann integral of a step function $s$ by the formula \eqref{riemann-step-eqn}, and then define the Riemann integral of $f$ to be the value \eqref{criterion-yup-eqn}, provided that the condition in the theorem is true. We conceptualize the criterion laid out in this theorem as <em>defining the Riemann integral of $f$ via approximations by step functions.</em></p>
+
+<p>Recall that one way to visualize Riemann integrals is as limits of Riemann sums, where a Riemann sum is the combined area of a collection of rectangles “below the graph”:</p>
+
+<p><img src="/assets/images/sums.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>It’s easy to extract a step function $s$ from this picture:</p>
+
+<p><img src="/assets/images/step.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>In this last picture, the step function $s:[a,b] \to \bbr$ consists of ten “steps”, though its range only contains eight unique values since two pairs of steps have the same $y$-value.</p>
+
+<h2 id="a-first-look-at-the-lebesgue-integral">A first look at the Lebesgue integral</h2>
+
+<p>As I just mentioned, one can use the <a href="#criterion">Criterion for Riemann Integrability</a> to <em>define</em> Riemann integrals via approximations by step functions. This is essentially what the Lebesgue theory does in order to define Lebesgue integrals, except step functions are replaced with more general types of functions. Indeed, as we will see later, the Lebesgue integral may be defined for a function on an arbitrary measure space $\calx$. In particular, $\calx$ might not be the real line $\bbr$, and so $\calx$ might not be linearly ordered. In this case there is no natural way to define a “step function” $s:\calx \to \bbr$, so one needs another class of functions that extends the class of step functions.</p>
+
+<p>The key feature of step functions that the Lebesgue theory isolates is called <em>simplicity</em>:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $s:\calx\to \bbr$ be a real-valued function defined on an <em>arbitrary</em> set $\calx$. We shall say $s$ is <em>simple</em> if it has finite range.</p>
+</div>
+
+<p>Thus, every step function $s:[a,b] \to \bbr$ defined on the real line is simple. However, the converse is <em>not</em> true—can you think of a simple function defined on a closed interval $[a,b]$ that is not a step function?</p>
+
+<p>We cannot proceed yet to the general definition of a Lebesgue integral since I have not yet defined measure spaces. My goal in this section, instead, is to offer a “pre-definition” of the Lebesgue integral of a function defined on a closed interval $[a,b]$ of the real line. It is <em>not</em> the definition that we will ultimately adopt, since it uses the Jordan semi-measure $\lambda$ and Jordan algebra $\mfj$ from the <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">first post</a> of this series, instead of the Lebesgue measure and Lebesgue ($\sigma$-)algebra.</p>
+
+<div class="highlight-box" id="pre-defn-lebesgue-def">
+  <p><strong>Pre-definition.</strong>
+We shall say a simple function $s:[a,b] \to \bbr$ with range ${y_1,y_2,\ldots,y_n}$ is <em>Jordan measurable</em> if each of the sets $A_i = s^{-1}(y_i)$ is Jordan measurable. In this case, we define the <em>Lebesgue integral</em> of $s$ to be</p>
+
+  <p>\begin{equation}\notag
+\int_a^b s \dx{\lambda} = \sum_{i=1}^n y_i \lambda(A_i).
+\end{equation}</p>
+
+  <p>A general function $f:[a,b]\to \bbr$ is said to be <em>Jordan measurable</em> if the preimage $f^{-1}\left(V \right)$ in $[a,b]$ of every open set $V\subseteq \bbr$ is Jordan measurable. If $f:[a,b]\to [0,\infty)$ is a nonnegative Jordan measurable function, then its <em>Lebesgue integral</em> is defined to be</p>
+
+  <p>\begin{equation}\notag
+\int_a^b f  \dx{\lambda} = \sup \left\{ \int_a^b s \dx{\lambda} \right\},
+\end{equation}</p>
+
+  <p>where the supremum is over all Jordan measurable simple functions $s:[a,b]\to \bbr$ such that $0\leq s \leq f$.</p>
+</div>
+
+<p>If you’ve fully internalized the <a href="#criterion">Criterion for Riemann Integrability</a>, then I hope that this definition seems quite natural.<sup id="fnref:footnote1" role="doc-noteref"><a href="#fn:footnote1" class="footnote" rel="footnote">1</a></sup> As I mentioned above, it essentially defines a Lebesgue integral as a variation of a Riemann integral, but where the approximating step functions are replaced with simple functions. And, to reiterate one more time, the only difference between this “pre-definition” and the official one is that the pre-definition uses Jordan measurability in place of the more general Lebesgue measurability.</p>
+
+<p>There is some fuss about what to do with a Lebesgue integral that is equal to $\infty$, but we won’t worry about that right now. As a sanity check, see if you can prove that the Lebesgue integral (in the sense of the pre-definition) of a <strong>step</strong> function $s:[a,b] \to \bbr$ coincides with its Riemann integral.</p>
+
+<p>Now, you might ask: What’s wrong with this definition?—why is it only a <strong>pre</strong>-definition?</p>
+
+<p>The major drawback to using this pre-definition as the foundation of the Lebesgue theory arises from a defect of the Jordan algebra $\mfj$ itself, which is not “large enough” to support the core results in the theory. Indeed, in order for the Lebesgue integral of a function $f$ to even be defined, the function $f$ needs to be measurable. But Lebesgue’s theory is full of situations where measurability of $f$ is deduced from measurability of a sequence of approximating functions. For example, suppose that $\{f_k\}_{k=1}^\infty$ is a sequence of real-valued functions on $[a,b]$ such that</p>
+
+<p>\begin{equation}\notag
+0 \leq f_1(x) \leq f_2(x) \leq \cdots \leq f_k(x) \leq \cdots
+\end{equation}</p>
+
+<p>for all $x\in [a,b]$. Provided that each of the point-wise limits $f(x) =\lim_{k\to \infty} f_k(x)$ is finite, so that $x \mapsto f(x)$ defines a real-valued function $f$ on $[a,b]$, then it is a basic result that $f$ is measurable provided each $f_k$ is so. However, “measurability” here refers to <em>Lebesgue measurability</em>, which is a more general form of measurability than Jordan measurability. In fact, it is easy to see that this claim <strong>fails</strong> if we consider only Jordan measurability. For a simple example, let ${x_1,x_2,\ldots}$ be an enumeration of the rationals in the closed interval $[0,1]$, and let $\chi_i$ be the indicator function for the singleton set $\{x_i\}$. Then each function</p>
+
+<p>\begin{equation}\notag
+f_k = \chi_1 + \cdots + \chi_k \quad (k=1,2,\ldots)
+\end{equation}</p>
+
+<p>is simple and Jordan measurable, but the pointwise limit $f = \lim_{k\to\infty} f_k$ is <em>not</em> Jordan measurable since it is equal to the characteristic function of the Dirichlet set $D = \bbq \cap [0,1]$.</p>
+
+<p>The sense in which the Jordan algebra $\mfj$ is “too small” is made precise in the fact that, while it is closed under <em>finite</em> unions, it is not closed under <em>countably infinite</em> unions.</p>
+
+<h2 id="measure-spaces">Measure spaces</h2>
+
+<p>Our considerations have led us directly to:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\calx$ be a set. A set $\mfm$ of subsets of $\calx$ is called a <em>$\sigma$-algebra</em> of sets (on $\calx$) if:</p>
+
+  <ol>
+    <li>We have $\calx \in \mfm$.</li>
+    <li>If $A\in \mfm$, then $\calx \smallsetminus A \in \mfm$.</li>
+    <li>If $A_1,A_2,\ldots$ are in $\mfm$, then $\bigcup_{k=1}^\infty A_k \in \mfm$.</li>
+  </ol>
+</div>
+
+<p>With the definition of $\sigma$-algebra in hand, we now give the definition of the main actor in this story:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>measure space</em> is an ordered triple $(\calx, \mfm, \mu)$, where $\calx$ is a nonempty set, $\mfm$ is a set of subsets of $\calx$, and $\mu$ is a function that assigns a real number $\mu(A)$ to every set $A$ in $\mfm$. We require that the following three axioms are satisfied:</p>
+
+  <p>    1. The set $\mfm$ is a $\sigma$-algebra of sets on $\calx$.<br />
+    2. If $A$ is a subset in $\mfm$, then $\mu(A)\geq 0$.<br />
+    3. If $A_1,A_2,\ldots$ are disjoint subsets in $\mfm$, then $\mu(\bigcup_{k=1}^\infty A_k) = \sum_{k=1}^\infty \mu(A_k)$.</p>
+
+  <p>The function $\mu$ is called the <em>measure</em> of the measure space. We shall say that the measure space $(\calx,\mfm,\mu)$ is a <em>probability space</em> if, in addition to the first three axioms above, the measure also satisfies:</p>
+
+  <p>    4. $\mu(\calx) = 1$.</p>
+</div>
+
+<p>Often times we refer to $\calx$ as a measure space, rather than the entire triple $(\calx,\mfm,\mu)$. Property (3.) of the measure $\mu$ is called <em>$\sigma$-additivity</em> or <em>countable additivity</em>. Instead of writing $(X,\mfm,\mu)$ for a probability space, it is traditional to write $(\Omega,\mfa, P)$. In this latter case, $\Omega$ is called a <em>sample space</em>, a set $A$ in the $\sigma$-algebra $\mfa$ is called an <em>event</em>, and $P$ is called the <em>probability measure</em>.</p>
+
+<p>It is often convenient to allow a measure $\mu$ to take on the value $\infty$, in which case it is sometimes called an <em>extended measure</em>. In the $\sigma$-additivity axiom, we then interpret the infinite series $\sum_{k=1}^\infty \mu(A_k)$ to be equal to $\infty$ if any one of the $\mu(A_k)$’s is equal to $\infty$.</p>
+
+<div class="highlight-box">
+  <p><strong>Example.</strong> Let $\calx$ be a nonempty set and $\mfm$ the powerset of $\calx$. For each $A\in \mfm$, let $\mu(A)$ be the cardinality of $A$ if this number is finite, or $\infty$ otherwise. Then $(\calx, \mfm, \mu)$ is a measure space and $\mu$ is called the <em>counting measure</em> on $\calx$.</p>
+</div>
+
+<p><br /></p>
+
+<div class="highlight-box">
+  <p><strong>Example.</strong> Let $\Omega$ be a nonempty finite set of cardinality $m$, and let $\mfa$ be the powerset of $\Omega$. Let $P$ be the normalized counting measure on $\Omega$, i.e., $P(A) = \mu(A)/m $ for each $A\in \mfa$, where $\mu$ is the counting measure. Then $(\Omega,\mfa,P)$ is a probability space which provides a model for discrete uniform probability.</p>
+</div>
+
+<p>I will give many more examples of measures spaces in coming posts, including examples of probability spaces that model <em>continuous</em> probability.</p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>The Jordan semi-measure $\lambda$ is only defined on the Jordan algebra $\mfj$, and the latter is only an algebra of sets, and not a $\sigma$-algebra. As I mentioned above, this limits the usefulness of the Jordan algebra $\mfj$ in setting up a general integration theory that extends the Riemann theory. The goal in the next post is to extend the Jordan algebra $\mfj$ to a $\sigma$-algebra and the Jordan semi-measure $\lambda$ to a measure on the resulting measure space.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>I have attempted to motivate the definition of a $\sigma$-algebra by explaining that the Jordan algebra $\mfj$ is “too small” for a good theory. However, you might still remain unconvinced: Does the property of closure under countable unions <em>really</em> suggest itself so naturally as I would have you believe? And, in the context of probability theory, it seems even <em>more</em> mysterious why we would ever consider countably infinite unions of events.</p>
+
+<p>Kolmogorov touches on a related point in his book <em>Foundations of the Theory of Probability</em><sup id="fnref:Kolmogorov1956" role="doc-noteref"><a href="#fn:Kolmogorov1956" class="footnote" rel="footnote">2</a></sup>, when he introduces what he calls the <em>Axiom of Continuity</em> of a probability measure $P$. This axiom states that, if we have a decreasing sequence</p>
+
+<p>\begin{equation}\notag
+A_1 \supset A_2 \supset \cdots \supset A_n \supset \cdots
+\end{equation}</p>
+
+<p>of events in a sample space $\Omega$ such that $\bigcap_{n\geq 1} A_n = \emptyset$, then $P(A_n) \to 0$ as $n\to \infty$. If the sample space happens to be finite, then this axiom is redundant in view of the other axioms, so it is only required when $\Omega$ is infinite. Kolmogorov then writes:</p>
+
+<blockquote>
+  <p><em>Since the new axiom is essential for infinite fields of probability only [i.e., infinite $\Omega$], it is almost impossible to elucidate its empirical meaning, … For, in describing any observable random process we can obtain only finite fields of probability. Infinite fields of probability occur only as idealized models of real random processes. We limit ourselves, arbitrarily, to only those models which satisfy [the Axiom of Continuity]. This limitation has been found expedient in researches of the most diverse sort.</em></p>
+</blockquote>
+
+<p>So, Kolmogorov is telling us that it’s difficult to motivate the axiom using only our intuitive, everyday conception of probability, and that the inclusion of the axiom appears (at first glance) to be rather arbitrary. But he assures us that, provided we suspend our suspicion of the axiom long enough to work through the theory, we’ll see that the axiom proves particularly expedient in producing effective and good results. Ultimately, I think this is the same viewpoint that you need to adopt when pondering the transition from algebras of sets to $\sigma$-algebras: Just wait long enough to see where the theory takes you.</p>
+
+<p>I recommended that you take a look at Kolmogorov’s book in the first post of this series, and I will repeat that recommendation here. His Axiom of Continuity appears at the beginning of Chapter II. Also, in Chapter I, he attempts to give empirical motivations for the axioms (in the case of finite “fields of probability”) that you might find interesting.</p>
+
+<p>You might also read the first chapter of Pollard’s <em>A User’s Guide to Measure Theoretic Probability</em><sup id="fnref:Pollard2002" role="doc-noteref"><a href="#fn:Pollard2002" class="footnote" rel="footnote">3</a></sup>, particularly the first section in the first chapter titled “Why bother with measure theory?” The “Notes” section at the end of the chapter also (briefly) discusses some history of measure theory and measure-theoretic probability, and includes a good list of references to further reading.</p>
+
+<h2 id="references-and-footnotes">References and footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:footnote1" role="doc-endnote">
+      <p>Everything about the definition seems natural—all except the role that “Jordan measurability” of the function $f$ plays. A more complete discussion of this condition will have to wait till future posts. <a href="#fnref:footnote1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Kolmogorov1956" role="doc-endnote">
+      <p>A. N. Kolmogorov. <em>Foundations of the theory of probability.</em> Chelsea Publishing Co., New York, 1956. <a href="#fnref:Kolmogorov1956" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Pollard2002" role="doc-endnote">
+      <p>D. Pollard. <em>A user’s guide to measure theoretic probability.</em> Volume 8 of Cambridge Series in Statistical and Probabilistic Mathematics. Cambridge University Press, Cambridge, 2002. <a href="#fnref:Pollard2002" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+    
+  </body>
+</html>

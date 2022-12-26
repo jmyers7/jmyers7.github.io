@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<div class="center">
+    <div>
+        {% for category in site.categories %}
+        <h1 class="category-headings">{{ category[0] }}</h1>
+        <ul>
+            {% for post in category[1] reversed %}
+                {% assign date_format = site.date_format | default: "%b.%d %Y" %}
+                <li><a href="{{ post.url }}">part {{ forloop.index }} <span class="accent-color">...</span> {{ post.title }}, <i>posted {{ post.date | date: date_format }}</i></a></li>
+            {% endfor %}
+        </ul>
+        <br>
+        {% endfor %}
+    </div>
+</div>
