@@ -22,13 +22,15 @@ p { color: #e0e0e0; font-family: 'Lora', serif; }
 
 ol { color: #f5f5f5; font-family: 'Lora', serif; }
 
+ul { color: #f5f5f5; font-family: 'Lora', serif; }
+
 h1, h2 { color: white; font-family: 'IBM Plex Mono', monospace; }
 
-code { font-size: 1.43em; }
+code { font-size: 1.2em; }
 
 .category-headings { color: white; font-family: 'IBM Plex Mono', monospace; font-size: 1.43em; }
 
-.center { width: 75%; margin: 110px auto; }
+.center { width: 80%; margin: 110px auto; }
 
 .post-title { position: fixed; width: 60%; text-align: center; top: 40px; padding-bottom: 7px; background-color: black; z-index: 1; }
 
@@ -40,7 +42,7 @@ code { font-size: 1.43em; }
 :target { scroll-margin-top: 140px; }
 
 /********** links **********/
-p a { color: #e0e0e0; font-family: 'Lora', serif; text-decoration: none; }
+p a { color: #e0e0e0; font-family: 'Lora', serif; /*text-decoration: none;*/ }
 
 nav a { color: #f5f5f5; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 1.25em; text-decoration: none; }
 
