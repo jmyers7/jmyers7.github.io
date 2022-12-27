@@ -107,27 +107,33 @@
 <p>Let $V$ and $W$ be two abstract (finite-dimensional) vector spaces. Recall from the 
 <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-basis-thm">Tensor Basis Theorem</a> that, provided we fix ordered bases $e_1,\ldots,e_m$ and $f_1,\ldots,f_n$ of $V$ and $W$, respectively, every rank-$2$ tensor $T\in V \otimes W$ has an expansion of the form</p>
 
-<p>\begin{equation}
+<div style="overflow: scroll">
+  <p>\begin{equation}
 \label{big-eqn}
 T = \sum_{\alpha=1}^m \sum_{\beta=1}^n T^{\alpha\beta} \ e_\alpha \otimes f_\beta
 \end{equation}</p>
+</div>
 
 <p>in terms of the associated basis of $V \otimes W$. Here, the components $T^{\alpha\beta}$ are real numbers, and they depend on the choice of bases of $V$ and $W$. Recall also the <em>summation convention</em> applied to \eqref{big-eqn}, which allows us to write it in the concise form</p>
 
-<p>\begin{equation}\notag
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
 T = T^{\alpha\beta} \ e_\alpha \otimes f_\beta,
 \end{equation}</p>
+</div>
 
 <p>where summation is implied over repeated indices.</p>
 
 <p>Now, to reiterate the point from the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html">first post</a> that I attempted to stress: The tensor $T$ and the matrix of components</p>
 
-<p>\begin{equation}
+<div style="overflow: scroll">
+  <p>\begin{equation}
 \label{array-rep-eqn}
 \begin{bmatrix}
 T^{11} &amp; \cdots &amp; T^{1n} \\ \vdots &amp; \ddots &amp; \vdots \\ T^{m1} &amp; \cdots &amp; T^{mn}
 \end{bmatrix}
 \end{equation}</p>
+</div>
 
 <p>are <strong>different</strong> objects. The tensor $T$ is an abstract object that lives in the mathematical world outside the machine, while the matrix \eqref{array-rep-eqn} is simply a collection of real numbers. We can encode the matrix representation in our machines, and manipulate the tensor indirectly by manipulating the matrix representation, but it’s important to remember the conceptual distinction between the tensor and the matrix representation.</p>
 
@@ -154,148 +160,175 @@ T^{11} &amp; \cdots &amp; T^{1n} \\ \vdots &amp; \ddots &amp; \vdots \\ T^{m1} &
 <div class="highlight-box" id="exercise">
   <p><strong>Exercise.</strong> Letting $\bbr^4$ and $\bbr^3$ have standard ordered bases $e_1,e_2,e_3,e_4$ and $f_1,f_2,f_3$, every tensor $T\in \bbr^4 \otimes \bbr^3$ may be written in terms of components as</p>
 
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 T = \sum_{\alpha=1}^4 \sum_{\beta=1}^3 T^{\alpha\beta} e_\alpha \otimes f_\beta.
 \end{equation}</p>
+  </div>
 
   <p>Now, <em>if</em> the matrix $\ttt$ in the code block represented a tensor $T\in \bbr^4 \otimes \bbr^3$ with respect to the given bases, which tensor $T$ does it represent?</p>
 </div>
 
 <p>What is perhaps more interesting, however, is that <code>NumPy</code> also implements a function that computes the matrix representation of a tensor product of two vectors. To describe it, recall that, in the abstract mathematical world, we can form the tensor product $v\otimes w$ of two vectors</p>
 
-<p>\begin{equation}\notag
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
 v = v^\alpha e_\alpha \in V \quad \text{and} \quad w = w^\alpha f_\alpha \in W.
 \end{equation}</p>
+</div>
 
 <p>Using bilinearity of the tensor product, we compute</p>
 
-<p>\begin{equation}
+<div style="overflow: scroll">
+  <p>\begin{equation}
 \label{important-eqn}
 v \otimes w = v^\alpha w^\beta \ e_\alpha \otimes f_\beta,
 \end{equation}</p>
 
-<p>with summation over repeated indices implied.</p>
+  <p>with summation over repeated indices implied.</p>
 
-<div class="highlight-box">
-  <p><strong>Tip.</strong> The computations leading to \eqref{important-eqn} are absolutely fundamental, so be sure that you understand them! If you’ve ever seen tensor products implemented in <code>NumPy</code>, and you’ve wondered why they are defined the way they are, then your answer is given by these computations!</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Tip.</strong> The computations leading to \eqref{important-eqn} are absolutely fundamental, so be sure that you understand them! If you’ve ever seen tensor products implemented in <code>NumPy</code>, and you’ve wondered why they are defined the way they are, then your answer is given by these computations!</p>
+  </div>
 
-<p>Equation \eqref{important-eqn} implies that the concrete matrix representation of the tensor product $v\otimes w$ is given by the matrix</p>
+  <p>Equation \eqref{important-eqn} implies that the concrete matrix representation of the tensor product $v\otimes w$ is given by the matrix</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{concrete_tensor_matrix-eqn}
 \begin{bmatrix}
 v^1w^1 &amp; \cdots &amp; v^1w^n \\ \vdots &amp; \ddots &amp; \vdots \\ v^mw^1 &amp; \cdots &amp; v^mw^n
 \end{bmatrix}.
 \end{equation}</p>
+  </div>
 
-<p>Now, on the machine side, the function that takes the vector representations</p>
+  <p>Now, on the machine side, the function that takes the vector representations</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{concrete_tensor_vector-eqn}
 \mathtt{v} = \begin{bmatrix} v^1 \\ \vdots \\ v^m\end{bmatrix} \quad \text{and} \quad \mathtt{w} = \begin{bmatrix} w^1 \\ \vdots \\ w^n\end{bmatrix}
 \end{equation}</p>
+  </div>
 
-<p>of $v$ and $w$ (note the monospace typeface!) and produces the matrix representation \eqref{concrete_tensor_matrix-eqn} of $v \otimes w$ is implemented through the <code>NumPy</code> function <code>tensordot</code> with the <code>axes</code> parameter set to <code>0</code>. The code block below gives an example, where $\mathtt{v}\in \mathbb{R}^4$, $\mathtt{w}\in \mathbb{R}^3$:</p>
+  <p>of $v$ and $w$ (note the monospace typeface!) and produces the matrix representation \eqref{concrete_tensor_matrix-eqn} of $v \otimes w$ is implemented through the <code>NumPy</code> function <code>tensordot</code> with the <code>axes</code> parameter set to <code>0</code>. The code block below gives an example, where $\mathtt{v}\in \mathbb{R}^4$, $\mathtt{w}\in \mathbb{R}^3$:</p>
 
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+  <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
 <span class="p">[[</span> <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">10</span> <span class="mi">12</span> <span class="mi">14</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">15</span> <span class="mi">18</span> <span class="mi">21</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">20</span> <span class="mi">24</span> <span class="mi">28</span><span class="p">]]</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<p>To make sure that you’re following along, check for yourself that the output of this code is consistent with \eqref{concrete_tensor_matrix-eqn} and \eqref{concrete_tensor_vector-eqn}. And, in case you’re wondering, I will explain the meaning of the <code>axes</code> parameter of the function <code>tensordot</code> later.</p>
+  <p>To make sure that you’re following along, check for yourself that the output of this code is consistent with \eqref{concrete_tensor_matrix-eqn} and \eqref{concrete_tensor_vector-eqn}. And, in case you’re wondering, I will explain the meaning of the <code>axes</code> parameter of the function <code>tensordot</code> later.</p>
 
-<h2 id="rank-3-tensors">Rank-3 tensors</h2>
+  <h2 id="rank-3-tensors">Rank-3 tensors</h2>
 
-<p>I introduced tensors and tensor products in the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html">first post</a> by considering a “hypothetical” binary product of two vectors $v\in V$ and $w\in W$. If we write $\otimes$ to represent this product, then we required that it satisfy the bilinearity relations</p>
+  <p>I introduced tensors and tensor products in the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html">first post</a> by considering a “hypothetical” binary product of two vectors $v\in V$ and $w\in W$. If we write $\otimes$ to represent this product, then we required that it satisfy the bilinearity relations</p>
 
-<div class="highlight-box" id="bilinearity">
-  <p><strong>Bilinearity relations.</strong> For all $v,v’\in V$, $w,w’\in W$, and $c\in \bbr$, we have:
-\begin{align}\notag
+  <div class="highlight-box" id="bilinearity">
+    <p><strong>Bilinearity relations.</strong> For all $v,v’\in V$, $w,w’\in W$, and $c\in \bbr$, we have:</p>
+    <div style="overflow: scroll">
+      <p>\begin{align}\notag
 (v + v’) \otimes w &amp;= v \otimes w + v’ \otimes w, \\ v \otimes (w+w’) &amp;= v\otimes w + v \otimes w’ \notag, \\ (cv) \otimes w &amp;= c(v \otimes w), \notag \\ v \otimes (cw) &amp;= c(v\otimes w), \notag
 \end{align}</p>
-</div>
+    </div>
+  </div>
 
-<p>The <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-existence-thm">Tensor Existence Theorem</a> told us that such a hypothetical binary product actually <em>does</em> exist, and that it does not satisfy any more properties beyond the bilinearity relations just given. Moreover, the binary tensor product $v\otimes w$ has to live somewhere, in some vector space, and the Tensor Existence Theorem says that there is a new vector space, denoted $V\otimes W$, that contains all tensor products $v \otimes w$. Formally, this means that the binary tensor product provides a function</p>
+  <p>The <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-existence-thm">Tensor Existence Theorem</a> told us that such a hypothetical binary product actually <em>does</em> exist, and that it does not satisfy any more properties beyond the bilinearity relations just given. Moreover, the binary tensor product $v\otimes w$ has to live somewhere, in some vector space, and the Tensor Existence Theorem says that there is a new vector space, denoted $V\otimes W$, that contains all tensor products $v \otimes w$. Formally, this means that the binary tensor product provides a function</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{tensor-product-eqn}
 V \times W \to V \otimes W, \quad (v,w) \mapsto v\otimes w.
 \end{equation}</p>
+  </div>
 
-<p>It’s worth contrasting this function with a more familiar multiplication function</p>
+  <p>It’s worth contrasting this function with a more familiar multiplication function</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{real-product-eqn}
 \bbr \times \bbr \to \bbr, \quad (x,y) \mapsto xy
 \end{equation}</p>
+  </div>
 
-<p>which encodes the standard product of real numbers. Note that the codomain of the product map \eqref{real-product-eqn} is the set $\bbr$ itself, the same set from which the factors of the product are drawn. However, in contrast, the codomain of the product map \eqref{tensor-product-eqn} is neither $V$ nor $W$, but rather a <em>third</em> vector space $V \otimes W$. So, when you form the tensor product of two vectors, you get a vector which lives in an entirely new vector space!</p>
+  <p>which encodes the standard product of real numbers. Note that the codomain of the product map \eqref{real-product-eqn} is the set $\bbr$ itself, the same set from which the factors of the product are drawn. However, in contrast, the codomain of the product map \eqref{tensor-product-eqn} is neither $V$ nor $W$, but rather a <em>third</em> vector space $V \otimes W$. So, when you form the tensor product of two vectors, you get a vector which lives in an entirely new vector space!</p>
 
-<p>This new vector space $V \otimes W$ is called the <em>tensor product</em> of $V$ and $W$. This means that “tensor product” and the symbol $\otimes$ apply to two different types of objects: We can form the tensor product of vectors, and we can also form the tensor product of vector spaces. By definition, the vector space $V\otimes W$ consists of all <em>rank-$2$</em> tensors. Thus, the $2$-fold (or binary) tensor product of two vectors $v$ and $w$ is a certain rank-$2$ tensor denoted $v\otimes w$.</p>
+  <p>This new vector space $V \otimes W$ is called the <em>tensor product</em> of $V$ and $W$. This means that “tensor product” and the symbol $\otimes$ apply to two different types of objects: We can form the tensor product of vectors, and we can also form the tensor product of vector spaces. By definition, the vector space $V\otimes W$ consists of all <em>rank-$2$</em> tensors. Thus, the $2$-fold (or binary) tensor product of two vectors $v$ and $w$ is a certain rank-$2$ tensor denoted $v\otimes w$.</p>
 
-<p>But why should we stop with only binary (or $2$-fold) tensor products? Can we take <em>three</em> vectors, say $v\in V$, $w\in W$, and $u\in U$, and produce a ternary (or $3$-fold) tensor product $v \otimes w \otimes u$?</p>
+  <p>But why should we stop with only binary (or $2$-fold) tensor products? Can we take <em>three</em> vectors, say $v\in V$, $w\in W$, and $u\in U$, and produce a ternary (or $3$-fold) tensor product $v \otimes w \otimes u$?</p>
 
-<p>Of course we can!</p>
+  <p>Of course we can!</p>
 
-<p>The method to construct $3$-fold tensor products follows the same method that we used to construct their $2$-fold relatives: We first write down the $3$-fold analogs of the the bilinearity relations, which are:</p>
+  <p>The method to construct $3$-fold tensor products follows the same method that we used to construct their $2$-fold relatives: We first write down the $3$-fold analogs of the the bilinearity relations, which are:</p>
 
-<div class="highlight-box" id="trilinearity">
-  <p><strong>Trilinearity relations.</strong> For all $v,v’\in V$, $w,w’\in W$, $u,u’\in U$, and $c\in \bbr$, we have:
-\begin{align}\notag
+  <div class="highlight-box" id="trilinearity">
+    <p><strong>Trilinearity relations.</strong> For all $v,v’\in V$, $w,w’\in W$, $u,u’\in U$, and $c\in \bbr$, we have:</p>
+    <div style="overflow: scroll">
+      <p>\begin{align}\notag
 (v + v’) \otimes w \otimes u &amp;= v \otimes w \otimes u + v’ \otimes w \otimes u, \\ v \otimes (w+w’) \otimes u &amp;= v\otimes w \otimes u + v \otimes w’ \otimes u, \notag \\ v \otimes w \otimes (u+u’) &amp;= v \otimes w \otimes u + v \otimes w \otimes u’ , \notag \\ (cv) \otimes w \otimes u &amp;= c(v \otimes w \otimes u), \notag \\ v \otimes (cw) \otimes u &amp;= c(v\otimes w \otimes u), \notag \\ v \otimes w \otimes (cu) &amp;= c(v\otimes w \otimes u), \notag
 \end{align}</p>
-</div>
+    </div>
+  </div>
 
-<p>We wonder whether or not such a $3$-fold tensor product <em>exists</em>—but, luckily for us, a $3$-fold version of the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-existence-thm">Tensor Existence Theorem</a> says that such a product <em>does</em> exist. Indeed, like the $2$-fold version, this theorem says that a fourth vector space $V \otimes W \otimes U$ exists, which serves as the codomain for the $3$-fold tensor product:</p>
+  <p>We wonder whether or not such a $3$-fold tensor product <em>exists</em>—but, luckily for us, a $3$-fold version of the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-existence-thm">Tensor Existence Theorem</a> says that such a product <em>does</em> exist. Indeed, like the $2$-fold version, this theorem says that a fourth vector space $V \otimes W \otimes U$ exists, which serves as the codomain for the $3$-fold tensor product:</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 V \times W \times U \to V \otimes W \otimes U, \quad (v,w,u) \mapsto v \otimes w \otimes u.
 \end{equation}</p>
+  </div>
 
-<p>By definition, the vector space $V \otimes W \otimes U$ consists of all <em>rank-$3$</em> tensors.</p>
+  <p>By definition, the vector space $V \otimes W \otimes U$ consists of all <em>rank-$3$</em> tensors.</p>
 
-<p>There is also a $3$-fold version of the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-basis-thm">Tensor Basis Theorem</a>, which says, provided we fix ordered bases</p>
+  <p>There is also a $3$-fold version of the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-basis-thm">Tensor Basis Theorem</a>, which says, provided we fix ordered bases</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 e_1,\ldots, e_m \in V, \quad f_1,\ldots,f_n \in W, \quad g_1,\ldots,g_p \in U,
 \end{equation}</p>
+  </div>
 
-<p>that the set</p>
+  <p>that the set</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 \left\{e_\alpha \otimes f_\beta \otimes g_\gamma :  \alpha=1,\ldots,m, \ \beta=1,\ldots,n, \ \gamma=1,\ldots,p \right\}
 \end{equation}</p>
+  </div>
 
-<p>serves as a basis of $V \otimes W \otimes U$. Hence every rank-$3$ tensor $T\in V \otimes W \otimes U$ may be expanded in terms of components as</p>
+  <p>serves as a basis of $V \otimes W \otimes U$. Hence every rank-$3$ tensor $T\in V \otimes W \otimes U$ may be expanded in terms of components as</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{big-exp-eqn}
 T = \sum_{\alpha=1}^m \sum_{\beta=1}^n \sum_{\gamma=1}^p T^{\alpha\beta\gamma} e_\alpha \otimes f_\beta \otimes g_\gamma,
 \end{equation}</p>
+  </div>
 
-<p>for some <em>unique</em> scalars $T^{\alpha\beta\gamma} \in \bbr$. This last expression may be written concisely using our summation convention as</p>
+  <p>for some <em>unique</em> scalars $T^{\alpha\beta\gamma} \in \bbr$. This last expression may be written concisely using our summation convention as</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{kitchen-table-eqn}
 T = T^{\alpha\beta\gamma} e_\alpha \otimes f_\beta \otimes g_\gamma,
 \end{equation}</p>
+  </div>
 
-<p>with summation over repeated indices implied.</p>
+  <p>with summation over repeated indices implied.</p>
 
-<h2 id="rank-3-tensors-in-the-machine">Rank-3 tensors in the machine</h2>
+  <h2 id="rank-3-tensors-in-the-machine">Rank-3 tensors in the machine</h2>
 
-<p>If $T$ is a rank-$2$ tensor, then we may take its components $T^{\alpha\beta}$ and visually arrange them into a rectangular $2$-D matrix. This matrix—which I have said we will denote by $\mathtt{T}$—is a <em>concrete matrix representation</em> of the abstract tensor $T$.</p>
+  <p>If $T$ is a rank-$2$ tensor, then we may take its components $T^{\alpha\beta}$ and visually arrange them into a rectangular $2$-D matrix. This matrix—which I have said we will denote by $\mathtt{T}$—is a <em>concrete matrix representation</em> of the abstract tensor $T$.</p>
 
-<p>If $T$ is instead a rank-$3$ tensor, then its components naturally form an array in the shape of a $3$-D box. To be precise, this box is formed by placing the component $T^{\alpha\beta\gamma}$ in $\bbr^3$ at the point with coordinates $(\alpha,\beta,\gamma)$. This $3$-D array $\ttt$ is called a <em>concrete array representation</em> of the abstract tensor $T$.</p>
+  <p>If $T$ is instead a rank-$3$ tensor, then its components naturally form an array in the shape of a $3$-D box. To be precise, this box is formed by placing the component $T^{\alpha\beta\gamma}$ in $\bbr^3$ at the point with coordinates $(\alpha,\beta,\gamma)$. This $3$-D array $\ttt$ is called a <em>concrete array representation</em> of the abstract tensor $T$.</p>
 
-<p>Coding these $3$-D array representations in <code>NumPy</code> is just as easy as coding matrix representations. Here’s a random example:</p>
+  <p>Coding these $3$-D array representations in <code>NumPy</code> is just as easy as coding matrix representations. Here’s a random example:</p>
 
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+  <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
 
 <span class="p">[[[</span><span class="mi">98</span>  <span class="mi">2</span> <span class="mi">46</span> <span class="mi">24</span> <span class="mi">69</span><span class="p">]</span>
@@ -313,65 +346,77 @@ T = T^{\alpha\beta\gamma} e_\alpha \otimes f_\beta \otimes g_\gamma,
  <span class="p">[[</span><span class="mi">21</span> <span class="mi">72</span> <span class="mi">48</span> <span class="mi">31</span> <span class="mi">54</span><span class="p">]</span>
   <span class="p">[</span><span class="mi">84</span> <span class="mi">40</span> <span class="mi">26</span>  <span class="mi">2</span> <span class="mi">51</span><span class="p">]</span>
   <span class="p">[</span><span class="mi">40</span> <span class="mi">34</span> <span class="mi">10</span> <span class="mi">67</span> <span class="mi">32</span><span class="p">]]]</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<p>Again, this array $\ttt$ represents <em>some</em> rank-$3$ tensor $T\in V \otimes W \otimes U$, but I haven’t said <em>which</em> tensor, and I haven’t identified $V$, $W$, or $U$. But I do know that $V$ is $4$-dimensional, $W$ is $3$-dimensional, and $U$ is $5$-dimensional. If this ambiguity bothers you, then I suggest stating and solving the obvious $3$-fold version of the <a href="#exercise" class="article">exercise</a> above.</p>
+  <p>Again, this array $\ttt$ represents <em>some</em> rank-$3$ tensor $T\in V \otimes W \otimes U$, but I haven’t said <em>which</em> tensor, and I haven’t identified $V$, $W$, or $U$. But I do know that $V$ is $4$-dimensional, $W$ is $3$-dimensional, and $U$ is $5$-dimensional. If this ambiguity bothers you, then I suggest stating and solving the obvious $3$-fold version of the <a href="#exercise" class="article">exercise</a> above.</p>
 
-<p>How do you interpret the output of this code block? You index into a $3$-D array in <code>NumPy</code> just like you index into a matrix, writing <code>T[alpha, beta, gamma]</code>. The <code>alpha</code> index iterates across each of the evident $3\times 5$ matrices in the output above, and then <code>beta</code> and <code>gamma</code> are the row and column indices of each of those matrices.</p>
+  <p>How do you interpret the output of this code block? You index into a $3$-D array in <code>NumPy</code> just like you index into a matrix, writing <code>T[alpha, beta, gamma]</code>. The <code>alpha</code> index iterates across each of the evident $3\times 5$ matrices in the output above, and then <code>beta</code> and <code>gamma</code> are the row and column indices of each of those matrices.</p>
 
-<div class="highlight-box">
-  <p><strong>Warning.</strong> Do take care to notice that we use $1$-based indexing outside the machine, as in \eqref{big-exp-eqn}, while <code>Python</code> uses $0$-based indexing. Thus the component $T^{\alpha\beta\gamma}$ outside the machine would be coded as <code>T[alpha - 1, beta - 1, gamma - 1]</code>.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Warning.</strong> Do take care to notice that we use $1$-based indexing outside the machine, as in \eqref{big-exp-eqn}, while <code>Python</code> uses $0$-based indexing. Thus the component $T^{\alpha\beta\gamma}$ outside the machine would be coded as <code>T[alpha - 1, beta - 1, gamma - 1]</code>.</p>
+  </div>
 
-<p>Now, let’s turn our attention to the $3$-fold tensor product operation</p>
+  <p>Now, let’s turn our attention to the $3$-fold tensor product operation</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{operation-eqn}
 V \times W \times U \to V \otimes W \otimes U, \quad (v,w,u) \mapsto v \otimes w \otimes u.
 \end{equation}</p>
+  </div>
 
-<p>If we have component expressions</p>
+  <p>If we have component expressions</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 v = v^\alpha e_\alpha, \quad w = w^\beta f_\beta, \quad u = u^\gamma g_\gamma
 \end{equation}</p>
+  </div>
 
-<p>with associated concrete vector representations</p>
+  <p>with associated concrete vector representations</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 \mathtt{v} = \begin{bmatrix} v^1 \\ \vdots \\ v^m\end{bmatrix}, \quad \mathtt{w} = \begin{bmatrix} w^1 \\ \vdots \\ w^n\end{bmatrix}, \quad \mathtt{u} = \begin{bmatrix} u^1 \\ \vdots \\ u^p\end{bmatrix},
 \end{equation}</p>
+  </div>
 
-<p>then, by using the <a href="#trilinearity" class="article">trilinearity relations</a>, we get that</p>
+  <p>then, by using the <a href="#trilinearity" class="article">trilinearity relations</a>, we get that</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{goal-eqn}
 v \otimes w \otimes u = v^\alpha w^\beta u^\gamma e_\alpha \otimes f_\beta \otimes g_\gamma,
 \end{equation}</p>
+  </div>
 
-<p>with summation over repeated indices implied.</p>
+  <p>with summation over repeated indices implied.</p>
 
-<div class="highlight-box">
-  <p><strong>Tip.</strong> I suggest that you carry through these computations on your own, so that you see how the trilinearity relations lead directly to \eqref{goal-eqn}.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Tip.</strong> I suggest that you carry through these computations on your own, so that you see how the trilinearity relations lead directly to \eqref{goal-eqn}.</p>
+  </div>
 
-<p>Equation \eqref{goal-eqn} shows that the $3$-fold tensor product $v \otimes w \otimes u$ has concrete array representation with components given by $v^\alpha w^\beta u^\gamma$.</p>
+  <p>Equation \eqref{goal-eqn} shows that the $3$-fold tensor product $v \otimes w \otimes u$ has concrete array representation with components given by $v^\alpha w^\beta u^\gamma$.</p>
 
-<p>How would we use <code>NumPy</code> to compute this array representation? In the case of $2$-fold tensor products, we saw that we could call the <code>tensordot</code> function. Unfortunately, <code>NumPy</code> does not have a ternary version of this function, so we need to call <code>tensordot</code> twice. Mathematically, this means that we are not representing the function \eqref{operation-eqn} directly, but rather we are representing the sequence of multiplications</p>
+  <p>How would we use <code>NumPy</code> to compute this array representation? In the case of $2$-fold tensor products, we saw that we could call the <code>tensordot</code> function. Unfortunately, <code>NumPy</code> does not have a ternary version of this function, so we need to call <code>tensordot</code> twice. Mathematically, this means that we are not representing the function \eqref{operation-eqn} directly, but rather we are representing the sequence of multiplications</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 V \times W \times U \to (V \otimes W) \times U \to (V \otimes W) \otimes U
 \end{equation}</p>
+  </div>
 
-<p>given by</p>
+  <p>given by</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 (v,w,u) \mapsto (v \otimes w, u) \mapsto (v \otimes w) \otimes u.
 \end{equation}</p>
+  </div>
 
-<p>Here’s an example:</p>
+  <p>Here’s an example:</p>
 
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+  <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">first_product</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">u</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -392,99 +437,114 @@ V \times W \times U \to (V \otimes W) \times U \to (V \otimes W) \otimes U
  <span class="p">[[</span><span class="mi">160</span> <span class="mi">180</span> <span class="mi">200</span> <span class="mi">220</span> <span class="mi">240</span><span class="p">]</span>
   <span class="p">[</span><span class="mi">192</span> <span class="mi">216</span> <span class="mi">240</span> <span class="mi">264</span> <span class="mi">288</span><span class="p">]</span>
   <span class="p">[</span><span class="mi">224</span> <span class="mi">252</span> <span class="mi">280</span> <span class="mi">308</span> <span class="mi">336</span><span class="p">]]]</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<p>Technically, there is a very subtle mathematical distinction between $v \otimes w \otimes u$ and $(v\otimes w) \otimes u$. Indeed, if we are being very picky, these are actually <strong>not</strong> equal. However, in the mathematical language, the two vector spaces $(V \otimes W) \otimes U$ and $V \otimes W \otimes U$ are actually <em>naturally(!) isomorphic</em>, and the two vectors $v \otimes w \otimes u$ and $(v\otimes w) \otimes u$ are mapped to each other under this isomorphism in such a way that their concrete array representations coincide. Thus, we may take the output of this last code block as being the $3$-D array representation of $v \otimes w \otimes u$.</p>
+  <p>Technically, there is a very subtle mathematical distinction between $v \otimes w \otimes u$ and $(v\otimes w) \otimes u$. Indeed, if we are being very picky, these are actually <strong>not</strong> equal. However, in the mathematical language, the two vector spaces $(V \otimes W) \otimes U$ and $V \otimes W \otimes U$ are actually <em>naturally(!) isomorphic</em>, and the two vectors $v \otimes w \otimes u$ and $(v\otimes w) \otimes u$ are mapped to each other under this isomorphism in such a way that their concrete array representations coincide. Thus, we may take the output of this last code block as being the $3$-D array representation of $v \otimes w \otimes u$.</p>
 
-<p>But wait a minute! Couldn’t we also consider the sequence of multiplications</p>
+  <p>But wait a minute! Couldn’t we also consider the sequence of multiplications</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 V \times W \times U \to V \times (W \otimes U) \to V \otimes (W \otimes U)
 \end{equation}</p>
+  </div>
 
-<p>given by</p>
+  <p>given by</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 (v,w,u) \mapsto (v, w \otimes u) \mapsto v \otimes (w \otimes u)?
 \end{equation}</p>
+  </div>
 
-<p>We then have <em>three</em> tensors floating around:</p>
+  <p>We then have <em>three</em> tensors floating around:</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{associativity-eqn}
 (v \otimes w) \otimes u, \quad v \otimes w \otimes u, \quad v \otimes (w \otimes u).
 \end{equation}</p>
+  </div>
 
-<p>I just mentioned that, even though the first two are <em>technically</em> not the same, they can more or less be treated as if they are equal since there is a natural isomorphism lurking in the background. Luckily for us, the same is true regarding the last two tensors.</p>
+  <p>I just mentioned that, even though the first two are <em>technically</em> not the same, they can more or less be treated as if they are equal since there is a natural isomorphism lurking in the background. Luckily for us, the same is true regarding the last two tensors.</p>
 
-<p>Let’s re-code the code in the last block, changing which two tensors are sent into the <em>first</em> call to <code>tensordot</code>:</p>
+  <p>Let’s re-code the code in the last block, changing which two tensors are sent into the <em>first</em> call to <code>tensordot</code>:</p>
 
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+  <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">second_product</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">first_product</span><span class="p">,</span> <span class="n">second_product</span><span class="p">))</span>
 
 <span class="bp">True</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<p>The identification of the three tensors \eqref{associativity-eqn} under these “natural isomorphisms” is called the <em>associativity</em> property of the tensor product. Again, we’re dealing with some rather subtle mathematics when we claim that these tensors are not actually equal—if this doesn’t sit well with you, just treat the tensors as if they are the same, but know that there is something subtle going on in the background. You won’t run into too much trouble.</p>
+  <p>The identification of the three tensors \eqref{associativity-eqn} under these “natural isomorphisms” is called the <em>associativity</em> property of the tensor product. Again, we’re dealing with some rather subtle mathematics when we claim that these tensors are not actually equal—if this doesn’t sit well with you, just treat the tensors as if they are the same, but know that there is something subtle going on in the background. You won’t run into too much trouble.</p>
 
-<h2 id="tensors-of-arbitrary-order">Tensors of arbitrary order</h2>
+  <h2 id="tensors-of-arbitrary-order">Tensors of arbitrary order</h2>
 
-<p>The <a href="#bilinearity" class="article">bilinearity relations</a> are also called the <em>$2$-fold multilinearity</em> relations, while the <a href="#trilinearity" class="article">trilinearity relations</a> are also called the <em>$3$-fold multilinearity</em> relations. Do you see a pattern in passing from the former to the latter? Can you generalize one step further and write down the relations that would characterize $4$-fold multilinearity? <em>Hint:</em> They come in two sets of four, for a total of eight relations.</p>
+  <p>The <a href="#bilinearity" class="article">bilinearity relations</a> are also called the <em>$2$-fold multilinearity</em> relations, while the <a href="#trilinearity" class="article">trilinearity relations</a> are also called the <em>$3$-fold multilinearity</em> relations. Do you see a pattern in passing from the former to the latter? Can you generalize one step further and write down the relations that would characterize $4$-fold multilinearity? <em>Hint:</em> They come in two sets of four, for a total of eight relations.</p>
 
-<p>How about $5$-fold multilinearity? $100$-fold multilinearity?</p>
+  <p>How about $5$-fold multilinearity? $100$-fold multilinearity?</p>
 
-<p>I bet you see what I’m getting at. Indeed, there are natural extensions of the bilinearity relations to $n$-fold multilinearity relations, for any integer $n\geq 2$. These define <em>$n$-fold tensor products</em>, which are maps of the form</p>
+  <p>I bet you see what I’m getting at. Indeed, there are natural extensions of the bilinearity relations to $n$-fold multilinearity relations, for any integer $n\geq 2$. These define <em>$n$-fold tensor products</em>, which are maps of the form</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 V_1 \times \cdots \times V_n \to V_1 \otimes \cdots \otimes V_n, \quad (v_1,\ldots,v_n) \mapsto v_1 \otimes \cdots \otimes v_n,
 \end{equation}</p>
+  </div>
 
-<p>where $V_1,\ldots,V_n$ are abstract vector spaces. The vector space $V_1 \otimes \cdots \otimes V_n$ consists, by definition, of all <em>rank-$n$ tensor products</em> of the form $v_1\otimes \cdots \otimes v_n$.</p>
+  <p>where $V_1,\ldots,V_n$ are abstract vector spaces. The vector space $V_1 \otimes \cdots \otimes V_n$ consists, by definition, of all <em>rank-$n$ tensor products</em> of the form $v_1\otimes \cdots \otimes v_n$.</p>
 
-<p>If we fix orderd bases of each of the tensor factors, then every rank-$n$ tensor $T\in V_1\otimes \cdots \otimes V_n$ may be written as</p>
+  <p>If we fix ordered bases of each of the tensor factors, then every rank-$n$ tensor $T\in V_1\otimes \cdots \otimes V_n$ may be written as</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{convention-eqn}
 T = T^{\alpha_1\ldots\alpha_n} e_{\alpha_1} \otimes \cdots \otimes e_{\alpha_n},
 \end{equation}</p>
+  </div>
 
-<p>with summation over repeated indices implied.</p>
+  <p>with summation over repeated indices implied.</p>
 
-<div class="highlight-box">
-  <p><strong>Warning.</strong> First of all: In view of \eqref{convention-eqn}, I bet you can now see why the summation convention regarding repeated indices is so helpful. Without using this convention, this equation would need $n$ summation signs $\sum$.</p>
+  <div class="highlight-box">
+    <p><strong>Warning.</strong> First of all: In view of \eqref{convention-eqn}, I bet you can now see why the summation convention regarding repeated indices is so helpful. Without using this convention, this equation would need $n$ summation signs $\sum$.</p>
 
-  <p>However, I am committing a serious abuse of notation in this equation that you may have spotted: It very well could be the case that the vector spaces $V_1,\ldots, V_n$ are <em>distinct</em>, and hence I should not be using the same symbols $e_{\alpha_1},e_{\alpha_2}$, <em>etc</em>., to represent basis vectors in distinct vector spaces. However, if I decorate the $e$’s in some manner with extra subscripts or superscripts to differentiate between the vector spaces, the notation will get even more dense than it already is. Therefore, I will carry on with this abuse of notation, relying on <em>you</em> — the reader! — to understand from context that the $e$’s might actually lie in different vector spaces.</p>
-</div>
+    <p>However, I am committing a serious abuse of notation in this equation that you may have spotted: It very well could be the case that the vector spaces $V_1,\ldots, V_n$ are <em>distinct</em>, and hence I should not be using the same symbols $e_{\alpha_1},e_{\alpha_2}$, <em>etc</em>., to represent basis vectors in distinct vector spaces. However, if I decorate the $e$’s in some manner with extra subscripts or superscripts to differentiate between the vector spaces, the notation will get even more dense than it already is. Therefore, I will carry on with this abuse of notation, relying on <em>you</em> — the reader! — to understand from context that the $e$’s might actually lie in different vector spaces.</p>
+  </div>
 
-<p>With regards to concrete array representations, I bet you can see the pattern here, too:</p>
+  <p>With regards to concrete array representations, I bet you can see the pattern here, too:</p>
 
-<ul>
-  <li>abstract vectors have $1$-D concrete vector representations;</li>
-  <li>abstract rank-$2$ tensors have $2$-D concrete matrix representations;</li>
-  <li>abstract rank-$3$ tensors have $3$-D concrete array representations;</li>
-  <li>$\vdots$</li>
-  <li>abstract rank-$n$ tensors have $n$-D concrete array representations.</li>
-</ul>
+  <ul>
+    <li>abstract vectors have $1$-D concrete vector representations;</li>
+    <li>abstract rank-$2$ tensors have $2$-D concrete matrix representations;</li>
+    <li>abstract rank-$3$ tensors have $3$-D concrete array representations;</li>
+    <li>$\vdots$</li>
+    <li>abstract rank-$n$ tensors have $n$-D concrete array representations.</li>
+  </ul>
 
-<p>I will leave it to you to figure out how to code, say, a $5$-D array representation in <code>NumPy</code>.</p>
+  <p>I will leave it to you to figure out how to code, say, a $5$-D array representation in <code>NumPy</code>.</p>
 
-<h2 id="generalized-tensor-products">Generalized tensor products</h2>
+  <h2 id="generalized-tensor-products">Generalized tensor products</h2>
 
-<p>In this last section of this post, I want to define the most general type of tensor product that we will consider. To describe it, notice that, up till now, our tensor products (as multiplications) take the form</p>
+  <p>In this last section of this post, I want to define the most general type of tensor product that we will consider. To describe it, notice that, up till now, our tensor products (as multiplications) take the form</p>
 
-<p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 V_1 \times \cdots \times V_n \to V_1 \otimes \cdots \otimes V_n, \quad (v_1,\ldots,v_n) \mapsto v_1 \otimes \cdots \otimes v_n,
 \end{equation}</p>
+  </div>
 
-<p>described in the last section. But notice that this apparently only gives us a way to multiply $n$ <strong>vectors</strong>. But in this section, I want to cook up a multiplication that will allow us to multiply, say, a rank-$m$ tensor by a rank-$n$ tensor to produce a tensor of rank $m+n$. Formally, this means that I am hunting for a multiplication map of the form</p>
+  <p>described in the last section. But notice that this apparently only gives us a way to multiply $n$ <strong>vectors</strong>. But in this section, I want to cook up a multiplication that will allow us to multiply, say, a rank-$m$ tensor by a rank-$n$ tensor to produce a tensor of rank $m+n$. Formally, this means that I am hunting for a multiplication map of the form</p>
 
-<p>\begin{equation}
+  <div style="overflow: scroll">
+    <p>\begin{equation}
 \label{goal2-eqn}
 (V_1 \otimes \cdots \otimes V_m) \times (W_1\otimes \cdots \otimes W_n) \to V_1 \otimes \cdots \otimes V_m \otimes W_1\otimes \cdots \otimes W_n.
 \end{equation}</p>
+  </div>
+</div>
 
 <p>How could we obtain such a map?</p>
 
@@ -493,21 +553,27 @@ V_1 \times \cdots \times V_n \to V_1 \otimes \cdots \otimes V_n, \quad (v_1,\ldo
 <div class="highlight-box">
   <p><strong>Definition.</strong> Given a tensor $S \in V_1 \otimes \cdots \otimes V_m$ and a tensor $T \in W_1\otimes \cdots \otimes W_n$, their <em>tensor product</em> under the multiplication map \eqref{goal2-eqn}, denoted $S\otimes T$, is obtained by placing an $\otimes$ between them and removing parentheses. In components, this means that if</p>
 
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 S = T^{\alpha_1\ldots\alpha_m} e_{\alpha_1} \otimes \cdots \otimes e_{\alpha_m}
 \end{equation}</p>
+  </div>
 
   <p>and</p>
 
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 T = S^{\beta_1\ldots\beta_n} f_{\beta_1} \otimes \cdots \otimes f_{\alpha_n},
 \end{equation}</p>
+  </div>
 
   <p>then</p>
 
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 S \otimes T = S^{\alpha_1\ldots\alpha_m}T^{\beta_1\ldots\beta_n}  e_{\alpha_1} \otimes \cdots \otimes e_{\alpha_m} \otimes f_{\beta_1} \otimes \cdots \otimes f_{\alpha_n},
 \end{equation}</p>
+  </div>
 
   <p>with summation over repeated indices implied.</p>
 </div>
@@ -516,9 +582,11 @@ S \otimes T = S^{\alpha_1\ldots\alpha_m}T^{\beta_1\ldots\beta_n}  e_{\alpha_1} \
 
 <p>Let me close this post with a coded example of one of these generalized tensor products. I want to suppose that we have particular tensors</p>
 
-<p>\begin{equation}\notag
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
 S \in  \bbr^4 \otimes \bbr^5 \quad \text{and} \quad T \in \bbr^6 \otimes \bbr^7 \otimes \bbr^8.
 \end{equation}</p>
+</div>
 
 <p>Let’s generate two random concrete array representations:</p>
 
@@ -530,10 +598,12 @@ S \in  \bbr^4 \otimes \bbr^5 \quad \text{and} \quad T \in \bbr^6 \otimes \bbr^7 
 
 <p>As a sanity check, let’s actually check this, by verifying that the equation</p>
 
-<p>\begin{equation}
+<div style="overflow: scroll">
+  <p>\begin{equation}
 \label{rhs-eqn}
 S = S^{\alpha\beta} e_\alpha \otimes e_\beta
 \end{equation}</p>
+</div>
 
 <p>holds when we pass to array representations in the machine.</p>
 
@@ -563,10 +633,12 @@ S = S^{\alpha\beta} e_\alpha \otimes e_\beta
 
 <p>What I want to do, is to verify that the equation</p>
 
-<p>\begin{equation}
+<div style="overflow: scroll">
+  <p>\begin{equation}
 \label{goal-ast-eqn}
 S \otimes T = S^{\alpha\beta}T^{\gamma\delta\epsilon} e_\alpha \otimes e_\beta \otimes e_\gamma \otimes e_\delta \otimes e_\epsilon
 \end{equation}</p>
+</div>
 
 <p>holds when we pass to array representations in the machine. I will use a single call to <code>tensordot</code> to compute the array representation of the left-hand side directly, while I will code the right-hand side as a linear combination of $5$-fold tensor products. (By the way: Notice that, even though I am using the same symbol $e$, the basis vectors appearing in the tensor factors of \eqref{goal-ast-eqn} are all in <em>different</em> vector spaces!)</p>
 
