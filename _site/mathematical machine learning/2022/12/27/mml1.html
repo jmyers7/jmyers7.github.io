@@ -1,0 +1,457 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>probabilistic foundations</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        tex: {
+          tags: 'ams',
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfm: ['\\mathfrak{M}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+          }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">probabilistic foundations</h1>
+</div>
+
+<p>This series of posts seeks to describe the mathematical foundations for machine learning, and to describe how one can use mathematics to reason about higher-order properties of machine learning algorithms. Here, by “higher-order” properties, I mean something more than a description of the internal workings of an algorithm in terms of mathematics—rather, I want to show you that an entire mathematical <em>theory</em> of machine learning exists, with its own theorems, proofs, conjectures, open questions, <em>etc</em>. The goal of this theory—as is the goal of essentially <em>any</em> theory in science in its domain of applicability—is to help “explain” the behavior of machine learning algorithms, and to help unify the various branches of the subject, which can sometimes feel like a random grab bag of ad hoc algorithms.</p>
+
+<p>The basis for this mathematical theory of machine learning is probability theory, and this series of posts is designed to complement my (purely mathematical) <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">series</a> on measure theory and abstract probability. One of the most beautiful parts of machine learning is how the single, simple notion of a probability measure serves as the basis for the entire edifice (at least supervised machine learning). Indeed, as I will begin to demonstrate in this post, everything is based upon the following basic object:</p>
+
+<div class="highlight-box" id="prob-model-defn">
+  <p><strong>Definition.</strong> Let $\calx$ and $\caly$ be two measurable spaces. A <em>probabilistic model</em> is a probability measure on the product measurable space $\calx \times \caly$.</p>
+</div>
+
+<p>We think of the set $\calx$ as our space of features, while $\caly$ is the space of labels; the probability measure then (roughly) gives us a way to go about predicting the label $y$ of a given feature $x$, by inspecting the level of probability density at $(x,y)$. In informal language, if $(x,y)$ is in a region of high density, then we should predict $y$, given $x$; on the other hand, if $(x,y)$ is in a region of low density, then we should predict a different label.</p>
+
+<p>In this first post, we will investigate two algorithms that attempt to make this rough idea precise, the first called <em>maximum likelihood estimation</em> (or <em>MLE</em>), and the second called <em>maximum a posteriori estimation</em> (or <em>MAP estimation</em>). These two algorithms are actually symmetric mirror images of each other, an idea that I make precise by “disintegrating” the probability model on $\calx \times \caly$ in two “orthogonal” directions, first by marginalizing on $\caly$ for MLE, and then by marginalizing on $\calx$ for MAP estimation. The link between the two mirror images is provided by Bayes’ Theorem.</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#prediction" style="font-family: 'Lora', serif; font-size: 1em;">Prediction</a></li>
+  <li><a href="#MLE" style="font-family: 'Lora', serif; font-size: 1em;">Maximum likelihood estimation</a></li>
+  <li><a href="#MAP" style="font-family: 'Lora', serif; font-size: 1em;">Maximum a posteriori estimation</a></li>
+  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
+  <li><a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a></li>
+  <li><a href="#end" style="font-family: 'Lora', serif; font-size: 1em;">Footnotes and references</a></li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>As you can surely tell from the introduction above, if you want to understand the contents of this post at maximum generality, you’ll need to know some measure theory before reading. Ideally, I would have had my <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">series</a> on measure theory completely finished before writing this post, but that didn’t happen! However, the first few posts in that series will still provide a good idea of what measure theory is, and how it’s used in probability theory.</p>
+
+<p>With this being said, if you’re willing to replace all the Lebesgue integrals in this post with Riemann integrals, you won’t really miss anything of super important substance. Also, I describe the Disintegration Theorem in detail in the discrete setting, where all integrals are actually sums. So, if you want to only stick with discrete probability, you can completely ignore all the integrals and still get something out of this post!</p>
+
+<div id="prediction">
+  <h2 id="prediction">Prediction</h2>
+</div>
+
+<p>The origin of the entire subject is:</p>
+
+<div class="highlight-box" id="prediction-problem">
+  <p><strong>The Prediction Problem.</strong> Let $\calx$ and $\caly$ be two sets, where the points of $\calx$ are called <em>features</em>, and the points of $\caly$ are called <em>labels</em>. Given a feature $x \in \calx$, the goal is to <em>predict</em> a corresponding label $y\in \caly$.</p>
+</div>
+
+<p>Of course, as it’s written, this is more or less meaningless: what does “predict” even mean? If we are going to predict the label corresponding to a feature, then we must believe that there is some sort of underlying relationship between the features and labels. Such a relationship could take the form of a deterministic function, say</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}
+\label{deterministic-eqn}
+d: \calx \to \caly, \quad x\mapsto d(x) = y .
+\end{equation}</p>
+</div>
+
+<p>In this situation, provided that we know the function $d$, to “predict” the label $y$ corresponding to the feature $x$ means that we simply evaluate the function $d$ at $x$ to produce $y$.</p>
+
+<p>In a perfect, idealized mathematical world, we might posit the existence of a deterministic function \eqref{deterministic-eqn} linking the features to the labels, and then develop the theory from there. But in reality, even <em>if</em> the function $d$ existed, we might have no way to determine it. For example, supposing that $d$ modeled some sort of natural process, linking some sort of experimental outcome $x$ with a continuous quantity $y$, then we would need to <strong>measure</strong> the quantity $y$ in order to determine $d$. But there is no such thing as a measuring device with infinite precision. This introduces a level of random (or stochastic) “noise” into the model, which is attributed not to the underlying natural process, but rather to the imprecision in our instruments.<sup id="fnref:quantum" role="doc-noteref"><a href="#fn:quantum" class="footnote" rel="footnote">1</a></sup></p>
+
+<div id="MLE">
+  <h2 id="maximum-likelihood-estimation">Maximum likelihood estimation</h2>
+</div>
+
+<p>In some prediction schemes, this “random noise” is directly incorporated into the model. For instance, this is what happens in linear regression, which we will discuss later. However, we might also abandon the idea of a deterministic relationship \eqref{deterministic-eqn} altogether, and proceed in a different direction. Indeed, we might imagine the following scenario:</p>
+
+<div class="highlight-box">
+  <ol>
+    <li>For each label $y\in \caly$, we have a probability distribution $P(-|y)$ on $\calx$, with associated density $x\mapsto f(x|y)$.</li>
+    <li>The distribution $P(-|y)$ encodes the probability that a feature $x$ has label $y$: For example, if the probability density $f(x|y)$ is large, then it is likely that $x$ has label $y$. Conversely, if the density $f(x|y)$ is small, then it is unlikely that $x$ has label $y$.</li>
+  </ol>
+
+  <p>Then, in order to predict the label of a given feature $x\in \calx$, we might select the label $y$ for which the density $f(x|y)$ is greatest.</p>
+</div>
+
+<p>Notice that this prediction strategy is inherently non-deterministic, since for a given $x\in \calx$ the densities $f(x|y)$ might <em>all</em> be nonzero as $y$ varies, which means that there is a nonzero probability that $x$ could be associated with <em>any</em> label. This prediction strategy is called <em>maximum likelihood estimation</em>, or <em>MLE</em>.</p>
+
+<p>In addition to the probability distributions $P(-|y)$ on $\calx$, the setup for MLE requires a distribution on the label space $\caly$. However, in order to unify my description of MLE with the maximum a posteriori method in the next section, I will suppose that all of these distributions arise from a <em>single</em> probability distribution $Q$ on the cartesian product $\calx \times \caly$, i.e., a probability model in the sense of the <a href="#prob-model-defn" class="article">definition</a> given at the beginning of this post.</p>
+
+<p>The basis of MLE is the <em>likelihood function</em>. In order to obtain it, we need to “disintegrate” the probability model on $\calx \times \caly$ into a family of conditional probability distributions on $\calx$, parametrized by points of $\caly$. In the most general case, this “disintegration” procedure uses the powerful Disintegration Theorems of abstract measure and integration theory, which can be stated as follows. Provided that the measurable spaces $\calx$ and $\caly$ are “nice”—which they always will be, in our applications—these Disintegration Theorems say that the probability model $Q$ on $\calx \times \caly$ can be written as</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}
+\label{integrate-up-eqn}
+Q(C) = \int_\caly P(C(y)|y) \ P(\text{d}y),
+\end{equation}</p>
+</div>
+
+<p>where $C$ is a product-measurable set, $P$ is the marginal distribution of $Q$ on $\caly$, the set $\left\{ P(-|y) \right\}_{y\in \caly}$ is a family of probability measures on $\calx$ parametrized by points of $\caly$, and $C(y)$ is a <em>section</em> of $C$, defined as</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}
+\label{section-eqn}
+C(y) = \left\{ x\in \calx \mid (x,y) \in C \right\}.
+\end{equation}</p>
+</div>
+
+<p>The intuition is that each probability measure $P(-|y)$ is a “section” of the probability measure $Q$, and that $Q$ is recovered through \eqref{integrate-up-eqn} by integrating the sections over $\caly$.</p>
+
+<p>This is all <em>incredibly</em> abstract. And if you’re not an expert in measure theory and abstract integration, you likely have no clue what any of what I just wrote actually means. However:</p>
+
+<ol>
+  <li>Provided that all probability distributions have densities, and provided that we do not concern ourselves with places where marginal distributions vanish, we can obtain the distributions guaranteed by the Disintegration Theorem rather directly.</li>
+  <li>And, if the spaces $\calx$ and $\caly$ are discrete, the Disintegration Theorem is more or less trivial.</li>
+</ol>
+
+<p>Let me demonstrate item (2.) in the following example, where I also make the connection with conditional distributions. I will address item (1.) after this example.</p>
+
+<div class="highlight-box">
+  <p><strong>Probability models in the discrete case.</strong> Let’s suppose that both $\calx$ and $\caly$ are <em>finite</em>. The probability model $Q$ on $\calx \times \caly$ is then absolutely continuous with respect to the counting measure, which is just a very fancy way of saying that the probability mass function (pmf) $\varphi:\calx \times \caly \to [0,1]$ exists. Hence, for any set $C\subseteq \calx \times \caly$, we have</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}
+\label{full-dist-eqn}
+Q(C) = \sum_{(x,y)\in C} \varphi(x,y).
+\end{equation}</p>
+  </div>
+
+  <p>However, using the “section” $C(y)$ defined by \eqref{section-eqn}, this last equation can be rewritten as</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}
+\label{begin-eqn}
+Q(C) = \sum_{y\in \caly} \left\{ \sum_{x\in C(y)} \varphi(x,y) \right\}.
+\end{equation}</p>
+  </div>
+
+  <p>Now, the induced marginal distribution $P$ on $\caly$ is given by the familiar formula</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
+P(B) = Q(\calx \times B).
+\end{equation}</p>
+  </div>
+
+  <p>But, in view of \eqref{full-dist-eqn}, we may write</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}
+\label{prior-eqn}
+P(B) = \sum_{y\in B} \left\{ \sum_{x\in \calx} \varphi(x,y) \right\},
+\end{equation}</p>
+  </div>
+
+  <p>which shows that $P$ has pmf given by</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}
+\label{prior-pdf-eqn}
+\pi: \caly \to [0,1] , \quad \pi(y) = \sum_{x\in \calx} \varphi(x,y).
+\end{equation}</p>
+  </div>
+
+  <p>For a <strong>fixed</strong> $y\in \caly$, let’s define a function</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
+f(-|y): \calx \to [0,1], \quad f(x|y) = \frac{\varphi(x,y)}{\pi(y)},
+\end{equation}</p>
+  </div>
+
+  <p>provided, of course, that $\pi(y)\neq 0$; if $\pi(y)=0$, then we let $f(-|y)$ be <strong>any</strong> function which sums to $1$ over $\calx$ and has range in the closed interval $[0,1]$. In any case, we notice that each $f(-|y)$ is a valid pmf on $\calx$, and we let $P(-|y)$ be the associated probability distribution on $\calx$, given by</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
+P(A|y)) = \sum_{x\in A} f(x|y), \quad A\subseteq \calx.
+\end{equation}</p>
+  </div>
+
+  <p>Finally, beginning with \eqref{begin-eqn}, notice that</p>
+
+  <div style="overflow: scroll">
+    <p>\begin{align}
+Q(C) &amp;= \sum_{y\in \caly} \left\{ \sum_{x\in C(y)} \varphi(x,y) \right\} \notag \\ &amp;= \sum_{y\in \caly} \left\{ \sum_{x\in C(y)} f(x|y) \right\}\pi(y) \notag \\ &amp;= \sum_{y\in \caly} P(C(y)|y) \pi(y). \notag
+\end{align}</p>
+  </div>
+
+  <p>The sum on the last line is exactly the discrete analog of the general Lebesgue integral on the right-hand side of \eqref{integrate-up-eqn}, and thus we see that the Disintegration Theorem is nothing but the general statement that a joint probability measure on $\calx \times \caly$ can be “disintegrated” into a marginal distribution on $\caly$ and a collection of conditional distributions on $\calx$ parametrized by points of $\caly$.</p>
+</div>
+
+<p>Now, as I mentioned above, it is convenient to assume that all probability distributions in sight have densities, for then the distributions guaranteed by the Disintegration Theorem may be obtained directly by (more or less) following the same steps as in the discrete case, replacing sums with integrals. I’ll show you the first few steps: We begin by assuming that $\calx$ and $\caly$ both carry ambient $\sigma$-finite measures $\mu$ and $\nu$, respectively, such that the probability model $Q$ has a density $\varphi(x,y)$ with respect to the product measure $\mu \times \nu$. Hence, for all product-measurable subsets $C\subseteq \calx \times \caly$, we have</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+Q(C) = \int_C \varphi(x,y) \ (\mu \times \nu)(\text{d}x,\text{d}y),
+\end{equation}</p>
+</div>
+
+<p>which is the generalization of \eqref{full-dist-eqn}. However, an application of Fubini gives</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+Q(C) = \int_\caly \left\{ \int_{C(y)} \varphi(x,y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y),
+\end{equation}</p>
+</div>
+
+<p>which is the generalization of \eqref{begin-eqn}. In particular, if $B \subseteq \caly$ is measurable and $P$ is the marginal distribution on $\caly$, then we have</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+P(B) = \int_B \left\{ \int_\calx \varphi(x,y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y),
+\end{equation}</p>
+</div>
+
+<p>which is the generalization of \eqref{prior-eqn}. Thus $P$ has density</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+\pi(y) = \int_\calx \varphi(x,y) \ \mu(\text{d}x),
+\end{equation}</p>
+</div>
+
+<p>which is almost surely unique. For each fixed $y\in \caly$, we then define a density $f(x|y)$ on $\calx$ by setting</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(x|y) = \frac{\varphi(x,y)}{\pi(y)}
+\end{equation}</p>
+</div>
+
+<p>and letting</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+P(A|y) = \int_\calx f(x|y) \ \mu(\text{d}x)
+\end{equation}</p>
+</div>
+
+<p>be the associated distribution. Then, by mimicking the arguments in the discrete case with integrals in place of sums (just as we did above), we obtain the desired equation</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+Q(C) = \int_\caly P(C(y)|y) \ P(\text{d}y).
+\end{equation}</p>
+</div>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> The distribution $P(-|y)$ on $\calx$ is called the <em>conditional distribution given $y\in \caly$</em>. Its density $f(x|y)$ is called the <em>conditional density given $y\in \caly$.</em></p>
+</div>
+
+<p>Given a fixed label $y\in \caly$, the measure $P(-|y)$ is a probability distribution on $\calx$, which I think of as the distribution of those features $x$ that have label $y$. However, this distribution doesn’t (directly) help us with our <a href="#prediction-problem" class="article">Prediction Problem</a> because it requires the label $y$ to be <em>fixed</em> (i.e., <em>given</em>), while the feature $x$ is <em>variable</em>, which is the <em>inversion</em> of the Prediction Problem.</p>
+
+<p>Instead, we focus on the conditional density $f(x|y)$. Here, it makes perfect sense to fix $x$ and let $y$ vary; when we do so, the function $f(x|-)$ is <em>not</em> a probability density on $\caly$, but instead it’s a <em>likelihood function</em>. For fixed $x$, to psychologically focus attention on the variable $y$, we write</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+\ell(y|x) = f(x|y)
+\end{equation}</p>
+</div>
+
+<p>for the likelihood function. And, if $x$ is understood from context, we might even write $\ell(y)$ in place of $\ell(y|x)$.</p>
+
+<p>With the likelihood function in hand, we can now state the MLE algorithm, which simply formalizes the algorithm outlined at the <a href="#MLE" class="article">beginning</a> of this section.</p>
+
+<div class="highlight-box">
+  <p><strong>Maximum Likelihood Estimation.</strong> To predict the label of a given feature $x\in \calx$, we simply choose the label $y\in \caly$ that maximizes the likelihood function $\ell(y|x).$</p>
+</div>
+
+<div id="MAP">
+  <h2 id="maximum-a-posteriori-estimation">Maximum a posteriori estimation</h2>
+</div>
+
+<p>MLE began by disintegrating the probability model $Q$ on $\calx \times \caly$ into the marginal distribution on $\caly$ and a family of conditional distributions on $\calx$. However, the Disintegration Theorem is completely symmetric in the cartesian factors $\calx$ and $\caly$ (provided that both spaces are “nice”), and so it’s also possible to disintegrate the probability model into the marginal distribution on $\calx$ and a family of conditional distributions on the label space $\caly$. Doing so leads to the method of <em>maximum a posteriori estimation</em>, or <em>MAP estimation</em>. Informally, it goes like this:</p>
+
+<div class="highlight-box">
+  <ol>
+    <li>For each feature $x\in \calx$, we have a probability distribution $P(-|x)$ on $\caly$, with associated density $y\mapsto f(y|x)$.</li>
+    <li>The distribution $P(-|x)$ encodes the probability that a label $y$ corresponds to the feature $x$.</li>
+  </ol>
+
+  <p>Then, in order to predict the label of a given feature $x\in \calx$, we would select the mode of the distribution $P(-|x)$ as our prediction. In other words, we would choose the label $y$ that maximizes the density $f(y|x)$.</p>
+</div>
+
+<p>Compare this informal description of the MAP method with the description of MLE given at the <a href="#MLE" class="article">beginning</a> of the last section!<sup id="fnref:MAP" role="doc-noteref"><a href="#fn:MAP" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>I won’t bother you with the formal details of deriving all the densities required for MAP estimation, since they are identical to the derivations for MLE. Let me just summarize:</p>
+
+<ol>
+  <li>We suppose that $Q$ has density $\varphi(x,y)$ with respect to an ambient $\sigma$-finite product measure $\mu \times \nu$ on $\calx \times \caly$.</li>
+  <li>The marginal distribution on $\calx$ has density given by</li>
+</ol>
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+m(x) = \int_\caly \varphi(x,y) \ \nu(\text{d}y).
+\end{equation}</p>
+</div>
+<ol>
+  <li>Given $x\in \calx$, the conditional distribution $P(-|x)$ on $\caly$ has density given by</li>
+</ol>
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(y|x) = \frac{\varphi(x,y)}{m(x)}.
+\end{equation}</p>
+</div>
+<ol>
+  <li>The probability model $Q$, and the marginal distribution on $\calx$ and conditional distributions on $\caly$, are all related via the equation</li>
+</ol>
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+Q(C) = \int_\calx P(C(x)|x) \ \mu(\text{d}x).
+\end{equation}</p>
+</div>
+
+<p>An immediate consequence of the definitions is:</p>
+
+<div class="highlight-box" id="bayes">
+  <p><strong>Bayes’ Theorem.</strong> Letting the notation be as above, there is an equality</p>
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
+f(y|x) = \frac{\ell(y|x) \pi(y)}{\int_\caly \ell(y’|x) \pi(y’) \ \nu(\text{d}y’).}
+\end{equation}</p>
+  </div>
+</div>
+
+<p>In the bayesian scheme, the various distributions and densities that we’ve discovered all have special names: The distribution on $\caly$ with density $\pi(y)$ is called the <em>prior distribution</em>, the distribution on $\caly$ with density $f(y|x)$ is called the <em>posterior distribution</em>, and the marginal distribution on $\calx$ with density $m(x)$ is called the <em>evidence</em>. Holding $x$ fixed and viewing the evidence as constant, Bayes’ Theorem then yields the following fundamental proportionality relation:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+(\text{posterior}) \propto (\text{likelihood}) \times(\text{prior}).
+\end{equation}</p>
+</div>
+
+<p>We will talk more about the bayesian line of thinking in future posts.</p>
+
+<p>We end this post with formally stating the MAP algorithm:</p>
+
+<div class="highlight-box">
+  <p><strong>Maximum a Posteriori Estimation.</strong> To predict the label of a given feature $x\in \calx$, we simply choose the label $y\in \caly$ that maximizes the probability density $f(y|x).$</p>
+</div>
+
+<div id="next">
+  <h2 id="whats-next">What’s next?</h2>
+</div>
+
+<p>We’ve discovered two methods for predicting the label of a given feature—but how do we compare these two methods? Which one is “best”, or “most accurate”? In the next post, we will learn a little bit about <em>statistical decision theory</em>, which gives us a framework in terms of “risks” and “losses” for comparing different predictors and estimators.</p>
+
+<div id="further">
+  <h2 id="further-reading">Further reading</h2>
+</div>
+
+<p>Though we avoided it for the most part by appealing to densities, the Disintegration Theorem was the main theoretical tool that we used in this post. My <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">series</a> on measure theory and abstract probability is designed to be an introduction to the Disintegration Theorem and to provide proper background, but as of right now, only two posts have been written in that series, and we haven’t even talked about Lebesgue integrals yet!</p>
+
+<p>If you’d like to see formal (and very general) statements of the Disintegration Theorem, see Section 3 of Chapter I of Kallenberg’s text <em>Foundations of Modern Probability</em><sup id="fnref:Kallenberg2021" role="doc-noteref"><a href="#fn:Kallenberg2021" class="footnote" rel="footnote">3</a></sup>. Or, take a look at Chapter 5 of Pollard’s <em>A User’s Guide to Measure Theoretic Probability</em><sup id="fnref:Pollard2002" role="doc-noteref"><a href="#fn:Pollard2002" class="footnote" rel="footnote">4</a></sup>, which is a text I’ve recommended before.</p>
+
+<p>In this post, we went from the probability model $Q$ on the cartesian product $\calx \times \caly$ to the marginal distribution and the conditional distributions. However, it’s possible to reverse this process, and go from the marginal distribution and conditional distributions to the probability model. The theorems that allow you to do this—which might be called “Integration Theorems”, since they are the conceptual inverses of the Disintegration Theorems—may be found in Chapter 4 of Pollard’s book mentioned above, or Chapter 2 of Ash’s <em>Probability &amp; Measure Theory</em><sup id="fnref:Ash2000" role="doc-noteref"><a href="#fn:Ash2000" class="footnote" rel="footnote">5</a></sup>. Indeed, this is the framework in which much of bayesian statistics and inference takes place, where you <em>begin</em> with the prior distribution and likelihood function, and the explicit joint distribution takes a secondary role.</p>
+
+<div id="end">
+  <h2 id="footnotes-and-references">Footnotes and references</h2>
+</div>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:quantum" role="doc-endnote">
+      <p>Of course, there’s much more to be said regarding the role that randomness plays in the natural world, and the question of existence of deterministic relationships between natural quantities. These are difficult questions pondered by physicists, philosophers, and all manner of other investigators. <a href="#fnref:quantum" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:MAP" role="doc-endnote">
+      <p>To me, the intuition behind the MAP method is a little bit easier to wrap my head around, since in it we are maximizing across a <em>single</em> probability distribution. In contrast, in MLE, we are maximizing across an (in general) infinite family of probability distributions! <a href="#fnref:MAP" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Kallenberg2021" role="doc-endnote">
+      <p>O. Kallenberg, <em>Foundations of modern probability.</em> Third edition. Probability Theory and Stochastic Modelling, 99. Springer, Cham, 2021 <a href="#fnref:Kallenberg2021" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Pollard2002" role="doc-endnote">
+      <p>D. Pollard. <em>A user’s guide to measure theoretic probability</em>. Cambridge Series in Statistical and Probabilistic Mathematics, 8. Cambridge University Press, Cambridge, 2002. <a href="#fnref:Pollard2002" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Ash2000" role="doc-endnote">
+      <p>R.B. Ash. <em>Probability &amp; measure theory</em>. Second edition, with contributions by Catherine Doléans-Dade. Harcourt/Academic Press, Burlington, MA, 2000. <a href="#fnref:Ash2000" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+    
+  </body>
+</html>
