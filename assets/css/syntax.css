@@ -1,10 +1,15 @@
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
+.highlight table td {
+  padding: 5px;
+}
+.highlight table pre {
+  margin: 0;
+}
 .highlight, .highlight .w {
   color: #d0d0d0;
   background-color: #151515;
   padding: 10px;
   margin: 10px;
+  overflow: scroll;
 }
 .highlight .err {
   color: #151515;
