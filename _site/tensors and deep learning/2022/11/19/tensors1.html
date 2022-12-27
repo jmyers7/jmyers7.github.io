@@ -98,11 +98,25 @@
 
 <p>So, it will be a few posts before neural networks make an appearance. The first posts in this series deal <em>exclusively</em> with mathematics. I am going to cover much more material than a beginner needs to know who wants to get up and running with <code class="language-plaintext highlighter-rouge">TensorFlow</code> as fast as possible. If that’s you, then you might want to look for other treatments of tensors specifically (and exclusively) directed at applications in machine and deep learning. However, I do hope that you might return to my posts in the future, if you want to dig deeper into the theory of tensors!</p>
 
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#extended-intro" style="font-family: 'Lora', serif; font-size: 1em;">Extended introduction</a></li>
+  <li><a href="#inventing" style="font-family: 'Lora', serif; font-size: 1em;">Inventing tensors from hypothetical multiplications</a></li>
+  <li><a href="#exist" style="font-family: 'Lora', serif; font-size: 1em;">The Tensor Existence Theorem</a></li>
+  <li><a href="#basis" style="font-family: 'Lora', serif; font-size: 1em;">The Tensor Basis Theorem</a></li>
+  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
+  <li><a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a></li>
+  <li><a href="#references" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
+</ol>
+
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>You will need to have the basics of linear algebra mastered to get the most out of this series of posts. Here, by <em>linear algebra</em>, I mean more than simply <em>matrix algebra</em>. It’s not enough to know, say, how to multiply matrices. You should also be familiar and comfortable with abstract vector spaces and their linear transformations, matrix representations of linear transformations with respect to bases, <em>etc</em>. For later posts that deal with tensor calculus, you will need a strong knowledge of multivariable calculus, but that’s not important for this first post.</p>
 
-<h2 id="extended-introduction">Extended introduction</h2>
+<div id="extended-intro">
+  <h2 id="extended-introduction">Extended introduction</h2>
+</div>
 
 <p>This initial section contains a further introduction to tensors and additional context. Nothing I write in this section will be crucial for understanding future sections, so if you want to get straight to the definitions, you may safely skip to the <a href="#rep-sec">section</a> below.</p>
 
@@ -167,7 +181,9 @@ v \mapsto \begin{bmatrix} c_1 \\ \vdots \\ c_n \end{bmatrix}
 
 <p>So, just as every abstract vector $v$ may be represented concretely as a column vector through the association \eqref{iso-eqn}, so too will an abstract tensor $T$ be represented concretely as an array of numbers. However, as you learned in linear algebra, the concrete vector representations \eqref{iso-eqn} will change if the basis of the vector space $V$ is altered, and thus $v$ has infinitely many such representations. The same holds for the abstract tensor $T$, giving it infinitely many concrete array representations.</p>
 
-<h2 id="inventing-tensors-from-hypothetical-multiplications">Inventing tensors from hypothetical multiplications</h2>
+<div id="inventing">
+  <h2 id="inventing-tensors-from-hypothetical-multiplications">Inventing tensors from hypothetical multiplications</h2>
+</div>
 
 <p>With our representation-theoretic framework established, let’s get down to the business of defining tensors. Motivated by the desire to “multiply” abstract vectors in as natural a manner as possible, we will “discover” tensors and tensor products. The goal is to show you that tensors arise quite naturally from a very humble origin, and are not as exotic and mysterious as you might have first imagined.<sup id="fnref:table" role="doc-noteref"><a href="#fn:table" class="footnote" rel="footnote">3</a></sup></p>
 
@@ -224,7 +240,9 @@ v \otimes (cw) = c(v\otimes w)
 
 <p>The requirement that our new product $\otimes$ satisfies the relations \eqref{first_multlinear-eqn}, \eqref{second_multlinear-eqn}, \eqref{third_multlinear-eqn}, and \eqref{fourth_multlinear-eqn} is exactly what it means for the product $\otimes$ (or, more precisely, the function $m$) to be <em>bilinear</em>.</p>
 
-<h2 id="the-tensor-existence-theorem">The Tensor Existence Theorem</h2>
+<div id="exist">
+  <h2 id="the-tensor-existence-theorem">The Tensor Existence Theorem</h2>
+</div>
 
 <p>Since it does not seem that there are any more <em>natural</em> properties that our product $\otimes$ should satisfy (I can’t think of more—can you?), it seems that the <em>only</em> thing we should require of $\otimes$ is bilinearity. But remember that this scenario is all hypothetical—we began our little thought experiment by <em>assuming</em> that such a product $\otimes$ exists. But does it? The answer is provided by:</p>
 
@@ -238,7 +256,9 @@ v \otimes (cw) = c(v\otimes w)
 
 <p>This means that, when asked what the tensor product $v\otimes w$ actually <em>means</em> or actually <em>is</em>, the answer is: <em>We don’t care what it actually is.</em> Its precise meaning is not important and does not matter. Just treat $v\otimes w$ as a formal expression representing the result of multiplying $v$ by $w$ via this (universal) bilinear product $\otimes$, which is guaranteed to exist by the <a href="#tensor-existence-thm">Tensor Existence Theorem</a>.</p>
 
-<h2 id="the-tensor-basis-theorem">The Tensor Basis Theorem</h2>
+<div id="basis">
+  <h2 id="the-tensor-basis-theorem">The Tensor Basis Theorem</h2>
+</div>
 
 <p>The vector space $V\otimes W$ is spanned by the tensor products $v \otimes w$. This means that an arbitrary vector in $V \otimes W$ is a linear combination of the form</p>
 
@@ -307,11 +327,15 @@ T^{11} &amp; \cdots &amp; T^{1n} \\ \vdots &amp; \ddots &amp; \vdots \\ T^{m1} &
 
 <p>In this case, because $T$ is a <em>rank $2$</em> tensor (more on this later), the concrete array representation of $T$ is a matrix.</p>
 
-<h2 id="whats-next">What’s next?</h2>
+<div id="next">
+  <h2 id="whats-next">What’s next?</h2>
+</div>
 
 <p>We have only just touched the beginning of the theory. The tensor product that we defined in this post might be called a <em>binary tensor product</em>, or <em>$2$-fold tensor product</em>. We will extend this definition to an arbitrary number $n$ of vector spaces, creating <em>$n$-fold tensor products</em>. These tensor products are a particular type of tensor product called <em>contravariant</em>; we will define the other types of tensors, called <em>covariant tensors</em>, but that definition will first require a preliminary discussion of linear duality. All of this will be covered in the next few posts!</p>
 
-<h2 id="further-reading">Further reading</h2>
+<div id="further">
+  <h2 id="further-reading">Further reading</h2>
+</div>
 
 <p>I first learned tensor products from Atiyah and MacDonald’s classic text <em>Introduction to Commutative Algebra</em> <sup id="fnref:AtiyahMacDonald1969" role="doc-noteref"><a href="#fn:AtiyahMacDonald1969" class="footnote" rel="footnote">4</a></sup>. The treatment of tensors given there is for modules over an arbitrary commutative ring, not necessarily a field like $\bbr$. My flippant attitude regarding what a tensor product actually <em>is</em>, is summarized by Atiyah and MacDonald when they write:</p>
 
@@ -323,7 +347,9 @@ T^{11} &amp; \cdots &amp; T^{1n} \\ \vdots &amp; \ddots &amp; \vdots \\ T^{m1} &
 
 <p>Besides Atiyah and MacDonald’s text, I also recommend Mac Lane and Birkhoff’s simply-titled text <em>Algebra</em><sup id="fnref:BirkhoffMacLane1988" role="doc-noteref"><a href="#fn:BirkhoffMacLane1988" class="footnote" rel="footnote">5</a></sup>. In Chapter XVI of this latter text, both contravariant <em>and</em> covariant tensors are introduced, the latter of which are not mentioned in Atiyah and MacDonald’s text.</p>
 
-<h2 id="references-and-footnotes">References and footnotes</h2>
+<div id="references">
+  <h2 id="references-and-footnotes">References and footnotes</h2>
+</div>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>

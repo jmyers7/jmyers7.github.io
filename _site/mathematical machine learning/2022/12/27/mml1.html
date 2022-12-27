@@ -110,7 +110,7 @@
   <li><a href="#MAP" style="font-family: 'Lora', serif; font-size: 1em;">Maximum a posteriori estimation</a></li>
   <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
   <li><a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a></li>
-  <li><a href="#end" style="font-family: 'Lora', serif; font-size: 1em;">Footnotes and references</a></li>
+  <li><a href="#end" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
 </ol>
 
 <h2 id="prerequisites">Prerequisites</h2>
@@ -361,22 +361,20 @@ Q(C) = \int_\caly P(C(y)|y) \ P(\text{d}y).
 
 <ol>
   <li>We suppose that $Q$ has density $\varphi(x,y)$ with respect to an ambient $\sigma$-finite product measure $\mu \times \nu$ on $\calx \times \caly$.</li>
-  <li>The marginal distribution on $\calx$ has density given by</li>
-</ol>
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
-m(x) = \int_\caly \varphi(x,y) \ \nu(\text{d}y).
-\end{equation}</p>
-</div>
-<ol>
-  <li>Given $x\in \calx$, the conditional distribution $P(-|x)$ on $\caly$ has density given by</li>
-</ol>
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
-f(y|x) = \frac{\varphi(x,y)}{m(x)}.
-\end{equation}</p>
-</div>
-<ol>
+  <li>The marginal distribution on $\calx$ has density given by
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
+ m(x) = \int_\caly \varphi(x,y) \ \nu(\text{d}y).
+ \end{equation}</p>
+    </div>
+  </li>
+  <li>Given $x\in \calx$, the conditional distribution $P(-|x)$ on $\caly$ has density given by
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
+ f(y|x) = \frac{\varphi(x,y)}{m(x)}.
+ \end{equation}</p>
+    </div>
+  </li>
   <li>The probability model $Q$, and the marginal distribution on $\calx$ and conditional distributions on $\caly$, are all related via the equation</li>
 </ol>
 <div style="overflow: scroll">
@@ -429,7 +427,7 @@ f(y|x) = \frac{\ell(y|x) \pi(y)}{\int_\caly \ell(y’|x) \pi(y’) \ \nu(\text{d
 <p>In this post, we went from the probability model $Q$ on the cartesian product $\calx \times \caly$ to the marginal distribution and the conditional distributions. However, it’s possible to reverse this process, and go from the marginal distribution and conditional distributions to the probability model. The theorems that allow you to do this—which might be called “Integration Theorems”, since they are the conceptual inverses of the Disintegration Theorems—may be found in Chapter 4 of Pollard’s book mentioned above, or Chapter 2 of Ash’s <em>Probability &amp; Measure Theory</em><sup id="fnref:Ash2000" role="doc-noteref"><a href="#fn:Ash2000" class="footnote" rel="footnote">5</a></sup>. Indeed, this is the framework in which much of bayesian statistics and inference takes place, where you <em>begin</em> with the prior distribution and likelihood function, and the explicit joint distribution takes a secondary role.</p>
 
 <div id="end">
-  <h2 id="footnotes-and-references">Footnotes and references</h2>
+  <h2 id="references-and-footnotes">References and footnotes</h2>
 </div>
 <div class="footnotes" role="doc-endnotes">
   <ol>

@@ -94,6 +94,17 @@
 
 <p>We are still a good ways off from applying our theory of tensors to neural networks. But stay the course!—it will all be worth it when we get there!</p>
 
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#first-section" style="font-family: 'Lora', serif; font-size: 1em;">A first look at tensors implemented in <code>NumPy</code></a></li>
+  <li><a href="#rank-3-tensors" style="font-family: 'Lora', serif; font-size: 1em;">Rank-3 tensors</a></li>
+  <li><a href="#rank-3-tensors-machine" style="font-family: 'Lora', serif; font-size: 1em;">Rank-3 tensors in the machine</a></li>
+  <li><a href="#tensors-arb-order" style="font-family: 'Lora', serif; font-size: 1em;">Tensors of arbitrary order</a></li>
+  <li><a href="#generalized" style="font-family: 'Lora', serif; font-size: 1em;">Generalized tensor products</a></li>
+  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
+</ol>
+
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>We will be dealing with component expressions for tensors quite a bit, and hence the single most important prerequisite for this post is a thorough familiarity with the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html#tensor-basis-thm">Tensor Basis Theorem</a> from the first post.</p>
@@ -224,7 +235,9 @@ v^1w^1 &amp; \cdots &amp; v^1w^n \\ \vdots &amp; \ddots &amp; \vdots \\ v^mw^1 &
 
   <p>To make sure that you’re following along, check for yourself that the output of this code is consistent with \eqref{concrete_tensor_matrix-eqn} and \eqref{concrete_tensor_vector-eqn}. And, in case you’re wondering, I will explain the meaning of the <code>axes</code> parameter of the function <code>tensordot</code> later.</p>
 
-  <h2 id="rank-3-tensors">Rank-3 tensors</h2>
+  <div id="rank-3-tensors">
+    <h2 id="rank-3-tensors">Rank-3 tensors</h2>
+  </div>
 
   <p>I introduced tensors and tensor products in the <a href="/tensors%20and%20deep%20learning/2022/11/19/tensors1.html">first post</a> by considering a “hypothetical” binary product of two vectors $v\in V$ and $w\in W$. If we write $\otimes$ to represent this product, then we required that it satisfy the bilinearity relations</p>
 
@@ -320,7 +333,9 @@ T = T^{\alpha\beta\gamma} e_\alpha \otimes f_\beta \otimes g_\gamma,
 
   <p>with summation over repeated indices implied.</p>
 
-  <h2 id="rank-3-tensors-in-the-machine">Rank-3 tensors in the machine</h2>
+  <div id="rank-3-tensors-machine">
+    <h2 id="rank-3-tensors-in-the-machine">Rank-3 tensors in the machine</h2>
+  </div>
 
   <p>If $T$ is a rank-$2$ tensor, then we may take its components $T^{\alpha\beta}$ and visually arrange them into a rectangular $2$-D matrix. This matrix—which I have said we will denote by $\mathtt{T}$—is a <em>concrete matrix representation</em> of the abstract tensor $T$.</p>
 
@@ -481,7 +496,9 @@ V \times W \times U \to V \times (W \otimes U) \to V \otimes (W \otimes U)
 
   <p>The identification of the three tensors \eqref{associativity-eqn} under these “natural isomorphisms” is called the <em>associativity</em> property of the tensor product. Again, we’re dealing with some rather subtle mathematics when we claim that these tensors are not actually equal—if this doesn’t sit well with you, just treat the tensors as if they are the same, but know that there is something subtle going on in the background. You won’t run into too much trouble.</p>
 
-  <h2 id="tensors-of-arbitrary-order">Tensors of arbitrary order</h2>
+  <div id="tensors-arb-order">
+    <h2 id="tensors-of-arbitrary-order">Tensors of arbitrary order</h2>
+  </div>
 
   <p>The <a href="#bilinearity" class="article">bilinearity relations</a> are also called the <em>$2$-fold multilinearity</em> relations, while the <a href="#trilinearity" class="article">trilinearity relations</a> are also called the <em>$3$-fold multilinearity</em> relations. Do you see a pattern in passing from the former to the latter? Can you generalize one step further and write down the relations that would characterize $4$-fold multilinearity? <em>Hint:</em> They come in two sets of four, for a total of eight relations.</p>
 
@@ -526,7 +543,9 @@ T = T^{\alpha_1\ldots\alpha_n} e_{\alpha_1} \otimes \cdots \otimes e_{\alpha_n},
 
   <p>I will leave it to you to figure out how to code, say, a $5$-D array representation in <code>NumPy</code>.</p>
 
-  <h2 id="generalized-tensor-products">Generalized tensor products</h2>
+  <div id="generalized">
+    <h2 id="generalized-tensor-products">Generalized tensor products</h2>
+  </div>
 
   <p>In this last section of this post, I want to define the most general type of tensor product that we will consider. To describe it, notice that, up till now, our tensor products (as multiplications) take the form</p>
 
@@ -668,7 +687,9 @@ S \otimes T = S^{\alpha\beta}T^{\gamma\delta\epsilon} e_\alpha \otimes e_\beta \
 
 <p>And there we have it!</p>
 
-<h2 id="whats-next">What’s next?</h2>
+<div id="next">
+  <h2 id="whats-next">What’s next?</h2>
+</div>
 
 <p>The tensors we have covered so far are all of the <em>contravariant</em> variety. Before we apply our theory to neural networks, however, we will need to talk about the second variety, called <em>covariant</em> tensors. We will also need to combine the two varieties to obtain so-called <em>mixed tensors</em>. We will cover all of this in the next post!</p>
 

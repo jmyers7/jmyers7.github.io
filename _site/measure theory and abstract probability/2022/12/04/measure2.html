@@ -92,11 +92,24 @@
 
 <p>I gave the definition of a “semi-measure space” in the <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">first post</a> of this series, a concept of my own invention. These spaces serve only as a stepping stone toward the complete definition of an (abstract) <em>measure space</em>, which I give in this post. These measure spaces serve as the foundation for the general theory of (abstract) integration that we will define in later posts.</p>
 
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#reform" style="font-family: 'Lora', serif; font-size: 1em;">A reformulation of Riemann integrability</a></li>
+  <li><a href="#riemann" style="font-family: 'Lora', serif; font-size: 1em;">A first look at the Lebesgue integral</a></li>
+  <li><a href="#measure" style="font-family: 'Lora', serif; font-size: 1em;">Measure spaces</a></li>
+  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
+  <li><a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a></li>
+  <li><a href="#references" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
+</ol>
+
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>You’ll need to know the definition of a semi-measure space, the Jordan algebra $\mfj$, and the Jordan semi-measure $\lambda$ from the <a href="/measure%20theory%20and%20abstract%20probability/2022/11/12/measure1.html">first post</a> in the series. As in that first post, it will also be convenient to have a familiarity with the theory of the Riemann integral, in order to appreciate the “pre-definition” of the Lebesgue integral that I give here.</p>
 
-<h2 id="a-reformulation-of-riemann-integrability">A reformulation of Riemann integrability</h2>
+<div id="reform">
+  <h2 id="a-reformulation-of-riemann-integrability">A reformulation of Riemann integrability</h2>
+</div>
 
 <p>In most first courses on real analysis, one defines the Riemann integral of a bounded function $f:[a,b] \to \bbr$ via the so-called <em>upper</em> and <em>lower Riemann integrals</em>. The latter is always less than or equal to the former, and when they coincide, the function $f$ is called <em>Riemann integrable</em> and their common value is defined to be the <em>Riemann integral</em>, denoted</p>
 
@@ -159,7 +172,9 @@ a=x_0 &lt; x_1 &lt; \cdots &lt; x_n=b.
 
 <p>In this last picture, the step function $s:[a,b] \to \bbr$ consists of ten “steps”, though its range only contains eight unique values since two pairs of steps have the same $y$-value.</p>
 
-<h2 id="a-first-look-at-the-lebesgue-integral">A first look at the Lebesgue integral</h2>
+<div id="riemann">
+  <h2 id="a-first-look-at-the-lebesgue-integral">A first look at the Lebesgue integral</h2>
+</div>
 
 <p>As I just mentioned, one can use the <a href="#criterion">Criterion for Riemann Integrability</a> to <em>define</em> Riemann integrals via approximations by step functions. This is essentially what the Lebesgue theory does in order to define Lebesgue integrals, except step functions are replaced with more general types of functions. Indeed, as we will see later, the Lebesgue integral may be defined for a function on an arbitrary measure space $\calx$. In particular, $\calx$ might not be the real line $\bbr$, and so $\calx$ might not be linearly ordered. In this case there is no natural way to define a “step function” $s:\calx \to \bbr$, so one needs another class of functions that extends the class of step functions.</p>
 
@@ -212,7 +227,9 @@ f_k = \chi_1 + \cdots + \chi_k \quad (k=1,2,\ldots)
 
 <p>The sense in which the Jordan algebra $\mfj$ is “too small” is made precise in the fact that, while it is closed under <em>finite</em> unions, it is not closed under <em>countably infinite</em> unions.</p>
 
-<h2 id="measure-spaces">Measure spaces</h2>
+<div id="measure">
+  <h2 id="measure-spaces">Measure spaces</h2>
+</div>
 
 <p>Our considerations have led us directly to:</p>
 
@@ -256,11 +273,15 @@ f_k = \chi_1 + \cdots + \chi_k \quad (k=1,2,\ldots)
 
 <p>I will give many more examples of measures spaces in coming posts, including examples of probability spaces that model <em>continuous</em> probability.</p>
 
-<h2 id="whats-next">What’s next?</h2>
+<div id="next">
+  <h2 id="whats-next">What’s next?</h2>
+</div>
 
 <p>The Jordan semi-measure $\lambda$ is only defined on the Jordan algebra $\mfj$, and the latter is only an algebra of sets, and not a $\sigma$-algebra. As I mentioned above, this limits the usefulness of the Jordan algebra $\mfj$ in setting up a general integration theory that extends the Riemann theory. The goal in the next post is to extend the Jordan algebra $\mfj$ to a $\sigma$-algebra and the Jordan semi-measure $\lambda$ to a measure on the resulting measure space.</p>
 
-<h2 id="further-reading">Further reading</h2>
+<div id="further">
+  <h2 id="further-reading">Further reading</h2>
+</div>
 
 <p>I have attempted to motivate the definition of a $\sigma$-algebra by explaining that the Jordan algebra $\mfj$ is “too small” for a good theory. However, you might still remain unconvinced: Does the property of closure under countable unions <em>really</em> suggest itself so naturally as I would have you believe? And, in the context of probability theory, it seems even <em>more</em> mysterious why we would ever consider countably infinite unions of events.</p>
 
@@ -282,7 +303,9 @@ A_1 \supset A_2 \supset \cdots \supset A_n \supset \cdots
 
 <p>You might also read the first chapter of Pollard’s <em>A User’s Guide to Measure Theoretic Probability</em><sup id="fnref:Pollard2002" role="doc-noteref"><a href="#fn:Pollard2002" class="footnote" rel="footnote">3</a></sup>, particularly the first section in the first chapter titled “Why bother with measure theory?” The “Notes” section at the end of the chapter also (briefly) discusses some history of measure theory and measure-theoretic probability, and includes a good list of references to further reading.</p>
 
-<h2 id="references-and-footnotes">References and footnotes</h2>
+<div id="references">
+  <h2 id="references-and-footnotes">References and footnotes</h2>
+</div>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
