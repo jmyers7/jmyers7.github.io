@@ -33,6 +33,7 @@
                 calf: ['\\mathcal{F}'],
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
                 calx: ['\\mathcal{X}'],
                 caly: ['\\mathcal{Y}'],
                 calz: ['\\mathcal{Z}'],
@@ -318,7 +319,7 @@ Q(C) = \int_\caly P(C(y)|y) \ P(\text{d}y).
 \end{equation}</p>
 </div>
 
-<div class="highlight-box">
+<div class="highlight-box" id="conditional-prob">
   <p><strong>Definition.</strong> The distribution $P(-|y)$ on $\calx$ is called the <em>conditional distribution given $y\in \caly$</em>. Its density $f(x|y)$ is called the <em>conditional density given $y\in \caly$.</em></p>
 </div>
 
@@ -390,6 +391,12 @@ Q(C) = \int_\calx P(C(x)|x) \ \mu(\text{d}x).
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
 f(y|x) = \frac{\ell(y|x) \pi(y)}{\int_\caly \ell(y’|x) \pi(y’) \ \nu(\text{d}y’).}
+\end{equation}</p>
+  </div>
+  <p>If we write the conditional density $f(x|y)$ in place of the likelihood, then this becomes:</p>
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
+f(y|x) = \frac{f(x|y) \pi(y)}{\int_\caly f(x|y’) \pi(y’) \ \nu(\text{d}y’).}
 \end{equation}</p>
   </div>
 </div>

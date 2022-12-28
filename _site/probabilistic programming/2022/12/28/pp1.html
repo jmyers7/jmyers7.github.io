@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>bayesian fundamentals</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        tex: {
+          tags: 'ams',
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfm: ['\\mathfrak{M}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+          }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        
+<div class="post-title">
+  <h1 class="accent-color">bayesian fundamentals</h1>
+</div>
+
+<p>One definition—among many that you will find on the Internet and in textbooks—is that <em>probabilistic programming</em> is about applying the tools of computer science to statistics. From this point of view, probabilistic programming is about <em>actualizing</em> the abstract models that statisticians and mathematicians create. There are well-known software packages that encode these models in languages familiar to machine learning engineers and data scientists: for example, the <code>rjags</code> and <code>rstanarm</code> packages in <code>R</code>, and <code>PyMC</code> and <code>TensorFlow Probability</code> in <code>Python</code>. My goal in this series of posts is to explore this world of probabilistic programming, and to learn how it can be useful in machine learning tasks.</p>
+
+<p>My interest in probabilistic programming first arose in bayesian modeling, in particular, in the study of Markov chain Monte Carlo methods and the various algorithms to sample from posterior distributions. I will thus focus this first post on bayesian fundamentals, building up the mathematical background knowledge and language in order to understand the algorithms that will follow in the second post. In fact, this first post will be <em>entirely</em> directed at studying a <em>single</em> model which, according to Robert<sup id="fnref:Robert2007" role="doc-noteref"><a href="#fn:Robert2007" class="footnote" rel="footnote">1</a></sup>, was considered by Bayes himself in 1764. The expert reader will notice that this model is nothing but the familiar beta-binomial model which is often presented in the context of biased coin flips in introductory texts, but framing this model in the context of Bayes’ “rolling balls” at least offers some variety. :)</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#prob-model" style="font-family: 'Lora', serif; font-size: 1em;">The bayesian probabilistic model</a></li>
+  <li><a href="#posterior" style="font-family: 'Lora', serif; font-size: 1em;">The posterior distribution</a></li>
+  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
+  <li><a href="#end" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>Probabilistic models will be the focus of this first post, so you’ll need to be familiar with these gadgets as defined in my <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html">post</a> from my series on mathematical machine learning. Also, if you don’t already know it, Bayes’ Theorem is stated and proved in that same post.</p>
+
+<div id="prob-model">
+  <h2 id="the-bayesian-probabilistic-model">the bayesian probabilistic model</h2>
+</div>
+
+<p>As I mentioned in the introduction, we will consider a single example to illustrate bayesian modeling which, according to Robert <sup id="fnref:Robert2007:1" role="doc-noteref"><a href="#fn:Robert2007" class="footnote" rel="footnote">1</a></sup>, is due to Bayes in 1764. The description I give below is taken verbatim from page 11 of Robert’s text.</p>
+
+<div class="highlight-box" id="problem">
+  <p><strong>Bayes’ Problem.</strong></p>
+  <blockquote>
+    <p>A billiard ball $W$ is rolled on a line of length one, with uniform probability of stopping anywhere. It stops at $p$. A second ball $O$ is then rolled $n$ times under the same assumptions and $X$ denotes the number of times the ball $O$ stopped to the left of $W$. <em>Given $X$, what inference can we make on $p$?</em></p>
+  </blockquote>
+</div>
+
+<p>First, instead of writing an uppercase $X$ to denote the random variable, I will write a lowercase $x$.<sup id="fnref:footnote" role="doc-noteref"><a href="#fn:footnote" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>Now, let’s model the line (of length $1$) by the unit interval $I = [0,1]$, where we imagine that the balls are rolling from left to right, starting at $0$. To say that the balls $W$ and $O$ have uniform probability of stopping <em>anywhere</em> in $I$ means that the probability of a ball stopping in the subinterval $[a,b]$ of $I$ is equal to the length $b-a$ of that interval.</p>
+
+<p>There are two sources of uncertainty (or randomness) in this problem: the value of $p$, and the value of $x$. We can model both sources of uncertainty <em>simultaneously</em> via a probabilistic model $Q$ on the cartesian product $\calx \times \calp$, where</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+\calx = \left\{0,1,\ldots,n\right\} \quad \text{and} \quad \calp = [0,1].
+\end{equation}</p>
+</div>
+
+<p>Here, $\calx$ serves as the domain for $x$, while $\calp$ serves as the domain for $p$. The first space is given the counting measure $\mu$, while the second is given the standard Lebesgue measure $\lambda$. In order to define the model $Q$, it suffices to describe its density with respect to the product measure $\mu \times \lambda$.</p>
+
+<p>However, the usual workflow in a bayesian modeling problem does <em>not</em> begin with the full probabilistic model on the cartesian product. Instead, the workflow usually begins with the conditional distributions $P(-|p)$ on $\calx$ and the prior (or marginal) distribution $P$ on $\calp$. Given these distributions, one can integrate the conditional distributions against the prior distribution to obtain the probabilistic model, i.e., we can use the “disintegration formula”</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}
+\label{disintegrate-eqn}
+Q(C) = \int_\caly P(C(p) | p) \ P(\text{d}p) = \int_0^1 P(C(p)|p) \dx{p},
+\end{equation}</p>
+</div>
+
+<p>to recover $Q$, where $C$ is a product-measurable set and</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+C(p) = \left\{ x\in \calx : (x,p) \in C\right\}.
+\end{equation}</p>
+</div>
+
+<p>This is the strategy that we will follow: first describing the distributions $P(-|p)$ on $\calx$ and their densities $f(x|p)$ and the prior distribution $P$ on $\calp$ and its density $\pi(p)$.</p>
+
+<p>Now, if $W$ stops at the point $p\in I$, then the probability that $O$ stops to the <em>left</em> of $W$ is $p$, while the probability that it stops to the <em>right</em> is $1-p$. It follows that the random variable $x$ is distributed binomially:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+x \sim \mathcal{B}inom(n, p).
+\end{equation}</p>
+</div>
+
+<p>Thus, the probability distribution of $x$ depends on the parameter $p$, but, crucially, this parameter is <em>not</em> a fixed (but unknown) constant—rather, it is a random variable itself, with distribution</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+p \sim \mathcal{U}(0,1).
+\end{equation}</p>
+</div>
+
+<p><em>This</em> is the defining characteristic of bayesian models: they are statistical models that depend on parameters which <em>themselves</em> are random variables with probability distributions. In contrast to $p$, the parameter $n$ is a fixed constant (decided upon and set ahead of time, before the experiment begins), which means that it is a so-called <em>hyperparameter</em> of the bayesian model.</p>
+
+<p>It follows that the conditional densities are given by</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(x|p) = \binom{n}{x}p^x(1-p)^{n-x},
+\end{equation}</p>
+</div>
+
+<p>while the prior density is given by $\pi(p)=1$. Directly from \eqref{disintegrate-eqn} it then follows that</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+Q(x, \ a\leq p \leq b) = \int_a^b \binom{n}{x} p^{x}(1-p)^{n-x} \dx{p},
+\end{equation}</p>
+</div>
+
+<p>where the left-hand side is shorthand for $Q( \left\{x\right\} \times [a,b])$. In order to compute the density of $Q$, we first observe that</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+Q(x, \ a\leq p \leq a+\dev) \approx \dev \binom{n}{x} p^{x}(1-p)^{n-x},
+\end{equation}</p>
+</div>
+
+<p>for small $\dev&gt;0$; after dividing both sides by $\dev$ and letting $\dev\to 0$ (to compute the Randon-Nikodym derivative), we see that the density of $Q$ is exactly</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+\varphi(x, p) = \binom{n}{x} p^{x}(1-p)^{n-x}.
+\end{equation}</p>
+</div>
+
+<p>Note that this formula is consistent with the formula $\varphi(x,p) = f(x|p) \pi(p)$ from the <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html">post</a> on probabilistic models.</p>
+
+<p>With this density in hand, we’ve completed the description of the bayesian probabilistic model $Q$. If we fix a value of $n$, say $n=100$, then we can use the machine to simulate draws from the model, which shows the majority of the mass of the model is concentrated on a diagonal in the space $\calx \times \calp$:</p>
+
+<p><img src="/assets/images/joint.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>In this figure, the marginal distributions of $x$ and $p$ are displayed as histograms above and to the right of the scatter plot. Of course, the marginal distribution of $p$ (i.e., the prior distribution) is uniform, and so I’ve lumped all of the values of $p$ together into a single bin in the histogram. The plots make sense, for if $p$ is small, we expect to see fewer balls stopping to the left of $W$, while if $p$ is large, we expect to see many.</p>
+
+<p>We may visualize the conditional distributions by taking sections across the joint distribution; this amounts to slicing the first figure horizontally:</p>
+
+<p><img src="/assets/images/conditional.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>In this figure, we see two simulated representations of the distributions $P(-|p=0.4)$ and $P(-|p=0.8)$. Note that the modes of these distributions appear to be $40$ and $80$, respectively, which is what we would expect to see if $p=0.4$ and $p=0.8$.</p>
+
+<div id="posterior">
+  <h2 id="the-posterior-distribution">the posterior distribution</h2>
+</div>
+
+<p>We now have the conditional densities $f(x|p)$ and the prior density $\pi(p)$. To obtain the posterior density, i.e., the conditional density $f(p|x)$, we simply apply <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html#bayes">Bayes’ Theorem</a>. For fixed $x$, we get:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{align}
+f(p|x) &amp;= \frac{f(x|p)\pi(p)}{\int_0^1 f(x|p’)\pi(p’) \dx{p’}} \notag \\ &amp;\propto p^x(1-p)^{n-x} \notag \\ &amp;= p^{(x+1)-1}(1-p)^{(n-x+1)-1}. \notag
+\end{align}</p>
+</div>
+
+<p>We recognize the last expression as part of a $\mathcal{B}eta(x+1,n-x+1)$ distribution; but, in fact, since $f(p|x)$ must integrate to $1$ over $p$, we see that the constant of proportionality that we dropped must be exactly the “missing part” of the beta distribution, and hence</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation} \notag
+f(p|x) \sim \mathcal{B}eta(x+1,n-x+1).
+\end{equation}</p>
+</div>
+
+<p>If, for example, we rolled the ball $O$ exactly $n=100$ times and observed $x=42$ many balls to the left of $W$, then the prior uniform distribution $\pi(p)$ will update to a $\mathcal{B}eta(43, 59)$ posterior distribution:</p>
+
+<p><img src="/assets/images/single-posterior.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>The effect of the update is less drastic if $n$ is smaller. For example, if $n=3$ and $x=2$, the figure becomes:</p>
+
+<p><img src="/assets/images/smaller-posterior.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>In the extreme case when we roll only $n=1$ ball, we might see either no ball ($x=0$) to the left of $W$, or one ball ($x=1$):</p>
+
+<p><img src="/assets/images/many-posteriors.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>When $n=1$, the random variable $x$ is distributed as a simple Bernoulli variable with density</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(x|p) = p^x ( 1-p)^{1-x}.
+\end{equation}</p>
+</div>
+
+<p>We might suppose that our original $n$ rolls of the ball is instead viewed as a sequence $x_1,x_2,\ldots,x_n$ of independent Bernoulli variables. This is the familiar sampling paradigm, where we use iid ($=$ independent, identically distributed) sequences of random variables to model observed data.</p>
+
+<p>Let’s write</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+X = ( x_1,x_2,\ldots,x_n)
+\end{equation}</p>
+</div>
+
+<p>to represent observed data, where each $x_i$ is a Bernoulli variable with $x_i=1$ representing the observation that the $i$-th roll of $O$ ended up to the left of $W$, and $x_i=0$ representing the observation that it ended up to the right. For example, we might have $n=10$, and</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}
+\label{obs-eqn}
+X = (1, 0, 1, 1, 1, 1, 1, 0, 1, 1),
+\end{equation}</p>
+</div>
+
+<p>which means the first roll ended up to the left, the second to the right, <em>etc</em>.</p>
+
+<p>Imagine that you roll the ball once and observe $x_1$. You use this observation to make your first update from the prior $\pi(p)$ to the (first) posterior $f(p|x_1)$ via Bayes’ Theorem:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(p|x_1) \propto f(x_1|p) \pi(p).
+\end{equation}</p>
+</div>
+
+<p>Now, you roll the ball a second time and observe $x_2$. With $f(p|x_1)$ as your new prior, representing the information that you know about $p$ after having observed $x_1$, you use Bayes’ Theorem again to update to a new posterior, which encodes what you know about $p$ after having observed <em>both</em> $x_1$ and $x_2$:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(p|x_1, x_2) \propto f(x_2|p) f(p|x_1).
+\end{equation}</p>
+</div>
+
+<p>Roll the ball a third time, and make an update:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(p|x_1, x_2, x_3) \propto f(x_3|p) f(p|x_1,x_2).
+\end{equation}</p>
+</div>
+
+<p>Finally, after having collected $n$ observations after rolling the ball $n$ times, and updating the posterior each time after rolling a single ball, you would end up with</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(p|x_1, x_2, \ldots, x_n) \propto f(x_n|p) f(p|x_1,x_2,\ldots,x_{n-1}).
+\end{equation}</p>
+</div>
+
+<p>This final posterior density $f(p|x_1,x_2,\ldots,x_n)$ represents everything that you know after having observed all $n$ rolls.</p>
+
+<p>For example, suppose that $n=10$ and you observed the sequence \eqref{obs-eqn} from above, with</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+X = (1, 0, 1, 1, 1, 1, 1, 0, 1, 1).
+\end{equation}</p>
+</div>
+
+<p>After the first roll, the ball ended up to the left of $W$, and hence you would expect the mass of the posterior distribution $f(p|x_1)$ to shift toward the right from its original uniform distribution, as we saw above. But then the second roll ended up to the right of $W$, and thus you might now be uncertain as to the position of $p$, believing it to be somewhere around $0.5$. As you roll the ball each of the ten times, and update your posterior, the following figure shows the progression of posteriors that you would see:</p>
+
+<p><img src="/assets/images/ridge.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>After recording the second observation $x_2=0$, which tugs the mode of the distribution toward the left, the next five rolls resulted in the ball ending up the left of $W$, which moves the mode of the distribution toward the right five times. But then you observed $x_8=0$, which pulls the mode back toward the left, before the mode is pulled back toward the right after observing $x_9=1$ and $x_{10}=1$. In total, the ball ended up to the left of $W$ eight times, and this is reflected in the final posterior in the figure, with the majority of its density concentrated near $0.8$.</p>
+
+<p>Going back to the general case, an easy induction proof shows that</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(p|x_1, x_2, \ldots, x_n) \propto \left\{\prod_{i=1}^n f(x_n|p)\right\} \pi(p).
+\end{equation}</p>
+</div>
+
+<p>However, by our independence assumption, we have</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(X|p) = \prod_{i=1}^n f(x_i|p)
+\end{equation}</p>
+</div>
+
+<p>where $X = (x_1,x_2,\ldots,x_n)$. Thus, we can compute the final posterior $f(p|X)$ by simply using Bayes’ Theorem once:</p>
+
+<div style="overflow: scroll">
+  <p>\begin{equation}\notag
+f(p|X) \propto f(X|p) \pi(p).
+\end{equation}</p>
+</div>
+
+<p>Great! We’ve essentially found an answer to <a href="#problem" class="article">Bayes’ Problem</a>, which sought valid inferences that we could make on the parameter $p$, given observations $X$. This encapsulates the general gist of bayesian modeling:</p>
+
+<div class="highlight-box">
+  <p><strong>Bayesian modeling.</strong></p>
+
+  <ol>
+    <li>We seek to model some sort of process or phenomenon.</li>
+    <li>The model that we select is a probabilistic one, that depends on parameters.</li>
+    <li>These parameters are unknown and uncertain. The uncertainty is encoded in a <em>prior</em> probability distribution over the parameters.</li>
+    <li>We obtain data or observations from the process or phenomenon that is being modeled.</li>
+    <li>Using the observed data, we use Bayes’ Theorem to update the prior distribution on the parameter to the <em>posterior</em> distribution.</li>
+    <li>Repeat steps (4.) and (5.).</li>
+  </ol>
+</div>
+
+<div id="next">
+  <h2 id="whats-next">What’s next?</h2>
+</div>
+
+<p>The bayesian probabilistic model that we developed in this post is the well-known beta-binomial model. It has the (very) desirable feature that its posterior distribution can be analytically obtained (i.e., by hand) and sampled from. However, this is <em>not</em> the case for most bayesian models. Instead, in practice one needs to use certain sampling algorithms. We will explore some of these in the next post.</p>
+
+<div id="end">
+  <h2 id="references-and-footnotes">References and footnotes</h2>
+</div>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Robert2007" role="doc-endnote">
+      <p>C. P. Robert. <em>The Bayesian choice. From decision-theoretic foundations to computational implementation.</em> Corrected paperback reprint of the second edition. Springer Texts in Statistics. Springer, New York, 2007. <a href="#fnref:Robert2007" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:Robert2007:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:footnote" role="doc-endnote">
+      <p>This practice of intentionally confusing a random variable $X$ with one of its realizations $x$ is common in some texts on bayesian statistics. In particular, Robert follows this convention in his text, with the only apparent exception being in his statement of Bayes’ Problem. <a href="#fnref:footnote" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+    
+  </body>
+</html>
