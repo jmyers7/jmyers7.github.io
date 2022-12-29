@@ -372,7 +372,7 @@ Q(C) = \int_\caly P(C(y)|y) \ P(\text{d}y).
   <li>Given $x\in \calx$, the conditional distribution $P(-|x)$ on $\caly$ has density given by
     <div style="overflow: scroll">
       <p>\begin{equation}\notag
- f(y|x) = \frac{\varphi(x,y)}{m(x)}.
+ \pi(y|x) = \frac{\varphi(x,y)}{m(x)}.
  \end{equation}</p>
     </div>
   </li>
@@ -390,18 +390,18 @@ Q(C) = \int_\calx P(C(x)|x) \ \mu(\text{d}x).
   <p><strong>Bayes’ Theorem.</strong> Letting the notation be as above, there is an equality</p>
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
-f(y|x) = \frac{\ell(y|x) \pi(y)}{\int_\caly \ell(y’|x) \pi(y’) \ \nu(\text{d}y’).}
+\pi(y|x) = \frac{\ell(y|x) \pi(y)}{\int_\caly \ell(y’|x) \pi(y’) \ \nu(\text{d}y’).}
 \end{equation}</p>
   </div>
   <p>If we write the conditional density $f(x|y)$ in place of the likelihood, then this becomes:</p>
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
-f(y|x) = \frac{f(x|y) \pi(y)}{\int_\caly f(x|y’) \pi(y’) \ \nu(\text{d}y’).}
+\pi(y|x) = \frac{f(x|y) \pi(y)}{\int_\caly f(x|y’) \pi(y’) \ \nu(\text{d}y’).}
 \end{equation}</p>
   </div>
 </div>
 
-<p>In the bayesian scheme, the various distributions and densities that we’ve discovered all have special names: The distribution on $\caly$ with density $\pi(y)$ is called the <em>prior distribution</em>, the distribution on $\caly$ with density $f(y|x)$ is called the <em>posterior distribution</em>, and the marginal distribution on $\calx$ with density $m(x)$ is called the <em>evidence</em>. Holding $x$ fixed and viewing the evidence as constant, Bayes’ Theorem then yields the following fundamental proportionality relation:</p>
+<p>In the bayesian scheme, the various distributions and densities that we’ve discovered all have special names: The distribution on $\caly$ with density $\pi(y)$ is called the <em>prior distribution</em>, the distribution on $\caly$ with density $\pi(y|x)$ is called the <em>posterior distribution</em>, and the marginal distribution on $\calx$ with density $m(x)$ is called the <em>evidence</em>. Holding $x$ fixed and viewing the evidence as constant, Bayes’ Theorem then yields the following fundamental proportionality relation:</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
@@ -414,7 +414,7 @@ f(y|x) = \frac{f(x|y) \pi(y)}{\int_\caly f(x|y’) \pi(y’) \ \nu(\text{d}y’)
 <p>We end this post with formally stating the MAP algorithm:</p>
 
 <div class="highlight-box">
-  <p><strong>Maximum a Posteriori Estimation.</strong> To predict the label of a given feature $x\in \calx$, we simply choose the label $y\in \caly$ that maximizes the probability density $f(y|x).$</p>
+  <p><strong>Maximum a Posteriori Estimation.</strong> To predict the label of a given feature $x\in \calx$, we simply choose the label $y\in \caly$ that maximizes the probability density $\pi(y|x).$</p>
 </div>
 
 <div id="next">

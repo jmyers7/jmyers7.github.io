@@ -227,15 +227,15 @@ Q(x, \ a\leq p \leq a+\dev) \approx \dev \binom{n}{x} p^{x}(1-p)^{n-x},
 
 <div style="overflow: scroll">
   <p>\begin{align}
-f(p|x) &amp;= \frac{f(x|p)\pi(p)}{\int_0^1 f(x|p’)\pi(p’) \dx{p’}} \notag \\ &amp;\propto p^x(1-p)^{n-x} \notag \\ &amp;= p^{(x+1)-1}(1-p)^{(n-x+1)-1}. \notag
+\pi(p|x) &amp;= \frac{f(x|p)\pi(p)}{\int_0^1 f(x|p’)\pi(p’) \dx{p’}} \notag \\ &amp;\propto p^x(1-p)^{n-x} \notag \\ &amp;= p^{(x+1)-1}(1-p)^{(n-x+1)-1}. \notag
 \end{align}</p>
 </div>
 
-<p>We recognize the last expression as part of a $\mathcal{B}eta(x+1,n-x+1)$ distribution; but, in fact, since $f(p|x)$ must integrate to $1$ over $p$, we see that the constant of proportionality that we dropped must be exactly the “missing part” of the beta distribution, and hence</p>
+<p>We recognize the last expression as part of a $\mathcal{B}eta(x+1,n-x+1)$ distribution; but, in fact, since $\pi(p|x)$ must integrate to $1$ over $p$, we see that the constant of proportionality that we dropped must be exactly the “missing part” of the beta distribution, and hence</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation} \notag
-f(p|x) \sim \mathcal{B}eta(x+1,n-x+1).
+\pi(p|x) \sim \mathcal{B}eta(x+1,n-x+1).
 \end{equation}</p>
 </div>
 
@@ -280,11 +280,11 @@ X = (1, 0, 1, 1, 1, 1, 1, 0, 1, 1),
 
 <p>which means the first roll ended up to the left, the second to the right, <em>etc</em>.</p>
 
-<p>Imagine that you roll the ball once and observe $x_1$. You use this observation to make your first update from the prior $\pi(p)$ to the (first) posterior $f(p|x_1)$ via Bayes’ Theorem:</p>
+<p>Imagine that you roll the ball once and observe $x_1$. You use this observation to make your first update from the prior $\pi(p)$ to the (first) posterior $\pi(p|x_1)$ via Bayes’ Theorem:</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-f(p|x_1) \propto f(x_1|p) \pi(p).
+\pi(p|x_1) \propto f(x_1|p) \pi(p).
 \end{equation}</p>
 </div>
 
@@ -292,7 +292,7 @@ f(p|x_1) \propto f(x_1|p) \pi(p).
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-f(p|x_1, x_2) \propto f(x_2|p) f(p|x_1).
+\pi(p|x_1, x_2) \propto f(x_2|p) f(p|x_1).
 \end{equation}</p>
 </div>
 
@@ -300,7 +300,7 @@ f(p|x_1, x_2) \propto f(x_2|p) f(p|x_1).
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-f(p|x_1, x_2, x_3) \propto f(x_3|p) f(p|x_1,x_2).
+\pi(p|x_1, x_2, x_3) \propto f(x_3|p) f(p|x_1,x_2).
 \end{equation}</p>
 </div>
 
@@ -308,11 +308,11 @@ f(p|x_1, x_2, x_3) \propto f(x_3|p) f(p|x_1,x_2).
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-f(p|x_1, x_2, \ldots, x_n) \propto f(x_n|p) f(p|x_1,x_2,\ldots,x_{n-1}).
+\pi(p|x_1, x_2, \ldots, x_n) \propto f(x_n|p) f(p|x_1,x_2,\ldots,x_{n-1}).
 \end{equation}</p>
 </div>
 
-<p>This final posterior density $f(p|x_1,x_2,\ldots,x_n)$ represents everything that you know after having observed all $n$ rolls.</p>
+<p>This final posterior density $\pi(p|x_1,x_2,\ldots,x_n)$ represents everything that you know after having observed all $n$ rolls.</p>
 
 <p>For example, suppose that $n=10$ and you observed the sequence \eqref{obs-eqn} from above, with</p>
 
@@ -322,7 +322,7 @@ X = (1, 0, 1, 1, 1, 1, 1, 0, 1, 1).
 \end{equation}</p>
 </div>
 
-<p>After the first roll, the ball ended up to the left of $W$, and hence you would expect the mass of the posterior distribution $f(p|x_1)$ to shift toward the right from its original uniform distribution, as we saw above. But then the second roll ended up to the right of $W$, and thus you might now be uncertain as to the position of $p$, believing it to be somewhere around $0.5$. As you roll the ball each of the ten times, and update your posterior, the following figure shows the progression of posteriors that you would see:</p>
+<p>After the first roll, the ball ended up to the left of $W$, and hence you would expect the mass of the posterior distribution $\pi(p|x_1)$ to shift toward the right from its original uniform distribution, as we saw above. But then the second roll ended up to the right of $W$, and thus you might now be uncertain as to the position of $p$, believing it to be somewhere around $0.5$. As you roll the ball each of the ten times, and update your posterior, the following figure shows the progression of posteriors that you would see:</p>
 
 <p><img src="/assets/images/ridge.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
@@ -332,7 +332,7 @@ X = (1, 0, 1, 1, 1, 1, 1, 0, 1, 1).
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-f(p|x_1, x_2, \ldots, x_n) \propto \left\{\prod_{i=1}^n f(x_n|p)\right\} \pi(p).
+\pi(p|x_1, x_2, \ldots, x_n) \propto \left\{\prod_{i=1}^n f(x_n|p)\right\} \pi(p).
 \end{equation}</p>
 </div>
 
@@ -344,11 +344,11 @@ f(X|p) = \prod_{i=1}^n f(x_i|p)
 \end{equation}</p>
 </div>
 
-<p>where $X = (x_1,x_2,\ldots,x_n)$. Thus, we can compute the final posterior $f(p|X)$ by simply using Bayes’ Theorem once:</p>
+<p>where $X = (x_1,x_2,\ldots,x_n)$. Thus, we can compute the final posterior $\pi(p|X)$ by simply using Bayes’ Theorem once:</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-f(p|X) \propto f(X|p) \pi(p).
+\pi(p|X) \propto f(X|p) \pi(p).
 \end{equation}</p>
 </div>
 
