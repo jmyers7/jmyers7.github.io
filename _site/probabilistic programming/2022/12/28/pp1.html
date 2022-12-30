@@ -24,6 +24,7 @@
                 floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
+                be: ['\\mathbf{E}'],
                 bbn: ['\\mathbb{N}'],
                 bbp: ['\\mathbb{P}'],
                 bbq: ['\\mathbb{Q}'],
@@ -34,6 +35,7 @@
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
                 calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
                 calx: ['\\mathcal{X}'],
                 caly: ['\\mathcal{Y}'],
                 calz: ['\\mathcal{Z}'],
@@ -211,7 +213,7 @@ Q(x, \ a\leq p \leq a+\dev) \approx \dev \binom{n}{x} p^{x}(1-p)^{n-x},
 
 <p><img src="/assets/images/joint.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
-<p>In this figure, the marginal distributions of $x$ and $p$ are displayed as histograms above and to the right of the scatter plot. Of course, the marginal distribution of $p$ (i.e., the prior distribution) is uniform, and so I’ve lumped all of the values of $p$ together into a single bin in the histogram. The plots make sense, for if $p$ is small, we expect to see fewer balls stopping to the left of $W$, while if $p$ is large, we expect to see many.</p>
+<p>In this figure, the marginal distributions of $x$ and $p$ are displayed as histograms above and to the right of the scatter plot. Of course, the marginal distribution of $p$ (i.e., the prior distribution) is uniform, and so I’ve lumped all the values of $p$ together into a single bin in the histogram. The plots make sense, for if $p$ is small, we expect to see fewer balls stopping to the left of $W$, while if $p$ is large, we expect to see many.</p>
 
 <p>We may visualize the conditional distributions by taking sections across the joint distribution; this amounts to slicing the first figure horizontally:</p>
 
@@ -235,7 +237,7 @@ Q(x, \ a\leq p \leq a+\dev) \approx \dev \binom{n}{x} p^{x}(1-p)^{n-x},
 
 <div style="overflow: scroll">
   <p>\begin{equation} \notag
-\pi(p|x) \sim \mathcal{B}eta(x+1,n-x+1).
+p|x \sim \mathcal{B}eta(x+1,n-x+1).
 \end{equation}</p>
 </div>
 
