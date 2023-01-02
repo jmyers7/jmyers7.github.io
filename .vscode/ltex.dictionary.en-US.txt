@@ -3,3 +3,7 @@ cartesian
 bayesian
 pushforward
 integrand
+covector
+otimes
+covectors
+backpropagation
