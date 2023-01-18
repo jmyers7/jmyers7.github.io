@@ -26,15 +26,14 @@ In this first post, we will begin by discussing embedded smooth manifolds, which
 
 1. <a href="#defn" style="font-family: 'Lora', serif; font-size: 1em;">Basic definitions</a>
 2. <a href="#tangent" style="font-family: 'Lora', serif; font-size: 1em;">Tangent spaces and derivatives/pushforwards</a>
-3. <a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What's next?</a>
-4. <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a>
-5. <a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a>
+3. <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a>
+4. <a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a>
 
 ## Prerequisites
 
 Though I want to minimize the prerequisites for this series of posts as much as possible, I have to begin somewhere. If I were to assume *no* training in mathematics beyond, say, basic single-variable calculus, then I would have to write an entire book to ultimately get where I want to go.
 
-Therefore, I've pitched these posts at the level of a junior or senior mathematics major. I'm assuming that you've had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. You should also know a little about the topology of $\bbr^n$, namely (relatively) open and (relatively) closed sets, compactness and connectedness, *etc*. Later, I will assume that you know a little point-set topology, but that isn't necessary for this first post.
+Therefore, I've pitched these posts at the level of a junior or senior mathematics major. I'm assuming that you've had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. It will also be very helpful to be familiar with the basic definitions and results in the first chapter of Guillemin and Pollack's *Differential Topology*.[^GP2010]
 
 You will also need to know the definition of *commutative $\bbr$-algebras* and their *homomorphisms*. You can look up these definitions on the internet, or see the section on <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further Reading</a>.
 
@@ -384,12 +383,6 @@ of $T_p(M)$ and $T_q(N)$.
 \end{equation}
 of partial derivatives.
 </div>
-
-<div id="next">
-## What's next?
-</div>
-
-In the next post, we will explore three fundamental theorems: The Inverse Function Theorem, the Local Immersion Theorem, and the Local Submersion Theorem. These theorems all concern smooth maps between manifolds whose derivatives are, respectively, isomorphisms, injections, and surjections. 
 
 <div id="further">
 ## Further reading

@@ -132,7 +132,6 @@
 <ol>
   <li><a href="#defn" style="font-family: 'Lora', serif; font-size: 1em;">Basic definitions</a></li>
   <li><a href="#tangent" style="font-family: 'Lora', serif; font-size: 1em;">Tangent spaces and derivatives/pushforwards</a></li>
-  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
   <li><a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a></li>
   <li><a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
 </ol>
@@ -141,7 +140,7 @@
 
 <p>Though I want to minimize the prerequisites for this series of posts as much as possible, I have to begin somewhere. If I were to assume <em>no</em> training in mathematics beyond, say, basic single-variable calculus, then I would have to write an entire book to ultimately get where I want to go.</p>
 
-<p>Therefore, I’ve pitched these posts at the level of a junior or senior mathematics major. I’m assuming that you’ve had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. You should also know a little about the topology of $\bbr^n$, namely (relatively) open and (relatively) closed sets, compactness and connectedness, <em>etc</em>. Later, I will assume that you know a little point-set topology, but that isn’t necessary for this first post.</p>
+<p>Therefore, I’ve pitched these posts at the level of a junior or senior mathematics major. I’m assuming that you’ve had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. It will also be very helpful to be familiar with the basic definitions and results in the first chapter of Guillemin and Pollack’s <em>Differential Topology</em>.<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup></p>
 
 <p>You will also need to know the definition of <em>commutative $\bbr$-algebras</em> and their <em>homomorphisms</em>. You can look up these definitions on the internet, or see the section on <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further Reading</a>.</p>
 
@@ -299,7 +298,7 @@ called the <em>pullback of $\alpha$</em>, by setting $\alpha^\ast f = f\circ \al
 
 <p>The smooth function $f: N\to \bbr$ is defined on the codomain manifold of the smooth map $\alpha$. Notice that $f$ maps to the real line $\bbr$ in the figure, and so does $\alpha^\ast f:M \to \bbr$. The smooth map $\alpha$ maps <em>from</em> $M$ <em>to</em> $N$, but the pullback $\alpha^\ast$ goes backwards, mapping $C^\infty(N)$ to $C^\infty(M)$. This “reversal of directions” is an example of (<em>functorial</em>) <em>contravariance</em>.</p>
 
-<p>The last part of the exercise is significant because it shows that the algebras of smooth functions of manifolds are diffeomorphism invariants. Thus, if you want to show that two manifolds are <em>not</em> diffeomorphic, you can do so by showing that their algebras of smooth functions are <em>not</em> isomorphic. The latter may not be any easier than the former, but it’s still quite interesting because it shows that the pullback operation turns a topological problem (the non-existence of a diffeomorphism) into an algebraic problem (the non-existence of an isomorphism).<sup id="fnref:footnotewho" role="doc-noteref"><a href="#fn:footnotewho" class="footnote" rel="footnote">2</a></sup></p>
+<p>The last part of the exercise is significant because it shows that the algebras of smooth functions of manifolds are diffeomorphism invariants. Thus, if you want to show that two manifolds are <em>not</em> diffeomorphic, you can do so by showing that their algebras of smooth functions are <em>not</em> isomorphic. The latter may not be any easier than the former, but it’s still quite interesting because it shows that the pullback operation turns a topological problem (the non-existence of a diffeomorphism) into an algebraic problem (the non-existence of an isomorphism).<sup id="fnref:footnotewho" role="doc-noteref"><a href="#fn:footnotewho" class="footnote" rel="footnote">3</a></sup></p>
 
 <div id="tangent">
   <h2 id="tangent-spaces-and-derivativespushforwards">Tangent spaces and derivatives/pushforwards</h2>
@@ -337,14 +336,14 @@ J(\phi)_t \defeq \left[ \frac{\bd \phi^j}{\bd t^i}(t) \right]_{ij}
 \end{equation}</p>
 </div>
 
-<p>where $t^1,\ldots,t^s$ are the standard ordered coordinates<sup id="fnref:footnote1" role="doc-noteref"><a href="#fn:footnote1" class="footnote" rel="footnote">3</a></sup> on $\bbr^s$. For more details, see Chapter 2 of (<sup id="fnref:Spivak1965" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">4</a></sup>).</p>
+<p>where $t^1,\ldots,t^s$ are the standard ordered coordinates<sup id="fnref:footnote1" role="doc-noteref"><a href="#fn:footnote1" class="footnote" rel="footnote">4</a></sup> on $\bbr^s$. For more details, see Chapter 2 of (<sup id="fnref:Spivak1965" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">5</a></sup>).</p>
 
 <p>The tangent spaces to a manifold are the direct generalizations of the tangent lines and planes that you studied in single- and multi-variable calculus.</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $p$ be a point on a smooth $n$-dimensional manifold $M$ and select a local parameterization $\phi:U \to V$ with $p\in V$. The <em>tangent space</em> of $M$ at $p$, denoted $T_p(M)$, is defined to be the image of the pushforward $\phi_{\ast t}$ where $t$ is the (unique) point in $U$ with $\phi(t) = p$.<sup id="fnref:footnote2" role="doc-noteref"><a href="#fn:footnote2" class="footnote" rel="footnote">5</a></sup></p>
+  <p><strong>Definition.</strong> Let $p$ be a point on a smooth $n$-dimensional manifold $M$ and select a local parameterization $\phi:U \to V$ with $p\in V$. The <em>tangent space</em> of $M$ at $p$, denoted $T_p(M)$, is defined to be the image of the pushforward $\phi_{\ast t}$ where $t$ is the (unique) point in $U$ with $\phi(t) = p$.<sup id="fnref:footnote2" role="doc-noteref"><a href="#fn:footnote2" class="footnote" rel="footnote">6</a></sup></p>
 
-  <p>Now, let $e_1,\ldots,e_n$ be the standard ordered basis<sup id="fnref:footnote3" role="doc-noteref"><a href="#fn:footnote3" class="footnote" rel="footnote">6</a></sup> of $\bbr^n$ and let $x^1,\ldots,x^n$ be the local coordinates on $M$ corresponding to $\phi$. If we set</p>
+  <p>Now, let $e_1,\ldots,e_n$ be the standard ordered basis<sup id="fnref:footnote3" role="doc-noteref"><a href="#fn:footnote3" class="footnote" rel="footnote">7</a></sup> of $\bbr^n$ and let $x^1,\ldots,x^n$ be the local coordinates on $M$ corresponding to $\phi$. If we set</p>
 
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
@@ -414,7 +413,7 @@ V \ar[r]^{\alpha|_V} &amp; G \\ U \ar[r]_{\beta \ =\  \psi^{-1} \ \circ \ \alpha
 \end{equation}</p>
   </div>
 
-  <p>given as the composite<sup id="fnref:footnote4" role="doc-noteref"><a href="#fn:footnote4" class="footnote" rel="footnote">7</a></sup></p>
+  <p>given as the composite<sup id="fnref:footnote4" role="doc-noteref"><a href="#fn:footnote4" class="footnote" rel="footnote">8</a></sup></p>
 
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
@@ -431,7 +430,7 @@ V \ar[r]^{\alpha|_V} &amp; G \\ U \ar[r]_{\beta \ =\  \psi^{-1} \ \circ \ \alpha
 
 <p>To the extent that the tangent spaces $T_p(M)$ and $T_q(N)$ can be considered “infinitesimal” neighborhoods of $p$ and $q$, the action of the smooth map $\alpha$ on these neighborhoods is given by a linear transformation $\alpha_{\ast p} : T_p(M) \to T_q(N)$.</p>
 
-<p>The following fundamental result is proved on page 11 of (<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">8</a></sup>):</p>
+<p>The following fundamental result is proved on page 11 of (<sup id="fnref:GP2010:1" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup>):</p>
 
 <div class="highlight-box">
   <p><strong>Theorem (Chain Rule).</strong> Let $\alpha:M \to N$ and $\beta:N \to L$ be two smooth maps of manifolds. Then for all $p\in M$ we have</p>
@@ -487,17 +486,11 @@ of partial derivatives.</li>
   </ol>
 </div>
 
-<div id="next">
-  <h2 id="whats-next">What’s next?</h2>
-</div>
-
-<p>In the next post, we will explore three fundamental theorems: The Inverse Function Theorem, the Local Immersion Theorem, and the Local Submersion Theorem. These theorems all concern smooth maps between manifolds whose derivatives are, respectively, isomorphisms, injections, and surjections.</p>
-
 <div id="further">
   <h2 id="further-reading">Further reading</h2>
 </div>
 
-<p>In my opinion, the best introduction to topology is Guillemin and Pollack’s book <em>Differential Topology</em>.<sup id="fnref:GP2010:1" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">8</a></sup> My treatment of (embedded) smooth manifolds in the first few posts of this series will closely follow the first chapter of this book. A pair of very good related texts is Spivak’s <em>Calculus on Manifolds</em><sup id="fnref:Spivak1965:1" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">4</a></sup> and Milnor’s <em>Topology from the Differential Viewpoint</em>.<sup id="fnref:Milnore1997" role="doc-noteref"><a href="#fn:Milnore1997" class="footnote" rel="footnote">9</a></sup></p>
+<p>In my opinion, the best introduction to topology is Guillemin and Pollack’s book <em>Differential Topology</em>.<sup id="fnref:GP2010:2" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup> My treatment of (embedded) smooth manifolds in the first few posts of this series will closely follow the first chapter of this book. A pair of very good related texts is Spivak’s <em>Calculus on Manifolds</em><sup id="fnref:Spivak1965:1" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">5</a></sup> and Milnor’s <em>Topology from the Differential Viewpoint</em>.<sup id="fnref:Milnore1997" role="doc-noteref"><a href="#fn:Milnore1997" class="footnote" rel="footnote">9</a></sup></p>
 
 <p>For the material in this post on commutative $\bbr$-algebras, see MacLane and Birkhoff’s <em>Algebra</em><sup id="fnref:BirkhoffMacLane1988" role="doc-noteref"><a href="#fn:BirkhoffMacLane1988" class="footnote" rel="footnote">10</a></sup>, particularly Chapter IX.</p>
 
@@ -510,6 +503,9 @@ of partial derivatives.</li>
     <li id="fn:foonote0" role="doc-endnote">
       <p>A major upside to presenting the theory in an entirely mathematical, abstract framework is that you can easily apply what you’ve learned in other settings (e.g., physics). <a href="#fnref:foonote0" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
+    <li id="fn:GP2010" role="doc-endnote">
+      <p>V. Guillemin and A. Pollack, <em>Differential topology</em>, AMS Chelsea Publishing, Providence, RI, 2010, reprint of the 1974 original. <a href="#fnref:GP2010" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:GP2010:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:GP2010:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
     <li id="fn:footnotewho" role="doc-endnote">
       <p>There’s an entire field of mathematics that concerns itself with “turning topology into algebra” called <em>algebraic topology</em>. <a href="#fnref:footnotewho" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
@@ -520,16 +516,13 @@ of partial derivatives.</li>
       <p>M. Spivak, <em>Calculus on manifolds. A modern approach to classical theorems of advanced calculus</em>, W. A. Benjamin, Inc., New York-Amsterdam, 1965. <a href="#fnref:Spivak1965" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:Spivak1965:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
     </li>
     <li id="fn:footnote2" role="doc-endnote">
-      <p>It is proved on pages 9 and 10 of (<sup id="fnref:GP2010:2" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">8</a></sup>) that the definition of $T_p(M)$ just given does not depend on the choice of local parameterization $\phi$ and that $\phi_{\ast t}$ is indeed injective. <a href="#fnref:footnote2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>It is proved on pages 9 and 10 of (<sup id="fnref:GP2010:3" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup>) that the definition of $T_p(M)$ just given does not depend on the choice of local parameterization $\phi$ and that $\phi_{\ast t}$ is indeed injective. <a href="#fnref:footnote2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:footnote3" role="doc-endnote">
       <p>This means that $e_i$ is the vector in $\bbr^n$ with a $1$ in the $i$-th entry and zeros elsewhere. <a href="#fnref:footnote3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:footnote4" role="doc-endnote">
       <p>Just as one proves that the tangent space $T_p(M)$ is independent of the choice of local parameterization, one may prove easily that the definition of $\alpha_{\ast p}$ does not depend on local parametrizations. <a href="#fnref:footnote4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:GP2010" role="doc-endnote">
-      <p>V. Guillemin and A. Pollack, <em>Differential topology</em>, AMS Chelsea Publishing, Providence, RI, 2010, reprint of the 1974 original. <a href="#fnref:GP2010" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:GP2010:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:GP2010:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
     </li>
     <li id="fn:Milnore1997" role="doc-endnote">
       <p>J. W. Milnor, <em>Topology from the differentiable viewpoint</em>, Princeton Landmarks in Mathematics, Princeton University Press, Princeton, NJ, 1997, based on notes by D. W. Weaver, revised reprint of the 1965 original. <a href="#fnref:Milnore1997" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

@@ -14,8 +14,13 @@
     <!-- latex stuff -->
     <script>
       MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
         tex: {
           tags: 'ams',
+          packages: {'[+]': ['xypic']},
           inlineMath: [['$', '$'], ['\\(', '\\)']],
           macros: {
                 bold: ['{\bf #1}',1],
@@ -52,9 +57,14 @@
                 ttt: ['\\mathtt{T}'],
                 ttw: ['\\mathtt{W}'],
                 ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
-                dx: ['{\\ \\text{d} #1}', 1]
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1]
           },
         },
         svg: {
