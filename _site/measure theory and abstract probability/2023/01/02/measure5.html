@@ -1,0 +1,385 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>conditional probability and radon-nikodym</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        tex: {
+          tags: 'ams',
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                be: ['\\mathbf{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfm: ['\\mathfrak{M}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+          }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/viz.html">viz gallery</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">conditional probability and radon-nikodym</h1>
+</div>
+
+<h2 id="conditional-probabilities-in-the-discrete-case">conditional probabilities in the discrete case</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ be a discrete random variable defined on a probability space $(\Omega, \mfm, P)$. Given $x\in \bbr$ and $E\in \mfm$, we define the <em>conditional probability of $E$ given $X=x$</em> to be the quotient</p>
+
+  <p>\begin{equation}
+\label{couch-eqn}
+P(E | X=x) = \frac{P(E, \ X=x)}{P(X=x)},
+\end{equation}
+provided that $P(X=x) &gt;0$. If $P(X=x)=0$, then we (arbitrarily) define the conditional probability to be zero: $P(E|X=x)=0$.</p>
+</div>
+
+<p>Note that $P(-|X=x)$ is a probability measure on $\Omega$, except at those points $x$ where $P(X=x)=0$. But notice also that the probability that $X$ takes one of these values is $0$, i.e., the preimage set</p>
+
+<p>\begin{equation}\notag
+X^{-1} \left( \left\{ x\in \bbr : P(X=x) = 0\right\} \right)
+\end{equation}</p>
+
+<p>in $\Omega$ has probability $0$, precisely because this set is a countable union of sets of probability $0$. Thus, the assignment</p>
+
+<p>\begin{equation}\notag
+E \mapsto P(E| X=x)
+\end{equation}</p>
+
+<p>is a probability measure on $\Omega$ for almost all $x\in \bbr$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ and $Y$ be random variables defined on a probability space $(\Omega, \mfm, P)$ and suppose that $X$ is discrete. We define the <em>conditional expectation of $Y$ given $X=x$</em> to be the integral</p>
+
+  <p>\begin{equation}
+\label{sofa-eqn}
+\be(Y | X=x) = \int_\Omega Y(\omega) \ P(\text{d}\omega | X=x),
+\end{equation}
+provided that the integral exists and $P(X=x)\neq 0$.</p>
+</div>
+
+<h2 id="a-first-step-toward-general-conditional-probabilities">a first step toward general conditional probabilities</h2>
+
+<p>Of course, the issue with using \eqref{couch-eqn} as the definition of conditional probabilities in the general scheme is that it might be the case that $P(X=x)=0$ for <em>all</em> $x$, if $X$ is not discrete.</p>
+
+<p>To get around this problem, we may proceed informally as follows. If $X$ is an arbitrary random variable on $(\Omega,\mfm, P)$, $E\in \mfm$, and $[a,b]$ is a closed interval in $\bbr$, we define</p>
+
+<p>\begin{equation}\notag
+P(E | a \leq X \leq b ) = \frac{P(E, \ a \leq X \leq b)}{P(a \leq X \leq b)},
+\end{equation}</p>
+
+<p>in the same spirit as \eqref{couch-eqn}, provided, of course, that the denominator is not $0$. Now, in order to obtain something resembling $P(E|X=x)$, we might hope that the limit</p>
+
+<p>\begin{equation}
+\label{der-eqn}
+\lim_{\dev\to 0^+}  P(E | x \leq X \leq x + \dev ) = \lim_{\dev\to 0^+}\frac{P(E, \ x \leq X \leq x +\dev)}{P(x \leq X \leq x+\dev)}
+\end{equation}</p>
+
+<p>exists, and if it does, then it should (intuitively) be a good candidate for the probability $P(E|X=x)$.</p>
+
+<p>But where does one go from here? Does this limit actually exist?</p>
+
+<p>A particularly elegant path forward is to notice that the right-hand side of \eqref{der-eqn} looks an awful lot like some sort of derivative. This leads us to consider…</p>
+
+<h2 id="derivatives-of-measures">derivatives of measures</h2>
+
+<p>The setting in which we will discuss derivatives of measures involves two finite (positive) Borel measures $\nu$ and $\mu$ on the real line $\bbr$. For all $x\in \bbr$, we define</p>
+
+<p>\begin{equation}
+\label{derivative-eqn}
+\frac{\text{d}\nu}{\text{d}\mu}(x) = \lim_{\dev \to 0^+} \frac{\nu\left((x-\dev,x+\dev)\right)}{\mu\left((x-\dev,x+\dev)\right)}.
+\end{equation}</p>
+
+<p>To make the exposition simpler, I will suppose that this limit exists and is finite almost everywhere (with respect to $\mu$), though one need not actually <em>assume</em> this and instead obtain it as a consequence (see the references below for a more general and careful treatment). Though I will make the explicit link clearer later, a quick glance comparing the right-hand sides of \eqref{der-eqn} and \eqref{derivative-eqn} seems to suggest that we’re investigating the correct object.</p>
+
+<p>By its very definition, the function $\text{d}\nu/\text{d}\mu$ is a first-order infinitesimal object that only depends on the local behavior of the measures $\nu$ and $\mu$ at a given point $x$. What we want to do, however, is to pass from this local object to <em>global</em> information on the measures. But how do we do this?</p>
+
+<p>For inspiration, let’s turn to a much more familiar situation: let’s consider the familiar derivative</p>
+
+<p>\begin{equation}\notag
+\frac{\text{d} y}{\text{d}x}(x) = f’(x)
+\end{equation}</p>
+
+<p>that you studied in single-variable calculus. Supposing that $f$ is differentiable everywhere, the classical Mean Value Theorem states that, given a closed interval $[a,b]$, there is a $c\in (a,b)$ such that</p>
+
+<p>\begin{equation}\notag
+f’(c) = \frac{f(b)-f(a)}{b-a}.
+\end{equation}</p>
+
+<p>This is a very powerful local-to-global result: indeed, the left-hand side is the derivative evaluated at a single point, while the right-hand side is the average rate of change of $f$ over the <em>entire</em> interval $[a,b]$. If you’ve had a course in elementary real analysis, you know that the Mean Value Theorem is the key to proving the Fundamental Theorem of Calculus relating derivatives (infinitesimal quantities) to integrals (global quantities).</p>
+
+<p>Given a number $\ell\in \bbr$, one immediate corollary of the Mean Value Theorem is that, provided</p>
+
+<p>\begin{equation}
+\label{mvt-eqn}
+[a,b] \subseteq \left\{ x\in \bbr : \frac{\text{d}y}{\text{d}x}(x) \leq \ell\right\},
+\end{equation}</p>
+
+<p>we must have</p>
+
+<p>\begin{equation}
+\label{measure-eqn}
+f(b) - f(a) \leq \ell(b-a).
+\end{equation}</p>
+
+<p>Now, the quantity on the right-hand side is $\ell\lambda(I)$, where $\lambda$ is the Lebesgue measure and $I=[a,b]$. Provided that the function $f$ is non-decreasing and right-continuous, the quantity on the left-hand side is $\lambda_f(I)$, where $\lambda_f$ is the so-called <em>Lebesgue-Stieltjes</em> measure associated with $f$. Intuitively, the function $f$ will “distort” the lengths of intervals, and $\lambda_f$ measures this “distorted” length. The point is that \eqref{measure-eqn} has the form</p>
+
+<p>\begin{equation}
+\label{words-eqn}
+(\text{a measure of $[a,b]$}) = \ell \times (\text{a measure of $[a,b]$}),
+\end{equation}</p>
+
+<p>which is a direct consequence of the Mean Value Theorem.</p>
+
+<p>Now, returning to our measures $\nu$ and $\mu$, the beautiful thing is that an analogous conclusion to \eqref{words-eqn} can be made regarding $\text{d}\nu/\text{d}\mu$:</p>
+
+<div class="highlight-box">
+  <p><strong>Lemma.</strong> Let $\nu$, $\mu$, and $\text{d}\nu/\text{d}\mu$ be as above, and let $0 &lt; \ell &lt; \infty$. If $A$ is a Borel set and</p>
+
+  <p>\begin{equation}
+\label{mvt2-eqn}
+A \subseteq \left\{ x\in \bbr : \frac{\text{d}\nu}{\text{d}\mu}(x) \leq \ell\right\},
+\end{equation}</p>
+
+  <p>then</p>
+
+  <p>\begin{equation}
+\label{words2-eqn}
+\nu(A) \leq \ell \mu(A).
+\end{equation}</p>
+</div>
+
+<p>For a proof of this lemma, see the references below.</p>
+
+<p>Notice that \eqref{mvt2-eqn} and \eqref{words2-eqn} are the direct measure-theoretic analogs to \eqref{mvt-eqn} and \eqref{words-eqn}.  This theorem is a local-to-global result, which says that if a certain property holds <em>locally</em> on the Borel set $A$, then a <em>global</em> conclusion may be made.</p>
+
+<p>It turns out that this lemma is the key result needed to prove the following important theorem. The definition of <em>absolute continuity</em> will be explained in the course of the proof.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\nu$, $\mu$, and $\text{d}\nu/\text{d}\mu$ be as above. Provided that $\nu$ is absolutely continuous with respect to $\mu$, we have:</p>
+
+  <ol>
+    <li>The function $\text{d}\nu/\text{d}\mu$ is well-defined and finite almost everywhere with respect to $\mu$.</li>
+    <li>The function $\text{d}\nu/\text{d}\mu$ is measurable.</li>
+    <li>For all Borel sets $A$, we have
+\begin{equation}\label{radon-nik-eqn}
+\nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu.
+\end{equation}</li>
+    <li>If $h$ is any other function that satisfies the equation \eqref{radon-nik-eqn} with $h$ in place of $\text{d}\nu/\text{d}\mu$, then $h = \text{d}\nu/\text{d}\mu$ almost everywhere with respect to $\mu$.</li>
+  </ol>
+</div>
+
+<p>I will leave the proofs of statements (1.), (2.), and (4.) for you to look up in the references cited below—the only thing I want to do is give a brief outline of a proof of (3.), so that you can see how the lemma is used.</p>
+
+<p>Let $A$ be a Borel set and let $t&gt;1$ be a real number. For each $m\in \bbz$, define</p>
+
+<p>\begin{equation}
+A_m = A\cap \left\{ x\in \bbr : t^m \leq \frac{\text{d}\nu}{\text{d}\mu}(x) &lt; t^{m+1}\right\}.
+\end{equation}</p>
+
+<p>Now, clearly the $A_m$’s are all pairwise disjoint and</p>
+
+<p>\begin{equation}\label{inc-eqn}
+A \supseteq \bigcup_{m\in \bbz} A_m.
+\end{equation}</p>
+
+<p>In order to compute integrals over $A$, we want to sum up integrals over $A_m$ and leverage the lemma; however, there is no reason to believe that the inclusion \eqref{inc-eqn} is an equality in the general case. What we need is for the sets on both sides of \eqref{inc-eqn} to differ on a set of $\mu$-measure zero, which is the same as requiring the set</p>
+
+<p>\begin{equation}
+\left\{x\in \bbr: \frac{\text{d}\nu}{\text{d}\mu}(x) =0\right\}
+\end{equation}</p>
+
+<p>to have $\mu$-measure $0$.</p>
+
+<h2 id="derivations-of-key-properties-in-the-discrete-case">derivations of key properties in the discrete case</h2>
+
+<p>Let $X$ and $Y$ be two random variables, defined on a common probability space $(\Omega,\mfm, P)$, with values in a discrete measure space $(\calx,\mfa, \mu)$ where $\mu$ is the counting measure and $\calx \subset \bbr$. Given a subset $B\subseteq \calx$ for which $P(Y \in B)\neq 0$, the assignment</p>
+
+<p>\begin{equation}\notag
+A \mapsto P(X\in A | Y \in B) \overset{\text{def}}{=} \frac{P(X\in A, Y\in B)}{P(Y\in B)}
+\end{equation}</p>
+
+<p>yields a well-defined probability measure on $\calx$. By rearranging and using the Law of Total Probability, we get</p>
+
+<p>\begin{equation}
+\label{yuppers-eqn}
+P(X\in A, Y\in B) = \sum_{y\in B} P(X\in A | Y=y) P(Y=y),
+\end{equation}</p>
+
+<p>where we <em>define</em> $P(-|Y=y)$ to be <em>any</em> probability measure on $\calx$ if $P(Y=y)=0$. My goal now is to rewrite both sides of this last equality as integrals over the same set on the sample space $\Omega$.</p>
+
+<p>Beginning with the right-hand side of \eqref{yuppers-eqn}, we get</p>
+
+<p>\begin{align}
+\sum_{y\in B} P(X\in A | Y=y) P(Y=y) &amp;= \int_B P(X\in A | Y=y) P(Y=y) \ \mu(\text{d}y) \notag \\ &amp;= \int_B P(X\in A | Y=y) \  P_Y(\text{d}y) \notag \\ &amp;= \int_{\left\{Y\in B\right\}} P(X\in A | Y= Y(\omega)) \ P(\text{d}\omega), \label{tree-eqn}
+\end{align}</p>
+
+<p>where $P_Y$ is the pushforward of $P$ along $Y$, while from the left-hand side we get</p>
+
+<p>\begin{equation}
+\label{book-eqn}
+P(X\in A, Y\in B) = \int_{\left\{Y\in B \right\}} I_{\left\{X\in A\right\}}(\omega) \ P(\text{d}\omega),
+\end{equation}</p>
+
+<p>where $I_{\left\{X\in A\right\}}$ is the indicator function of $\left\{X\in A \right\}$. Putting \eqref{tree-eqn} and \eqref{book-eqn} together gives us the first property in:</p>
+
+<div class="highlight-box">
+  <p><strong>Properties of Conditional Distributions.</strong> The function</p>
+
+  <p>\begin{equation}
+\label{kern-eqn}
+\mfa \times \Omega \to \bbr, \quad (A,y) \mapsto P(X\in A | Y=Y(\omega))
+\end{equation}</p>
+
+  <p>satisfies the following properties:</p>
+
+  <ol>
+    <li>For all $A\in \mfa$ and $E\in \sigma(Y)$, the $\sigma$-algebra in $\Omega$ generated by $Y$, we have
+ \begin{equation}
+ \label{xmas-eqn}
+ \int_{E} I_{\left\{X\in A\right\}}(\omega) \ P(\text{d}\omega) = \int_{E} P(X\in A | Y=Y(\omega)) \ P(\text{d}\omega).
+ \end{equation}</li>
+    <li>For fixed $\omega$, the function \eqref{kern-eqn} is a probability measure in the variable $A$.</li>
+    <li>For fixed $A$, the function \eqref{kern-eqn} is a $\sigma(Y)$-measurable function in the variable $\omega$.</li>
+  </ol>
+</div>
+
+<p>With the conditional distribution in hand, we now turn to the expectation of $X$, conditioned on $Y$; recall its definition:</p>
+
+<p>\begin{equation}
+\label{almost-eqn}
+\be(X|Y=y) = \sum_{x\in \calx} x P(X=x|Y=y).
+\end{equation}</p>
+
+<p>Just as I did with the conditional probabilities, I want to write both sides of this equation as an integral over the same set on the sample space $\Omega$.</p>
+
+<p>Multiplying the right-hand side of \eqref{almost-eqn} by $P(Y=y)$ and summing over $y\in B$ gives us</p>
+
+<p>\begin{align}
+\sum_{y\in B}\sum_{x\in \calx} x P(X=x|Y=y) P(Y=y) &amp;=  \sum_{x\in\calx} x P(X=x, Y\in B) \notag \\ &amp;= \sum_{x\in \calx} x P(XI_{\left\{Y\in B\right\}} = x) \notag \\ &amp;= \int_\calx x \  P_{XI_{\left\{Y\in B\right\}}}(\text{d}x) \notag \\ &amp;= \int_{\left\{Y\in B \right\}} X(\omega) \ P(\text{d}\omega), \label{whosit-eqn}
+\end{align}</p>
+
+<p>while multiplying the left-hand side by $P(Y=y)$ and summing over $y\in B$ gives</p>
+
+<p>\begin{equation}
+\label{tv-eqn}
+\sum_{y\in B} \be(X|Y=y)P(Y=y) = \int_{Y\in B} \be(X|Y=Y(\omega)) \ P(\text{d}\omega).
+\end{equation}</p>
+
+<p>Putting \eqref{whosit-eqn} and \eqref{tv-eqn} together gives us the first property in:</p>
+
+<div class="highlight-box">
+  <p><strong>Properties of Conditional Expectations.</strong> The function</p>
+
+  <p>\begin{equation}
+\label{kern1-eqn}
+\Omega \to \bbr, \quad \omega \mapsto \be(X| Y=Y(\omega))
+\end{equation}</p>
+
+  <p>satisfies the following properties:</p>
+
+  <ol>
+    <li>For all $E\in \sigma(Y)$, we have
+ \begin{equation}
+ \label{iterated-eqn}
+ \int_{E} X(\omega) \ P(\text{d}\omega) = \int_{E} \be(X|Y=Y(\omega)) \ P(\text{d}\omega).
+ \end{equation}</li>
+    <li>The function \eqref{kern1-eqn} is a $\sigma(Y)$-measurable function in the variable $\omega$.</li>
+  </ol>
+</div>
+
+<p>Notice, by the way, that by taking $E = \Omega$ in \eqref{iterated-eqn}, we get the Law of Iterated Expectation:</p>
+
+<p>\begin{equation}\notag
+\be(X) = \be(\be(X|Y)).
+\end{equation}</p>
+
+<p>Notice also that we can recover \eqref{xmas-eqn} from \eqref{iterated-eqn} by taking $X = I_{\left\{X\in A\right\}}$ in the latter.</p>
+
+<h2 id="the-definitions">the definitions</h2>
+
+    </article>
+    
+  </body>
+</html>

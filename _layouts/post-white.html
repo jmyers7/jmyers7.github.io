@@ -14,7 +14,12 @@
     <!-- latex stuff -->
     <script>
       MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
         tex: {
+          packages: {'[+]': ['xypic']},
           tags: 'ams',
           inlineMath: [['$', '$'], ['\\(', '\\)']],
           macros: {
@@ -54,7 +59,10 @@
                 ttx: ['\\mathtt{X}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
-                dx: ['{\\ \\text{d} #1}', 1]
+                dx: ['{\\ \\text{d} #1}', 1],
+                tl: ['\\widetilde{#1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}']
           },
         },
         svg: {
@@ -66,17 +74,21 @@
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    
+    <!--
     <script type="text/javascript" id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
+    -->
 
   </head>
   
-  <body>
+  <body class="post-white">
     
-    {% include navigation-post.html %}
+    {% include navigation-post-white.html %}
     
-    <article class="post-content">
+    <article class="post-content-white">
         {{ content }}
     </article>
     

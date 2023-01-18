@@ -45,9 +45,13 @@
                 mfj: ['\\mathfrak{J}'],
                 mfl: ['\\mathfrak{L}'],
                 mfm: ['\\mathfrak{M}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
                 ttr: ['\\mathtt{R}'],
                 tts: ['\\mathtt{S}'],
                 ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
                 dx: ['{\\ \\text{d} #1}', 1]
@@ -154,21 +158,21 @@
 
 <div class="highlight-box" id="dual-basis-thm">
   <p><strong>The Dual Basis Theorem.</strong>
-Let $V$ be a finite-dimensional vector space with basis $\{e_\alpha\}_{\alpha=1}^n$. If for each $\alpha$ we define $\phi^\alpha \in V^\ast$ by setting</p>
+Let $V$ be a finite-dimensional vector space with basis $\{e_\alpha\}_{\alpha=1}^n$. If for each $\alpha$ we define $\eta^\alpha \in V^\ast$ by setting</p>
 
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
-\phi^\alpha(e_\beta) = \begin{cases}
+\eta^\alpha(e_\beta) = \begin{cases}
 1 &amp; : \beta = \alpha, \\
 0 &amp; : \beta \neq \alpha,
 \end{cases}
 \end{equation}</p>
   </div>
 
-  <p>and extending to all of $V$ by linearity, then the set $\{\phi^\alpha\}_{\alpha=1}^n$ is a basis of $V^\ast$.</p>
+  <p>and extending to all of $V$ by linearity, then the set $\{\eta^\alpha\}_{\alpha=1}^n$ is a basis of $V^\ast$.</p>
 </div>
 
-<p>The basis ${\phi^\alpha}$ is called the <em>dual basis</em> of ${e_\alpha}$ in $V^\ast$, and the pair of bases ${e_\alpha}$ and ${\phi^\alpha}$ are said to be <em>dually paired</em> or are called a <em>dual basis pair</em> of $V$ and $V^\ast$.</p>
+<p>The basis ${\eta^\alpha}$ is called the <em>dual basis</em> of ${e_\alpha}$ in $V^\ast$, and the pair of bases ${e_\alpha}$ and ${\eta^\alpha}$ are said to be <em>dually paired</em> or are called a <em>dual basis pair</em> of $V$ and $V^\ast$.</p>
 
 <div id="covariant">
   <h2 id="covariant-and-mixed-tensors-abstract-indices">covariant and mixed tensors, abstract indices</h2>
@@ -219,7 +223,7 @@ T = T^{\alpha_1\ldots \alpha_n} \ e_{\alpha_1} \otimes \cdots \otimes e_{\alpha_
 <div style="overflow: scroll">
   <p>\begin{equation}
 \label{pure-covariant-eqn}
-S = S_{\alpha_1\ldots\alpha_n} \ \phi^{\alpha_1} \otimes \cdots \otimes \phi^{\alpha_n},
+S = S_{\alpha_1\ldots\alpha_n} \ \eta^{\alpha_1} \otimes \cdots \otimes \eta^{\alpha_n},
 \end{equation}</p>
 </div>
 
@@ -230,7 +234,7 @@ S = S_{\alpha_1\ldots\alpha_n} \ \phi^{\alpha_1} \otimes \cdots \otimes \phi^{\a
 <div style="overflow: scroll">
   <p>\begin{equation}
 \label{mixed-again-eqn}
-R = R^{\alpha}{}_{\beta\gamma}{}^{\delta\epsilon} \ e_\alpha \otimes \phi^\beta \otimes \phi^\gamma \otimes e_\delta \otimes e_\epsilon,
+R = R^{\alpha}{}_{\beta\gamma}{}^{\delta\epsilon} \ e_\alpha \otimes \eta^\beta \otimes \eta^\gamma \otimes e_\delta \otimes e_\epsilon,
 \end{equation}</p>
 </div>
 
@@ -315,7 +319,7 @@ T^{ba} = T^{12} \ e_2 \otimes e_1 + T^{21} \ e_1 \otimes e_2.
 <div style="overflow: scroll">
   <p>\begin{equation}
 \label{xmas-eqn}
-S^a{}_{bc} = S^\alpha{}_{\beta\gamma} \ e_\alpha \otimes \phi^\beta \otimes \phi^\gamma \in V \otimes W^\ast \otimes W^\ast
+S^a{}_{bc} = S^\alpha{}_{\beta\gamma} \ e_\alpha \otimes \eta^\beta \otimes \eta^\gamma \in V \otimes W^\ast \otimes W^\ast
 \end{equation}</p>
 </div>
 
@@ -324,7 +328,7 @@ S^a{}_{bc} = S^\alpha{}_{\beta\gamma} \ e_\alpha \otimes \phi^\beta \otimes \phi
 <div style="overflow: scroll">
   <p>\begin{equation}
 \label{holiday-eqn}
-T_a{}^{b} = T_\alpha{}^{\beta} \ \phi^\alpha \otimes e_\beta \in V^\ast \otimes U.
+T_a{}^{b} = T_\alpha{}^{\beta} \ \eta^\alpha \otimes e_\beta \in V^\ast \otimes U.
 \end{equation}</p>
 </div>
 
@@ -332,7 +336,7 @@ T_a{}^{b} = T_\alpha{}^{\beta} \ \phi^\alpha \otimes e_\beta \in V^\ast \otimes 
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-ST = S^\alpha{}_{\beta\gamma}T_\delta{}^{\epsilon} \ e_\alpha \otimes \phi^\beta \otimes \phi^\gamma \otimes \phi^\delta \otimes e_\epsilon \in V \otimes W^\ast \otimes W^\ast \otimes V^\ast \otimes U.
+ST = S^\alpha{}_{\beta\gamma}T_\delta{}^{\epsilon} \ e_\alpha \otimes \eta^\beta \otimes \eta^\gamma \otimes \eta^\delta \otimes e_\epsilon \in V \otimes W^\ast \otimes W^\ast \otimes V^\ast \otimes U.
 \end{equation}</p>
 </div>
 
@@ -430,7 +434,7 @@ V \otimes V^\ast \to \bbr, \quad v \otimes f \mapsto f(v).
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-T^a{}_b = T^\alpha{}_\beta \ e_\alpha \otimes \phi^\beta \in V \otimes V^\ast,
+T^a{}_b = T^\alpha{}_\beta \ e_\alpha \otimes \eta^\beta \in V \otimes V^\ast,
 \end{equation}</p>
 </div>
 
@@ -438,7 +442,7 @@ T^a{}_b = T^\alpha{}_\beta \ e_\alpha \otimes \phi^\beta \in V \otimes V^\ast,
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
- T^\alpha{}_\beta \phi^\beta(e_\alpha) = T^\alpha{}_\alpha,
+ T^\alpha{}_\beta \eta^\beta(e_\alpha) = T^\alpha{}_\alpha,
 \end{equation}</p>
 </div>
 
@@ -451,7 +455,7 @@ Suppose that we are given a tensor</p>
   <div style="overflow: scroll">
     <p>\begin{equation}
 \label{stand-eqn}
-T^a{}_{bc}{}^d = T^\alpha{}_{\beta\gamma}{}^\delta \ e_\alpha \otimes \phi^\beta \otimes \phi^\gamma \otimes e_\delta \in V \otimes W^\ast \otimes V^\ast \otimes W
+T^a{}_{bc}{}^d = T^\alpha{}_{\beta\gamma}{}^\delta \ e_\alpha \otimes \eta^\beta \otimes \eta^\gamma \otimes e_\delta \in V \otimes W^\ast \otimes V^\ast \otimes W
 \end{equation}</p>
   </div>
 
@@ -459,7 +463,7 @@ T^a{}_{bc}{}^d = T^\alpha{}_{\beta\gamma}{}^\delta \ e_\alpha \otimes \phi^\beta
 
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
-T^a{}_{ba}{}^d \overset{\text{def}}{=} T^\alpha{}_{\beta\alpha}{}^\delta \ \phi^\beta \otimes e_\delta.
+T^a{}_{ba}{}^d \overset{\text{def}}{=} T^\alpha{}_{\beta\alpha}{}^\delta \ \eta^\beta \otimes e_\delta.
 \end{equation}</p>
   </div>
 </div>
@@ -511,7 +515,7 @@ T^a{}_{ba}{}^d \overset{\text{def}}{=} T^\alpha{}_{\beta\alpha}{}^\delta \ \phi^
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-S^a{}_{bc} = S^\alpha{}_{\beta\gamma} \ e_\alpha \otimes \phi^\beta \otimes \phi^\gamma \in V \otimes W^\ast \otimes W^\ast
+S^a{}_{bc} = S^\alpha{}_{\beta\gamma} \ e_\alpha \otimes \eta^\beta \otimes \eta^\gamma \in V \otimes W^\ast \otimes W^\ast
 \end{equation}</p>
 </div>
 
@@ -519,7 +523,7 @@ S^a{}_{bc} = S^\alpha{}_{\beta\gamma} \ e_\alpha \otimes \phi^\beta \otimes \phi
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-T_a{}^{b} = T_\alpha{}^{\beta} \ \phi^\alpha \otimes e_\beta \in V^\ast \otimes U.
+T_a{}^{b} = T_\alpha{}^{\beta} \ \eta^\alpha \otimes e_\beta \in V^\ast \otimes U.
 \end{equation}</p>
 </div>
 
@@ -527,7 +531,7 @@ T_a{}^{b} = T_\alpha{}^{\beta} \ \phi^\alpha \otimes e_\beta \in V^\ast \otimes 
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-S^a{}_{bc}T_d{}^{e} = S^\alpha{}_{\beta\gamma}T_\delta{}^{\epsilon} \ e_\alpha \otimes \phi^\beta \otimes \phi^\gamma \otimes \phi^\delta \otimes e_\epsilon \in V \otimes W^\ast \otimes W^\ast \otimes V^\ast \otimes U.
+S^a{}_{bc}T_d{}^{e} = S^\alpha{}_{\beta\gamma}T_\delta{}^{\epsilon} \ e_\alpha \otimes \eta^\beta \otimes \eta^\gamma \otimes \eta^\delta \otimes e_\epsilon \in V \otimes W^\ast \otimes W^\ast \otimes V^\ast \otimes U.
 \end{equation}</p>
 </div>
 
@@ -535,7 +539,7 @@ S^a{}_{bc}T_d{}^{e} = S^\alpha{}_{\beta\gamma}T_\delta{}^{\epsilon} \ e_\alpha \
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-S^a{}_{bc}T_a{}^{e} = S^\alpha{}_{\beta\gamma}T_\alpha{}^{\epsilon} \  \phi^\beta \otimes \phi^\gamma \otimes  e_\epsilon \in W^\ast \otimes W^\ast \otimes U.
+S^a{}_{bc}T_a{}^{e} = S^\alpha{}_{\beta\gamma}T_\alpha{}^{\epsilon} \  \eta^\beta \otimes \eta^\gamma \otimes  e_\epsilon \in W^\ast \otimes W^\ast \otimes U.
 \end{equation}</p>
 </div>
 

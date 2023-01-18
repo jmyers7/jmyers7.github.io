@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>markov chains</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        tex: {
+          tags: 'ams',
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                be: ['\\mathbf{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfm: ['\\mathfrak{M}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+          }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/viz.html">viz gallery</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">markov chains</h1>
+</div>
+
+<h2 id="finite-state-markov-chains">finite-state markov chains</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>stochastic process</em> is a collection of random variables $\left\{ x_t \right\}_{t\in T}$, all defined on the same sample space with values in a common measurable space $\cals$ called the <em>state space</em> (there are no restrictions placed on $T$). Points in $\cals$ are called <em>states</em> of the stochastic process. If the state space $\cals$ is either finite or countably infinite, then the stochastic process is called <em>discrete-state</em>. In the case that the index set $T$ is $\bbn = \left\{0,1,2,\ldots\right\}$, we will often index the terms in a stochastic process as $x_n$ rather than $x_t$.</p>
+</div>
+
+<p>Next!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Suppose that $\left\{x_n\right\}_{n=0}^\infty$ is a discrete-state stochastic process. We shall say $\left\{x_n\right\}$ is a <em>discrete-state Markov chain</em> if</p>
+
+  <p>\begin{equation}
+\label{markov-eqn}
+P(x_n = j | x_1=i_1,\ldots,x_{n-1}=i_{n-1}) = P(x_n = j | x_{n-1}=i_{n-1})
+\end{equation}</p>
+
+  <p>for all $n=1,2,\ldots$ and all states $j,i_1,\ldots,i_{n-1}$; it is called a <em>homogeneous discrete-state Markov chain</em> if, in addition, the probabilities $P(x_{n+1}=j | x_n=i)$ do <em>not</em> depend on $n$, in the sense that</p>
+
+  <p>\begin{equation}\notag
+P(x_{n+1}=j|x_n=i) = P(x_{m+1}=j | x_m=i)
+\end{equation}</p>
+
+  <p>for all $m,n\geq 0$ and all states $i$ and $j$.</p>
+
+  <p>If a discrete-state Markov chain actually has a <em>finite</em> state space, then it will be called a <em>finite-state Markov chain</em>.</p>
+</div>
+
+<p>Let’s begin our investigations by making the global proclamation: <strong>We will only consider homogeneous Markov chains</strong>! Thus, the unqualified terminology “Markov chain” will hereafter always mean “homogeneous Markov chain”.</p>
+
+<p>Given a discrete-state Markov chain, the probabilities that appear in the definition <em>are</em> the probability density (i.e., mass) functions. If we use $f$’s to represent these functions, then \eqref{markov-eqn} has the immediate consequence</p>
+
+<p>\begin{equation}\notag
+f(x_0, x_1, \ldots,x_n) = f(x_0) f(x_1|x_0) \cdots f(x_n|x_{n-1})
+\end{equation}</p>
+
+<p>for all $n\geq 1$.</p>
+
+<p>Finite-state (homogeneous!) Markov chains may be represented by directed graphs. For example, a $3$-state Markov chain might be represented as:</p>
+
+<p><img src="/assets/images/markov.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>In this figure, the nodes of the graph represent the state space $\left\{ i,j,k\right\}$, while the directed edges and their labels represent the probabilities of transitioning between the states. For example, the two highlighted edges (in magenta) represent the probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_{n + 1} = j | x_n = i) = 0.2 \quad \text{and} \quad P(x_{n+1}=k| x_n=i) = 0.3.
+\end{equation}</p>
+
+<p>Observe here that we are using the homogeneity property of the Markov chain; these probabilities do not depend on the particular choice of $n$. Notice that the sum of the probabilities associated with all “outgoing” edges at a fixed node is equal to $1$, as is required for a valid probability distribution.</p>
+
+<p>For <em>any</em> finite-state Markov chain $\{x_n\}$ whose state space is enumerated by the integers $1,2,\ldots,c$, we call the number</p>
+
+<p>\begin{equation}\notag
+p_{ij} = P(x_{n+1}=j|x_n=i)
+\end{equation}</p>
+
+<p>the <em>transition probability</em> from state $i$ to state $j$, and the matrix</p>
+
+<p>\begin{equation}\notag
+P = \begin{bmatrix} p_{11} &amp; \cdots &amp; p_{1c} \\ \vdots &amp; \ddots &amp; \vdots \\ p_{c1} &amp; \cdots &amp; p_{cc} \end{bmatrix}
+\end{equation}</p>
+
+<p>is called the <em>transition matrix</em>. The $i$-th row of this matrix encodes the probabilities of transitioning <em>out</em> of state $i$, while the $j$-th column encodes the probabilities of transitioning <em>to</em> state $j$. Note that the rows all must sum to $1$. The transition matrix for the Markov chain displayed in the figure above is</p>
+
+<p>\begin{equation}\notag
+P = \begin{bmatrix} 0.5 &amp; 0.3 &amp; 0.2 \\ 0.3 &amp; 0.5 &amp; 0.2 \\ 0.5 &amp; 0.1 &amp; 0.4 \end{bmatrix}.
+\end{equation}</p>
+
+<h2 id="simulations-and-trace-plots">simulations and trace plots</h2>
+
+<p>It is rather easy to simulate the observed values of a finite-state Markov chain with state space $\{1,2,\ldots,c\}$. For example, suppose that we pick some definite initial state $x_0=i$. We then choose for $x_1$ a random state from $\{1,2,\ldots,c\}$, with our choice weighted by the conditional probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_1 = 1 | x_0=i), \ \ldots \ , P(x_1 = c | x_0=i).
+\end{equation}</p>
+
+<p>Then, having chosen $x_1=j$, say, we choose for $x_2$ a random state from the state space, with our choice weighted by the conditional probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_2 = 1 | x_1=j), \ \ldots \ , P(x_2 = c | x_1=j).
+\end{equation}</p>
+
+<p>And so on.</p>
+
+<p>If we carry through with this process $n=100$ times for the $3$-state Markov chain pictured above, with initial choice $x_0=1$, we get a figure that looks like:</p>
+
+<p><img src="/assets/images/trace1.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>Along the right-hand side of this figure, which is called a <em>trace plot</em>, you see a (rotated) bar plot which records the density (i.e., proportion) of visits to the various states $1$, $2$, and $3$. For this particular (simulated) Markov chain, it appears that state $1$ is visited roughly half of the time in the first $100$ terms.</p>
+
+<p>But why stop with $n=100$? Let’s add a few more terms:</p>
+
+<p><img src="/assets/images/trace2.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>WHY NOT EVEN MORE?!?!?!</p>
+
+<p><img src="/assets/images/trace3.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>The key comparison between these three trace plots is between the distributions along the right-hand sides: they don’t appear to be that different from each other. Though the relative frequency of visits to states $2$ and $3$ trade positions going from the first plot to the second, these frequencies are both still quite a bit less than the density of visits to state $1$ in all three plots. Let’s generate an additional 1,000 terms, just to be sure:</p>
+
+<p><img src="/assets/images/trace4.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>Now, there’s hardly any difference between the distributions for $n=1000$ and $n=2000$, i.e., it appears that the distribution has <em>stabilized</em>, in the evident sense of the word.</p>
+
+<p>But what if we choose a different initial value for $x_0$? Here are the relevant trace plots:</p>
+
+<p><img src="/assets/images/trace5.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p><img src="/assets/images/trace6.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>Again, the distributions don’t look altogether dissimilar to the distributions when $x_0=1$, and you might imagine that they would be even <em>more</em> similar if I increased $n$.</p>
+
+<p>How about a simulation with a larger state space? Here’s an example:</p>
+
+<p><img src="/assets/images/trace7.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>With only $n=100$ steps, the distribution is strongly bimodal. Let’s add a few more steps:</p>
+
+<p><img src="/assets/images/trace8.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>From these two trace plots, we conclude that states 3 and 7 are quite popular, which means that the transition probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_{n+1} = 3 | x_n = i) \quad \text{and} \quad P(x_{n+1} = 7 | x_n = i)
+\end{equation}</p>
+
+<p>are probably quite high for most $i$. Indeed, I specifically designed this simulation to have this bimodal behavior by using the following transition matrix:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+<span class="p">[[</span><span class="mf">0.031</span> <span class="mf">0.078</span> <span class="mf">0.351</span> <span class="mf">0.049</span> <span class="mf">0.013</span> <span class="mf">0.013</span> <span class="mf">0.329</span> <span class="mf">0.071</span> <span class="mf">0.005</span> <span class="mf">0.06</span> <span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.002</span> <span class="mf">0.097</span> <span class="mf">0.322</span> <span class="mf">0.021</span> <span class="mf">0.018</span> <span class="mf">0.018</span> <span class="mf">0.357</span> <span class="mf">0.052</span> <span class="mf">0.03</span>  <span class="mf">0.083</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.061</span> <span class="mf">0.014</span> <span class="mf">0.263</span> <span class="mf">0.037</span> <span class="mf">0.046</span> <span class="mf">0.079</span> <span class="mf">0.4</span>   <span class="mf">0.052</span> <span class="mf">0.02</span>  <span class="mf">0.029</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.052</span> <span class="mf">0.014</span> <span class="mf">0.306</span> <span class="mf">0.081</span> <span class="mf">0.082</span> <span class="mf">0.069</span> <span class="mf">0.357</span> <span class="mf">0.008</span> <span class="mf">0.026</span> <span class="mf">0.006</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.012</span> <span class="mf">0.049</span> <span class="mf">0.292</span> <span class="mf">0.09</span>  <span class="mf">0.026</span> <span class="mf">0.065</span> <span class="mf">0.381</span> <span class="mf">0.051</span> <span class="mf">0.031</span> <span class="mf">0.003</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.086</span> <span class="mf">0.069</span> <span class="mf">0.293</span> <span class="mf">0.079</span> <span class="mf">0.053</span> <span class="mf">0.082</span> <span class="mf">0.231</span> <span class="mf">0.017</span> <span class="mf">0.008</span> <span class="mf">0.083</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.035</span> <span class="mf">0.024</span> <span class="mf">0.441</span> <span class="mf">0.032</span> <span class="mf">0.025</span> <span class="mf">0.048</span> <span class="mf">0.238</span> <span class="mf">0.071</span> <span class="mf">0.013</span> <span class="mf">0.074</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.075</span> <span class="mf">0.019</span> <span class="mf">0.272</span> <span class="mf">0.079</span> <span class="mf">0.069</span> <span class="mf">0.071</span> <span class="mf">0.331</span> <span class="mf">0.007</span> <span class="mf">0.075</span> <span class="mf">0.001</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.07</span>  <span class="mf">0.051</span> <span class="mf">0.3</span>   <span class="mf">0.005</span> <span class="mf">0.025</span> <span class="mf">0.026</span> <span class="mf">0.384</span> <span class="mf">0.052</span> <span class="mf">0.059</span> <span class="mf">0.027</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.012</span> <span class="mf">0.074</span> <span class="mf">0.285</span> <span class="mf">0.058</span> <span class="mf">0.079</span> <span class="mf">0.051</span> <span class="mf">0.264</span> <span class="mf">0.044</span> <span class="mf">0.054</span> <span class="mf">0.078</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Notice that the probabilities in the third and seventh columns are quite a bit larger than the probabilities in the other columns.</p>
+
+<h2 id="stationary-distributions">stationary distributions</h2>
+
+<p>Now, imagine that $x_0$ is the initial term of a finite-state Markov chain with state space $\{1,2,\ldots,c\}$. We may collect the probabilities in the distribution of $x_0$ and place them into a row vector:</p>
+
+<p>\begin{equation}\notag
+v_0 = \begin{bmatrix} P(x_0=1) &amp; \cdots &amp; P(x_0=c) \end{bmatrix}.
+\end{equation}</p>
+
+<p>If $P$ denotes the transition matrix of the Markov chain, then the $j$-th column of the $1\times c$ row vector</p>
+
+<p>\begin{equation}\notag
+v_1 \overset{\text{def}}{=} v_0P
+\end{equation}</p>
+
+<p>is</p>
+
+<p>\begin{equation} \notag
+\sum_{i=1}^c P(x_0=i)P(x_1 = j | x_0=i) = \sum_{i=1}^c P(x_0=i, \ x_1 = j) = P(x_1=j).
+\end{equation}</p>
+
+<p>Thus, $v_1$ encodes the marginal distribution of $x_1$, just as $v_0$ does the same for $x_0$. But, if we carry through another multiplication to compute</p>
+
+<p>\begin{equation}\notag
+v_2 \overset{\text{def}}{=} v_1P,
+\end{equation}</p>
+
+<p>we see that its $j$-th column is given by</p>
+
+<p>\begin{equation} \notag
+\sum_{i=1}^c P(x_1=i)P(x_2 = j | x_1=i) = \sum_{i=1}^c P(x_1=i, \ x_2 = j) = P(x_2=j).
+\end{equation}</p>
+
+<p>Hence, $v_2$ encodes the marginal distribution of $x_2$. Of course, the pattern continues, so that for each $n\geq 1$, the row vector</p>
+
+<p>\begin{equation}\notag
+v_n \overset{\text{def}}{=} v_{n-1}P = v_0 P^n
+\end{equation}</p>
+
+<p>encodes the marginal distribution of $x_n$.</p>
+
+<p>These observations constitute a proof of the following important theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Any finite-state Markov chain $\{x_n\}$ is completely determined by the distribution of the initial term $x_0$ and the transition matrix $P$.</p>
+</div>
+
+<p>Of course, what I mean by “determined” is that the probability distributions of all terms $x_n$ in the chain are known once we know the distribution of the initial term $x_0$ and the transition matrix $P$.</p>
+
+    </article>
+    
+  </body>
+</html>
