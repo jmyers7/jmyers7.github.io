@@ -1,7 +1,7 @@
 ---
 layout: post
 title: tangent bundles
-category: toward geometric machine learning
+category: a geometric and topological toolkit
 ---
 
 <div class="post-title">
@@ -24,7 +24,7 @@ This post is setting us up for the study of vector fields on manifolds, which ar
 
 ## Prerequisites
 
-Of course, you'll want to be familiar with the basic definitions, notation, and terminology in the [first post]({% post_url /tensors/2023-01-17-geom-primer1 %}) of this series. In particular, our manifolds are embedded in euclidean spaces by definition, in the style of Guillemin and Pollack's book ([^GP2010]), which will make for a handy reference for this post.
+Of course, you'll want to be familiar with the basic definitions, notation, and terminology in the [first post]({% post_url /geom-primer/2023-01-17-geom-primer1 %}) of this series. In particular, our manifolds are embedded in euclidean spaces by definition, in the style of Guillemin and Pollack's book ([^GP2010]), which will make for a handy reference for this post.
 
 <div id="tan-bundle">
 ## The tangent bundle
@@ -74,7 +74,7 @@ T(V) = (V \times \bbr^N) \cap T(M),
 
 so $T(V)$ is an open subset of $T(M)$. We may thus take the global derivatives $\phi_\ast$ of local parametrizations of $M$ to obtain local parametrizations of $T(M)$, giving the latter the structure of a $2n$-dimensional manifold.
 
-From this description, we can easily describe local coordinates on the codomain of a local parametrization $\phi_\ast:T(U) \to T(V)$. First, recall (from the [first post]({% post_url /tensors/2023-01-17-geom-primer1 %})) that the associated local coordinates $x^1,\ldots,x^n$ on the open subset $V\subseteq M$ are, by definition, the component functions of the inverse function $\phi^{-1}$, namely
+From this description, we can easily describe local coordinates on the codomain of a local parametrization $\phi_\ast:T(U) \to T(V)$. First, recall (from the [first post]({% post_url /geom-primer/2023-01-17-geom-primer1 %})) that the associated local coordinates $x^1,\ldots,x^n$ on the open subset $V\subseteq M$ are, by definition, the component functions of the inverse function $\phi^{-1}$, namely
 
 \begin{equation}\notag
 \phi^{-1}(p) = (x^1(p),\ldots,x^n(p)),
