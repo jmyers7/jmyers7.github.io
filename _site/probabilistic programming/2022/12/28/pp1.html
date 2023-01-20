@@ -30,6 +30,7 @@
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
                 be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
                 bbn: ['\\mathbb{N}'],
                 bbp: ['\\mathbb{P}'],
                 bbq: ['\\mathbb{Q}'],
@@ -38,6 +39,7 @@
                 cala: ['\\mathcal{A}'],
                 calb: ['\\mathcal{B}'],
                 calf: ['\\mathcal{F}'],
+                cali: ['\\mathcal{I}'],
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
                 calp: ['\\mathcal{P}'],
@@ -64,7 +66,8 @@
                 dx: ['{\\ \\text{d} #1}', 1],
                 id: ['\\boldsymbol{1}'],
                 defeq: ['\\overset{\\text{def}}{=}'],
-                tl: ['\\widetilde{#1}', 1]
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1]
           },
         },
         svg: {
@@ -123,47 +126,44 @@
 <ol>
   <li><a href="#prob-model" style="font-family: 'Lora', serif; font-size: 1em;">The bayesian probabilistic model</a></li>
   <li><a href="#posterior" style="font-family: 'Lora', serif; font-size: 1em;">The posterior distribution</a></li>
-  <li><a href="#next" style="font-family: 'Lora', serif; font-size: 1em;">What’s next?</a></li>
   <li><a href="#end" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
 </ol>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
-<p>Probabilistic models will be the focus of this first post, so you’ll need to be familiar with these gadgets as defined in my <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html">post</a> from my series on mathematical machine learning. Also, if you don’t already know it, Bayes’ Theorem is stated and proved in that same post.</p>
+<p>Statistical models will be the focus of this first post, so you’ll need to be familiar with these gadgets as defined in this <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html">post</a>. Also, if you don’t already know it, Bayes’ Theorem is stated and proved in that same post.</p>
 
 <div id="prob-model">
   <h2 id="the-bayesian-probabilistic-model">the bayesian probabilistic model</h2>
 </div>
 
-<p>As I mentioned in the introduction, we will consider a single example to illustrate bayesian modeling which, according to Robert <sup id="fnref:Robert2007:1" role="doc-noteref"><a href="#fn:Robert2007" class="footnote" rel="footnote">1</a></sup>, is due to Bayes in 1764. The description I give below is taken verbatim from page 11 of Robert’s text.</p>
+<p>As I mentioned in the introduction, we will consider a single example to illustrate bayesian modeling which, according to Robert <sup id="fnref:Robert2007:1" role="doc-noteref"><a href="#fn:Robert2007" class="footnote" rel="footnote">1</a></sup>, is due to Bayes in 1764. The description I give below is taken verbatim from page 11 of Robert’s text, except I am using a lowercase $x$ in place of an uppercase $X$.</p>
 
 <div class="highlight-box" id="problem">
   <p><strong>Bayes’ Problem.</strong></p>
   <blockquote>
-    <p>A billiard ball $W$ is rolled on a line of length one, with uniform probability of stopping anywhere. It stops at $p$. A second ball $O$ is then rolled $n$ times under the same assumptions and $X$ denotes the number of times the ball $O$ stopped to the left of $W$. <em>Given $X$, what inference can we make on $p$?</em></p>
+    <p>A billiard ball $W$ is rolled on a line of length one, with uniform probability of stopping anywhere. It stops at $p$. A second ball $O$ is then rolled $n$ times under the same assumptions and $x$ denotes the number of times the ball $O$ stopped to the left of $W$. <em>Given $x$, what inference can we make on $p$?</em></p>
   </blockquote>
 </div>
 
-<p>First, instead of writing an uppercase $X$ to denote the random variable, I will write a lowercase $x$.<sup id="fnref:footnote" role="doc-noteref"><a href="#fn:footnote" class="footnote" rel="footnote">2</a></sup></p>
+<p>Let’s model the line (of length $1$) by the unit interval $\calp = [0,1]$, where we imagine that the balls are rolling from left to right, starting at $0$. To say that the balls $W$ and $O$ have uniform probability of stopping <em>anywhere</em> in $I$ means that the probability of a ball stopping in the subinterval $[a,b]$ of $\calp$ is equal to the length $b-a$ of that interval.</p>
 
-<p>Now, let’s model the line (of length $1$) by the unit interval $I = [0,1]$, where we imagine that the balls are rolling from left to right, starting at $0$. To say that the balls $W$ and $O$ have uniform probability of stopping <em>anywhere</em> in $I$ means that the probability of a ball stopping in the subinterval $[a,b]$ of $I$ is equal to the length $b-a$ of that interval.</p>
-
-<p>There are two sources of uncertainty (or randomness) in this problem: the value of $p$, and the value of $x$. We can model both sources of uncertainty <em>simultaneously</em> via a probabilistic model $Q$ on the cartesian product $\calx \times \calp$, where</p>
+<p>There are two sources of uncertainty (or randomness) in this problem: the value of $p$, and the value of $x$. We can model both sources of uncertainty <em>simultaneously</em> via a statistical model $Q$ on the cartesian product $\calx \times \calp$, where</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
-\calx = \left\{0,1,\ldots,n\right\} \quad \text{and} \quad \calp = [0,1].
+\calx = \left\{0,1,\ldots,n\right\}.
 \end{equation}</p>
 </div>
 
 <p>Here, $\calx$ serves as the domain for $x$, while $\calp$ serves as the domain for $p$. The first space is given the counting measure $\mu$, while the second is given the standard Lebesgue measure $\lambda$. In order to define the model $Q$, it suffices to describe its density with respect to the product measure $\mu \times \lambda$.</p>
 
-<p>However, the usual workflow in a bayesian modeling problem does <em>not</em> begin with the full probabilistic model on the cartesian product. Instead, the workflow usually begins with the conditional distributions $P(-|p)$ on $\calx$ and the prior (or marginal) distribution $P$ on $\calp$. Given these distributions, one can integrate the conditional distributions against the prior distribution to obtain the probabilistic model, i.e., we can use the “disintegration formula”</p>
+<p>However, the usual workflow in a bayesian modeling problem does <em>not</em> begin with the full statistical model on the cartesian product. Instead, the workflow usually begins with the conditional distributions $P(-|p)$ on $\calx$ and the prior (or marginal) distribution $P$ on $\calp$. Given these distributions, one can integrate the conditional distributions against the prior distribution to obtain the statistical model, i.e., we can use the “disintegration formula”</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}
 \label{disintegrate-eqn}
-Q(C) = \int_\caly P(C(p) | p) \ P(\text{d}p) = \int_0^1 P(C(p)|p) \dx{p},
+Q(C) = \int_\calp P(C(p) | p) \ P(\text{d}p) = \int_0^1 P(C(p)|p) \dx{p},
 \end{equation}</p>
 </div>
 
@@ -175,9 +175,9 @@ C(p) = \left\{ x\in \calx : (x,p) \in C\right\}.
 \end{equation}</p>
 </div>
 
-<p>This is the strategy that we will follow: first describing the distributions $P(-|p)$ on $\calx$ and their densities $f(x|p)$ and the prior distribution $P$ on $\calp$ and its density $\pi(p)$.</p>
+<p>So, we will first describe the distributions $P(-|p)$ on $\calx$ and their densities $f(x|p)$, and the prior distribution $P$ on $\calp$ and its density $\pi(p)$.</p>
 
-<p>Now, if $W$ stops at the point $p\in I$, then the probability that $O$ stops to the <em>left</em> of $W$ is $p$, while the probability that it stops to the <em>right</em> is $1-p$. It follows that the random variable $x$ is distributed binomially:</p>
+<p>Now, if $W$ stops at the point $p\in \calp$, then the probability that $O$ stops to the <em>left</em> of $W$ is $p$, while the probability that it stops to the <em>right</em> is $1-p$. It follows that the random variable $x$ is distributed binomially:</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag
@@ -227,9 +227,9 @@ Q(x, \ a\leq p \leq a+\dev) \approx \dev \binom{n}{x} p^{x}(1-p)^{n-x},
 \end{equation}</p>
 </div>
 
-<p>Note that this formula is consistent with the formula $\varphi(x,p) = f(x|p) \pi(p)$ from the <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html">post</a> on probabilistic models.</p>
+<p>Note that this formula is consistent with the formula $\varphi(x,p) = f(x|p) \pi(p)$ from the <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html">post</a> on statistical models.</p>
 
-<p>With this density in hand, we’ve completed the description of the bayesian probabilistic model $Q$. If we fix a value of $n$, say $n=100$, then we can use the machine to simulate draws from the model, which shows the majority of the mass of the model is concentrated on a diagonal in the space $\calx \times \calp$:</p>
+<p>With this density in hand, we’ve completed the description of the bayesian statistical model $Q$. If we fix a value of $n$, say $n=100$, then we can use the machine to simulate draws from the model, which shows the majority of the mass of the model is concentrated on a diagonal in the space $\calx \times \calp$:</p>
 
 <p><img src="/assets/images/joint.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
@@ -245,7 +245,7 @@ Q(x, \ a\leq p \leq a+\dev) \approx \dev \binom{n}{x} p^{x}(1-p)^{n-x},
   <h2 id="the-posterior-distribution">the posterior distribution</h2>
 </div>
 
-<p>We now have the conditional densities $f(x|p)$ and the prior density $\pi(p)$. To obtain the posterior density, i.e., the conditional density $f(p|x)$, we simply apply <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html#bayes">Bayes’ Theorem</a>. For fixed $x$, we get:</p>
+<p>We now have the conditional densities $f(x|p)$ and the prior density $\pi(p)$. To obtain the posterior density $\pi(p|x)$, we simply apply <a href="/mathematical%20machine%20learning/2022/12/27/mml1.html#bayes">Bayes’ Theorem</a>. For fixed $x$, we get:</p>
 
 <div style="overflow: scroll">
   <p>\begin{align}
@@ -381,19 +381,13 @@ f(X|p) = \prod_{i=1}^n f(x_i|p)
 
   <ol>
     <li>We seek to model some sort of process or phenomenon.</li>
-    <li>The model that we select is a probabilistic one, that depends on parameters.</li>
+    <li>The model that we select is a statistical one, that depends on parameters.</li>
     <li>These parameters are unknown and uncertain. The uncertainty is encoded in a <em>prior</em> probability distribution over the parameters.</li>
     <li>We obtain data or observations from the process or phenomenon that is being modeled.</li>
     <li>Using the observed data, we use Bayes’ Theorem to update the prior distribution on the parameter to the <em>posterior</em> distribution.</li>
     <li>Repeat steps (4.) and (5.).</li>
   </ol>
 </div>
-
-<div id="next">
-  <h2 id="whats-next">What’s next?</h2>
-</div>
-
-<p>The bayesian probabilistic model that we developed in this post is the well-known beta-binomial model. It has the (very) desirable feature that its posterior distribution can be analytically obtained (i.e., by hand) and sampled from. However, this is <em>not</em> the case for most bayesian models. Instead, in practice one needs to use certain sampling algorithms. We will explore some of these in the next post.</p>
 
 <div id="end">
   <h2 id="references-and-footnotes">References and footnotes</h2>
@@ -402,9 +396,6 @@ f(X|p) = \prod_{i=1}^n f(x_i|p)
   <ol>
     <li id="fn:Robert2007" role="doc-endnote">
       <p>C. P. Robert. <em>The Bayesian choice. From decision-theoretic foundations to computational implementation.</em> Corrected paperback reprint of the second edition. Springer Texts in Statistics. Springer, New York, 2007. <a href="#fnref:Robert2007" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:Robert2007:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
-    </li>
-    <li id="fn:footnote" role="doc-endnote">
-      <p>This practice of intentionally confusing a random variable $X$ with one of its realizations $x$ is common in some texts on bayesian statistics. In particular, Robert follows this convention in his text, with the only apparent exception being in his statement of Bayes’ Problem. <a href="#fnref:footnote" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
