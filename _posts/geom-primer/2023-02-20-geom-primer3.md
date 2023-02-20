@@ -66,7 +66,7 @@ We shall have occasion in this and later posts to use the rudiments of *category
 
 ## Prerequisites
 
-The geometric and topological prerequisites are contained in the first two posts of this series (here, and here). These posts, in turn, are based on Guillemin and Pollack's book ([^GP2010]), from which we take our initial definition of a manifold. Thus, it seems appropriate to make the global proclamation:
+The geometric and topological prerequisites are contained in the first two posts of this series ([here]({% post_url /geom-primer/2023-01-17-geom-primer1 %}), and [here]({% post_url /geom-primer/2023-01-18-geom-primer2 %})). These posts, in turn, are based on Guillemin and Pollack's book ([^GP2010]), from which we take our initial definition of a manifold. Thus, it seems appropriate to make the global proclamation:
 
 <div class="highlight-box2">
 In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack's book.
@@ -286,7 +286,7 @@ The source and target of this map are modules over $C^\infty(U)$ and $C^\infty(V
 <div class="highlight-box2">
 **Exercise.** Let $M$ be a manifold.
 
-1. Prove that the restriction map $r^U_V$ is $C^\infty(V)$-linear.
+1. Prove that the restriction map $r^V_U$ is $C^\infty(V)$-linear.
 2. If $U$ is an open set in $M$, prove that the restriction map $r^U_U$ is the identity map on $\calx(U)$.
 3. If $U\subseteq V \subseteq W$ are open subsets of $M$, prove that
     \begin{equation}\notag
