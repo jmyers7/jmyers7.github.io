@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory IV&#58 tensor fields</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory IV: tensor fields</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Some fundamental natural isomorphisms</li>
+  <li>Tensor fields</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<div class="highlight-box2">
+  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+</div>
+
+<h2 id="some-fundamental-natural-isomorphisms">Some fundamental natural isomorphisms</h2>
+
+<p>We are on our way to defining tensors on manifolds. However, as you may already know, a perusal of the literature shows that there seems to be as many ways to define tensors as there are textbook authors. Obviously, this makes it difficult for beginners to compare the treatments in different references. All the definitions are ultimately the “same,” but hardly any references (if any) explicitly explain <em>why</em> they are the “same.”</p>
+
+<p>The reason “same” is enclosed in quotation marks is that the various modules of tensors that you find in the literature are not <em>literally</em> equal to each other, but rather are <em>naturally isomorphic</em>. Intuitively, to say that two modules are <em>naturally</em> isomorphic means that they are connected by an isomorphism that does not depend on artificial choices. The prototypical example of a natural isomorphism is the one between a finite-dimensional vector space $V$ and its double dual $(V^\ast)^\ast$. In this case, the natural isomorphism is</p>
+
+<p>\begin{equation}\notag
+\Theta: V \to (V^\ast)^\ast, \quad v \mapsto \Theta_v,
+\end{equation}</p>
+
+<p>where $\Theta_v(\alpha) = \alpha(v)$. This isomorphism is <em>natural</em> (in the technical sense) because its definition is <em>natural</em> (in the colloquial sense). On the other hand, the typical method for showing that $V$ is isomorphic to the dual $V^\ast$ is <em>not</em> natural, because it depends on an artificial choice of basis. Philosophically, naturality is particularly important because it means that constructions on fibers globalize to constructions on an entire vector bundle.</p>
+
+<p>There are broadly two types of definitions of tensors on a manifold: The first are the <em>tensor definitions</em>, where a tensor is defined to be either a global section of a tensor product bundle, or an element in the tensor product of the modules of global sections; the second are the <em>Hom definitions</em>, where a tensor is defined to be either a global section of a Hom bundle, or an element in the Hom of the modules of global sections. So, in both types of definitions, either a tensor is a <em>field</em>, i.e., a section of a vector bundle, or else an element of a tensor product or Hom module.</p>
+
+<p>Before we explore tensors, my goal in this section is to equip you with the natural isomorphisms that you’ll need to move back and forth between these various definitions of tensors. That tensors can be defined and specified in so many ways can be incredibly confusing and frustrating at first. However, as you will see, tensors are <em>extremely</em> flexible and powerful objects, and so in this light it’s perhaps not surprising that they can be understood from so many different angles.</p>
+
+<p>Let’s begin.</p>
+
+<p>If $P$ is a module over a commutative ring $A$, then there is a natural $A$-bilinear pairing</p>
+
+<p>\begin{equation}\notag
+\ang{-,-} : P \otimes_A P^\ast \to A, \quad (v,\alpha) \mapsto \ang{v,\alpha} \defeq \alpha(v)
+\end{equation}</p>
+
+<p>which, in the context of tensor analysis, is often called the <em>contraction mapping</em>. Of course, there is a similar pairing with the tensor factors permuted:</p>
+
+<p>\begin{equation}\notag
+\ang{-,-} : P^\ast \otimes_A P \to A, \quad (\alpha,v) \mapsto \ang{\alpha,v} \defeq \alpha(v).
+\end{equation}</p>
+
+<p>If $P$ is a free $A$-module of finite rank, say with basis $e_1,\ldots,e_n$, then we may define functionals $\eta^1,\ldots,\eta^n\in P^\ast$ by setting</p>
+
+<p>\begin{equation}\notag
+\ang{\eta^i,e_j} = \delta^i_j \defeq \begin{cases} 1 &amp; : i=j, \\ 0 &amp; : i\neq j, \end{cases}
+\end{equation}</p>
+
+<p>and extending by linearity. In this case, we refer to $e_1,\ldots,e_n$ and $\eta^1,\ldots,\eta^n$ as <em>dually paired bases</em> of $P$ and its $A$-linear dual $P^\ast$.</p>
+
+<p>These contraction mappings may be used to define several fundamental homomorphisms involving a single tensor product:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Contraction Homomorphisms, Module Version.</strong> Let $P_1$ and $P_2$ be modules over a commutative ring $A$.</p>
+
+  <ol>
+    <li>There is a natural homomorphism
+ \begin{equation}\notag
+ \Delta: P_1 \otimes_A P_2^\ast \to \Hom_A{(P_1^\ast \otimes_A P_2, A)}
+ \end{equation}
+of $A$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[ \Delta(v_1 \otimes \alpha^2)\right](\alpha^1 \otimes v_2) = \ang{\alpha^1,v_1}\ang{\alpha^2,v_2}.
+ \end{equation}</li>
+    <li>There is a natural homomorphism
+ \begin{equation}\notag
+ \Theta: P_1 \otimes_A P_2^\ast \to \Hom_A{(P_2, P_1)}
+ \end{equation}
+of $A$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[\Theta(v_1 \otimes \alpha^2)\right](v_2) = \ang{\alpha^2,v_2}v_1.
+ \end{equation}</li>
+    <li>There is a natural homomorphism
+ \begin{equation}\notag
+ \Lambda: P_1 \otimes_A P_2^\ast \to \Hom_A{(P_1^\ast,P_2^\ast)}
+ \end{equation}
+of $A$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[\Lambda(v_1\otimes \alpha^2)\right](\alpha^1) = \ang{\alpha^1,v_1} \alpha^2.
+ \end{equation}</li>
+  </ol>
+
+  <p>If both $P_1$ and $P_2$ are finitely generated and projective (in particular, if they are finite-dimensional vector spaces over a field), then $\Delta$, $\Theta$, and $\Lambda$ are isomorphisms.</p>
+</div>
+
+<p>I would suggest that you try to prove this theorem on your own. If you’re not comfortable with projective modules, you may assume that all modules are finite-dimensional vector spaces over a field.</p>
+
+<p>Though these maps are all defined without mention of bases (they are natural!), it is still instructive to write them out in terms of components. To do so, we will assume that $P_1$ and $P_2$ are both equal to a module $P$ which is finitely-generated and free with dually paired bases $e_1,\ldots,e_n$ and $\eta^1,\ldots,\eta^n$. Then, we suppose that we have the following objects, each resolved in terms of the associated bases, with summation over repeated indices implied:</p>
+
+<ol>
+  <li>a tensor $T = T^i_j \ e_i \otimes \eta^j \in P \otimes_A P^\ast$,</li>
+  <li>a second tensor $S = S^k_l \ \eta^l \otimes e_k \in P^\ast \otimes_A P$,</li>
+  <li>a vector $v = v^k e_k \in P$, and</li>
+  <li>a covector $f = f_k \eta^k \in P^\ast$.</li>
+</ol>
+
+<p>Then, I will leave it to you to verify that:</p>
+
+<p>\begin{equation}\notag
+\left[\Delta(T)\right](S) = T^i_j S^k_l \ang{\eta^l, e_i}\ang{\eta^j,e_k} = T^i_j S_i^j,
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+\left[\Theta(T)\right](v) = T^i_j v^k \ang{\eta^j,e_k}e_i = T^i_j v^j e_i,
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+\left[\Lambda(T)\right](f) = T^i_j f_k \ang{\eta^k,e_i}\eta^j = T^i_j f_i \eta^j.
+\end{equation}</p>
+
+<p>Notice that the effect of these homomorphisms is to set pairs of upper and lower indices in the components equal, and then sum over them. This is the general flavor of these types of maps.</p>
+
+<p>There are many similar homomorphisms that involve more than two modules. For example, there is a natural homomorphism</p>
+
+<p>\begin{equation}\notag
+\Xi: P_1^\ast \otimes_A P_2 \otimes_A P_3^\ast \to \Hom_A(P_1, P_2 \otimes_A P_3^\ast)
+\end{equation}</p>
+
+<p>given on pure tensors by</p>
+
+<p>\begin{equation}\notag
+\left[\Xi(f^1 \otimes v_2 \otimes f^3)\right](v_1) = \ang{f^1,v_1} \  v_2 \otimes f^3.
+\end{equation}</p>
+
+<p>But there is also a natural homomorphism</p>
+
+<p>\begin{equation}\notag
+\Pi: P_1^\ast \otimes_A P_2 \otimes_A P_3^\ast \to \Hom_A(P_1 \otimes_A P_2^\ast, P_3^\ast)
+\end{equation}</p>
+
+<p>given on pure tensors by</p>
+
+<p>\begin{equation}\notag
+\left[\Pi(f^1 \otimes v_2 \otimes f^3)\right](v_1 \otimes f^2) = \ang{f^1,v_1}\ang{f^2,v_2} f^3.
+\end{equation}</p>
+
+<p>Both $\Xi$ and $\Pi$ are isomorphisms if the modules involved are finitely generated and projective.</p>
+
+<p>I will leave you to imagine even more versions of these homomorphisms. It would be extraordinarily cumbersome (and ultimately useless) for me to attempt to list them all, so you need to see a few examples of how they work, and then you can write down your own. By now, after having seen five examples, this should be no problem. The common feature they all share is that they identify (via contraction mappings) a Hom module of linear maps with certain tensor products. Generically, we will refer to these types of homomorphisms as <em>contraction-type homomorphisms</em>, or <em>contraction-type isomorphisms</em> if all modules in sight are finitely generated and projective.</p>
+
+<p>One final observation before we move onto the bundle versions of these maps: Notice that the domains of the maps $\Xi$ and $\Pi$ above coincide, and hence their codomains are naturally isomorphic (in the case that the modules are finitely generated and projective). But the difference between the codomains is that the module $P_2$ swapped slots in the Hom, while at the same time being dualized. This is an example of a general and useful heuristic:</p>
+
+<div class="highlight-box2">
+  <p>Suppose that all modules under consideration are finitely generated and projective.</p>
+  <ol>
+    <li>A module can swap slots in a Hom, while either adding a duality (if there wasn’t one already) or removing it.</li>
+    <li>If <em>all</em> modules are swapped out of a slot in a Hom, then the ring $A$ is written in the empty slot.</li>
+  </ol>
+</div>
+
+<p>For another example of the heuristic in (1.), note that there is a natural isomorphism</p>
+
+<p>\begin{equation}\notag
+\Hom_A(P_1 \otimes_A P_2^\ast\otimes_A P_3, P_4^\ast \otimes_A P_5 ) \cong \Hom_A(P_1 \otimes_A P_2^\ast \otimes_A P_4, P_3^\ast \otimes_A P_5 ).
+\end{equation}</p>
+
+<p>Notice that the $P_3$ and $P_4$ modules swapped slots, with $P_3$ gaining a duality and $P_4$ losing one. To prove that these Hom-modules are isomorphic, we note that they are both naturally isomorphic to the tensor product</p>
+
+<p>\begin{equation}\label{blinds-eqn}
+P_1^\ast \otimes_A P_2 \otimes_A P_3^\ast \otimes_A P_4^\ast \otimes_A P_5
+\end{equation}</p>
+
+<p>via a pair of contraction-type isomorphisms. Can you describe them? If we were to swap both $P_4$ and $P_5$ from the second slot of the first Hom, the heuristic in (2.) says that there is a natural isomorphism</p>
+
+<p>\begin{equation}\notag
+\Hom_A(P_1 \otimes_A P_2^\ast\otimes_A P_3, P_4^\ast \otimes_A P_5 )\cong \Hom_A(P_1 \otimes_A P_2^\ast\otimes_A P_3 \otimes_A P_4 \otimes_A P_5^\ast, A ).
+\end{equation}</p>
+
+<p>Again, this isomorphism results because both of these Hom-modules are naturally isomorphic to the tensor product \eqref{blinds-eqn}.</p>
+
+<p>Now, I mentioned at the beginning of this section that one important consequence of naturality is that such isomorphisms may be “bundled”  across fibers to yield corresponding isomorphisms of vector bundles. With slightly more precision, I state:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Contraction Isomorphisms, Bundle Version.</strong> There are isomorphisms of vector bundles whose restrictions to fibers are contraction-type isomorphisms. For example, if $E_1$ and $E_2$ are vector bundles over a manifold $M$, there is an isomorphism
+\begin{equation}\notag
+E_1 \otimes_M E_2^\ast \xrightarrow{\cong} \Hom_M(E_2, E_1)
+\end{equation}
+of vector bundles whose restrictions to fibers coincide with the isomorphism $\Theta$ from the module-level theorem. Like their module-level cousins, these vector bundle isomorphisms are generically called <em>contraction-type isomorphisms</em>.</p>
+</div>
+
+<p>It’s not only the contraction-type isomorphisms that will prove crucial to understanding tensors on manifolds. We also need the isomorphisms in:</p>
+
+<div class="highlight-box">
+  <p><strong>Fundamental Lemma on $\Gamma$, Hom and $\otimes$.</strong> Let $E$ and $F$ be vector bundles over a manifold $M$.</p>
+
+  <ol>
+    <li>There is a natural isomorphism
+ \begin{equation}\notag
+ \Psi: \Gamma\left(\Hom_M{(E,F)}\right) \xrightarrow{\cong} \Hom_{C^\infty(M)}\left(\Gamma(E),\Gamma(F) \right)
+ \end{equation}
+of $C^\infty(M)$-modules given by
+ \begin{equation}\notag
+ \left[\left(\Psi(\sigma)\right)(\tau)\right]_p = \sigma_p(\tau_p).
+ \end{equation}</li>
+    <li>There is a natural isomorphism
+ \begin{equation}\notag
+ \Sigma: \Gamma(E) \otimes_{C^\infty(M)} \Gamma(F) \xrightarrow{\cong} \Gamma(E\otimes_M F)
+ \end{equation}
+of $C^\infty(M)$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[\Sigma \left(\sigma \otimes \tau\right)\right]_p = \sigma_p \otimes \tau_p.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>By specializing $F$ to the trival bundle $M \times \bbr$ in part (1.) of the Fundamental Lemma, we get:</p>
+
+<div class="highlight-box">
+  <p><strong>Corollary on Global Sections of Duals.</strong> Let $E$ be a vector bundle over a manifold $M$. There is a natural isomorphism
+    \begin{equation}\notag
+    \Psi: \Gamma\left(E^\ast\right) \xrightarrow{\cong} \Gamma(E)^\ast
+    \end{equation}
+of $C^\infty(M)$-modules given by
+    \begin{equation}\notag
+    \left[\left(\Psi(\sigma)\right)(f)\right]_p = \sigma_p(f(p)),
+    \end{equation}
+for $\sigma \in \Gamma(E^\ast)$, $f\in C^\infty(M)$, and $p\in M$.</p>
+</div>
+
+<h2 id="tensor-fields">Tensor fields</h2>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold with tangent bundle $T(M)$ and cotangent bundle $T^\ast(M)$. Given integers $r,s\geq 0$, a <em>tensor of type $\binom{r}{s}$</em> is a global section of the vector bundle</p>
+
+  <p>\begin{equation}\notag
+\underbrace{T(M) \otimes_M \cdots \otimes_M T(M)}_{\text{$r$ factors}} \otimes_M \underbrace{T^\ast(M) \otimes_M \cdots \otimes_M T^\ast(M)}_{\text{$s$ factors}}.
+\end{equation}</p>
+
+  <p>If both $r=0$ and $s=0$, then a tensor of type $\binom{0}{0}$ is a global section of the trivial vector bundle $M \times \bbr$, i.e., a smooth function on $M$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Alternate Definitions of Tensors.</strong> Let $M$ be a manifold with tangent bundle $T(M)$ and cotangent bundle $T^\ast(M)$, and let $r,s,\geq 0$ be integers. A unique tensor of type $\binom{r}{s}$ can be (naturally!) specified by giving one of the following objects:</p>
+
+  <ol>
+    <li>A global section of the vector bundle
+ \begin{equation}\notag
+ T(M)^{\otimes r} \otimes_M T^\ast(M)^{\otimes s}.
+ \end{equation}</li>
+    <li>A global section of the vector bundle
+ \begin{equation}\notag
+ \Hom_M\left( T^\ast(M)^{\otimes r} \otimes_M T(M)^{\otimes s}, M \times \bbr\right).
+ \end{equation}</li>
+    <li>A linear map in
+ \begin{equation}\notag
+ \Hom_{C^\infty(M)}\left( \calx^\ast(M)^{\otimes r} \otimes_{C^\infty(M)} \calx(M)^{\otimes s}, C^\infty(M)\right).
+ \end{equation}</li>
+    <li>A tensor in
+ \begin{equation}\notag
+ \calx(M)^{\otimes r} \otimes_{C^\infty(M)} \calx^\ast(M)^{\otimes s}.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>For practice, I suggest that you use the natural isomorphisms above to link these various descriptions of tensors together. For example, let’s suppose that we consider $\binom{1}{1}$-tensors, which are in the module</p>
+
+<p>\begin{equation}\label{table-eqn}
+\Gamma(T(M) \otimes_M T^\ast(M))
+\end{equation}</p>
+
+<p>of global sections. But by the Fundamental Lemma, this module is naturally isomorphic to the module</p>
+
+<p>\begin{equation}\notag
+\calx(M) \otimes_{C^\infty(M)} \calx^\ast(M)
+\end{equation}</p>
+
+<p>which appears in part (4.) of the theorem. On the other hand, by applying the global section functor $\Gamma$ to an isomorphism in the Theorem on Natural Isomorphisms (bundle version), we see that \eqref{table-eqn} is also naturally isomorphic to the module</p>
+
+<p>\begin{equation}\notag
+\Gamma\left( \Hom_M \left(T^\ast(M) \otimes_M T(M),M \times \bbr  \right) \right)
+\end{equation}</p>
+
+<p>which appears in part (2.). What isomorphism would you use to show that \eqref{table-eqn} is isomorphic to the module</p>
+
+<p>\begin{equation}\notag
+\Hom_{C^\infty(M)}\left( \calx^\ast(M)\otimes_{C^\infty(M)} \calx(M), C^\infty(M)\right)
+\end{equation}</p>
+
+<p>in part (3.)?</p>
+
+<p>To obtain the equivalent descriptions in the theorem for tensors of type other than $\binom{1}{1}$, you’ll need to use the “variations” on the natural isomorphisms like \eqref{iterated2-eqn}. Again, I suggest that you explore various cases with small values of $r$ and $s$, just to practice with the isomorphisms.</p>
+
+<p>Now, I should also mention that the list of four equivalent descriptions of tensors given in the theorem is not exhaustive. For example, you will often see the so-called <em>Riemann curvature tensor</em> defined as a $C^\infty(M)$-linear map</p>
+
+<p>\begin{equation}\notag
+R: \calx(M) \otimes_{C^\infty(M)} \calx(M) \otimes_{C^\infty(M)} \calx(M) \to \calx(M),
+\end{equation}</p>
+
+<p>where it is claimed that $R$ is a $\binom{1}{3}$-tensor. But this description of $R$ doesn’t fit with any of our four descriptions of tensors! However, can you see how to use the isomorphism \eqref{book-eqn} to confirm that $R$ can, indeed, be identified with a $\binom{1}{3}$-tensor?</p>
+
+<p>Thus, you can see that there are very many ways to specify tensors. It would be quite difficult (and useless) for me to try to enumerate all these different ways; rather, it would be much more beneficial for you to spend time on your own getting used to the mechanics of these natural isomorphisms, so that you’ll know how to recognize tensors when you see them.</p>
+
+    </article>
+    
+  </body>
+</html>

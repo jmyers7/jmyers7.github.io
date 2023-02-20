@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>products and dis/integrations</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">products and dis/integrations</h1>
+</div>
+
+<h2 id="the-disintegration-theorems">The Disintegration Theorems</h2>
+
+<div class="highlight-box">
+  <p><strong>Measure Disintegration Theorem.</strong> Let $(\calx,\mfm,\mu)$ and $(\caly,\mfn,\nu)$ be two $\sigma$-finite measure spaces. Suppose that $Q$ is a probability measure on $\calx \times \caly$ which has a density with respect to the product measure $\mu \times \nu$. If $R$ denotes the marginal distribution of $Q$ on $\caly$, then there is a stochastic transition kernel
+\begin{equation}\notag
+K: \mfm \times \caly \to \bbr, \quad (A,y) \mapsto K(A,y),
+\end{equation}
+that disintegrates $Q$ with respect to $R$, in the sense that
+\begin{equation}\label{gen-disint-eqn}
+Q(E) = \int_\caly K(E(y),y) \ R(\text{d}y)
+\end{equation}
+for all product-measurable subsets $E\subseteq \calx \times \caly$. In particular, if $A\in \mfm$ and $B\in \mfn$, we have
+\begin{equation}\label{special-disint-eqn}
+Q(A\times B) = \int_B K(A,y) \ R(\text{d}y).
+\end{equation}</p>
+</div>
+
+<p>We shall prove the theorem by constructing densities for the kernel $K$. To do so, first let $\varphi$ denote the density of $Q$ with respect to $\mu \times \nu$. By Fubini’s Theorem, we have</p>
+
+<p>\begin{equation}\notag
+R(B) = Q(\calx \times B) = \int_{\calx \times B} \varphi(x,y) \ (\mu \times \nu)(\text{d}x,\text{d}y) = \int_B \left\{ \int_\calx \varphi(x,y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y),
+\end{equation}</p>
+
+<p>which shows that $R$ has density</p>
+
+<p>\begin{equation}\label{marginal-eqn}
+\pi(y) = \int_\calx \varphi(x,y) \ \mu(\text{d}x)
+\end{equation}</p>
+
+<p>with respect to $\nu$. Now, for those $y\in \caly$ with $\pi(y)\neq 0$, define a function on $\calx$ by</p>
+
+<p>\begin{equation}\label{cond-defn-eqn}
+x\mapsto  f(x|y) \defeq \frac{\varphi(x,y)}{\pi(y)}.
+\end{equation}</p>
+
+<p>It follows from \eqref{marginal-eqn} that $\int_\calx f(x|y) \ \mu(\text{d}x)=1$. For each $y\in \caly$ with $\pi(y)=0$, let $x\mapsto f(x|y)$ be some fixed (but arbitrary) measurable function on $\calx$ with $\int_\calx f(x|y) \ \mu(\text{d}x) =1$.</p>
+
+<p>I claim that</p>
+
+<p>\begin{equation}\label{plug-eqn}
+\int_A f(x|y)\pi(y) \ \mu(\text{d}x) = \int_A \varphi(x,y) \ \mu(\text{d}x)
+\end{equation}</p>
+
+<p>for all $y\in \caly$ and all $A\in \mfm$. For proof, first note that if $\pi(y)\neq 0$, then this equation follows from the definition \eqref{cond-defn-eqn} given above. Otherwise, note that</p>
+
+<p>\begin{equation}\notag
+0 \leq \int_A \varphi(x,y) \ \mu(\text{d}x) \leq \int_\calx \varphi(x,y) \ \mu(\text{d}x) = \pi(y),
+\end{equation}</p>
+
+<p>so that the right-hand side of \eqref{plug-eqn} is $0$ if $\pi(y)=0$. This completes the proof of the claim.</p>
+
+<p>Now, for each $y\in \caly$, define $A\mapsto K(A,y)$ to be the probability distribution on $(\calx,\mfm)$ with density $x\mapsto f(x|y)$ with respect to $\mu$. Then, given a product-measurable subset $E\subseteq \calx \times \caly$, we have</p>
+
+<p>\begin{align}
+\int_\caly K(E(y),y) \ R(\text{d}y) &amp;= \int_\caly \left\{ \int_{E(y)} f(x|y) \ \mu(\text{d}x) \right\} \ R(\text{d}y) \notag \\ &amp;= \int_\caly \left\{ \int_{E(y)} f(x|y)f_R(y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y) \notag \\ &amp;= \int_\caly \left\{ \int_{E(y)} \varphi(x,y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y) \notag \\ &amp;= \int_{\calx \times \caly} \varphi(x,y) I_{E(y)}(x) \ (\mu \times \nu)(\text{d}x, \text{d}y) \notag \\ &amp;= \int_E \varphi(x,y) \ (\mu \times \nu)(\text{d}x,\text{d}y) \notag \\ &amp;= Q(E) \notag,
+\end{align}</p>
+
+<p>where the third equation follows from \eqref{plug-eqn}. This establishes the first disintegration formula \eqref{gen-disint-eqn}.</p>
+
+<p>For each $y\in \caly$, we already know that $A\mapsto K(A,y)$ is a probability measure on $(\calx,\mfm)$. To complete the proof that $K$ is a stochastic transition kernel, we need to show that for each $A\in \mfm$, the function $y\mapsto K(A,y)$ is a measurable function on $(\caly,\mfn)$. If $\pi(y)\neq 0$, we have</p>
+
+<p>\begin{equation}\label{almost-eqn}
+y\mapsto K(A,y) = \int_A f(x|y) \ \mu(\text{d}x) = \frac{\int_A \varphi(x,y) \ \mu(\text{d}x)}{\pi(y)}.
+\end{equation}</p>
+
+<p>Since both $\pi$ and $y\mapsto \int_A \varphi(x,y) \ \mu(\text{d}x)$ are measurable functions, this shows that $y\mapsto K(A,y)$ is a measurable function on the measurable set $Z = \left\{ y \in \caly : \pi(y)\neq 0\right\}$. On the complement $Z^c$, the function $y\mapsto K(A,y)$ is constant, which is certainly measurable. Thus, $y\mapsto K(A,y)$ is measurable when restricted to both $Z$ and $Z^c$, and therefore it is measurable on all of $\caly$.</p>
+
+<p>Finally, to prove the second disintegration formula \eqref{special-disint-eqn}, we apply \eqref{gen-disint-eqn} with $E = A\times B$, and observe that</p>
+
+<p>\begin{equation}\notag
+K((A\times B)(y),y) = K(A,y)I_B(y)
+\end{equation}</p>
+
+<p>for all $y\in \caly$. This completes the proof of the Measure Disintegration Theorem.</p>
+
+<p>It will be convenient to extract the formulas for the densities used in the proof of the Measure Disintegration Theorem and place them in their own theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>Density Disintegration Theorem.</strong> Assume the notation and hypotheses of the Measure Disintegration Theorem. If $\varphi$ is a density of $Q$ with respect to $\mu\times \nu$, then $R$ has a density with respect to $\nu$ given by
+\begin{equation}\notag
+\pi(y) = \int_\calx \varphi(x,y) \ \mu(\text{d}x),
+\end{equation}
+while the probability measure $A\mapsto K(A,y)$ has a density with respect to $\mu$ given by
+\begin{equation}\notag
+x\mapsto f(x|y) = \frac{\varphi(x,y)}{\pi(y)}
+\end{equation}
+for all those $y\in \caly$ with $\pi(y)\neq 0$.</p>
+</div>
+
+    </article>
+    
+  </body>
+</html>

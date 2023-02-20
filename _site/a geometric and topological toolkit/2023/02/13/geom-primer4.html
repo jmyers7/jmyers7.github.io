@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory II&#58 connections</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory II: connections</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Connections and Lie brackets</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<div class="highlight-box2">
+  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+</div>
+
+<h2 id="connections-and-lie-brackets">Connections and Lie brackets</h2>
+
+<p>Given a manifold $M$ embedded in $\bbr^r$, the standard euclidean inner product $\ang{-,-}$ on $\bbr^r$ restricts to an inner product $\ang{-,-}_p$ on each tangent space $T_p(M)$. This inner product “globalizes” to yield the <em>metric tensor</em> on $M$, which is the map</p>
+
+<p>\begin{equation}
+\ang{-,-} : \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M), \quad (X,Y) \mapsto \ang{X,Y},
+\end{equation}</p>
+
+<p>with</p>
+
+<p>\begin{equation}\notag
+\ang{X,Y}(p) = \ang{X_p,Y_p}
+\end{equation}</p>
+
+<p>for each $p\in M$. An alternate and frequently used notation for $\ang{X,Y}$ is $g(X,Y)$.</p>
+
+<p>The ambient inner product also enables us to define the <em>orthogonal complement</em> of the tangent space $T_p(M)$ by setting</p>
+
+<p>\begin{equation}\notag
+\nu_p(M) = \left\{ w\in \bbr^r : \ang{v,w} =0, \ \forall w\in T_p(M)\right\}.
+\end{equation}</p>
+
+<p>We then have the fundamental direct sum decomposition</p>
+
+<p>\begin{equation}\notag
+\bbr^r = T_p(M) \oplus \nu_p(M),
+\end{equation}</p>
+
+<p>which yields a natural surjective linear map $\bbr^r \to T_p(M)$ which projects a vector $v\in \bbr^r$ to its (unique!) component in $T_p(M)$. We shall denote this latter projection by $v|_{T_p(M)}$.</p>
+
+<p>We now have all the notation needed to define one of the fundamental objects in differential geometry. In the following definition, we interpret a vector field $X$ on $M$ (embedded in $\bbr^r$) as a smooth map $X: M \to \bbr^r$ such that</p>
+
+<p>\begin{equation}\notag
+X_p \defeq X(p) \in T_p(M)
+\end{equation}</p>
+
+<p>for all $p\in M$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a smooth manifold embedded in $\bbr^r$. The <em>metric connection</em> on $M$ (or the <em>Levi-Civita connection</em>) is the $\bbr$-bilinear function</p>
+
+  <p>\begin{equation}\notag
+\nabla: \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto \nabla_XY,
+\end{equation}</p>
+
+  <p>given by</p>
+
+  <p>\begin{equation}\notag
+(\nabla_XY)_p = Y_{\ast,p}(X_p)|_{T_p(M)},
+\end{equation}</p>
+
+  <p>for $p\in M$. (Recall that the “restriction” $|_{T_p(M)}$ actually denotes the <em>projection</em> to the tangent space; see the discussion above.)</p>
+</div>
+
+<p>I mentioned that the metric connection is actually $\bbr$-bilinear without proof. In fact, the metric connection has several other important properties which are listed in the next theorem. I suggest that you prove them.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on the Properties of the Metric Connection.</strong> Let $M$ be a smooth manifold embedded in $\bbr^r$ with metric connection $\nabla$.</p>
+
+  <ol>
+    <li>The metric connection <em>is</em> actually $\bbr$-bilinear.</li>
+    <li>The metric connection is $C^\infty(M)$-linear in the first argument, i.e.,
+ \begin{equation}\notag
+ \nabla_{fX}Y = f\nabla_XY
+ \end{equation}
+for all $X,Y\in \calx(M)$ and all $f\in C^\infty(M)$.</li>
+    <li>The metric connection is a “derivation” in the second argument, i.e.,
+ \begin{equation}\notag
+ \nabla_X(fY) = X(f)Y + f \nabla_XY
+ \end{equation}
+for all $X,Y\in \calx(M)$ and all $f\in C^\infty(M)$.</li>
+  </ol>
+</div>
+
+<p>The vector field $\nabla_XY$ is computed at a point $p\in M$ by first computing the directional derivative of $Y$ in the direction of $X_p$; then, this directional derivative is “projected” to the manifold $M$, and thus $\nabla_XY$ is exactly the component of this directional derivative that the manifold $M$ “sees.”</p>
+
+<p>It is instructive to study the metric connection for some simple manifolds. For example, let’s suppose that we want to understand the vanishing condition $\nabla_XY=0$ in the case that $X$ and $Y$ are vector fields on the unit circle $M=S^1$. We may parametrize an open neighborhood of a point $p\in S^1$ via the map</p>
+
+<p>\begin{equation}\notag
+\theta \mapsto (\cos{\theta},\sin{\theta}),
+\end{equation}</p>
+
+<p>suitably restricted to an open interval of $\theta$’s. In the local coordinate $\theta$, the vector fields $X$ and $Y$ take the form</p>
+
+<p>\begin{equation}\notag
+X_\theta = f(\theta)(-\sin{\theta},\cos{\theta}) \quad \text{and} \quad Y_\theta = g(\theta)(-\sin{\theta},\cos{\theta}),
+\end{equation}</p>
+
+<p>for some unique pair of smooth functions $f(\theta)$ and $g(\theta)$. But then</p>
+
+<p>\begin{equation}\notag
+\frac{dY_\theta}{d\theta} = g’(\theta)(-\sin{\theta},\cos{\theta}) - g(\theta)(\cos{\theta},\sin{\theta}),
+\end{equation}</p>
+
+<p>so that if $p$ has local coordinate $\theta$, we compute</p>
+
+<p>\begin{equation}\notag
+(\nabla_XY)_p = f(\theta)g’(\theta)(-\sin{\theta},\cos{\theta}).
+\end{equation}</p>
+
+<p>Therefore, as long as the vector field $X$ is never zero, the condition $\nabla_XY=0$ implies that $Y$ is proportional to the uniform vector field $\theta \mapsto (-\cos{\theta},\sin{\theta})$. More geometrically, if we view $Y$ as section of the trivial vector bundle $S^1\times \bbr$ via the isomorphism $\alpha$ described above, then the vanishing condition $\nabla_XY=0$ means that $Y$ is a <em>horizontal</em> section.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a smooth manifold embedded in $\bbr^r$. The <em>Lie bracket</em> on $M$ is the $\bbr$-bilinear function</p>
+
+  <p>\begin{equation}\notag
+[-,-]: \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto [X,Y]
+\end{equation}</p>
+
+  <p>given by</p>
+
+  <p>\begin{equation}\notag
+[X,Y]_p = X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+  <p>for $p\in M$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on the Levi-Civita Connection.</strong> Let $M$ be a smooth manifold embedded in $\bbr^r$ with Levi-Civita connection $\nabla$, and let $X$, $Y$, and $Z$ be smooth vectors fields on $M$.</p>
+
+  <ol>
+    <li>There is an equation
+ \begin{equation}\notag
+ \ang{Y,Z}_{\ast,p}(v) = \ang{Y_{\ast,p}(v),Z_p} + \ang{Y_p, Z_{\ast,p}(v)}
+ \end{equation}
+for all points $p\in M$ and all tangent vectors $v\in T_p(M)$.</li>
+    <li>The connection is <em>compatible</em> with the metric, in the sense that
+ \begin{equation}\notag
+ X \ang{Y,Z} = \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ}.
+ \end{equation}</li>
+    <li>The connection is <em>torsion free</em> (or <em>symmetric</em>), in the sense that
+ \begin{equation}\notag
+ \nabla_X Y - \nabla_YX = [X,Y].
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+    </article>
+    
+  </body>
+</html>

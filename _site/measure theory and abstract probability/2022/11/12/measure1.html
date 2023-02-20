@@ -29,6 +29,9 @@
                 floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
                 bbn: ['\\mathbb{N}'],
@@ -51,7 +54,11 @@
                 mfb: ['\\mathfrak{B}'],
                 mfj: ['\\mathfrak{J}'],
                 mfl: ['\\mathfrak{L}'],
-                mfm: ['\\mathfrak{M}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
                 ttk: ['\\mathtt{K}'],
                 ttq: ['\\mathtt{Q}'],
                 ttr: ['\\mathtt{R}'],
@@ -61,31 +68,37 @@
                 ttx: ['\\mathtt{X}'],
                 sfv: ['\\mathsf{v}'],
                 sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
                 dx: ['{\\ \\text{d} #1}', 1],
                 id: ['\\boldsymbol{1}'],
                 defeq: ['\\overset{\\text{def}}{=}'],
                 tl: ['\\widetilde{#1}', 1],
-                cl: ['\\overline{#1}', 1]
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
           },
         },
         svg: {
           fontCache: 'global',
           mtextInheritFont: true,
-          }
+        }
       };
     </script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
-
     <!--
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
     -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
 
   </head>
   
@@ -211,19 +224,19 @@
   <p><strong>Pre-definition.</strong>
 A <em>semi-measure space</em> is an ordered triple \( (\mathcal{X}, \mathfrak{M}, \mu) \), where \(\mathcal{X}\) is a nonempty set, \(\mathfrak{M}\) is a set of subsets of \(\mathcal{X}\), and \(\mu\) is a function that assigns a real number \(\mu(A)\) to every set \(A\) in \(\mathfrak{M}\). We require that the following two axioms are satisfied:</p>
 
-  <p>    1. If $A$ is a subset in $\mfm$, then $\mu(A)\geq 0$. <br />
-    2. If $A$ and $B$ are disjoint subsets in $\mfm$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.</p>
+  <p>    1. If $A$ is a subset in $\mfM$, then $\mu(A)\geq 0$. <br />
+    2. If $A$ and $B$ are disjoint subsets in $\mfM$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.</p>
 
   <p>The function \(\mu\) is called the <em>semi-measure</em> of the semi-measure space. We shall say that the semi-measure space \((\mathcal{X},\mathfrak{M},\mu)\) is a <em>semi-probability space</em> if, in addition to the first two axioms above, we have:</p>
 
   <p>    3. $\mu(\calx) = 1$.</p>
 </div>
 
-<p>I have called this a “pre-definition” to indicate that this is <em>not</em> the final definition of semi-measure spaces. The official and final definition of a semi-measure space will come later, after we’ve investigated the role of the set \(\mfm\) more fully.</p>
+<p>I have called this a “pre-definition” to indicate that this is <em>not</em> the final definition of semi-measure spaces. The official and final definition of a semi-measure space will come later, after we’ve investigated the role of the set \(\mfM\) more fully.</p>
 
-<p>With appropriate choices of \(\mfm\), you can see that a sample space \(\Omega\) is an example of a semi-probability space with semi-measure \(P\), and that the unit interval \(U\) is an example of a semi-measure space with semi-measure \(\lambda\). Of course, since \(\lambda(U)=1\), the latter is even a semi-probability space, but in these preliminary investigations I am thinking of \(U\) more as a geometric object than a probabilistic object.</p>
+<p>With appropriate choices of \(\mfM\), you can see that a sample space \(\Omega\) is an example of a semi-probability space with semi-measure \(P\), and that the unit interval \(U\) is an example of a semi-measure space with semi-measure \(\lambda\). Of course, since \(\lambda(U)=1\), the latter is even a semi-probability space, but in these preliminary investigations I am thinking of \(U\) more as a geometric object than a probabilistic object.</p>
 
-<p>The set \(\mfm\) serves as the domain of the semi-measure \(\mu\). If \(\mfm\) happens to be the power set of \(\calx\), then the value \(\mu(A)\) would be defined for <em>all</em> subsets $A$ of \(\calx\). However, it might not make sense (or even be possible) to define \(\mu(A)\) for all such subsets. Indeed, we saw above that if the length function \(\lambda\) is defined as the Riemann integral \eqref{eqn:first}, then there are certain subsets \(A\) of \(U\) for which \(\lambda(A)\) is not defined. Here’s an example, which should be familiar to those of you who have had a course in real analysis:</p>
+<p>The set \(\mfM\) serves as the domain of the semi-measure \(\mu\). If \(\mfM\) happens to be the power set of \(\calx\), then the value \(\mu(A)\) would be defined for <em>all</em> subsets $A$ of \(\calx\). However, it might not make sense (or even be possible) to define \(\mu(A)\) for all such subsets. Indeed, we saw above that if the length function \(\lambda\) is defined as the Riemann integral \eqref{eqn:first}, then there are certain subsets \(A\) of \(U\) for which \(\lambda(A)\) is not defined. Here’s an example, which should be familiar to those of you who have had a course in real analysis:</p>
 
 <div class="highlight-box">
   <p><strong>Example.</strong> Let $D$ be the Dirichlet set in $U$, defined as $D = \bbq \cap U$. As you learned in real analysis, the Riemann integral</p>
@@ -235,9 +248,9 @@ A <em>semi-measure space</em> is an ordered triple \( (\mathcal{X}, \mathfrak{M}
   <p>does not exist, and hence the length $\lambda(D)$ is <em>not</em> defined.</p>
 </div>
 
-<p>Thus, the set $\mfm$ plays a fundamental role, and it cannot be omitted from the definition of semi-measure space.</p>
+<p>Thus, the set $\mfM$ plays a fundamental role, and it cannot be omitted from the definition of semi-measure space.</p>
 
-<p>We now seek to find a “natural” choice of $\mfj$ which leads to a semi-measure space $(U,\mfj,\lambda)$, where $\lambda$ is the length function on the unit interval $U=[0,1]$. This particular $\mfj$ will be called the <em>Jordan algebra</em> on $U$, and hence I have elected to name it $\mfj$ and not $\mfm$. Certainly, the Jordan algebra contains all open intervals $(a,b)$ in $U$, but we can enlarge it so that</p>
+<p>We now seek to find a “natural” choice of $\mfj$ which leads to a semi-measure space $(U,\mfj,\lambda)$, where $\lambda$ is the length function on the unit interval $U=[0,1]$. This particular $\mfj$ will be called the <em>Jordan algebra</em> on $U$, and hence I have elected to name it $\mfj$ and not $\mfM$. Certainly, the Jordan algebra contains all open intervals $(a,b)$ in $U$, but we can enlarge it so that</p>
 
 <p>\begin{equation}
 \label{jordan-eqn}
@@ -281,27 +294,27 @@ A <em>semi-measure space</em> is an ordered triple \( (\mathcal{X}, \mathfrak{M}
 <p>We have thus identified the largest $\mfj$ such that $(U,\mfj, \lambda)$ is a semi-measure space: This $\mfj$ is equal to the set of all Jordan measurable subsets of $U$. I called this set $\mfj$ the Jordan <strong>algebra</strong>, and the reason for the name comes about because $\mfj$ happens to satisfy the three axioms in the following definition:</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $\calx$ be a set. A set $\mfm$ of subsets of $\calx$ is called an <em>algebra</em> of sets (on $\calx$) if:</p>
+  <p><strong>Definition.</strong> Let $\calx$ be a set. A set $\mfM$ of subsets of $\calx$ is called an <em>algebra</em> of sets (on $\calx$) if:</p>
 
   <ol>
-    <li>We have $\calx \in \mfm$.</li>
-    <li>If $A\in \mfm$, then $A^c \in \mfm$, where $A^c$ is the complement of $A$ in $\calx$.</li>
-    <li>If $A$ and $B$ are in $\mfm$, then $A\cup B \in \mfm$.</li>
+    <li>We have $\calx \in \mfM$.</li>
+    <li>If $A\in \mfM$, then $A^c \in \mfM$, where $A^c$ is the complement of $A$ in $\calx$.</li>
+    <li>If $A$ and $B$ are in $\mfM$, then $A\cup B \in \mfM$.</li>
   </ol>
 </div>
 
-<p>Again, to make sure you understand the definitions, I would suggest proving yourself that the Jordan algebra $\mfj$ on $U$ really is an algebra of sets (take $\calx = U$ and $\mfm = \mfj$ in the definition).</p>
+<p>Again, to make sure you understand the definitions, I would suggest proving yourself that the Jordan algebra $\mfj$ on $U$ really is an algebra of sets (take $\calx = U$ and $\mfM = \mfj$ in the definition).</p>
 
-<p>Fantastic! We’ve successfully applied the theory of the Riemann integral to identify the Jordan algebra $\mfj$, which has led us to the semi-measure space $(U,\mfj,\lambda)$. Now, because the Jordan algebra happens to be an algebra of sets, it seems natural to add an axiom to our pre-definition of a semi-measure space that requires the set $\mfm$ in a semi-measure space $(\calx,\mfm, \mu)$ to be an algebra of sets on $\calx$. Let’s make this official, by giving the final definition of a semi-measure space:</p>
+<p>Fantastic! We’ve successfully applied the theory of the Riemann integral to identify the Jordan algebra $\mfj$, which has led us to the semi-measure space $(U,\mfj,\lambda)$. Now, because the Jordan algebra happens to be an algebra of sets, it seems natural to add an axiom to our pre-definition of a semi-measure space that requires the set $\mfM$ in a semi-measure space $(\calx,\mfM, \mu)$ to be an algebra of sets on $\calx$. Let’s make this official, by giving the final definition of a semi-measure space:</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> A <em>semi-measure space</em> is an ordered triple $(\calx, \mfm, \mu)$, where $\calx$ is a nonempty set, $\mfm$ is a set of subsets of $\calx$, and $\mu$ is a function that assigns a real number $\mu(A)$ to every set $A$ in $\mfm$. We require that the following three axioms are satisfied:</p>
+  <p><strong>Definition.</strong> A <em>semi-measure space</em> is an ordered triple $(\calx, \mfM, \mu)$, where $\calx$ is a nonempty set, $\mfM$ is a set of subsets of $\calx$, and $\mu$ is a function that assigns a real number $\mu(A)$ to every set $A$ in $\mfM$. We require that the following three axioms are satisfied:</p>
 
-  <p>    1. The set $\mfm$ is an algebra of sets on $\calx$. <br />
-    2. If $A$ is a subset in $\mfm$, then $\mu(A)\geq 0$. <br />
-    3. If $A$ and $B$ are disjoint subsets in $\mfm$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.</p>
+  <p>    1. The set $\mfM$ is an algebra of sets on $\calx$. <br />
+    2. If $A$ is a subset in $\mfM$, then $\mu(A)\geq 0$. <br />
+    3. If $A$ and $B$ are disjoint subsets in $\mfM$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.</p>
 
-  <p>The function $\mu$ is called the <em>semi-measure</em> of the semi-measure space. We shall say that the semi-measure space $(\calx,\mfm,\mu)$ is a <em>semi-probability space</em> if, in addition to the first three axioms above, the semi-measure also satisfies:</p>
+  <p>The function $\mu$ is called the <em>semi-measure</em> of the semi-measure space. We shall say that the semi-measure space $(\calx,\mfM,\mu)$ is a <em>semi-probability space</em> if, in addition to the first three axioms above, the semi-measure also satisfies:</p>
 
   <p>    4. $\mu(\calx) = 1$.</p>
 </div>
@@ -309,11 +322,11 @@ A <em>semi-measure space</em> is an ordered triple \( (\mathcal{X}, \mathfrak{M}
 <p>In mathematics, when you add axioms or other requirements to your definitions, it is with the hope that they will lead to desirable properties and nice theorems. In our case, the addition of the “algebra axiom” leads directly to a proof of:</p>
 
 <div class="highlight-box">
-  <p><strong>Theorem.</strong> Let $(\calx,\mfm,\mu)$ be a semi-measure space. Then:</p>
+  <p><strong>Theorem.</strong> Let $(\calx,\mfM,\mu)$ be a semi-measure space. Then:</p>
 
   <ol>
-    <li>(Monotonicity) If $A$ and $B$ are in $\mfm$ and $A\subseteq B$, then $\mu(A) \leq \mu(B)$.</li>
-    <li>(Subadditivity) If $A$ and $B$ are in $\mfm$, then $\mu(A\cup B) \leq \mu(A) + \mu(B)$.</li>
+    <li>(Monotonicity) If $A$ and $B$ are in $\mfM$ and $A\subseteq B$, then $\mu(A) \leq \mu(B)$.</li>
+    <li>(Subadditivity) If $A$ and $B$ are in $\mfM$, then $\mu(A\cup B) \leq \mu(A) + \mu(B)$.</li>
   </ol>
 </div>
 

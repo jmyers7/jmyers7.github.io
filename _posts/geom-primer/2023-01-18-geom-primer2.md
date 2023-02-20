@@ -8,11 +8,9 @@ category: a geometric and topological toolkit
 <h1 class="accent-color">tangent bundles</h1>
 </div>
 
-The tangent space $T_p(M)$ at a point $p$ on a manifold $M$ is a purely local object, in the sense that it only depends on the "first-order infinitesimal neighborhoods" of $p$. In this post, we will see how to combine all the tangent spaces $T_p(M)$ into a single global object called the *tangent bundle*, denoted $T(M)$. While the tangent bundle $T(M)$ is composed of linear building blocks (i.e., the tangent spaces $T_p(M)$), we will see that $T(M)$ carries its own manifold structure which may have curvature. As an example, we will explore the tangent bundle $T(S^1)$ of the unit circle $S^1$ in some detail, and we will see that $T(S^1)$ is a cylinder in $\bbr^3$.
+The tangent space $T_p(M)$ at a point $p$ on a manifold $M$ is a purely local object, in the sense that it only depends on the "first-order infinitesimal neighborhoods" of $p$. In this post, we will see how to combine all the tangent spaces $T_p(M)$ into a single global object called the *tangent bundle*, denoted $T(M)$. While the tangent bundle $T(M)$ is composed of linear building blocks (i.e., the tangent spaces $T_p(M)$), we will see that $T(M)$ carries its own manifold structure which may have a non-trivial topology. As an example, we will explore the tangent bundle $T(S^1)$ of the unit circle $S^1$ in some detail, and we will see that $T(S^1)$ is a cylinder in $\bbr^3$.
 
 A tangent bundle is actually a specific example of a more general structure called a (*locally trivial*) *vector bundle*, which are ubiquitous in topology. I will only have the time to state the definitions and most basic properties of these gadgets; a more thorough exploration will have to wait till a future post.
-
-This post is setting us up for the study of vector fields on manifolds, which are defined to be *sections* of tangent bundles.
 
 ## Table of contents
 
@@ -92,7 +90,7 @@ when what we *really* mean is that
 (x^1(p),x^2(p),x^3(p)) = (-2, 3, 0).
 \end{equation}
 
-With respect to the local parametrization $\phi$, we also talked about the associated tangent basis
+With respect to the local parametrization $\phi$, we also talked about the associated coordinate basis
 
 \begin{equation}
 \label{tan-basis-eqn}
@@ -115,7 +113,7 @@ Now, it follows immediately from our discussion that a point $(p,v) \in T(V) \su
 (x^1,\ldots,x^n,v^1,\ldots,v^n) \in \bbr^{2n}.
 \end{equation}
 
-Take care to make sure you understand what this means! First, I am intentionally confusing the functions $x^1,\ldots,x^n$ with the numbers $x^1(p),\ldots,x^n(p)$ as I mentioned above, and the numbers $v^1,\ldots,v^n$ are the components of $v$ displayed in \eqref{tan-comp-eqn} with respect to the associated tangent basis \eqref{tan-basis-eqn}.
+Take care to make sure you understand what this means! First, I am intentionally confusing the functions $x^1,\ldots,x^n$ with the numbers $x^1(p),\ldots,x^n(p)$ as I mentioned above, and the numbers $v^1,\ldots,v^n$ are the components of $v$ displayed in \eqref{tan-comp-eqn} with respect to the associated coordinate basis \eqref{tan-basis-eqn}.
 
 Local coordinates of the form \eqref{hor-ver-eqn} are so important that they get their own name:
 
@@ -191,125 +189,103 @@ Depending on orientations, the sign of $v^1$ tells us whether $(p,v)$ is above o
 
 The example in the previous section shows that the tangent bundle $T(S^1)$ of the unit circle is, up to diffeomorphism, just the product manifold $S^1 \times \bbr$. Is this always true? If $M$ is an $n$-dimensional manifold, is the tangent bundle $T(M)$ just $M \times \bbr^n$, up to diffeomorphism? Of course, the answer must be *no*, because otherwise we would have just *defined* the tangent bundle $T(M)$ to be $M \times \bbr^n$.
 
-I'll come back to this point in a moment, giving you an example of a manifold whose tangent bundle is *not* globally a product, but first I want to highlight an important property of the diffeomorphism $\alpha$ in the example of $T(S^1)$. The diffeomorphism $\alpha$ preserves the structure of both $S^1 \times \bbr$ and $T(S^1)$ as general "bundles" of vector spaces. In order to most clearly explain what I mean, it will be convenient to introduce the following terminology:
-
-<div class="highlight-box">
-**Definition.** A *vector bundle* over a manifold $M$ is a union
+I'll come back to this point in a moment, giving you an example of a manifold whose tangent bundle is *not* globally a product, but first I want to highlight an important property of the diffeomorphism $\alpha$ in the example of $T(S^1)$. The diffeomorphism $\alpha$ preserves the structure of both $S^1 \times \bbr$ and $T(S^1)$ as general "bundles" of vector spaces. In order to most clearly explain what I mean, it will be convenient to introduce the objects in the following definition. Before we do, however, we need to define so-called *disjoint unions*: If $\\{S_i\\}_{i\in I}$ is a collection of sets indexed by a set $I$, then the *disjoint union* of the $S_i$'s is
 
 \begin{equation}\notag
-E = \bigcup_{p\in M} \\{p\\} \times E_p,
+\bigsqcup_{i\in I} S_i \defeq \bigcup_{i\in I} \\{i\\} \times S_i.
 \end{equation}
 
-where each $E_p$ is a vector space. Every such vector bundle comes equipped with the natural projection map
+In this notation, I will leave it to you to check that
+
+\begin{equation}\label{tan-disjoint-eqn}
+T(M) = \bigsqcup_{p\in M} T_p(M).
+\end{equation}
+
+Now, we come to the fundamental definition:
+
+<div class="highlight-box">
+**Definition.** A *basic vector bundle* over a manifold $M$ is a set $E$ of the form
+
+\begin{equation}\notag
+E = \bigsqcup_{p\in M} E_p,
+\end{equation}
+
+where each $E_p$ is a vector space. Every such basic vector bundle comes equipped with the natural projection map
 
 \begin{equation}\notag
 \pi: E \to M, \quad (p,v) \mapsto p
 \end{equation}
 
-whose fibers are the vector spaces $E_p$.
+whose fibers $\pi^{-1}(p)$ are the subsets $\\{p\\}\times E_p$. We shall often confuse the fiber $\pi^{-1}(p)$ with the vector space $E_p$, and refer to $E_p$ as a fiber of $\pi$.
+
+If all the vector spaces $E_p$ are finite-dimensional with common dimension $k$, then $E$ is called a *rank-$k$ basic vector bundle*. The space $M$ is called the *base* of the basic vector bundle, while $E$ is called the *total space*.
 
 If
 
 \begin{equation}\notag
-E' = \bigcup_{p\in M} \\{p\\} \times E_p'
+E' = \bigsqcup_{p\in M} E_p'
 \end{equation}
 
-is a second vector bundle over $M$ with natural projection $\pi' : E' \to M$, then a *homomorphism* of vector bundles is a function $\alpha:E \to E'$ such that the diagram
-
-\begin{equation}\label{diag-eqn}
-\begin{xy}
-\xymatrix@C=1in{
-\color{white}E \ar@[white][r]^{\color{white}\alpha} \ar@[white][d]\_{\color{white}\pi} & \color{white}E' \ar@[white][d]^{\color{white}\pi} \\\ \color{white}M \ar@[white][r]_{\color{white}=} & \color{white}M
-}
-\end{xy}
-\end{equation}	
-
-commutes. Hence, for each $(p,v)\in \{p\} \times E_p$ we have that
-
-\begin{equation}\label{yuppers-eqn}
-\alpha(p,v) = \left(p,\tl{\alpha}_p(v) \right)
+is a second basic vector bundle over $M$ with natural projection $\pi' : E' \to M$, then a *homomorphism* of basic vector bundles is a set-theoretic function $\alpha:E \to E'$ that restricts to a linear transformation
+\begin{equation}\notag
+\alpha|_{E_p}:E_p \to E_p'
 \end{equation}
 
-for some $\tl{\alpha}_p:E_p \to E_p'$, and we require that this latter map $\tl{\alpha}_p$ is a linear transformation of vector spaces.
+on each fiber. To be clear, this means that we require $\alpha(E_p) \subseteq E_p'$ for each $p\in M$, where we are identifying $E_p$ and $E_p'$ with the actual fibers $\pi^{-1}(p)$ and $(\pi')^{-1}(p)$ as described above. Instead of writing $\alpha\|\_{E\_p}$ for the restricted map, we shall often write $\alpha\_p$ instead.
 
-We shall say the homomorphism $\alpha:E \to E'$ is an *isomorphism* of vector bundles if there is a homomorphism of vector bundles $\beta:E'\to E$ such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E'}$.
+We shall say the homomorphism $\alpha:E \to E'$ is an *isomorphism* of basic vector bundles if there is a homomorphism of basic vector bundles $\beta:E'\to E$ such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E'}$.
 </div>
 
-To help make sure you understand the definition, here's an exercise:
+Note immediately that, according to \eqref{tan-disjoint-eqn}, the tangent bundle $T(M)$ is a basic vector bundle.
+
+Why do we use the awkward modifier *basic*? The reason is, that the unqualified terminology *vector bundle* often refers to a so-called *locally trivial vector bundle*, which is a vector bundle $E$ that carries a smooth manifold structure such that the natural projection $\pi: E \to M$ is smooth, and such that $E$ is locally isomorphic to a *trivial* vector bundle. Our *basic vector bundles* serve as the underlying structure for these more complicated types of vector bundles. We will see below that the tangent bundle $T(M)$ is a particular example of a *locally trivial vector bundle*, saving a more thorough and general investigation to the next post in this series.
+
+Another (perhaps more descriptive) name for a *basic vector bundle* might be a *set-theoretic vector bundle*.
+
+A homomorphism $\alpha: E\to E'$ of basic vector bundles is completely determined by its restrictions $\alpha_p : E_p \to E_p'$ to the fibers. Indeed, the requirement that $\alpha(E_p) \subseteq E_p'$ means that $\alpha$ is described by the formula
+
+\begin{equation}\notag
+\alpha(p,v) = (p,\alpha_p(v)).
+\end{equation}
+
+If $\beta:E'\to E''$ is a second homomorphism of basic vector bundles, then the composite $\beta \circ \alpha$ looks like
+
+\begin{equation}\notag
+(\beta \circ \alpha)(p,v) = (p,\beta(\alpha(p))).
+\end{equation}
+
+To help make sure you understand these formulas, try your hand at the next exercise. Roughly, it shows that a homomorphism of basic vector bundles can be thought of as a "bundle" of linear transformations.
 
 <div class="highlight-box2">
 **Exercise.**
-1. If you haven't already, verify that commutativity of \eqref{diag-eqn} really is equivalent to $\alpha$ being given by a formula of the form \eqref{yuppers-eqn}.
-2. Let $\alpha:E \to E'$ and $\beta:E' \to E$ be mutually inverse isomorphisms of vector bundles over a manifold $M$. For each $p\in M$, prove that the linear transformations $\tl{\alpha}_p:E_p \to E_p'$ and $\tl{\beta}_p: E_p' \to E_p$ are mutually inverse isomorphisms of vector spaces.
+
+1. Let $\alpha:E \to E'$ be an isomorphism of basic vector bundles. Prove that for each $p\in M$, the linear transformations $\alpha_p:E_p \to E_p'$ are isomorphisms of vector spaces.
+2. Conversely, suppose that we have a collection $\\{\alpha_p: E_p \to E_p'\\}_{p\in M}$ of homomorphisms of vector spaces. Show that there is an homomorphism $\alpha: E \to E'$ of basic vector bundles whose restrictions to the fibers are $\alpha_p$'s. Show that if the $\alpha_p$'s are isomorphisms, then $\alpha$ is an isomorphism as well.
 </div>
 
-Recall that a tangent bundle $T(M)$ comes equipped with a natural smooth projection map
+While the result in (1.) is always true, even for basic vector bundles that carry "more structure," the result in (2.) might fail. Thus, it's important to realize that (2.) only applies to our *basic vector bundles*.
+
+Given any manifold $M$, there's a really easy way to manufacture a rank-$k$ basic vector bundle over $M$ by simply taking
 
 \begin{equation}\notag
-\pi:T(M) \to M, \quad (p,v) \mapsto p.
+M \times \bbr^k = \bigsqcup_{p\in M} \bbr^k.
 \end{equation}
 
-The fiber of $\pi$ over a point $p\in M$ is, by definition, the preimage
-
-\begin{equation}\notag
-\pi^{-1}(p) \defeq \left\\{ (q,v) \in T(M) \mid \pi(q,v) = p \right\\}.
-\end{equation}
-
-But, by the definition of $\pi$, this fiber is simply
-
-\begin{equation}\notag
-\pi^{-1}(p) = \\{p\\} \times T_p(M).
-\end{equation}
-
-Since clearly $T(M) = \bigcup_{p\in M} \pi^{-1}(p)$, we get that
-
-\begin{equation}\notag
-T(M) = \bigcup_{p\in M} \\{p\\} \times T_p(M),
-\end{equation}
-
-and hence $T(M)$ is a vector bundle according to the definition.
-
-But there's another way to make a vector bundle over $M$ simply by considering the product manifold $M \times \bbr^n$ along with the natural smooth projection
-
-\begin{equation}\notag
-\pi_1: M \times \bbr^n \to M, \quad (p,v) \mapsto p.
-\end{equation}
-
-The fibers of $\pi_1$ are given by
-
-\begin{equation}\notag
-\pi_1^{-1}(p) = \\{ p \\} \times \bbr^n,
-\end{equation}
-
-so
-	
-\begin{equation}\notag
-M \times \bbr^n = \bigcup_{p\in M} \\{ p \\} \times \bbr^n.
-\end{equation}
-
-Hence, $M \times \bbr^n$ is also a vector bundle over $M$, according to the definition.
+This basic vector bundle is called a *trivial basic vector bundle*.
 
 Now, for an easy exercise:
 
 <div class="highlight-box2">
-**Exercise.** Prove that the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section is a homomorphism of vector bundles.[^table]
+**Exercise.** Prove that the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section is an isomorphism of basic vector bundles, where we view $S^1 \times \bbr$ as the total space of the trivial rank-$1$ basic vector bundle over $S^1$.
 </div>
 
-[^table]: In fact, $\alpha$ is even an *isomorphism* of vector bundles, which you will prove in just a moment.
-
-We now come to a central definition:
+We now come to another central definition:
 
 <div class="highlight-box">
-**Definition.** Let $M$ be an $n$-dimensional manifold. We shall say that the tangent bundle $T(M)$ is *trivial* if there is a diffeomorphism $\alpha: M\times \bbr^n \to T(M)$ that is also a homomorphism of vector bundles. The diffeomorphism $\alpha$ is called a *(global) trivialization* of the tangent bundle, and, in this case, we shall say $M$ is *parallelizable*.
+**Definition.** Let $M$ be an $n$-dimensional manifold. We shall say that the tangent bundle $T(M)$ is *trivial* if there is a diffeomorphism $\alpha: M\times \bbr^n \to T(M)$ that is also an isomorphism of basic vector bundles (here, $M\times \bbr^n$ is the total space of the trivial vector bundle). The diffeomorphism $\alpha$ is called a *(global) trivialization* of the tangent bundle, and, in this case, we shall say $M$ is *parallelizable*.
 </div>
 
-Thus, we have shown that the manifold $S^1$ is parallelizable. 
-
-<div class="highlight-box2">
-**Exercise.** Suppose $M$ is a parallelizable manifold with trivialization $\alpha: M \times \bbr^n \to T(M)$. Letting $\beta:T(M) \to M \times \bbr^n$ be the inverse diffeomorphism of $\alpha$, prove that $\beta$ is also a homomorphism of vector bundles. Conclude that a global trivialization of a tangent bundle is an isomorphism of vector bundles.
-</div>
-
-Lest you believe that *all* manifolds are parallelizable, I offer:
+Thus, we have shown that the manifold $S^1$ is parallelizable. Lest you believe that *all* manifolds are parallelizable, I offer:
 
 <div class="highlight-box">
 **Example.** I claim that the sphere $S^2$ is *not* parallelizable, which means that there does *not* exist a diffeomorphism
@@ -318,7 +294,7 @@ Lest you believe that *all* manifolds are parallelizable, I offer:
 \alpha: S^2 \times \bbr^2 \to T(S^2)
 \end{equation}
 
-which is a homomorphism of vector bundles. In general, non-existence proofs are very difficult in topology, but in this case we get lucky. For *if* such a diffeomorphism $\alpha$ exists, then we consider the smooth map
+which is an isomorphism of basic vector bundles. In general, non-existence proofs are very difficult in topology, but in this case we get lucky. For *if* such a diffeomorphism $\alpha$ exists, then we consider the smooth map
 
 \begin{equation}\notag
 X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
@@ -327,13 +303,13 @@ X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
 where the first unlabeled map is given by $p \mapsto (p,v_0)$ for some fixed nonzero vector $v_0\in \bbr^2$. We can then interpret $X$ as an assignment of a nonzero tangent vector in $T_p(S^2)$ to every $p\in S^2$. But no such assignment exists! Indeed, this is a consequence of the theorem stated <a href="https://en.wikipedia.org/wiki/Hairy_ball_theorem">here</a>.
 </div>
 
-Here's a few more exercises on parallelizable manifolds.
+Here's another pair of exercises on parallelizable manifolds. I bet the appendix in ([^Milnore1997]) will be helpful for the second exercise.
 
 <div class="highlight-box2">
 **Exercise.** 
 
 1. Prove that the torus $T = S^1 \times S^1$ is parallelizable.
-2. Are all $1$-dimensional manifolds parallelizable? Prove your answer. (*Hint*: Assume your manifold is connected, for simplicity. I bet the appendix in ([^Milnore1997]) will be helpful.)
+2. Are all $1$-dimensional manifolds parallelizable? Prove your answer.
 </div>
 
 <div id="locally-trivial-vec-bundle">
@@ -359,10 +335,10 @@ is simply the tangent bundle $T(V)$, which is an open subset of $T(M)$. The proj
 \alpha: V \times \bbr^n \to T(V) = \pi^{-1}(V)
 \end{equation}
 
-that is also a homomorphism of vector bundles.
+that is also an isomorphism of basic vector bundles.
 </div>
 
-For proof, let $\phi:U \to V$ be a local parametrization on $M$ containing $p$ in its codomain. Then we know that the global derivative
+For proof, let $\phi:U \to V$ be a local parametrization on $M$ containing $p$ in its codomain, and suppose that $\phi(t) = p$. Then we know that the global derivative
 
 \begin{equation}\notag
 \phi_\ast: T(U) \to T(V)
@@ -377,10 +353,10 @@ serves as a local parametrization of the tangent bundle $T(M)$. Now, note that t
 \end{xy}
 \end{equation}
 
-commutes. Furthermore, the composite across the top row is given on the fibers by the map
+commutes. Furthermore, the (smooth!) composite across the top row is given on the fibers by the map
 
 \begin{equation}\notag
-\{p\} \times \bbr^n \to \{p\} \times T_p(M), \quad (p,v) \mapsto (p,\phi_{\ast\phi^{-1}(p)}(v)),
+\\{p\\} \times \bbr^n \to \\{p\\} \times T_p(M), \quad (p,v) \mapsto (p,\phi_{\ast t}(v)),
 \end{equation}
 
 which is a linear isomorphism. Q.E.D.

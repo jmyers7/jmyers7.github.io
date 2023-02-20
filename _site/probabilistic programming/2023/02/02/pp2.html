@@ -29,6 +29,9 @@
                 floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
                 bbn: ['\\mathbb{N}'],
@@ -51,7 +54,11 @@
                 mfb: ['\\mathfrak{B}'],
                 mfj: ['\\mathfrak{J}'],
                 mfl: ['\\mathfrak{L}'],
-                mfm: ['\\mathfrak{M}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
                 ttk: ['\\mathtt{K}'],
                 ttq: ['\\mathtt{Q}'],
                 ttr: ['\\mathtt{R}'],
@@ -61,31 +68,37 @@
                 ttx: ['\\mathtt{X}'],
                 sfv: ['\\mathsf{v}'],
                 sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
                 dx: ['{\\ \\text{d} #1}', 1],
                 id: ['\\boldsymbol{1}'],
                 defeq: ['\\overset{\\text{def}}{=}'],
                 tl: ['\\widetilde{#1}', 1],
-                cl: ['\\overline{#1}', 1]
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
           },
         },
         svg: {
           fontCache: 'global',
           mtextInheritFont: true,
-          }
+        }
       };
     </script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
-
     <!--
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
     -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
 
   </head>
   
@@ -116,11 +129,188 @@
   <h1 class="accent-color">markov chains</h1>
 </div>
 
-<h2 id="finite-state-markov-chains">finite-state markov chains</h2>
+<h2 id="definitions-and-transition-probabilities">Definitions and transition probabilities</h2>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> A <em>stochastic process</em> is a collection of random variables $\left\{ x_t \right\}_{t\in T}$, all defined on the same sample space with values in a common measurable space $\cals$ called the <em>state space</em> (there are no restrictions placed on $T$). Points in $\cals$ are called <em>states</em> of the stochastic process. If the state space $\cals$ is either finite or countably infinite, then the stochastic process is called <em>discrete-state</em>. In the case that the index set $T$ is $\bbn = \left\{0,1,2,\ldots\right\}$, we will often index the terms in a stochastic process as $x_n$ rather than $x_t$.</p>
+  <p><strong>Definition.</strong> An $\bbn$-indexed sequence $\{X_n\}_{n\geq 0}$ of random variables, all defined on the same probability space $(\Omega,\mfm,P)$, is called a <em>Markov chain with transition kernel $K$</em> if $K$ is a stochastic transition kernel</p>
+
+  <p>\begin{equation}\notag
+K: \mfb \times \bbr \to \bbr, \quad (B,x) \mapsto K(B,x)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\label{sink-eqn}
+P(X_{n+1}\in B | X_0 = x_0, \ldots, X_n=x_n) = P(X_{n+1} \in B | X_n=x_n) = K(B,x_n)
+\end{equation}</p>
+
+  <p>for all integers $n\geq 0$, all Borel sets $B\in \mfb$, and almost all $x_0,\ldots,x_n \in \bbr$.</p>
 </div>
+
+<p>While the two conditional probabilities in \eqref{sink-eqn} depend on the choice of random variables $X_0,\ldots,X_n$, notice that the transition kernel $K$ does <em>not</em>. In particular, we have</p>
+
+<p>\begin{equation}\label{homog-eqn}
+P(X_{n+1} \in B | X_n=x) = K(B,x) = P(X_{m+1} \in B | X_m = x)
+\end{equation}</p>
+
+<p>for all $B\in \mfb$ and almost all $x\in \bbr$. This property \eqref{homog-eqn} is called <em>time homogeneity</em>, or simply <em>homogeneity</em>.</p>
+
+<p>Our treatment of the existence of conditional distributions requires that all probability measures in sight have densities with respect to ambient $\sigma$-finite measures. So, let’s agree to fix some assumptions and notation for the rest of this section:</p>
+
+<div class="highlight-box2">
+  <p><strong>Notations for Densities.</strong> Let $\{X_n\}_{n\geq 0}$ be a Markov chain with transition kernel $K$, as in the definition above. Let $\mu$ be a $\sigma$-finite measure on the measurable space $(\bbr,\mfb)$.</p>
+
+  <ol>
+    <li>We shall assume that the marginal distribution of each $X_i$ is absolutely continuous with respect to $\mu$. In order to prevent a proliferation of subscripts, we shall write $f(x_i)$ for a density function of the marginal distribution, using the subscript on the $x$ to indicate to <em>which</em> random variable we are referring. Technically, we should write something like $f_i(x_i)$, but we won’t.</li>
+    <li>It follows that the joint distribution of a finite sequence $X_n,\ldots,X_1,X_0$ of random variables is absolutely continuous with respect to the product measure $\mu \times \cdots \times \mu$ on $(\bbr^n,\mfb^n)$. As in (1.), we will write $f(x_n,\ldots,x_1,x_0)$ to represent a joint distribution function, using the subscripts on the $x$’s to indicate to which random variables we are referring.</li>
+    <li>For each $x_0\in \bbr$, we write $x\mapsto f(x|x_0)$ for a density function (with respect to $\mu$) of the probability distribution $B\mapsto K(B,x_0)$.</li>
+  </ol>
+</div>
+
+<p>Having fixed the notation, we state the first important result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Joint Densities of Markov Chains.</strong> Let the notation be as in the box on Notations for Densities. For each $n\geq 1$, we have that
+\begin{equation}\label{picture-eqn}
+f(x_n,\ldots,x_0) = f(x_n|x_{n-1}) \cdots f(x_1|x_0)f(x_0)
+\end{equation}</p>
+
+  <p>for almost all $x_0,x_1,\ldots,x_n\in \bbr$.</p>
+</div>
+
+<p>The proof for general $n$ goes by induction, with the base case $n=1$ following from the definitions. For $n\geq 2$, suppose that $A_0,\ldots,A_n\in \mfb$ are Borel sets and note that the joint probability</p>
+
+<p>\begin{equation}\notag
+P(X_n\in A_n,\ldots,X_0\in A_0)
+\end{equation}</p>
+
+<p>is equal to the integral</p>
+
+<p>\begin{equation}\notag
+\int_{A_{n-1} \times \cdots \times A_0} P(X_n\in A_n|X_{n-1}=x_{n-1},\ldots,X_0=x_0) \ P(X_{n-1}\in \text{d}x_{n-1},\ldots,X_0 \in \text{d}x_0).
+\end{equation}</p>
+
+<p>But, by the Markov property \eqref{sink-eqn}, this last integral is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{A_{n-1} \times \cdots \times A_0} P(X_n\in A_n|X_{n-1}=x_{n-1}) \ P(X_{n-1}\in \text{d}x_{n-1},\ldots,X_0 \in \text{d}x_0),
+\end{equation}</p>
+
+<p>which, in turn, is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{A_{n-1} \times \cdots \times A_0} f(x_n|x_{n-1}) f(x_{n-1},\ldots,x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_{n-1},\ldots,\text{d}x_0).
+\end{equation}</p>
+
+<p>Now, if we suppose by induction that the joint density $f(x_{n-1},\ldots,x_0)$ factors as desired, then the desired equation \eqref{picture-eqn} follows immediately, Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on $m$-step Transition Probabilities.</strong> Let the notation be as in the box on Notations for Densities, and let $m\geq 1$ be an integer. For each Borel set $A_m\in \mfb$ and almost all $x_0 \in \bbr$, the conditional probability
+\begin{equation}\notag
+P(X_m\in A_m | X_0=x_0)
+\end{equation}
+is equal to
+\begin{equation}\label{cup-eqn}
+\int_{A_m \times \bbr^{m-1}} f(x_m|x_{m-1}) \cdots f(x_1|x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_1).
+\end{equation}</p>
+</div>
+
+<p>We integrate \eqref{cup-eqn} over a Borel set $A_0\in \mfb$ to produce the integral</p>
+
+<p>\begin{equation}\label{rug-eqn}
+\int_{A_0} \left\{\int_{A_m\times \bbr^{m-1}} f(x_m|x_{m-1}) \cdots f(x_1|x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_1) \right\} P(X_0 \in \text{d}x_0).
+\end{equation}</p>
+
+<p>But this is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{A_m\times \bbr^{m-1}\times A_0} f(x_m|x_{m-1}) \cdots f(x_1|x_0) f(x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_0),
+\end{equation}</p>
+
+<p>which is equal to</p>
+
+<p>\begin{equation}\notag
+\int_{A_m\times \bbr^{m-1}\times A_0} f(x_m,\ldots,x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_0)
+\end{equation}</p>
+
+<p>by the Theorem on Joint Densities of Markov Chains. Thus, \eqref{rug-eqn} is equal to the joint probability</p>
+
+<p>\begin{equation}\notag
+P(X_m \in A_m, X_0\in A_0),
+\end{equation}</p>
+
+<p>which establishes the desired equality, Q.E.D.</p>
+
+<p>It will be convenient to have an alternate description of the $m$-step transition probabilities in the previous theorem. For this, we need to fix some more notation. For each $m\geq 1$, we define an <em>$m$-th power operation</em> that carries the transition kernel $K$ to another transition kernel</p>
+
+<p>\begin{equation}\notag
+K^m:\mfb \times \bbr \to \bbr, \quad (B,x) \mapsto K^m(B,x),
+\end{equation}</p>
+
+<p>defined inductively by first setting $K^1 = K$, and then putting</p>
+
+<p>\begin{equation}\notag
+K^m(B,x_0) = \int_\bbr K^{m-1}(B,x) \ K(\text{d}x,x_0)
+\end{equation}</p>
+
+<p>for all $m\geq 2$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Powers of Transition Kernels.</strong> Let the notation be as in the box on Notations for Densities, and let $m\geq 1$ be an integer. For each Borel set $A_m\in \mfb$ and almost all $x_0 \in \bbr$, we have
+\begin{equation}\label{clock-eqn}
+P(X_m\in A_m |X_0=x_0) = K^m(A_m,x_0).
+\end{equation}</p>
+</div>
+
+<p>From the Markov property \eqref{sink-eqn}, it follows that the desired statement is true in the case $m=1$. For $m\geq 2$, in view of the Theorem on $m$-step Transition Probabilities, it will suffice to show that $A_m \mapsto K^m(A_m,x_0)$ has a density given by</p>
+
+<p>\begin{equation}\notag
+x_m \mapsto \int_{\bbr^{m-1}} f(x_m|x_{m-1}) \cdots f(x_1|x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_{m-1},\ldots, \text{d}x_1),
+\end{equation}</p>
+
+<p>for all $x_0\in \bbr$. For the base case $m=2$, we integrate this function over $A_2$ to get</p>
+
+<p>\begin{equation}\notag
+\int_{A_2} \left\{ \int_\bbr f(x_2|x_1)f(x_1|x_0) \ \mu(\text{d}x_1) \right\} \ \mu(\text{d}x_2).
+\end{equation}</p>
+
+<p>But this is the same as the first integral in the sequence of equalities</p>
+
+<p>\begin{align}
+\int_\bbr \left\{ \int_{A_2} f(x_2|x_1) \ \mu(\text{d}x_2) \right\} f(x_1|x_0) \ \mu(\text{d}x_1) &amp;= \int_\bbr K(A_2,x_1) \ K(\text{d}x_1,x_0) \notag \\ &amp;= K^2(A_2,x_0). \notag
+\end{align}</p>
+
+<p>The desired equation \eqref{clock-eqn} then follows in the case $m=2$. I will leave it to you to complete the proof by induction on $m$. Q.E.D.</p>
+
+<h2 id="stationary-distributions">Stationary distributions</h2>
+
+<p>Let $P_0$ be a probability distribution on $(\bbr,\mfb)$. We obtain a related probability measure on $\bbr$ via the formula</p>
+
+<p>\begin{equation}\notag
+(P_0 K)(B) \defeq \int_{\bbr} K(B,x) \ P_0(\text{d}x), \quad B\in \mfb.
+\end{equation}</p>
+
+<p>Recall that the conditional probability $P(X_{n+1} \in B |X_n=x)$ may be viewed as a random variable on the sample space $\Omega$ by precomposing with $X_n$:</p>
+
+<p>\begin{equation}\label{towel-eqn}
+P(X_{n+1}| X_n) : \Omega \xrightarrow{X_n} \bbr \xrightarrow{ x\mapsto P(X_{n+1}| X_n) } \bbr, \quad \omega \mapsto P(X_{n+1}|X_n)(\omega).
+\end{equation}</p>
+
+<p>Similarly, the transition kernel may also be viewed as a random variable, using the same trick:</p>
+
+<p>\begin{equation}\notag
+K_n(B, -) : \Omega \xrightarrow{X_n} \bbr \xrightarrow{x \mapsto K(B,x)}\bbr, \quad \omega \mapsto K_n(B,\omega) \defeq K(B,X_n(\omega)).
+\end{equation}</p>
+
+<p>Now, if we define $P_{k} = P_{X_k}$ for all $k\geq 0$, and if $B\in \mfb$, then we compute</p>
+
+<p>\begin{align}
+P_{n+1}(B) &amp;= P(X_{n+1}\in B) \notag \\ &amp;= \be\left( P(X_{n+1} \in B| X_n) \right) \notag \\ &amp;= \be\left( K_n(B,\omega) \right) \notag \\ &amp;= \int_\Omega K_n(B,\omega) \ P(\text{d}\omega) \notag \\ &amp;= \int_\bbr K(B,x) \ P_n(\text{d}x) \notag \\ &amp;= (P_nK)(B). \notag
+\end{align}</p>
+
+<p>The second equality uses the Law of Iterated Expectation applied to the random variable \eqref{towel-eqn}, while the fifth equality uses the change-of-variable formula for Lebesgue integrals.</p>
+
+<h2 id="finite-state-markov-chains">finite-state markov chains</h2>
 
 <p>Next!</p>
 
@@ -259,7 +449,7 @@ P(x_{n+1} = 3 | x_n = i) \quad \text{and} \quad P(x_{n+1} = 7 | x_n = i)
 
 <p>Notice that the probabilities in the third and seventh columns are quite a bit larger than the probabilities in the other columns.</p>
 
-<h2 id="stationary-distributions">stationary distributions</h2>
+<h2 id="stationary-distributions-1">stationary distributions</h2>
 
 <p>Now, imagine that $x_0$ is the initial term of a finite-state Markov chain with state space $\{1,2,\ldots,c\}$. We may collect the probabilities in the distribution of $x_0$ and place them into a row vector:</p>
 

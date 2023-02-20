@@ -254,12 +254,12 @@ for each $i=1,\ldots,n$, then
 \end{equation}
 </div>
 
-is a basis for the tangent space $T_p(M)$ called the *tangent basis associated to the local coordinates $x^1,\ldots,x^n$.*
+is a basis for the tangent space $T_p(M)$ called the *coordinate basis* associated to the local coordinates $x^1,\ldots,x^n$.
 </div>
 
 [^footnote3]: This means that $e_i$ is the vector in $\bbr^n$ with a $1$ in the $i$-th entry and zeros elsewhere.
 
-The rather strange choice of notation for the tangent basis vectors will be explained when we study the tangent spaces to general abstract manifolds. However, notice that the index $i$ appears in the subscript of the tangent basis vector $\bd_{x^i}\|_p$, which means that we consider it to be a *lower* index on this basis vector. In the [series]({% post_url /tensors/2022-11-19-tensors1 %}) on tensors, we used a summation convention that said an index repeated in a single expression in both an upper and lower position is to be summed over. In view of this convention, a tangent vector $v\in T_p(M)$ may be written in components as
+The rather strange choice of notation for the coordinate basis vectors will be explained when we study the relationship between tangent vectors and derivations in a later post. However, notice that the index $i$ appears in the subscript of the coordinate basis vector $\bd_{x^i}\|_p$, which means that we consider it to be a *lower* index on this basis vector. In the [series]({% post_url /tensors/2022-11-19-tensors1 %}) on tensors, we used a summation convention that said an index repeated in a single expression in both an upper and lower position is to be summed over. In view of this convention, a tangent vector $v\in T_p(M)$ may be written in components as
 
 <div style='overflow: scroll'>
 \begin{equation}\notag
@@ -372,7 +372,7 @@ In the next exercise, you will work out, for yourself, the relationship between 
 
 is defined.
 
-1. Prove that the above jacobian matrix represents the derivative $\alpha_{\ast p}$ with respect to the tangent bases
+1. Prove that the above jacobian matrix represents the derivative $\alpha_{\ast p}$ with respect to the coordinate bases
 \begin{equation}\notag
 \bd_{x^1}|\_p,\ldots, \bd_{x^n}|\_p \quad \text{and} \quad \bd_{y^1}|\_q,\ldots, \bd_{y^m}|\_q
 \end{equation}

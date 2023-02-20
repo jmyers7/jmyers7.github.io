@@ -1,1 +1,5 @@
 {"rule":"MISSING_GENITIVE","sentence":"^\\QMarkov chains may be represented by directed graphs.\\E$"}
+{"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QIn fact, the tangent bundle \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q often places a central role in dynamical systems theory, due to the following fundamental result which states that smooth paths in the base manifold \"lift\" to smooth paths in the tangent bundle:\\E$"}
+{"rule":"COLLECTIVE_NOUN_VERB_AGREEMENT_VBP","sentence":"^\\QVector fields\nThe module of sections\nVector fields as derivations\nLocalization\nConnections and Lie brackets\\E$"}
+{"rule":"EN_WORD_COHERENCY","sentence":"^\\Q^footnote4: Just as one proves that the tangent space \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is independent of the choice of local parameterization, one may prove easily that the definition of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q does not depend on local parametrizations.\\E$"}
+{"rule":"EN_WORD_COHERENCY","sentence":"^\\QWe may choose local parametrizations\\E$"}

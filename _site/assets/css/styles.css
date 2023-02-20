@@ -68,7 +68,7 @@ code { font-size: 1.2em; }
 :target { scroll-margin-top: 140px; }
 
 /********** links **********/
-p a { color: #e0e0e0; font-family: 'Lora', serif; /*text-decoration: none;*/ }
+p a { color: #e0e0e0; font-family: 'Lora', serif; /*text-decoration: none;*/ /*font-size: 0.75em;*/ }
 
 .post-content-white a { color: black; font-family: 'Lora', serif; }
 
