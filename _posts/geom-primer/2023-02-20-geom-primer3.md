@@ -1,11 +1,11 @@
 ---
 layout: post
-title: the algebraic theory I&#58 vector fields and derivations
+title: the algebraic theory I&#58 vector fields + derivations
 category: a geometric and topological toolkit
 ---
 
 <div class="post-title">
-<h1 class="accent-color">the algebraic theory I: vector fields and derivations</h1>
+<h1 class="accent-color">the algebraic theory I: vector fields + derivations</h1>
 </div>
 
 This is the first of four posts devoted to the algebraic side of smooth manifold theory. These posts will be longer and more comprehensive than all the others on my website, due to two primary reasons:
@@ -158,6 +158,15 @@ Back to the general theory. It is often the case that we must consider smooth ve
 **Definition.** Given a manifold $M$, we write $\calx(M)$ for the set of all global smooth sections of the tangent bundle $T(M)$. In other words, $\calx(M)$ is the set of all smooth vector fields on $M$. More generally, if $U$ is an open subset of $M$, then we write $\calx(U)$ for the set of all smooth local sections over $U$.
 </div>
 
+Since a nonempty open subset $U$ of a manifold $M$ is a manifold in its own right, the notation $\calx(U)$ may be ambiguous. Is it the set of all smooth local sections $X:U \to T(M)$ as just defined, or, instead, is it the set of all smooth global sections $X:U \to T(U)$? Luckily, the ambiguity is only illusory (up to isomorphism), since any smooth local section $X:U \to T(M)$ has the property that
+
+\begin{equation}\notag
+X_p = (p,v) \in \\{p\\} \times T_p(M) = \\{p\\} \times T_p(U) \subset T(U)
+\end{equation}
+
+for all $p\in U$. Thus, $X$ factors uniquely through a smooth global section of the tangent bundle $T(U)$, and, conversely, any global section of $T(U)$ uniquely induces a local section of $T(M)$ over $U$.
+
+
 The tangent spaces $T_p(M)$ are all vector spaces, of course, and so each has a basis. It is often very convenient to pick bases in the tangent spaces that vary "smoothly" with the point $p$. This idea is made precise in:
 
 <div class="highlight-box">
@@ -188,7 +197,7 @@ You will prove this theorem, among other things, in:
     \begin{equation}\notag
     \bd_i: U \to T(M), \quad p \mapsto \bd_i\|\_p,
     \end{equation}
-such that $\bd_1,\ldots,\bd_n$ is a smooth local frame over $U$.
+such that $\bd_1,\ldots,\bd_n$ is a smooth local frame over $U$. This local frame is called a *coordinate local frame*, and the function $\bd_i$ is called a *coordinate (local) section* or *coordinate (local) vector field*.
 3. Let $M$ be an $n$-dimensional manifold and $U\subseteq M$ an open set. Prove that a smooth local frame over $U$ exists if and only if $T(M)$ trivializes over $U$.
 </div>
 
@@ -273,7 +282,7 @@ We thus have a way to associate rings to manifolds. But what about modules?
 With respect to these operations, prove that $\calx(U)$ is a $C^\infty(U)$-module.
 </div>
 
-Since vector fields in $\calx(U)$ are nothing but functions, there are natural restriction maps. In particular, suppose that we have open sets $U$ and $V$ with $U\subseteq V$. We define
+Since vector fields in $\calx(U)$ are nothing but functions, there are natural *restriction maps*. In particular, suppose that we have open sets $U$ and $V$ with $U\subseteq V$. We define
 
 <div style='overflow: scroll'>
 \begin{equation}\notag
@@ -718,93 +727,79 @@ This last theorem shows that we could have everywhere replaced derivations over 
 
 with $C^\infty_{M,p}$ replaced by $C^\infty(M)$ is still an isomorphism. While this means that we could have avoided all mention of local rings, I believe that this "localization" process is so fundamental in geometry and topology that it's worth the bit of extra effort to learn about local rings at an early stage of one's study, even if they aren't strictly required.
 
-We now have enough to present a third equivalent characterization of vector fields:
+We now have enough to present an algebraic characterization of vector fields on a manifold $M$. To do so, we introduce the $\bbr$-vector space
+
+\begin{equation}\label{der-ast-eqn}
+\Der_\bbr(C^\infty(M),C^\infty(M))
+\end{equation}
+
+of all derivations of the commutative algebra $C^\infty(M)$. Before we relate this object to vector fields, I want you to prove that we've just encountered another sheaf:
+
+<div class="highlight-box2">
+**Exercise.** Let the notation be as above.
+
+1. Let a derivation $\delta$ in \eqref{der-ast-eqn} be given, and suppose $h\in C^\infty(M)$. We define the *scalar product* of $h$ and $\delta$, denoted $h\delta$, to be the derivation defined by
+    \begin{equation}\notag
+    (h\delta)(f) = h\delta(f),
+    \end{equation}
+for $f\in C^\infty(M)$. With respect to this operation and the usual $\bbr$-vector space addition, prove that \eqref{der-ast-eqn} is a $C^\infty(M)$-module.
+2. Suppose $U$ and $V$ are nonempty open subset of $M$, with $U\subseteq V$. Define an $\bbr$-linear map
+    \begin{equation}\notag
+    s^V_U : \Der_\bbr(C^\infty(V),C^\infty(V)) \to \Der_\bbr(C^\infty(U),C^\infty(U))
+    \end{equation}
+by letting $s^V_U(\delta)$ be the derivation on $C^\infty(U)$ with
+    \begin{equation}\notag
+    \left\[s^V_U(\delta)\right\](f)(p) = \delta(\tl{f})(p)
+    \end{equation}
+for all $f\in C^\infty(U)$ and $p\in U$, where $\tl{f}$ is any function in $C^\infty(V)$ that coincides with $f$ on an open neighborhood of $p$. Prove that such a function $\tl{f}$ always exists, and that $s^V_U$ is well-defined and $C^\infty(V)$-linear, where the $C^\infty(V)$-module structure on the target of $s^V_U$ is obtained by restricting scalars along the pullback map $C^\infty(V) \to C^\infty(U)$.
+3. The maps $s^V_U$ in the previous part are called *restriction maps*. Prove that they have the same properties as the restriction maps $\rho^V_U$ and $r^V_U$ of the sheaves $C^\infty_M$ and $\calx_M$, and thereby conclude that the association
+    \begin{equation}\notag
+    U \mapsto \Der_\bbr(C^\infty(U),C^\infty(U))
+    \end{equation}
+is a sheaf of $C^\infty_M$-modules.
+</div>
+
+Now, for the last fundamental result of this section:
 
 <div class="highlight-box">
-**Theorem (Equivalent characterizations of vector fields).** A vector field $X$ on a manifold $M$ (embedded in $\bbr^s$) may be uniquely specified by giving one of the following type of objects:
+**Theorem (Equivalent characterizations of vector fields).** Let $M$ be an $n$-dimensional manifold. The natural $C^\infty(M)$-linear map
 
-1. A smooth map $X: M \to \bbr^s$, such that $X_p \in T_p(M)$ for all $p\in M$.
-2. A smooth section $X:M \to T(M)$ of the tangent bundle $T(M)$.
-3. A derivation $X\in \Der_\bbr(C^\infty(M),C^\infty(M))$, where the algebra $C^\infty(M)$ is viewed as a module over itself in the usual way.
-</div>
-
-We have already seen that the objects in (1.) and (2.) determine each other, so, we need only show that every vector field as described in (1.) determines a derivation as in (3.), and conversely. For notational convenience, let's agree to write $X$ for a vector field and $\widehat{X}$ for the derivation that it is supposed to determine.
-
-Let's first suppose that we are given $X$. We define the associated derivation by setting
-
-<div style='overflow: scroll'>
 \begin{equation}\notag
-\left\[\widehat{X}(f)\right\](p) = f_{\ast,p}(X_p),
+\Xi_{M}: \calx(M) \to \Der_\bbr(C^\infty(M),C^\infty(M)), \quad \left\[\Xi_M(X)\right\](f)(p) = f_{\ast,p}(X_p)
 \end{equation}
-</div>
 
-for all $p\in M$. I will leave it to you to check that $\widehat{X}$ is a derivation, so we need only check that $\widehat{X}(f)$ is smooth. To do this, it will suffice to check that $\widehat{X}(f)$ is smooth in an arbitrary system of local coordinates $x^1,\ldots,x^n$ on an open parametrizable subset $U$. But, as you may easily check, we have
+is an isomorphism. If $M$ has a global system of coordinates $x^1,\ldots,x^n$, then the $i$-th coordinate local section $\bd_i$ maps to the $i$-th partial derivative operator
 
-<div style='overflow: scroll'>
+\begin{equation}\label{mirror-eqn}
+\frac{\bd}{\bd x^i}: C^\infty(M) \to C^\infty(M), \quad f\mapsto \frac{\bd f}{\bd x^i}.
+\end{equation}
+
+In this case, given a derivation $\delta$, the vector field
+
 \begin{equation}\notag
-\left\[\widehat{X}(f)\right\](p) = X^i(p) \frac{\bd f}{\bd x^i}(p)
+X = \delta(x^i) \bd_i
 \end{equation}
+
+maps to $\delta$ under $\Xi_M$.
 </div>
 
-for all $p\in U$, where $X^i$ is the $i$-th component function of $X$ over $U$. Thus, $\widehat{X}(f)$ is a sum of smooth functions, and is therefore smooth over $U$.
+To prove the theorem, we shall take advantage of the fact that the diagram
 
-Conversely, suppose that we are given the derivation $\widehat{X}$ and we must construct the smooth vector field $X$. Let a point $p\in M$ be given, and consider the configuration of natural maps.
-
-<div style='overflow: scroll'>
 \begin{equation}\notag
-\Der_\bbr(C^\infty(M),C^\infty(M)) \xrightarrow{(\dev_p \circ \lambda)^\ast} \Der_\bbr(C^\infty(M),\bbr) \xleftarrow{\lambda^\ast} \Der_\bbr(C^\infty_{M,p},\bbr) \xleftarrow{\Theta_{M,p}} T_p(M).
+\begin{xy}
+\xymatrix{
+\color{white} \calx(M) \ar@[white][r]^-{\color{white}\Xi_M} \ar@[white][d]\_{\color{white}r^M_U} & \color{white} \Der_\bbr(C^\infty(M),C^\infty(M)) \ar@[white][d]^{\color{white} s^M_U} \\\ \color{white} \calx(U) \ar@[white][r]^-{\color{white}\Xi_U} & \color{white} \Der_\bbr(C^\infty(U),C^\infty(U)) }
+\end{xy}
 \end{equation}
+
+commutes, for any nonempty open subset $U$ of $M$ (check this!). In particular, we shall choose $U$ to be an open parametrizable subset of $M$, and prove that $\Xi_U$ is an isomorphism. Then, as $M$ may be covered by such sets, and since both the source and target of $\Xi_M$ are sheaves of $C^\infty_M$-modules, it will follow that $\Xi_M$ is an isomorphism. In essence, we are proving that $\Xi_M$ is more than just a simple isomorphism, it is, in fact, part of an entire *isomorphism of sheaves*. If this strategy is unclear, I suggest that you carefully work out the details on your own.
+
+Thus, we may as well assume that $M$ has a global coordinate system. But then, the rest of the proof proceeds almost identically to the proof of the <a href="#main-thm">main theorem</a>, by arguing that the partial derivative operators \eqref{mirror-eqn} form a basis of the module of derivations. Therefore, I will leave it to you to fill in the details. Once you've done so, we can declare: Q.E.D.
+
+<div class="highlight-box2">
+**Notation.** Over an open parametrizable subset $U$ of a manifold $M$, with local coordinates $x^1,\ldots,x^n$, we have seen that the coordinate local section $\bd_i$ corresponds to the derivation $\bd/\bd x^i$ of the algebra $C^\infty(U)$ under the natural isomorphism $\Xi_U$. In the interest of notational brevity and clarity, we shall henceforth intentionally confuse the coordinate local section $\bd_i$ with this partial derivative operator, writing $\bd_i$ when we really mean $\bd/\bd x^i$.
 </div>
 
-The last two maps are isomorphisms, so that the derivation
-
-<div style='overflow: scroll'>
-\begin{equation}\notag
-\delta_p \defeq (\lambda^\ast)^{-1}\left((\dev_p \circ \lambda)^\ast(\widehat{X})\right) \in \Der_\bbr(C^\infty_{M,p},\bbr)
-\end{equation}
-</div>
-
-determines a unique tangent vector $X_p$ in $T_p(M)$. To describe it, it will be helpful to pass to local coordinates $x^1,\ldots, x^n$ defined on an open neighborhood $U$ of $p$. By shrinking $U$ if needed, we may extend by zero the local coordinates to global smooth maps
-
-<div style='overflow: scroll'>
-\begin{equation}\notag
-\tl{x}^i:M \to \bbr
-\end{equation}
-</div>
-
-such that $\lambda(\tl{x}^i) = (U,x^i)$ for each $i$. Now, given a germ $(V,f) \in C^\infty_{M,p}$, we may use Taylor's Theorem again to write
-
-<div style='overflow: scroll'>
-\begin{equation}\notag
-f(x) = f(p) + \frac{\bd f}{\bd x^i}(p)(x^i-p^i) + g(x)
-\end{equation}
-</div>
-
-on $U\cap V$, where $g\in C^\infty(U\cap V)$ is a smooth function contained in $\mfm^2_{M,p}$. It then follows that
-
-<div style='overflow: scroll'>
-\begin{equation}\notag
-\delta_p(f) = \delta_p(x^i) \frac{\bd f}{\bd x^i}(p).
-\end{equation}
-</div>
-
-However, by definition of $\delta_p$ and our construction of the $\tl{x}^i$'s, we have
-
-<div style='overflow: scroll'>
-\begin{equation}\notag
-\delta_p(x^i) = \left\[ \widehat{X}(\tl{x}^i)\right\](p).
-\end{equation}
-</div>
-
-Thus, the tangent vector in $T_p(M)$ that the derivation $\delta_p$ determines is exactly
-
-<div style='overflow: scroll'>
-\begin{equation}\notag
-X_p = \left\[ \widehat{X}(\tl{x}^i)\right\](p) \bd_i\|\_p.
-\end{equation}
-</div>
-
-This shows that the component functions of the vector field $X$ over $U$ are given by the smooth functions $\widehat{X}(\tl{x}^i)$. Hence, $X$ is smooth. Q.E.D.
 
 <div id="cotangent">
 ## An interlude on cotangent spaces

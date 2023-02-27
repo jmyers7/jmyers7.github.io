@@ -1,0 +1,1153 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory II&#58 metrics + connections</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory II: metrics + connections</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Metrics and riemannian manifolds</li>
+  <li>Gradients</li>
+  <li>Levi-Civita connections</li>
+  <li>Abstract connections and the Fundamental Theorem of Riemannian Geometry</li>
+  <li>Parallel transport and geodesics</li>
+  <li>Horizontal and vertical subspaces</li>
+  <li>Curvature</li>
+  <li>Further reading</li>
+  <li>References and footnotes</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<div class="highlight-box2">
+  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+</div>
+
+<h2 id="metrics-and-riemannian-manifolds">Metrics and riemannian manifolds</h2>
+
+<p>The following definition is entirely an invention of my own. It serves no other purpose than to motivate the study of the relationship between certain “field properties” and $C^\infty(M)$-linearity. As soon as we define <em>riemannian manifolds</em> a little later in this section, this definition may be safely forgotten.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>pre-riemannian manifold</em> is a pair $(M,\ang{-,-})$, where $M$ is a manifold and $\ang{-,-}$ is a $C^\infty(M)$-linear function
+\begin{equation}\label{yuppers-eqn}
+\ang{-,-}: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M), \quad (X,Y) \mapsto \ang{X,Y}.
+\end{equation}
+The function $\ang{-,-}$ is called the <em>pre-metric</em> of the pre-riemannian manifold.</p>
+</div>
+
+<p>Given a pre-riemannian manifold $(M,\ang{-,-})$, we are supposed to think of the pre-metric $\ang{-,-}$ as a collection of bilinear forms</p>
+
+<p>\begin{equation}\label{carpet-eqn}
+\ang{-,-}_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
+\end{equation}</p>
+
+<p>one for each $p \in M$. Usually in differential geometry and smooth manifold theory, the word <em>field</em> is taken to mean a collection of objects indexed by the points of a manifold, so in this language, we are supposed to think of $\ang{-,-}$ as a <em>field</em> of bilinear forms \eqref{carpet-eqn} on the tangent spaces of the manifold. However, it is not clear by what mechanism this field is obtained from \eqref{yuppers-eqn}.</p>
+
+<p>To help clarify matters, we will introduce some basic definitions and results, which we will then apply to the problem of determining \eqref{carpet-eqn} from \eqref{yuppers-eqn}.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold. We shall say that an $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\omega: \calx(M) \to C^\infty(M)
+\end{equation}</p>
+
+  <p><em>induces a field</em> if</p>
+
+  <p>\begin{equation}\notag
+\left[\omega(X)\right](p) = \left[\omega(Y)\right](p)
+\end{equation}</p>
+
+  <p>whenever $X$ and $Y$ are two vector fields with $X_p=Y_p$.</p>
+</div>
+
+<p>Now, suppose that for each point $p\in M$, we have an $\bbr$-linear map</p>
+
+<p>\begin{equation}\label{door-eqn}
+\omega_p: T_p(M) \to \bbr.
+\end{equation}</p>
+
+<p>Ignoring smoothness for the moment, clearly such a collection of maps determines an $\bbr$-linear function</p>
+
+<p>\begin{equation}\label{potential-eqn}
+\omega: \calx(M) \to C^\infty(M)
+\end{equation}</p>
+
+<p>simply by defining</p>
+
+<p>\begin{equation}\notag
+\left[\omega(X)\right](p) = \omega_p(X_p)
+\end{equation}</p>
+
+<p>for each $p\in M$. However, suppose that we instead <em>began</em> with an arbitrary $\bbr$-linear map \eqref{potential-eqn}—would it be possible to somehow define a natural collection of maps \eqref{door-eqn}? Here’s an answer:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $M$ be a manifold. If an $\bbr$-linear map $\omega:\calx(M) \to C^\infty(M)$ induces a field, then $\omega$ determines a collection $\{\omega_p\}_{p\in M}$ of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+\omega_p:T_p(M) \to \bbr,
+\end{equation}</p>
+
+  <p>by the formula</p>
+
+  <p>\begin{equation}\notag
+\omega_p(v) = \left[\omega(X)\right](p),
+\end{equation}</p>
+
+  <p>where $X$ is any vector field such that $X_p=v$.</p>
+</div>
+
+<p>It is a well-known fact that such a vector field $X$ always exists. It then follows immediately from the field property that each $\omega_p$ is well-defined. Q.E.D.</p>
+
+<p>The result of this theorem explains the terminology “induces a field,” where the collection of maps $\{\omega_p\}_{p\in M}$ is interpreted as the induced “field.” Notice that this collection is uniquely determined by $\omega$, since $\omega$ may be recovered from the $\omega_p$’s via the equations</p>
+
+<p>\begin{equation}\label{curtain-eqn}
+\left[\omega(X)\right](p) = \omega_p(X_p),
+\end{equation}</p>
+
+<p>for $p\in M$ and $X\in \calx(M)$. Let’s make this terminology official:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold, and suppose that $\omega:\calx(M) \to C^\infty(M)$ is an $\bbr$-linear map that induces a field. Then the collection $\{\omega_p\}_{p\in M}$ of unique $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+\omega_p:T_p(M) \to \bbr
+\end{equation}</p>
+
+  <p>that satisfy the equations \eqref{curtain-eqn} is called the <em>field</em> induced by $\omega$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Looking ahead…</strong> The experienced reader will undoubtably notice that the field $\{\omega_p\}_{p\in M}$ induced by a map $\omega$ is nothing but a <em>smooth differential $1$-form.</em> We will return to these when we talk about the cotangent bundle (and its global sections) in the next post. Also, the relation between fields and $C^\infty(M)$-linearity (see below) is at the heart of our algebraic description of tensors, which will come in the fourth post of this subseries on the algebraic theory of manifolds.</p>
+</div>
+
+<p>Now, the fascinating bit is that the field inducing property of an $\bbr$-linear map $\omega:\calx(M)\to C^\infty(M)$ has an entirely algebraic characterization, encapsulated in the following result. The name of this result is borrowed from Besse’s book (<sup id="fnref:Besse2008" role="doc-noteref"><a href="#fn:Besse2008" class="footnote" rel="footnote">1</a></sup>), though it is present in some form or another in virtually all textbooks on differential geometry. It is stated here as a “first version”; a more general version will be given later when we talk about vector bundles.</p>
+
+<div class="highlight-box">
+  <p><strong>Fundamental Lemma of Differential Geometry (First version).</strong> Let $M$ be a manifold. An $\bbr$-linear map $\omega:\calx(M) \to C^\infty(M)$ induces a field if and only if it is $C^\infty(M)$-linear.</p>
+</div>
+
+<p>The “only if” portion of the proof is trivial. Indeed, in this case, given a vector field $X\in \calx(M)$ and a function $f\in C^\infty(M)$, we have that</p>
+
+<p>\begin{equation}\notag
+\left[\omega(fX)\right](p) = \omega_p(f(p)X_p) = f(p) \omega_p(X_p) = \left[ f \omega(X)\right](p)
+\end{equation}</p>
+
+<p>for all $p\in M$, and hence $\omega(fX) = f\omega(X)$. The “if” portion of the proof is more interesting. By $\bbr$-linearity, to show that $\omega$ is a field given that it is $C^\infty(M)$-linear, it will suffice to show</p>
+
+<p>\begin{equation}\notag
+\left[\omega(X)\right](p) = 0,
+\end{equation}</p>
+
+<p>if $X$ is a vector field with $X_p=0$. To do this, choose local coordinates $x^1,\ldots,x^n$ on an open neighborhood $U$ near $p$, and let $\bd_1,\ldots,\bd_n$ be the corresponding local frame. Then, we may write</p>
+
+<p>\begin{equation}\notag
+X = X^i \bd_i,
+\end{equation}</p>
+
+<p>with summation over $i$ implied. By shrinking $U$ if needed, we may choose a bump function $h\in C^\infty(M)$ with support in $U$ and $h(p)=1$. But then each $hX^i$ may be considered a smooth function on all of $M$, and likewise each $h\bd_i$ is a smooth vector field on $M$. Then</p>
+
+<p>\begin{equation}\notag
+h^2 \omega(X) = \omega(h^2 X) = hX^i \omega(h \bd_i).
+\end{equation}</p>
+
+<p>Hence</p>
+
+<p>\begin{equation}\notag
+\left[\omega(X)\right](p) = h(p)^2 \left[\omega(X)\right](p) = h(p)X^i(p) \left[\omega(h \bd_i)\right](p) = 0,
+\end{equation}</p>
+
+<p>since $X^i(p)=0$ for each $i$. Q.E.D.</p>
+
+<p>Let’s now return to our consideration of a pre-riemannian manifold $(M,\ang{-,-})$, and the problem of obtaining the field<sup id="fnref:yup" role="doc-noteref"><a href="#fn:yup" class="footnote" rel="footnote">2</a></sup> of bilinear forms  \eqref{carpet-eqn} from the map \eqref{yuppers-eqn}:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(M,\ang{-,-})$ be a pre-riemannian manifold. For each $p\in M$, there is a well-defined $\bbr$-linear function</p>
+
+  <p>\begin{equation}\notag
+\ang{-,-}_p : T_p(M)  \otimes_\bbr T_p(M) \to \bbr
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\ang{v,w}_p = \ang{X,Y}(p)
+\end{equation}</p>
+
+  <p>for all $v,w\in T_p(M)$, and where $X$ and $Y$ are vector fields in $\calx(M)$ with $X_p = v$ and $Y_p=w$.</p>
+</div>
+
+<p>Indeed, the existence of the functions $\ang{-,-}_p$ is a simple consequence of $C^\infty(M)$-linearity of $\ang{-,-}$ in each variable. I will leave it to you to demonstrate precisely how the functions $\ang{-,-}_p$ are so obtained.</p>
+
+<p>The result of this last theorem is used in the following fundamental definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition</strong>. A <em>riemannian manifold</em> is a pre-riemannian manifold $(M,\ang{-,-})$ for which each induced bilinear form</p>
+
+  <p>\begin{equation}\label{fan1-eqn}
+\ang{-,-}_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr
+\end{equation}</p>
+
+  <p>is an inner product. In this case, the pre-metric $\ang{-,-}$ is called the <em>metric</em> (or <em>metric tensor</em>) of the riemannian manifold. When we do not need to mention the metric explicitly, we shall refer to just $M$ as a riemannian manifold.</p>
+</div>
+
+<p>With the desire to construct interesting examples of riemannian manifolds, one naturally wonders if a field of inner products \eqref{fan1-eqn} determines a metric on the manifold and thereby a riemannian structure. The answer is: <em>Almost</em>. For, if we are given the inner products \eqref{fan1-eqn}, then we may define a function</p>
+
+<p>\begin{equation}\label{fan2-eqn}
+\ang{-,-}: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to F(M),
+\end{equation}</p>
+
+<p>where $F(M)$ is the commutative $\bbr$-algebra of <em>all</em> real-valued functions $f:M \to \bbr$, not necessarily smooth. Indeed, we simply define</p>
+
+<p>\begin{equation}\notag
+\ang{X,Y}(p) = \ang{X_p,Y_p}_p
+\end{equation}</p>
+
+<p>for all $X,Y\in \calx(M)$ and $p\in M$. But in order for \eqref{fan2-eqn} to be a metric for a riemannian structure, we would require that its image lie in the subalgebra $C^\infty(M)$ of $F(M)$. This suggests the following definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold. A collection of inner products</p>
+
+  <p>\begin{equation}\notag
+\ang{-,-}_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
+\end{equation}</p>
+
+  <p>one for each $p\in M$, is called <em>smooth</em> if the image of the induced map \eqref{fan2-eqn} lies in $C^\infty(M)$.</p>
+</div>
+
+<p>Therefore, if $\ang{-,-}_p$ is a <em>smooth</em> field of inner products on a manifold $M$, in the sense just defined, then we do indeed obtain a riemannian metric $\ang{-,-}$ on $M$.</p>
+
+<p>Now, by virtue of the fact that our manifolds come embedded in euclidean space, they all have riemannian structures with particularly nice features. Indeed, suppose that $M$ is a manifold embedded in $\bbr^s$. The standard euclidean inner product on $\bbr^s$ restricts to an inner product $\ang{-,-}_p$ on each tangent space $T_p(M)$. To show that we obtain a riemannian structure, we need to show that this field of inner products is smooth.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Embedded manifolds are riemannian).</strong> Let $M$ be a manifold. The field of inner products $\ang{-,-}_p$ that $M$ inherits from the ambient euclidean space is smooth.</p>
+</div>
+
+<p>Given two vector fields $X,Y\in \calx(M)$, to prove the theorem it will suffice to show that the function</p>
+
+<p>\begin{equation}\notag
+p\mapsto \ang{X,Y}(p) \defeq \ang{X_p,Y_p}_p
+\end{equation}</p>
+
+<p>is smooth on every open parametrizable subset $U$. To do this, we first let $\bd_1,\ldots,\bd_n$ be a coordinate local frame over $U$ and write</p>
+
+<p>\begin{equation}\label{metric-coeff-eqn}
+g_{ij}(p) = \ang{\bd_i|_p,\bd_j|_p}_p
+\end{equation}</p>
+
+<p>for each $p\in U$. If the corresponding local parametrization on $U$ is $\phi:\bbr^n \to U$ with $\phi(x)=p$, then, in fact, we have</p>
+
+<p>\begin{equation}\notag
+g_{ij}(p) = \sum_{l=1}^n\frac{\bd \phi^l}{\bd x^i}(x)\frac{\bd \phi^l}{\bd x^j}(x),
+\end{equation}</p>
+
+<p>which shows that $p\mapsto g_{ij}(p)$ is a smooth function on $U$. But then, we have</p>
+
+<p>\begin{equation}\notag
+\ang{X,Y}(p)= X^i(p)X^j(p)g_{ij}(p)
+\end{equation}</p>
+
+<p>for all $p\in U$, which shows that $p\mapsto \ang{X,Y}(p)$ is smooth on $U$. Q.E.D.</p>
+
+<p>The functions \eqref{metric-coeff-eqn} in the proof are important enough to have their own name:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a riemannian manifold and let $U$ be an open parametrizable subset with coordinate local frame $\bd_1,\ldots,\bd_n$. For $1\leq i,j\leq n$, the functions</p>
+
+  <p>\begin{equation}\notag
+g_{ij}: U \to \bbr, \quad g_{ij}(p) = \ang{\bd_i|_p,\bd_j|_p}_p
+\end{equation}</p>
+
+  <p>are called the <em>metric coefficients</em> (over $U$).</p>
+</div>
+
+<p>The notation $g_{ij}$ for the metric coefficients is ambiguous, since it does not specify the identity of the open parametrizable subset $U$.</p>
+
+<div class="highlight-box2">
+  <p><strong>Riemannian, or no?</strong>
+As we have just seen, all of our (embedded) manifolds are riemannian, inheriting a metric from the ambient euclidean inner products. In fact, by utilizing a construction with partitions of unity, it may be shown that <em>all</em> smooth manifolds are riemannian, regardless of whether they are embedded (from the outset) as a submanifold of euclidean space.</p>
+
+  <p>Thus, in the rest of this post, when we write “Let $M$ be a riemannian manifold…” in the hypotheses of theorems and definitions, we could just as well have written “Let $M$ be a manifold…”. Hypothesizing the existence of a riemannian metric on a manifold is, in view of the results just cited, no extra condition on the manifold.</p>
+
+  <p>However, even though all of our manifolds inherit riemannian structures from the ambient euclidean spaces, it will be important for us to note which results below depend <em>only</em> on the abstract properties of the metric (e.g., that it induces inner products on tangent space), and not on the specific construction of the metric from the ambient inner products. To help identify these results, we will distinguish between two types of riemannian manifolds:</p>
+
+  <ol>
+    <li>When the embedded manifold $M$ inherits its riemannian structure from the ambient euclidean space, we will refer to $M$ as an <em>embedded riemannian manifold</em>.</li>
+    <li>Otherwise, a <em>riemannian manifold</em> remains defined as above, where we assume nothing about the provenance of the metric, and view it only as an abstract $C^\infty(M)$-linear map that induces a smooth field of inner products.</li>
+  </ol>
+
+  <p>The distinction at play is whether a riemannian manifold $M$ is embedded in euclidean space merely as a <em>smooth manifold</em>, or whether it is embedded as a <em>riemannian manifold</em>. Since we are still following the definition of manifold from Guillemin and Pollack’s book, <em>all</em> of our riemannian manifolds are embedded as smooth manifolds, but their metrics may not be inherited from the ambient euclidean space, which means they may <em>not</em> be embedded riemannian manifolds.</p>
+</div>
+
+<h2 id="gradients">Gradients</h2>
+
+<p>The presence of the metric on a riemannian manifold $M$ allows us to define the gradient vector fields of smooth functions, which are likely very familiar from your study of multivariable calculus. More generally, the metric allows us to identify vector fields with certain objects called <em>$1$-forms</em>, that we will study later.</p>
+
+<p>To prepare the way, we first recall the metric coefficient functions $p\mapsto g_{ij}(p)$ defined in the previous section, which are smooth functions defined on open parametrizable subsets $U$ of the manifold $M$. Fixing a point $p\in U$, the induced inner product</p>
+
+<p>\begin{equation}\notag
+\ang{-,-}_p : T_p(M)  \otimes_\bbr T_p(M) \to \bbr
+\end{equation}</p>
+
+<p>is nondegenerate, and hence induces a linear isomorphism</p>
+
+<p>\begin{equation}\label{iso-eqn}
+T_p(M) \xrightarrow{\cong} T_p^\ast(M) , \quad v\mapsto \ang{v,-},
+\end{equation}</p>
+
+<p>between the tangent and cotangent space at $p$. If $x^1,\ldots,x^n$ are local coordinates on $U$ and $\bd_1,\ldots,\bd_n$ is the associated coordinate local frame, then one may easily check that the matrix of the isomorphism \eqref{iso-eqn} with respect to the bases</p>
+
+<p>\begin{equation}\notag
+\bd_1|_p,\ldots,\bd_n|_p \in T_p(M) \quad \text{and} \quad dx^1_p,\ldots,dx^n_p\in T_p^\ast(M)
+\end{equation}</p>
+
+<p>is exactly $[g_{ij}(p)]_{ij}$. The matrix of the <em>inverse</em> of \eqref{iso-eqn} with respect to these same bases is conventionally denoted $[g^{ij}(p)]_{ij}$, with the subscripts simply moving upstairs to become superscripts. Since inversion of a matrix is a smooth process, the functions $p\mapsto g^{ij}(p)$ are smooth on $U$. The defining relationship between the $g_{ij}(p)$’s and the $g^{ij}(p)$’s is encapsulated in the equality</p>
+
+<p>\begin{equation}\notag
+g^{ik}(p) g_{kj}(p)  = \delta^i_j,
+\end{equation}</p>
+
+<p>where $\delta^{i}_j$ is the <em>Kronecker delta</em>, equal to $1$ if $i=j$, and $0$ otherwise. Furthermore, both the $g_{ij}(p)$’s and $g^{ij}(p)$’s are <em>symmetric</em>, meaning that</p>
+
+<p>\begin{equation}\notag
+g_{ij}(p) = g_{ji}(p) \quad \text{and} \quad g^{ij}(p) = g^{ji}(p)
+\end{equation}</p>
+
+<p>for all $i,j$.</p>
+
+<p>Now, recall that if $f\in C^\infty(M)$ is a smooth function, then at every point $p\in M$ we have the differential $df_p \in T_p^\ast(M)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (The riemannian gradient).</strong> Let $f$ be a smooth function on a riemannian manifold $M$. There is a unique smooth vector field $\nabla f$ on $M$ such that</p>
+
+  <p>\begin{equation}\label{form1-eqn}
+\ang{(\nabla f)_p, v}_p = df_p(v),
+\end{equation}</p>
+
+  <p>for all $p\in M$ and all $v\in T_p(M)$. In particular, if $x^1,\ldots,x^n$ are local coordinates near $p$ and $\bd_1,\ldots,\bd_n$ is the associated coordinate local frame, then</p>
+
+  <p>\begin{equation}\label{form2-eqn}
+(\nabla f)_p = g^{ij}(p) \frac{\bd f}{\bd x^j}(p) \bd_i|_p.
+\end{equation}</p>
+
+  <p>The vector field $\nabla f$ is called the <em>gradient vector field</em> of $f$.</p>
+</div>
+
+<p>If it exists, uniqueness of $\nabla f$ follows immediately from the nondegeneracy of the inner products $\ang{-,-}_p$. For existence, we simply show that with the formula \eqref{form2-eqn}, the equation \eqref{form1-eqn} holds:</p>
+
+<p>\begin{equation}\notag
+\left\langle g^{ij}(p) \frac{\bd f}{\bd x^j}(p) \bd_i|_p,v \right\rangle_p = g_{ki}(p)g^{ij}(p) \frac{\bd f}{\bd x^j}(p) v^k = \frac{\bd f}{\bd x^j}(p) v^j = df_p(v).
+\end{equation}</p>
+
+<p>Now, to see that $\nabla f$ is a smooth vector field, we simply appeal to the formula \eqref{form2-eqn} and note that the functions $g^{ij}$ and the partial derivatives are smooth. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Inner products with gradients).</strong>
+Let $f$ be a smooth function on a riemannian manifold $M$. If we interpret a smooth vector field $X\in \calx(M)$ as a derivation on $C^\infty(M)$, then we have</p>
+
+  <p>\begin{equation}\notag
+X(f) = \ang{\nabla f, X}
+\end{equation}</p>
+
+  <p>as functions in $C^\infty(M)$.</p>
+</div>
+
+<p>For proof, simply note that</p>
+
+<p>\begin{equation}\notag
+\left[X(f)\right](p) = df_p(X_p) = \ang{(\nabla f)_p, X_p}_p = \ang{\nabla f, X}(p)
+\end{equation}</p>
+
+<p>for all $p\in M$. Thus $X(f) = \ang{\nabla f, X}$, as desired. Q.E.D.</p>
+
+<h2 id="levi-civita-connections">Levi-Civita connections</h2>
+
+<p>Given a riemannian manifold $M$, we already have a way to differentiate a smooth function $f$ “in the direction” of a vector field $X$. Indeed, such a derivative is simply the smooth function</p>
+
+<p>\begin{equation}\notag
+\nabla_X f \defeq \ang{\nabla f, X} \in C^\infty(M),
+\end{equation}</p>
+
+<p>where $\nabla f$ is the gradient vector field of $f$ constructed in the previous section. The goal in this section is to extend this derivative operator $\nabla_X$ to vector fields on $M$, in order to make sense of something like $\nabla_X Y$, where both $X,Y\in \calx(M)$.</p>
+
+<p>First, suppose that $M$ is an embedded riemannian manifold, inheriting its metric from the ambient euclidean space $\bbr^s$. In addition to giving us a riemannian structure on $M$, the ambient euclidean inner product also enables us to define the <em>orthogonal complement</em> of the tangent space $T_p(M)$ by setting</p>
+
+<p>\begin{equation}\notag
+\nu_p(M) = \left\{ w\in \bbr^s : \ang{v,w} =0, \ \forall v\in T_p(M)\right\}.
+\end{equation}</p>
+
+<p>We then have the fundamental direct sum decomposition</p>
+
+<p>\begin{equation}\notag
+\bbr^s = T_p(M) \oplus \nu_p(M),
+\end{equation}</p>
+
+<p>that yields a natural surjective linear map $\bbr^s \to T_p(M)$ which projects a vector $w\in \bbr^s$ to its (unique!) component in $T_p(M)$. We shall denote this latter projection by $w|_{T_p(M)}$.</p>
+
+<p>We will use these orthogonal projections to define the extension of $\nabla_X$ to an operator that acts on vector fields:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be an embedded riemannian manifold. The <em>Levi-Civita connection</em> on $M$ (or simply the <em>connection</em> on $M$) is the $\bbr$-linear function $\nabla$ which acts on both $\calx(M)$ and $C^\infty(M)$ as follows:</p>
+
+  <ol>
+    <li>
+      <p>Its action on vector fields yields a function
+ \begin{equation}\notag
+ \nabla: \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto \nabla_XY,
+ \end{equation}
+given by
+ \begin{equation}\notag
+ (\nabla_XY)_p = Y_{\ast,p}(X_p)|_{T_p(M)},
+ \end{equation}
+for $p\in M$.</p>
+    </li>
+    <li>
+      <p>Its action on functions yields a function
+ \begin{equation}\notag
+ \nabla: \calx(M) \otimes_\bbr C^\infty(M) \to C^\infty(M), \quad (X,f) \mapsto \nabla_Xf,
+ \end{equation}
+given by
+ \begin{equation}\notag
+ \nabla_Xf = \ang{\nabla f, X},
+ \end{equation}
+for $f\in C^\infty(M)$.</p>
+    </li>
+  </ol>
+
+  <p>The vector field $\nabla_X Y$ and the function $\nabla_X f$ are called the <em>covariant derivatives (in the direction of $X$)</em> of $Y$ and $f$, respectively.</p>
+</div>
+
+<p>The covariant derivative $\nabla_XY$ is computed at a point $p\in M$ by first computing the directional derivative of $Y$ in the direction of $X_p$; then, this directional derivative is “projected” to the manifold $M$, and thus $\nabla_XY$ is exactly the component of this directional derivative that the manifold $M$ “sees.”</p>
+
+<p>I mentioned that the Levi-Civita connection is $\bbr$-bilinear without proof. In fact, the connection has several other important properties which are listed in the next exercise.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$.</p>
+
+  <ol>
+    <li>Prove that the connection <em>is</em> actually $\bbr$-bilinear.</li>
+    <li>Prove that the connection is $C^\infty(M)$-linear in the first argument, i.e.,
+ \begin{equation}\notag
+ \nabla_{fX}Y = f\nabla_XY
+ \end{equation}
+and
+ \begin{equation}\notag
+ \nabla_{fX}g = f \nabla_Xg
+ \end{equation}
+for all $X,Y\in \calx(M)$ and all $f,g\in C^\infty(M)$.</li>
+    <li>Prove that the connection is a “derivation” in the second argument, i.e.,
+ \begin{equation}\notag
+ \nabla_X(fY) = (\nabla_Xf)Y + f \nabla_XY
+ \end{equation}
+and
+ \begin{equation}\notag
+ \nabla_X(fg) = (\nabla_Xf)g + f \nabla_Xg
+ \end{equation}
+for all $X,Y\in \calx(M)$ and all $f,g\in C^\infty(M)$.</li>
+  </ol>
+</div>
+
+<p>Since a Levi-Civita connection is $C^\infty(M)$-linear in the first argument, it induces a field! Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Connections are local objects in the first argument).</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$. Fixing a vector field $Y\in \calx(M)$, for each point $p\in M$ there is a unique $\bbr$-linear function</p>
+
+  <p>\begin{equation}\notag
+\nabla Y: T_p(M) \to \bbr, \quad v \mapsto \nabla_v Y,
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\nabla_vY = \nabla_XY,
+\end{equation}</p>
+
+  <p>where $X$ is a vector field in $\calx(M)$ with $X_p=v$.</p>
+</div>
+
+<p>It is convenient to introduce the so-called <em>Christoffel symbols</em> of the Levi-Civita connection $\nabla$ on an $n$-dimensional embedded riemannian manifold $M$. These are collections of numbers that completely determine the connection on an open parametrizable subset $U$. Given a coordinate local frame $\bd_1,\ldots,\bd_n$ on $U$, the <em>Christoffel symbols</em>, denoted $\Gamma^k_{ij}$, are defined via the equation</p>
+
+<p>\begin{equation}\notag
+\nabla_{\bd_i}\bd_j = \Gamma^k_{ij} \bd_k.
+\end{equation}</p>
+
+<p>As with many objects in differential geometry, notice that the Christoffel symbols depend on the choice of local coordinates, though this dependence is not visible in the notation $\Gamma^k_{ij}$.</p>
+
+<p>Now, suppose we are given two vector fields $X,Y\in \calx(M)$. On the open set $U$, we may write</p>
+
+<p>\begin{equation}\notag
+X = X^i\bd_i \quad \text{and} \quad Y = Y^j  \bd_j,
+\end{equation}</p>
+
+<p>where $X^i,Y^j \in C^\infty(U)$ are the (local) component functions of $X$ and $Y$. Hence, as you may easily check, we have</p>
+
+<p>\begin{equation}\notag
+\nabla_XY = \left( \left\langle \nabla Y^k,X \right\rangle + X^i Y^j \Gamma^k_{ij} \right) \bd_k.
+\end{equation}</p>
+
+<p>In particular, if $M=\bbr^n$, then we have</p>
+
+<p>\begin{equation}\notag
+\nabla_XY = \left\langle \nabla Y^k,X \right\rangle \bd_k,
+\end{equation}</p>
+
+<p>since $\Gamma^k_{ij}=0$ in this case. Therefore, the Christoffel symbols $\Gamma^k_{ij}$ may be thought of as “correction terms” that quantify the (local, coordinate-dependent) discrepancy between the Levi-Civita connection on an arbitrary manifold and the Levi-Civita connection on “flat” euclidean space.</p>
+
+<p>It is instructive to study the Levi-Civita connection for some simple manifolds. For example, let’s suppose that we want to understand the vanishing condition $\nabla_XY=0$ in the case that $X$ and $Y$ are vector fields on the unit circle $M=S^1$. We may parametrize an open neighborhood of a point $p\in S^1$ via the map</p>
+
+<p>\begin{equation}\notag
+\theta \mapsto (\cos{\theta},\sin{\theta}),
+\end{equation}</p>
+
+<p>suitably restricted to an open interval of $\theta$’s. In the local coordinate $\theta$, the vector fields $X$ and $Y$ take the form</p>
+
+<p>\begin{equation}\notag
+X_\theta = f(\theta)(-\sin{\theta},\cos{\theta}) \quad \text{and} \quad Y_\theta = g(\theta)(-\sin{\theta},\cos{\theta}),
+\end{equation}</p>
+
+<p>for some pair of smooth functions $f(\theta)$ and $g(\theta)$. With respect to the trivialization</p>
+
+<p>\begin{equation}\notag
+\alpha: S^1 \times \bbr \xrightarrow{\cong} T(S^1), \quad (x,y,r) \mapsto (x,y,-yr, xr),
+\end{equation}</p>
+
+<p>that we discovered in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">post</a> on tangent bundles, the functions $f(\theta)$ and $g(\theta)$ measure the height (above or below) of the vector fields $X$ and $Y$ above the zero section:</p>
+
+<p><img src="/assets/images/horizontal.png" alt="sum" style="margin: 40px auto; display: block; width: 45%;" /></p>
+
+<p>Now, we compute</p>
+
+<p>\begin{equation}\notag
+\frac{dY_\theta}{d\theta} = g’(\theta)(-\sin{\theta},\cos{\theta}) - g(\theta)(\cos{\theta},\sin{\theta}),
+\end{equation}</p>
+
+<p>so that if $p$ has local coordinate $\theta$, we get that</p>
+
+<p>\begin{equation}\notag
+(\nabla_XY)_p = f(\theta)g’(\theta)(-\sin{\theta},\cos{\theta}).
+\end{equation}</p>
+
+<p>In particular, if we take $f(\theta)=1$ for all $\theta$, so that $X$ is a “uniform” vector field of unit tangent vectors, then we have</p>
+
+<p>\begin{equation}\notag
+(\nabla_XY)_p = g’(\theta)(-\sin{\theta},\cos{\theta}).
+\end{equation}</p>
+
+<p>This shows that the covariant derivative $\nabla_XY$ measures the “vertical” rate of change of the vector field $Y$, when the tangent bundle $T(S^1)$ is identified with the cylinder $S^1\times \bbr$ as drawn above. In particular, if $\nabla_XY=0$, then $Y$ must be a “horizontal” section of the tangent bundle.</p>
+
+<p>Back to the general theory. An embedded riemannian manifold $M$ thus has two structures: it has its metric $\ang{-,-}$, inherited from the ambient euclidean space, and it has its Levi-Civita connection $\nabla$. These two structures fit together coherently, in the sense of the following theorem, which states that the covariant derivative of an inner product may computed via the familiar “product rule”.</p>
+
+<div class="highlight-box" id="compat">
+  <p><strong>Theorem (Compatibility with the metric).</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$, and let $X$, $Y$, and $Z$ be smooth vectors fields on $M$. Then the connection is <em>compatible</em> with the metric, in the sense that
+    \begin{equation}\label{compat-eqn}
+    \nabla_X \ang{Y,Z} = \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ}.
+    \end{equation}</p>
+</div>
+
+<p>In fact, equation \eqref{compat-eqn} is a consequence of the equation
+    \begin{equation}\notag
+    \ang{Y,Z}_{\ast,p}(v) = \ang{Y_{\ast,p}(v),Z_p} + \ang{Y_p, Z_{\ast,p}(v)}
+    \end{equation}
+for all points $p\in M$ and all tangent vectors $v\in T_p(M)$. Here, we recall that $\ang{Y,Z}$ is a vector field, interpreted as a smooth map from $M$ to the ambient euclidean space, and hence the pushforward $\ang{Y,Z}_{\ast,p}$ makes sense. On the right-hand side of the equation, however, the angle brackets $\ang{-,-}$ denote the euclidean inner product on the ambient space. For extra practice, I suggest that you establish this latter equation on your own, taking extra care to unwind the meaning of all the symbols.</p>
+
+<h2 id="abstract-connections-and-the-fundamental-theorem-of-riemannian-geometry">Abstract connections and the Fundamental Theorem of Riemannian Geometry</h2>
+
+<p>In order to state the important theorem in the name of this section, we need a specific enrichment of structure on the module $\calx(M)$ of smooth vector fields on a manifold $M$. This structure is a way to “multiply” vector fields:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold. The <em>Lie bracket</em> on $M$ is the $\bbr$-bilinear function</p>
+
+  <p>\begin{equation}\notag
+[-,-]: \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto [X,Y]
+\end{equation}</p>
+
+  <p>given by</p>
+
+  <p>\begin{equation}\notag
+[X,Y]_p = X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+  <p>for $p\in M$.</p>
+</div>
+
+<p>In this definition, we are considering smooth vector fields to be smooth maps to the ambient euclidean space in which $M$ is embedded. If we equip $M$ with its Levi-Civita connection $\nabla$, then the Lie bracket $[X,Y]$ appears to be the difference $\nabla_YX - \nabla_XY$, but the orthogonal projections onto the tangent spaces are missing. In fact, you may have wondered if I had forgotten these projections in the definition of the Lie bracket, because there is no reason to believe (at the outset) that the difference</p>
+
+<p>\begin{equation}\notag
+X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+<p>is actually a tangent vector in $T_p(M)$. However, it actually <em>is</em> in the tangent space! No orthogonal projections are needed!</p>
+
+<p>One way to prove this is to give local coordinate descriptions of the Lie bracket:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Lie brackets in coordinates).</strong> Let $X$ and $Y$ be two smooth vector fields on a manifold $M$. If $\bd_1,\ldots,\bd_n$ is the coordinate local frame on an open parametrizable subset $U$ with local coordinates $x^1,\ldots,x^n$, and if</p>
+
+  <p>\begin{equation}\notag
+X = X^i \bd_i \quad \text{and} \quad Y = Y^i \bd_i
+\end{equation}</p>
+
+  <p>on $U$, then</p>
+
+  <p>\begin{equation}\label{coord-der-eqn}
+[X,Y] = \left(Y^i \frac{\bd X^j}{\bd x^i} - X^i \frac{\bd Y^j}{\bd x^i} \right) \bd_j
+\end{equation}</p>
+
+  <p>on $U$. In particular, the Lie bracket $[X,Y]$ is a smooth vector field on $M$.</p>
+</div>
+
+<p>To prove the theorem, we suppose $M$ is embedded in $\bbr^s$. Then:</p>
+
+<ol>
+  <li>We let $\phi: \bbr^n \to U$ be the local parametrization corresponding to the local coordinates $x^1,\ldots,x^n$.</li>
+  <li>We let $t^1,\ldots,t^n$ be the standard global euclidean coordinates on $\bbr^n$.</li>
+  <li>We let $u_1,\ldots,u_n$ be the standard ordered basis of $\bbr^n$.</li>
+  <li>We let $v_1,\ldots,v_s$ be the standard ordered basis of $\bbr^s$.</li>
+</ol>
+
+<p>Now, as you may easily check, we have</p>
+
+<p>\begin{equation}\notag
+X\circ \phi = a^j \frac{ \bd \phi^k}{\bd t^j} v_k \quad \text{and} \quad Y\circ \phi = b^j \frac{ \bd \phi^k}{\bd t^j} v_k
+\end{equation}</p>
+
+<p>where $a^j = X^j \circ \phi$ and $b^j = Y^j \circ \phi$. Given $p\in U$ with $\phi(t)=p$, we have</p>
+
+<p>\begin{equation}\notag
+\phi_{\ast,t}(a^i(t)u_i) = X_p \quad \text{and} \quad \phi_{\ast,t}(b^i(t)u_i) = Y_p.
+\end{equation}</p>
+
+<p>Thus, by the Chain Rule, we get</p>
+
+<p>\begin{equation}\label{sput1-eqn}
+X_{\ast,p}(Y_p) = b^i(t) \frac{\bd a^j}{\bd t^i}(t) \frac{\bd \phi^k}{\bd t^j}(t)v_k + a^j(t)b^i(t) \frac{\bd ^2 \phi^k}{\bd t^i \bd t^j}(t) v_k
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\label{sput2-eqn}
+Y_{\ast,p}(X_p) = a^i(t) \frac{\bd b^j}{\bd t^i}(t) \frac{\bd \phi^k}{\bd t^j}(t)v_k + a^j(t)b^i(t) \frac{\bd^2 \phi^k}{\bd t^j \bd t^i}(t) v_k.
+\end{equation}</p>
+
+<p>But then</p>
+
+<p>\begin{align}
+X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p) &amp;= \left(b^i(t) \frac{\bd a^j}{\bd t^i}(t) - a^i(t) \frac{\bd b^j}{\bd t^i}(t) \right)\frac{\bd \phi^k}{\bd t^j}(t)v_k\notag \\ &amp;= \left(Y^i(p) \frac{\bd X^j}{\bd x^i}(p) - X^i(t) \frac{\bd Y^j}{\bd x^i}(p) \right)\bd_j|_p, \notag
+\end{align}</p>
+
+<p>where we used equality of the second-order mixed partial derivatives in \eqref{sput1-eqn} and \eqref{sput2-eqn} in the first equality. Q.E.D.</p>
+
+<p>The Lie bracket takes a particularly simple form when we identify the module $\calx(M)$ with the module</p>
+
+<p>\begin{equation}\label{der-eqn} 
+\Der_\bbr(C^\infty(M),C^\infty(M))
+\end{equation}</p>
+
+<p>of derivations on $C^\infty(M)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Suppose that we identify the module of smooth vector fields $\calx(M)$ on a manifold $M$ with the module of derivations \eqref{der-eqn}. We then define the <em>algebraic Lie bracket</em> of two vector fields $X$ and $Y$ to be the derivation</p>
+
+  <p>\begin{equation}\notag
+[X,Y]_\text{alg} \defeq (Y\circ X) - (X\circ Y).
+\end{equation}</p>
+</div>
+
+<p>While the individual composites $Y\circ X$ and $X\circ Y$ are not (in general) derivations, I will leave it to you to show that their difference $[X,Y]_\text{alg}$ actually is.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Algebraic Lie brackets in coordinates).</strong> Let $X$ and $Y$ be two smooth vector fields on a manifold $M$, viewed as derivations of $C^\infty(M)$. If $\bd_1,\ldots,\bd_n$ is the coordinate local frame on an open parametrizable subset $U$ with local coordinates $x^1,\ldots,x^n$, and if</p>
+
+  <p>\begin{equation}\notag
+X = X^i\frac{\bd}{\bd x^i} \quad \text{and} \quad Y = Y^i \frac{\bd}{\bd x^i}
+\end{equation}</p>
+
+  <p>on $U$, then</p>
+
+  <p>\begin{equation}\label{coord-der2-eqn}
+[X,Y]_\text{alg} = \left(Y^i\frac{\bd X^j}{\bd x^i}  - X^i\frac{\bd Y^j}{\bd x^i}\right) \frac{\bd }{\bd x^j}
+\end{equation}</p>
+
+  <p>on $U$.</p>
+</div>
+
+<p>The crucial fact used in the proof of the theorem on local coordinate descriptions of $[-,-]$ was that certain second-order mixed partial derivatives were equal. This fact is also used in the current proof. Indeed, given $f\in C^\infty(U)$, we have</p>
+
+<p>\begin{align}
+Y(X(f)) &amp;= Y \left(X^j \frac{\bd f}{\bd x^j} \right) \notag \\ &amp;= Y(X^j) \frac{\bd f}{\bd x^j} + X^j Y\left(\frac{\bd f}{\bd x^j}\right) \notag \\ &amp;= Y^i\frac{\bd X^j}{\bd x^i} \frac{\bd f}{\bd x^j} + X^j Y^i \frac{\bd^2 f}{\bd x^i \bd x^j} \notag
+\end{align}</p>
+
+<p>and similarly</p>
+
+<p>\begin{equation}\notag
+X(Y(f)) = X^i\frac{\bd Y^j}{\bd x^i} \frac{\bd f}{\bd x^j} +  X^j Y^i \frac{\bd^2 f}{\bd x^j \bd x^i}.
+\end{equation}</p>
+
+<p>Thus, we have</p>
+
+<p>\begin{equation}\notag
+[X,Y]_\text{alg} = \left(Y^i\frac{\bd X^j}{\bd x^i}  - X^i\frac{\bd Y^j}{\bd x^i}\right) \frac{\bd }{\bd x^j}
+\end{equation}</p>
+
+<p>over $U$, as desired. Q.E.D.</p>
+
+<div class="highlight-box2">
+  <p><strong>Conclusion.</strong> By comparing equations \eqref{coord-der-eqn} and \eqref{coord-der2-eqn} in the theorems, we see that it does not matter whether we view vector fields as sections of tangent bundles or derivations, the Lie brackets are the same (up to isomorphism).</p>
+</div>
+
+<p>Now, since no orthogonal projection is involved in the definition of $[X,Y]$, we can give geometric interpretations of the Lie bracket relatively easily. To make it even easier, we will suppose that the manifold $M$ is an open submanifold of euclidean space $\bbr^n$, so that the pushforwards in the definition</p>
+
+<p>\begin{equation}\notag
+[X,Y]_p = X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+<p>may be computed as directional derivatives. In particular, if a point $p\in M$ is fixed, then these pushforwards measure the first-order infinitesimal changes in the vector fields, in the sense that</p>
+
+<p>\begin{equation}\notag
+Y_{q} - Y_p = \dev Y_{\ast,p}(X_p) + O(\dev^2)
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+X_{r} - X_p = \dev X_{\ast,p}(Y_p) + O(\dev^2),
+\end{equation}</p>
+
+<p>where $q=p+\dev X_p$ and $r = p+\dev Y_p$. Now, the vectors on the left-hand sides of these equations (each scaled by $\dev$) may be placed into a figure of the form:</p>
+
+<p><img src="/assets/images/lie-bracket.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
+
+<p>Thus, we see that the Lie bracket $[X,Y]$ at a point $p$ measures the second-order infinitesimal deviation from the evident parallelogram being “closed.” In other words, if $[X,Y]_p=0$, then the two blue dots in the upper right-hand corner of the figure coincide, at least up to second-order infinitesimals.</p>
+
+<p>We already noted <a href="#compat">above</a> one of the most important properties of the Levi-Civita connection on an embedded riemannian manifold. Another fundametal property follows almost from the very definition of the Lie bracket:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Levi-Civita connections have vanishing torsion).</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$. Then $\nabla$ is <em>torsion free</em>, in the sense that</p>
+
+  <p>\begin{equation}\notag
+\nabla_YX - \nabla_XY = [X,Y]
+\end{equation}</p>
+
+  <p>for all $X,Y\in \calx(M)$.</p>
+</div>
+
+<p>From the compatibility and torsion-free properties of the Levi-Civita connection $\nabla$, a fundamental (local) relationship between $\nabla$ and the metric may be derived. First, given vector fields $X,Y,Z\in \calx(M)$, we have</p>
+
+<p>\begin{align}
+\nabla_X \ang{Y,Z} &amp;= \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ} \notag \\ \nabla_Y \ang{Z,X} &amp;= \ang{\nabla_YZ,X} + \ang{Z,\nabla_YZ} \notag \\ \nabla_Z \ang{X,Y} &amp;= \ang{\nabla_ZX,Y} + \ang{X,\nabla_ZY}. \notag
+\end{align}</p>
+
+<p>In view of the torsion-free condition, by adding the first two equations and subtracting the third, we get</p>
+
+<p>\begin{equation}\notag
+\nabla_X\ang{Y,Z} + \nabla_Y\ang{Z,X} - \nabla_Z\ang{X,Y} = \ang{[X,Z],Y} +\ang{[Y,Z],X} + \ang{[X,Y],Z} + 2\ang{ Z,\nabla_YX}.
+\end{equation}</p>
+
+<p>From this equation follows the important observation that the metric completely determines the connection $\nabla$:</p>
+
+<p>\begin{equation}\label{det-eqn}
+\ang{ Z,\nabla_YX} = \frac{1}{2} \left\{ \nabla_X\ang{Y,Z} + \nabla_Y\ang{Z,X} - \nabla_Z\ang{X,Y} - \ang{[X,Z],Y} -\ang{[Y,Z],X} - \ang{[X,Y],Z} \right\}.
+\end{equation}</p>
+
+<p>By restricting this equation over an open parametrizable subset $U$, and by choosing for $X$, $Y$, and $Z$ the coordinate local sections $\bd_i$, $\bd_j$, and $\bd_l$, we get:</p>
+
+<p>\begin{equation}\notag
+\Gamma_{ij}^k g_{lk} = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right).
+\end{equation}</p>
+
+<p>But the matrix $[g_{lk}]_{lk}$ is invertible, with inverse $[g^{lk}]_{lk}$, and hence we get</p>
+
+<p>\begin{equation}\notag
+\Gamma_{ij}^k  = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right)g^{lk}.
+\end{equation}</p>
+
+<p>Let us summarize the situation, in our version of a very important result:</p>
+
+<div class="highlight-box">
+  <p><strong>The Fundamental Theorem of Riemannian Geometry.</strong> Let $M$ be a riemannian manifold with metric $\ang{-,-}$. Then there is a unique $\bbr$-linear function</p>
+
+  <p>\begin{equation}\label{abstract-connection-eqn}
+\nabla : \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto \nabla_X Y,
+\end{equation}</p>
+
+  <p>that satisfies the following properties:</p>
+
+  <ol>
+    <li>The function $\nabla$ is $C^\infty(M)$-linear in the first argument $X$.</li>
+    <li>The function $\nabla$ is a “derivation” in the second argument $Y$, in the sense that
+ \begin{equation}\notag
+ \nabla_X(fY) = X(f) Y + f \nabla_XY
+ \end{equation}
+for all $X,Y\in \calx(M)$ and $f\in C^\infty(M)$.</li>
+    <li>The function $\nabla$ is <em>compatible</em> with the metric in the sense that
+ \begin{equation}\notag
+ X(\ang{Y,Z}) = \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ}
+ \end{equation}
+for all $X,Y,Z\in \calx(M)$.</li>
+    <li>The function $\nabla$ is <em>torsion free</em>, in the sense that
+ \begin{equation}\notag
+ \nabla_YX - \nabla_XY = [X,Y]
+ \end{equation}
+for all $X,Y\in \calx(M)$.</li>
+  </ol>
+
+  <p>In particular, the metric $\ang{-,-}$ uniquely determines the vector field $\nabla_XY$ via the equation \eqref{det-eqn}, and conversely, the vector field $\nabla_XY$ may be <em>defined</em> by this equation. Finally, the Christoffel symbols of the connection and the metric coefficients over an open parametrizable subset are related via the equation</p>
+
+  <p>\begin{equation}\label{chris-metric-eqn}
+\Gamma_{ij}^k  = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right)g^{lk}, \quad \forall i,j,k.
+\end{equation}</p>
+</div>
+
+<p>A function \eqref{abstract-connection-eqn} on <em>any</em> manifold that satisfies the first and second properties in the theorem is called an (abstract) <em>affine</em> or <em>Koszul connection</em>. The unique affine connection on a riemannian manifold that is both compatible with the metric and torsion free is called the <em>Levi-Civita connection</em> of the manifold. Thus, while the Fundamental Theorem guarantees that such a Levi-Civita connection exists for all riemannian manifolds via the somewhat opaque equation \eqref{det-eqn}, in the specific case of an <em>embedded</em> riemannian manifold where the metric is inherited from the ambient euclidean space, we have given a much more workable and concrete desciption of the connection.</p>
+
+<p>Using the local formulas \eqref{chris-metric-eqn}, let’s compute the Christoffel symbols of the unit sphere $S^2\subset \bbr^3$, with respect to the spherical local parametrization map</p>
+
+<p>\begin{equation}\notag
+(\theta,\varphi) \mapsto (\cos{\theta}\sin{\varphi},\sin{\theta}\sin{\varphi},\cos{\varphi}).
+\end{equation}</p>
+
+<p>Here, take care to notice that $\theta$ is the azimuthal angle, while $\varphi$ is the polar angle (these are often reversed in physics and engineering!). Then, on any open subset of $S^2$ where $\theta$ and $\varphi$ serve as local coordinates, we compute the coordinate local sections</p>
+
+<p>\begin{equation}\notag
+\bd_\theta = \begin{bmatrix} -\sin{\theta}\sin{\varphi} \\ \cos{\theta}\sin{\varphi} \\ 0 \end{bmatrix} \quad \text{and} \quad \bd_\varphi = \begin{bmatrix} \cos{\theta}\cos{\varphi} \\ \sin{\theta}\cos{\varphi} \\ -\sin{\varphi} \end{bmatrix}.
+\end{equation}</p>
+
+<p>Here, we are following the common practice of writing $\bd_\theta$ and $\bd_\varphi$ in place of $\bd_1$ and $\bd_2$, respectively. The metric coefficients (and the coefficients of its inverse) are given by</p>
+
+<p>\begin{equation}\notag
+\begin{bmatrix} g_{\theta\theta} &amp; g_{\theta\varphi} \\ g_{\varphi\theta} &amp; g_{\varphi\varphi} \end{bmatrix} = \begin{bmatrix} \sin^2{\varphi} &amp; 0 \\ 0 &amp; 1 \end{bmatrix} \quad \text{and} \quad \begin{bmatrix} g^{\theta\theta} &amp; g^{\theta\varphi} \\ g^{\varphi\theta} &amp; g^{\varphi\varphi} \end{bmatrix} = \begin{bmatrix} \csc^2{\varphi} &amp; 0 \\ 0 &amp; 1 \end{bmatrix}.
+\end{equation}</p>
+
+<p>The only nonzero partial derivative of the metric is</p>
+
+<p>\begin{equation}\notag
+\bd_\varphi g_{\theta\theta} = 2\sin{\varphi}\cos{\varphi},
+\end{equation}</p>
+
+<p>from which one concludes that there are only three (possibly) nonzero Christoffel symbols:</p>
+
+<p>\begin{equation}\notag
+\Gamma^\theta_{\varphi\theta} = \Gamma^\theta_{\theta\varphi} = \cot{\varphi} \quad \text{and} \quad \Gamma^\varphi_{\theta\theta} = -\sin{\varphi}\cos{\varphi}.
+\end{equation}</p>
+
+<h2 id="parallel-transport-and-geodesics">Parallel transport and geodesics</h2>
+
+<p>Let’s backtrack a bit, and explain why connections are called <em>connections</em>. What are they supposed to be connecting?</p>
+
+<p>The answer lies in the notion of <em>parallel transport</em>, which in turn relies on a second type of covariant differentiation. To define this concept, we first require the notions of <em>vector fields and functions along a curve</em>. Throughout this section, the letter $I$ will stand for an open interval of the real line $\bbr$, that contains $0$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\gamma:I \to M$ be a smooth curve in a manifold $M$.</p>
+
+  <ol>
+    <li>A <em>(smooth) vector field along $\gamma$</em> is a “lift” of $\gamma$ to the tangent bundle, i.e., a smooth map
+ \begin{equation}\notag
+ X: I \to T(M)
+ \end{equation}
+such that the diagram
+ \begin{equation}\notag
+ \begin{xy}
+ \xymatrix{  &amp; \color{white} T(M) \ar@[white][d]^{\color{white} \pi} \\ \color{white} I \ar@[white][ur]^{\color{white} X} \ar@[white][r]_{\color{white}\gamma} &amp; \color{white} M}
+ \end{xy}
+ \end{equation}
+commutes, where $\pi$ is the natural projection. We will write $\calx(\gamma)$ for the set of all smooth vector fields along $\gamma$.</li>
+    <li>A <em>(smooth) function along $\gamma$</em> is simply a smooth function in $C^\infty(I)$.</li>
+  </ol>
+</div>
+
+<p>There is a (perhaps) disappointing dissimilarity between the definitions of smooth vector fields and smooth functions along a curve $\gamma$. However, they can be brought together under the same scheme of “lifts” if we instead define a <em>smooth function along $\gamma$</em> to be a lift of $\gamma$ to the trivial (basic) vector bundle $M \times \bbr$. Precisely, we would define such a function to be a smooth map</p>
+
+<p>\begin{equation}\notag
+\widehat{f}: I \to M \times \bbr
+\end{equation}</p>
+
+<p>that “lifts” the curve $\gamma$ to the trivial bundle, in the sense that the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{  &amp; \color{white} M \times \bbr \ar@[white][d]^{\color{white} \pi_1} \\ \color{white} I \ar@[white][ur]^{\color{white} \widehat{f}} \ar@[white][r]_{\color{white}\gamma} &amp; \color{white} M}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes, where $\pi_1: M \times \bbr \to M$ is the natural projection onto the first cartesian factor. This means that $\widehat{f}$ is given by a formula of the form</p>
+
+<p>\begin{equation}\label{chair-eqn}
+\widehat{f}(t) = (\gamma(t),f(t)),
+\end{equation}</p>
+
+<p>where $f$ is a smooth function in $C^\infty(I)$. We conceptualize the formula \eqref{chair-eqn} as the scalar $f(t)$ “attached” to the point $\gamma(t)$ on the curve, so that in this sense, a function along $\gamma$ is viewed as a collection of scalars (i.e., a scalar field) along the curve. But the lift is obviously completely determined by the function $f\in C^\infty(I)$, which means that we may as well define smooth functions along $\gamma$ as functions in $C^\infty(I)$, which is what we did above.</p>
+
+<p>Note that if $M$ is embedded in $\bbr^s$, then a vector field along $\gamma$ may be uniquely specified by instead giving a smooth map</p>
+
+<p>\begin{equation}\notag
+X: I \to \bbr^s
+\end{equation}</p>
+
+<p>such that $X_t \in T_{\gamma(t)}(M)$ for all $t\in I$.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $\gamma:I \to M$ be a smooth curve in a manifold $M$. Prove that the set $\calx(\gamma)$ is a $C^\infty(I)$-module in a natural way.</p>
+</div>
+
+<p>Given a smooth function $f\in C^\infty(I)$ along the curve $\gamma$, we already have a notion of the derivative of $f$. Indeed, such a derivative is simply the smooth function</p>
+
+<p>\begin{equation}\notag
+\frac{Df}{dt} \defeq f’,
+\end{equation}</p>
+
+<p>where $f’\in C^\infty(I)$ is defined by</p>
+
+<p>\begin{equation}\notag
+f’(t) = f_{\ast,t}(1) \in \bbr.
+\end{equation}</p>
+
+<p>However, just as with Levi-Civita connections, our goal is to extend the operator $D/dt$ to act on vector fields along $\gamma$, producing a vector field $DX/dt$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\gamma$ be a smooth curve in an embedded riemannian manifold $M$. The <em>covariant derivative along $\gamma$</em> is the $\bbr$-linear map $D/dt$ which acts on both $\calx(\gamma)$ and $C^\infty(I)$ as follows:</p>
+
+  <ol>
+    <li>Its action on vector fields along $\gamma$ yields a function
+ \begin{equation}\notag
+ D/dt: \calx(\gamma) \to \calx(\gamma), \quad X\mapsto DX/dt
+ \end{equation}
+given by
+ \begin{equation}\notag
+ (DX/dt)_t = X_{\ast,t}(1)|_{T_{\gamma(t)}(M)},
+ \end{equation}
+for $t\in I$.</li>
+    <li>Its action on functions along $\gamma$ yields a function
+ \begin{equation}\notag
+ D/dt: C^\infty(I) \to C^\infty(I), \quad f\mapsto Df/dt
+ \end{equation}
+given by
+ \begin{equation}\notag
+ Df/dt= f’,
+ \end{equation}
+for $f\in C^\infty(I)$.</li>
+  </ol>
+</div>
+
+<p>As with the Levi-Civita connection, it is not obvious that $DX/dt$ is actually a smooth vector field. However, we will take this for granted in this post.</p>
+
+<p>I suggest that you give a go at the following exercise, which lists some fundamental properties of the covariant derivative along curves.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $\gamma$ be a smooth curve in an embedded riemannian manifold $M$ with Levi-Civita connection $\nabla$.</p>
+
+  <ol>
+    <li>Prove that $D/dt$ actually <em>is</em> $\bbr$-linear, for both its action on vector fields and functions along $\gamma$.</li>
+    <li>Prove that $D/dt$ is a “derivation” with respect to the $C^\infty(I)$-module structures, i.e., prove that
+ \begin{equation}\notag
+ D(fX)/dt= (Df/dt) X + f DX/dt.
+ \end{equation}
+and
+ \begin{equation}\notag
+ D(fg)/dt= (Df/dt) g + fDg/dt
+ \end{equation}
+for all $X\in \calx(\gamma)$ and $f,g\in C^\infty(I)$.</li>
+    <li>Suppose that a vector field $X\in \calx(\gamma)$ is induced by a global vector field $Y\in \calx(M)$, in the sense that $X_t = Y_{\gamma(t)}$ for all $t\in I$. Prove that
+ \begin{equation}\notag
+ (DX/dt)_t = \nabla_{\gamma’(t)} Y
+ \end{equation}
+for all $t\in I$, where $\gamma’(t) = \gamma_{\ast,t}(1)$.</li>
+  </ol>
+</div>
+
+<p>In the special case that $M=\bbr^n$, we have</p>
+
+<p>\begin{equation}\notag
+DX/dt = X’,
+\end{equation}</p>
+
+<p>where $X’(t) = X_{\ast,t}(1)$. It follows that if $DX/dt=0$, then the vectors $X_t$ are parallel to each other, as $t$ varies over $I$. In the case of a general manifold, we take the vanishing condition $DX/dt=0$ as the definition of <em>parallel</em>:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\gamma:I \to M$ be a smooth curve in an embedded Riemannian manifold $M$. We shall say a vector field $X$ along $\gamma$ is <em>parallel</em> if $DX/dt=0$.</p>
+</div>
+
+<p>There is a particularly popular example of a parallel vector field on the sphere $S^2$ that virtually every introductory reference on differential geometry covers. This post will be no exception. But first, let’s start out with a related parallel vector field on the unit circle $S^1$ in $\bbr^2$.</p>
+
+<p>Let $\gamma:\bbr \to S^1$ be the smooth path given by</p>
+
+<p>\begin{equation}\notag
+\gamma(t) = (\sin{t},\cos{t}).
+\end{equation}</p>
+
+<p>Define the vector field $X:\bbr \to \bbr^2$ along $\gamma$ by</p>
+
+<p>\begin{equation}\notag
+X_t = (\cos{t},-\sin{t}).
+\end{equation}</p>
+
+<p>One then easily computes $\nabla_\gamma X=0$, and hence $X$ is a parallel vector field on $S^1$.</p>
+
+<p>Now, if $\gamma:[0,\pi/2] \to \bbr^3$ is a similar path</p>
+
+<h2 id="horizontal-and-vertical-subspaces">Horizontal and vertical subspaces</h2>
+
+<h2 id="curvature">Curvature</h2>
+
+<p><img src="/assets/images/curvature.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let the notation be as above. Prove that</p>
+
+  <p>\begin{equation}\notag
+\dev^2\left(\nabla_X \nabla_YZ - \nabla_Y\nabla_XZ\right)_p   = Z_s - Z_t + O(\dev^3)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+\dev^2\left(\nabla_{[X,Y]}Z\right)_p = Z_s - Z_t + O(\dev^3).
+\end{equation}</p>
+
+  <p>for all $p\in M$ and all $\dev&gt;0$.</p>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+
+<h2 id="references-and-footnotes">References and footnotes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Besse2008" role="doc-endnote">
+      <p>A. L. Besse. <em>Einstein manifolds</em>. Reprint of the 1987 edition. Classics in Mathematics. Springer-Verlag, Berlin, 2008. <a href="#fnref:Besse2008" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:yup" role="doc-endnote">
+      <p>Here, I am reverting to using the word <em>field</em> to informally represent any collection of mathematical objects parametrized by the points of a manifold. <a href="#fnref:yup" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+    
+  </body>
+</html>
