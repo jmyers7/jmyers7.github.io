@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>the algebraic theory II&#58 metrics + connections</title>
+    <title>the algebraic theory V&#58 metrics + connections</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -30,8 +30,12 @@
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
                 Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
                 Hom: ['\\operatorname{Hom}#1', 1],
                 Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                Open: ['\\mathsf{Open}#1', 1],
+                Set: ['\\mathsf{Set}'],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
                 bbn: ['\\mathbb{N}'],
@@ -42,9 +46,11 @@
                 cala: ['\\mathcal{A}'],
                 calb: ['\\mathcal{B}'],
                 calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
                 cali: ['\\mathcal{I}'],
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
+                calo: ['\\mathcal{O}'],
                 calp: ['\\mathcal{P}'],
                 cals: ['\\mathcal{S}'],
                 calx: ['\\mathcal{X}'],
@@ -73,6 +79,7 @@
                 bfg: ['\\mathbf{g}'],
                 bfh: ['\\mathbf{h}'],
                 bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
                 dx: ['{\\ \\text{d} #1}', 1],
@@ -126,19 +133,18 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">the algebraic theory II: metrics + connections</h1>
+  <h1 class="accent-color">the algebraic theory V: metrics + connections</h1>
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
 <ol>
-  <li>Metrics and riemannian manifolds</li>
+  <li>Forms and fields</li>
+  <li>(Pseudo-)riemannian manifolds</li>
   <li>Gradients</li>
   <li>Levi-Civita connections</li>
   <li>Abstract connections and the Fundamental Theorem of Riemannian Geometry</li>
   <li>Parallel transport and geodesics</li>
-  <li>Horizontal and vertical subspaces</li>
-  <li>Curvature</li>
   <li>Further reading</li>
   <li>References and footnotes</li>
 </ol>
@@ -149,216 +155,376 @@
   <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
 </div>
 
-<h2 id="metrics-and-riemannian-manifolds">Metrics and riemannian manifolds</h2>
-
-<p>The following definition is entirely an invention of my own. It serves no other purpose than to motivate the study of the relationship between certain “field properties” and $C^\infty(M)$-linearity. As soon as we define <em>riemannian manifolds</em> a little later in this section, this definition may be safely forgotten.</p>
+<h2 id="forms-and-fields">Forms and fields</h2>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> A <em>pre-riemannian manifold</em> is a pair $(M,\ang{-,-})$, where $M$ is a manifold and $\ang{-,-}$ is a $C^\infty(M)$-linear function
-\begin{equation}\label{yuppers-eqn}
-\ang{-,-}: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M), \quad (X,Y) \mapsto \ang{X,Y}.
-\end{equation}
-The function $\ang{-,-}$ is called the <em>pre-metric</em> of the pre-riemannian manifold.</p>
-</div>
-
-<p>Given a pre-riemannian manifold $(M,\ang{-,-})$, we are supposed to think of the pre-metric $\ang{-,-}$ as a collection of bilinear forms</p>
-
-<p>\begin{equation}\label{carpet-eqn}
-\ang{-,-}_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
-\end{equation}</p>
-
-<p>one for each $p \in M$. Usually in differential geometry and smooth manifold theory, the word <em>field</em> is taken to mean a collection of objects indexed by the points of a manifold, so in this language, we are supposed to think of $\ang{-,-}$ as a <em>field</em> of bilinear forms \eqref{carpet-eqn} on the tangent spaces of the manifold. However, it is not clear by what mechanism this field is obtained from \eqref{yuppers-eqn}.</p>
-
-<p>To help clarify matters, we will introduce some basic definitions and results, which we will then apply to the problem of determining \eqref{carpet-eqn} from \eqref{yuppers-eqn}.</p>
-
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be a manifold. We shall say that an $\bbr$-linear map</p>
+  <p><strong>Definition.</strong> Let $M$ be a manifold, $k\geq 1$ an integer, and write $F(M)$ for the commutative $\bbr$-algebra of <em>all</em> real-valued functions $f:M \to \bbr$, not necessarily smooth. We define a <em>$k$-form</em> on $M$ to be a $C^\infty(M)$-linear function</p>
 
   <p>\begin{equation}\notag
-\omega: \calx(M) \to C^\infty(M)
+\omega: \underbrace{\calx(M) \otimes_{C^\infty(M)} \cdots \otimes_{C^\infty(M)} \calx(M)}_{\text{$k$ factors}} \to F(M).
+\end{equation}</p>
+
+  <p>Here, the algebra $F(M)$ is viewed as a $C^\infty(M)$-module by restricting scalars along the inclusion map $C^\infty(M) \to F(M)$ of $\bbr$-algebras.</p>
+
+  <ol>
+    <li>The $k$-form $\omega$ is said to be <em>symmetric</em> if
+ \begin{equation}\notag
+ \omega(X_1,\ldots,X_i,\ldots,X_j,\ldots,X_k) = \omega(X_1,\ldots,X_j,\ldots,X_i,\ldots,X_k)
+ \end{equation}
+for all $X_1,\ldots,X_k\in \calx(M)$ and $1\leq i &lt; j \leq k$.</li>
+    <li>The $k$-form $\omega$ is said to be <em>alternating</em> (or <em>anti-symmetric</em>) if
+ \begin{equation}\notag
+ \omega(X_1,\ldots,X_i,\ldots,X_j,\ldots,X_k) = -\omega(X_1,\ldots,X_j,\ldots,X_i,\ldots,X_k)
+ \end{equation}
+for all $X_1,\ldots,X_k\in \calx(M)$ and $1\leq i &lt; j \leq k$.</li>
+    <li>The $k$-form $\omega$ is said to be <em>smooth</em> if its image lands in the subalgebra $C^\infty(M)$ of $F(M)$.</li>
+  </ol>
+
+  <p>Given two $k$-forms $\omega,\eta$ and a scalar $c\in \bbr$, we define the <em>sum</em> $k$-form $\omega+\eta$ and the <em>product</em> $k$-form $c\omega$ via the following formulas:</p>
+
+  <p>\begin{equation}\notag
+(\omega+\eta)(X_1,\ldots,X_k) = \omega(X_1,\ldots,X_k) + \eta(X_1,\ldots,X_k)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+(c\omega)(X_1,\ldots,X_k) = c\omega(X_1,\ldots,X_k).
+\end{equation}</p>
+
+  <p>Forms of certain types naturally form $\bbr$-vector spaces with respect to these operations:</p>
+
+  <ol>
+    <li>We will write $T^{\text{$k$-form}}_{\text{rough}}(M)$ for the $\bbr$-vector space of all $k$-forms on $M$. The subspace of all smooth $k$-forms will be written as $T^{\text{$k$-form}}(M)$.</li>
+    <li>We will write $S^{\text{$k$-form}}_\text{rough}(M)$ for the $\bbr$-vector space of all symmetric $k$-forms on $M$. The subspace of all smooth symmetric $k$-forms will be written as $S^{\text{$k$-form}}(M)$.</li>
+    <li>We will write $A^{\text{$k$-form}}_\text{rough}(M)$ for the $\bbr$-vector space of all alternating $k$-forms on $M$. The subspace of all smooth alternating $k$-forms will be written as $A^{\text{$k$-form}}(M)$.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. Given a $k$-form $\omega \in T^\text{$k$-form}_\text{rough}(M)$ and a function $f\in F(M)$, define their <em>product</em>, denoted $f\omega$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\omega)(X_1,\ldots,X_k)(p) = f(p) \omega(X_1,\ldots,X_k)(p).
+\end{equation}</p>
+
+  <ol>
+    <li>Prove that $T^\text{$k$-form}_{\text{rough}}(M)$ is an $F(M)$-module with respect to the above product, and that $S^\text{$k$-form}_{\text{rough}}(M)$ and $A^\text{$k$-form}_{\text{rough}}(M)$ are $F(M)$-submodules.</li>
+    <li>Prove that $T^\text{$k$-form}(M)$ is a $C^\infty(M)$-module with respect to the above product, and that $S^\text{$k$-form}(M)$ and $A^\text{$k$-form}(M)$ are $C^\infty(M)$-submodules.</li>
+  </ol>
+</div>
+
+<p>The usage of the tensor product $\otimes_{C^\infty(M)}$ in the definition of a $k$-form $\omega$ is just a cute way of saying that $\omega$ is (equivalently) a $C^\infty(M)$-multilinear function</p>
+
+<p>\begin{equation}\notag
+\omega: \underbrace{\calx(M) \times \cdots \times \calx(M)}_{\text{$k$ factors}} \to F(M).
+\end{equation}</p>
+
+<p>Indeed, we know that multilinearity on a cartesian product is the same as linearity on a tensor product.</p>
+
+<div class="highlight-box">
+  <p><strong>Notation.</strong> Since iterated tensor products will appear so often in this section, it will be convenient to define</p>
+
+  <p>\begin{equation}\notag
+V^{\otimes_A k} = \underbrace{V \otimes_A \cdots \otimes_A V}_{\text{$k$ factors}}
+\end{equation}</p>
+
+  <p>for all integers $k\geq 1$ and all modules $V$ over a commutative ring $A$.</p>
+</div>
+
+<p>The main result in this section will be the equivalence of $k$-forms on a manifold with certain types of objects that we call $k$-fields. We define these latter objects below, using the definition of $k$-forms as a template. Notice, however, that we do <em>not</em> define smoothness of $k$-fields. We will address smoothness later.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. A <em>$k$-field</em> on $M$ is a collection $\sigma = \{\sigma_p\}_{p\in M}$ of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+\sigma_p : T_p(M)^{\otimes_\bbr k} \to \bbr,
+\end{equation}</p>
+
+  <p>one for each point $p\in M$.</p>
+
+  <ol>
+    <li>The $k$-field $\sigma$ is said to be <em>symmetric</em> if
+ \begin{equation}\notag
+ \sigma_p(v_1,\ldots,v_i,\ldots,v_j,\ldots,v_k) = \sigma_p(v_1,\ldots,v_j,\ldots,v_i,\ldots,v_k)
+ \end{equation}
+for all $v_1,\ldots,v_k\in T_p(M)$, all $p\in M$, and $1\leq i &lt; j \leq k$.</li>
+    <li>The $k$-field $\sigma$ is said to be <em>alternating</em> (or <em>anti-symmetric</em>) if
+ \begin{equation}\notag
+ \sigma_p(v_1,\ldots,v_i,\ldots,v_j,\ldots,v_k) = -\sigma_p(v_1,\ldots,v_j,\ldots,v_i,\ldots,v_k)
+ \end{equation}
+for all $v_1,\ldots,v_k\in T_p(M)$, all $p\in M$, and $1\leq i &lt; j \leq k$.</li>
+  </ol>
+
+  <p>Given two $k$-fields $\sigma,\tau$ and a scalar $c\in \bbr$, we define the <em>sum</em> $k$-field $\sigma + \tau$ and the <em>product</em> $k$-field $c\sigma$ via the following formulas:</p>
+
+  <p>\begin{equation}\notag
+\sigma + \tau = \{\sigma_p + \tau_p\}
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+c\sigma = \{c\sigma_p\},
+\end{equation}</p>
+
+  <p>where $\sigma_p+\tau_p$ and $c\sigma_p$ are the evident pointwise sum and product. Fields of certain types naturally form $\bbr$-vector spaces with respect to these operations:</p>
+
+  <ol>
+    <li>We will write $T^{\text{$k$-field}}_{\text{rough}}(M)$ for the $\bbr$-vector space of all $k$-fields on $M$.</li>
+    <li>We will write $S^{\text{$k$-field}}_\text{rough}(M)$ for the $\bbr$-vector space of all symmetric $k$-fields on $M$.</li>
+    <li>We will write $A^{\text{$k$-field}}_\text{rough}(M)$ for the $\bbr$-vector space of all alternating $k$-fields on $M$.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. Given a $k$-field $\sigma \in T^\text{$k$-field}_\text{rough}(M)$ and a function $f\in F(M)$, define their <em>product</em>, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+f\sigma = \{f\sigma_p\},
+\end{equation}</p>
+
+  <p>where</p>
+
+  <p>\begin{equation}\notag
+(f\sigma_p)(v_1,\ldots,v_k) \defeq f(p)\sigma(v_1,\ldots,v_k).
+\end{equation}</p>
+
+  <p>Prove that $T^\text{$k$-form}_{\text{rough}}(M)$ is an $F(M)$-module with respect to the above product, and that $S^\text{$k$-form}_{\text{rough}}(M)$ and $A^\text{$k$-form}_{\text{rough}}(M)$ are $F(M)$-submodules.</p>
+</div>
+
+<p>Fields have one distinct advantage over forms, in that the former have obvious restriction maps yielding a sheaf structure. Before we describe them, you should notice that, just as $C^\infty_M$ is a sheaf, so too is the assignment $U \mapsto F(U)$ which maps an open subset of $M$ to the collection of all real-valued functions on $U$. This latter sheaf is a sheaf of commutative $\bbr$-algebras on $M$, and it will be denoted $F_M$.</p>
+
+<p>Now, let $U$ and $V$ be two nonempty open subsets of $M$ with $U\subseteq V$ and define the $\bbr$-linear map</p>
+
+<p>\begin{equation}\notag
+\rho^V_U : T^\text{$k$-field}_\text{rough}(V) \to T^\text{$k$-field}_\text{rough}(U)
+\end{equation}</p>
+
+<p>by setting</p>
+
+<p>\begin{equation}\notag
+\rho^V_U(\sigma) = \{ \sigma_p\}_{p\in U}.
+\end{equation}</p>
+
+<p>This is called a <em>restriction map</em>.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a manifold.</p>
+
+  <ol>
+    <li>Prove that the restriction map $\rho^V_U$ is $F(V)$-linear, where $T^\text{$k$-field}_\text{rough}(U)$ is given an $F(V)$-module structure by restriction of scalars along the evident restriction map $F(V)\to F(U)$.</li>
+    <li>If $U$ is an open set in $M$, prove that the restriction map $\rho^U_U$ is the identity map on $\calx(U)$.</li>
+    <li>If $U\subseteq V \subseteq W$ are open subsets of $M$, prove that
+ \begin{equation}\notag
+ \rho^W_U = \rho^{V}_U\circ \rho^W_V.
+ \end{equation}</li>
+    <li>Suppose $U$ is an open subset of $M$, and that $\{U_i\}_{i\in I}$ is an open cover of $U$. Prove that if $\sigma,\tau\in T^\text{$k$-field}_\text{rough}(U)$ and $\rho^U_{U_i}(\sigma) = \rho^U_{U_i}(\tau)$ for all $i\in I$, then $\sigma=\tau$ as $k$-fields.</li>
+    <li>Continuing with the open cover $\{U_i\}$ from the previous part, suppose that for each $i\in I$ we have a $k$-field $\sigma_i \in T^\text{$k$-field}_\text{rough}(U_i)$. Suppose further that the $\sigma_i$’s agree on overlaps, in the sense that
+ \begin{equation}\notag
+ \rho^{U_i}_{U_i\cap U_j}(X_i) = \rho^{U_j}_{U_i\cap U_j} (X_j)
+ \end{equation}
+for all $i,j\in I$. Prove that there is a (necessarily unique!) $k$-field $\sigma\in T^\text{$k$-field}_\text{rough}(U)$ such that $\rho^U_{U_i}(\sigma) = \sigma_i$ for all $i\in I$.</li>
+  </ol>
+</div>
+
+<p>The exercise thus shows that the assignment $U \mapsto T^\text{$k$-field}_\text{rough}(U)$ is a sheaf of $F_M$-modules.</p>
+
+<p>Thus, the basic situation at hand is the relationship between the following two sets:</p>
+
+<p>\begin{equation}\notag
+\left\{ \text{fields of $k$-multilinear forms on $M$} \right\} \quad \leftrightarrow \quad \left\{\text{$k$-forms on $M$}\right\}.
+\end{equation}</p>
+
+<p>As we just explained, it is easy to move from left to right, but the reverse mechanism that produces a field of $k$-multilinear forms from a $k$-form $\omega$ is not so obvious. Our goal in the rest of this section is to understand this mechanism. To give away the punchline, it will turn out that the key feature of a $k$-form that makes this process work is the purely algebraic property of $C^\infty(M)$-linearity.</p>
+
+<p>We thus begin with a definition where we <strong>only</strong> assume $\bbr$-linearity, and not $C^\infty(M)$-linearity.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. We shall say that an $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
 \end{equation}</p>
 
   <p><em>induces a field</em> if</p>
 
   <p>\begin{equation}\notag
-\left[\omega(X)\right](p) = \left[\omega(Y)\right](p)
+\left[\omega(X_1,\ldots,X_k)\right](p) = \left[\omega(Y_1,\ldots,Y_k)\right](p)
 \end{equation}</p>
 
-  <p>whenever $X$ and $Y$ are two vector fields with $X_p=Y_p$.</p>
+  <p>whenever the $X_i$’s and $Y_i$’s are vector fields such that $X_i|_p = Y_i|_p$ for each $i$.</p>
 </div>
 
-<p>Now, suppose that for each point $p\in M$, we have an $\bbr$-linear map</p>
+<p>The reason for the terminology “induces a field” is given here:</p>
 
-<p>\begin{equation}\label{door-eqn}
-\omega_p: T_p(M) \to \bbr.
-\end{equation}</p>
-
-<p>Ignoring smoothness for the moment, clearly such a collection of maps determines an $\bbr$-linear function</p>
-
-<p>\begin{equation}\label{potential-eqn}
-\omega: \calx(M) \to C^\infty(M)
-\end{equation}</p>
-
-<p>simply by defining</p>
-
-<p>\begin{equation}\notag
-\left[\omega(X)\right](p) = \omega_p(X_p)
-\end{equation}</p>
-
-<p>for each $p\in M$. However, suppose that we instead <em>began</em> with an arbitrary $\bbr$-linear map \eqref{potential-eqn}—would it be possible to somehow define a natural collection of maps \eqref{door-eqn}? Here’s an answer:</p>
-
-<div class="highlight-box">
-  <p><strong>Theorem.</strong> Let $M$ be a manifold. If an $\bbr$-linear map $\omega:\calx(M) \to C^\infty(M)$ induces a field, then $\omega$ determines a collection $\{\omega_p\}_{p\in M}$ of $\bbr$-linear maps</p>
+<div class="highlight-box" id="field-induced-thm">
+  <p><strong>Theorem.</strong> Let $M$ be a manifold. If an $\bbr$-linear map</p>
 
   <p>\begin{equation}\notag
-\omega_p:T_p(M) \to \bbr,
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
+\end{equation}</p>
+
+  <p>induces a field, then $\omega$ determines a unique field $\{\omega_p\}_{p\in M}$ of $k$-multilinear forms</p>
+
+  <p>\begin{equation}\notag
+\omega_p : T_p(M)^{\otimes_\bbr k} \to \bbr,
 \end{equation}</p>
 
   <p>by the formula</p>
 
-  <p>\begin{equation}\notag
-\omega_p(v) = \left[\omega(X)\right](p),
+  <p>\begin{equation}\label{mirror-eqn}
+\omega_p(v_1,\ldots,v_k) = \left[\omega(X_1,\ldots,X_k)\right](p),
 \end{equation}</p>
 
-  <p>where $X$ is any vector field such that $X_p=v$.</p>
+  <p>where the $X_i$’s are any vector fields such that $X_i|_p=v_i$ for each $i$.</p>
 </div>
 
-<p>It is a well-known fact that such a vector field $X$ always exists. It then follows immediately from the field property that each $\omega_p$ is well-defined. Q.E.D.</p>
+<p>If such a field $\{\omega_p\}_{p\in M}$ exists, then $\omega$ may be recovered through the equation</p>
 
-<p>The result of this theorem explains the terminology “induces a field,” where the collection of maps $\{\omega_p\}_{p\in M}$ is interpreted as the induced “field.” Notice that this collection is uniquely determined by $\omega$, since $\omega$ may be recovered from the $\omega_p$’s via the equations</p>
-
-<p>\begin{equation}\label{curtain-eqn}
-\left[\omega(X)\right](p) = \omega_p(X_p),
+<p>\begin{equation}\label{tile-eqn}
+\left[\omega(X_1,\ldots,X_k)\right](p) = \omega_p(X_1|_p,\ldots,X_1|_p).
 \end{equation}</p>
 
-<p>for $p\in M$ and $X\in \calx(M)$. Let’s make this terminology official:</p>
+<p>Thus, the field $\{\omega_p\}_{p\in M}$, if it exists, is unique. But for existence, we recall that such vector fields $X_1,\ldots,X_k$ as in \eqref{mirror-eqn} always exists. It then follows immediately from the “induces a field” property that each $\omega_p$ is well-defined. Q.E.D.</p>
+
+<p>Now, the fascinating bit is that the “field inducing” property of an $\bbr$-linear map</p>
+
+<p>\begin{equation}\notag
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
+\end{equation}</p>
+
+<p>has an entirely algebraic characterization, encapsulated in the following result. The name of this result is borrowed from Besse’s book (<sup id="fnref:Besse2008" role="doc-noteref"><a href="#fn:Besse2008" class="footnote" rel="footnote">1</a></sup>), though it is present in some form or another in virtually all textbooks on differential geometry. It is stated here as a “first version”; a more general version will be given later when we talk about vector bundles.</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be a manifold, and suppose that $\omega:\calx(M) \to C^\infty(M)$ is an $\bbr$-linear map that induces a field. Then the collection $\{\omega_p\}_{p\in M}$ of unique $\bbr$-linear maps</p>
+  <p><strong>Fundamental Lemma of Differential Geometry (First version).</strong> Let $M$ be a manifold. An $\bbr$-linear map</p>
 
   <p>\begin{equation}\notag
-\omega_p:T_p(M) \to \bbr
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
 \end{equation}</p>
 
-  <p>that satisfy the equations \eqref{curtain-eqn} is called the <em>field</em> induced by $\omega$.</p>
+  <p>induces a field if and only if it is $C^\infty(M)$-linear.</p>
 </div>
 
-<div class="highlight-box2">
-  <p><strong>Looking ahead…</strong> The experienced reader will undoubtably notice that the field $\{\omega_p\}_{p\in M}$ induced by a map $\omega$ is nothing but a <em>smooth differential $1$-form.</em> We will return to these when we talk about the cotangent bundle (and its global sections) in the next post. Also, the relation between fields and $C^\infty(M)$-linearity (see below) is at the heart of our algebraic description of tensors, which will come in the fourth post of this subseries on the algebraic theory of manifolds.</p>
-</div>
-
-<p>Now, the fascinating bit is that the field inducing property of an $\bbr$-linear map $\omega:\calx(M)\to C^\infty(M)$ has an entirely algebraic characterization, encapsulated in the following result. The name of this result is borrowed from Besse’s book (<sup id="fnref:Besse2008" role="doc-noteref"><a href="#fn:Besse2008" class="footnote" rel="footnote">1</a></sup>), though it is present in some form or another in virtually all textbooks on differential geometry. It is stated here as a “first version”; a more general version will be given later when we talk about vector bundles.</p>
-
-<div class="highlight-box">
-  <p><strong>Fundamental Lemma of Differential Geometry (First version).</strong> Let $M$ be a manifold. An $\bbr$-linear map $\omega:\calx(M) \to C^\infty(M)$ induces a field if and only if it is $C^\infty(M)$-linear.</p>
-</div>
-
-<p>The “only if” portion of the proof is trivial. Indeed, in this case, given a vector field $X\in \calx(M)$ and a function $f\in C^\infty(M)$, we have that</p>
+<p>The “only if” portion of the proof is trivial, in view of the relationship \eqref{tile-eqn} between $\omega$ and the induced field $\{\omega_p\}$. The “if” portion of the proof is more interesting. I will leave it to you to show that it suffices to prove</p>
 
 <p>\begin{equation}\notag
-\left[\omega(fX)\right](p) = \omega_p(f(p)X_p) = f(p) \omega_p(X_p) = \left[ f \omega(X)\right](p)
+\left[\omega(X_1,\ldots,X_k)\right](p) = 0,
 \end{equation}</p>
 
-<p>for all $p\in M$, and hence $\omega(fX) = f\omega(X)$. The “if” portion of the proof is more interesting. By $\bbr$-linearity, to show that $\omega$ is a field given that it is $C^\infty(M)$-linear, it will suffice to show</p>
+<p>if we have $X_j|_p=0$ for (at least) one index $j$. To prove this, fix such an index $j$ and choose local coordinates $x^1,\ldots,x^n$ on an open neighborhood $U$ near $p$, and let $\bd_1,\ldots,\bd_n$ be the corresponding local frame. Then, we may write</p>
 
 <p>\begin{equation}\notag
-\left[\omega(X)\right](p) = 0,
+X_j = X^i_j \bd_i,
 \end{equation}</p>
 
-<p>if $X$ is a vector field with $X_p=0$. To do this, choose local coordinates $x^1,\ldots,x^n$ on an open neighborhood $U$ near $p$, and let $\bd_1,\ldots,\bd_n$ be the corresponding local frame. Then, we may write</p>
+<p>with summation over $i$ implied. By shrinking $U$ if needed, we may choose a bump function $h\in C^\infty(M)$ with support in $U$ and $h(p)=1$. But then each $hX^i_j$ may be considered a smooth function on all of $M$, and likewise each $h\bd_i$ is a smooth vector field on $M$. Then</p>
 
 <p>\begin{equation}\notag
-X = X^i \bd_i,
-\end{equation}</p>
-
-<p>with summation over $i$ implied. By shrinking $U$ if needed, we may choose a bump function $h\in C^\infty(M)$ with support in $U$ and $h(p)=1$. But then each $hX^i$ may be considered a smooth function on all of $M$, and likewise each $h\bd_i$ is a smooth vector field on $M$. Then</p>
-
-<p>\begin{equation}\notag
-h^2 \omega(X) = \omega(h^2 X) = hX^i \omega(h \bd_i).
+h^2 \omega(X_1,\ldots,X_k) = \omega(X_1,\ldots,h^2 X_j,\ldots,X_k) = hX^i_j \omega(X_1,\ldots, h \bd_i,\ldots,X_k).
 \end{equation}</p>
 
 <p>Hence</p>
 
+<p>\begin{align}
+\left[\omega(X_1,\ldots,X_k)\right](p) &amp;= h(p)^2 \left[\omega(X_1,\ldots,X_k)\right](p) \notag \\ &amp;= h(p)X^i_j(p) \left[\omega(X_1,\ldots,h \bd_i,\ldots,X_k)\right](p) \notag \\ &amp;= 0, \notag
+\end{align}</p>
+
+<p>since $X^i_j(p)=0$ for each $i$. Q.E.D.</p>
+
+<p>Let’s now summarize the situation in the following theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Forms and fields are equivalent).</strong> Let $M$ be a manifold and $k\geq 1$ an integer. Then there is a bijective correspondence between the set of all $k$-forms $\omega$ on $M$ and the set of all fields $\{\omega_p\}_{p\in M}$ of $k$-multlinear forms</p>
+
+  <p>\begin{equation}\notag
+\omega_p: T_p(M)^{\otimes_\bbr k} \to \bbr.
+\end{equation}</p>
+
+  <p>Indeed:</p>
+
+  <ol>
+    <li>Given the $k$-form $\omega$, the field $\{\omega_p\}_{p\in M}$ is obtained by defining
+ \begin{equation}\notag
+ \omega_p(v_1,\ldots,v_k) = \left[\omega(X_1,\ldots,X_k)\right](p),
+ \end{equation}
+where the $X_i$’s are any vector fields such that $X_i|_p=v_i$ for each $i$.</li>
+    <li>Given field $\{\omega_p\}_{p\in M}$, the $k$-form $\omega$ is obtained by defining
+ \begin{equation}\notag
+ \left[\omega(X_1,\ldots,X_k)\right](p) = \omega_p(X_1|_p,\ldots,X_k|_p).
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>In view of this equivalence, we may define properties of a $k$-form in terms of properties of the associated field, and vice versa. We use this strategy in the following set of definitions:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. A field $\{\omega_p\}_{p\in M}$ of $k$-multlinear forms on $M$ is called <em>smooth</em>, or <em>symmetric</em>, or <em>alternating</em>, if the associated $k$-form $\omega$ is smooth, or symmetric, or alternating.</p>
+</div>
+
+<p>In the other direction, we can also give important definitions of forms in terms of their associated fields. In the following definition, we focus on properties of symmetric $2$-forms, which are central to riemannian geometry, and are traditionally denoted by $g$ rather than $\omega$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let</p>
+
+  <p>\begin{equation}\notag
+g: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M)
+\end{equation}</p>
+
+  <p>be a symmetric $2$-form on a manifold $M$ with associated field of symmetric bilinear forms</p>
+
+  <p>\begin{equation}\notag
+g_p: T_p(M) \otimes_\bbr T_p(M) \to \bbr.
+\end{equation}</p>
+
+  <ol>
+    <li>We shall say $g$ is a <em>scalar product</em> if each $g_p$ is non-degenerate.</li>
+    <li>We shall say $g$ is an <em>inner product</em> if each $g_p$ is positive definite.</li>
+  </ol>
+</div>
+
+<h2 id="pseudo-riemannian-manifolds">(Pseudo-)riemannian manifolds</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition</strong>. A <em>pseudo-riemannian manifold</em> is a pair $(M,g)$ consisting of a manifold $M$ and a smooth scalar product</p>
+
+  <p>\begin{equation}\notag
+g: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M).
+\end{equation}</p>
+
+  <p>If $g$ is an inner product, then $(M,g)$ will be called a <em>riemannian manifold</em>. In the pseudo-riemannian case, the scalar product $g$ is called the <em>pseudo-metric</em> (or <em>pseudo-metric tensor</em>) of the manifold, while it is called the <em>metric</em> (or <em>metric tensor</em>) in the riemannian case. When we do not need to mention the metric explicitly, we shall refer to just $M$ as a (pseudo-)riemannian manifold.</p>
+</div>
+
+<p>By virtue of the fact that our manifolds come embedded in euclidean space, they all have riemannian structures with particularly nice features. The existence of pseudo-riemannian structures on embedded submanifolds is a more delicate question, which we will address in the next section when we look at special examples of pseudo-riemannian manifolds called <em>lorentzian manifolds</em>.</p>
+
+<p>To obtain the riemannian structure, suppose that $M$ is a manifold embedded in $\bbr^s$. The standard euclidean inner product on $\bbr^s$ restricts to a field of inner products</p>
+
 <p>\begin{equation}\notag
-\left[\omega(X)\right](p) = h(p)^2 \left[\omega(X)\right](p) = h(p)X^i(p) \left[\omega(h \bd_i)\right](p) = 0,
+g_p: T_p(M) \otimes_\bbr T_p(M) \to \bbr.
 \end{equation}</p>
 
-<p>since $X^i(p)=0$ for each $i$. Q.E.D.</p>
-
-<p>Let’s now return to our consideration of a pre-riemannian manifold $(M,\ang{-,-})$, and the problem of obtaining the field<sup id="fnref:yup" role="doc-noteref"><a href="#fn:yup" class="footnote" rel="footnote">2</a></sup> of bilinear forms  \eqref{carpet-eqn} from the map \eqref{yuppers-eqn}:</p>
-
-<div class="highlight-box">
-  <p><strong>Theorem.</strong> Let $(M,\ang{-,-})$ be a pre-riemannian manifold. For each $p\in M$, there is a well-defined $\bbr$-linear function</p>
-
-  <p>\begin{equation}\notag
-\ang{-,-}_p : T_p(M)  \otimes_\bbr T_p(M) \to \bbr
-\end{equation}</p>
-
-  <p>such that</p>
-
-  <p>\begin{equation}\notag
-\ang{v,w}_p = \ang{X,Y}(p)
-\end{equation}</p>
-
-  <p>for all $v,w\in T_p(M)$, and where $X$ and $Y$ are vector fields in $\calx(M)$ with $X_p = v$ and $Y_p=w$.</p>
-</div>
-
-<p>Indeed, the existence of the functions $\ang{-,-}_p$ is a simple consequence of $C^\infty(M)$-linearity of $\ang{-,-}$ in each variable. I will leave it to you to demonstrate precisely how the functions $\ang{-,-}_p$ are so obtained.</p>
-
-<p>The result of this last theorem is used in the following fundamental definition:</p>
-
-<div class="highlight-box">
-  <p><strong>Definition</strong>. A <em>riemannian manifold</em> is a pre-riemannian manifold $(M,\ang{-,-})$ for which each induced bilinear form</p>
-
-  <p>\begin{equation}\label{fan1-eqn}
-\ang{-,-}_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr
-\end{equation}</p>
-
-  <p>is an inner product. In this case, the pre-metric $\ang{-,-}$ is called the <em>metric</em> (or <em>metric tensor</em>) of the riemannian manifold. When we do not need to mention the metric explicitly, we shall refer to just $M$ as a riemannian manifold.</p>
-</div>
-
-<p>With the desire to construct interesting examples of riemannian manifolds, one naturally wonders if a field of inner products \eqref{fan1-eqn} determines a metric on the manifold and thereby a riemannian structure. The answer is: <em>Almost</em>. For, if we are given the inner products \eqref{fan1-eqn}, then we may define a function</p>
-
-<p>\begin{equation}\label{fan2-eqn}
-\ang{-,-}: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to F(M),
-\end{equation}</p>
-
-<p>where $F(M)$ is the commutative $\bbr$-algebra of <em>all</em> real-valued functions $f:M \to \bbr$, not necessarily smooth. Indeed, we simply define</p>
+<p>Thus, an inner product</p>
 
 <p>\begin{equation}\notag
-\ang{X,Y}(p) = \ang{X_p,Y_p}_p
+g: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to F(M)
 \end{equation}</p>
 
-<p>for all $X,Y\in \calx(M)$ and $p\in M$. But in order for \eqref{fan2-eqn} to be a metric for a riemannian structure, we would require that its image lie in the subalgebra $C^\infty(M)$ of $F(M)$. This suggests the following definition:</p>
+<p>on the manifold is obtained, but in order to show that we have a riemannian structure, we need to show that the field $\{g_p\}_{p\in M}$ is smooth, which amounts to showing that the image of $g$ lands in the subalgebra $C^\infty(M)$ of $F(M)$.</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be a manifold. A collection of inner products</p>
-
-  <p>\begin{equation}\notag
-\ang{-,-}_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
-\end{equation}</p>
-
-  <p>one for each $p\in M$, is called <em>smooth</em> if the image of the induced map \eqref{fan2-eqn} lies in $C^\infty(M)$.</p>
-</div>
-
-<p>Therefore, if $\ang{-,-}_p$ is a <em>smooth</em> field of inner products on a manifold $M$, in the sense just defined, then we do indeed obtain a riemannian metric $\ang{-,-}$ on $M$.</p>
-
-<p>Now, by virtue of the fact that our manifolds come embedded in euclidean space, they all have riemannian structures with particularly nice features. Indeed, suppose that $M$ is a manifold embedded in $\bbr^s$. The standard euclidean inner product on $\bbr^s$ restricts to an inner product $\ang{-,-}_p$ on each tangent space $T_p(M)$. To show that we obtain a riemannian structure, we need to show that this field of inner products is smooth.</p>
-
-<div class="highlight-box">
-  <p><strong>Theorem (Embedded manifolds are riemannian).</strong> Let $M$ be a manifold. The field of inner products $\ang{-,-}_p$ that $M$ inherits from the ambient euclidean space is smooth.</p>
+  <p><strong>Theorem (Embedded manifolds are riemannian).</strong> Let $M$ be a manifold. The field of positive definite inner products $g_p$ that $M$ inherits from the ambient euclidean space is smooth.</p>
 </div>
 
 <p>Given two vector fields $X,Y\in \calx(M)$, to prove the theorem it will suffice to show that the function</p>
 
 <p>\begin{equation}\notag
-p\mapsto \ang{X,Y}(p) \defeq \ang{X_p,Y_p}_p
+p \mapsto g(X,Y)(p) \defeq g_p(X_p,Y_p)_p
 \end{equation}</p>
 
 <p>is smooth on every open parametrizable subset $U$. To do this, we first let $\bd_1,\ldots,\bd_n$ be a coordinate local frame over $U$ and write</p>
 
 <p>\begin{equation}\label{metric-coeff-eqn}
-g_{ij}(p) = \ang{\bd_i|_p,\bd_j|_p}_p
+g_{ij}(p) = g_p(\bd_i|_p,\bd_j|_p)
 \end{equation}</p>
 
 <p>for each $p\in U$. If the corresponding local parametrization on $U$ is $\phi:\bbr^n \to U$ with $\phi(x)=p$, then, in fact, we have</p>
@@ -370,24 +536,32 @@ g_{ij}(p) = \sum_{l=1}^n\frac{\bd \phi^l}{\bd x^i}(x)\frac{\bd \phi^l}{\bd x^j}(
 <p>which shows that $p\mapsto g_{ij}(p)$ is a smooth function on $U$. But then, we have</p>
 
 <p>\begin{equation}\notag
-\ang{X,Y}(p)= X^i(p)X^j(p)g_{ij}(p)
+g(X,Y)(p)= X^i(p)Y^j(p)g_{ij}(p)
 \end{equation}</p>
 
-<p>for all $p\in U$, which shows that $p\mapsto \ang{X,Y}(p)$ is smooth on $U$. Q.E.D.</p>
+<p>for all $p\in U$, which shows that $p\mapsto g(X,Y)(p)$ is smooth on $U$. Q.E.D.</p>
 
 <p>The functions \eqref{metric-coeff-eqn} in the proof are important enough to have their own name:</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be a riemannian manifold and let $U$ be an open parametrizable subset with coordinate local frame $\bd_1,\ldots,\bd_n$. For $1\leq i,j\leq n$, the functions</p>
+  <p><strong>Definition.</strong> Let $(M,g)$ be a riemannian manifold and let $U$ be an open parametrizable subset with coordinate local frame $\bd_1,\ldots,\bd_n$. For $1\leq i,j\leq n$, the smooth functions</p>
 
   <p>\begin{equation}\notag
-g_{ij}: U \to \bbr, \quad g_{ij}(p) = \ang{\bd_i|_p,\bd_j|_p}_p
+g_{ij}: U \to \bbr, \quad g_{ij}(p) = g_p(\bd_i|_p,\bd_j|_p)
 \end{equation}</p>
 
   <p>are called the <em>metric coefficients</em> (over $U$).</p>
 </div>
 
 <p>The notation $g_{ij}$ for the metric coefficients is ambiguous, since it does not specify the identity of the open parametrizable subset $U$.</p>
+
+<p>It is a common practice to write the metric coefficients in a matrix. For example, the metric coefficients of the standard euclidean product on $\bbr^3$ would be represented as</p>
+
+<p>\begin{equation}\notag
+g = \begin{bmatrix} g_{11} &amp; g_{12} &amp; g_{13} \\ g_{21} &amp; g_{22} &amp; g_{23} \\ g_{31} &amp; g_{32} &amp; g_{33} \end{bmatrix} = \begin{bmatrix}1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}.
+\end{equation}</p>
+
+<p>Of course, in this case, the metric coefficient functions $g_{ij}$ are defined on the whole of $\bbr^3$.</p>
 
 <div class="highlight-box2">
   <p><strong>Riemannian, or no?</strong>
@@ -1110,28 +1284,6 @@ X_t = (\cos{t},-\sin{t}).
 
 <p>Now, if $\gamma:[0,\pi/2] \to \bbr^3$ is a similar path</p>
 
-<h2 id="horizontal-and-vertical-subspaces">Horizontal and vertical subspaces</h2>
-
-<h2 id="curvature">Curvature</h2>
-
-<p><img src="/assets/images/curvature.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
-
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong> Let the notation be as above. Prove that</p>
-
-  <p>\begin{equation}\notag
-\dev^2\left(\nabla_X \nabla_YZ - \nabla_Y\nabla_XZ\right)_p   = Z_s - Z_t + O(\dev^3)
-\end{equation}</p>
-
-  <p>and</p>
-
-  <p>\begin{equation}\notag
-\dev^2\left(\nabla_{[X,Y]}Z\right)_p = Z_s - Z_t + O(\dev^3).
-\end{equation}</p>
-
-  <p>for all $p\in M$ and all $\dev&gt;0$.</p>
-</div>
-
 <h2 id="further-reading">Further reading</h2>
 
 <h2 id="references-and-footnotes">References and footnotes</h2>
@@ -1140,9 +1292,6 @@ X_t = (\cos{t},-\sin{t}).
   <ol>
     <li id="fn:Besse2008" role="doc-endnote">
       <p>A. L. Besse. <em>Einstein manifolds</em>. Reprint of the 1987 edition. Classics in Mathematics. Springer-Verlag, Berlin, 2008. <a href="#fnref:Besse2008" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:yup" role="doc-endnote">
-      <p>Here, I am reverting to using the word <em>field</em> to informally represent any collection of mathematical objects parametrized by the points of a manifold. <a href="#fnref:yup" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

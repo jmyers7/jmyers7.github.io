@@ -16,7 +16,7 @@ I am using the word *geometry* in a very broad sense---in particular, I am *not*
 
 The cutting-edge applications of geometry and topology to machine learning will have to come later, however. We have a good amount of preparatory work that we need to do before we can get to the research boundary. In this entirely mathematical[^foonote0] series of posts, I want to give you a glimpse into the various branches of topology and modern geometry, helping develop familiarity with some of the basic objects that appear in geometric and topological machine and deep learning.
 
-In this first post, we will begin by discussing embedded smooth manifolds, which make for a good introduction to topology due to their concreteness. We will stick with embedded manifolds for a few posts, using the ambient euclidean spaces as a concrete setting in which to learn the rudiments of the theory. Later, we will remove our reliance on the ambient euclidean spaces and consider instead general *abstract manifolds*. The theory of these more general manifolds can be much more difficult, but having learned about embedded manifolds beforehand, we will have no problems!
+In this first post, we will begin by discussing embedded smooth manifolds, which make for a good introduction to topology due to their concreteness. We will stick with embedded manifolds for a few posts, using the ambient cartesian spaces as a concrete setting in which to learn the rudiments of the theory. Later, we will remove our reliance on the ambient cartesian spaces and consider instead general *abstract manifolds*. The theory of these more general manifolds can be much more difficult, but having learned about embedded manifolds beforehand, we will have no problems!
 
 [^foonote0]: A major upside to presenting the theory in an entirely mathematical, abstract framework is that you can easily apply what you've learned in other settings (e.g., physics).
 
@@ -55,7 +55,7 @@ The entire theory that we will develop is based on the notion of smoothness. The
 for some collection of functions $\alpha^i : M \to \bbr$ ($i=1,\ldots,r$) called the *component functions* of $\alpha$.
 
 1. If $M$ is open, then $\alpha$ is called *smooth* if the partial derivatives of all orders of each component function $\alpha^i:M \to \bbr$ exist at every point $p\in M$.
-2. If $M$ is a general subset of $\bbr^s$, not necessarily open, then we shall say $\alpha$ is *smooth* if it is locally extendible at each point $p\in M$ to a smooth function on an open subset in the ambient euclidean space $\bbr^s$. Precisely, we require that each $p\in M$ has an open neighborhood $V$ in $\bbr^s$ for which there exists a smooth function $\tl{\alpha}:V\to \bbr^r$ with $\alpha = \tl{\alpha}$ on $V\cap M$.
+2. If $M$ is a general subset of $\bbr^s$, not necessarily open, then we shall say $\alpha$ is *smooth* if it is locally extendible at each point $p\in M$ to a smooth function on an open subset in the ambient cartesian space $\bbr^s$. Precisely, we require that each $p\in M$ has an open neighborhood $V$ in $\bbr^s$ for which there exists a smooth function $\tl{\alpha}:V\to \bbr^r$ with $\alpha = \tl{\alpha}$ on $V\cap M$.
 </div>
 
 For example, the function
@@ -101,7 +101,7 @@ are diffeomorphic via the map $\alpha: \bbr \to N$ with $x\mapsto (x, x^2)$. Can
 Armed with the definition of a diffeomorphism, we arrive at the main definition:
 
 <div class="highlight-box">
-**Definition.** A *smooth $n$-dimensional manifold* is a nonempty subset $M$ of an ambient euclidean space $\bbr^s$ that is locally diffeomorphic to $\bbr^n$. Precisely, we require that every $p\in M$ has an open neighborhood $V$ in $M$ for which there exists a diffeomorphism $\phi:U \to V$ with $U$ an open subset of $\bbr^n$.
+**Definition.** A *smooth $n$-dimensional manifold* is a nonempty subset $M$ of an ambient cartesian space $\bbr^s$ that is locally diffeomorphic to $\bbr^n$. Precisely, we require that every $p\in M$ has an open neighborhood $V$ in $M$ for which there exists a diffeomorphism $\phi:U \to V$ with $U$ an open subset of $\bbr^n$.
 </div>
 
 The cartoon to keep in mind is the following:
@@ -110,7 +110,7 @@ The cartoon to keep in mind is the following:
 
 Here, I've drawn $M$ as a $2$-dimensional smooth manifold (in particular, a "two-holed torus"). You should imagine that the diffeomorphism $\phi$ is "painting" a set of local coordinate axes on $M$. Though this figure only shows *one* such diffeomorphism, the definition requires that the entire manifold $M$ is covered with these local coordinate systems. In other words, no matter what point $p\in M$ I choose, there is a diffeomorphism $\phi: U \to V$ as in the figure with $p \in V$.
 
-Our smooth manifolds carry the subspace topologies from their ambient euclidean spaces, so the open neighborhood $V$ in the definition is a *relatively* open subset of $M$. A diffeomorphism $\phi$ as in the definition is called a *local parameterization* on $M$ and its inverse $\phi^{-1}:V\to U$ is called a *local coordinate system* or a *chart* on $M$. The coordinate functions $(\phi^{-1})^i:V\to \bbr$ ($i=1,\ldots,n$) are often suggestively written as
+Our smooth manifolds carry the subspace topologies from their ambient cartesian spaces, so the open neighborhood $V$ in the definition is a *relatively* open subset of $M$. A diffeomorphism $\phi$ as in the definition is called a *local parameterization* on $M$ and its inverse $\phi^{-1}:V\to U$ is called a *local coordinate system* or a *chart* on $M$. The coordinate functions $(\phi^{-1})^i:V\to \bbr$ ($i=1,\ldots,n$) are often suggestively written as
 
 <div style='overflow: scroll'>
 \begin{equation}\label{local-coord-eqn}
@@ -118,14 +118,14 @@ x^1,\ldots,x^n,
 \end{equation}
 </div>
 
-which are often (intentially) confused with the map $\phi^{-1}$ itself and called *local coordinates* or a *local coordinate system* on $M$. Given a point $p\in M$, we shall say that \eqref{local-coord-eqn} are local coordinates *near $p$* if $p$ is in the domain $V$ of the local coordinate system $\phi^{-1}$.
+which are often (intentionally) confused with the map $\phi^{-1}$ itself and called *local coordinates* or a *local coordinate system* on $M$. Given a point $p\in M$, we shall say that \eqref{local-coord-eqn} are local coordinates *near $p$* if $p$ is in the domain $V$ of the local coordinate system $\phi^{-1}$.
 
 Often we shall omit the modifier "smooth" and simply write "manifold" when we really mean "smooth manifold."
 
 As with any category of mathematical objects, it's not enough to *only* define the objects, but we also need to define the appropriate maps between them:
 
 <div class="highlight-box">
-**Definition.** A function $\alpha:M \to N$ between two manifolds $M$ and $N$ is called *smooth* if it is smooth as a function between subsets of euclidean spaces (which may not be open). A smooth function will also be called a *smooth map* or simply a *map*.
+**Definition.** A function $\alpha:M \to N$ between two manifolds $M$ and $N$ is called *smooth* if it is smooth as a function between subsets of cartesian spaces (which may not be open). A smooth function will also be called a *smooth map* or simply a *map*.
 </div>
 
 So, a typical smooth map between manifolds might look something like this:
@@ -197,10 +197,10 @@ The last part of the exercise is significant because it shows that the algebras 
 
 If the pullback operation turns a smooth map into an algebra homomorphism pointing in the "opposite direction," then the *pushforward* operation turns a smooth map into a homomorphism of vector spaces pointing the "same direction." In particular, pushforwards *also* turn topology into (linear) algebra.
 
-Pushforwards aren't really that mysterious, since they are nothing but directional derivatives with a fancy name, and you certainly know what a derivative is. So, let's begin by recalling the definition of derivatives on open sets in euclidean space:
+Pushforwards aren't really that mysterious, since they are nothing but directional derivatives with a fancy name, and you certainly know what a derivative is. So, let's begin by recalling the definition of derivatives on open sets in cartesian space:
 
 <div class="highlight-box">
-**Definition.** If $\phi:U \to \bbr^r$ is a smooth function on an open subset of a euclidean space $\bbr^s$, its *derivative at $t\in U$*, or its *pushforward at $t\in U$*, is the linear map
+**Definition.** If $\phi:U \to \bbr^r$ is a smooth function on an open subset of a cartesian space $\bbr^s$, its *derivative at $t\in U$*, or its *pushforward at $t\in U$*, is the linear map
 
 <div style='overflow: scroll'>
 \begin{equation}\notag
@@ -269,7 +269,7 @@ v = v^i \bd_{x^i}|_p,
 
 with summation over $i$ implied (from $1$ to $n$). When specific mention of the local coordinates is not necessary, we will write $\bd_i\|\_p$ in place of $\bd_{x^i}\|_p$.
 
-Now, having defined pushforwards of smooth maps defined on open subsets of euclidean spaces, we generalize to pushforwards of smooth maps between manifolds. So, let $\alpha:M \to N$ be a smooth map between manifolds, let $p\in M$, and set $q = \alpha(p)$. We may choose local parametrizations
+Now, having defined pushforwards of smooth maps defined on open subsets of cartesian spaces, we generalize to pushforwards of smooth maps between manifolds. So, let $\alpha:M \to N$ be a smooth map between manifolds, let $p\in M$, and set $q = \alpha(p)$. We may choose local parametrizations
 
 <div style='overflow: scroll'>
 \begin{equation}\notag
@@ -319,7 +319,7 @@ given as the composite[^footnote4]
 \end{equation}
 </div>
 
-Here, in writing the inverse $(\phi_{\ast t})^{-1}$, we are viewing the derivative $\phi_{\ast t}$ as an isomorphism $\bbr^n \to T_p(M)$, not simply as an injective linear map from $\bbr^n$ to the ambient euclidean space containing $M$.
+Here, in writing the inverse $(\phi_{\ast t})^{-1}$, we are viewing the derivative $\phi_{\ast t}$ as an isomorphism $\bbr^n \to T_p(M)$, not simply as an injective linear map from $\bbr^n$ to the ambient cartesian space containing $M$.
 </div>
 
 The cartoon representation of the derivative is:
@@ -344,7 +344,7 @@ The following fundamental result is proved on page 11 of ([^GP2010]):
 
 As a sanity check, can you recover the usual single-variable chain rule from this version as a special case? I suggest you try!
 
-Now, the derivative of a smooth map between *open sets* of euclidean spaces may be represented by a jacobian matrix. The same is true for smooth maps between manifolds, but in general, this matrix will depend on the choice of local coordinates. In fact, these jacobian matrices actually coincide with the jacobian matrices of the local coordinate representations as defined above. The first step to obtaining these jacobian matrices is to define partial derivatives of functions on a manifold, which *also* depend on the choice of local coordinates.
+Now, the derivative of a smooth map between *open sets* of cartesian spaces may be represented by a jacobian matrix. The same is true for smooth maps between manifolds, but in general, this matrix will depend on the choice of local coordinates. In fact, these jacobian matrices actually coincide with the jacobian matrices of the local coordinate representations as defined above. The first step to obtaining these jacobian matrices is to define partial derivatives of functions on a manifold, which *also* depend on the choice of local coordinates.
 
 <div class="highlight-box">
 **Definition.** Let $f\in C^\infty(M)$ be a smooth function on a manifold $M$ and let $\phi:U \to V$ be a local parameterization on $M$ with local coordinates $x^1,\ldots,x^n$. For each $i=1,\ldots,n$, define the *$i$-th partial derivative of $f$ relative to the $x^i$'s* to be the composite

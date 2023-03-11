@@ -30,8 +30,12 @@
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
                 Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
                 Hom: ['\\operatorname{Hom}#1', 1],
                 Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                Open: ['\\mathsf{Open}#1', 1],
+                Set: ['\\mathsf{Set}'],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
                 bbn: ['\\mathbb{N}'],
@@ -42,9 +46,11 @@
                 cala: ['\\mathcal{A}'],
                 calb: ['\\mathcal{B}'],
                 calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
                 cali: ['\\mathcal{I}'],
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
+                calo: ['\\mathcal{O}'],
                 calp: ['\\mathcal{P}'],
                 cals: ['\\mathcal{S}'],
                 calx: ['\\mathcal{X}'],
@@ -73,6 +79,7 @@
                 bfg: ['\\mathbf{g}'],
                 bfh: ['\\mathbf{h}'],
                 bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
                 dx: ['{\\ \\text{d} #1}', 1],
@@ -145,7 +152,7 @@
 
 <h2 id="prerequisites">Prerequisites</h2>
 
-<p>Of course, you’ll want to be familiar with the basic definitions, notation, and terminology in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">first post</a> of this series. In particular, our manifolds are embedded in euclidean spaces by definition, in the style of Guillemin and Pollack’s book (<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">1</a></sup>), which will make for a handy reference for this post.</p>
+<p>Of course, you’ll want to be familiar with the basic definitions, notation, and terminology in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">first post</a> of this series. In particular, our manifolds are embedded in cartesian spaces by definition, in the style of Guillemin and Pollack’s book (<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">1</a></sup>), which will make for a handy reference for this post.</p>
 
 <div id="tan-bundle">
   <h2 id="the-tangent-bundle">The tangent bundle</h2>
@@ -154,7 +161,7 @@
 <p>As a set, the tangent bundle is very easy to define. However, the tangent bundle carries an entire smooth manifold structure, which takes some time and care to define properly. While you’re working through this section, I recommend taking a peek at the <a href="#circle-tan-bundle" class="article">section</a> following this one (and its figure), which gives a concrete example of a tangent bundle.</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Suppose that $M$ is an $n$-dimensional manifold embedded in an ambient euclidean space $\bbr^r$. Then each tangent space $T_p(M)$ is also in $\bbr^r$, and it makes sense to define the <em>tangent bundle</em> as a subset of $\bbr^{2r}$ to be</p>
+  <p><strong>Definition.</strong> Suppose that $M$ is an $n$-dimensional manifold embedded in an ambient cartesian space $\bbr^r$. Then each tangent space $T_p(M)$ is also in $\bbr^r$, and it makes sense to define the <em>tangent bundle</em> as a subset of $\bbr^{2r}$ to be</p>
 
   <p>\begin{equation}\notag
 T(M) = \left\{ (p,v) \in M \times \bbr^r \mid v\in T_p(M) \right\}.
@@ -312,102 +319,70 @@ S^1_0 \defeq  \left\{ (q,0) \in T(S^1) \mid q \in S^1\right\}.
 
 <p>The example in the previous section shows that the tangent bundle $T(S^1)$ of the unit circle is, up to diffeomorphism, just the product manifold $S^1 \times \bbr$. Is this always true? If $M$ is an $n$-dimensional manifold, is the tangent bundle $T(M)$ just $M \times \bbr^n$, up to diffeomorphism? Of course, the answer must be <em>no</em>, because otherwise we would have just <em>defined</em> the tangent bundle $T(M)$ to be $M \times \bbr^n$.</p>
 
-<p>I’ll come back to this point in a moment, giving you an example of a manifold whose tangent bundle is <em>not</em> globally a product, but first I want to highlight an important property of the diffeomorphism $\alpha$ in the example of $T(S^1)$. The diffeomorphism $\alpha$ preserves the structure of both $S^1 \times \bbr$ and $T(S^1)$ as general “bundles” of vector spaces. In order to most clearly explain what I mean, it will be convenient to introduce the objects in the following definition. Before we do, however, we need to define so-called <em>disjoint unions</em>: If $\{S_i\}_{i\in I}$ is a collection of sets indexed by a set $I$, then the <em>disjoint union</em> of the $S_i$’s is</p>
-
-<p>\begin{equation}\notag
-\bigsqcup_{i\in I} S_i \defeq \bigcup_{i\in I} \{i\} \times S_i.
-\end{equation}</p>
-
-<p>In this notation, I will leave it to you to check that</p>
-
-<p>\begin{equation}\label{tan-disjoint-eqn}
-T(M) = \bigsqcup_{p\in M} T_p(M).
-\end{equation}</p>
-
-<p>Now, we come to the fundamental definition:</p>
+<p>I’ll come back to this point in a moment, giving you an example of a manifold whose tangent bundle is <em>not</em> globally a product, but first I want to highlight an important property of the diffeomorphism $\alpha$ in the example of $T(S^1)$. The diffeomorphism $\alpha$ preserves the structure of both $S^1 \times \bbr$ and $T(S^1)$ as general “bundles” of vector spaces. In order to most clearly explain what I mean, it will be convenient to introduce the objects in the following definition.</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> A <em>basic vector bundle</em> over a manifold $M$ is a set $E$ of the form</p>
+  <p><strong>Definition.</strong> A <em>set-theoretic vector bundle</em> over a set $B$ is a surjective function $\pi:E\to B$ such that for each $b\in B$, the fiber</p>
 
   <p>\begin{equation}\notag
-E = \bigsqcup_{p\in M} E_p,
+E_b \defeq \pi^{-1}(b)
 \end{equation}</p>
 
-  <p>where each $E_p$ is a vector space. Every such basic vector bundle comes equipped with the natural projection map</p>
+  <p>is an $\bbr$-vector space. If all the vector spaces $E_b$ are finite-dimensional with common dimension $k$, then $E$ is called a <em>rank-$k$ set-theoretic vector bundle</em>. The set $B$ is called the <em>base set</em>, while $E$ is called the <em>total set</em>.</p>
 
-  <p>\begin{equation}\notag
-\pi: E \to M, \quad (p,v) \mapsto p
-\end{equation}</p>
-
-  <p>whose fibers $\pi^{-1}(p)$ are the subsets $\{p\}\times E_p$. We shall often confuse the fiber $\pi^{-1}(p)$ with the vector space $E_p$, and refer to $E_p$ as a fiber of $\pi$.</p>
-
-  <p>If all the vector spaces $E_p$ are finite-dimensional with common dimension $k$, then $E$ is called a <em>rank-$k$ basic vector bundle</em>. The space $M$ is called the <em>base</em> of the basic vector bundle, while $E$ is called the <em>total space</em>.</p>
-
-  <p>If</p>
-
-  <p>\begin{equation}\notag
-E’ = \bigsqcup_{p\in M} E_p’
-\end{equation}</p>
-
-  <p>is a second basic vector bundle over $M$ with natural projection $\pi’ : E’ \to M$, then a <em>homomorphism</em> of basic vector bundles is a set-theoretic function $\alpha:E \to E’$ that restricts to a linear transformation
+  <p>If $\pi’:E’ \to B$ is a second set-theoretic vector bundle over $B$, then a <em>homomorphism</em> of set-theoretic vector bundles is a function $\alpha:E \to E’$ that restricts to a linear transformation
 \begin{equation}\notag
-\alpha|_{E_p}:E_p \to E_p’
+\alpha|_{E_b}:E_b \to E_b’
 \end{equation}</p>
 
-  <p>on each fiber. To be clear, this means that we require $\alpha(E_p) \subseteq E_p’$ for each $p\in M$, where we are identifying $E_p$ and $E_p’$ with the actual fibers $\pi^{-1}(p)$ and $(\pi’)^{-1}(p)$ as described above. Instead of writing $\alpha|_{E_p}$ for the restricted map, we shall often write $\alpha_p$ instead.</p>
+  <p>on each fiber. To be clear, this means that we require $\alpha(E_b) \subseteq E_b’$ for each $b\in B$. Instead of writing $\alpha|_{E_b}$ for the restricted map, we shall often write $\alpha_b$ instead.</p>
 
-  <p>We shall say the homomorphism $\alpha:E \to E’$ is an <em>isomorphism</em> of basic vector bundles if there is a homomorphism of basic vector bundles $\beta:E’\to E$ such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E’}$.</p>
+  <p>We shall say the homomorphism $\alpha:E \to E’$ of set-theoretic vector bundles is an <em>isomorphism</em> if there is a homomorphism of set-theoretic vector bundles $\beta:E’\to E$ such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E’}$.</p>
 </div>
 
-<p>Note immediately that, according to \eqref{tan-disjoint-eqn}, the tangent bundle $T(M)$ is a basic vector bundle.</p>
-
-<p>Why do we use the awkward modifier <em>basic</em>? The reason is, that the unqualified terminology <em>vector bundle</em> often refers to a so-called <em>locally trivial vector bundle</em>, which is a vector bundle $E$ that carries a smooth manifold structure such that the natural projection $\pi: E \to M$ is smooth, and such that $E$ is locally isomorphic to a <em>trivial</em> vector bundle. Our <em>basic vector bundles</em> serve as the underlying structure for these more complicated types of vector bundles. We will see below that the tangent bundle $T(M)$ is a particular example of a <em>locally trivial vector bundle</em>, saving a more thorough and general investigation to the next post in this series.</p>
-
-<p>Another (perhaps more descriptive) name for a <em>basic vector bundle</em> might be a <em>set-theoretic vector bundle</em>.</p>
-
-<p>A homomorphism $\alpha: E\to E’$ of basic vector bundles is completely determined by its restrictions $\alpha_p : E_p \to E_p’$ to the fibers. Indeed, the requirement that $\alpha(E_p) \subseteq E_p’$ means that $\alpha$ is described by the formula</p>
+<p>As our first example of a set-theoretic vector bundle, we consider the natural projection</p>
 
 <p>\begin{equation}\notag
-\alpha(p,v) = (p,\alpha_p(v)).
+\pi:T(M) \to M
 \end{equation}</p>
 
-<p>If $\beta:E’\to E’’$ is a second homomorphism of basic vector bundles, then the composite $\beta \circ \alpha$ looks like</p>
+<p>of the tangent bundle of a manifold $M$. The fiber of $\pi$ over a point $p\in M$ is technically the product</p>
 
 <p>\begin{equation}\notag
-(\beta \circ \alpha)(p,v) = (p,\beta(\alpha(p))).
+\{p\} \times T_p(M).
 \end{equation}</p>
 
-<p>To help make sure you understand these formulas, try your hand at the next exercise. Roughly, it shows that a homomorphism of basic vector bundles can be thought of as a “bundle” of linear transformations.</p>
+<p>However, if we identify this product with $T_p(M)$, then each fiber of $\pi$ is an $n$-dimensional vector space (provided that $M$ is $n$-dimensional). Thus, the tangent bundle is a rank-$n$ set-theoretic vector bundle.</p>
 
 <div class="highlight-box2">
   <p><strong>Exercise.</strong></p>
 
   <ol>
-    <li>Let $\alpha:E \to E’$ be an isomorphism of basic vector bundles. Prove that for each $p\in M$, the linear transformations $\alpha_p:E_p \to E_p’$ are isomorphisms of vector spaces.</li>
-    <li>Conversely, suppose that we have a collection $\{\alpha_p: E_p \to E_p’\}_{p\in M}$ of homomorphisms of vector spaces. Show that there is an homomorphism $\alpha: E \to E’$ of basic vector bundles whose restrictions to the fibers are $\alpha_p$’s. Show that if the $\alpha_p$’s are isomorphisms, then $\alpha$ is an isomorphism as well.</li>
+    <li>Let $\alpha:E \to E’$ be an isomorphism of set-theoretic vector bundles over a base set $B$. Prove that for each $b\in B$, the linear transformations $\alpha_b:E_b \to E_b’$ are isomorphisms of vector spaces.</li>
+    <li>Conversely, suppose that we have a collection $\{\alpha_b: E_b \to E_b’\}_{b\in B}$ of homomorphisms of vector spaces. Show that if the $\alpha_b$’s are isomorphisms of vector spaces, then $\alpha$ is an isomorphism of set-theoretic vector bundles.</li>
   </ol>
 </div>
 
-<p>While the result in (1.) is always true, even for basic vector bundles that carry “more structure,” the result in (2.) might fail. Thus, it’s important to realize that (2.) only applies to our <em>basic vector bundles</em>.</p>
+<p>The reason that the result in (2.) holds is because set-theoretic vector bundles carry so little structure. They are literally just indexed collections of vector spaces, and nothing more. However, we will later equip our vector bundles with more structure and demand that homomorphisms of vector bundles preserve the extra structure. In this case, the result in (2.) might fail.</p>
 
-<p>Given any manifold $M$, there’s a really easy way to manufacture a rank-$k$ basic vector bundle over $M$ by simply taking</p>
+<p>Given a set $B$, there’s a really easy way to manufacture a rank-$k$ set-theoretic vector bundle over $B$ by simply considering the natural projection</p>
 
 <p>\begin{equation}\notag
-M \times \bbr^k = \bigsqcup_{p\in M} \bbr^k.
+\pi: B \times \bbr^k \to B
 \end{equation}</p>
 
-<p>This basic vector bundle is called a <em>trivial basic vector bundle</em>.</p>
+<p>onto the first cartesian factor. Here, the fiber of $\pi$ over $b$ is technically $\{b\} \times \bbr^k$, but we can naturally identify this with $\bbr^k$, giving the fiber $\pi^{-1}(b)$ a vector space structure. This set-theoretic vector bundle is called a <em>trivial set-theoretic vector bundle</em>.</p>
 
-<p>Now, for an easy exercise:</p>
+<p>Remember, we began our considerations of set-theoretic vector bundles by trying to find the right framework in which to view the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section. The special property of $\alpha$ that we are attempting to identify is elucidated in the following exercise:</p>
 
 <div class="highlight-box2">
-  <p><strong>Exercise.</strong> Prove that the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section is an isomorphism of basic vector bundles, where we view $S^1 \times \bbr$ as the total space of the trivial rank-$1$ basic vector bundle over $S^1$.</p>
+  <p><strong>Exercise.</strong> Prove that the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section is an isomorphism of set-theoretic vector bundles, where we view $S^1 \times \bbr$ as the total set of the trivial rank-$1$ set-theoretic vector bundle over $S^1$.</p>
 </div>
 
 <p>We now come to another central definition:</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold. We shall say that the tangent bundle $T(M)$ is <em>trivial</em> if there is a diffeomorphism $\alpha: M\times \bbr^n \to T(M)$ that is also an isomorphism of basic vector bundles (here, $M\times \bbr^n$ is the total space of the trivial vector bundle). The diffeomorphism $\alpha$ is called a <em>(global) trivialization</em> of the tangent bundle, and, in this case, we shall say $M$ is <em>parallelizable</em>.</p>
+  <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold. We shall say that the tangent bundle $T(M)$ is <em>trivial</em> if there is a diffeomorphism $\alpha: M\times \bbr^n \to T(M)$ that is also an isomorphism of set-theoretic vector bundles (here, $M\times \bbr^n$ is the total set of the trivial set-theoretic vector bundle). The diffeomorphism $\alpha$ is called a <em>(global) trivialization</em> of the tangent bundle, and, in this case, we shall say $M$ is <em>parallelizable</em>.</p>
 </div>
 
 <p>Thus, we have shown that the manifold $S^1$ is parallelizable. Lest you believe that <em>all</em> manifolds are parallelizable, I offer:</p>
@@ -419,7 +394,7 @@ M \times \bbr^k = \bigsqcup_{p\in M} \bbr^k.
 \alpha: S^2 \times \bbr^2 \to T(S^2)
 \end{equation}</p>
 
-  <p>which is an isomorphism of basic vector bundles. In general, non-existence proofs are very difficult in topology, but in this case we get lucky. For <em>if</em> such a diffeomorphism $\alpha$ exists, then we consider the smooth map</p>
+  <p>which is an isomorphism of set-theoretic vector bundles. In general, non-existence proofs are very difficult in topology, but in this case we get lucky. For <em>if</em> such a diffeomorphism $\alpha$ exists, then we consider the smooth map</p>
 
   <p>\begin{equation}\notag
 X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
@@ -443,32 +418,26 @@ X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
   <h2 id="tangent-bundles-as-locally-trivial-vector-bundles">Tangent bundles as locally trivial vector bundles</h2>
 </div>
 
-<p>While not all tangent bundles are globally trivial, they are all <em>locally</em> trivial in the sense made precise in the next theorem. Before I state it, note that if $V\subseteq M$ is a nonempty open subset of a manifold $M$, then the preimage</p>
+<p>The tangent bundle $\pi:T(M)\to M$ is not just a set-theoretic vector bundle. Indeed, both $T(M)$ and $M$ are smooth manifolds, and $\pi$ is smooth, so it could rightly be called a <em>smooth vector bundle</em>.</p>
 
-<p>\begin{equation}\notag
-\pi^{-1}(V) = \left\{(p,v) \in T(M) \mid \pi(p,v) \in V\right\}
-\end{equation}</p>
+<p>The introduction of topology and manifold theory into vector bundle theory allows us to make sense of the notion of <em>local triviality</em> of vector bundles. The idea is that, while a given smooth vector bundle (like a tangent bundle) may not be trivial at the global level, it may be trivial at the local level.</p>
 
-<p>is simply the tangent bundle $T(V)$, which is an open subset of $T(M)$. The projection $\pi: T(M) \to M$ restricts to the natural smooth projection</p>
-
-<p>\begin{equation}\notag
-\pi|_{T(V)} : T(V) \to V.
-\end{equation}</p>
+<p>We will talk about general locally trivial (smooth) vector bundles in a future post; for now, however, we prove the following important result:</p>
 
 <div class="highlight-box">
-  <p><strong>Theorem.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $T(M)$. For every point $p\in M$, there is an open neighborhood $V$ of $p$ such that the tangent bundle $T(V)$ is trivial. In other words, there is a diffeomorphism</p>
+  <p><strong>Theorem.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $T(M)$. For every point $p\in M$, there is an open neighborhood $V\subseteq M$ of $p$ such that the preimage $\pi^{-1}(V)$ is a trivial smooth vector bundle. More precisely, there is a diffeomorphism</p>
 
   <p>\begin{equation}\notag
-\alpha: V \times \bbr^n \to T(V) = \pi^{-1}(V)
+\alpha: V \times \bbr^n \to \pi^{-1}(V)
 \end{equation}</p>
 
-  <p>that is also an isomorphism of basic vector bundles.</p>
+  <p>that is also an isomorphism of set-theoretic vector bundles.</p>
 </div>
 
-<p>For proof, let $\phi:U \to V$ be a local parametrization on $M$ containing $p$ in its codomain, and suppose that $\phi(t) = p$. Then we know that the global derivative</p>
+<p>For proof, let $\phi:U \to V$ be a local parametrization on $M$ containing $p$ in its codomain, and suppose that $\phi(x) = p$. Then we know that the global derivative</p>
 
 <p>\begin{equation}\notag
-\phi_\ast: T(U) \to T(V)
+\phi_\ast: T(U) \to T(V) = \pi^{-1}(V)
 \end{equation}</p>
 
 <p>serves as a local parametrization of the tangent bundle $T(M)$. Now, note that the diagram</p>
@@ -483,24 +452,22 @@ X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
 <p>commutes. Furthermore, the (smooth!) composite across the top row is given on the fibers by the map</p>
 
 <p>\begin{equation}\notag
-\{p\} \times \bbr^n \to \{p\} \times T_p(M), \quad (p,v) \mapsto (p,\phi_{\ast t}(v)),
+\{p\} \times \bbr^n \to \{p\} \times T_p(M), \quad (p,v) \mapsto (p,\phi_{\ast, x}(v)),
 \end{equation}</p>
 
 <p>which is a linear isomorphism. Q.E.D.</p>
 
-<p>Keeping the notation of the proof, take care to note the difference between the diffeomorphism $\alpha:V \times \bbr^n \to T(V)$ and the local parametrization $\phi_\ast: U \times \bbr^n \to T(V)$: The first has domain $V \times \bbr^n$, where $V$ is an open subset of the manifold $M$, where the latter has domain $U \times \bbr^n$, where $U$ is an open subset of $\bbr^n$.</p>
+<p>Keeping the notation of the proof, take care to note the difference between the diffeomorphism $\alpha:V \times \bbr^n \to \pi^{-1}(V)$ and the local parametrization $\phi_\ast: U \times \bbr^n \to \pi^{-1}(V)$: The first has domain $V \times \bbr^n$, where $V$ is an open subset of the manifold $M$, where the latter has domain $U \times \bbr^n$, where $U$ is an open subset of $\bbr^n$.</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold and $V$ an open subset of $M$. Any diffeomorphism</p>
+  <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $\pi:T(M) \to M$ and $V$ an open subset of $M$. Any diffeomorphism</p>
 
   <p>\begin{equation}\notag
-\alpha:V \times \bbr^n \to T(V)
+\alpha:V \times \bbr^n \to \pi^{-1}(V)
 \end{equation}</p>
 
-  <p>as in previous theorem, where $T(V)$ is viewed as an open subset of the tangent bundle $T(M)$, is called a <em>local trivialization</em> of $T(M)$. In this case, we also say that $T(M)$ <em>trivializes over $V$</em>.</p>
+  <p>as in previous theorem is called a <em>local trivialization</em> of the tangent bundle. In this case, we also say that the tangent bundle <em>trivializes over $V$</em>.</p>
 </div>
-
-<p>We have thus shown that, while an arbitrary tangent bundle $T(M)$ may not be globally trivial, it is always locally trivial in the sense of the theorem.</p>
 
 <div id="ref">
   <h2 id="references-and-footnotes">References and footnotes</h2>

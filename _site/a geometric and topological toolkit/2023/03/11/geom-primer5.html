@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory III&#58 spectra</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                Open: ['\\mathsf{Open}#1', 1],
+                Set: ['\\mathsf{Set}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory III: spectra</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Spectra</li>
+  <li>Further reading</li>
+  <li>References and footnotes</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="spectra">Spectra</h2>
+
+<p>Manifolds appear in physical theory as geometric objects whose points correspond to states of the (classical) systems under consideration. For example, the states of a classical hamiltonian system are encoded in a manifold called the <em>momentum phase space</em>, which is an even-dimensional manifold with local coordinates that are divided in half: the first half describes the static (generalized) positions of the constituent objects of the system, while the second half describes the dynamic (generalized) momenta of those objects. The dynamical states of the system correspond to points of the phase space manifold.</p>
+
+<p>In this paradigm, an <em>observable</em> is any smooth real-valued function of position and momentum. Thus, if the phase space is $M$, then the set of observables is precisely the commutative $\bbr$-algebra $C^\infty(M)$. The following ontological principle holds that the algebra of observables <em>completely determines</em> the system:</p>
+
+<div class="highlight-box2">
+  <p><strong>The Observability Principle.</strong> What exists is only that which can be observed.</p>
+</div>
+
+<p>In other words, there should be no more information encoded in the phase space $M$ of a dynamical system that isn’t recoverable from the algebra $C^\infty(M)$. In the other direction, since $C^\infty(M)$ is uniquely obtainable from $M$, neither should there be more information in $C^\infty(M)$ that isn’t already in $M$. Therefore, a corollary to The Observability Principle is that $M$ and $C^\infty(M)$ are entirely equivalent objects.</p>
+
+<p>The Observability Principle is certainly a bold claim, and I suspect that the philosophically minded reader might be slightly shocked to see such an assertion put forth with no supporting argument or evidence. However, regardless of what you might think of its truth in our real world, as I will explain in this section, in the purely, idealized mathematical world, <em>it is true!</em></p>
+
+<p>The mechanism which mathematically actualizes the principle is the theory of spectra. This theory is just one instance of the broader observation by mathematicians of a frequently occurring <a href="https://ncatlab.org/nlab/show/duality+between+algebra+and+geometry">duality</a> between geometry and algebra.</p>
+
+<p>In fact, if you read the previous post in this series, you have already seen a hint of spectra. In that post, the main geometric category of interest was the <em>category of pointed manifolds</em>, which has as its objects all pairs $(M,p)$ consisting of a point $p$ on a manifold $M$. However, when we proved that the space of derivations on the local ring $C^\infty_{M,p}$ was isomorphic to the Zariski tangent space, we appealed to a purely algebraic result stated in the framework of the <em>category of pointed algebras</em>. This latter category has as its objects all pairs $(A,\dev)$, where $\dev:A \to \bbr$ is a homomorphism of $\bbr$-algebras. We observed that the two categories are linked by an evident functor given by</p>
+
+<p>\begin{equation}\notag
+(M,p) \mapsto (C^\infty_{M,p},\dev_p),
+\end{equation}</p>
+
+<p>where $\dev_p: C^\infty_{M,p} \to \bbr$ was the homomorphism that evaluates a germ at the point $p$. This was our first hint of the link between points of the manifold $M$ and $\bbr$-algebra homomorphisms.</p>
+
+<p>Now, the theory of spectra can be described simply as this identification of points and homomorphisms carried to its logical conclusion. Nothing more, nothing less.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be a commutative $\bbr$-algebra. The <em>spectrum</em> of $A$, denoted $\Spec{A}$, is the set of all unital $\bbr$-algebra homomorphisms $A\to \bbr$.</p>
+</div>
+
+<p>First, I should mention that there are multiple definitions of spectra in the literature. For example, what I have written as $\Spec{A}$ is often interpreted in scheme-theoretic algebraic geometry as the <em>prime spectrum</em> of $A$, which is the set of all prime ideals of $A$. These latter types of spectra will make a brief appearance later.</p>
+
+<p>As I mentioned above, the jumping off point for the theory of spectra is the identification of geometric points with algebra homomorphisms. Thus, this theory demands that $\Spec{A}$ should be treated as a geometric object, and $A$ should be viewed as an algebra of real-valued functions on it. But, does this actually work?</p>
+
+<p>Not always.</p>
+
+<p>To see the problem, let’s suppose that we write $\Fun(\Spec{A})$ for the set of all real-valued functions $\Spec{A} \to \bbr$. Notice that $\Fun(\Spec{A})$ is a commutative $\bbr$-algebra, with respect to the evident pointwise operations. There is a natural map given by evaluation, namely</p>
+
+<p>\begin{equation}\label{func-eqn}
+\Theta: A \to \Fun(\Spec{A}), \quad \left[\Theta(f)\right](p) = p(f),
+\end{equation}</p>
+
+<p>for all $f\in A$ and all $p\in \Spec{A}$. You may easily check that $\Theta$ is a homomorphism of $\bbr$-algebras, and it is through this map that we are to view elements $f\in A$ as real-valued functions on $\Spec{A}$. However, $\Theta$ may not always provide a faithful representation of $A$ as a ring of functions, as it may not be injective.</p>
+
+<p>The algebras for which $\Theta$ <em>is</em> injective have a special name: they are called <em>geometric algebras</em>. These are algebras for which the intersection $\bigcap_{p\in \Spec{A}} \ker{p}$ is zero.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Geometric algebras have faithful representations as functions).</strong> Let $A$ be a commutative $\bbr$-algebra and suppose $\Theta$ is the natural map defined above \eqref{func-eqn}. Then $\ker{\Theta}$ is the intersection $\bigcap_{p\in \Spec{A}} \ker{p}$.</p>
+</div>
+
+<p>Since every $\ker{p}$ is a maximal ideal in $A$, it is thus easy to cook up examples of non-geometric algebras. For one special class of examples, just consider algebras that have only one maximal ideal, i.e., local algebras.</p>
+
+<p>The class of geometric algebras is closely related to the class of <a href="https://en.wikipedia.org/wiki/Semiprimitive_ring"><em>semiprimitive algebras</em></a>.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<h2 id="references-and-footnotes">References and footnotes</h2>
+
+    </article>
+    
+  </body>
+</html>

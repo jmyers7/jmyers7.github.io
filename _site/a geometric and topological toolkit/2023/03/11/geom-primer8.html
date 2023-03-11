@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>a tensorized fully-connected feed-forward network</title>
+    <title>manifolds in context&#58 curvature + spacetime</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -133,8 +133,86 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">a tensorized fully-connected feed-forward network</h1>
+  <h1 class="accent-color">manifolds in context: curvature + spacetime</h1>
 </div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Lorentzian manifolds</li>
+  <li>A first glimpse of curvature: Theorema Egregium</li>
+  <li>Further reading</li>
+  <li>References and footnotes</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<div class="highlight-box2">
+  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+</div>
+
+<h2 id="lorentzian-manifolds">Lorentzian manifolds</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $n\geq 1$ be an integer. We define <em>$(n+1)$-dimensional Minkowski space</em> to be the pair $(\bbr^{n+1},\ang{-,-})$, where</p>
+
+  <p>\begin{equation}\label{mink-met-eqn}
+\ang{-,-} : \bbr^{n1} \otimes_\bbr \bbr^{n+1} \to \bbr
+\end{equation}</p>
+
+  <p>is the function given by</p>
+
+  <p>\begin{equation}\notag
+\ang{v,w} = -v^0w^0 + \sum_{i=1}^n v^i w^i.
+\end{equation}</p>
+</div>
+
+<p>Through the identifications $\bbr^{n+1}=T_p(\bbr^{n+1})$ for each $p\in \bbr^{n+1}$, the function \eqref{mink-met-eqn} may be viewed as a field of bilinear forms over $\bbr^{n+1}$. Since each of these bilinear forms is obviously symmetric and nondegenerate (but not positive definite!), we conclude that $(n+1)$-dimensional Minkowski space is a pseudo-riemannian manifold (which isn’t riemannian!). We refer to $\ang{-,-}$ as a <em>Minkowski pseudo-metric</em>.</p>
+
+<p>Now, suppose that $M$ is a manifold embedded in $\bbr^{n+1}$. The restriction of the Minkowski pseudo-metric on $\bbr^{n+1}$ to each tangent space $T_p(M)$ yields a field of symmetric bilinear forms</p>
+
+<p>\begin{equation}\notag
+g_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
+\end{equation}</p>
+
+<p>which will place $M$ into one of the following three mutually exclusive categories:</p>
+
+<ol>
+  <li>Each $g_p$ is positive definite, for all $p\in M$. In this case, $M$ is a riemannian manifold.</li>
+  <li>Each $g_p$ is non-degenerate for all $p\in M$, but there is at least one $p\in M$ such that $g_p$ is positive indefinite. In this case, $M$ is a pseudo-riemannian manifold which is not riemannian.</li>
+  <li>There is at least one $p\in M$ such that $g_p$ is degenerate. In this case, $M$ is merely a manifold with a smooth, symmetric $2$-form.</li>
+</ol>
+
+<p>The category into which the manifold $M$ belongs describes its so-called <em>causal character</em>; these characters are given names in:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let the notation be as above. Those manifolds included in category (1.) are called <em>spacelike</em>, those in category (2.) are called <em>timelike</em>, while those in category (3.) are called <em>lightlike</em>. The timelike manifolds $M$ obtained in this way are called <em>(embedded) lorentzian manifolds</em>.</p>
+</div>
+
+<h2 id="a-first-glimpse-of-curvature-theorema-egregium">A first glimpse of curvature: Theorema Egregium</h2>
+
+<p><img src="/assets/images/curvature.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let the notation be as above. Prove that</p>
+
+  <p>\begin{equation}\notag
+\dev^2\left(\nabla_X \nabla_YZ - \nabla_Y\nabla_XZ\right)_p   = Z_s - Z_t + O(\dev^3)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+\dev^2\left(\nabla_{[X,Y]}Z\right)_p = Z_s - Z_t + O(\dev^3).
+\end{equation}</p>
+
+  <p>for all $p\in M$ and all $\dev&gt;0$.</p>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+
+<h2 id="references-and-footnotes">References and footnotes</h2>
+
 
     </article>
     

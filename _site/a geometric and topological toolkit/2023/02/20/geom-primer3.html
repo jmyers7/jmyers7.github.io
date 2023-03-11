@@ -30,8 +30,12 @@
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
                 Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
                 Hom: ['\\operatorname{Hom}#1', 1],
                 Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                Open: ['\\mathsf{Open}#1', 1],
+                Set: ['\\mathsf{Set}'],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
                 bbn: ['\\mathbb{N}'],
@@ -42,9 +46,11 @@
                 cala: ['\\mathcal{A}'],
                 calb: ['\\mathcal{B}'],
                 calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
                 cali: ['\\mathcal{I}'],
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
+                calo: ['\\mathcal{O}'],
                 calp: ['\\mathcal{P}'],
                 cals: ['\\mathcal{S}'],
                 calx: ['\\mathcal{X}'],
@@ -73,6 +79,7 @@
                 bfg: ['\\mathbf{g}'],
                 bfh: ['\\mathbf{h}'],
                 bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
                 dev: ['\\varepsilon'],
                 bd: ['\\partial'],
                 dx: ['{\\ \\text{d} #1}', 1],
@@ -164,7 +171,7 @@
   </div>
 </div>
 
-<p>But beyond merely providing a convenient language for describing tensors, there are situations where commutative algebra provides completely algebraic avatars of familiar objects. For example, the tangent space at a point on a manifold is defined (in the style we are initially following, from Guillemin and Pollack’s book) as a certain vector subspace of the ambient euclidean space in which the manifold is embedded. However, as we will see in this post, there are two(!) purely algebraic characterizations of tangent spaces in the language of commutative algebra, their primary feature being their independence of the embedding of the manifold. This opens the door to a definition of tangent spaces that applies to manifolds that are not assumed embedded (at the outset) in <em>any</em> euclidean space.</p>
+<p>But beyond merely providing a convenient language for describing tensors, there are situations where commutative algebra provides completely algebraic avatars of familiar objects. For example, the tangent space at a point on a manifold is defined (in the style we are initially following, from Guillemin and Pollack’s book) as a certain vector subspace of the ambient cartesian space in which the manifold is embedded. However, as we will see in this post, there are two(!) purely algebraic characterizations of tangent spaces in the language of commutative algebra, their primary feature being their independence of the embedding of the manifold. This opens the door to a definition of tangent spaces that applies to manifolds that are not assumed embedded (at the outset) in <em>any</em> cartesian space.</p>
 
 <p>All the geometric objects that we shall consider—including tensors—will be <em>smooth</em>, in some appropriate sense. But no matter how it is defined, <em>smoothness</em> of an object at a point on a manifold is always a local property, in the sense that it depends only on the behavior of the object in an arbitrary open neighborhood of the point, i.e., smoothness in one neighborhood implies smoothness in them all. Thus, smooth global objects defined on the entire manifold may be restricted to smooth objects defined on open submanifolds. A common problem is to reverse this <em>restriction process</em> to the corresponding <em>extension process</em>:</p>
 
@@ -196,7 +203,7 @@
 <p>The geometric and topological prerequisites are contained in the first two posts of this series (<a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">here</a>, and <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">here</a>). These posts, in turn, are based on Guillemin and Pollack’s book (<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">1</a></sup>), from which we take our initial definition of a manifold. Thus, it seems appropriate to make the global proclamation:</p>
 
 <div class="highlight-box2">
-  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+  <p>In this post, we continue to assume that our manifolds are embedded in an ambient cartesian space, in the style of Guillemin and Pollack’s book.</p>
 </div>
 
 <p>Besides linear algebra, the algebraic prerequisites include a familiarity with the following objects:</p>
@@ -218,7 +225,7 @@
   <h2 id="vector-fields">Vector fields</h2>
 </div>
 
-<p>We begin by giving a definition of smooth vector fields that leverages the ambient euclidean space.</p>
+<p>We begin by giving a definition of smooth vector fields that leverages the ambient cartesian space.</p>
 
 <div class="highlight-box">
   <p><strong>Definition.</strong> Let $M$ be a manifold embedded in $\bbr^s$. A <em>vector field</em> on $M$ is a function $X: M \to \bbr^s$ such that $X(p)\in T_p(M)$ for all $p\in M$. We shall say $X$ is a <em>smooth vector field</em> if the function $X$ is smooth.</p>
@@ -262,7 +269,7 @@
   </ol>
 </div>
 
-<p>Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient euclidean space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.</p>
+<p>Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient cartesian space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.</p>
 
 <p>Every manifold $M$ has a distinguished smooth vector field $X_0: M \to T(M)$, called the <em>zero section</em> of the tangent bundle, which maps $p\mapsto (p,0)$. It is easy to see that $X_0$ embeds $M$ diffeomorphically onto the submanifold</p>
 
@@ -474,7 +481,7 @@ for all $i,j\in I$. Prove that there is a (necessarily unique!) vector field $X\
   <h2 id="tangent-vectors-and-vector-fields-as-derivations">Tangent vectors and vector fields as derivations</h2>
 </div>
 
-<p>Let’s move on to an algebraic description of tangent vectors and vector fields. We essentially have two definitions of a vector field $X$ on a manifold $M$: On the one hand, it is a certain type of smooth map from $M$ to the ambient euclidean space containing the manifold, while on the other hand it may be viewed as a (smooth) section of the tangent bundle $T(M)$. I will give a third definition in this section, and it rests on the observation that a tangent vector $v\in T_p(M)$ “acts” on a function $f\in C^\infty(U)$ defined over an open neighborhood $U$ of $p$ by</p>
+<p>Let’s move on to an algebraic description of tangent vectors and vector fields. We essentially have two definitions of a vector field $X$ on a manifold $M$: On the one hand, it is a certain type of smooth map from $M$ to the ambient cartesian space containing the manifold, while on the other hand it may be viewed as a (smooth) section of the tangent bundle $T(M)$. I will give a third definition in this section, and it rests on the observation that a tangent vector $v\in T_p(M)$ “acts” on a function $f\in C^\infty(U)$ defined over an open neighborhood $U$ of $p$ by</p>
 
 <div style="overflow: scroll">
   <p>\begin{equation}\notag

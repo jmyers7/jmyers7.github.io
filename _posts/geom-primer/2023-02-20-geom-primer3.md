@@ -41,7 +41,7 @@ All tensor fields over a manifold may be defined as *global sections* of certain
 </div>
 </div>
 
-But beyond merely providing a convenient language for describing tensors, there are situations where commutative algebra provides completely algebraic avatars of familiar objects. For example, the tangent space at a point on a manifold is defined (in the style we are initially following, from Guillemin and Pollack's book) as a certain vector subspace of the ambient euclidean space in which the manifold is embedded. However, as we will see in this post, there are two(!) purely algebraic characterizations of tangent spaces in the language of commutative algebra, their primary feature being their independence of the embedding of the manifold. This opens the door to a definition of tangent spaces that applies to manifolds that are not assumed embedded (at the outset) in *any* euclidean space.
+But beyond merely providing a convenient language for describing tensors, there are situations where commutative algebra provides completely algebraic avatars of familiar objects. For example, the tangent space at a point on a manifold is defined (in the style we are initially following, from Guillemin and Pollack's book) as a certain vector subspace of the ambient cartesian space in which the manifold is embedded. However, as we will see in this post, there are two(!) purely algebraic characterizations of tangent spaces in the language of commutative algebra, their primary feature being their independence of the embedding of the manifold. This opens the door to a definition of tangent spaces that applies to manifolds that are not assumed embedded (at the outset) in *any* cartesian space.
 
 All the geometric objects that we shall consider---including tensors---will be *smooth*, in some appropriate sense. But no matter how it is defined, *smoothness* of an object at a point on a manifold is always a local property, in the sense that it depends only on the behavior of the object in an arbitrary open neighborhood of the point, i.e., smoothness in one neighborhood implies smoothness in them all. Thus, smooth global objects defined on the entire manifold may be restricted to smooth objects defined on open submanifolds. A common problem is to reverse this *restriction process* to the corresponding *extension process*:
 
@@ -69,7 +69,7 @@ We shall have occasion in this and later posts to use the rudiments of *category
 The geometric and topological prerequisites are contained in the first two posts of this series ([here]({% post_url /geom-primer/2023-01-17-geom-primer1 %}), and [here]({% post_url /geom-primer/2023-01-18-geom-primer2 %})). These posts, in turn, are based on Guillemin and Pollack's book ([^GP2010]), from which we take our initial definition of a manifold. Thus, it seems appropriate to make the global proclamation:
 
 <div class="highlight-box2">
-In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack's book.
+In this post, we continue to assume that our manifolds are embedded in an ambient cartesian space, in the style of Guillemin and Pollack's book.
 </div>
 
 Besides linear algebra, the algebraic prerequisites include a familiarity with the following objects:
@@ -85,11 +85,28 @@ Though it will be helpful to have seen the definition of *category* and *functor
 
 I fear that the reader may initially balk at the rather demanding and intimidating algebraic prerequisites (which certainly extend beyond the material in a typical undergraduate mathematics degree), but I would assure them that the algebraic material is no more difficult to learn and master than smooth manifold theory.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="vector">
 ## Vector fields
 </div>
 
-We begin by giving a definition of smooth vector fields that leverages the ambient euclidean space.
+We begin by giving a definition of smooth vector fields that leverages the ambient cartesian space.
 
 <div class="highlight-box">
 **Definition.** Let $M$ be a manifold embedded in $\bbr^s$. A *vector field* on $M$ is a function $X: M \to \bbr^s$ such that $X(p)\in T_p(M)$ for all $p\in M$. We shall say $X$ is a *smooth vector field* if the function $X$ is smooth.
@@ -130,7 +147,7 @@ be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$
 for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.
 </div>
 
-Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient euclidean space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.
+Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient cartesian space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.
 
 Every manifold $M$ has a distinguished smooth vector field $X_0: M \to T(M)$, called the *zero section* of the tangent bundle, which maps $p\mapsto (p,0)$. It is easy to see that $X_0$ embeds $M$ diffeomorphically onto the submanifold
 
@@ -200,6 +217,22 @@ You will prove this theorem, among other things, in:
 such that $\bd_1,\ldots,\bd_n$ is a smooth local frame over $U$. This local frame is called a *coordinate local frame*, and the function $\bd_i$ is called a *coordinate (local) section* or *coordinate (local) vector field*.
 3. Let $M$ be an $n$-dimensional manifold and $U\subseteq M$ an open set. Prove that a smooth local frame over $U$ exists if and only if $T(M)$ trivializes over $U$.
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="sheaves">
 ## A first glimpse of sheaves
@@ -329,11 +362,29 @@ While a given projective module may not be free, it still shares several importa
 
 Again, the importance of this result will become apparent in a later post when we talk about tensor fields. We will not prove the theorem in this series of posts; see, however, the section on <a href="#further-reading">Further Reading</a>.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="der">
 ## Tangent vectors and vector fields as derivations
 </div>
 
-Let's move on to an algebraic description of tangent vectors and vector fields. We essentially have two definitions of a vector field $X$ on a manifold $M$: On the one hand, it is a certain type of smooth map from $M$ to the ambient euclidean space containing the manifold, while on the other hand it may be viewed as a (smooth) section of the tangent bundle $T(M)$. I will give a third definition in this section, and it rests on the observation that a tangent vector $v\in T_p(M)$ "acts" on a function $f\in C^\infty(U)$ defined over an open neighborhood $U$ of $p$ by
+Let's move on to an algebraic description of tangent vectors and vector fields. We essentially have two definitions of a vector field $X$ on a manifold $M$: On the one hand, it is a certain type of smooth map from $M$ to the ambient cartesian space containing the manifold, while on the other hand it may be viewed as a (smooth) section of the tangent bundle $T(M)$. I will give a third definition in this section, and it rests on the observation that a tangent vector $v\in T_p(M)$ "acts" on a function $f\in C^\infty(U)$ defined over an open neighborhood $U$ of $p$ by
 
 <div style='overflow: scroll'>
 \begin{equation}\notag
@@ -801,6 +852,24 @@ Thus, we may as well assume that $M$ has a global coordinate system. But then, t
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="cotangent">
 ## An interlude on cotangent spaces
 </div>
@@ -879,6 +948,24 @@ Let $(M,p)$ be a pointed manifold and suppose $x^1,\ldots,x^n$ are local coordia
 </div>
 
 In particular, the differentials $dx^1_p,\ldots,dx^n_p$ form a basis of the cotangent space $T_p^\ast(M)$. They are called *coordinate covectors*.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="zariski">
 ## Zariski co/tangent spaces and a summary of the five fundamental functors
@@ -1237,6 +1324,17 @@ T_p(M) \xrightarrow{\Omega_{M,p}} (\mfm_{M,p}/\mfm_{M,p}^2)^\ast \xrightarrow{\P
 is equal to $\Theta_{M,p}$.
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
 <div id="further-reading">
 ## Further reading
 </div>
@@ -1246,6 +1344,20 @@ Just how far can the algebraic treatment of smooth manifolds be pushed? To see h
 The version of "Taylor's Theorem" that I refer to in this post may be found in Lee's comprehensive book ([^Lee2013]), though do also check out Nestruev's book for a related result and the <a href="https://ncatlab.org/nlab/show/Hadamard+lemma">link</a> to the nLab.
 
 As I mentioned in the introduction, algebra and geometry become truly equivalent in scheme-theoretic algebraic geometry. Here, the standard reference in the field is, of course, Hartshorne's book ([^Hartshorne1977]). However, I don't think this book is well-suited for an introduction to algebraic geometry. Instead, I would recommend one of my favorite texts, Kunz's book ([^Kunz2013]). You will also find a very nice treatment of projective modules in this last reference.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="ref">
 ## References and footnotes

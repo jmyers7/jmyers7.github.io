@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory IV&#58 vector bundles</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                Open: ['\\mathsf{Open}#1', 1],
+                Set: ['\\mathsf{Set}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory IV: vector bundles</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Locally trivial vector bundles</li>
+  <li>Construction lemmas</li>
+  <li>Operations on vector bundles</li>
+  <li>Cotangent and normal bundles</li>
+  <li>Some fundamental natural isomorphisms</li>
+  <li>Tensor fields</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="locally-trivial-vector-bundles">Locally trivial vector bundles</h2>
+
+<p>If $M$ is a manifold, we saw <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier</a> that the tangent bundle $T(M)$ is <em>locally trivial</em>, in the sense that $M$ is covered by open sets $V$ such that there is a local trivialization</p>
+
+<p>\begin{equation}\notag
+\alpha: V \times \bbr^n \to \pi^{-1}(V).
+\end{equation}</p>
+
+<p>Here, $\pi$ is the natural smooth projection map $\pi:T(M) \to M$, and to say that $\alpha$ is a <em>local trivialization</em> means that it is a diffeomorphism of smooth manifolds which restricts to a linear isomorphism on each fiber. These considerations inspire and motivate the following abstract structure:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>locally trivial vector bundle</em> is a surjective smooth map $\pi:E \to B$ of smooth manifolds with the following properties:</p>
+
+  <ol>
+    <li>The map $\pi$ is a set-theoretic vector bundle, so that each fiber $E_b = \pi^{-1}(b)$ is an $\bbr$-vector space.</li>
+    <li>The manifold $B$ is covered in open sets $V$ such that there is a diffeomorphism
+ \begin{equation}\notag
+ \alpha: V \times \bbr^k \to \pi^{-1}(V)
+ \end{equation}
+which is also a homomorphism of set-theoretic vector bundles over $V$. Here, $V\times \bbr^k$ is viewed as the total set of the trivial set-theoretic vector bundle with base $V$. Such a diffeomorphism $\alpha$ is called a <em>local trivialization</em> (over $V$).</li>
+  </ol>
+
+  <p>If each vector space $E_b$ has a fixed (finite) dimension $k$, then $\pi$ is called a <em>rank-$k$</em> locally trivial vector bundle.</p>
+
+  <p>A <em>homomorphism</em> of locally trivial vector bundles is a homomorphism of set-theoretic vector bundles which is also smooth; an <em>isomorphism</em> of locally trivial vector bundles is a bijective homomorphism of locally trivial vector bundles whose set-theoretic inverse is also a homomorphism of locally trivial vector bundles.</p>
+</div>
+
+<p>Since locally trivial vector bundles will be the primary types of vector bundles we will consider henceforth, we will often drop the modifier “locally trivial” and simply refer to <em>vector bundles</em>. Also, though technically we have defined a vector bundle to be a certain type of surjective map $\pi:E \to B$, we will often refer to the total set $E$ as the vector bundle. Finally, in the locally trivial case, the base set $B$ and total set $E$ are often called the <em>base space</em> and <em>total space</em>.</p>
+
+<p>One of the most important and useful properties of homomorphisms of locally trivial vector bundles is that the isomorphism property may be tested locally on the fibers. Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Local Criterion for Vector Bundle Isomorphisms.</strong> Let $\alpha: E \to E’$ be a homomorphism of rank-$k$ vector bundles over a common base space $B$. Then $\alpha$ is an isomorphism of vector bundles if and only if each induced map $\alpha_b:E_b \to E’_b$ on the fibers is a linear isomorphism.</p>
+</div>
+
+<p>I suggest that you attempt to prove this theorem on your own. You will see that the local triviality of the vector bundles is used in a crucial way. You may then use the criterion to prove:</p>
+
+<div class="highlight-box">
+  <p><strong>Topological Criterion for Vector Bundle Isomorphisms.</strong> Let $\alpha: E\to E’$ be a homomorphism of rank-$k$ vector bundles over a common base space $B$. Then $\alpha$ is an isomorphism of vector bundles if and only if it is a diffeomorphism of smooth manifolds.</p>
+</div>
+
+<h2 id="sections-and-sheaves">Sections and sheaves</h2>
+
+<p>In this section we study smooth sections of (locally trivial) vector bundles. We have already seen examples of these gadgets in two places: (1) One guise of smooth vector fields on a manifold is as smooth (global) sections of the tangent bundle, and (2) smooth sections of the trivial vector bundle $M \times \bbr \to M$ are exactly smooth functions on $M$. Indeed, we covered (1) in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>, while to verify that claim (2) is true, we note that a smooth map $\sigma: M \to M \times \bbr$ of the form</p>
+
+<p>\begin{equation}\notag
+\sigma(p) = (p,f(p))
+\end{equation}</p>
+
+<p>is uniquely determined by the smooth function $f\in C^\infty(M)$. In general, the definition is as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to B$ be a rank-$k$ vector bundle and $U\subseteq B$ a nonempty open set. A <em>local section</em> of the vector bundle over $U$ is a function $\sigma:U\to E$ such that $\pi\circ \sigma = \id_U$. We shall say $\sigma$ is a <em>smooth local section</em> if it is a smooth map between manifolds.</p>
+
+  <p>We write $\Gamma’(U,E)$ for the set of all local sections over $U$, and $\Gamma(U,E)$ for the subset of smooth local sections. If the vector bundle $E$ is clear from context, we will write $\Gamma’(U)$ and $\Gamma(U)$ in place of $\Gamma’(U,E)$ and $\Gamma(U,E)$. Sections in $\Gamma’(B)$ and $\Gamma(B)$ are called <em>global sections</em> and <em>smooth global sections</em>, respectively.</p>
+
+  <p>We will often write the functional value $\sigma(b) \in E_b$ of a section as $\sigma_b$. If the section happens to have an index, like $\sigma_i$, then we will write $\sigma_i|_b$ in place of $(\sigma_i)_b$.</p>
+</div>
+
+<p>A smoothly varying collection of bases of the fibers of a vector bundle is called a <em>smooth local frame</em>, which is terminology that you should recognize from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields. Officially:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to B$ be a rank-$k$ vector bundle and $U\subseteq B$ a nonempty open set. Then a collection of smooth local sections $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ is called a <em>smooth local frame</em> over $U$ if</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1|_b,\ldots,\vartheta_k|_b \in E_b
+\end{equation}</p>
+
+  <p>is a basis for all $b\in U$.</p>
+</div>
+
+<p>One of the main uses of smooth local frames is to test for smoothness of general sections. For this, it will be convenient to know that the “change of basis” between two sets of smooth local frames is itself smooth:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Change of basis between local frames is smooth).</strong> Let $\pi:E \to B$ be a rank-$k$ vector bundle and $U\subseteq B$ a nonempty open set. Suppose that we have two smooth local frames over $U$, namely</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \quad \text{and} \quad \vartheta_1’ ,\ldots,\vartheta_k’.
+\end{equation}</p>
+
+  <p>Then for each $b\in U$, there are unique scalars $A(b)^j_i \in \bbr$ such that</p>
+
+  <p>\begin{equation}\notag
+\vartheta_i |_b = A(b)^j_i \vartheta_j|_b,
+\end{equation}</p>
+
+  <p>with summation over $j$ implied on the right-hand side. Then, for each $i$ and $j$, the function $b\mapsto A(b)^j_i$ is a smooth real-valued function on $U$.</p>
+</div>
+
+<p>The scalars $A(b)^j_i$ assemble together to form a $k\times k$ matrix $A(b)$ whose $(i,j)$-th entry is $A(b)^j_i$. Indeed, this is simply a change of basis matrix. But by Cramer’s Rule, the scalars $A(b)^j_i$ are rational functions of</p>
+
+<p>Let $\pi:E \to B$ be a rank-$k$ vector bundle. Given two local sections $\sigma,\tau\in \Gamma’(U)$, we define their <em>sum</em>, denoted $\sigma+\tau$, via the formula</p>
+
+<p>\begin{equation}\notag
+(\sigma+\tau)_b = \sigma_b + \tau_b,
+\end{equation}</p>
+
+<p>where the sum on the right-hand side occurs in the vector space $E_b$. If $f\in F(U)$ is a function, we define the <em>product</em> of $f$ and $\sigma$, denoted $f\sigma$, via the formula</p>
+
+<p>\begin{equation}\notag
+(f\sigma)_b = f(b) \sigma_b,
+\end{equation}</p>
+
+<p>where the product on the right-hand side occurs in the vector space $E_b$. Using the smooth local frames and component functions constructed above, I will leave you to prove the smoothness of these operations:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Sets of sections are modules).</strong> Let the notation be as above. If $\sigma$, $\tau$, and $f$ are smooth, then so are $\sigma + \tau$ and $f\sigma$. With respect to these operations, the set $\Gamma’(U)$ is a $F(U)$-module, and $\Gamma(U)$ is a $C^\infty(U)$-module.</p>
+</div>
+
+<p>One convenient corollary of the module structure on sections is given in the following result, where we formally re-state the smoothness criterion given above in terms of local component functions:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Component functions of sections).</strong>
+Let $\pi:E \to B$ be a rank-$k$ vector bundle and $\sigma\in \Gamma(B)$ a global section. For each trivializing open set $U\subseteq B$ and each smooth local frame $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$, there are unique <em>local component functions</em> $\sigma^1,\ldots,\sigma^k \in F(U)$ such that</p>
+
+  <p>\begin{equation}\notag
+\sigma = \sigma^i \vartheta_i,
+\end{equation}</p>
+
+  <p>with summation over $i$ implied. Here, the sum and products are with respect to the $F(U)$-module structure on $\Gamma’(U)$. Then $\sigma$ is smooth if and only if</p>
+
+  <p>for some unique collection of . Then $\sigma$ is smooth if and only if $B$ may be covered in trivializing open sets $U$ such that the local component functions $\sigma^1,\ldots,\sigma^k$</p>
+
+  <p>and suppose it trivializes over an open set $U$ with smooth local frame $\tau_1,\ldots,\tau_k\in \Gamma(U)$. Then, given a smooth section $\sigma \in \Gamma(U)$, there is a unique collection of smooth <em>component functions</em> $\sigma^1,\ldots,\sigma^k \in C^\infty(U)$ such that</p>
+
+  <p>with summation over $i$ implied.</p>
+</div>
+
+<p>Given a manifold $M$, we recall that we prove the assignments $U \mapsto C^\infty(U)$ and $U \mapsto \calx(U)$ are examples of sheaves in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>. Had we known at the time that both $C^\infty(U)$ and $\calx(U)$ could be viewed as smooth local sections of certain vector bundles, then we could have applied the following general result to knock out both proofs at once:</p>
+
+<div class="highlight-box2">
+  <p><strong>Exericse.</strong> Let $\pi:E \to B$ be a rank-$k$ vector bundle. Given nonempty open subsets $U$ and $V$ of $B$ with $U\subseteq V$, we define the <em>restriction map</em></p>
+
+  <p>\begin{equation}\notag
+\rho^V_U: \Gamma(V) \to \Gamma(U)
+\end{equation}</p>
+
+  <p>by setting $\rho^V_U(\sigma) = \sigma|_U$. Then:</p>
+
+  <ol>
+    <li>Prove that the map $\rho^V_U$ is $C^\infty(V)$-linear, where $\Gamma(U)$ is given a $C^\infty(V)$-module structure by restricting scalars along the restriction map $C^\infty(V) \to C^\infty(U)$.</li>
+    <li>If $U$ is an open set in $B$, prove that the restriction map $\rho^U_U$ is the identity map on $\Gamma(U)$.</li>
+    <li>If $U\subseteq V \subseteq W$ are open subsets of $B$, prove that
+ \begin{equation}\notag
+ \rho^W_U = \rho^{V}_U\circ \rho^W_V.
+ \end{equation}</li>
+    <li>Suppose $U$ is an open subset of $B$, and that $\{U_i\}_{i\in I}$ is an open cover of $U$. Prove that if $\sigma,\tau\in \Gamma(U)$ and $\rho^U_{U_i}(\sigma) = \rho^U_{U_i}(\tau))$ for all $i\in I$, then $\sigma=\tau$ as sections in $\Gamma(U)$.</li>
+    <li>Continuing with the open cover $\{U_i\}$ from the previous part, suppose that for each $i\in I$ we have a section $\sigma_i \in \Gamma(U_i)$. Suppose further that the $\sigma_i$’s agree on overlaps, in the sense that
+ \begin{equation}\notag
+ \rho^{U_i}_{U_i\cap U_j}(\sigma_i) = \rho^{U_j}_{U_i\cap U_j} (\sigma_j)
+ \end{equation}
+for all $i,j\in I$. Prove that there is a (necessarily unique!) section $\sigma\in \Gamma(U)$ such that $\rho^U_{U_i}(\sigma) = \sigma_i$ for all $i\in I$.</li>
+  </ol>
+</div>
+
+<h2 id="construction-lemmas">Construction lemmas</h2>
+
+<p>It will be very important for us to be able to construct vector bundles and homomorphisms between them efficiently. In order to do this, we will first begin by identifying the sorts of <em>necessary</em> structures that come along with vector bundles and homomorphisms, and then show that these structures are actually <em>sufficient</em> to construct such objects.</p>
+
+<p>Let’s begin with homomorphisms. If $E$ and $F$ are two vector bundles (say, of rank $m$ and $n$, respectively), then a homomorphism $\alpha:E \to F$ is at the most basic level just a collection</p>
+
+<p>\begin{equation}\label{hom-eqn}
+\{\alpha_p: E_p \to F_p\}_{p\in M}
+\end{equation}</p>
+
+<p>of linear transformations of vector spaces, parametrized by the points of $M$. However, the collection \eqref{hom-eqn} is not completely arbitrary, since the maps must assemble together to yield a <em>smooth</em> map. This is a non-trivial condition on the maps in \eqref{hom-eqn}.</p>
+
+<p>In detail, suppose that we select an open set $V$ of $M$ over which both $E$ and $F$ trivialize. If we let $\pi_E$ and $\pi_F$ be the natural projection maps, then we have local trivializations</p>
+
+<p>\begin{equation}\notag
+\phi: V \times \bbr^m \to \pi_E^{-1}(V) \quad \text{and} \quad \psi: V\times \bbr^n \to \pi_F^{-1}(V).
+\end{equation}</p>
+
+<p>Then, the composite map</p>
+
+<p>\begin{equation}\notag
+V \times \bbr^m \xrightarrow{\phi} \pi_E^{-1}(V) \xrightarrow{\alpha} \pi_F^{-1}(V) \xrightarrow{\psi^{-1}} V \times \bbr^n
+\end{equation}</p>
+
+<p>is given by</p>
+
+<p>\begin{equation}\notag
+(p,v) \mapsto \left(p, \left(\psi^{-1}_p \circ \alpha_p \circ \phi_p\right)(v)\right),
+\end{equation}</p>
+
+<p>which shows that the map</p>
+
+<p>Let $M$ be a manifold. If for each $p\in M$ we have a vector space $E_p$ of fixed dimension $k$, then by setting</p>
+
+<p>\begin{equation}\notag
+E = \bigsqcup_{p\in M} E_p
+\end{equation}</p>
+
+<p>we obtain a basic vector bundle over $M$. However, more structure is needed if we want $E$ to form a (locally trivial) vector bundle.</p>
+
+<p>In particular, we need the maps that will serve as local trivializations. So, we suppose that $M$ is covered by open sets $V_i$ for which there are isomorphisms</p>
+
+<p>\begin{equation}\notag
+\alpha_i: V_i \times \bbr^k \to \pi^{-1}(V_i)
+\end{equation}</p>
+
+<p>of basic vector bundles. We could then topologize $E$ by equipping it with the coarsest topology for which each of the $\alpha_i$’s is a homeomorphism onto its image, but this isn’t enough to give $E$ a smooth structure. For this, one last condition is required, which is given as part (3.) in the following lemma:</p>
+
+<div class="highlight-box">
+  <p><strong>Vector Bundle Construction Lemma.</strong> Let $M$ be a manifold, and suppose that for each $p\in M$ we have a vector space $E_p$ of fixed dimension $k$. Set</p>
+
+  <p>\begin{equation}\notag
+E = \bigsqcup_{p\in M} E_p
+\end{equation}</p>
+
+  <p>and let $\pi:E \to M$ be the natural projection. Suppose further that we are given:</p>
+
+  <ol>
+    <li>An open cover $\{V_i\}$ of $M$.</li>
+    <li>For each $i$, an isomorphism
+ \begin{equation}\notag
+ \alpha_i: V_i \times \bbr^k \to \pi^{-1}(V_i)
+ \end{equation}
+of basic vector bundles over $V_i$.</li>
+    <li>For each pair of overlapping open sets $V_i$ and $V_j$, a smooth map
+ \begin{equation}\notag
+ \tau_{ji}: V_i \cap V_j \to \Aut{\bbr^k}
+ \end{equation}
+such that homomorphism $\alpha_j^{-1} \circ \alpha_i$ of basic vector bundles (over $V_i \cap V_j$) on the fiber over $p$ is given by
+ \begin{equation}\notag
+ v \mapsto \tau_{ji}(p)(v),
+ \end{equation}
+for all $p\in V_i \cap V_j$.</li>
+  </ol>
+</div>
+
+<h2 id="operations-on-vector-bundles">Operations on vector bundles</h2>
+
+<h2 id="cotangent-and-normal-bundles">Cotangent and normal bundles</h2>
+
+    </article>
+    
+  </body>
+</html>
