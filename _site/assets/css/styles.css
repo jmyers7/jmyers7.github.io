@@ -30,7 +30,9 @@ p { color: #e0e0e0; font-family: 'Lora', serif; }
 
 .projects-page p { color: white; font-family: 'IBM Plex Mono', monospace; width: 75%; margin: 0 auto 60px auto; font-size: 1.23em; }
 
-.about-page p { color: white; font-family: 'IBM Plex Mono', monospace; width: 75%; margin: 110px auto; }
+.about-page p { color: white; font-family: 'IBM Plex Mono', monospace; width: 75%; margin: 10px auto; }
+
+.who p { margin: 110px auto 10px; }
 
 .viz-page { text-align: center; margin-top: 100px; }
 

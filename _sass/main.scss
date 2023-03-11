@@ -97,7 +97,11 @@ p {
   color: white;
   font-family: 'IBM Plex Mono', monospace;
   width: 75%;
-  margin: 110px auto;
+  margin: 10px auto;
+}
+
+.who p {
+  margin: 110px auto 10px;
 }
 
 .viz-page {
@@ -247,7 +251,6 @@ mjx-container[jax="SVG"] > svg a[href] {
   fill: #e0e0e0;
   stroke: #e0e0e0;
 }
-
 
 .about-page a {
   color: #486AFB;
