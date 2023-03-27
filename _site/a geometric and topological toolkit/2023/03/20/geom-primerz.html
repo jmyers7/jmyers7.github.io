@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>the algebraic theory V&#58 metrics + connections</title>
+    <title>sandbox</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -32,12 +32,22 @@
                 Aut: ['\\operatorname{Aut}#1', 1],
                 Spec: ['\\operatorname{Spec}#1', 1],
                 Hom: ['\\operatorname{Hom}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
                 Der: ['\\operatorname{Der}#1', 1],
                 Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
                 Open: ['\\mathsf{Open}#1', 1],
                 Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                Sh: ['\\mathsf{Sh}'],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
+                bbe: ['\\mathbb{E}'],
                 bbn: ['\\mathbb{N}'],
                 bbp: ['\\mathbb{P}'],
                 bbq: ['\\mathbb{Q}'],
@@ -45,11 +55,13 @@
                 bbz: ['\\mathbb{Z}'],
                 cala: ['\\mathcal{A}'],
                 calb: ['\\mathcal{B}'],
+                cale: ['\\mathcal{E}'],
                 calf: ['\\mathcal{F}'],
                 calg: ['\\mathcal{G}'],
                 cali: ['\\mathcal{I}'],
                 call: ['\\mathcal{L}'],
                 calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
                 calo: ['\\mathcal{O}'],
                 calp: ['\\mathcal{P}'],
                 cals: ['\\mathcal{S}'],
@@ -133,27 +145,646 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">the algebraic theory V: metrics + connections</h1>
+  <h1 class="accent-color">sandbox</h1>
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
 <ol>
-  <li>Forms and fields</li>
-  <li>(Pseudo-)riemannian manifolds</li>
-  <li>Gradients</li>
-  <li>Levi-Civita connections</li>
-  <li>Abstract connections and the Fundamental Theorem of Riemannian Geometry</li>
-  <li>Parallel transport and geodesics</li>
-  <li>Further reading</li>
-  <li>References and footnotes</li>
+  <li>Locally trivial vector bundles</li>
+  <li>Locally free sheaves</li>
+  <li>Equivalence</li>
+  <li>Sections and sheaves</li>
+  <li>Construction lemmas</li>
+  <li>Pullbacks</li>
+  <li>Direct sums, duals, and tensor products</li>
+  <li>Derivatives in vector bundles: connections</li>
+  <li>Connections on direct sums</li>
 </ol>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
-<div class="highlight-box2">
-  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+<h2 id="locally-trivial-vector-bundles">Locally trivial vector bundles</h2>
+
+<p>If $M$ is a manifold, we saw <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier</a> that the tangent bundle $T(M)$ is <em>locally trivial</em>, in the sense that $M$ is covered by open sets $V$ such that there is a local trivialization</p>
+
+<p>\begin{equation}\notag
+\alpha: V \times \bbr^n \to \pi^{-1}(V).
+\end{equation}</p>
+
+<p>Here, $\pi$ is the natural smooth projection map $\pi:T(M) \to M$, and to say that $\alpha$ is a <em>local trivialization</em> means that it is a diffeomorphism of smooth manifolds which restricts to a linear isomorphism on each fiber. These considerations inspire and motivate the following abstract structure:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>locally trivial vector bundle</em> is a surjective smooth map $\pi:E \to M$ of smooth manifolds with the following properties:</p>
+
+  <ol>
+    <li>The map $\pi$ is a set-theoretic vector bundle, so that each <em>fiber</em>
+ \begin{equation}\notag
+ E_p \defeq \pi^{-1}(p)
+ \end{equation}
+is a finite-dimensional $\bbr$-vector space.</li>
+    <li>The manifold $M$ is covered in open sets $V$ for which there exists a diffeomorphism
+ \begin{equation}\notag
+ \alpha: V \times \bbr^k \to \pi^{-1}(V)
+ \end{equation}
+which is also a homomorphism of set-theoretic vector bundles over $V$. Here, $V\times \bbr^k$ is viewed as the total set of the trivial set-theoretic vector bundle with base $V$. Such a diffeomorphism $\alpha$ is called a <em>local trivialization</em> (over $V$).</li>
+  </ol>
+
+  <p>If each vector space $E_p$ has a fixed (finite) dimension $k$, then $\pi$ is called a <em>rank-$k$ locally trivial vector bundle</em>.</p>
+
+  <p>If $\pi’:E’ \to M$ is a second locally trivial vector bundle, then a <em>homomorphism</em> of vector bundles is a function $\alpha:E \to E’$ which is a homomorphism of set-theoretic vector bundles and which is smooth. Remember that the first condition means that $\alpha$ restricts to a linear transformation</p>
+
+  <p>\begin{equation}\notag
+\alpha_p \defeq \alpha|_{E_p}: E_p \to E’_p
+\end{equation}</p>
+
+  <p>on each fiber. In particular, we require that $\alpha(E_p) \subseteq E_p’$, for all $p\in M$.</p>
+
+  <p>We shall say that $\alpha:E\to E’$ is an <em>isomorphism of locally trivial vector bundles</em> if there exists a homomorphism $\beta:E’\to E$ of locally trivial vector bundles such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E’}$.</p>
 </div>
+
+<p>In the locally trivial case, the manifolds $E$ and $M$, which were called the <em>total set</em> and <em>base set</em> in the context of set-theoretic vector bundles, are now called the <em>total space</em> and <em>base space</em>.</p>
+
+<p>Since locally trivial vector bundles will be the primary types of vector bundles we will consider henceforth, we will often drop the modifier “locally trivial” and simply refer to <em>vector bundles</em>. Also, though technically we have defined a vector bundle to be a certain type of surjective map $\pi:E \to M$, we will often refer to vector bundle by referencing only the total space $E$.</p>
+
+<p>One of the most useful properties of homomorphisms of vector bundles is that the isomorphism property may be tested locally on the fibers. Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Fiberwise Criterion for Vector Bundle Isomorphisms.</strong> Let $\alpha: E \to E’$ be a homomorphism of vector bundles over a common base space $M$. Then $\alpha$ is an isomorphism of vector bundles if and only if each induced map $\alpha_p:E_p \to E’_p$ on the fibers is a linear isomorphism.</p>
+</div>
+
+<p>I suggest that you attempt to prove this theorem on your own. You will see that the local triviality of the vector bundles is used in a crucial way.</p>
+
+<h2 id="sections-and-sheaves">Sections and sheaves</h2>
+
+<p>In this section we study smooth sections of (locally trivial) vector bundles. We have already seen examples of these gadgets in two places: (1) One guise of smooth vector fields on a manifold is as smooth (global) sections of the tangent bundle, and (2) smooth sections of the trivial vector bundle $M \times \bbr \to M$ are exactly smooth functions on $M$. Indeed, we covered (1) in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>, while to verify that claim (2) is true, we note that a smooth map $\sigma: M \to M \times \bbr$ of the form</p>
+
+<p>\begin{equation}\notag
+\sigma(p) = (p,f(p))
+\end{equation}</p>
+
+<p>is uniquely determined by the smooth function $f\in C^\infty(M)$. In general, the definition is as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to M$ be a vector bundle and $U\subseteq M$ a nonempty open set. A <em>local section</em> of the vector bundle over $U$ is a function $\sigma:U\to E$ such that $\pi\circ \sigma = \id_U$. We shall say $\sigma$ is a <em>smooth local section</em> if it is a smooth map between manifolds.</p>
+
+  <p>We write $\Gamma(U,E)$ for the set of smooth local sections over $U$. If the vector bundle $E$ is clear from context, we will write $\Gamma(U)$ in place of $\Gamma(U,E)$. Sections in $\Gamma(M)$ are called <em>smooth global sections</em>.</p>
+
+  <p>We will often write the functional value $\sigma(p) \in E_p$ of a section as $\sigma_p$. If the section happens to have an index, like $\sigma_i$, then we will write $\sigma_i|_p$ in place of $(\sigma_i)_p$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Given two smooth local sections $\sigma,\tau\in \Gamma(U)$, we define their <em>sum</em>, denoted $\sigma+\tau$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(\sigma+\tau)_p = \sigma_p + \tau_p,
+\end{equation}</p>
+
+  <p>where the sum on the right-hand side occurs in the fiber $E_p$. If $f\in C^\infty(U)$ is a function, we define the <em>product</em> of $f$ and $\sigma$, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\sigma)_p = f(p) \sigma_p,
+\end{equation}</p>
+
+  <p>where the product on the right-hand side occurs in the fiber $E_p$. Prove that with respect to these operations, the set $\Gamma(U)$ is a $C^\infty(U)$-module.</p>
+</div>
+
+<p>A smoothly varying collection of bases of the fibers of a vector bundle is called a <em>smooth local frame</em>, which is terminology that you should recognize from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields. Officially:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Then a collection of smooth local sections $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ is called a <em>smooth local frame</em> over $U$ if</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1|_p,\ldots,\vartheta_k|_p \in E_p
+\end{equation}</p>
+
+  <p>is a basis for all $p\in U$.</p>
+</div>
+
+<p>One of the main uses of smooth local frames is to test for smoothness of general sections:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Componentwise criterion for smoothness).</strong> Let $\pi:E\to M$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Given a function $\sigma:U\to E$ (not necessarily smooth, or even continuous) such that $\pi \circ \sigma = \id_U$ and a smooth local frame $\vartheta_1,\ldots,\vartheta_k\in \Gamma(U)$, we may write</p>
+
+  <p>\begin{equation}\notag
+\sigma_p = \sigma^i(p) \vartheta_i|_p
+\end{equation}</p>
+
+  <p>for each $p\in U$, where $\sigma^i: U \to \bbr$ are uniquely determined real-valued functions (not necessarily smooth, or even continuous). These functions are called the <em>component functions</em> of $\sigma$ with respect to the local frame.</p>
+
+  <p>Then $\sigma$ is smooth if and only if each component function $\sigma^i$ is smooth.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove that the local frame $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ forms a basis as a $C^\infty(U)$-module.</p>
+</div>
+
+<p>Given a manifold $M$, we recall that we proved the assignments $U \mapsto C^\infty(U)$ and $U \mapsto \calx(U)$ are examples of sheaves in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>. Had we known at the time that $\calx(U)$ could be viewed as smooth local sections of a certain vector bundle, then we could have applied the following general result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Sections of vector bundles form sheaves).</strong> Let $E$ be a vector bundle over a manifold $M$. If for each open set $U\subseteq M$ we define $\cale(U) = \Gamma(U,E)$, then $\cale$ is a $C^\infty_M$-module, where $C^\infty_M$ is the sheaf of smooth functions on $M$. The sheaf $\cale$ is called the <em>sheaf of sections</em> of the vector bundle $E$.</p>
+</div>
+
+<p>We learned the general definition of a sheaf in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. When we say that $\cale$ is a sheaf of $C^\infty_M$-modules, we really mean that $\cale$ is a sheaf of modules over the sheaf of rings $C^\infty_M$. For the general definition of these latter types of objects, see <a href="https://en.wikipedia.org/wiki/Sheaf_of_modules">here</a>.</p>
+
+<p>You also learned the definition of <em>stalks</em> of structure sheaves of ringed spaces in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. It turns out that such <em>stalks</em> may be defined for <em>any</em> sheaf and, in particular, they may be defined for sheaves of sections of vector bundles. You should have no trouble, therefore, in adapting the definition of <em>stalks</em> in the previous post to apply to our sheaves of sections. Otherwise, see <a href="https://en.wikipedia.org/wiki/Stalk_(sheaf)">here</a> for the official definition.</p>
+
+<p>Let’s set some notation for stalks:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We will write $\cale_p$ for the stalk of $\cale$ at $p\in M$. Elements in $\cale_p$ will be called <em>germs</em> of sections.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that each stalk $\cale_p$ is a module over the local ring $C^\infty_{M,p}$ with respect the evident operations. (By now, I’m hoping that this proof is routine!)</li>
+    <li>For each $p\in M$, recall that there is a well-defined homomorphism
+ \begin{equation}\notag
+ \dev_p:C^\infty_{M,p} \to \bbr, \quad f \mapsto f(p),
+ \end{equation}
+of $\bbr$-algebras. By restricting scalars along this map, a fiber $E_p$ of the vector bundle may be given a $C^\infty_{M,p}$-module structure. With respect to this structure, prove that the map
+ \begin{equation}\notag
+ e_p: \cale_p \to E_p, \quad \sigma \mapsto \sigma_p,
+ \end{equation}
+is a well-defined homomorphism of $C^\infty_{M,p}$-modules.</li>
+  </ol>
+</div>
+
+<p>Remember that the germs in the stalk $\cale_p$ are actually equivalence classes of sections $\sigma$ defined on open neighborhoods of $p$, so my definition “$\sigma \mapsto \sigma_p$” of the evaluation map $e_p$ is technically an abuse of notation. However, as I’ve mentioned in the past, this is a typical abuse, and going forth I will use it without further comment.</p>
+
+<p>Take care to notice the difference between $\cale_p$ and $E_p$ for a vector bundle $E$ over a manifold $M$. The former is the stalk of the sheaf of sections at the point $p\in M$, while the latter is the fiber over $p$. While these are <strong>different</strong> objects, there is, nevertheless, a tight link between them:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. For each $p\in M$, let $\mfm_p$ denote the maximal ideal of the local ring $C^\infty_{M,p}$. The sequence</p>
+
+  <p>\begin{equation}\notag
+0 \to \mfm_p \to \cale_p \xrightarrow{e_p} E_p \to 0
+\end{equation}</p>
+
+  <p>is exact, where the first map is the inclusion and the second is the evaluation map.</p>
+</div>
+
+<p>A proof is in contained in Jet’s book, Chapter 12.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Extension theorem for local sections).</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$ and each open neighbohrood $U$ of $p$, the natural localization map</p>
+
+  <p>\begin{equation}\notag
+\lambda_{U,p}: \cale(U) \to \cale_p
+\end{equation}</p>
+
+  <p>sending a section to the germ that it represents is surjective.</p>
+</div>
+
+<p>The proof uses bump functions, just like the same extension theorem for smooth functions.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Stalks of vector bundles are free).</strong> Let $E$ be a rank-$k$ vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$, the stalk $\cale_p$ is a free $C^\infty_{M,p}$-module of rank $k$. In particular, if $U$ is an open neighborhood of $p$ over which $E$ trivializes, then the natural map</p>
+
+  <p>\begin{equation}\label{nat-eqn}
+C^\infty_{M,p} \otimes_{C^\infty(U)} \cale(U)   \to \cale_p, \quad f \otimes \sigma \mapsto f\lambda_{U,p}(\sigma),
+\end{equation}</p>
+
+  <p>is an isomorphism of $C^\infty_{M,p}$-modules, where $\lambda_{U,p}$ is the natural localization map from the previous theorem.</p>
+</div>
+
+<p>We have already observed that a choice of local frame</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(U)
+\end{equation}</p>
+
+<p>forms a basis of $\cale(U)$ as a $C^\infty(U)$-module, and that the localization map $\lambda_{U,p}$ is surjective. Thus, we need only show that the map \eqref{nat-eqn} is injective. So, suppose that we have an element $f^i \otimes \vartheta_i$ in the domain of \eqref{nat-eqn}, with summation over repeated indices implied. Suppose that it is sent to zero in the stalk, so that we have $f^i \vartheta_i = 0$. (Be very careful to understand exactly what this equation means, as I am confusing sections with germs again, and have omitted the localization map.) By shrinking $U$ to a smaller neighborhood $V$ of $p$ if needed, we may suppose that this equation actually occurs in the module $\cale(V)$, where now $f^i \in C^\infty(V)$. But the sections $\vartheta_1,\ldots,\vartheta_k$ are linearly independent in $\cale(V)$ as well, and hence $f^i = 0$ on $V$ for each $i$. Hence $f^i=0$ in $C^\infty_{M,p}$, which is what we wanted to prove. Q.E.D.</p>
+
+<h2 id="construction-theorems">Construction theorems</h2>
+
+<p>It will be very important for us to be able to construct vector bundles and homomorphisms between them efficiently. In order to do this, we will first begin by identifying the sorts of <em>necessary</em> structures that come along with vector bundles and homomorphisms, and then show that these structures are actually <em>sufficient</em> to construct such objects.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\alpha:M\to N$ be a smooth map, and let</p>
+
+  <p>\begin{equation}\notag
+\{U_i,\tau_{ij}\}_{i,j\in I} \quad \text{and} \quad \{V_i,\sigma_{ij}\}_{i,j\in I}
+\end{equation}</p>
+
+  <p>be a $\GL_n$-cocyle on $M$ and a $\GL_m$-cocycle on $N$, respectively, indexed by the same set $I$, with the property that $\alpha(U_i ) \subseteq V_i$ for each $i$. Then a <em>homomorphism of cocycles over $\alpha$</em> is a collection $\{A_i\}_{i\in I}$ of smooth maps $A_i: U_i \to \M_{m\times n}$ such that</p>
+
+  <p>\begin{equation}\notag
+A_i(p)\tau_{ij}(p) = \sigma_{ij}(\alpha(p))A_j(p)
+\end{equation}</p>
+
+  <p>for all $p\in U_i \cap U_j$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Vector Bundle Homomorphism Construction Theorem.</strong> Let $E$ and $F$ be a rank-$n$ and rank-$m$ vector bundle over manifolds $M$ and $N$, respectively, and suppose $\alpha:M \to N$ is a smooth map. Choose a representative $\GL_n$- and $\GL_m$-cocycle</p>
+
+  <p>\begin{equation}\notag
+\{U_i,\tau_{ij}\}_{i,j\in I} \quad \text{and} \quad \{V_i,\sigma_{ij}\}_{i,j\in I}
+\end{equation}</p>
+
+  <p>of $E$ and $F$, respectively, such that $\alpha(U_i) \subseteq V_i$ for each $i\in I$.</p>
+
+  <ol>
+    <li>A homomorphism $\theta: E \to F$ of vector bundles over $\alpha$ determines a homomorphism
+ \begin{equation}\label{start-eqn}
+ \{A_i\}_{i\in I} : \{U_i,\tau_{ij}\} \to \{V_i,\sigma_{ij}\}
+ \end{equation}
+of cocycles over $\alpha$ such that $\theta$ is locally given by the map
+ \begin{equation}\label{local-eqn}
+ U_i \times \bbr^n \to V_i \times \bbr^m, \quad (p,v) \mapsto (\alpha(p), A_i(p)v).
+ \end{equation}</li>
+    <li>Conversely, suppose that we are given a homomorphism \eqref{start-eqn} of cocycles over $\alpha$. Then there is a homomorphism $\theta:E \to F$ of vector bundles over $\alpha$ which is locally given by the formula \eqref{local-eqn}.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem.</p>
+</div>
+
+<p>In the notation of the theorem, given a homomorphism $\theta:E\to F$ of vector bundles over $\alpha$, any homomorphism of cocycles as in (1.) is said to <em>represent</em> the homomorphism $\theta$. Note that this homomorphism of cocycles is not uniquely determined by $\theta$ alone, but rather by $\theta$ and the representative cocycles of the vector bundles.</p>
+
+<h2 id="pullbacks">Pullbacks</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to N$ be a vector bundle in $\SetVect_N$ and $\alpha:M \to N$ a morphism in $\Set$. We define the set</p>
+
+  <p>\begin{equation}\notag
+\alpha^\ast E = \bigsqcup_{p\in M} E_{\alpha(p)}
+\end{equation}</p>
+
+  <p>and let $\rho:\alpha^\ast E \to M$ be the canonical projection. Then $\rho$ is a vector bundle in $\SetVect_M$ called the <em>pullback of $E$ along $\alpha$</em>, with fibers</p>
+
+  <p>\begin{equation}\notag
+(\alpha^\ast E)_p = \{p\} \times E_{\alpha(p)}.
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Cocycle representations of smooth pullbacks).</strong> Let $\pi:E \to N$ be a rank-$k$ vector bundle in $\Vect_N$ and $\alpha:M \to N$ a morphism in $\Mfld$. Then:</p>
+
+  <ol>
+    <li>A representative $\GL_k$-cocycle
+ \begin{equation}\label{equiv-eqn}
+ \{U_i,\tau_{ij}\}_{i\in I}
+ \end{equation}
+of $E$ with trivializations
+ \begin{equation}\notag
+ \Phi_i: U_i \times \bbr^k \to \pi^{-1}(U_i)
+ \end{equation}
+induces a smooth structure on the pullback bundle $\rho:\alpha^\ast E \to M$ in $\SetVect_M$.</li>
+    <li>This smooth structure has a representative $\GL_k$-cocycle $\{V_i,\sigma_{ij}\}_{i\in I}$ with
+ \begin{equation}\notag
+ V_i = \alpha^{-1}(U_i) \quad \text{and} \quad \sigma_{ij}: V_i \cap V_j \xrightarrow{\alpha} U_i \cap U_j \xrightarrow{\tau_{ij}} \GL_k
+ \end{equation}
+and trivializations
+ \begin{equation}\notag
+ \Psi_i: V_i \times \bbr^k \to \rho^{-1}(V_i), \quad (p,v) \mapsto (p, \Phi_i(\alpha(p),v)).
+ \end{equation}</li>
+    <li>Finally, this smooth structure depends only on the equivalence class of the cocycle \eqref{equiv-eqn}, and hence it only depends on the isomorphism class of $\pi:E \to N$.</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Universal property of set-theoretic pullback bundles).</strong> Let $\pi:E \to N$ be a vector bundle in $\SetVect_N$, let $\alpha:M \to N$ be a morphism in $\Set$, and let $\rho:\alpha^\ast E \to M$ be the pullback bundle in $\SetVect_M$.</p>
+
+  <ol>
+    <li>The function
+ \begin{equation}\notag
+ \tl{\alpha}: \alpha^\ast E \to E, \quad (p,v) \mapsto v,
+ \end{equation}
+is a well-defined morphism in $\SetVect_\alpha$.</li>
+    <li>If $\theta: F\to E$ is a morphism in $\SetVect_\alpha$, then the function
+ \begin{equation}\notag
+ \kappa:F\to \alpha^\ast E, \quad x\mapsto (\pi_F(x),\theta(x)),
+ \end{equation}
+is a well-defined morphism in $\SetVect_M$, where $\pi_F: F\to M$ is the structural projection.</li>
+    <li>The morphism $\kappa$ is the <em>unique</em> morphism in $\SetVect_M$ for which $\theta = \tl{\alpha}\circ \kappa$.</li>
+  </ol>
+</div>
+
+<p>The proof is trivial. I will leave it to you.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Universal property of smooth pullback bundles).</strong> Let $\pi:E \to N$ be a vector bundle in $\Vect_N$, let $\alpha:M \to N$ be a morphism in $\Mfld$, and let $\rho:\alpha^\ast E \to M$ be the pullback bundle in $\SetVect_M$. Let $\rho$ have the smooth structure induced by a $\GL_k$-cocycle of $E$. In the notation of that theorem:</p>
+
+  <ol>
+    <li>The function
+ \begin{equation}\notag
+ \tl{\alpha}: \alpha^\ast E \to E, \quad (p,v) \mapsto v,
+ \end{equation}
+is a well-defined morphism in $\Vect_\alpha$. It is represented by the morphism of cocycles
+ \begin{equation}\notag
+ \{I_i\}_{i\in I} : \{V_i,\sigma_{ij}\}_{i\in I} \to \{U_i,\tau_{ij}\}_{i\in I}
+ \end{equation}
+over $\alpha$ with
+ \begin{equation}\notag
+ I_i: V_i \to \M_{k\times k}, \quad I_i(p) = \id_{\bbr^k},
+ \end{equation}
+for each $i$.</li>
+    <li>If $\theta: F\to E$ is a morphism in $\Vect_\alpha$, then the function
+ \begin{equation}\notag
+ \kappa:F\to \alpha^\ast E, \quad x\mapsto (\pi_F(x),\theta(x)),
+ \end{equation}
+is a well-defined morphism in $\Vect_M$, where $\pi_F: F\to M$ is the structural projection. If $\theta$ is represented by the morphism of cocycles
+ \begin{equation}\notag
+ \{A_i\}_{i\in I} : \{W_i,\chi_{ij}\}_{i\in I} \to \{U_i,\tau_{ij}\}_{i\in I}
+ \end{equation}
+over $\id_M$, then</li>
+  </ol>
+</div>
+
+<p>for which the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}\alpha^\ast E \ar@[white][r]^-{\color{white}\tl{\alpha}} \ar@[white][d]_{\color{white}\rho} &amp; \color{white} E \ar@[white][d]^{\color{white}\pi} \\ \color{white} M \ar@[white][r]_{\color{white}\alpha} &amp; \color{white} N}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes. Furthermore, the set-theoretic vector bundle $\rho$ and map $\tl{\alpha}$ are the <em>universal</em> objects for which this diagram commutes, in the sense that if</p>
+
+<p>\begin{equation}\notag
+\varsigma: F \to M
+\end{equation}</p>
+
+<p>is a second set-theoretic vector bundle and $\beta:F \to E$ is a set-theoretic map for which</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}F \ar@[white][r]^-{\color{white}\beta} \ar@[white][d]_{\color{white}\varsigma} &amp; \color{white} E \ar@[white][d]^{\color{white}\pi} \\ \color{white} M \ar@[white][r]_{\color{white}\alpha} &amp; \color{white} N}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes, then there is a unique homomorphism $\phi: F\to \alpha^\ast E$ of set-theoretic vector bundles over $M$ for which the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}F \ar@[white]@/^1.0pc/[drr]^{\color{white}\beta} \ar@[white]@/_1.0pc/[ddr]_{\color{white}\varsigma} \ar@[white][dr]^{\color{white}\phi} \\ &amp; \color{white}\alpha^\ast E \ar@[white][r]^-{\color{white}\tl{\alpha}} \ar@[white][d]_{\color{white}\rho} &amp; \color{white} E \ar@[white][d]^{\color{white}\pi} \\ &amp; \color{white} M \ar@[white][r]_{\color{white}\alpha} &amp; \color{white} N}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes.
+We shall use the Vector Bundle Chart Lemma to construct the vector bundle $\rho:\alpha^\ast E \to M$. As a set-theoretic vector bundle, we define</p>
+
+<p>\begin{equation}\notag
+\alpha^\ast E = \bigsqcup_{p\in M} E_{\alpha(p)}
+\end{equation}</p>
+
+<p>and let $\rho:\alpha^\ast E\to M$ be the natural projection. Notice that $\alpha^\ast E$ is nothing but the <a href="https://en.wikipedia.org/wiki/Pullback_(category_theory)">fiber product</a> of sets</p>
+
+<p>\begin{equation}\notag
+M \times_N E \defeq \left\{ (p,v) \in M \times E : \alpha(p) = \pi(v)\right\}.
+\end{equation}</p>
+
+<p>Suppose that $E$ trivializes over the open cover $\{U_i\}$ of $N$, with trivialization maps</p>
+
+<p>\begin{equation}\notag
+\Phi_i: U_i \times \bbr^k \to \pi^{-1}(U_i).
+\end{equation}</p>
+
+<p>For each index $i$, set $V_i = \alpha^{-1}(U_i)$, and define the isomorphisms</p>
+
+<p>\begin{equation}\label{yuppers-eqn}
+\Psi_i: V_i \times \bbr^k \to \rho^{-1}(V_i) = \bigsqcup_{p\in V_i} E_{\alpha(p)}, \quad \Psi_i(p,v) = (p, \Phi_i(\alpha(p),v)),
+\end{equation}</p>
+
+<p>of set-theoretic vector bundles. If</p>
+
+<p>\begin{equation}\notag
+\tau_{ij}: U_i \cap U_j \to \GL_k(\bbr)
+\end{equation}</p>
+
+<p>are the transition maps of $E$, and if $V_i \cap V_j \neq \emptyset$, then the composite</p>
+
+<p>\begin{equation}\notag
+\Psi^{-1}_i \circ \Psi_j : (V_i\cap V_j) \times \bbr^k \to (V_i\cap V_j) \times \bbr^k
+\end{equation}</p>
+
+<p>has the form</p>
+
+<p>\begin{equation}\notag
+(p,v) \mapsto (p, \tau_{ij}(\alpha(p))v).
+\end{equation}</p>
+
+<p>But the composites</p>
+
+<p>\begin{equation}\label{yuppers2-eqn}
+\sigma_{ij}: V_i \cap V_j \xrightarrow{\alpha} U_i \cap U_j \xrightarrow{\tau_{ij}} \GL_k(\bbr)
+\end{equation}</p>
+
+<p>are smooth. Thus, by the Vector Bundle Chart Lemma, the natural surjection $\rho:\alpha^\ast E \to M$ is a rank-$k$ vector bundle with trivializations \eqref{yuppers-eqn} and transition maps \eqref{yuppers2-eqn}.</p>
+
+<p>We define the map</p>
+
+<p>\begin{equation}\notag
+\tl{\alpha}:\alpha^\ast E \to E, \quad (p,v) \mapsto v.
+\end{equation}</p>
+
+<p>It fits into commutative diagrams</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{ \color{white} V_i \times \bbr^k \ar@[white][r]^{\color{white} \alpha \times \id} \ar@[white][d]_{\color{white}\Psi_i} &amp; \color{white} U_i \times \bbr^k \ar@[white][d]^{\color{white}\Phi_i} \\ \color{white} \rho^{-1}(V_i) \ar@[white][r]_{\color{white}\tl{\alpha}} &amp; \color{white} \pi^{-1}(U_i) }
+\end{xy}
+\end{equation}</p>
+
+<p>along with the trivialization maps, and is thus smooth.</p>
+
+<p>Clearly $\pi\circ \tl{\alpha} = \alpha \circ \rho$, so all we need to do is establish the universal property of the bundle $\rho:\alpha^\ast E\to M$. So, let $\varsigma: F\to M$ be a vector bundle with the property stated in the theorem. We then define the map</p>
+
+<p>\begin{equation}\notag
+\phi: F \to \alpha^\ast E, \quad \phi(x) = (\varsigma(x), \beta(x)).
+\end{equation}</p>
+
+<p>This is obviously the unique set-theoretic map for which</p>
+
+<p>\begin{equation}\notag
+\varsigma = \rho \circ \phi \quad \text{and} \quad \beta = \tl{\alpha} \circ \phi,
+\end{equation}</p>
+
+<p>so we need only prove that $\phi$ is a homomorphism of vector bundles. But if $x\in F_p$ for some $p\in M$, then</p>
+
+<p>\begin{equation}\notag
+\phi(x) = (p, \beta(x)) \in (\alpha^\ast E)_p = \{p\} \times E_{\alpha(p)}.
+\end{equation}</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Identification of stalks of pullbacks).</strong> Let $E$ be a vector bundle over a manifold $N$ with sheaf of sections $\cale$, let $\alpha:M \to N$ be a smooth map, and let $\alpha^\ast \cale$ be the sheaf of sections of the pullback bundle $\alpha^\ast E$. Then for each $p\in M$ with $q=\alpha(p)$, the natural $C^\infty_{M,p}$-linear map</p>
+
+  <p>\begin{equation}\notag
+\Theta_p: C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \to (\alpha^\ast\cale)_p, \quad f \otimes \sigma \mapsto f\alpha^\ast\sigma,
+\end{equation}</p>
+
+  <p>is an isomorphism and fits into the commutative diagram</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \ar@[white][r]^-{\color{white}\Theta_p} \ar@[white][d]_{\color{white}\dev_p \otimes e_q} &amp; \color{white} (\alpha^\ast \cale)_p \ar@[white][d]^{\color{white}e_p} \\ \color{white} \bbr \otimes_{C^\infty_{N,q}} E_q \ar@[white][r] &amp; \color{white} (\alpha^\ast\cale)_p = E_q }
+\end{xy}
+\end{equation}</p>
+
+  <p>where $\dev_p,e_p,e_q$ are the evaluation maps and the bottom horizontal map is the natural map.</p>
+</div>
+
+<h2 id="direct-sums-duals-and-tensor-products">Direct sums, duals, and tensor products</h2>
+
+<h2 id="derivatives-in-vector-bundles-connections">Derivatives in vector bundles: connections</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$. A <em>Koszul connection on $E$</em> (or simply a <em>connection</em>) is an $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\nabla: \calx(M) \otimes_\bbr \Gamma(E) \to \Gamma(E), \quad (X,\sigma) \mapsto \nabla_X\sigma,
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\nabla_X(f\sigma) = \nabla_X(f)\sigma + f\nabla_X\sigma
+\end{equation}</p>
+
+  <p>for all $X\in \calx(M)$, $\sigma\in \Gamma(E)$, and $f\in C^\infty(M)$. In this equation, we define</p>
+
+  <p>\begin{equation}\notag
+\nabla_X(f) = X(f).
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\nabla$ be a Koszul connection on a vector bundle $\pi:E \to M$.</p>
+
+  <ol>
+    <li>If $X$ and $Y$ are two vector fields on $M$ that agree at a point $p\in M$, then
+ \begin{equation}\notag
+ (\nabla_X\sigma)_p=(\nabla_Y\sigma)_p
+ \end{equation}
+for all sections $\sigma \in \Gamma(E)$.</li>
+    <li>If $\sigma$ and $\tau$ are two global sections of $E$ that coincide on an open neighborhood of a point $p\in M$, then
+ \begin{equation}\notag
+ (\nabla_X\sigma)_p = (\nabla_X\tau)_p
+ \end{equation}
+for all vector fields $X\in \calx(M)$.</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We define a <em>field of Koszul connections on $E$</em> (or simply a <em>field of connections</em>) to be a collection $\{\nabla^p\}_{p\in M}$ of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+\nabla^p : T_p(M) \otimes_\bbr \cale_p \to E_p, \quad (v,\sigma) \mapsto \nabla^p_v \sigma,
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\nabla^p_v(f\sigma) = (\nabla_v^pf)\sigma_p + f(p) \nabla_v^p\sigma
+\end{equation}</p>
+
+  <p>for all $v\in T_p(M)$, $\sigma\in \cale_p$, and $f\in C^{\infty}_{M,p}$. In this equation, we define</p>
+
+  <p>\begin{equation}\notag
+(\nabla_v^pf) = df_p(v).
+\end{equation}</p>
+
+  <p>The field of connections is said to be <em>smooth</em> if, for all smooth vector fields $X\in \calx(M)$ and smooth sections $\sigma \in \cale(M)$, the induced section</p>
+
+  <p>\begin{equation}\notag
+p\mapsto \nabla_{X_p}^p \sigma \in E_p
+\end{equation}</p>
+
+  <p>is smooth.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $N$ with sheaf of sections $\cale$, let $\alpha:M \to N$ be a smooth map, and let $\alpha^\ast E$ be the pullback bundle over $M$ with sheaf of sections $\alpha^\ast \cale$. If $\nabla$ is a connection on $E$, then there is a unique connection</p>
+
+  <p>\begin{equation}\notag
+\alpha^\ast\nabla: \calx(M) \otimes_\bbr \Gamma(\alpha^\ast E) \to \Gamma(\alpha^\ast E),
+\end{equation}</p>
+
+  <p>called the <em>pullback connection</em>, such that</p>
+
+  <p>\begin{equation}\label{defining-eqn}
+\alpha^\ast\nabla^p_v(\alpha^\ast \sigma) = \nabla^q_w\sigma
+\end{equation}</p>
+
+  <p>for all $v\in T_p(M)$ and $\sigma \in \cale_q$, where $q = \alpha(p)$ and $w = \alpha_{\ast,p}(v)$.</p>
+</div>
+
+<p>Suppose that such a connection $\alpha^\ast \nabla$ exists, satisfying \eqref{defining-eqn}. Then, since the natural map</p>
+
+<p>\begin{equation}\notag
+\Theta_p : C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \xrightarrow{\cong} (\alpha \cale)_p, \quad f \otimes \sigma \mapsto f \alpha^\ast \sigma,
+\end{equation}</p>
+
+<p>is an isomorphism, the action of $\alpha^\ast \nabla^p_v$ on the stalk $(\alpha \cale)_p$ is determined by its action on (germs of) sections of the form $f\alpha^\ast \sigma$. But, by the Leibniz rule, we have</p>
+
+<p>\begin{equation}\label{extend-eqn}
+\alpha^\ast\nabla^p_v(f \alpha^\ast \sigma) = df_p(v) \sigma_q + f(p) \nabla^q_w\sigma
+\end{equation}</p>
+
+<p>where $q = \alpha(p)$ and $w = \alpha_{\ast,p}(v)$. Thus, if the connection $\alpha^\ast \nabla$ exists, then it is uniquely determined by the equations \eqref{defining-eqn}.</p>
+
+<p>To establish existence of the pullback connection, we shall construct it as a smooth field of connections. The first step is to consider the isomorphism</p>
+
+<p>\begin{equation}\label{first-eqn}
+T_p(M) \otimes_\bbr (\alpha^\ast \cale)_p \xrightarrow{\cong} T_p(M) \otimes_\bbr \left(C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \right)
+\end{equation}</p>
+
+<p>induced by the natural map $\Theta_p$ above. Now, we have two maps</p>
+
+<p>\begin{equation}\label{second-eqn}
+\left(T_p(M) \otimes_\bbr C^\infty_{M,p}\right) \otimes_{C^\infty_{N,q}} \cale_q \xrightarrow{d \otimes \dev_q} \bbr \otimes_{\bbr} E_q \xrightarrow{\cong} E_q
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\label{third-eqn}
+C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \left( T_p(M) \otimes_\bbr \cale_q \right) \xrightarrow{\id \otimes \alpha_{\alpha,p} \otimes \id} C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \left( T_q(N) \otimes_\bbr \cale_q \right) \xrightarrow{\dev_p \otimes \nabla^q} \bbr \otimes_\bbr E_q \xrightarrow{\cong} E_q.
+\end{equation}</p>
+
+<p>Notice that the domains of \eqref{second-eqn} and \eqref{third-eqn} are naturally isomorphic to the codomain of the isomorphism \eqref{first-eqn} via natural associativity and commutativity isomorphisms of the tensor product. Therefore, we may define</p>
+
+<p>\begin{equation}\label{field-eqn}
+\alpha^\ast\nabla^p: T_p(M) \otimes_\bbr (\alpha^\ast \cale)_p \to (\alpha^\ast E)_p = E_q
+\end{equation}</p>
+
+<p>to be the isomorphism \eqref{first-eqn} followed by the <em>sum</em> of the two maps \eqref{second-eqn} and \eqref{third-eqn}. As the reader may easily check, the resulting map $\alpha^\ast \nabla^p_v$ satisfies the Leibniz rule for each $v\in T_p(M)$, and thus we have obtained a field of connections on the pullback $\alpha^\ast E$. If you trace through this argument, you’ll notice that we have essentially <em>defined</em> the pullback connection by the formula \eqref{extend-eqn}.</p>
+
+<p>All that remains is to show that the field of connections given by \eqref{field-eqn} is smooth. For this, let’s suppose that the vector bundle $E$ and the tangent bundle $T(N)$ both trivialize over the open set $V\subseteq N$. Let</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(V)
+\end{equation}</p>
+
+<p>be a frame of $E$, and let</p>
+
+<p>\begin{equation}\notag
+\bd_1,\ldots,\bd_n \in \calx(V)
+\end{equation}</p>
+
+<p>be the coordinate frame.</p>
+
+<h2 id="connections-on-direct-sums">Connections on direct sums</h2>
 
 <h2 id="forms-and-fields">Forms and fields</h2>
 
@@ -394,7 +1025,7 @@ for all $i,j\in I$. Prove that there is a (necessarily unique!) $k$-field $\sigm
 \omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
 \end{equation}</p>
 
-<p>has an entirely algebraic characterization, encapsulated in the following result. The name of this result is borrowed from Besse’s book (<sup id="fnref:Besse2008" role="doc-noteref"><a href="#fn:Besse2008" class="footnote" rel="footnote">1</a></sup>), though it is present in some form or another in virtually all textbooks on differential geometry. It is stated here as a “first version”; a more general version will be given later when we talk about vector bundles.</p>
+<p>has an entirely algebraic characterization, encapsulated in the following result. The name of this result is borrowed from Besse’s book ([^Besse2008]), though it is present in some form or another in virtually all textbooks on differential geometry. It is stated here as a “first version”; a more general version will be given later when we talk about vector bundles.</p>
 
 <div class="highlight-box">
   <p><strong>Fundamental Lemma of Differential Geometry (First version).</strong> Let $M$ be a manifold. An $\bbr$-linear map</p>
@@ -1283,18 +1914,6 @@ X_t = (\cos{t},-\sin{t}).
 <p>One then easily computes $\nabla_\gamma X=0$, and hence $X$ is a parallel vector field on $S^1$.</p>
 
 <p>Now, if $\gamma:[0,\pi/2] \to \bbr^3$ is a similar path</p>
-
-<h2 id="further-reading">Further reading</h2>
-
-<h2 id="references-and-footnotes">References and footnotes</h2>
-
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:Besse2008" role="doc-endnote">
-      <p>A. L. Besse. <em>Einstein manifolds</em>. Reprint of the 1987 edition. Classics in Mathematics. Springer-Verlag, Berlin, 2008. <a href="#fnref:Besse2008" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
 
     </article>
     

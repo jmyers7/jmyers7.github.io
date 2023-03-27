@@ -1,0 +1,417 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory IV&#58 operations on sheaves of modules</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                Open: ['\\mathsf{Open}#1', 1],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory IV: operations on sheaves of modules</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Étale spaces and sheafification</li>
+  <li>Pullbacks</li>
+  <li>Sheaf homs</li>
+  <li>Tensor products</li>
+  <li>Dual sheaves</li>
+  <li>Tangent and cotangent sheaves</li>
+  <li>Natural isomorphisms</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="sheaf-homs">Sheaf homs</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ and $\calf$ two $\sco_X$-modules. We define the <em>sheaf hom</em> (or <em>internal hom</em>), denoted $\ShHom_{\sco_X}(\cale,\calf)$, to be the $\sco_X$-module with sections over an open set $U\subseteq X$ given by</p>
+
+  <p>\begin{equation}\notag
+\ShHom_{\sco_X}(\cale,\calf)(U) = \Hom_{\sco_X|_U}\left(\cale|_U,\calf|_U\right),
+\end{equation}</p>
+
+  <p>where the Hom on the right-hand side is the hom-set in the category $\Mod{\sco_X|_U}$. If $U\subseteq V$ is an inclusion of open sets, the restriction map</p>
+
+  <p>\begin{equation}\notag
+\rho^V_U: \ShHom_{\sco_X}(\cale,\calf)(V) \to \ShHom_{\sco_X}(\cale,\calf)(U)
+\end{equation}</p>
+
+  <p>is defined by $\rho^V_U(\eta)_W = \eta_W$ for each open set $W\subseteq U$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+  <ol>
+    <li>Prove that $\ShHom_{\sco_X}(\cale,\calf)$ is a sheaf of sets on $X$.</li>
+    <li>We define the <em>sum</em> of two sections $\eta,\theta \in \ShHom_{\sco_X}(\cale,\calf)(V)$, denoted $\eta + \theta$, to be the section with
+ \begin{equation}\notag
+ (\eta + \theta)_U(s) = \eta_U(s) + \theta_U(s)
+ \end{equation}
+for all open sets $U\subseteq V$ and sections $s\in \cale(U)$. The sum on the right-hand side represents the addition in the $\sco_X(U)$-module $\calf(U)$. With respect to this addition, prove $\ShHom_{\sco_X}(\cale,\calf)$ is a sheaf of abelian groups.</li>
+    <li>We define the <em>product</em> of a section $\ShHom_{\sco_X}(\cale,\calf)$ and a function $f\in \sco_X(V)$, denoted $f\eta$, to be the section with
+ \begin{equation}\notag
+ (f\eta)_U(s) = f|_U\eta_U(s)
+ \end{equation}
+for all open sets $U\subseteq V$ and sections $s\in \cale(U)$. The product on the right-hand side represents the product in the $\sco_X(U)$-module $\calf(U)$. With respect to this product and the addition defined in the previous part, prove that $\ShHom_{\sco_X}(\cale,\calf)$ is an $\sco_X$-module.</li>
+  </ol>
+</div>
+
+<p>Having carefully defined sheaf homs, we now study their stalks and fibers.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Stalks of sheaf homs).</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ and $\calf$ two $\sco_X$-modules. For each $p\in X$, there is a natural $\sco_{X,p}$-linear map</p>
+
+  <p>\begin{equation}\notag
+S_p: \ShHom_{\sco_X}(\cale,\calf)_p \to \Hom_{\sco_{X,p}}(\cale_p,\calf_p)
+\end{equation}</p>
+
+  <p>induced by the map $\eta \mapsto \eta_p$ on sections. If $\cale$ is locally free, this map is an isomorphism.</p>
+</div>
+
+<p>I will sketch a proof that $S_p$ is an isomorphism when $\cale$ is locally free (and I will let you prove that $S_p$ is well-defined and $\sco_{X,p}$-linear). By replacing $X$ with an open neighborhood $U$ of $p$ over which $\cale$ trivializes, we may as well assume $\cale$ is (globally) free. An $\sco_X$-linear isomorphism</p>
+
+<p>\begin{equation}\label{iso-eqn}
+\cale \xrightarrow{\cong} \sco_X^k
+\end{equation}</p>
+
+<p>(for some $k$) induces an isomorphism</p>
+
+<p>\begin{equation}\label{poop-eqn}
+\ShHom_{\sco_X}(\sco_X^k,\calf) \xrightarrow{\cong} \ShHom_{\sco_X}(\cale,\calf)
+\end{equation}</p>
+
+<p>of $\sco_X$-modules. But there is also a sequence of isomorphisms</p>
+
+<p>\begin{equation}\label{seq-eqn}
+\calf^k \xrightarrow{\cong} \ShHom_{\sco_X}(\sco_X,\calf)^k \xrightarrow{\cong} \ShHom_{\sco_X}(\sco_X^k,\calf)
+\end{equation}</p>
+
+<p>of $\sco_X$-modules. Linking this string of isomorphisms with \eqref{poop-eqn} and localizing at $p$ gives an $\sco_{X,p}$-linear isomorphism</p>
+
+<p>\begin{equation}\label{iso1-eqn}
+\calf_p^k \xrightarrow{\cong} \ShHom_{\sco_X}(\cale,\calf)_p
+\end{equation}</p>
+
+<p>of $\sco_{X,p}$-modules. On the other hand, by localizing the isomorphism \eqref{iso-eqn} at $p$, we get an $\sco_{X,p}$-linear isomorphism</p>
+
+<p>\begin{equation}\notag
+\cale_p \xrightarrow{\cong} \sco_{X,p}^k.
+\end{equation}</p>
+
+<p>There are then versions of the isomorphisms \eqref{poop-eqn} and \eqref{seq-eqn} with the $\sco_X$-modules replaced with their stalks and the sheaf homs replaced with $\Hom_{\sco_{X,p}}$. Linking them together, we get an isomorphism</p>
+
+<p>\begin{equation}\label{iso2-eqn}
+\calf_p^k \xrightarrow{\cong} \Hom_{\sco_{X,p}}(\cale_p,\calf_p).
+\end{equation}</p>
+
+<p>Then, all that you need to show to complete the proof that $S_p$ is an isomorphism is that the isomorphism \eqref{iso2-eqn} factors through the isomorphism \eqref{iso1-eqn} and $S_p$. Q.E.D.</p>
+
+<p>Having computed the stalks of sheaf homs, at least in the case that the first sheaf is locally free, we now turn to fibers. We first need a purely algebraic lemma:</p>
+
+<div class="highlight-box">
+  <p><strong>Lemma.</strong> Let $\phi:A \to B$ be a homomorphism of commutative rings and let $M$ and $N$ be two $A$-modules. Then there is a natural $B$-linear homomorphism</p>
+
+  <p>\begin{equation}\notag
+\Hom_A(M,N) \otimes_A B \to \Hom_B(M \otimes_A B, N \otimes_A B), \quad \alpha \otimes g \mapsto \alpha \otimes \mu_g,
+\end{equation}</p>
+
+  <p>where $\mu_g:B \to B$ is the “multiplication by $g$” homomorphism. In particular, the map $\alpha \otimes \mu_g$ is defined on a tensor $s \otimes g’\in M \otimes_A B$ by</p>
+
+  <p>\begin{equation}\notag
+(\alpha \otimes \mu_g) (s \otimes g’) = \alpha(s) \otimes gg’.
+\end{equation}</p>
+
+  <p>If $M$ is free (of finite rank), then this map is an isomorphism.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the lemma!</p>
+</div>
+
+<p>As we now show, the natural map on stalks that we obtained in the previous theorem fits into a morphism that allows us to compute fibers of sheaf homs, at least in the case that the first sheaf is locally free:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Fibers of sheaf homs).</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ and $\calf$ two $\sco_X$-modules. For each $p\in X$, there is a natural $\kappa(p)$-linear map</p>
+
+  <p>\begin{equation}\label{stair-eqn}
+\ShHom_{\sco_X}(\cale,\calf)_p \otimes_{\sco_{X,p}} \kappa(p) \to \Hom_{\kappa(p)}(E_p, F_p)
+\end{equation}</p>
+
+  <p>obtained as the composition of the natural map</p>
+
+  <p>\begin{equation}\notag
+S_p \otimes \kappa(p): \ShHom_{\sco_X}(\cale,\calf)_p \otimes_{\sco_{X,p}} \kappa(p) \to \Hom_{\sco_{X,p}}(\cale_p,\calf_p) \otimes_{\sco_{X,p}}\kappa(p)
+\end{equation}</p>
+
+  <p>(where $S_p$ is the map from the previous theorem) along with the natural map</p>
+
+  <p>\begin{equation}\notag
+\Hom_{\sco_{X,p}}(\cale_p,\calf_p) \otimes_{\sco_{X,p}} \kappa(p) \to \Hom_{\kappa(p)}(E_p, F_p)
+\end{equation}</p>
+
+  <p>from the previous lemma. If $\cale$ is locally free, then \eqref{stair-eqn} is an isomorphism.</p>
+</div>
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem! <em>Hint</em>: Of course, essentially all of the hard work has already been completed in the previous theorem and lemma. Don’t work too hard!</p>
+</div>
+
+<h2 id="tensor-products">Tensor products</h2>
+
+<h2 id="dual-sheaves">Dual sheaves</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ an $\sco_X$-module. We define the <em>dual</em> of $\cale$, denoted $\cale^\ast$, as the $\sco_X$-module</p>
+
+  <p>\begin{equation}\notag
+\cale^\ast = \ShHom_{\sco_X}(\cale,\sco_X).
+\end{equation}</p>
+</div>
+
+<p>Of course, if $\cale$ is a locally free $\sco_X$-module, then its dual $\cale^\ast$ is also locally free, of the same rank.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ an $\sco_X$-module. The <em>contraction mapping</em> is the $\sco_X$-linear morphism</p>
+
+  <p>\begin{equation}\notag
+\ang{-,-} : \cale \otimes_{\sco_X} \cale^\ast \to \sco_X, \quad s\otimes \eta \mapsto \ang{s,\eta} \defeq \eta(s).
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ a free $\sco_X$-module of finite rank. Bases $s_1,\ldots,s_k$ of $\cale$ and $\eta^1,\ldots,\eta^k$ of $\cale^\ast$ are said to be <em>dually paired</em> if</p>
+
+  <p>\begin{equation}\notag
+\ang{s_j,\eta^i} = \delta^i_j \defeq \begin{cases} 1 &amp; : i=j, \\ 0 &amp; : i\neq j,\end{cases}
+\end{equation}</p>
+
+  <p>for $1\leq i,j\leq k$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Dually paired bases exist).</strong> Let $(X,\sco_X)$ be a locally ringed space and $\cale$ a free $\sco_X$-module of finite rank. Then for any basis $s_1,\ldots,s_k$ of $\cale$, a unique dually paired basis $\eta^1,\ldots,\eta^k$ of $\cale^\ast$ exists.</p>
+</div>
+
+<h2 id="cotangent-sheaves">Cotangent sheaves</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco_M)$ be a smooth manifold with tangent sheaf $\calx_M$. We define the <em>cotangent sheaf</em> of $M$, denoted $\calx_M^\ast$, to be the dual sheaf</p>
+
+  <p>\begin{equation}\notag
+\calx^\ast_M = \ShHom_{\sco_M}(\calx_M,\sco_M).
+\end{equation}</p>
+</div>
+
+<p>If $U\subseteq M$ is open, then, by definition, a section of the cotangent sheaf</p>
+
+<p>\begin{equation}\notag
+\omega \in \calx^\ast_M(U)
+\end{equation}</p>
+
+<p>is an $\sco_M|_U$-linear morphism</p>
+
+<p>\begin{equation}\notag
+\omega: \calx_M|_U \to \sco_M|_U
+\end{equation}</p>
+
+<p>of modules. So, for each open subset $V\subseteq U$, we have an $\sco_M(V)$-linear map</p>
+
+<p>\begin{equation}\notag
+\omega_V : \calx_M(V) \to \sco_M(V)
+\end{equation}</p>
+
+<p>which produces smooth functions over $V$ from smooth vector fields over $V$.</p>
+
+<p>But we already know how to produce examples of these types of sections! For example, suppose that we are given a smooth function $f\in \sco_M(U)$. Then for each $p\in U$ we have the usual differential</p>
+
+<p>\begin{equation}\notag
+df_p: T_p(M) \to \bbr.
+\end{equation}</p>
+
+<p>In fact, for each open subset $V\subseteq U$, there is an induced $\sco_M(V)$-linear map</p>
+
+<p>\begin{equation}\label{mirror-eqn}
+d_U(f)_V: \calx_M(V) \to \sco_M(V), \quad X \mapsto (p \mapsto df_p(X_p)). 
+\end{equation}</p>
+
+<p>To see that the differential $df_p(X_p)$ smoothly depends on $p$, we need only express it in local coordinates $x^1,\ldots,x^n$ near $p$ as</p>
+
+<p>\begin{equation}\notag
+df_p(X_p) = X^i(p) \frac{\bd f}{\bd x^i}(p)
+\end{equation}</p>
+
+<p>where $X^i$ are the (local) smooth component functions of $X$. But the right-hand side of this equation smoothly depends on $p$, and hence so does $df_p(X_p)$. This proves that the target of \eqref{mirror-eqn} really is the algebra of smooth functions $\sco_M(V)$. After you verify that $d_U(f)_V$ is $\sco_M(V)$-linear, we may conclude that $d_U(f)$ is a section in $\calx_M^\ast(U)$.</p>
+
+<p>In fact, what we’ve produced is a function</p>
+
+<p>\begin{equation}\label{post-eqn}
+d_U: \sco_M(U) \to \calx_M^\ast(U).
+\end{equation}</p>
+
+<p>The next important theorem shows that these functions assemble together to yield a morphism of sheaves:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Differentials as connections on structure sheaves).</strong> Let $(M,\sco_M)$ be a smooth manifold with cotangent sheaf $\calx_M^\ast$. Then the maps \eqref{post-eqn} define an $\underline{\bbr}_M$-linear map</p>
+
+  <p>\begin{equation}\notag
+d: \sco_M \to \calx_M^\ast.
+\end{equation}</p>
+
+  <p>This map is a <em>derivation</em>, in the sense that for functions $f,g\in \sco_M(U)$ we have</p>
+
+  <p>\begin{equation}\notag
+d(fg) = f dg + (df)g.
+\end{equation}</p>
+</div>
+
+<p>That $d$ commutes with the restriction maps and is $\underline{\bbr}_M$-linear depends crucially on the fact that the differential is a local operation, in the sense that the value $df_p$ is unaffected by restriction of $f$ to any open neighborhood of $p$. Carefully go through the proof of the theorem on your own to see why.</p>
+
+
+    </article>
+    
+  </body>
+</html>
