@@ -33,17 +33,24 @@
                 Spec: ['\\operatorname{Spec}#1', 1],
                 Hom: ['\\operatorname{Hom}#1', 1],
                 ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
                 Der: ['\\operatorname{Der}#1', 1],
                 Fun: ['\\operatorname{Fun}#1', 1],
                 GL: ['\\operatorname{GL}#1', 1],
                 M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
                 Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
                 Set: ['\\mathsf{Set}'],
                 const: ['\\underline{\\mathbb{R}}'],
                 SetVect: ['\\mathsf{SetVect}'],
                 Mfld: ['\\mathsf{Mfld}'],
                 Vect: ['\\mathsf{Vect}'],
+                so: ['\\mathfrak{so}'],
                 Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\left\\lVert#1\\right\\rVert', 1],
                 Sh: ['\\mathsf{Sh}'],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
@@ -70,6 +77,7 @@
                 calz: ['\\mathcal{Z}'],
                 mfa: ['\\mathfrak{A}'],
                 mfb: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
                 mfj: ['\\mathfrak{J}'],
                 mfl: ['\\mathfrak{L}'],
                 mfM: ['\\mathfrak{M}'],
@@ -590,7 +598,7 @@ F’^i(t,\zeta’(t)) = F^j(t,\zeta(t))\theta^i_j = m \ddot{\zeta}^j(t) \theta^i
 <h2 id="affine-spaces">Affine spaces</h2>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let $n\geq 1$ be an integer. An <em>$n$-dimensional affine space</em> is a pair $(A,V)$ where $A$ is a set and $V$ is an $n$-dimensional vector space. We further require that there exists a free and transitive action of the additive group of $V$ on $A$:</p>
+  <p><strong>Definition.</strong> Let $n\geq 1$ be an integer. An <em>$n$-dimensional affine space</em> is a pair $(A,V)$ where $A$ is a set and $V$ is an $n$-dimensional vector space. We require that there exists a free and transitive action of the additive group of $V$ on $A$:</p>
 
   <p>\begin{equation}\notag
 V \times A \to A, \quad (v,a) \mapsto v+a.
@@ -627,6 +635,14 @@ V \times A \to A, \quad (v,a) \mapsto v+a.
 
 <p>We have thus defined a category whose objects are affine spaces and whose morphisms are affine transformations. An <em>isomorphism</em> of affine spaces is then defined to be an isomorphism in this category.</p>
 
+<p>Though technically an affine space is a pair $(A,V)$, we shall often refer to just $A$ as an affine space, leaving $V$ implicit. If we need to call attention to it, we shall refer to $V$ as the vector space <em>associated</em> with $A$. Likewise, if</p>
+
+<p>\begin{equation}\notag
+(\phi,\phi^\#) :(A,V) \to (B,W)
+\end{equation}</p>
+
+<p>is an affine transformation, we shall often refer to just $\phi:A \to B$ as an affine transformation, leaving the linear transformation $\phi^\#:V \to W$ implicit.</p>
+
 <div class="highlight-box">
   <p><strong>Theorem (Existence of Subtraction).</strong> Let $(A,V)$ be an affine space. There exists a set-theoretic function</p>
 
@@ -637,7 +653,7 @@ A \times A \to V, \quad (a,b) \mapsto b-a,
   <p>called <em>subtraction</em>, such that $(b-a) + a =b$ for all $a,b\in A$.</p>
 </div>
 
-<p>Indeed, we simply note that for fixed $a\in A$, transitivity and freeness of the action of $A$ on $V$ implies that the function</p>
+<p>Indeed, we simply note that for fixed $a\in A$, transitivity and freeness of the action of $V$ on $A$ implies that the function</p>
 
 <p>\begin{equation}\notag
 V \to A, \quad v\mapsto v+a
@@ -661,7 +677,7 @@ Let $V$ be a finite-dimensional vector space. The pair $(V,V)$ forms an affine s
 
   <ol>
     <li>Prove the theorem.</li>
-    <li>The affine transformation $(\alpha,\alpha)$ in the theorem is special in that it preserves the zero vector $0\in V$, i.e., $\alpha(0)=0$. However, a general affine transformation
+    <li>While the affine transformation $(\alpha,\alpha)$ in the theorem preserves the zero vector (i.e., $\alpha(0)=0$), a general affine transformation
  \begin{equation}\notag
  (\phi,\phi^\#):(V,V) \to (W,W)
  \end{equation}
@@ -673,7 +689,7 @@ for all $v\in V$. Prove this.</li>
   </ol>
 </div>
 
-<p>It turns out that every affine space $(A,V)$ is isomorphic to an affine space induced by a vector space, as described in the theorem. To see how, suppose that $V$ is $n$-dimensional, and fix a basis of $V$ by choosing a linear isomorphism $\phi^\#: V \to \bbr^n$. The idea is that the chosen basis of $V$ will serve as the (possibly skew) coordinate axes in $A$. All that is left is to choose an “origin” for this coordinate system, which amounts to choosing a fixed point $O\in A$. We then define a function $\phi:A \to \bbr^n$ by setting</p>
+<p>It turns out that every affine space $(A,V)$ is isomorphic to an affine space induced by a vector space, as described in the theorem. To see how, suppose that $V$ is $n$-dimensional, choose a basis of $V$ by choosing a linear isomorphism $\phi^\#: V \to \bbr^n$, and choose a point $O\in A$ to serve as the “origin.” We then define a function $\phi:A \to \bbr^n$ by setting</p>
 
 <p>\begin{equation}\notag
 \phi(a) = \phi^\#(a - O).
@@ -693,7 +709,13 @@ for all $v\in V$. Prove this.</li>
   <p><strong>Exercise.</strong> Prove the theorem. You’ll need to show that $(\phi,\phi^\#)$ is indeed an affine transformation, and you’ll need to construct its inverse.</p>
 </div>
 
-<p>Blah!</p>
+<p>Through an affine isomorphism</p>
+
+<p>\begin{equation}\notag
+(\phi,\phi^\#): (A,V) \to (\bbr^n,\bbr^n)
+\end{equation}</p>
+
+<p>as constructed in the theorem, the affine space $A$ is given an $n$-dimensional smooth manifold structure. Since all affine automorphisms of $(\bbr^n,\bbr^n)$ are clearly smooth, notice that this smooth structure does not depend on the choice of basis of $V$ or origin $O\in A$.</p>
 
 <div class="highlight-box">
   <p><strong>Definition.</strong> We define <em>$n$-dimensional cartesian space</em> to be $\bbr^n$, considered with its canonical vector space structure and <em>cartesian inner product</em> given by</p>
@@ -712,7 +734,7 @@ for all $v\in V$. Prove this.</li>
 <p>Blah!</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> We define an <em>$n$-dimensional euclidean space</em> to be an affine space of the form $(A,\bbr^n)$. The particular $n$-dimensional euclidean space $(\bbr^n,\bbr^n)$ will be denoted $(\bbe^n,\bbr^n)$. Thus, we have $\bbe^n =\bbr^n$ as sets, but we forget the vector space structure on $\bbr^n$ and keep only its affine structure when we think of it as a model of a euclidean space.</p>
+  <p><strong>Definition.</strong> We define an <em>$n$-dimensional euclidean space</em> to be an affine space of the form $(E,\bbr^n)$.</p>
 </div>
 
 <p>Though the set $A$ in the definition is certainly not unique, it is traditional to write $\bbe^n$ to represent it. Any two realizations of $(\bbe^n,\bbr^n)$ are isomorphic to each other (as affine spaces) since they are both isomorphic to $(\bbr^n,\bbr^n)$ by choosing coordinate frames. However, these isomorphisms are in no way natural. As usual, we will write $\bbe$ in place of $\bbe^1$.</p>
@@ -825,9 +847,61 @@ where $\phi’$ is an orthogonal transformation of $\bbr^3$.</li>
   </ol>
 </div>
 
-<h2 id="further-reading">Further reading</h2>
+<h2 id="newtonian-spacetime-and-galilean-transformations">Newtonian spacetime and galilean transformations</h2>
 
-<h2 id="references-and-footnotes">References and footnotes</h2>
+<p>A <em>newtonian spacetime</em> is a smooth fiber bundle which possess a global trivialization of a very particular form.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>newtonian spacetime</em> is a smooth surjective map of manifolds $\pi:\caln\to \bbe$ such that:</p>
+
+  <ol>
+    <li>The <em>total space</em> $\caln$ is a $4$-dimensional euclidean space, while the <em>base space</em> $\bbe$ is a $1$-dimensional euclidean space, with their smooth structures induced by their affine structures.</li>
+    <li>There exists an affine isomorphism $\phi: \bbr \times \bbr^3 \to \caln$ and an isometry $\psi: \bbr \to \bbe$ of euclidean spaces that fit into a commutative diagram of the form
+ \begin{equation}\notag
+ \begin{xy}
+ \xymatrix{
+ \color{white} \bbr \times \bbr^3 \ar@[white][r]^-{\color{white}\phi} \ar@[white][d]_{\color{white}\pi_1}  &amp; \color{white} \caln \ar@[white][d]^{\color{white}\pi} \\ \color{white} \bbr \ar@[white][r]_-{\color{white}\psi} &amp; \color{white} \bbe}
+ \end{xy}
+ \end{equation}
+where $\pi_1$ is the natural projection onto the first cartesian factor.</li>
+    <li>A pair of maps $(\phi,\psi)$ as in (2.) exists with the further property that for each $t\in \bbr$, the restriction
+ \begin{equation}\notag
+ \phi_t \defeq \phi|_{\pi_1^{-1}(t)} : \pi_1^{-1}(t) \to \caln_{\lambda},
+ \end{equation}
+is an isometry of riemannian manifolds, where $\lambda = \psi(t)$. Here, the fiber $\caln_\lambda$ is viewed as a $3$-dimensional properly embedded submanifold of $\caln$ with induced riemannian metric.</li>
+  </ol>
+
+  <p>An element $\lambda \in \bbe$ is called an <em>affine parameter</em>, while a point in $\caln$ is called an <em>event</em>. A pair of maps $(\phi,\psi)$ as in (3.) is called a <em>(global) newtonian frame</em> on the newtonian spacetime.</p>
+</div>
+
+<p>Given two newtonian frames $(\phi,\psi)$ and $(\phi’,\psi’)$ on a newtonian spacetime $\pi:\caln \to \bbe$, the coordinate-change map</p>
+
+<p>\begin{equation}\notag
+G \defeq {\phi’}^{-1} \circ \phi: \bbr\times \bbr^3 \to \bbr \times \bbr^3
+\end{equation}</p>
+
+<p>is a very particular kind of affine isomorphism called a <em>galilean transformation</em>. To obtain a formula for $G$, we first note that, since $G$ is affine, there is a fixed $(t_0,x_0)\in \bbr \times \bbr^3$ such that</p>
+
+<p>\begin{equation}\notag
+G(t,x) = G^\#(t,x) + (t_0,x_0)
+\end{equation}</p>
+
+<p>where $G^\#$ is the associated linear transformation. But the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix@C=0.75in{
+\color{white} \bbr \times \bbr^3 \ar@[white][r]^-{\color{white}G} \ar@[white][d]_{\color{white}\pi_1}  &amp; \color{white} \bbr \times \bbr^3 \ar@[white][d]^{\color{white}\pi_1} \\ \color{white} \bbr \ar@[white][r]_-{\color{white}{\psi’}^{-1}\circ \psi} &amp; \color{white} \bbr}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes, and the composite along the bottom is an isometry. This means that we must have</p>
+
+<p>\begin{equation}\label{fan2-eqn}
+G(t,x) = (\pm t + t_0, Ax + tv + x_0 ),
+\end{equation}</p>
+
+<p>where $v\in \bbr^3$ is fixed and $A$ is a $3\times 3$ real matrix. In fact, since the restriction of $G$ to fibers must be an isometry, $A$ is an orthogonal matrix in $O(3)$. If $\pm = +$ in \eqref{fan2-eqn}, we say that the galilean transformation is <em>time-preserving</em> or that it is <em>orthochronous</em>; otherwise, we say it is <em>time-reversing</em> or that it is <em>non-orthochronous</em>.</p>
 
     </article>
     

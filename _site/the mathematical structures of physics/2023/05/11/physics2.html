@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>classical mechanics II&#58 the Poisson formalism</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\left\\lVert#1\\right\\rVert', 1],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                cali: ['\\mathcal{I}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfb: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfp: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">classical mechanics II: the Poisson formalism</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>The Poisson formalism</li>
+</ol>
+
+<h2 id="the-poisson-formalism">The Poisson formalism</h2>
+
+<p>Let $(P,\omega)$ be a symplectic manifold, and let $f\in C^\infty(P)$ be a smooth function. As above, we have the symplectic gradient $X_f$, which is defined to be the unique vector field on $P$ such that</p>
+
+<p>\begin{equation}\notag
+X_f \iprod \omega = \d f.
+\end{equation}</p>
+
+<p>If $g\in C^\infty(P)$ is a second smooth function, then we have equalities</p>
+
+<p>\begin{equation}\notag
+\d f(X_g) = \omega(X_f,X_g) = - \omega(X_g,X_f) = -\d g(X_f)
+\end{equation}</p>
+
+<p>in $C^\infty(P)$. We take one of these four (equal) functions in the definition of the following fundamental operation on a symplectic manifold:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(P,\omega)$ be a symplectic manifold and $f,g\in C^\infty(P)$ two smooth functions. We define the <em>Poisson bracket</em> of $f$ and $g$, denoted $\{f,g\}$, to be the smooth function</p>
+
+  <p>\begin{equation}\notag
+\{f,g\} = \omega(X_f,X_g).
+\end{equation}</p>
+
+  <p>In canonical local coordinates, the Poisson bracket is given as</p>
+
+  <p>\begin{equation}\notag
+\{f,g\} = \frac{\bd f}{\bd q^i} \frac{\bd g}{\bd p_i} - \frac{\bd f}{\bd p_i} \frac{\bd g}{\bd q^i}.
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>Poisson algebra</em> is a (real, unital, associative, commutative) algebra $A$ equippped with an antisymmetric bilinear map</p>
+
+  <p>\begin{equation}\notag
+\{-,-\} : A \otimes_\bbr A \to A, \quad (f,g) \mapsto \{f,g\}
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\label{jacobi-eqn}
+\{f,\{g,h\}\} + \{g,\{h,f\}\} + \{h,\{f,g\}\} =0
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\label{leibniz-eqn}
+\{f,gh\} = g \{f,h\} + \{f,g\}h
+\end{equation}</p>
+
+  <p>for all $f,g,h\in A$. The first identity \eqref{jacobi-eqn} is called the <em>Jacobi identity</em>, while the second one \eqref{leibniz-eqn} is called the <em>Leibniz identity</em>. The operation $\{-,-\}$ is called the <em>(abstract) Poisson bracket</em>.</p>
+
+  <p>If $B$ is a second Poisson algebra, a unital algebra homomorphism $\alpha:A \to B$ is called a <em>Poisson map</em> if it preserves Poisson brackets, in the sense that</p>
+
+  <p>\begin{equation}\notag
+\alpha\{f,g\} = \{\alpha f, \alpha g\}
+\end{equation}</p>
+
+  <p>for all $f,g\in A$. (On the left-hand side of this equation, the Poisson bracket is the one in $A$, while on the right-hand side, it is the one in $B$.)</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Equipped with the Poisson bracket, the algebra $C^\infty(P)$ of smooth functions on a symplectic manifold $(P,\omega)$ is a Poisson algebra.</p>
+</div>
+
+<p>Let $(P,\omega)$ be a symplectic manifold. Since $\omega$ is nondegenerate, there is a unique smooth antisymmetric contravariant tensor field $\pi$ of (tensor) degree $2$ such that</p>
+
+<p>\begin{equation}\notag
+\pi^{ik} \omega_{kj} = -\delta^i_j,
+\end{equation}</p>
+
+<p>where $\delta^i_j$ is the Kronecker tensor. The presence of the negative sign on the right-hand side of the equation is to ensure that the Poisson bracket defined via the tensor $\pi$ is the same as the Poisson bracket defined above.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>Poisson manifold</em> is a pair $(P,\pi)$ consisting of a smooth manifold $P$ and a smooth antisymmetric contravariant tensor field $\pi$ of (tensor) degree $2$. In local coordinates, we may thus write</p>
+
+  <p>\begin{equation}\notag
+\pi = \pi^{ij} \frac{\bd}{\bd x^i} \frac{\bd}{\bd x^j}
+\end{equation}</p>
+
+  <p>where $\pi^{ij} = -\pi^{ji}$ for all $i,j$. For each $i$, $j$ and $k$, we further require that the tensor $\pi$ satisfies the condition</p>
+
+  <p>\begin{equation}\label{cyclic-eqn}
+\pi^{li} \frac{\bd \pi^{jk}}{\bd x^l} + \pi^{lj} \frac{\bd \pi^{ki}}{\bd x^l} + \pi^{lk} \frac{\bd \pi^{ij}}{\bd x^l} =0.
+\end{equation}</p>
+
+  <p>If $(Q,\eta)$ is a second Poisson manifold, then a smooth map $\phi: P \to Q$ is called a <em>Poisson map</em> if</p>
+
+  <p>\begin{equation}\notag
+\phi^\ast\eta^{kl} = \pi^{ij} \frac{\bd y^k}{\bd x^i}\frac{\bd y^l}{\bd x^j}
+\end{equation}</p>
+
+  <p>for all indices $k$ and $l$, where we (locally) write</p>
+
+  <p>\begin{equation}\notag
+(y^1,\ldots,y^m) = \phi(x^1,\ldots,x^n).
+\end{equation}</p>
+</div>
+
+<p>A fundamental example of a Poisson manifold is the linear dual $\mfg^\ast$ of a (finite-dimensional, real) Lie algebra $\mfg$. We note, of course, that $\mfg^\ast$ is a <em>linear</em> smooth manifold, where any vector space isomorphism $\bbr^n \to \mfg^\ast$ furnishes a (global) smooth parametrization ($n=$ dimension of $\mfg$). Now, for its Poisson structure:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem/Definition (Existence and uniqueness of Lie-Poisson tensors).</strong>
+Let $\mfg$ be a real Lie algebra of dimension $n$ and $\mfg^\ast$ its linear dual, equipped with its linear smooth structure. Then there exists a unique Poisson tensor $\pi$ on $\mfg^\ast$ such that the evaluation map</p>
+
+  <p>\begin{equation}\notag
+\ev: \mfg \to C^\infty(\mfg^\ast), \quad \xi \mapsto \ev_\xi
+\end{equation}</p>
+
+  <p>is a homomorphism of Lie algebras. The tensor $\pi$ is called the <em>Lie-Poisson tensor</em>.</p>
+</div>
+
+<p>Suppose that such a Poisson tensor exists, let $e^1,\ldots,e^n$ be a linear basis of $\mfg$, and set</p>
+
+<p>\begin{equation}\notag
+x^i = \ev_{e^i}
+\end{equation}</p>
+
+<p>for each $i$. Then the $x^i$s serve as (global) smooth coordinate functions on $\mfg^\ast$, and thus</p>
+
+<p>\begin{equation}\notag
+\left\{x^i,x^j\right\} = \pi^{ij}.
+\end{equation}</p>
+
+<p>But $\ev$ is assumed to be a homomorphism of Lie algebras, and hence</p>
+
+<p>\begin{equation}\notag
+\pi^{ij} = \left\{x^i,x^j\right\} = \left\{\ev_{e^i},\ev_{e^j}\right\} = \ev_{[e^i,e^j]}.
+\end{equation}</p>
+
+<p>This shows that $\pi$, if it exists, is unique. On the other hand, as you may easiy check, if we <em>define</em> $\pi$ by the formula $\pi^{ij} = \ev_{[e^i,e^j]}$, then we obtain a Poisson tensor $\pi$ on $\mfg^\ast$ such that $\ev$ is a homomorphism of Lie algebras. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(P,\pi)$ be a Poisson manifold.</p>
+
+  <ol>
+    <li>The algebra $C^\infty(P)$ of smooth real-valued functions on $P$ is a Poisson algebra, with Poisson bracket given (in local coordinates) by
+ \begin{equation}\label{bracket-eqn}
+ \{f,g\} = \pi^{ij} \frac{\bd f}{\bd x^i} \frac{\bd g}{\bd x^j}.
+ \end{equation}</li>
+    <li>Let $(Q,\eta)$ be a second Poisson manifold and let $\phi:P \to Q$ be a smooth map. Then $\phi$ is a Poisson map between Poisson manifolds if and only if the pullback
+ \begin{equation}\notag
+ \phi^\ast:C^\infty(Q) \to C^\infty(P)
+ \end{equation}
+is a Poisson map between Poisson algebras.</li>
+  </ol>
+
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem. You will notice in the course of your proof that the condition \eqref{cyclic-eqn} is the crucial piece needed to show that the Poisson bracket \eqref{bracket-eqn} satisfies the Jacobi identity \eqref{jacobi-eqn}.</p>
+</div>
+
+<p>Let $(P,\pi)$ be a Poisson manifold, and let</p>
+
+<p>\begin{equation}\notag
+\theta_t: P \to P
+\end{equation}</p>
+
+<p>be a one-parameter group of diffeomorphisms of $P$. Via pullback, this induces a one-parameter group of algebra automorphisms</p>
+
+<p>\begin{equation}\notag
+U_t \defeq \theta_t^\ast: C^\infty(P) \to C^\infty(P).
+\end{equation}</p>
+
+<p>According to the previous theorem, each $\theta_t$ is a Poisson map if and only if each $U_t$ is one. Thus, a time evolution of pure states in $P$ is equivalently a time evolution of observables in $C^\infty(P)$.</p>
+
+    </article>
+    
+  </body>
+</html>
