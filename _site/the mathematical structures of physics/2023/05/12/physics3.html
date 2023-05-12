@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>classical mechanics III&#58 symmetries and symplectic reductions</title>
+    <title>classical mechanics III&#58 symmetry</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -37,6 +37,8 @@
                 Der: ['\\operatorname{Der}#1', 1],
                 Fun: ['\\operatorname{Fun}#1', 1],
                 GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
                 M: ['\\operatorname{M}#1', 1],
                 ev: ['\\operatorname{ev}'],
                 Open: ['\\mathsf{Open}#1', 1],
@@ -78,6 +80,7 @@
                 mfa: ['\\mathfrak{A}'],
                 mfb: ['\\mathfrak{B}'],
                 mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
                 mfj: ['\\mathfrak{J}'],
                 mfl: ['\\mathfrak{L}'],
                 mfM: ['\\mathfrak{M}'],
@@ -153,7 +156,7 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">classical mechanics III: symmetries and symplectic reductions</h1>
+  <h1 class="accent-color">classical mechanics III: symmetry</h1>
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
@@ -161,6 +164,59 @@
 <ol>
   <li>Noether’s Theorem and symplectic reduction</li>
 </ol>
+
+<h2 id="symmetries">Symmetries</h2>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\mfg$ be a Lie algebra, $V$ an $\bbr$-vector space, and $A$ a (possibly non-associative) $\bbr$-algebra.</p>
+
+  <ol>
+    <li>A <em>linear representation of $\mfg$ on $V$</em>, or a <em>linear action of $\mfg$ on $V$</em>, is a Lie algebra homomorphism
+ \begin{equation}\notag
+ \rho: \mfg \to \gl{V}.
+ \end{equation}</li>
+    <li>An <em>action of $\mfg$ by derivations on $A$</em> is a Lie algebra homomorphism
+ \begin{equation}\label{action-eqn}
+ \rho: \mfg \to \Der{A}.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>In particular, notice that an action by derivations is also a linear action, since we may compose the action map \eqref{action-eqn} with the inclusion map $\Der{A} \to \gl{A}$ which is a homomorphism of Lie algebras.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem/Definition (Adjoint actions).</strong> Let $\mfg$ be a Lie algebra and for each $X\in \mfg$, define the $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\ad_X : \mfg \to \mfg, \quad Y \mapsto \ad_XY = [X,Y].
+\end{equation}</p>
+
+  <p>Then the map</p>
+
+  <p>\begin{equation}\notag
+\ad : \mfg \to \Der{\mfg}, \quad X\mapsto \ad_X,
+\end{equation}</p>
+
+  <p>is an action of $\mfg$ by derivations on itself. It is called the <em>adjoint representation</em> of $\mfg$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem.</p>
+</div>
+
+<p>Though the object in the next exercise might seem excessively formal, it will prove very important later.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $\mfg$ be a Lie algebra with bracket $[-,-]$. Define a second Lie algebra, denoted $\mfg^\circ$, to be equal to $\mfg$ as an $\bbr$-vector space, but with bracket $[-,-]^\circ$ given by</p>
+
+  <p>\begin{equation}\notag
+[X,Y]^\circ = -[X,Y].
+\end{equation}</p>
+
+  <p>Equipped with $[-,-]^\circ$, prove that $\mfg^\circ$ is a Lie algebra. It is called the <em>opposite Lie algebra</em> associated to $\mfg$.</p>
+</div>
 
 <h2 id="noethers-theorem-and-symplectic-reduction">Noether’s Theorem and symplectic reduction</h2>
 
