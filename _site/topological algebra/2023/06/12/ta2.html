@@ -63,7 +63,8 @@
                 Sh: ['\\mathsf{Sh}'],
                 be: ['\\mathbf{E}'],
                 br: ['\\mathbf{R}'],
-                bx: ['\\mathbf{X}'],
+                bx: ['\\mathbf{x}'],
+                bX: ['\\mathbf{X}'],
                 upC: ['\\text{C}'],
                 bbc: ['\\mathbb{C}'],
                 bbe: ['\\mathbb{E}'],
@@ -1348,7 +1349,7 @@ f(a) = \alpha_a(f),
 
 <p>Before finishing this section, it might be worth describing the continuous functional calculus in the special case that the $\upC^\ast$-algebra is of the form $\calb(\calh)$ for some finite-dimensional Hilbert space $\calh$. It is described here only for self-adjoint operators in order to link it with the results above, but it actually holds more generally for normal operators.</p>
 
-<div class="highlight-box">
+<div class="highlight-box" id="huh">
   <p><strong>Continuous Functional Calculus for Self-Adjoint Operators (Finite-Dimensional Version).</strong> Let $T$ be a self-adjoint linear operator on a finite-dimensional Hilbert space $\calh$, and let</p>
 
   <p>\begin{equation}\notag
@@ -1429,16 +1430,24 @@ is a complex measure on $\calx$.</p>
 T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
 \end{equation}</p>
 
-  <p>If for each nonempty subset $A\subseteq\sigma(T)$ we define</p>
+  <p>If for each subset $A\subseteq\sigma(T)$ we define</p>
 
-  <p>\begin{equation}\notag
-E(A) = \sum_{\lambda \in \sigma(T) \cap A} P_\lambda,
+  <p>\begin{equation}\label{cool-eqn}
+E(A) =  \sum_{\lambda \in \sigma(T) \cap A} P_\lambda,
 \end{equation}</p>
 
-  <p>then the function $E: \mfP(\sigma(T)) \to \calb(\calh)$ is a spectral measure.</p>
+  <p>then the function $E: \mfP(\sigma(T)) \to \calb(\calh)$ is a spectral measure. (If $A=\emptyset$, we take $E(A)$ to be the zero operator.)</p>
 </div>
 
-<p>To complete the definition of $E$ we must, of course, also set $E(\emptyset) = \zero$. To prove the theorem, we must check all the defining axioms of a spectral measure:</p>
+<p>I’ll show you the proof in a moment, but first: Note that if $T$ is self-adjoint, so that we may use its <a href="#huh">continuous functional calculus</a>, then it’s easy to see that the formula \eqref{cool-eqn} may be expressed concisely as</p>
+
+<p>\begin{equation}\label{cool1-eqn}
+E(A) = \chi_A(T),
+\end{equation}</p>
+
+<p>where $\chi_A$ is the characteristic ($=$ indicator) function of $A$. (Remember that the functional calculus actually applies more broadly to <em>normal</em> elements in a $\upC^\ast$-algebra, so \eqref{cool1-eqn} actually applies in general. We only proved the existence of the functional calculus in the case of self-adjoint elements, however.)</p>
+
+<p>To prove the theorem, we must check all the defining axioms of a spectral measure:</p>
 
 <p>(1.): Since the adjoint operation is additive and each $P_\lambda$ is self-adjoint, so too is each operator $E(A)$, for each $A\in \mfP(\sigma(T))$. That each $E(A)$ is idempotent is a simple computation:</p>
 
