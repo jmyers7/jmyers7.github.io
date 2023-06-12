@@ -1,0 +1,985 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>basic definitions and uniform structures</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">basic definitions and uniform structures</h1>
+</div>
+
+<p>One of the overarching themes of these <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">posts</a> is that algebraic techniques and objects are abundant throughout geometry and topology. But though they are tightly linked, the objects in the theories described in those posts are still separated: This is an <em>algebraic</em> object over <em>here</em>, while that’s a <em>geometric</em> object over <em>there</em>. Now, however, I want to discuss mathematical theories in which the algebraic and geometric structures merge and live on the <em>same</em> objects—I’m speaking of the theories of <em>topological groups</em>, <em>topological rings</em>, <em>topological vector spaces</em>, <em>etc</em>.</p>
+
+<p>For most of us, our first serious encounter with topological concepts and notions occurred in our first course on real analysis. Depending on the level of generality, general metric spaces might have made an appearance, but it was always the real line $\bbr$ that was the main topological actor in the story. But in the sections on sequences and series of functions, sets of functions with topologies were lurking in the background. Here, one learns the difference between pointwise and uniform convergence, and it might have been mentioned that uniform convergence of sequences of bounded functions may be captured via the <a href="https://en.wikipedia.org/wiki/Uniform_norm"><em>supremum norm</em></a> (also called the <em>uniform norm</em>). But the introduction of a norm on a set of functions induces a metric structure on the same set; we may then envisage <em>functions</em> as <em>points</em> in their own topological spaces, and we may talk about closures of sets of functions, compactness of sets of functions, and all other topological properties too. The approximation theorems that we learn may then be beautifully restated using this topological language—for example, one of Weierstrass’s famous theorems says that the <em>uniform closure</em> of the set of complex polynomials on a closed interval is the set of continuous complex-valued functions on that interval.</p>
+
+<p>But it’s not just the topological structure on polynomials induced by the uniform norm that is needed in Weierstrass’s theorem; indeed, the algebraic structure of polynomials proves crucial as well, the fact that we may add, subtract, multiply, and scale polynomials and stay within the set of polynomials. It’s this fusion of topological and algebraic structures that leads to Stone’s generalization of Weierstrass’s theorem, becoming the general <a href="https://en.wikipedia.org/wiki/Stone%E2%80%93Weierstrass_theorem">Stone-Weierstrass Theorem</a>.</p>
+
+<p>Such topologo-algebraic structures are prevalent in many areas of mathematics, and the goal of this series of posts is to sample a few theories where they are used. In this first post, we lay down the basic definitions of various algebraic structures with topologies, and explore some of their properties. As we work through the later posts in this series, one of the key properties that will emerge will be <em>completeness</em>; therefore, in this first post, we also discuss <em>uniform structures</em> on topological spaces, which are the most general types of structure in which one may make sense of the <em>completeness</em> property.</p>
+
+<p>If the only thing that qualifies a mathematical theory as “topological algebra” is that it utilizes algebraic structures with topologies, then <em>topological algebra</em> is a <strong>huge</strong> subject, and one could spend their entire career working in just one subfield. For example, under this very broad definition, the theory of operator algebras, the theory of Lie groups, and formal deformation theory would all be classified as <em>topological algebra</em>, though these theories are all quite different from each other. Nevertheless, my aim in this series of posts is to touch on each of these fields, attempting to bring out the beautiful interplay between algebra and topology.</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#defs" style="font-family: 'Lora', serif; font-size: 1em;">Basic definitions</a></li>
+  <li><a href="#uniform" style="font-family: 'Lora', serif; font-size: 1em;">Uniform structures</a></li>
+  <li><a href="#converge" style="font-family: 'Lora', serif; font-size: 1em;">Convergence and completeness</a></li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>A firm command of basic point-set topology is necessary to read this post. My go-to reference is Willard’s <em>General Topology</em>, which takes a lot of inspiration from Kelley’s famous text by the same name. Both references are quite comprehensive; in particular, they both include much more extensive treatments of uniform spaces than I give here. For a gentler introduction to point-set topology, another one of my favorites is Gamelin and Greene’s <em>Introduction to Topology</em>. This was the first text on topology that I ever worked though, back in my undergraduate days.</p>
+
+<p>Beyond these topological prerequisites, the reader should also know the basic definitions of various basic algebraic structures, like <a href="https://en.wikipedia.org/wiki/Group_(mathematics)">groups</a>, <a href="https://en.wikipedia.org/wiki/Vector_space">vector spaces</a>, and <a href="https://en.wikipedia.org/wiki/Algebra_over_a_field">algebras</a>.</p>
+
+<ul>
+  <li>
+    <p>T. W. Gamelin, R. E. Greene. Introduction to topology. Second edition. <em>Dover Publications, Inc., Mineola, NY, 1999.</em></p>
+  </li>
+  <li>
+    <p>J. L. Kelley. General topology. <em>D. Van Nostrand Co., Inc., Toronto-New York-London, 1955.</em></p>
+  </li>
+  <li>
+    <p>S. Willard. General topology. Reprint of the 1970 original [Addison-Wesley, Reading, MA]. <em>Dover Publications, Inc., Mineola, NY, 2004.</em></p>
+  </li>
+</ul>
+
+<div id="defs">
+  <h2 id="basic-definitions">Basic definitions</h2>
+</div>
+
+<p>Before we begin, let’s fix some notation and terminology:</p>
+
+<div class="highlight-box2">
+  <p>Throughout this section, the letter $k$ will stand for either the field $\bbr$ of real numbers, or the field $\bbc$ of complex numbers. The field $k$, whichever one it may be, will be equipped with its standard topology.</p>
+</div>
+
+<p>Now, we give the definitions of the main objects considered in this series of posts:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong></p>
+
+  <ol>
+    <li>A <em>topological group</em> is a set $G$ which is simultaneously a group and a topological space. We require that the group multiplication map
+ \begin{equation}\notag
+ G\times G \to G, \quad (g,h) \mapsto gh,
+ \end{equation}
+and the inversion map
+ \begin{equation}\notag
+ G \to G, \quad g\mapsto g^{-1},
+ \end{equation}
+are both continuous.</li>
+    <li>A <em>topological $k$-vector space</em> is a set $V$ which is simultaneously a $k$-vector space and a topological space. We require that the vector addition map
+ \begin{equation}\notag
+ V \times V \to V, \quad (v,w) \mapsto v+w,
+ \end{equation}
+and the scaling map
+ \begin{equation}\notag
+ k \times V \to V, \quad (\lambda, v) \mapsto \lambda v
+ \end{equation}
+are both continuous. Here, the ground field $k$ ($= \bbr$ or $\bbc$) is equipped with its natural topology.</li>
+    <li>A <em>topological $k$-algebra</em> is a set $A$ which is simultaneously a $k$-algebra and a topological $k$-vector space. We require that the algebra multiplication map
+ \begin{equation}\notag
+ A \times A \to A, \quad (a,b) \mapsto ab,
+ \end{equation}
+is continuous.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $G$ be a set which is both a group and a topological space. Prove that $G$ is a topological group if and only if the map</p>
+
+  <p>\begin{equation}\notag
+G \times G \to G, \quad (g,h) \mapsto gh^{-1},
+\end{equation}</p>
+
+  <p>is continuous.</p>
+</div>
+
+<p>The next exercise is very important, as it shows that every topological vector space has an underlying topological group, and so all general results proved for the latter type of structure automatically apply to the former type. Therefore, just as a topological algebra is an extra piece of structure placed on top of a topological vector space, so too may a topological vector space be understood as an extra piece of structure placed on top of a topological group. The whole theory is then conceptualized as a hierarchy of structures.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Recall that the underlying additive structure of a vector space $V$ forms an abelian group. Prove that if $V$ is a topological $k$-vector space, then this underlying additive structure is a topological group.</p>
+</div>
+
+<p>Topological groups have very special types of topologies:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Topological groups have homogeneous topologies).</strong> Let $G$ be a topological group. For a fixed $g\in G$, define the <em>left-</em> and <em>right-translation maps</em>, denoted $L_g$ and $R_g$ respectively, to be</p>
+
+  <p>\begin{equation}\label{left-eqn}
+L_g: G \to G, \quad h \mapsto gh,
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\label{right-eqn}
+R_g: G \to G, \quad h \mapsto hg.
+\end{equation}</p>
+
+  <p>Then both $L_g$ and $R_g$ are self-homeomorphisms of $G$, with inverses $L_{g^{-1}}$ and $R_{g^{-1}}$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem.</p>
+</div>
+
+<p>Let $G$ be a set which is simultaneously a group and a topological space, but not necessarily a topological group. If all left- and right-translation maps \eqref{left-eqn} and \eqref{right-eqn} are homeomorphisms, then we shall say the topology on $G$ is <em>homogeneous</em>. This explains the parenthetical description of the theorem, as the theorem shows that all topological groups have homogeneous topologies.</p>
+
+<p>One of the most convenient features of homogeneous topologies is that they are completely determined by the neighborhood system at the identity. To explain this, for completeness and convenience, we first recall a basic construction from point-set topology:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition/Theorem.</strong> Let $X$ be a topological space and $x\in X$ a point. Then the <em>neighborhood system at $x$</em> is the collection $\caln_x$ of all neighborhoods of $x$. It has the following properties:</p>
+
+  <ol>
+    <li>The collection $\caln_x$ is nonempty.</li>
+    <li>For each $N\in \caln_x$, $x\in N$.</li>
+    <li>For each $N\in \caln_x$, if $M\supseteq N$ then $M \in \caln_x$.</li>
+    <li>For each $M,N\in \caln_x$, $N\cap M \in \caln_x$.</li>
+    <li>For each $N\in \caln_x$, there is an $M\in \caln_x$ such that $M\subseteq N$ and $M\in \caln_y$ for each $y\in M$.</li>
+  </ol>
+
+  <p>Conversely, suppose that $X$ is a set, and for each $x\in X$ we have a collection $\caln_x$ of subsets of $X$ that satisfy properties (1.)-(5.) above. Then there is a unique topology on $X$ for which $\caln_x$ is the neighborhood system at $x$.</p>
+</div>
+
+<p>Now, let’s explain the aforementioned feature of homogeneous topologies:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Homogeneous topologies and neighborhoods of the identity).</strong> Let $G$ be a group with a homogeneous topology. Then the topology on $G$ is completely determined by the neighborhood system of the identity $e\in G$.</p>
+</div>
+
+<p>To explain and prove the theorem, let’s fix some notation. For each $g\in G$ and each subset $U\subseteq G$, we define the <em>left</em> and <em>right translates</em> of $U$ to be the sets</p>
+
+<p>\begin{equation}\notag
+gU = L_g(U) \quad \text{and} \quad Ug = R_g(U).
+\end{equation}</p>
+
+<p>The key observation is that if $U$ is a neighborhood of $h\in G$, then $gU$ and $Ug$ are neighborhoods of $gh$ and $hg$, respectively; indeed, this follows immediately from the homogeneity property of the topology. But since any topology whatsoever is determined by the neighborhood systems of its points, this observation immediately implies that the topology is determined by the neighborhoods of $e$. Q.E.D.</p>
+
+<p>In view of the theorem, it is therefore very easy to define a homogeneous topology on a group $G$. Indeed, we simply describe a set of subsets of $G$ (satisfying properties (1.)-(5.) in the definition/theorem above) that will serve as the neighborhood system of $e\in G$. We then <em>define</em> the translates of these sets to be the neighborhood systems of all other points. The topology obtained in this way is then homogeneous by construction. I suggest that you work out the details on your own, just to make sure you understand everything.</p>
+
+<p>So, we have two types of mathematical structures at hand: Topological groups, and groups with homogeneous topologies. We have shown that every topological group has a homogeneous topology. Conversely, we might wonder about what extra conditions (if any) must be placed on a homogeneous topology to guarantee that it yields a topological group. Now, clearly, if $G$ is a topological group, then the map</p>
+
+<p>\begin{equation}\label{mult-eqn}
+G \times G \to G, \quad (g,h) \mapsto gh^{-1},
+\end{equation}</p>
+
+<p>is continuous at $(e,e)$. It turns out that this condition is actually <em>sufficient</em> for a homogeneous topology on a group $G$ to yield a topological group:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (When do homogeneous topologies yield topological groups?).</strong> Let $G$ be a group equipped with a homogeneous topology. Then $G$ is a topological group if and only if the map \eqref{mult-eqn} is continuous at $(e,e)$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem. If you have difficulties, see Howe’s article referenced in the section on Further Reading.</p>
+</div>
+
+<p>There are versions of this result for vector spaces and algebras:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (When do homogeneous topologies yield topological algebraic structures?).</strong></p>
+
+  <ol>
+    <li>Let $V$ be a $k$-vector space whose underlying additive abelian group is equipped with a homogeneous topology. Then $V$ is a topological $k$-vector space if and only if the subtraction map
+ \begin{equation}\label{yupper-eqn}
+ V \times V \to V, \quad (v,w) \mapsto v-w,
+ \end{equation}
+is continuous at $(0,0)$, and the scaling map
+ \begin{equation}\label{yupper2-eqn}
+ k \times V \to V, \quad (\lambda,v) \mapsto \lambda v,
+ \end{equation}
+is continuous at $(0,0)$.</li>
+    <li>Let $A$ be a $k$-algebra whose underlying additive abelian group is equipped with a homogeneous topology. Then $A$ is a topological $k$-algebra if and only if the subtraction map
+ \begin{equation}\notag
+ A \times A \to A, \quad (a,b) \mapsto a-b,
+ \end{equation}
+is continuous at $(0,0)$, the scaling map
+ \begin{equation}\notag
+ k \times A \to A, \quad (\lambda,a) \mapsto \lambda a,
+ \end{equation}
+is continuous at $(0,0)$, and the multiplication map
+ \begin{equation}\label{yupper3-eqn}
+ A \times A \to A, \quad (a,b) \mapsto ab,
+ \end{equation}
+is continuous at $(0,0)$.</li>
+  </ol>
+</div>
+
+<p>Throughout this series of posts, the most common types of topological vector spaces that we shall encounter are normed vector spaces. Let’s recall the definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $V$ be a $k$-vector space. A function</p>
+
+  <p>\begin{equation}\notag
+\norm{\cdot} : V \to \bbr, \quad v\mapsto \norm{v},
+\end{equation}</p>
+
+  <p>is called a <em>norm</em> on $V$ if it has the following properties:</p>
+
+  <ol>
+    <li><em>Positive-definite.</em> $\norm{v} \geq 0$ for all $v\in V$, with equality if and only if $v=0$.</li>
+    <li><em>Homogeneity.</em> $\norm{\lambda v} = | \lambda | \norm{v}$ for all $\lambda \in k$ and $v\in V$.</li>
+    <li><em>Triangle inequality.</em> $\norm{w+v} \leq \norm{w} + \norm{v}$ for all $v\in w\in B$.</li>
+  </ol>
+
+  <p>A <em>normed $k$-vector space</em> is a $k$-vector space equipped with a norm $\norm{\cdot}$. A normed $k$-vector space is called a <em>Banach space</em> if it is complete in the metric induced by the norm (see immediately below).</p>
+</div>
+
+<p>Every normed vector space $V$ is a topological space, equipped with the metric topology induced by</p>
+
+<p>\begin{equation}\notag
+\text{distance}(v,w) \defeq \norm{v-w}, \quad v,w\in V.
+\end{equation}</p>
+
+<p>While it is quite straightforward to prove directly that a normed vector space is a topological vector space, it is perhaps instructive to use some of the theory that we’ve built up in this section.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Every normed $k$-vector space $V$ is a topological vector space.</p>
+</div>
+
+<p>For the proof, let’s let $B(v;\dev)$ denote the open $\dev$-ball centered at $v\in V$, for $\dev&gt;0$:</p>
+
+<p>\begin{equation}\notag
+B(v;\dev) = \left\{ w \in V \mid \norm{w-v} &lt; \dev \right\}.
+\end{equation}</p>
+
+<p>To prove that the metric topology is homogeneous, we need to show that each left-translation map $L_v:V \to V$ is continuous. For this, we fix $w\in V$ and $\dev&gt;0$, and we need to find a $\delta&gt;0$ such that</p>
+
+<p>\begin{equation}\notag
+L_v \left( B(w;\delta) \right) \subseteq B(v+w; \dev).
+\end{equation}</p>
+
+<p>But this is completely trivial because, as you may check, we can just take $\delta = \dev$.</p>
+
+<p>Now that we know the metric topology is homogeneous, to prove $V$ is a topological vector space it will suffice to show that the subtraction map \eqref{yupper-eqn} is continuous at $(0,0)$, and that the scaling map \eqref{yupper2-eqn} is continuous at $(0,0)$. But this is precisely where the homogeneity property of the norm and the triangle inequality come into play. I will leave you to work out the (straightforward) details. Q.E.D.</p>
+
+<p>By combining a normed vector space and an algebra with one extra condition, we get the following fundamental structure:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be a $k$-algebra. We shall say $A$ is a <em>normed $k$-algebra</em> if the underlying vector space is a normed vector space, and if this norm has the following additional property:</p>
+
+  <ol>
+    <li><em>Submultiplicativity.</em> $\norm{ab} \leq \norm{a} \norm{b}$ for all $a,b\in A$.</li>
+  </ol>
+
+  <p>A normed $k$-algebra whose underlying normed vector space is a Banach space is called a <em>Banach $k$-algebra</em>.</p>
+</div>
+
+<p>As we just saw, the underlying vector space of a normed algebra $A$ is a topological vector space. In fact, the submultiplicativity of the norm is the exact ingredient needed to upgrade $A$ to a topological algebra:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Every normed $k$-algebra $A$ is a topological algebra.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem.</p>
+</div>
+
+<div id="uniform">
+  <h2 id="uniform-structures">Uniform structures</h2>
+</div>
+
+<p>The defining property of a Banach space, that is, the property that distinguishes it from a general normed vector space, is its <em>completeness</em> with respect to the metric induced by its norm. However, completeness is <em>not</em> a topological property, as Cauchy sequences are not defined in general topological spaces.</p>
+
+<p>But neither is completeness satisfactorily and entirely captured by the metric alone. Indeed, let’s recall that two norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$ on a vector space $V$ are called <em>equivalent</em> if there are constants $a,b&gt;0$ such that</p>
+
+<p>\begin{equation}\notag
+a \norm{v}_1 \leq \norm{v}_2 \leq b \norm{v}_1, \quad \forall v\in V.
+\end{equation}</p>
+
+<p>Letting</p>
+
+<p>\begin{equation}\notag
+d_1(v,w) = \norm{v-w}_1 \quad \text{and} \quad d_2(v,w) = \norm{v-w}_2
+\end{equation}</p>
+
+<p>be the two metrics induced by the norms, we then have the following important pair of results, the proofs of which I leave to you:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong></p>
+
+  <ol>
+    <li>The two norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$ are equivalent if and only if the metric topologies generated by $d_1$ and $d_2$ are equal.</li>
+    <li>Provided that the two norms are equivalent, the vector space $V$ is complete with respect to $d_1$ if and only if it is complete with respect to $d_2$.</li>
+  </ol>
+</div>
+
+<p>The combination of these two results suggests that completeness should be a topological property, but again, as we already observed, completeness is <em>not</em> a general topological property!</p>
+
+<div class="highlight-box2">
+  <p><strong>Question.</strong> If completeness is neither a topological nor a metric property, what exactly is it a property of?</p>
+</div>
+
+<p>The answer is that completeness is a <em>uniform property</em>, a type of property belonging to mathematical structures called <em>uniform spaces</em>. Between the two extremes of general topological spaces and metric spaces, you should imagine that the class of uniform spaces is a middle ground somewhere in between. So, the class of uniform spaces can be conceptualized as a generalization of metric spaces, but, fascinatingly, it <em>also</em> serves as a generalization of topological groups:</p>
+
+<p><img src="/assets/images/venn.png" alt="sum" style="margin: 40px auto; display: block; width: 60%;" /></p>
+
+<p>In order to motivate the definition of a <em>uniform space</em>, we shall examine the particular parts of a metric space structure that support the definitions of Cauchy sequences and uniformly continuous functions. In fact, we shall find it convenient to study these definitions in a more general <em>pseudometric space</em> $(X,d)$, which is a set $X$ equipped with a <a href="https://en.wikipedia.org/wiki/Pseudometric_space"><em>pseudometric</em></a> $d$, which means that $d$ satisfies all the axioms of a metric <em>except</em> the requirement that</p>
+
+<p>\begin{equation}\notag
+d(x,y) = 0 \quad \Leftrightarrow \quad x=y,
+\end{equation}</p>
+
+<p>for $x,y\in X$.</p>
+
+<p>Now, let’s recall the definitions:</p>
+
+<div class="highlight-box2">
+  <ol>
+    <li>A function $f:(X,d_X) \to (Y,d_Y)$ from one pseudometric space to another is called <em>uniformly continuous</em> if for every $\dev&gt;0$ there is a number $\delta&gt;0$ such that
+ \begin{equation}\label{unif-cont-eqn}
+ d_X(x_1,x_2) &lt; \delta \quad \Rightarrow \quad d_Y(f(x_1),f(x_2)) &lt; \dev,
+ \end{equation}
+for all $x_1,x_2\in X$.</li>
+    <li>A sequence $(x_n)_{n\geq 0}$ of numbers in a pseudometric space $(X,d)$ is called a <em>Cauchy sequence</em> if for every $\dev&gt;0$ there is an integer $N \geq 0$ such that
+ \begin{equation}\label{Cauchy-eqn}
+ m,n\geq N \quad \Rightarrow \quad d(x_m,x_n) &lt; \dev.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>The key observation is that these two definitions do not depend solely on single points of the pseudometric space $X$, but rather on <em>pairs</em> of points of $X$. In fact, suppose that to every $\dev&gt;0$ we define the following subset of the cartesian product $X\times X$:</p>
+
+<p>\begin{equation}\notag
+U_{X,\dev} = \left\{ (x_1,x_2) \in X\times X \mid d_X(x_1,x_2) &lt; \dev\right\}.
+\end{equation}</p>
+
+<p>Then a completely trivial re-write of the definitions above replaces the implication \eqref{unif-cont-eqn} with</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{unif-cont2-eqn}
+(x_1,x_2) \in U_{X,\delta} \quad \Rightarrow \quad (f(x_1),f(x_2)) \in U_{Y,\dev},
+\end{equation}</p>
+</div>
+
+<p>and replaces  \eqref{Cauchy-eqn} with</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{Cauchy2-eqn}
+m,n\geq N \quad \Rightarrow \quad (x_m,x_n) \in U_{X,\dev}.
+\end{equation}</p>
+</div>
+
+<p>The definition of a general <em>uniform space</em> is obtained by isolating several properties of the sets $U_{X,\dev}$ implied by the pseudometric axioms, and using these properties as the defining axioms for a so-called <em>uniformity</em>. Then, a set equipped with a uniformity will be called a <em>uniform space</em>. In this section, we shall study the definition and basic properties of <em>uniform spaces</em>, leaving the discussion of convergence (and completeness) to the subsequent section.</p>
+
+<p>To formulate these properties properly, we first need to set up some notation:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ be an arbitrary set.</p>
+
+  <ol>
+    <li>We define $\Delta$ to be the <em>diagonal</em> in $X\times X$, that is,
+ \begin{equation}\notag
+ \Delta = \left\{(x,x) \in X \times X \mid x\in X\right\}.
+ \end{equation}</li>
+    <li>Given a subset $U$ of $X\times X$, we define
+ \begin{equation}\notag
+ U^{-1} = \left\{(x,y) \in X\times X \mid (y,x) \in U \right\}.
+ \end{equation}
+The set $U$ is called <em>symmetric</em> if $U = U^{-1}$.</li>
+    <li>Given two subsets $U_1$ and $U_2$ of $X\times X$, we define $U_2 \circ U_1$ to be the subset of $X\times X$ consisting of those pairs $(x,z)\in X\times X$ such that there exists a $y\in X$ for which $(x,y) \in U_1$ and $(y,z) \in U_2$.</li>
+  </ol>
+</div>
+
+<p>Equipped with this new notation, let’s return to our considerations of pseudometric spaces:</p>
+
+<div class="highlight-box" id="pseudometric">
+  <p><strong>Theorem (Pseudometric spaces generate a uniformity).</strong> Let $(X,d)$ be a pseudometric space and for each $\dev&gt;0$ define</p>
+
+  <p>\begin{equation}\label{base-metric-eqn}
+U_\dev = \{(x,y) \in X\times X \mid d(x,y) &lt; \dev \}.
+\end{equation}</p>
+
+  <p>Then:</p>
+
+  <ol>
+    <li>For all $\dev&gt;0$, we have $\Delta \subseteq U_{\dev}$.</li>
+    <li>For all $\dev&gt;0$, there is a $\delta&gt;0$ such that $U_{\delta} \subseteq U^{-1}_{\dev}$.</li>
+    <li>For all $\dev&gt;0$, there is a $\delta&gt;0$ such that $U_{\delta} \circ U_{\delta} \subseteq U_{\dev}$.</li>
+    <li>For all $\dev_1,\dev_2&gt;0$, there is a $\delta&gt;0$ such that $U_{\delta} \subseteq U_{\dev_1} \cap U_{\dev_2}$.</li>
+  </ol>
+</div>
+
+<p>I want to step through the proof in detail, to show you how the pseudometric axioms imply all four of these properties.</p>
+
+<p>(1): This is just a consequence of the fact $d(x,x)=0$, for all $x\in X$.</p>
+
+<p>(2): Given $\dev&gt;0$, we have $U^{-1}_\dev = U_\dev$ since the pseudometric is symmetric: $d(x,y) = d(y,x)$, for all $x,y\in X$. Thus, we may take $\delta = \dev$.</p>
+
+<p>(3): This is a consequence of the triangle inequality. Indeed, suppose that we take $\delta=\dev/2$. Then, given $(x,z) \in U_{\dev/2} \circ U_{\dev/2}$, there is a $y\in X$ such that</p>
+
+<p>\begin{equation}\notag
+d(x,z) \leq d(x,y) + d(y,z) \leq \dev/2 + \dev/2 = \dev.
+\end{equation}</p>
+
+<p>Hence $(x,z) \in U_\dev$.</p>
+
+<p>(4): Take $\delta = \min\{\dev_1,\dev_2\}$. Q.E.D.</p>
+
+<p>The next result is an <em>exact</em> analog for topological groups of the previous theorem, but now it’s not the pseudometric axioms that are used in its proof, but rather the continuity of the group operations.</p>
+
+<div class="highlight-box" id="tg">
+  <p><strong>Theorem (Topological groups generate a uniformity).</strong> Let $G$ be a topological group and let $\calb_e$ be a basis for the neighborhood system of the identity $e\in G$. For each $N \in \calb_e$, define</p>
+
+  <p>\begin{equation}\label{base-tg-eqn}
+U_N = \{ (g,h) \in G \times G \mid gh^{-1} \in N \}.
+\end{equation}</p>
+
+  <p>Then:</p>
+
+  <ol>
+    <li>For all $N\in \calb_e$, we have $\Delta \subseteq U_{N}$.</li>
+    <li>For all $N\in \calb_e$, there is an $M\in \calb_e$ such that $U_{M} \subseteq U^{-1}_{N}$.</li>
+    <li>For all $N\in \calb_e$, there is an $M\in \calb_e$ such that $U_{M} \circ U_{M} \subseteq U_{N}$.</li>
+    <li>For all $N_1,N_2 \in \calb_e$, there is an $M \in \calb_e$ such that $U_{M} \subseteq U_{N_1} \cap U_{N_2}$.</li>
+  </ol>
+</div>
+
+<p>(1): This follows from the fact $gg^{-1} = e$ for all $g\in G$, and that each $N\in \calb_e$ contains the identity.</p>
+
+<p>(2): Since $G$ is a topological group, the inversion map</p>
+
+<p>\begin{equation}\notag
+\iota:G\to G, \quad g\mapsto g^{-1},
+\end{equation}</p>
+
+<p>is continuous. In particular, it is continuous at $e$, so if $N\in \calb_e$, then there is a neighborhood $M\in \calb_e$ such that $\iota(M) \subseteq N$. But as you may easily check, this implies $U_M \subseteq U_{N}^{-1}$.</p>
+
+<p>(3): Since $G$ is a topological group, the multiplication map</p>
+
+<p>\begin{equation}\notag
+\mu: G \times G \to G, \quad (g,h) \mapsto gh,
+\end{equation}</p>
+
+<p>is continuous. In particular, it is continuous at $(e,e)$, so if $N\in \calb_e$, there is a neighborhood $M\in \calb_e$ such that $\mu(M \times M) \subseteq N$. But this implies $U_{M} \circ U_{M} \subseteq U_N$.</p>
+
+<p>(4): One of the properties of bases of neighborhood systems states that if $N_1,N_2\in \calb_e$, there is an $M \in \calb_e$ such that $M\subseteq N_1 \cap N_2$. But then we have $U_M \subseteq U_{N_1} \cap U_{N_2}$. Q.E.D.</p>
+
+<p>As the parenthetical descriptions of these theorems indicate, they show that pseudometric spaces and topological groups both generate <em>uniformities</em> via the collections of subsets \eqref{base-metric-eqn} and \eqref{base-tg-eqn}. The four common properties of these collections highlighted in these theorems are extracted to form the definition of a <em>base of a uniformity</em>. Before giving this general definition, we first need to define <em>uniformities</em> and <em>uniform spaces</em>:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ be a set. A non-empty collection $\calu$ of subsets of the cartesian product $X\times X$ is called a <em>uniformity</em> on $X$ if:</p>
+
+  <ol>
+    <li>For all $U\in\calu$, we have $\Delta \subseteq U$.</li>
+    <li>For all $U\in \calu$, there is a $V\in \calu$ such that $V \subseteq U^{-1}$.</li>
+    <li>For all $U\in \calu$, there is a $V\in \calu$ such that $V \circ V \subseteq U$.</li>
+    <li>For all $U_1,U_2 \in \calu$, we have $U_1 \cap U_2 \in \calu$.</li>
+    <li>For all $U\in \calu$, we have $U\subseteq V \ \Rightarrow \ V\in \calu$.</li>
+  </ol>
+
+  <p>The sets $U$ in the uniformity $\calu$ are called <em>entourages</em>. A <em>uniform space</em> is a pair $(X,\calu)$, where $X$ is a set and $\calu$ is a uniformity on $X$. The uniformity $\calu$ is said to be <em>separated</em> and $(X,\calu)$ is called a <em>separated uniform space</em> if</p>
+
+  <p>\begin{equation}\notag
+\bigcap_{U\in \calu} U = \Delta.
+\end{equation}</p>
+
+  <p>A function $\alpha:X \to Y$ between two uniform spaces $(X,\calu_X)$ and $(Y,\calu_Y)$ is called <em>uniformly continuous</em> if for every $V\in \calu_Y$ there is a $U\in \calu_X$ such that
+	\begin{equation}\notag
+	(x_1,x_2) \in U \quad \Rightarrow \quad (\alpha(x_1),\alpha(x_2)) \in V.
+	\end{equation}
+If, in addition to being uniformly continuous, the function $\alpha$ is invertible with a uniformly continuous inverse $\alpha^{-1}$, then $\alpha$ is called a <em>uniform isomorphism</em>.</p>
+</div>
+
+<p>For practice with the definition, I suggest that you work through the following:</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $(X,\calu)$ be a uniform space.</p>
+
+  <ol>
+    <li>Prove that for every $U\in \calu$, we have $U^{-1} \in \calu$.</li>
+    <li>Prove that axioms (2.) and (3.) in the definition are together equivalent to the following single axiom: For all $U\in \calu$, there is a $V\in \calu$ such that $V \circ V^{-1} \subseteq U$.</li>
+    <li>Prove that for every $U\in \calu$ and every integer $n\geq 2$, there is a $V\in \calu$ such that
+ \begin{equation}\notag
+ \underbrace{V \circ V \circ \cdots \circ V}_{\text{$n$ factors}} \subseteq U.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>Now that we have defined uniformities and uniform spaces, we extract the properties from the theorems above on <a href="#pseudometric">pseudometric spaces</a> and <a href="#tg">topological groups</a> and use them as axioms to define the following fundamental structure:</p>
+
+<div class="highlight-box" id="base">
+  <p><strong>Definition.</strong> Let $X$ be a set. A non-empty collection $\calb$ of subsets of the cartesian product $X\times X$ is called a <em>base for a uniformity</em> on $X$ if:</p>
+
+  <ol>
+    <li>For all $B\in\calb$, we have $\Delta \subseteq B$.</li>
+    <li>For all $B\in \calb$, there is a $C\in \calb$ such that $C \subseteq B^{-1}$.</li>
+    <li>For all $B\in \calb$, there is a $C\in \calb$ such that $C \circ C \subseteq B$.</li>
+    <li>For all $B_1,B_2 \in \calb$, there is a $C \in \calb$ such that $C \subseteq B_1 \cap B_2$.</li>
+  </ol>
+</div>
+
+<p>The link between bases for uniformities and actual uniformities is explained in:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem/Definition.</strong> Let $X$ be a set.</p>
+
+  <ol>
+    <li>Let $\calb$ be a base for a uniformity on $X$, and define a collection $\calu$ of subsets of the cartesian product $X\times X$ by
+ \begin{equation}\label{blank-eqn}
+ U\in \calu \quad \Leftrightarrow \quad \exists B\in \calb \ \text{such that} \ B\subseteq U.
+ \end{equation}
+Then $\calb \subseteq \calu$, and $\calu$ is a uniformity on $X$.</li>
+    <li>Conversely, let $\calu$ be a uniformity on $X$, and suppose $\calb \subseteq \calu$ is a nonempty subcollection of entourages satisfying \eqref{blank-eqn}. Then $\calb$ is a base of a uniformity in the sense that it satisfies the axioms in the <a href="#base" style="font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">definition</a> above.</li>
+  </ol>
+
+  <p>If a base $\calb$ of a uniformity and a uniformity $\calu$ are linked via \eqref{blank-eqn}, then $\calb$ is called a <em>base of the uniformity $\calu$</em>, and $\calb$ is said to <em>generate</em> the uniformity $\calu$.</p>
+</div>
+
+<p>Now, using this new language, we may officially say that the sets \eqref{base-metric-eqn} and \eqref{base-tg-eqn} form bases for uniformities on a pseudometric space and topological group, respectively. In the former case, the uniformity obtained in this way is called the <em>pseudometric uniformity</em>. If $(X,\calu)$ is a uniform space and there exists a pseudometric $d$ on $X$ for which $\calu$ is the pseudometric uniformity induced by $d$, then $(X,\calu)$ is called a <em>pseudometrizable uniform space</em>.</p>
+
+<div class="highlight-box2" id="base-ex">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove statements (1.) and (2.) in the theorem.</li>
+    <li>Let $(X,\calu)$ be a uniform space. Prove that the set
+ \begin{equation}\notag
+ \calb = \left\{U\in \calu \mid U = U^{-1} \right\}
+ \end{equation}
+of symmetric entourages is a base of $\calu$.</li>
+    <li>Let $\alpha:(X,\calu_X) \to (Y,\calu_Y)$ be a function between two uniform spaces, and suppose $\calb_X$ and $\calb_Y$ are bases of $\calu_X$ and $\calu_Y$, respectively. Prove that uniform continuity of $\alpha$ may be checked on the bases, in the sense that it is uniformly continuous if and only if for each $C\in \calb_Y$ there is a $B\in \calb_X$ such that
+ \begin{equation}\notag
+ (x_1,x_2) \in B \quad \Rightarrow \quad (\alpha(x_1),\alpha(x_2)) \in C.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>Like the association between bases of topologies and topologies, keep in mind that the association between bases of uniformities and uniformities is many-to-one: Two distinct bases for uniformities may generate the same uniformity.</p>
+
+<p>Turning our attention toward induced topologies, we have:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem/Definition.</strong> Let $(X,\calu)$ be a uniform space. For each $x\in X$ and $U\in \calu$, define</p>
+
+  <p>\begin{equation}\notag
+U_x = \{ y\in X \mid (x,y) \in U\}.
+\end{equation}</p>
+
+  <p>Then:</p>
+
+  <ol>
+    <li>There is a unique topology on $X$, called the <em>uniform topology</em>, for which the set
+ \begin{equation}\label{u-eqn}
+ \calb_x = \{ U_x \mid U\in \calu\}
+ \end{equation}
+is a base for the neighborhood system at $x\in X$.</li>
+    <li>The same uniform topology is obtained if the uniformity $\calu$ in \eqref{u-eqn} is replaced with a base.</li>
+    <li>The uniform topology is Hausdorff if and only if the uniformity $\calu$ is separated.</li>
+  </ol>
+</div>
+
+<p>Though every uniformity induces a unique topology, two distinct uniformities may induce the <em>same</em> uniform topology. This means that a uniformity on a set represents <em>strictly more structure</em> than the uniform topology that it induces.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove the previous theorem.</li>
+    <li>Prove that every uniformly continuous function between uniform spaces is continuous in the uniform topologies. Give an example of a function between uniform spaces that is continuous in the uniform topologies, but which is <em>not</em> uniformly continuous.</li>
+    <li>Suppose that $(X,d)$ is a pseudometric space, and that $\calu$ is the induced pseudometric uniformity. Prove that the uniform topology induced by $\calu$ is the same as the original pseudometric topology.</li>
+  </ol>
+</div>
+
+<p>The following result will prove very convenient.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(X,\calu)$ be a uniform space. Then the collection of open entourages forms a base for $\calu$.</p>
+</div>
+
+<p>To clarify, openness of an entourage $U$ is with respect to the product topology on $X\times X$, where $X$ is equipped with its uniform topology.</p>
+
+<p>For the proof, first note that the collection of open entourages is nonempty, since it contains $X\times X$. For the rest of the argument, notice that it suffices to prove that</p>
+
+<p>\begin{equation}\label{implication-eqn}
+U \in \calu \quad \Rightarrow \quad U^\circ \in \calu,
+\end{equation}</p>
+
+<p>where $U^\circ$ is the interior of $U$. To do this, we first choose an entourage $V$ such that</p>
+
+<p>\begin{equation}\label{contain1-eqn}
+V \circ V \circ V \subseteq U.
+\end{equation}</p>
+
+<p>Since the symmetric entourages form a base, we can shrink $V$ if needed and assume both that it is symmetric, and that the containment \eqref{contain1-eqn} holds. Now, if we can prove that $V\subseteq U^\circ$, then \eqref{implication-eqn} will follow. But notice that if $(x,y)\in V$, we have the containment</p>
+
+<p>\begin{equation}\label{contain2-eqn}
+V_x \times V_y \subseteq U.
+\end{equation}</p>
+
+<p>Indeed, if $(z,w)\in V_x \times V_y$, then $(z,w) \in V \circ V \circ V$ as well, since $V$ is symmetric and all three $(x,y),(x,z),(y,w)\in V$. Then $(z,w) \in U$ by \eqref{contain1-eqn}, from which \eqref{contain2-eqn} follows. But since $V_x \times V_y$ is open in the product topology, contains $(x,y)$, and is contained in $U$, we have $(x,y) \in U^\circ$. Thus, $V \subseteq U^\circ$, as desired. Q.E.D.</p>
+
+<div id="converge">
+  <h2 id="convergence-and-completeness">Convergence and completeness</h2>
+</div>
+
+<p>Having discussed the definitions of uniform spaces, uniform continuity, bases, and uniform topologies, we turn our attention toward convergence and completeness. As one learns in their first (thorough) course in point-set topology, sequences in the classical sense do not prove fully adequate for capturing and encoding topological notions in spaces that are not first-countable. (See the section on Further Reading.) Rather, a more general convergence theory is needed, two candidates being the <a href="https://en.wikipedia.org/wiki/Net_(mathematics)">theory of nets</a> and the <a href="https://en.wikipedia.org/wiki/Filters_in_topology">theory of filters</a>.</p>
+
+<p>Unfortunately, a complete and self-contained discussion of either of these latter two convergence theories would take us too far afield. However, we don’t really need them, since our primary examples of uniform spaces will all be pseudometrizable, spaces for which the classical theory of sequences is sufficient. It is enough to know a few basic relationships between sequences and nets, the first being:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Every sequence $(x_n)$ in a topological space $X$ is a net in $X$. The sequence $(x_n)$ converges to a point $x\in X$ if and only if it converges as a net to $x$.</p>
+</div>
+
+<p>One may define a <em>Cauchy net</em> in a uniform space by mimicking the definition of a Cauchy sequence; then, one proves easily that every convergent net is Cauchy, and that every Cauchy sequence (see below) is a Cauchy net. Spaces for which Cauchy nets converge are given a special title:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A uniform space is <em>complete</em> if all Cauchy nets converge.</p>
+</div>
+
+<p>The link between the uniform notion of completeness and the classical pseudometric notion is given in:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(X,\calu)$ be a uniform space. If the uniformity $\calu$ is pseudometrizable via a pseudometric $d$, then $(X,\calu)$ is a complete uniform space if and only if $(X,d)$ is a complete pseudometric space.</p>
+</div>
+
+<p>So, as long as the uniform spaces under consideration are pseudometrizable—and all of our examples <em>will be</em>—this theorem allows us to focus our attention on the more familiar concept of completeness for pseudometric spaces. This theorem is the justification for our omission of a detailed description of nets.</p>
+
+<p>We will need one more result before continuing; its metric version should be familiar.</p>
+
+<div class="highlight-box" id="ext">
+  <p><strong>Theorem (Uniform extensions of uniformly continuous maps).</strong> Let $X$ be a uniform space and $A\subseteq X$ a uniform subspace. If $\alpha: A \to Y$ is a uniformly continuous map to a complete Hausdorff uniform space, then there exists a unique extension of $\alpha$ to a uniformly continuous map</p>
+
+  <p>\begin{equation}\notag
+\bar{\alpha} : \bar{A} \to Y.
+\end{equation}</p>
+</div>
+
+<p>The proof is rather straightforward, but it does involve nets, so it will be omitted. See the section on Further Reading for references containing proofs.</p>
+
+<p>Now, let’s give the official definition of Cauchy sequences in uniform spaces:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong></p>
+
+  <ol>
+    <li>A sequence $(x_n)$ in a uniform space $(X,\calu)$ is called a <em>Cauchy sequence</em> if for every $U\in \calu$ there is an integer $N\geq 0$ such that
+ \begin{equation}\notag
+ m,n\geq N \quad \Rightarrow \quad (x_m,x_n) \in U.
+ \end{equation}</li>
+    <li>Two Cauchy sequences $(x_n)$ and $(y_n)$ in a uniform space $(X,\calu)$ are said to be <em>equivalent</em> if for every $U\in \calu$ there is an integer $N\geq 0$ such that
+ \begin{equation}\notag
+ n\geq N \quad \Rightarrow \quad (x_n,y_n) \in U.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Recall that a sequence $(x_n)$ in a topological space $X$ is said to <em>converge</em> to a point $x$ if for every neighborhood $U$ of $x$, there is an integer $N\geq 0$ such that
+ \begin{equation}\notag
+ n\geq N \quad \Rightarrow \quad x_n \in U.
+ \end{equation}
+Provided that $(X,\calu)$ is a uniform space, prove that every convergent sequence (in the uniform topology) is a Cauchy sequence.</li>
+    <li>Prove that <em>equivalence</em> of Cauchy sequences is an equivalence relation on the set of all Cauchy sequences.</li>
+    <li>Prove that the Cauchy property of a sequence in a uniform space may be checked on a base of the uniformity. Do the same for the equivalence property of Cauchy sequences. (This is similar to part (3.) of the <a href="#base-ex" style="font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">exercise</a> above.)</li>
+    <li>Let $\alpha:(X,\calu_X) \to (Y,\calu_Y)$ be a uniformly continuous map. Prove that $\alpha$ carries Cauchy sequences in $X$ to Cauchy sequences in $Y$, and preserves equivalence classes of Cauchy sequences.</li>
+  </ol>
+</div>
+
+<p>We now turn our attention toward completions of uniform spaces. Here’s the definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ be a uniform space. A <em>(Hausdorff) completion</em> of $X$ is a uniformly continuous map</p>
+
+  <p>\begin{equation}\notag
+\iota:X \to Y
+\end{equation}</p>
+
+  <p>to a complete Hausdorff uniform space that has the following universal property: If</p>
+
+  <p>\begin{equation}\notag
+\alpha: X \to Z
+\end{equation}</p>
+
+  <p>is another uniformly continuous map to a complete Hausdorff uniform space, then there exists a unique uniformly continuous function</p>
+
+  <p>\begin{equation}\notag
+\bar{\alpha}: Y\to Z
+\end{equation}</p>
+
+  <p>such that $\alpha = \bar{\alpha} \circ \iota$.</p>
+</div>
+
+<p>Though technically a completion is a certain map $\iota:X \to Y$, the target $Y$ is often called the completion. As with any object defined via a universal property, a completion $Y$ is unique up to (uniform) isomorphism, provided that it exists. It is a general result of the theory that <em>every</em> uniform space has a completion, and proofs may be found in the references in the section on Further Reading. We will prove this existence result in the special case of pseudometrizable uniform spaces:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Existence of completions).</strong> Let $(X,\calu)$ be a pseudometrizable uniform space. Then a completion of $X$ exists. In fact, a completion may be realized as the inclusion of $X$ into a metric completion of the pseudometric space $(X,d)$, where $d$ is any pseudometric that induces the uniformity $\calu$.</p>
+</div>
+
+<p>If $(x_n)$ is a Cauchy sequence in $X$, we will write $[x_n]$ for its equivalence class. We recall that a metric completion of $(X,d)$ is given by the metric space $\widehat{X}$, which is the set of all equivalence classes of Cauchy sequences in $X$ with metric given by</p>
+
+<p>\begin{equation}\notag
+\widehat{d}\left([x_n],[x_n’] \right) = \lim_{n\to \infty} d(x_n,x_n’).
+\end{equation}</p>
+
+<p>As one proves in their course in point-set topology or real analysis, the metric space $\widehat{X}$ equipped with this metric is complete, and the natural inclusion map</p>
+
+<p>\begin{equation}\notag
+\iota: X \to \widehat{X}
+\end{equation}</p>
+
+<p>sending each $x\in X$ to the equivalence class $[x,x,\ldots]$ is an isometric embedding onto a dense subspace of $\widehat{X}$.</p>
+
+<p>If we wanted to finish the proof quickly, we could use the <a href="#ext">extension theorem</a> to prove that the map $\iota$ have the defining universal property of a completion. However, we choose to give a self-contained proof. And actually, a “net” version of the proof we are about to give is more or less how one proves that previous <a href="#ext">extension theorem</a>.</p>
+
+<p>So, suppose that</p>
+
+<p>\begin{equation}\notag
+\alpha: X \to Z
+\end{equation}</p>
+
+<p>is a uniformly continuous map to a complete Hausdorff uniform space; we need to prove that there exists a unique uniformly continuous extension</p>
+
+<p>\begin{equation}\notag
+\widehat{\alpha}: \widehat{X} \to Z
+\end{equation}</p>
+
+<p>such that $\alpha = \widehat{\alpha} \circ \iota$. If such an extension $\widehat{\alpha}$ exists, then the usual argument shows that we must have</p>
+
+<p>\begin{equation}\label{ext-eqn}
+\widehat{\alpha} \left([x_n] \right) = \lim_{n\to \infty} \alpha(x_n).
+\end{equation}</p>
+
+<p>Thus, $\widehat{\alpha}$ is unique, provided that it exists.</p>
+
+<p>For existence, we <em>define</em> $\widehat{\alpha}$ via this last formula \eqref{ext-eqn}. We must then check that $\widehat{\alpha}$ is well-defined by showing that the limit on the right-hand side of \eqref{ext-eqn} exists (and is unique!) and that it does not depend on the particular representative $(x_n)$ of the equivalence class.</p>
+
+<p>To see that the limit exists, note that because $\alpha$ is uniformly continuous it carries Cauchy sequences to Cauchy sequences, and since $Z$ is complete, the limit must exist. Furthermore, since $Z$ is Hausdorff, the limit is unique.</p>
+
+<p>To see that the limit does not depend on the choice of representative Cauchy sequence $(x_n)$, suppose that $(x_n’)$ is a second Cauchy sequence, equivalent to $(x_n)$. But again, since $\alpha$ is uniformly continuous, it preserves equivalence classes, and so $(\alpha(x_n))$ and $(\alpha(x_n’))$ are equivalent in $Z$. But $Z$ is Hausdorff, and hence</p>
+
+<p>\begin{equation}\notag
+\lim_{n\to \infty} \alpha(x_n) = \lim_{n\to \infty} \alpha(x_n’).
+\end{equation}</p>
+
+<p>All that is left is to prove that $\widehat{\alpha}$, defined by \eqref{ext-eqn}, is uniformly continuous. For this, we let an entourage $U$ in $Z$ be given, and we choose a <em>symmetric</em> entourage $V$ in $Z$ such that</p>
+
+<p>\begin{equation}\label{three-eqn}
+V \circ V \circ V \subseteq U.
+\end{equation}</p>
+
+<p>Since $\alpha$ is uniformly continuous, there is an $\dev &gt; 0$ such that</p>
+
+<p>\begin{equation}\label{imp-eqn}
+d(x,x’) &lt; \dev \quad \Rightarrow \quad (\alpha(x),\alpha(x’)) \in V.
+\end{equation}</p>
+
+<p>I claim then that</p>
+
+<p>\begin{equation}\label{imp2-eqn}
+\widehat{d} \left([x_n],[x_n’] \right) &lt; \dev \quad \Rightarrow \quad \left( \widehat{\alpha}\left([x_n] \right),\widehat{\alpha}\left([x_n’]\right) \right) \in U
+\end{equation}</p>
+
+<p>for all $[x_n],[x_n’] \in \widehat{X}$. To prove this, first set</p>
+
+<p>\begin{equation}\notag
+z = \widehat{\alpha}\left([x_n] \right) \quad \text{and} \quad z’ = \widehat{\alpha}\left([x_n’] \right).
+\end{equation}</p>
+
+<p>If $\widehat{d} \left([x_n],[x_n’] \right) &lt; \dev$, there is an integer $N \geq 0$ such that</p>
+
+<p>\begin{equation}\notag
+n\geq N \quad \Rightarrow \quad d(x_n,x_n’) &lt; \dev.
+\end{equation}</p>
+
+<p>But in view of \eqref{imp-eqn}, this gives</p>
+
+<p>\begin{equation}\notag
+n\geq N \quad \Rightarrow \quad (\alpha(x_n),\alpha(x_n’)) \in V.
+\end{equation}</p>
+
+<p>Since $\alpha(x_n) \to z$ and $\alpha(x_n’) \to z’$, we may choose $N$ large enough so that</p>
+
+<p>\begin{equation}\notag
+n\geq N \quad \Rightarrow \quad (z,\alpha(x_n)), (z’,\alpha(x_n’)) \in V.
+\end{equation}</p>
+
+<p>Combining these last two implications with the containment \eqref{three-eqn} and the fact $V$ is symmetric, we get that $(z,z’) \in U$. This proves the desired implication \eqref{imp2-eqn} and finishes the proof. Q.E.D.</p>
+
+<p>The completion $\widehat{X}$ of the pseudometrizable uniform space $X$ was constructed by using a particular choice of pseudometric $d$ on $X$. However, the defining universal property of completions shows that $\widehat{X}$ only depends on the uniform structure of $X$, at least up to uniform isomorphism. Indeed, this follows from the fact that the universal property holds in the category of uniform spaces, not just the category of metric spaces.</p>
+
+<p>To end this section, we give a convenient result which lets us identify completions without having to verify the defining universal property.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $X$ be a uniform space. If $Y$ is a complete Hausdorff uniform space containing $X$ as a dense uniform subspace, then the inclusion map $\iota:X \to Y$ is a completion of $X$.</p>
+</div>
+
+<p>This is just an application of the <a href="#ext">extension theorem</a>.</p>
+
+
+    </article>
+    
+  </body>
+</html>

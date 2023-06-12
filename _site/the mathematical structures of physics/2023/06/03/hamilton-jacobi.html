@@ -1,0 +1,835 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>classical mechanics V&#58 Hamilton-Jacobi theory</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">classical mechanics V: Hamilton-Jacobi theory</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Hamiltonian mechanics via variational methods</li>
+  <li>Hamilton-Jacobi theory and canonical transformations</li>
+  <li>The geometry of Hamilton-Jacobi theory</li>
+</ol>
+
+<h2 id="hamiltonian-mechanics-via-variational-methods">Hamiltonian mechanics via variational methods</h2>
+
+<p>Up till now, our treatment of hamiltonian mechanics has been mostly coordinate-independent, utilizing the powerful tools and techniques of abstract differential and symplectic geometry. In this section, however, I want to offer a perspective with a much more “classical” flavor, one that isn’t afraid (or ashamed!) to compute in local coordinates and is much more in line with treatments given in classical physics textbooks (Goldstein’s famous textbook on mechanics, for example).</p>
+
+<p>Our starting point is a version of Hamilton’s Principle of Stationary Action, from which Hamilton’s equations of motion may be <em>derived</em>. The principle is stated here in the language of the calculus of variations, and so we will have a good bit of work to do in order to unpack it and understand it.</p>
+
+<div class="highlight-box2">
+  <p><strong>(Modified) Hamilton’s Principle.</strong> Let $H(t,q,p)$ be the (possibly time-dependent) hamiltonian of a classical dynamical system, and let</p>
+
+  <p>\begin{equation}\label{states-eqn}
+(q_1,p_1) \quad \text{and} \quad (q_2,p_2)
+\end{equation}</p>
+
+  <p>be two fixed states in phase space. Of all the possible time trajectories</p>
+
+  <p>\begin{equation}\notag
+t \mapsto (q(t),p(t))
+\end{equation}</p>
+
+  <p>in phase space connecting the two states \eqref{states-eqn} over a fixed time interval $[a,b]$, the allowable trajectories are those which are stationary points of the <em>action integral</em></p>
+
+  <p>\begin{equation}\label{act-int-eqn}
+A_H(q,p) = \int_a^b \left( p\dot{q} - H(t,q,p)\right) \ \d t.
+\end{equation}</p>
+</div>
+
+<p>Though we often write $q$ and $p$ for canonical coordinates on a phase space $T^\ast Q$, apparently in the action integral $A_H(q,p)$ they are the components of a <em>path</em> in phase space, $q = q(t)$ and $p=p(t)$. Therefore, technically, the action integral <em>should</em> be written as</p>
+
+<p>\begin{equation}\notag
+A_H(q,p) = \int_a^b \left[ p(t)\dot{q}(t) - H(t,q(t),p(t))\right] \ \d t,
+\end{equation}</p>
+
+<p>though it’s common in this line of work to omit the explicit dependence on $t$ and write the integral as \eqref{act-int-eqn}. Using the same symbols $q$ and $p$ to simultaneously represent canonical coordinates (which <em>never</em> depend on time) and paths <em>can</em> be confusing sometimes, but it’s just something we’ll have to get used to. As always, there’s a trade-off between using notation which is entirely precise, but yet can quickly become cumbersome, and using context-dependent abbreviated notation which highlights the essential pieces of a formula or equation, but which can be ambiguous or confusing.</p>
+
+<p>So, Hamilton’s Principle states that the allowable time evolutions of a system are those which are <em>stationary points</em> of the action integral. While we will make this notion precise below, for now you should think of such a <em>stationary point</em> as a path</p>
+
+<p>\begin{equation}\notag
+t \mapsto (q(t),p(t))
+\end{equation}</p>
+
+<p>at which the value of $A_H(q,p)$ is unchanged under small perturbations of the path. (So, in particular, a <em>stationary point</em> is actually a path!) The analogy to keep in mind is a number $x\in \bbr$ at which a function $y=f(x)$ has a vanishing differential: $\d f_{x}=0$. Since</p>
+
+<p>\begin{equation}\notag
+f(x+h) - f(x) \approx \d f_{x}(h) =0
+\end{equation}</p>
+
+<p>if $\d f_x(h)=0$ and $h$ is small, we see that the value of $f(x)$ is “stationary” under a small perturbation $h$. Indeed, when we precisely define a <em>stationary point</em> of the action integral below, it will be in terms of the vanishing of a certain type of differential.</p>
+
+<p>The value of the action integral $A_H(q,p)$ is, naturally, called the <em>action</em> of the system along the trajectory $t\mapsto (q(t),p(t))$. Beyond its strict mathematical definition, it’s difficult to understand in a metaphysical sense exactly what <em>action</em> “is,” and why Hamilton’s Principle singles out and identifies <em>action</em> as a physically significant quantity. But at the end of the day, it’s really what we can <em>do</em> with <em>action</em> that is more important than any pseudo-philosophical understanding of what it “is,” and as I will show you in this section, we can derive Hamilton’s equations of motion using the notion of <em>action</em>.</p>
+
+<p>So, let’s begin with the theory!</p>
+
+<p>Firstly, I should point out that I have called my statement of Hamilton’s Principle a “modified” version in order to distinguish it from the more common version which refers to lagrangian mechanics, not hamiltonian. This is in keeping with the terminology in Goldstein’s text.</p>
+
+<p>Note that the hamiltonian in the principle is allowed to have an explicit dependence on time. Till now, our hamiltonians only depended on the canonical coordinates $q$ and $p$, and were thus defined on the phase space $T^\ast Q$ over the configuration space $Q$. But these new time-dependent hamiltonians are properly defined on the so-called <em>extended phase space</em>, which is the cartesian product</p>
+
+<p>\begin{equation}\notag
+\bbr \times T^\ast Q.
+\end{equation}</p>
+
+<p>Extended phase space is no longer a symplectic manifold, as it has odd dimension, but is instead an example of something called a <a href="https://en.wikipedia.org/wiki/Contact_geometry"><em>contact manifold</em></a> when paired with a special $1$-form called a <em>(global) contact form</em> (or, more precisely, when paired with the hyperplane distribution that the contact form generates). This special $1$-form, denoted $\alpha_H$, is essentially the integrand of the action integral:</p>
+
+<p>\begin{equation}\label{act-form-eqn}
+\alpha_H = p \ \d q - H \ \d t.
+\end{equation}</p>
+
+<p>Given its role as the integrand of the action integral, $\alpha_H$ is also called the <em>action form</em>.</p>
+
+<p>You have undoubtably noticed that $Q$ appears to be $1$-dimensional in my statement of the principle, as I am writing the canonical coordinates as $(q,p)$. However, this is merely to keep the formulas from becoming overburdened with too much junk, and everything in this section applies equally well to configuration spaces of any dimension $n\geq 1$. With everything displayed, the action integral would be</p>
+
+<p>\begin{equation}\label{ah-eqn}
+A_H(q^1,\ldots,q^n,p_1,\ldots,p_n) = \int_a^b \left( p_i \dot{q}^i - H(t,q^1,\ldots,q^n,p_1,\ldots,p_n)\right) \ \d t,
+\end{equation}</p>
+
+<p>while the action form would be</p>
+
+<p>\begin{equation}\notag
+\alpha_H = p_i \ \d q^i - H \ \d t,
+\end{equation}</p>
+
+<p>with summations over $i$ implied. Especially in view of \eqref{ah-eqn}, you can see why I prefer to write the formulas in the case $n=1$, which I will continue to do so for the rest of this section. I will leave it up to you (often in the form of exercises) to make the obvious changes so that the formulas apply in arbitrary dimensions $n\geq 1$.</p>
+
+<p>As I mentioned above, the <em>stationary points</em> referred to in Hamilton’s Principle are the direct generalizations of stationary points in single-variable calculus, but to new types of functions called <em>functionals</em>, of which the action integral is an example. This calls for a new type of differential, called a <em>(first) variation</em>, which applies to functionals. These <em>variations</em> appear in the next definition, and will be defined below it.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $F:\bbr^3 \to \bbr$ be a smooth function, and suppose that we are given a fixed collection of smooth paths</p>
+
+  <p>\begin{equation}\notag
+q: t\mapsto q(t)\in \bbr, \quad t\in [a,b],
+\end{equation}</p>
+
+  <p>which we call the domain of <em>admissible</em> paths. For each such admissible path $q=q(t)$, define</p>
+
+  <p>\begin{equation}\label{functional-eqn}
+J(q) = \int_a^b F(t,q,\dot{q}) \ \d t.
+\end{equation}</p>
+
+  <p>A <em>stationary point</em> of $J$ is a path $q=q(t)$ for which the variation vanishes $\delta J_q = 0$.</p>
+</div>
+
+<p>Thus, $J$ is nothing but a real-valued function on the domain of all admissible paths, and is often called a <em>functional</em>. For visualization purposes, it is helpful to think of a path $q=q(t)$ in terms of its graph, which is the path $t\mapsto(t,q(t))$ in $\bbr^2$.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Suppose that $F$ is a smooth map $F:\bbr ^{2n+1}\to \bbr$ and $q=q(t)$ is a path in $\bbr^n$ with components $q^i = q^i(t)$. What is the correct generalization of \eqref{functional-eqn}, in terms of the $q^i$s and $\dot{q}^i$s?</p>
+</div>
+
+<p>Now, what exactly is this variation gadget?</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $J$ be defined as in \eqref{functional-eqn}. Given two paths $q=q(t)$ and $h=h(t)$ over the time interval $[a,b]$, we define the <em>variation of $J$ at $q$ with increment $h$</em> as the derivative</p>
+
+  <p>\begin{equation}\label{real-eqn}
+\delta J_q(h) = \frac{\d}{\d \dev} \Big|_{\dev=0} J(q+\dev h),
+\end{equation}</p>
+
+  <p>provided, of course, that the function</p>
+
+  <p>\begin{equation}\notag
+\dev \mapsto J(q+\dev h)
+\end{equation}</p>
+
+  <p>is defined and differentiable on an open neighborhood of $0\in \bbr$. In particular, $q+\dev h$ must be an admissible path for all sufficiently small $\dev$, including $\dev=0$.</p>
+</div>
+
+<p>I am going to give you an example of an explicit computation of a variation of a functional in a moment, but before I do, a few words might be appropriate on the techniques used. In particular, I am going to make heavy use of infinitesimals which, depending on your demands for mathematical rigor, might leave you feeling unsatisfied and unconvinced.</p>
+
+<p>The idea is to introduce a <strong>nonzero</strong> quantity $\dev$ which is to be thought of as a <em>formal first-order infinitesimal</em>. While $\dev$ is like any other nonzero number insofar as it abides by (almost) all the usual laws and rules of algebra, it differs from other nonzero numbers in one <em>crucial way</em>, in that it squares to zero, $\dev^2=0$. Of course, that both</p>
+
+<p>\begin{equation}\notag
+\dev\neq 0 \quad \text{and} \quad \dev^2=0
+\end{equation}</p>
+
+<p>hold <em>simultaneously</em> means that $\dev$ can’t be like any other real number, so you are certainly justified in asking exactly how one rigorously and mathemaically justifies its existence. I would tell you that $\dev$ naturally lives in the algebra of “dual numbers” $\bbr[\dev]/(\dev^2)$, but this might not mean much to you if you’re not a trained algebraist!</p>
+
+<p>Instead, manipulations with $\dev$ may usually be rigorously justified (or at least well-motivated) by appealing to Taylor’s Theorem. For example, suppose that $y=f(x)$ is a smooth real-valued function of a single real variable. I would then <em>define</em> the action of $f$ on a number of the form $x+\dev$ (with $x\in \bbr$) as</p>
+
+<p>\begin{equation}\label{yup-eqn}
+f(x+\dev) =f(x) + f’(x)\dev.
+\end{equation}</p>
+
+<p>What motivates this definition? Recall that, by Taylor’s Theorem, there is a smooth function $y=g(x)$ such that</p>
+
+<p>\begin{equation}\notag
+f(x+a) = f(x) + f’(x)a + g(x+h)a^2
+\end{equation}</p>
+
+<p>for all $x,a\in \bbr$. If we make the formal substitution $a=\dev$ and remember that $\dev^2=0$, we arrive at \eqref{yup-eqn}. So, in this context at least, manipulations using the formal infinitesimal $\dev$ are essentially the same as computations with Taylor series and dropping all terms of order $\geq 2$.</p>
+
+<p>Every number in our new number system, $\bbr$ with $\dev$ adjoined, may be written <em>uniquely</em> as a sum</p>
+
+<p>\begin{equation}\label{inf-part-eqn}
+x + \dev y, \quad x,y\in \bbr.
+\end{equation}</p>
+
+<p>In this way, $\dev$ plays a similar role as the imaginary unit $i$ in $\mathbb{C}$, in that all complex numbers may be written <em>uniquely</em> as a sum</p>
+
+<p>\begin{equation}\label{im-par-eqn}
+x+ i y, \quad x,y\in \bbr.
+\end{equation}</p>
+
+<p>So, just like $\mathbb{C}$, our new number system is a two-dimensional vector space over $\bbr$, but with basis $\{1,\dev\}$ instead of $\{1,i\}$. Inspired by the convention that specifies $y$ as the <em>imaginary part</em> of the complex number \eqref{im-par-eqn}, we shall call $y$ the <em>infinitesimal part</em> of the number \eqref{inf-part-eqn}.</p>
+
+<p>Let’s now turn toward computing variations $\delta J_q$, but first let’s give an “infinitesimal” re-definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $J$ be defined as in \eqref{functional-eqn}, and let $\dev$ be a formal first-order infinitesimal. Then, given two paths $q=q(t)$ and $h=h(t)$ over the time interval $[a,b]$, we define the <em>variation of $J$ at $q$ with increment $h$</em> via the equation</p>
+
+  <p>\begin{equation}\label{fire-eqn}
+J(q+\dev h) = J(q) + \delta J_q(h)\dev.
+\end{equation}</p>
+
+  <p>Thus, the variation $\delta J_q(h)$ is the infinitesimal part of the number $J(q + \dev h)$.</p>
+</div>
+
+<p>I hope you appreciate the similarity between \eqref{fire-eqn} and \eqref{yup-eqn}!</p>
+
+<p>Keep in mind that \eqref{fire-eqn} is the “semi-rigorous” definition of the variation that facilitates computations, but the original definition as the “directional derivative”</p>
+
+<p>\begin{equation}\notag
+\delta J_q(h) = \frac{\d}{\d \dev} \Big|_{\dev=0} J(q+\dev h)
+\end{equation}</p>
+
+<p>is still the real definition. Essentially all theorems that we prove starting from the semi-rigorous definition may be made entirely rigorous using Taylor series, if you try hard enough (and have enough spare time on your hands).</p>
+
+<p>Now, with $J$ of the form</p>
+
+<p>\begin{equation}\notag
+J(q) = \int_a^b F(t,q,\dot{q}) \ \d t,
+\end{equation}</p>
+
+<p>let’s begin our computation of the variation $\delta J_q(h)$ by giving infinitesimal increments to the arguments in the integrand. Via Taylor’s Theorem, you should be able to convince yourself that the equation</p>
+
+<p>\begin{equation}\label{comp-eqn}
+F(t,q+\dev h,\dot{q}+\dev \dot{h}) = F(t,q,\dot{q}) + \dev\frac{\bd F}{\bd q}(t,q,\dot{q})h + \dev \frac{\bd F}{\bd \dot{q}}(t,q,\dot{q})\dot{h}
+\end{equation}</p>
+
+<p>is well-motivated. Here, each $q,\dot{q},h,\dot{h}$ is actually a function of time, and should actually be evaluated at some $t$. Also, the notations</p>
+
+<p>\begin{equation}\notag
+\frac{\bd F}{\bd q} \quad \text{and} \quad \frac{\bd F}{\bd \dot{q}}
+\end{equation}</p>
+
+<p>for the partial derivative are horrible abuses of notation which are unfortunately quite common in the calculus of variations. What is really meant is something like</p>
+
+<p>\begin{equation}\notag
+\frac{\bd F}{\bd u} \quad \text{and} \quad \frac{\bd F}{\bd v},
+\end{equation}</p>
+
+<p>where $t,u,v$ are independent variables on $\bbr^3$ and $F= F(t,u,v)$.</p>
+
+<p>Now, inserting the computation \eqref{comp-eqn} into the difference $J(q+\dev h) - J(q)$ gives</p>
+
+<p>\begin{equation}\notag
+J(q+\dev h) - J(q) = \dev \int_a^b \left( \frac{\bd F}{\bd q}(t,q,\dot{q})h + \frac{\bd F}{\bd \dot{q}}(t,q,\dot{q})\dot{h}\right) \ \d t.
+\end{equation}</p>
+
+<p>An application of integration by parts on the piece involving $\dot{h}$ gives</p>
+
+<p>\begin{equation}\notag
+J(q+\dev h) - J(q) = \dev \int_a^b \left[ \frac{\bd F}{\bd q} -\frac{\d}{\d t} \left( \frac{\bd F}{\bd \dot{q}} \right) \right]h \ \d t + \dev\frac{\bd F}{\bd \dot{q}}h\Big|_{t=a}^{t=b}.
+\end{equation}</p>
+
+<p>Here, I have omitted the arguments $(t,q,\dot{q})$ from all the functions to increase legibility. By passing to the infinitesimal part, we get</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{deriv-eqn}
+\delta J_q(h) =  \int_a^b \left[ \frac{\bd F}{\bd q} -\frac{\d}{\d t} \left( \frac{\bd F}{\bd \dot{q}} \right) \right]h \ \d t + \frac{\bd F}{\bd \dot{q}}h\Big|_{t=a}^{t=b}.
+\end{equation}</p>
+</div>
+
+<p>In particular, if the increment $h$ satisfies $h(a)=h(b)=0$ (as it <em>always</em> does, in fixed-endpoint type variational problems), then we have</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{fixed-endpoint-eqn}
+\delta J_q(h) =  \int_a^b \left[ \frac{\bd F}{\bd q} -\frac{\d}{\d t} \left( \frac{\bd F}{\bd \dot{q}} \right) \right]h \ \d t.
+\end{equation}</p>
+</div>
+
+<p>Now, to say that $q=q(t)$ is a stationary point of $J$ means that $\delta J_q =0$, and hence the variation \eqref{fixed-endpoint-eqn} vanishes for <em>all</em> admissible increments $h$ that vanish at the end points $t=a$ and $t=b$. If this class of increments is “sufficiently large,” then we may apply the so-called <a href="https://en.wikipedia.org/wiki/Fundamental_lemma_of_calculus_of_variations">Fundamental Lemma of the Calculus of Variations</a> to obtain the most famous equation in the calculus of variations:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Fixed endpoints and the Euler-Lagrange equation).</strong> Let $J$ be defined as in \eqref{functional-eqn}, and let $q_1,q_2\in \bbr$ be fixed numbers. Let the domain of admissible functions of $J$ be all paths $q=q(t)$ such that</p>
+
+  <p>\begin{equation}\notag
+q(a)=q_1,\quad q(b)=q_2, \quad t\in [a,b].
+\end{equation}</p>
+
+  <p>Then an admissible path $q=q(t)$ is a stationary point of $J$ if and only if $\delta J_q(h)=0$ for all admissible increments $h=h(t)$ with</p>
+
+  <p>\begin{equation}\notag
+h(a)=h(b)=0, \quad t\in [a,b],
+\end{equation}</p>
+
+  <p>which is equivalent to the equation</p>
+
+  <p>\begin{equation}\label{el-eqn}
+\frac{\bd F}{\bd q}(t,q(t),\dot{q}(t)) -\frac{\d}{\d t} \left( \frac{\bd F}{\bd \dot{q}}(t,q(t),\dot{q}(t)) \right) = 0
+\end{equation}</p>
+
+  <p>for all $t\in [a,b]$.</p>
+</div>
+
+<p>Indeed, notice that the left-hand side of \eqref{el-eqn} is the integrand of the variation \eqref{fixed-endpoint-eqn}. This observation, combined with the fundamental lemma that I cited, furnishes a proof of the theorem.</p>
+
+<p>The equation \eqref{el-eqn} is called the <em>Euler-Lagrange equation</em>. Armed with it, you now know enough to complete the first exercise that everybody does when learning the calculus of variations:</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $(x_1,y_1)$ and $(x_2,y_2)$ be two fixed points in the cartesian $xy$-plane. Using the arc-length functional</p>
+
+  <p>\begin{equation}\notag
+J(y) = \int_{x_0}^{x_1} \sqrt{1+y’(x)^2} \ \d x,
+\end{equation}</p>
+
+  <p>prove that the shortest curve between the two points is a straight line. (You’ll need to briefly justify that the stationary point you find is actually a global minimizer of $J$.)</p>
+</div>
+
+<p>Now, if you don’t like infinitesimals (you should!), take a stab at:</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Derive \eqref{deriv-eqn} beginning from the “real” definition \eqref{real-eqn} and using <a href="https://en.wikipedia.org/wiki/Leibniz_integral_rule">differentiation under the integral sign</a>.</p>
+</div>
+
+<p>We will need the multi-variable Euler-Lagrange equations. I will leave the task of deriving them up to you:</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Suppose that our functional $J$ is a multi-variable one, in the sense that</p>
+
+  <p>\begin{equation}\notag
+J(q^1,\ldots,q^n) = \int_a^b F(t,q^1,\ldots,q^n,\dot{q}^1,\ldots,\dot{q}^n) \ \d t,
+\end{equation}</p>
+
+  <p>where $F: \bbr^{2n+1} \to \bbr$ is a smooth function. Let the variation of $J$ be defined in exactly the same manner as \eqref{fire-eqn}, through the equation</p>
+
+  <p>\begin{equation}\notag
+J(q^1 + \dev h^1,\ldots,q^n + \dev h^n) = J(q^1,\ldots,q^n) + \delta J_{(q_1,\ldots,q_n)}(h^1,\ldots,h^n)\dev,
+\end{equation}</p>
+
+  <p>where $\dev$ is a formal first-order infinitesimal.</p>
+
+  <ol>
+    <li>Formulate an appropriate multi-variable analog of the fixed-endpoint conditions given in the previous theorem.</li>
+    <li>Prove that an admissible path $(q^1,\ldots,q^n)$ (i.e., an element in the domain of $J$, subject to the fixed-endpoint constraints) is a stationary point of $J$ if and only if it is a solution to the <em>system of Euler-Lagrange equations</em></li>
+  </ol>
+
+  <p>\begin{equation}\label{el2-eqn}
+\frac{\bd F}{\bd q^i} -\frac{\d}{\d t} \left( \frac{\bd F}{\bd \dot{q}^i} \right) = 0, \quad i=1,\ldots,n.
+\end{equation}</p>
+</div>
+
+<p>Let’s now return to Hamilton’s Principle, which poses a fixed-endpoint variational problem for the action integral</p>
+
+<p>\begin{equation}\notag
+A_H(q,p) = \int_a^b \left( p \dot{q} - H(t,q,p) \right) \ \d t.
+\end{equation}</p>
+
+<p>Indeed, remember that the principle identifies the allowable time trajectories of the system between two fixed states over the time interval $[a,b]$ as the paths $q=q(t)$ and $p=p(t)$ that are stationary points of $A_H$. Now, we know that such paths are equivalently the solutions of the Euler-Lagrange equations, and as you may easily check, these equations \eqref{el2-eqn} reduce to</p>
+
+<p>\begin{equation}\notag
+\dot{q} = \frac{\bd H}{\bd p} \quad \text{and} \quad \dot{p} = - \frac{\bd H}{\bd q},
+\end{equation}</p>
+
+<p>which are precisely Hamilton’s equations of motion! Pretty slick!</p>
+
+<h2 id="hamilton-jacobi-theory-and-canonical-transformations">Hamilton-Jacobi theory and canonical transformations</h2>
+
+<p>The jumping-off point for Hamilton-Jacobi theory is this: Given the physical and mathematical importance that Hamilton’s Principle places on stationary points, it is clearly of interest to understand when two action integrals yield the same stationary points (up to some transformation). For example, given a hamiltonian</p>
+
+<p>\begin{equation}\label{alarm-eqn}
+H(t,q^i,p_i) = H(t,q^1,\ldots,q^n,p_1,\ldots,p_n)
+\end{equation}</p>
+
+<p>with $n$ degrees of freedom, we might imagine undertaking a change of canonical coordinates</p>
+
+<p>\begin{equation}\label{bulb-eqn}
+(q^i,p_i) \mapsto (Q^i,P_i)
+\end{equation}</p>
+
+<p>to obtain a new transformed hamiltonian</p>
+
+<p>\begin{equation}\label{kamiltonian-eqn}
+K(t,Q^i,P_i) = K(t,Q^1,\ldots,Q^n,P_1,\ldots,P_n),
+\end{equation}</p>
+
+<p>and we want to understand when the change of coordinates \eqref{bulb-eqn} leaves the canonical form of Hamilton’s equations of motion unchanged. In other words, we seek to find coordinate changes \eqref{bulb-eqn} that change the equations</p>
+
+<p>\begin{equation}\label{hamil-eqn}
+\dot{q}^i = \frac{\bd H}{\bd p_i} \quad \text{and} \quad \dot{p}_i = - \frac{\bd H}{\bd q^i},
+\end{equation}</p>
+
+<p>into</p>
+
+<p>\begin{equation}\label{kamil-eqn}
+\dot{Q}^i = \frac{\bd K}{\bd P_i} \quad \text{and} \quad \dot{P}_i = - \frac{\bd K}{\bd Q^i}.
+\end{equation}</p>
+
+<p>This can be understood as identifying the coordinate changes \eqref{bulb-eqn} under which the stationary points of the two action integrals</p>
+
+<p>\begin{equation}\label{light-eqn}
+A_H(q^i,p_i) \quad \text{and} \quad A_K(Q^i,P_i)
+\end{equation}</p>
+
+<p>are carried into each other by the coordinate change.<sup id="fnref:footnote" role="doc-noteref"><a href="#fn:footnote" class="footnote" rel="footnote">1</a></sup></p>
+
+<p>We can actually prove that the canonical form of Hamilton’s equations are invariant <em>directly</em> for one special type of coordinate change, called a <em>point transformation</em>. If we think in terms of the phase space $T^\ast Q$, these are coordinate changes that are obtained by “lifting” a coordinate change</p>
+
+<p>\begin{equation}\label{coord-eqn}
+q^i \mapsto Q^i
+\end{equation}</p>
+
+<p>of the configuration space $Q$ to the phase space $T^\ast Q$, i.e., by letting the change in canonical momenta be given by the usual “covariant” transformation rule for the components of $1$-forms:</p>
+
+<p>\begin{equation}\label{mom-eqn}
+P_i = \frac{\bd q^j}{\bd Q^i} p_j.
+\end{equation}</p>
+
+<p>Under these coordinate changes, the tautological $1$-form is left invariant:</p>
+
+<p>\begin{equation}\label{symplectomorphism-eqn}
+P_i \ \d Q^i = \left( \frac{\bd q^j}{\bd Q^i}\frac{\bd Q^i}{\bd q^k}\right)p_j \ \d q^k= p_i \ \d q^i.
+\end{equation}</p>
+
+<p>Since the tautological $1$-form is left invariant, so too is the canonical $2$-form, and hence also symplectic gradients. Thus, the canonical form of Hamilton’s equations is left unchanged by point transformations.</p>
+
+<p>By establishing the equality \eqref{symplectomorphism-eqn}, we have actually shown that a point transformation yields a so-called <em>symplectomorphism</em> from $T^\ast Q$ to itself. We will return to these later. But there are more general coordinate changes that leave the canonical form of Hamilton’s equations unchanged than just point transformations. Indeed, we will find certain transformations that “mix up” the $q^j$s and $p_j$s, and perhaps even involve time:</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{door-eqn}
+Q^i = Q^i(t,q^j,p_j), \quad P_i = P_i(t,q^j,p_j).
+\end{equation}</p>
+</div>
+
+<p>Such a general coordinate transformation that preserves the canonical form of Hamilton’s equations is called a general <em>canonical transformation</em>, and the goal of Hamilton-Jacobi theory is to uncover these transformations via the method of <em>generating functions</em>, and to find ones in which the solutions to \eqref{kamil-eqn} are very easily obtained. (Note that the $j$s on the right-hand sides of the equations \eqref{door-eqn} are understood to range over all possible values, so that each $Q^i$ and $P_i$ is a function of $2n+1$ variables.)</p>
+
+<p>Before describing the method of generating functions, let’s make sure that our fixed-endpoint variational problems are stated precisely, and identify carefully the admissible paths for the action integrals $A_H(q^i,p_i)$ and $A_K(Q^i,P_i)$. It will be convenient to give a name $\phi$ to the transformation \eqref{door-eqn}, so that</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{door2-eqn}
+(t,Q^i,P_i) = \phi(t,q^i,p_i).
+\end{equation}</p>
+</div>
+
+<p>We suppose that two fixed states $u_1$ and $u_2$ in the $(q^i,p_i)$-phase space are given, and that the admissible paths for the action integral $A_H(q^i,p_i)$ are those paths $t\mapsto (q^i(t),p_i(t))$ going from $u_1$ to $u_2$ over the time interval $[a,b]$:</p>
+
+<p>\begin{equation}\notag
+u_1 = (q^i(a),p_i(a)), \quad u_2 = (q^i(b),p_i(b)).
+\end{equation}</p>
+
+<p>Then, we suppose that two fixed states $U_1$ and $U_2$ in the $(Q^i,P_i)$-phase space are given, connected to $u_1$ and $u_2$ via the equations</p>
+
+<p>\begin{equation}\notag
+U_1 = \phi(a,u_1), \quad U_2 = \phi(b,u_2).
+\end{equation}</p>
+
+<p>The admissible paths for the action integral $A_K(Q^i,P_i)$ are those paths $t\mapsto (Q^i(t),P_i(t))$ defined for $t\in [a,b]$ such that</p>
+
+<p>\begin{equation}\notag
+U_1 = (Q^i(a),P_i(a)), \quad U_2 = (Q^i(b),P_i(b)).
+\end{equation}</p>
+
+<p>Now, the method of generating functions begins by supposing that a coordinate change of the form \eqref{door2-eqn} is given, and considers the two action forms</p>
+
+<p>\begin{equation}\notag
+\alpha_H = p_i \ \d q^i - H(t,q^i,p_i) \ \d t \quad \text{and} \quad \alpha_K = P_i \ \d Q^i - K(t,Q^i,P_i) \ \d t
+\end{equation}</p>
+
+<p>associated with our hamiltonian $H$ and kamiltonian $K$, respectively. Suppose that these two $1$-forms differ by the differential of a function $S = S(t,q^i,p_i)$, say</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{exact-eqn}
+\d S = \alpha_H - \phi^\ast\alpha_K.
+\end{equation}</p>
+</div>
+
+<p>Such functions have names:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> The function $S = S(t,q^i,p_i)$ is called a <em>generating function</em> of the coordinate change $\phi$, provided that equation \eqref{exact-eqn} holds.</p>
+</div>
+
+<p>Now, we state the preliminary result on which Hamilton-Jacobi theory builds upon:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let the notation be as above. In particular, suppose that a coordinate change of the form \eqref{door2-eqn} is given, with a generating function $S=S(t,q^i,p_i)$. Then the stationary points of the action integral $A_H(q^i,p_i)$ coincide with those of the action integral $A_K(Q^i,P_i)$, when the latter is viewed as a functional of $(q^i,p_i)$ via \eqref{door2-eqn}.</p>
+</div>
+
+<p>To be clear, when I say that $A_K(Q^i,P_i)$ is viewed as a functional of $(q^i,p_i)$, I mean that we consider the functional</p>
+
+<p>\begin{equation}\notag
+A_K(q^i,p_i) \defeq \int_a^b \phi^\ast \alpha_K.
+\end{equation}</p>
+
+<p>Now, if we integrate both sides of \eqref{exact-eqn}, we obtain</p>
+
+<p>\begin{equation}\notag
+S(b,u_2) - S(a, u_1) = A_H(q^i,p_i) - A_K(q^i,p_i),
+\end{equation}</p>
+
+<p>which shows that the values of the two action integrals differ by a constant and therefore have the same stationary points. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Corollary.</strong> Let the notation be as in the theorem. Let</p>
+
+  <p>\begin{equation}\label{path-eqn}
+t\mapsto (q^i(t),p_i(t))
+\end{equation}</p>
+
+  <p>be an admissible path in the domain of the action integral $A_H(q^i,p_i)$, and let</p>
+
+  <p>\begin{equation}\label{path2-eqn}
+t\mapsto \phi(q^i(t),p_i(t)) = (Q^i(t),P_i(t))
+\end{equation}</p>
+
+  <p>be its image under the coordinate change $\phi$, which is an admissible path in the domain of $A_K(Q^i,P_i)$. Then \eqref{path-eqn} is a solution to the system of equations</p>
+
+  <p>\begin{equation}\notag
+\dot{q}^i = \frac{\bd H}{\bd p_i} \quad \text{and} \quad \dot{p}_i = - \frac{\bd H}{\bd q^i}
+\end{equation}</p>
+
+  <p>if and only if \eqref{path2-eqn} is a solution to the transformed system of equations</p>
+
+  <p>\begin{equation}\notag
+\dot{Q}^i = \frac{\bd K}{\bd P_i} \quad \text{and} \quad \dot{P}_i = - \frac{\bd K}{\bd Q^i}.
+\end{equation}</p>
+</div>
+
+<p>The corollary shows that if our coordinate change</p>
+
+<p>\begin{equation}\notag
+(t,Q^i,P_i) = \phi(t,q^i,p_i)
+\end{equation}</p>
+
+<p>has a generating function $S$, then the transformation is <em>canonical</em> in the sense defined above, in that the canonical form of Hamilton’s equations of motion is left intact under transformation.</p>
+
+<p>The name “generating function” suggests that $S$ somehow determines the coordinate change $\phi$. Indeed, under certain conditions it is possible to determine $\phi$ from $S$, at least locally. For example, suppose that for a fixed point in $(t,q^i,p_i)$-phase space, we have that</p>
+
+<p>\begin{equation}\label{det-eqn}
+\det \begin{bmatrix} \displaystyle\frac{\bd Q^i}{\bd p_j} \end{bmatrix} \neq 0,
+\end{equation}</p>
+
+<p>where the partial derivatives are evaluated at this fixed point. Then the Implicit Function Theorem guarantees that we may solve</p>
+
+<p>\begin{equation}\notag
+Q^i = Q^i(t,q^j,p_j)
+\end{equation}</p>
+
+<p>for $p_j$ (at least locally, near the fixed point), obtaining functions $p_j = p_j(t,q^i,Q^i)$. Thus, we obtain a new function denoted</p>
+
+<p>\begin{equation}\notag
+S_1(t,q^i,Q^i) \defeq S(t,q^i,p_i(t,q^j,Q^j)),
+\end{equation}</p>
+
+<p>defined on some open subset of $(t,q^i,Q^i)$-space. Now, from the fundamental equation</p>
+
+<p>\begin{equation}\notag
+\d S = \alpha_H - \phi^\ast\alpha_K = p_i \ \d q^i - P_i \ \d Q^i + (\phi^\ast K-H) \ \d t
+\end{equation}</p>
+
+<p>we obtain</p>
+
+<p>\begin{equation}\notag
+\frac{\bd S_1}{\bd q^i} = p_i \quad \text{and} \quad \frac{\bd S_1}{\bd Q^i} = - P_i.
+\end{equation}</p>
+
+<p>It follows that the coordinate change $(t,Q^i,P_i) = \phi(t,q^i,p_i)$ is given for all $(t,q^i,Q^i)$ in some open subset as</p>
+
+<p>\begin{equation}\label{rug-eqn}
+\left( t,q^i, \frac{\bd S_1}{\bd q^i}(q^i,Q^i) \right) \mapsto \left(t,Q^i, - \frac{\bd S_1}{\bd Q^i}(q^i,Q^i)\right).
+\end{equation}</p>
+
+<p>In the sense that $\phi$ is given by \eqref{rug-eqn}, the generating function $S$ determines $\phi$ through the intermediary function $S_1$.</p>
+
+<p>We have now done enough preliminary work that we may state and prove the main result of this section. As I mentioned above, the goal of Hamilton-Jacobi theory is to identify the coordinate transformations that leave intact the canonical form of Hamilton’s equations of motion, and to further identify those transformations for which the transformed system of equations</p>
+
+<p>\begin{equation}\notag
+\dot{Q}^i = \frac{\bd K}{\bd P_i} \quad \text{and} \quad \dot{P}_i = - \frac{\bd K}{\bd Q^i}
+\end{equation}</p>
+
+<p>may very easily be solved. In particular:</p>
+
+<div class="highlight-box2">
+  <p>Is it possible to find a canonical transformation for which the kamiltonian $K$ completely vanishes? What properties must its generating functions have?</p>
+</div>
+
+<p>Let’s suppose that $(t,Q^i,P_i) = \phi(t,q^i,p_i)$ is one of these very special coordinate changes, for which $K=0$ identically.</p>
+
+<h2 id="the-geometry-of-hamilton-jacobi-theory">The geometry of Hamilton-Jacobi theory</h2>
+
+<p>Let $Q$ be an $n$-dimensional configuration space of some dynamical system with phase space $P = T^\ast Q$ and hamiltonian $H\in C^\infty(P)$. Summarized broadly in geometric terms, the goal of Hamilton-Jacobi theory is to locate time evolutions of the system on embedded submanifolds of the phase space $P$ which are diffeomorphic to $Q$ and which have constant energy. Restricting our attention to such submanifolds has the effect of pulling Hamilton’s equations of motion down from the phase space $P$ to the configuration space $Q$, and thereby cutting the number of equations to be solved in half (from $2n$ to $n$). Of course, the price that we must pay for this reduction is in the time and effort needed to locate these special submanifolds.</p>
+
+<p>Hamilton-Jacobi theory further provides a nice segue into the tightly intertwined theories of <em>canonical transformations</em> (a.k.a., <em>symplectomorphisms</em>) and <em>lagrangian submanifolds</em>. The former are changes of variables that preserve symplectic gradients, while the latter are certain types of submanifolds $N$ of $P$ (of maximal dimension) with the curious property that $\omega|_N = 0$, where $\omega$ is the canonical symplectic form on $P$. Indeed, canonical transformations arise when an open subset of $P$ has a particular type of foliation whose leaves are submanifolds of the above type; provided that the leaves are smoothly parametrized by $Q$ itself—in a manner I make precise below—we obtain a canonical transformation with especially nice properties.</p>
+
+<p>The theory says that the type of submanifold $N \subset P$ we seek must have two special properties:</p>
+
+<ol>
+  <li>It must be parametrized by a so-called <em>generating function</em>.</li>
+  <li>The hamiltonian $H$ must be constant on $N$.</li>
+</ol>
+
+<p>Thinking dynamically and intuitively, submanifolds of $P$ with <em>generating functions</em> are obtained by choosing for every configuration $q\in Q$ a momentum $p$, yielding a point $(q,p)\in P$. If these choices are done in a smooth manner, then we essentially obtain a smooth section $q\mapsto (q,p)$ of the natural projection map</p>
+
+<p>\begin{equation}\notag
+\pi: P = T^\ast Q \to Q.
+\end{equation}</p>
+
+<p>But such sections are, of course, nothing but differential $1$-forms on $Q$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $Q$ be a manifold and let $S\in C^\infty(Q)$ be a smooth function with differential $\d S: Q\to T^\ast Q$. The image $N = \d S(Q)$ is an $n$-dimensional embedded submanifold of $P$ which is diffeomorphic to $Q$. The function $S$ is called a <em>generating function</em> of $N$.</p>
+</div>
+
+<p>Thus, the submanifolds of interest in Hamilton-Jacobi theory are those which have generating functions in the above sense, i.e., those which are images of differentials of functions on $Q$. If $N = \d S(Q)$ is such a submanifold and $q=(q^1,\ldots,q^n)$ are local coordinates on $Q$, then</p>
+
+<p>\begin{equation}\notag
+q\mapsto \left( q, \frac{\bd S}{\bd q^1}(q),\ldots,\frac{\bd S}{\bd q^n}(q) \right)
+\end{equation}</p>
+
+<p>is a local parametrization map on $N$. To say that the hamiltonian $H$ is constant along $N$ means precisely that</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{HJ1-eqn}
+H\circ \d S = E,
+\end{equation}</p>
+</div>
+
+<p>where $E$ is a constant. This equation is the <em>(time-independent) Hamilton-Jacobi equation</em>.</p>
+
+<p>Therefore, the first step in solving Hamilton’s equations using Hamilton-Jacobi theory is to locate a solution $S\in C^\infty(Q)$ to \eqref{HJ1-eqn}. With a solution in hand, the equations of motion take the form given in the following fundamental theorem. (Following (???), I have chosen to state this theorem in coordinate-independent language, but you will find a statement in local coordinates immediately following.)</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Hamilton-Jacobi).</strong> Let $Q$ be an $n$-dimensional manifold and set $P = T^\ast (Q)$. Let $H\in C^\infty(P)$ be a function and $X_H$ its symplectic gradient, viewed as a smooth section</p>
+
+  <p>\begin{equation}\notag
+X_H: P \to TP
+\end{equation}</p>
+
+  <p>of the tangent bundle of $P$. Let $\pi: P \to Q$ be the natural projection and</p>
+
+  <p>\begin{equation}\notag
+\pi_\ast: TP \to TQ
+\end{equation}</p>
+
+  <p>its (global) pushforward. Suppose $S\in C^\infty(Q)$ is a solution to the Hamilton-Jacobi equation \eqref{HJ1-eqn} for some constant $E$. Then any solution $\gamma:I\to Q$ ($I=$ open interval) to the equation</p>
+
+  <p>\begin{equation}\label{reduced-eqn}
+\dot{\gamma}(t) = \pi_\ast(X_H(\d S(\gamma(t)))), \quad \forall t\in I,
+\end{equation}</p>
+
+  <p>yields an integral curve $\d S \circ \gamma: I \to P$ of $X_H$.</p>
+</div>
+
+<p>To express \eqref{reduced-eqn} in local coordinates, suppose that we commit the usual abuse and write</p>
+
+<p>\begin{equation}\notag
+(q^1,\ldots,q^n) = \gamma(t) \quad \text{and} \quad (\dot{q}^1,\ldots,\dot{q}^n) = \dot{\gamma}(t).
+\end{equation}</p>
+
+<p>Then, as you may easily check, \eqref{reduced-eqn} may be expressed as</p>
+
+<p>\begin{equation}\label{one-half-eqn}
+\dot{q}^i = \frac{\bd H}{\bd p_i}\left(q,\frac{\bd S}{\bd q}(q) \right), \quad i=1,\ldots,n,
+\end{equation}</p>
+
+<p>where I’ve written $q$ for $(q^1,\ldots,q^n)$ and $(\bd S/\bd q)(q)$ for</p>
+
+<p>\begin{equation}\notag
+\left(\frac{\bd S}{\bd q^1}(q),\ldots,\frac{\bd S}{\bd q^n}(q) \right).
+\end{equation}</p>
+
+<p>Therefore, assuming we have found a solution $S$ to the Hamilton-Jacobi equation, we must only solve the system \eqref{one-half-eqn} in order to find integral curves of $X_H$. This system is exactly one half of Hamilton’s equations of motion—indeed, notice that the equations</p>
+
+<p>\begin{equation}\notag
+\dot{p}_i = - \frac{\bd H}{\bd q^i}
+\end{equation}</p>
+
+<p>are no longer required.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:footnote" role="doc-endnote">
+      <p>I should make a few remarks regarding terminology and notation in this section. First, the transformed hamiltonian \eqref{kamiltonian-eqn} is sometimes called the <em>kamiltonian</em>, with a “<em>k</em>,” a name which I absolutely love, and will therefore use often. Second, as you can see in the equations \eqref{alarm-eqn} and \eqref{kamiltonian-eqn}, the indices $i$ are meant to range over all values from $1$ to $n$, so that $H(t,q^i,p_i)$ and $K(t,Q^i,P_i)$ are notational shorthands for the more precise notation on the right-hand sides of these equations. The same is true in \eqref{bulb-eqn} and \eqref{light-eqn}, the index $i$ is meant to range from $1$ to $n$. I will use this convention often in this section to shorten the notation, and leave it up to you to understand from context what is meant. <a href="#fnref:footnote" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+    
+  </body>
+</html>

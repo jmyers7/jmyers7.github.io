@@ -1,0 +1,718 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory III&#58 vector bundles + locally free sheaves</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory III: vector bundles + locally free sheaves</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Locally trivial vector bundles</li>
+  <li>Sheaves of modules</li>
+  <li>Sections of vector bundles</li>
+  <li>Constructing vector bundles</li>
+  <li>A fundamental equivalence of categories</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="locally-trivial-vector-bundles">Locally trivial vector bundles</h2>
+
+<p>We defined in an <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier post</a> a <em>set-theoretic vector bundle</em> to be a surjective function</p>
+
+<p>\begin{equation}\notag
+\pi: E\to B
+\end{equation}</p>
+
+<p>of sets such that each <em>fiber</em></p>
+
+<p>\begin{equation}\notag
+E_b \defeq \pi^{-1}(b)
+\end{equation}</p>
+
+<p>is an $\bbr$-vector space. If</p>
+
+<p>\begin{equation}\notag
+\pi’:E’ \to B
+\end{equation}</p>
+
+<p>is a second set-theoretic vector bundle, then a <em>morphism of set-theoretic vector bundles</em> from $\pi$ to $\pi’$ is a function $\theta: E\to E’$ such that the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}E \ar@[white][rr]^{\color{white}\theta} \ar@[white][dr]_{\color{white}\pi} &amp; &amp; \color{white} E’ \ar@[white][dl]^{\color{white}\pi’} \\ &amp; \color{white}B}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes. We say $\theta$ is an <em>isomorphism</em> if it is bijective, in which case its inverse $\theta^{-1}:E’ \to E$ is easily seen to be a morphism of set-theoretic vector bundles.</p>
+
+<p>Now, suppose that we are given a set-theoretic vector bundle $\pi:E \to B$. From the fibers of $\pi$ we may form the disjoint union</p>
+
+<p>\begin{equation}\notag
+E’ = \bigsqcup_{b\in B} E_b,
+\end{equation}</p>
+
+<p>and then let $\pi’: E’ \to B$ be the natural projection. Then there is an evident isomorphism of set-theoretic vector bundles $\theta: E \to E’$ which is given on fibers by</p>
+
+<p>\begin{equation}\notag
+\theta_b: E_b \to E’_b = \{b\} \times E_b, \quad e \mapsto (b,e).
+\end{equation}</p>
+
+<p>This shows that an equivalent way to conceptualize a set-theoretic vector bundle (up to isomorphism) is as an indexed (or parametrized) collection $\{E_b\}_{b\in B}$ of vector spaces.</p>
+
+<p>In this post, we shall consider set-theoretic vector bundles in the category of smooth manifolds:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>smooth vector bundle</em> is a set-theoretic vector bundle $\pi:E \to M$ where the sets $E$ and $M$ are both smooth manifolds, and with respect to these structures, $\pi$ is a smooth map. The spaces $E$ and $M$ are called the <em>total</em> and <em>base spaces</em> of the vector bundle.</p>
+
+  <p>A <em>morphism of smooth vector bundles</em>, denoted</p>
+
+  <p>\begin{equation}\notag
+\theta: (\pi:E\to M) \to (\pi’:E’\to M),
+\end{equation}</p>
+
+  <p>is a function $\theta:E\to E’$ which is both a morphism of the underlying set-theoretic vector bundles and is smooth. (Note that this a slight abuse of notation, by using the symbol $\theta$ twice.)</p>
+
+  <p>The <em>identity morphism</em></p>
+
+  <p>\begin{equation}\notag
+\id_\pi: (\pi:E\to M) \to (\pi:E\to M)
+\end{equation}</p>
+
+  <p>of the smooth vector bundle $\pi$ is defined to be the morphism $\id_\pi = \id_E : E\to E$.</p>
+
+  <p>If</p>
+
+  <p>\begin{equation}\notag
+\theta’: (\pi:E’\to M) \to (\pi'':E''\to M)
+\end{equation}</p>
+
+  <p>is a second morphism of smooth vector bundles, the <em>composition</em></p>
+
+  <p>\begin{equation}\notag
+\theta’ \circ \theta: (\pi:E\to M) \to (\pi'':E''\to M)
+\end{equation}</p>
+
+  <p>is defined to be the standard composition $\theta’ \circ \theta:E\to E’’$ of functions.</p>
+
+  <p>With these objects, morphisms, identity morphisms, and composition law, we obtain the <em>category of smooth vector bundles over $M$</em>, denoted $\Vect_M$.</p>
+</div>
+
+<p>As with set-theoretic vector bundles, we may conceptualize a smooth vector bundle $\pi:E \to M$ as an indexed collection $\{E_p\}_{p\in M}$ of vector spaces. This time, however, the indexing set is a smooth manifold, and thus we may conceptualize the collection $\{E_p\}_{p\in M}$ as a “smoothly parametrized” family of vector spaces. Here, “smoothness” of the parametrization is encoded in the smoothness of $E$, $M$ and $\pi$.</p>
+
+<p>For example, we might consider the collection $\{T_p(M)\}_{p\in M}$ of all tangent spaces over a smooth manifold $M$. Intuitively, the vector spaces in this collection should “vary smoothly” with $p$. But as we saw in a <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">previous post</a>, the tangent bundle</p>
+
+<p>\begin{equation}\notag
+T(M) \defeq \bigsqcup_{p\in M} T_p(M)
+\end{equation}</p>
+
+<p>has a smooth manifold structure with respect to which the natural projection $\pi:T(M) \to M$ is smooth. The fiber</p>
+
+<p>\begin{equation}\notag
+\pi^{-1}(p) = \{p\} \times T_p(M)
+\end{equation}</p>
+
+<p>may be naturally identified with $T_p(M)$, and thus the family of vector spaces $\{T_p(M)\}_{p\in M}$ may be naturally identified with the smooth vector bundle $\pi:T(M) \to M$. This identification makes precise our intuition that the tangent space $T_p(M)$ should “vary smoothly” with $p$.</p>
+
+<p>We may manufacture a smooth vector bundle over a smooth manifold $M$ by taking the natural projection</p>
+
+<p>\begin{equation}\notag
+\pi_1: M \times \bbr^k \to M
+\end{equation}</p>
+
+<p>onto the first cartesian factor. If $\pi:E \to M$ is a smooth vector bundle which is isomorphic to $\pi_1$ (in the category $\Vect_M$), then $\pi$ is called a <em>trivial smooth vector bundle of rank $k$.</em></p>
+
+<p>Not all smooth vector bundles are trivial; in fact, we saw in our <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier post</a> on tangent bundles that the tangent bundle of the sphere $S^2$ is not trivial. However, if $M$ is <em>any</em> manifold, we also saw that there is an open covering $\{U_i\}_{i\in I}$ of $M$ for which the restricted smooth vector bundle</p>
+
+<p>\begin{equation}\notag
+\pi: \pi^{-1}(U_i) \to U_i
+\end{equation}</p>
+
+<p><em>is</em> trivial, as a smooth vector bundle over the open set $U_i$. Thus, while the tangent bundle $T(M)$ may not be globally trivial, it is always <em>locally trivial</em> in this sense.</p>
+
+<p>The category of locally trivial smooth vector bundles will be one of the main focuses of this post. Let’s formally define this category:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>locally trivial smooth vector bundle of rank $k$</em> is a smooth vector bundle $\pi:E\to M$ for which there exists an open cover $\{U_i\}_{i\in I}$ such that each restricted smooth vector bundle</p>
+
+  <p>\begin{equation}\notag
+\pi: \pi^{-1}(U_i) \to U_i
+\end{equation}</p>
+
+  <p>is isomorphic (in the category $\Vect_{U_i}$) to the trivial smooth vector bundle</p>
+
+  <p>\begin{equation}\notag
+\pi_1: U_i \times \bbr^k \to U_i.
+\end{equation}</p>
+
+  <p>In this case, the open cover $\{U_i\}_{i\in I}$ is called a <em>trivializing open cover</em> of the vector bundle, the vector bundle is said to <em>trivialize</em> over $\{U_i\}_{i\in I}$, and isomorphisms</p>
+
+  <p>\begin{equation}\notag
+\Phi_i: (U_i \times \bbr^k \to U_i) \to (\pi^{-1}(U_i) \to U_i)
+\end{equation}</p>
+
+  <p>of smooth vector bundles over $U_i$ are called <em>(local) trivializations</em>.</p>
+
+  <p>The <em>category of locally trivial smooth vector bundles</em> is the full subcategory of $\Vect_M$ whose objects are the locally trivial smooth vector bundles of rank $k$, for all $k$.</p>
+</div>
+
+<p>In many texts, locally trivial smooth vector bundles are the <em>only</em> types of vector bundles considered, and hence these objects are usually just called <em>vector bundles</em>. We shall follow the same practice:</p>
+
+<div class="highlight-box2">
+  <p><strong>Terminology and Notation.</strong> For the rest of this post, a <em>vector bundle</em> will be a locally trivial smooth vector bundle of rank $k$, for some $k$. A <em>morphism of vector bundles</em> will be a morphism of smooth vector bundles. In particular, the notation $\Vect_M$ will be re-defined to stand for the category of locally trivial smooth vector bundles over $M$.</p>
+
+  <p>Furthermore, when no confusion is likely to arise, we will reference a vector bundle $\pi:E \to M$ by its total space $E$ only. Accordingly, a morphism of vector bundles</p>
+
+  <p>\begin{equation}\notag
+\theta: (\pi:E \to M) \to (\pi’: E’\to M)
+\end{equation}</p>
+
+  <p>will be denoted only by the map $\theta:E \to E’$ on total spaces.</p>
+</div>
+
+<p>One of the most useful properties of morphisms of (locally trivial smooth!) vector bundles is that the isomorphism property may be tested locally on the fibers. Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Fiberwise Criterion for Vector Bundle Isomorphisms.</strong> Let $\theta: E \to E’$ be a morphism of vector bundles over a common base space $M$. Then $\theta$ is an isomorphism of vector bundles if and only if each induced map $\alpha_p:E_p \to E’_p$ on the fibers is a linear isomorphism.</p>
+</div>
+
+<p>I suggest that you attempt to prove this theorem on your own. You will see that the local triviality of the vector bundles is used in a crucial way.</p>
+
+<h2 id="sheaves-of-modules">Sheaves of modules</h2>
+
+<p>The main goal of this post is to describe a fundamental equivalence between the category $\Vect_M$ and a certain category of sheaves of modules. In this section, we define this second category. To prepare, I suggest that you review the definitions of locally ringed spaces and sheaves in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>.</p>
+
+<p>While we defined sheaves in the previous post, we did not define morphisms of sheaves. We do so now, restricting to the case of sheaves of sets:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\cale$ and $\cale’$ be sheaves of sets on a topological space $X$. A <em>morphism</em> of sheaves, denoted $\eta:\cale \to \cale’$, is a natural transformation of the underlying functors. In other words, such a <em>morphism</em> is a collection of functions</p>
+
+  <p>\begin{equation}\notag
+\eta_U: \cale(U) \to \cale’(U),
+\end{equation}</p>
+
+  <p>one for each open set $U\subseteq M$, that commute with the restriction maps of $\cale$ and $\cale’$.</p>
+
+  <p>The <em>identity morphism</em></p>
+
+  <p>\begin{equation}\notag
+\id_\cale: \cale \to \cale
+\end{equation}</p>
+
+  <p>of the sheaf $\cale$ is defined by setting $(\id_{\cale})_U = \id_{\cale(U)}$ for each open set $U$.</p>
+
+  <p>If $\eta’: \cale’ \to \cale’’$ is a second morphism of sheaves, the <em>composition</em></p>
+
+  <p>\begin{equation}\notag
+\eta’ \circ \eta: \cale \to \cale’’
+\end{equation}</p>
+
+  <p>is defined by setting $(\eta’ \circ \eta)_U = \eta’_U \circ \eta_U$ for each open set $U$.</p>
+
+  <p>With sheaves of sets as objects, and with these morphisms, identity morphisms, and composition law, we obtain the <em>category of sheaves on $X$</em>, denoted $\Sh_X$.</p>
+</div>
+
+<p>There are multiple ways to transport sheaves from one topological space to another. One of the simplest is defined in:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\cale$ be a sheaf of sets on a topological space $X$ and let $\alpha:X \to Y$ be a continuous map of topological spaces. We define the <em>direct image of $\cale$ along $\alpha$</em>, denoted $\alpha_\ast \cale$, to be sheaf in $\Sh_Y$ defined on sections by</p>
+
+  <p>\begin{equation}\notag
+(\alpha_\ast\cale)(U) = \cale(\alpha^{-1}(U)).
+\end{equation}</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Complete the definition of the direct image $\alpha_\ast \cale$ by describing its (obvious) restriction maps.</li>
+    <li>Let $\alpha:(X,\sco_X) \to (Y,\sco_Y)$ be a morphism of ringed spaces. Recall that this means $\alpha:X \to Y$ is a continuous map such that for each open set $V$ in $Y$, the function
+ \begin{equation}\notag
+ \alpha^\ast_V: \sco_Y(V) \to \sco_X(\alpha^{-1}(V)), \quad f\mapsto f\circ \alpha,
+ \end{equation}
+is a well defined homomorphism of $\bbr$-algebras. (Remember that the structure sheaves of our ringed spaces are assumed to be sheaves of $\bbr$-valued functions!) Prove that these pullbacks $\alpha^\ast_V$ assemble together to yield a morphism
+ \begin{equation}\notag
+ \alpha^\ast: \sco_Y \to \alpha_\ast \sco_X
+ \end{equation}
+of sheaves over $Y$.</li>
+  </ol>
+</div>
+
+<p>If $(X,\sco_X)$ is a locally ringed space, we defined the stalks $\sco_{X,p}$ of the structure sheaves in the previous post. This definition was the obvious adaptation of the definition of the local rings $C^\infty_{M,p}$ over a manifold $M$. In both cases, the structure sheaves were sheaves of actual functions (remember, we <em>required</em> $\sco_X$ to be a sheaf of functions!), and the germs in the stalks were certain equivalence classes of functions.</p>
+
+<p>For a general sheaf $\cale$ on a topological space $X$, however, the sections in $\cale(U)$ may not be functions. Nevertheless, it is still possible to define stalks $\cale_p$ following essentially the same recipe.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\cale$ be a sheaf of sets on a topological space $X$. Suppose we are given a point $p\in X$ and two sections $s_U\in \cale(U)$ and $s_V\in \cale(V)$, where $U$ and $V$ are open neighorhoods of $p$. We define $s_U$ and $s_V$ to be <em>equivalent</em> if there is an open neighborhood $W$ of $p$ contained in $U\cap V$ such that</p>
+
+  <p>\begin{equation}\notag
+r^U_{W}(s_U) = r^V_W(s_V),
+\end{equation}</p>
+
+  <p>where $r^U_W$ and $r^V_W$ are the restriction maps of the sheaf $\cale$. This defines an equivalence relation on the set</p>
+
+  <p>\begin{equation}\notag
+\{s_U \in \cale(U) : \text{$U$ an open neighborhood of $p$} \}
+\end{equation}</p>
+
+  <p>whose equivalence classes are called <em>germs at $p$</em>. We define the <em>stalk</em> of $\cale$ at $p$, denoted $\cale_p$, to be the set of all germs at $p$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that the equivalence relation just described actually is an equivalence relation.</li>
+    <li>Let $\eta: \cale \to \cale’$ be a morphism of sheaves of sets on $X$. For each $p\in X$, prove that the induced map
+ \begin{equation}\notag
+ \eta_p: \cale_p \to \cale’_p, \quad [s_U] \mapsto [\eta_U(s_U)],
+ \end{equation}
+on stalks is well defined. Here, I am writing $[s_U]$ to denote the germ represented by a section $s_U \in \cale(U)$.</li>
+  </ol>
+
+  <p><em>Note</em>: Following our practice of intentionally confusing functions with germs in the local rings $C^\infty_{M,p}$ over a manifold $M$, in the future, when no confusion will likely arise, we will drop the bars from the notation $[s_U]$ and write $s_U$ for both the section and its germ.</p>
+</div>
+
+<p>Now, the main definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(X,\sco_X)$ be a locally ringed space. An <em>$\sco_X$-module</em> is a sheaf of sets $\cale$ such that, for each open set $U\subseteq X$, the set of sections $\cale(U)$ is a module over the ring $\sco_X(U)$. Furthermore, if $U\subseteq V$ is a containment of open sets and</p>
+
+  <p>\begin{equation}\notag
+\rho^V_U: \sco_X(V) \to \sco_X(U) \quad \text{and} \quad r^V_U:\cale(V) \to \cale(U)
+\end{equation}</p>
+
+  <p>are the associated restriction maps, then we require $r^V_U$ to be $\sco_X(V)$-linear, where $\cale(U)$ is given a $\sco_X(V)$-module structure by restricting scalars along $\rho^V_U$.</p>
+
+  <p>A morphism $\eta:\cale \to \calf$ of the underlying sheaves of two $\sco_X$-modules is called <em>$\sco_X$-linear</em> if each function</p>
+
+  <p>\begin{equation}\notag
+\eta_U: \cale(U) \to \calf(U)
+\end{equation}</p>
+
+  <p>is $\sco_X(U)$-linear.</p>
+
+  <p>We define the <em>identity morphism</em> of an $\sco_X$-module to be its identity morphism as a sheaf in $\Sh_X$, and we define the <em>composition</em> of two $\sco_X$-linear morphisms to be their composition in $\Sh_X$.</p>
+
+  <p>With $\sco_X$-modules as objects, $\sco_X$-linear morphisms as morphisms, and with these identity morphisms and composition law, we obtain the <em>category of $\sco_X$-modules</em>, denoted $\Mod{\sco_X}$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>We can easily give one obvious (but important!) example of an $\sco_X$-module: Convince yourself that the structure sheaf $\sco_X$ is an $\sco_X$-module.</li>
+    <li>Prove that the stalk $\cale_p$ of an $\sco_X$-module is a $\sco_{X,p}$-module with respect to the evident operations. (If you’ve read through the previous two posts, you’ve done an exercise similar to this twice!)</li>
+    <li>Let $\eta: \cale \to \cale’$ be an $\sco_X$-linear morphism. For each $p\in X$, prove that the induced map on stalks $\eta_p: \cale_p \to \cale’_{p}$ is $\sco_{X,p}$-linear.</li>
+  </ol>
+</div>
+
+<p>We will show in the next section that the “local sections” of a vector bundle $E$ in $\Vect_M$ naturally form a $C^\infty_M$-module, where $C^\infty_M$ is the structure sheaf of the manifold $M$. However, the local triviality of the vector bundle is reflected as “local freeness” of the sheaf, which we need to define.</p>
+
+<p>We require two preliminary definitions.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\cale$ be a sheaf of sets on a topological space $X$. For an open set $U\subseteq X$, we define the <em>restricted sheaf</em>, denoted $\cale|_U$, to be the sheaf in $\Sh_U$ given by</p>
+
+  <p>\begin{equation}\notag
+\cale|_U(V) = \cale(V),
+\end{equation}</p>
+
+  <p>for all open sets $V\subseteq U$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+  <ol>
+    <li>Complete the definition of the restricted sheaf $\cale|_U$ by describing its (obvious) restriction maps.</li>
+    <li>Suppose now that $(X,\sco_X)$ is a locally ringed space. For each open set $U\subseteq X$, show that $(U,\sco_U)$ is a locally ringed space, where $\sco_U$ is defined to be the restricted sheaf $\sco_X|_U$. Prove that the inclusion map $\iota:U \to X$ induces a morphism $\iota:(U,\sco_U) \to (X,\sco_X)$ of locally ringed spaces. Prove that the associated morphism of sheaves $\iota^\ast: \sco_X \to \iota_\ast \sco_U$ induces an isomorphism $\iota^\ast_p : \sco_{X,p} \to \sco_{U,p}$ of stalks as local $\bbr$-algebras.</li>
+    <li>Building off of (2.), suppose that $\cale$ is a $\sco_X$-module. Show that the restricted sheaf $\cale|_U$ is an $\sco_U$-module over the locally ringed space $(U,\sco_U)$.</li>
+    <li>Building off of (3.), for each $p\in U$, prove that the stalks $(\cale|_{U})_p$ and $\cale_p$ are naturally isomorphic as $\sco_{X,p}$-modules, where the first stalk is given an $\sco_{X,p}$-module structure by restricting scalars along the isomorphism $\iota^\ast_p$.</li>
+  </ol>
+</div>
+
+<p>The second preliminary definition is:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\cale$ and $\cale’$ be two $\sco_X$-modules over a locally ringed space $(X,\sco_X)$. We define their <em>direct sum</em>, denoted $\cale \oplus \cale’$, to be the sheaf defined on sections by</p>
+
+  <p>\begin{equation}\notag
+(\cale \oplus \cale’)(U) = \cale(U) \oplus \cale’(U).
+\end{equation}</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+  <ol>
+    <li>Complete the definition of the direct sum $\cale \oplus \cale’$ as a sheaf in $\Sh_X$ by describing its (obvious) restriction maps. Then, show that $\cale \oplus \cale’$ is indeed a $\sco_X$-module.</li>
+    <li>Show that restriction of $\sco_X$-modules to open sets commutes with direct sums. That is, for two $\sco_X$-modules $\cale$ and $\cale’$ and an open set $U\subseteq X$, show that
+ \begin{equation}\notag
+ (\cale \oplus \cale’)|_U = \cale|_U \oplus \cale’|_U
+ \end{equation}
+as $\sco_U$-modules.</li>
+    <li>Prove that the natural maps on sections
+ \begin{equation}\notag
+ \cale(U) \leftrightarrows \cale(U) \oplus \cale’(U) \rightleftarrows \cale’(U)
+ \end{equation}
+assemble together to yield well-defined $\sco_X$-linear morphisms
+ \begin{equation}\notag
+ \cale \leftrightarrows \cale \oplus \cale’ \rightleftarrows \cale’
+ \end{equation}</li>
+    <li>For each $p\in X$, prove that the natural maps in (3.) induce an $\sco_{X,p}$-linear isomorphism
+ \begin{equation}\notag
+ (\cale \oplus \cale’)_p \cong \cale_p \oplus \cale’_p.
+ \end{equation}</li>
+    <li>Generalize the definition of binary direct sums to the case of a direct sum
+ \begin{equation}\notag
+ \cale_1 \oplus \cdots \oplus \cale_k
+ \end{equation}
+of an arbitrary (finite) number of $\sco_X$-modules. In particular, show that each direct sum
+ \begin{equation}\notag
+ \sco_X^k \defeq \underbrace{\sco_X \oplus \cdots \oplus \sco_X}_{\text{$k$ summands}}
+ \end{equation}
+is an $\sco_X$-module.</li>
+  </ol>
+</div>
+
+<p>Now, the main definition of this section.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\cale$ be an $\sco_X$-module over a locally ringed space $(X,\sco_X)$.</p>
+
+  <ol>
+    <li>We shall say $\cale$ is <em>free of rank $k$</em> if it is isomorphic in $\Mod{\sco_X}$ to a direct sum of the form $\sco_X^k$.</li>
+    <li>We shall say $\cale$ is <em>locally free of rank $k$</em> if $X$ has an open cover $\{U_i\}_{i\in I}$ such that $\cale|_{U_i}$ is free of rank $k$ in $\Mod{\sco_{U_i}}$. In other words, we require that for each $i\in I$ there exists an $\sco_{U_i}$-linear isomorphism
+ \begin{equation}\label{table-eqn}
+ \Psi_i: \sco_{U_i}^k \to \cale|_{U_i}
+ \end{equation}
+where $\sco_{U_i} = \sco_X|_{U_i}$. In this case, the open over $\{U_i\}_{i\in I}$ is called a <em>trivializing open cover</em> of the module, the module is said to <em>trivialize</em> over $\{U_i\}_{i\in I}$, and isomorphisms \eqref{table-eqn} are called <em>(local) trivializations</em>.</li>
+  </ol>
+</div>
+
+<h2 id="sections-of-vector-bundles">Sections of vector bundles</h2>
+
+<p>In this section we study smooth sections of (locally trivial) vector bundles. We have already seen examples of these gadgets in two places: (1) One guise of smooth vector fields on a manifold is as smooth (global) sections of the tangent bundle, and (2) smooth sections of the trivial vector bundle $M \times \bbr \to M$ are exactly smooth functions on $M$. Indeed, we covered (1) in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>, while to verify that claim (2) is true, we note that a smooth map $\sigma: M \to M \times \bbr$ of the form</p>
+
+<p>\begin{equation}\notag
+\sigma(p) = (p,f(p))
+\end{equation}</p>
+
+<p>is uniquely determined by the smooth function $f\in C^\infty(M)$. In general, the definition is as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to M$ be a vector bundle and $U\subseteq M$ a nonempty open set. A <em>local section</em> of the vector bundle over $U$ is a function $\sigma:U\to E$ such that $\pi\circ \sigma = \id_U$. We shall say $\sigma$ is a <em>smooth local section</em> if it is a smooth map between manifolds.</p>
+
+  <p>We write $\Gamma(U,E)$ for the set of smooth local sections over $U$. If the vector bundle $E$ is clear from context, we will write $\Gamma(U)$ in place of $\Gamma(U,E)$. Sections in $\Gamma(M)$ are called <em>smooth global sections</em>.</p>
+
+  <p>We will often write the functional value $\sigma(p) \in E_p$ of a section as $\sigma_p$. If the section happens to have an index, like $\sigma_i$, then we will write $\sigma_i|_p$ in place of $(\sigma_i)_p$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Given two smooth local sections $\sigma,\tau\in \Gamma(U)$, we define their <em>sum</em>, denoted $\sigma+\tau$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(\sigma+\tau)_p = \sigma_p + \tau_p,
+\end{equation}</p>
+
+  <p>where the sum on the right-hand side occurs in the fiber $E_p$. If $f\in C^\infty(U)$ is a function, we define the <em>product</em> of $f$ and $\sigma$, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\sigma)_p = f(p) \sigma_p,
+\end{equation}</p>
+
+  <p>where the product on the right-hand side occurs in the fiber $E_p$. Prove that with respect to these operations, the set $\Gamma(U)$ is a $C^\infty(U)$-module.</p>
+</div>
+
+<p>A smoothly varying collection of bases of the fibers of a vector bundle is called a <em>smooth local frame</em>, which is terminology that you should recognize from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields. Officially:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Then a collection of smooth local sections $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ is called a <em>smooth local frame</em> over $U$ if</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1|_p,\ldots,\vartheta_k|_p \in E_p
+\end{equation}</p>
+
+  <p>is a basis for all $p\in U$.</p>
+</div>
+
+<p>One of the main uses of smooth local frames is to test for smoothness of general sections:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Componentwise criterion for smoothness).</strong> Let $\pi:E\to M$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Given a function $\sigma:U\to E$ (not necessarily smooth, or even continuous) such that $\pi \circ \sigma = \id_U$ and a smooth local frame $\vartheta_1,\ldots,\vartheta_k\in \Gamma(U)$, we may write</p>
+
+  <p>\begin{equation}\notag
+\sigma_p = \sigma^i(p) \vartheta_i|_p
+\end{equation}</p>
+
+  <p>for each $p\in U$, where $\sigma^i: U \to \bbr$ are uniquely determined real-valued functions (not necessarily smooth, or even continuous). These functions are called the <em>component functions</em> of $\sigma$ with respect to the local frame.</p>
+
+  <p>Then $\sigma$ is smooth if and only if each component function $\sigma^i$ is smooth.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove that the local frame $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ forms a basis as a $C^\infty(U)$-module.</p>
+</div>
+
+<p>Given a manifold $M$, we recall that we proved the assignments $U \mapsto C^\infty(U)$ and $U \mapsto \calx(U)$ are examples of sheaves in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>. Had we known at the time that $\calx(U)$ could be viewed as smooth local sections of a certain vector bundle, then we could have applied the following general result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Sections of vector bundles form sheaves).</strong> Let $E$ be a vector bundle over a manifold $M$. If for each open set $U\subseteq M$ we define $\cale(U) = \Gamma(U,E)$, then $\cale$ is a $C^\infty_M$-module, where $C^\infty_M$ is the sheaf of smooth functions on $M$. The sheaf $\cale$ is called the <em>sheaf of sections</em> of the vector bundle $E$.</p>
+</div>
+
+<p>We learned the general definition of a sheaf in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. When we say that $\cale$ is a sheaf of $C^\infty_M$-modules, we really mean that $\cale$ is a sheaf of modules over the sheaf of rings $C^\infty_M$. For the general definition of these latter types of objects, see <a href="https://en.wikipedia.org/wiki/Sheaf_of_modules">here</a>.</p>
+
+<p>You also learned the definition of <em>stalks</em> of structure sheaves of ringed spaces in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. It turns out that such <em>stalks</em> may be defined for <em>any</em> sheaf and, in particular, they may be defined for sheaves of sections of vector bundles. You should have no trouble, therefore, in adapting the definition of <em>stalks</em> in the previous post to apply to our sheaves of sections. Otherwise, see <a href="https://en.wikipedia.org/wiki/Stalk_(sheaf)">here</a> for the official definition.</p>
+
+<p>Let’s set some notation for stalks:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We will write $\cale_p$ for the stalk of $\cale$ at $p\in M$. Elements in $\cale_p$ will be called <em>germs</em> of sections.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that each stalk $\cale_p$ is a module over the local ring $C^\infty_{M,p}$ with respect the evident operations. (By now, I’m hoping that this proof is routine!)</li>
+    <li>For each $p\in M$, recall that there is a well-defined homomorphism
+ \begin{equation}\notag
+ \dev_p:C^\infty_{M,p} \to \bbr, \quad f \mapsto f(p),
+ \end{equation}
+of $\bbr$-algebras. By restricting scalars along this map, a fiber $E_p$ of the vector bundle may be given a $C^\infty_{M,p}$-module structure. With respect to this structure, prove that the map
+ \begin{equation}\notag
+ e_p: \cale_p \to E_p, \quad \sigma \mapsto \sigma_p,
+ \end{equation}
+is a well-defined homomorphism of $C^\infty_{M,p}$-modules.</li>
+  </ol>
+</div>
+
+<p>Remember that the germs in the stalk $\cale_p$ are actually equivalence classes of sections $\sigma$ defined on open neighborhoods of $p$, so my definition “$\sigma \mapsto \sigma_p$” of the evaluation map $e_p$ is technically an abuse of notation. However, as I’ve mentioned in the past, this is a typical abuse, and going forth I will use it without further comment.</p>
+
+<p>Take care to notice the difference between $\cale_p$ and $E_p$ for a vector bundle $E$ over a manifold $M$. The former is the stalk of the sheaf of sections at the point $p\in M$, while the latter is the fiber over $p$. While these are <strong>different</strong> objects, there is, nevertheless, a tight link between them:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. For each $p\in M$, let $\mfm_p$ denote the maximal ideal of the local ring $C^\infty_{M,p}$. The sequence</p>
+
+  <p>\begin{equation}\notag
+0 \to \mfm_p \to \cale_p \xrightarrow{e_p} E_p \to 0
+\end{equation}</p>
+
+  <p>is exact, where the first map is the inclusion and the second is the evaluation map.</p>
+</div>
+
+<p>A proof is in contained in Jet’s book, Chapter 12.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Extension theorem for local sections).</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$ and each open neighbohrood $U$ of $p$, the natural localization map</p>
+
+  <p>\begin{equation}\notag
+\lambda_{U,p}: \cale(U) \to \cale_p
+\end{equation}</p>
+
+  <p>sending a section to the germ that it represents is surjective.</p>
+</div>
+
+<p>The proof uses bump functions, just like the same extension theorem for smooth functions.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Stalks of vector bundles are free).</strong> Let $E$ be a rank-$k$ vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$, the stalk $\cale_p$ is a free $C^\infty_{M,p}$-module of rank $k$. In particular, if $U$ is an open neighborhood of $p$ over which $E$ trivializes, then the natural map</p>
+
+  <p>\begin{equation}\label{nat-eqn}
+C^\infty_{M,p} \otimes_{C^\infty(U)} \cale(U)   \to \cale_p, \quad f \otimes \sigma \mapsto f\lambda_{U,p}(\sigma),
+\end{equation}</p>
+
+  <p>is an isomorphism of $C^\infty_{M,p}$-modules, where $\lambda_{U,p}$ is the natural localization map from the previous theorem.</p>
+</div>
+
+<p>We have already observed that a choice of local frame</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(U)
+\end{equation}</p>
+
+<p>forms a basis of $\cale(U)$ as a $C^\infty(U)$-module, and that the localization map $\lambda_{U,p}$ is surjective. Thus, we need only show that the map \eqref{nat-eqn} is injective. So, suppose that we have an element $f^i \otimes \vartheta_i$ in the domain of \eqref{nat-eqn}, with summation over repeated indices implied. Suppose that it is sent to zero in the stalk, so that we have $f^i \vartheta_i = 0$. (Be very careful to understand exactly what this equation means, as I am confusing sections with germs again, and have omitted the localization map.) By shrinking $U$ to a smaller neighborhood $V$ of $p$ if needed, we may suppose that this equation actually occurs in the module $\cale(V)$, where now $f^i \in C^\infty(V)$. But the sections $\vartheta_1,\ldots,\vartheta_k$ are linearly independent in $\cale(V)$ as well, and hence $f^i = 0$ on $V$ for each $i$. Hence $f^i=0$ in $C^\infty_{M,p}$, which is what we wanted to prove. Q.E.D.</p>
+
+<h2 id="constructing-vector-bundles">Constructing vector bundles</h2>
+
+<h2 id="a-fundamental-equivalence-of-categories">A fundamental equivalence of categories</h2>
+
+
+    </article>
+    
+  </body>
+</html>

@@ -1,0 +1,863 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>conditional probabilities and expectations</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">conditional probabilities and expectations</h1>
+</div>
+
+<h2 id="stochastic-transition-kernels">Stochastic transition kernels</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(\calx, \mfM)$ and $(\caly,\mfN)$ be two measurable spaces. A function</p>
+
+  <p>\begin{equation}\notag
+K: \mfM \times \caly \to [0,1], \quad (A,y) \mapsto K(A,y),
+\end{equation}</p>
+
+  <p>is called a <em>stochastic transition kernel</em> if:</p>
+
+  <ol>
+    <li>For each $y\in \caly$, the function $A\mapsto K(A,y)$ is a probability measure on $\mfM$.</li>
+    <li>For each $A\in \mfM$, the function $y\mapsto K(A,y)$ is measurable.</li>
+  </ol>
+
+  <p>If $\mu$ is a measure on $(\calx,\mfM)$ and each measure $K(-,y)$ has a density with respect to $\mu$, then we shall say <em>$K$ has a density with respect to $\mu$</em>.</p>
+</div>
+
+<h2 id="the-disintegration-theorems">The Disintegration Theorems</h2>
+
+<p>Before stating the first of the fundamental theorems in this post, we need to quickly introduce some terminology and notation. Given a subset $E$ of some cartesian product $\calx \times \caly$ and a point $y\in Y$, we define the <em>$y$-th section of $E$</em> to be the set</p>
+
+<p>\begin{equation}\notag
+E(y) = \left\{ x\in X \mid (x,y) \in E \right\}.
+\end{equation}</p>
+
+<div class="highlight-box">
+  <p><strong>The Measure Disintegration Theorem.</strong> Let $(\calx, \mfM,\mu)$ and $(\caly,\mfN,\nu)$ be two measure spaces, and let $R$ be a measure on $\caly$ with a density with respect to $\nu$. Suppose that for each stochastic transition kernel</p>
+
+  <p>\begin{equation}\notag
+K:\mfM \times \caly \to [0,1], \quad (A,y) \mapsto K(A,y),
+\end{equation}</p>
+
+  <p>with a density with respect to $\mu$, we define a probability measure $Q_K$ on $\calx \times \caly$ by setting</p>
+
+  <p>\begin{equation}\label{goal-eqn}
+Q_K(E) = \int_\caly K(E(y),y) \ R(\text{d}y)
+\end{equation}</p>
+
+  <p>for all product-measurable sets $E$. Then the measure $Q_K$ has the following pair of properties:</p>
+
+  <ol>
+    <li>$Q_K$ has a density with respect to the product measure $\mu\times \nu$.</li>
+    <li>$R$ is the marginal distribution of $Q_K$ on $\caly$.</li>
+  </ol>
+
+  <p>Furthermore, every measure $Q$ on $\calx \times \caly$ with these properties is equal to $Q_K$ for some transition kernel $K$, but the mapping $K\mapsto Q_K$ of kernels to measures is, in general, many-to-one.</p>
+</div>
+
+<p>Our first goal is to construct a density $\varphi(x,y)$ for the measure $Q_K$, assuming that the kernel $K$ is given. We set</p>
+
+<p>\begin{equation}\label{prod-den-eqn}
+\varphi(x,y) = f(x| y) \pi(y)
+\end{equation}</p>
+
+<p>for $x\in \calx$ and $y\in \caly$, where $\pi(y)$ is a density for $R$ with respect to $\nu$, and for each $y\in \caly$ the function $x\mapsto f(x|y)$ is a density of $K(-,y)$ with respect to $\mu$. Since for any product-measurable set $E$ we have the identity</p>
+
+<p>\begin{equation}\notag
+I_{E(y)}(x) = I_E(x,y)
+\end{equation}</p>
+
+<p>of indicator functions, we have</p>
+
+<p>\begin{equation}\notag
+\int_E \varphi(x,y) \ (\mu \times \nu)(\d x, \d y) = \int_{\calx \times \caly} \varphi(x,y) I_{E(y)}(x) \ (\mu \times \nu)(\d x , \d y).
+\end{equation}</p>
+
+<p>But by using the definition \eqref{prod-den-eqn} and Fubini’s Theorem, we get that the integral on the right-hand side of this last equation is equal to</p>
+
+<p>\begin{equation}\notag
+\int_\caly \left\{ \int_{E(y)} f(x|y)\pi(y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y)
+\end{equation}</p>
+
+<p>which, in turn, is equal to</p>
+
+<p>\begin{equation}\notag
+\int_\caly K(E(y),y) \ R(\d y).
+\end{equation}</p>
+
+<p>But this last integral is precisely $Q_K(E)$, and hence $Q_K$ has density $\varphi(x,y)$. That $R$ is the marginal distribution of $Q_K$ on $\caly$ is clear from the defining formula \eqref{goal-eqn}, and so we have established the two claimed properties of $Q_K$ in the statement of the theorem.</p>
+
+<p>We now turn our attention toward the second claim in the theorem, letting $Q$ be any measure on $\calx\times \caly$ with the two stated properties. Our goal is to construct a stochastic transition kernel $K$ and show that $Q$ is equal to $Q_K$, the latter defined by \eqref{goal-eqn}.</p>
+
+<p>Let $\varphi(x,y)$ be a density of $Q$ with respect to the product measure $\mu \times \nu$. Then, by Fubini’s Theorem, for all $B\in \mfN$ we have</p>
+
+<p>\begin{equation}\notag
+R(B) = Q(\calx \times B) = \int_{\calx \times B} \varphi(x,y) \ (\mu \times \nu)(\text{d}x,\text{d}y) = \int_B \left\{ \int_\calx \varphi(x,y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y),
+\end{equation}</p>
+
+<p>which shows that $R$ has density</p>
+
+<p>\begin{equation}\label{marginal-eqn}
+\pi(y) = \int_\calx \varphi(x,y) \ \mu(\text{d}x)
+\end{equation}</p>
+
+<p>with respect to $\nu$. For those $y\in \caly$ with $\pi(y)\neq 0$, define a measurable function on $\calx$ by</p>
+
+<p>\begin{equation}\label{cond-defn-eqn}
+x\mapsto  f(x|y) \defeq \frac{\varphi(x,y)}{\pi(y)}.
+\end{equation}</p>
+
+<p>It follows from \eqref{marginal-eqn} that $\int_\calx f(x|y) \ \mu(\text{d}x)=1$, and hence</p>
+
+<p>\begin{equation}\label{den-rule-eqn}
+A\mapsto K(A,y) \defeq \int_A f(x|y) \ \mu(\d x)
+\end{equation}</p>
+
+<p>defines a measure on $\calx$ for each $y\in \caly$ with $\pi(y)\neq 0$. If $\pi(y)=0$, then we let $x\mapsto f(x|y)$ be some fixed (but arbitrary) measurable function on $\calx$ with $\int_\calx f(x|y) \ \mu(\text{d}x)=1$. We then define the measure $K(-,y)$ via the same rule \eqref{den-rule-eqn}.</p>
+
+<p>I claim that</p>
+
+<p>\begin{equation}\label{plug-eqn}
+\int_A f(x|y)\pi(y) \ \mu(\text{d}x) = \int_A \varphi(x,y) \ \mu(\text{d}x)
+\end{equation}</p>
+
+<p>for all $y\in \caly$ and all $A\in \mfM$. For proof, first note that if $\pi(y)\neq 0$, then this equation follows from the definition \eqref{cond-defn-eqn} given above. Otherwise, note that</p>
+
+<p>\begin{equation}\notag
+0 \leq \int_A \varphi(x,y) \ \mu(\text{d}x) \leq \int_\calx \varphi(x,y) \ \mu(\text{d}x) = \pi(y),
+\end{equation}</p>
+
+<p>so that the right-hand side of \eqref{plug-eqn} is $0$ if $\pi(y)=0$. The desired equation \label{plug-eqn} follows.</p>
+
+<p>Now, given a product-measurable subset $E\subseteq \calx \times \caly$, we have</p>
+
+<p>\begin{align}
+\int_\caly K(E(y),y) \ R(\text{d}y) &amp;= \int_\caly \left\{ \int_{E(y)} f(x|y) \ \mu(\text{d}x) \right\} \ R(\text{d}y) \notag \\ &amp;= \int_\caly \left\{ \int_{E(y)} f(x|y)\pi(y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y) \notag \\ &amp;= \int_\caly \left\{ \int_{E(y)} \varphi(x,y) \ \mu(\text{d}x) \right\} \ \nu(\text{d}y) \notag \\ &amp;= \int_{\calx \times \caly} \varphi(x,y) I_{E(y)}(x) \ (\mu \times \nu)(\text{d}x, \text{d}y) \notag \\ &amp;= \int_E \varphi(x,y) \ (\mu \times \nu)(\text{d}x,\text{d}y) \notag \\ &amp;= Q(E) \notag,
+\end{align}</p>
+
+<p>where the third equation follows from \eqref{plug-eqn}. Equating the two ends of this sequence of equalities shows $Q(E) = Q_K(E)$, and hence $Q=Q_K$, which is what we set out to prove. Q.E.D.</p>
+
+<p>It is worth noting that the measure $Q_K$ defined by \eqref{goal-eqn} has a particularly simple formula on cartesian products of measurable sets:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Assume the notation and hypotheses of the Measure Disintegration Theorem. If $A\in \mfM$ and $B\in \mfN$, then</p>
+
+  <p>\begin{equation}\label{goal2-eqn}
+Q_K ( A\times B) = \int_B K(A,y) \ R(\d y).
+\end{equation}</p>
+</div>
+
+<p>The desired formula \eqref{goal2-eqn} follows immediately from \eqref{goal-eqn} by taking $E = A\times B$ in the latter and noting that</p>
+
+<p>\begin{equation}\notag
+K((A\times B)(y),y) = K(A,y)I_B(y)
+\end{equation}</p>
+
+<p>for all $y\in \caly$. Q.E.D.</p>
+
+<p>It will be convenient to extract the formulas for the densities used in the proof of the Measure Disintegration Theorem and place them in their own theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>The Density Disintegration Theorem.</strong> Assume the notation and hypotheses of the Measure Disintegration Theorem. In particular, let $Q$ be a probability measure on $\calx \times \caly$ with the two stated properties. If $\varphi$ is a density of $Q$ with respect to $\mu\times \nu$, then $R$ has a density with respect to $\nu$ given by
+\begin{equation}\notag
+\pi(y) = \int_\calx \varphi(x,y) \ \mu(\text{d}x),
+\end{equation}
+while the probability measure $A\mapsto K(A,y)$ has a density with respect to $\mu$ given by
+\begin{equation}\notag
+x\mapsto f(x|y) = \frac{\varphi(x,y)}{\pi(y)}
+\end{equation}
+for all those $y\in \caly$ with $\pi(y)\neq 0$.</p>
+</div>
+
+<h2 id="conditional-distributions">Conditional distributions</h2>
+
+<p>We begin with a definition that should be familiar from your prior study of probability theory.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(\calx,\mfM)$ and $(\caly,\mfN)$ be two measurable spaces, let $Q$ be a probability measure on the product space $\calx \times \caly$, and let $R$ be the marginal distribution of $Q$ on $\caly$. Given $A\in \mfM$ and $B\in \mfN$, we define the <em>conditional probability of $A$ given $B$</em> to be the quotient</p>
+
+  <p>\begin{equation}\label{defn-eqn}
+P(A | B) = \frac{Q(A\times B)}{R(B)},
+\end{equation}
+provided that $R(B) &gt;0$.</p>
+</div>
+
+<p>Provided that $R(B)&gt;0$, it is clear that the assignment $A\mapsto P(A|B)$ is a probability distribution on $(\calx,\mfM)$. If $R(B)=0$, then we will define $A\mapsto P(A|B)$ to be a fixed (but arbitrary) probability distribution on $(\calx,\mfM)$. It doesn’t matter <em>which</em> probability distribution we choose, just as long as we make the same choice for all $B\in \mfN$ with $R(B)=0$.</p>
+
+<p>Let’s make a preliminary study of this definition in the special case that $\calx$ and $\caly$ are finite. In this case, given subsets $A\subseteq \calx$ and $B\subseteq \caly$, we have</p>
+
+<p>\begin{equation}\label{begin-eqn}
+Q(A \times B) = \sum_{y\in B} Q(A \times \{y\}).
+\end{equation}</p>
+
+<p>In view of the inequality</p>
+
+<p>\begin{equation}\notag
+Q(A \times \{y\}) \leq Q(\calx \times \{y\}) = R(y)
+\end{equation}</p>
+
+<p>and the definition \eqref{defn-eqn}, it follows that</p>
+
+<p>\begin{equation}\label{cat-eqn}
+Q(A\times \{y\}) = P(A|y) R(y)
+\end{equation}</p>
+
+<p>for all $y\in \caly$, no matter the value of $R(y)$. Here, we are writing</p>
+
+<p>\begin{equation}\notag
+R(y) = R(\{y\}) \quad \text{and} \quad P(A|y) = P(A|\{y\}).
+\end{equation}</p>
+
+<p>Combined with \eqref{begin-eqn}, the equations \eqref{cat-eqn} give us</p>
+
+<p>\begin{equation}\notag
+Q(A \times B) = \sum_{y\in B} P(A|y) R(y),
+\end{equation}</p>
+
+<p>which is the same as</p>
+
+<p>\begin{equation}\notag
+Q(A \times B) = \int_B P(A|y) \ R(\text{d}y).
+\end{equation}</p>
+
+<p>Thus, at least in the case of finite probability spaces, the probability measure $Q$ on the cartesian product disintegrates into the conditional probabilities on $\calx$ and the marginal distribution on $\caly$. In the general case, we <em>define</em> a conditional probability as a certain stochastic transition kernel:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(\calx,\mfM)$ and $(\caly,\mfN)$ be two measurable spaces, let $Q$ be a probability measure on the product space $\calx \times \caly$, and let $R$ be the marginal distribution of $Q$ on $\caly$. A stochastic transition kernel</p>
+
+  <p>\begin{equation}\notag
+\mfM \times \caly \to [0,1], \quad (A,y) \mapsto P(A|y),
+\end{equation}</p>
+
+  <p>is called a <em>conditional probability distribution</em> if</p>
+
+  <p>\begin{equation}
+Q(A\times B) = \int_B P(A|y) \ R(\text{d}y)
+\end{equation}</p>
+
+  <p>for all $A\in \mfM$ and $B\in \mfN$.</p>
+</div>
+
+<p>Our Disintegration Theorems may be restated as an existence theorem for conditional distributions, provided that the measure $Q$ has a density:</p>
+
+<div class="highlight-box">
+  <p><strong>Existence Theorem for Conditional Distributions.</strong> Let $(\calx,\mfM,\mu)$ and $(\caly,\mfN,\nu)$ be two $\sigma$-finite measure spaces, let $Q$ be a probability measure on $\calx \times \caly$, and let $R$ be the marginal distribution of $Q$ on $\caly$. If $Q$ has a density $\varphi(x,y)$ with respect to $\mu\times \nu$, then:</p>
+  <ol>
+    <li>The marginal distribution $R$ has a density
+ \begin{equation}\notag
+ \pi(y) \defeq \int_\calx \varphi(x,y) \ \mu(\text{d}x)
+ \end{equation}
+with respect to $\nu$.</li>
+    <li>A conditional probability $(A,y) \mapsto P(A|y)$ exists, such that
+ \begin{equation}\notag
+ Q(A\times B) = \int_B P(A|y) \ R(\text{d}y)
+ \end{equation}
+ for all $A\in \mfM$ and $B\in \mfN$.</li>
+    <li>For all $y\in \caly$, the distribution $A\mapsto P(A|y)$ on $(\calx,\mfM)$ has a density function $f(x|y)$. For those $y\in \caly$ such that $\pi(y) \neq 0$, the density is given by the formula
+ \begin{equation}\notag
+ f(x|y) = \frac{\varphi(x,y)}{\pi(y)}.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>Conditional distributions are only uniquely defined up to almost sure equality. A particular choice of a conditional distribution is called a <em>version</em> of the conditional distribution.</p>
+
+<p>Very often, the distribution $Q$ on $\calx \times \caly$ will be obtained via the distributions of random vectors. In fact, there are two closely related conditional distributions obtained in this way. Let’s describe them.</p>
+
+<p>Suppose that $X:\Omega \to \bbr^m$ and $Y:\Omega \to \bbr^n$ are random vectors on a probability space $(\Omega,\mfM,P)$. Define the two maps</p>
+
+<p>\begin{equation}\notag
+(\text{id},Y): \Omega \to \Omega \times \bbr^n, \quad \omega \mapsto (\omega, Y(\omega))
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+X \times \text{id} : \Omega \times \bbr^n \to \bbr \times \bbr^n, \quad (\omega,y) \mapsto (X(\omega),y).
+\end{equation}</p>
+
+<p>Notice that</p>
+
+<p>\begin{equation}\notag
+(X,Y) = (X \times \text{id}) \circ (\text{id},Y),
+\end{equation}</p>
+
+<p>where</p>
+
+<p>\begin{equation}\notag
+(X,Y):\Omega \to \bbr \times \bbr^n, \quad \omega \mapsto (X(\omega),Y(\omega)).
+\end{equation}</p>
+
+<p>Thus</p>
+
+<p>\begin{equation}\notag
+P_{X,Y} = (X\times \text{id})_\ast Q,
+\end{equation}</p>
+
+<p>where $P_{X,Y}$ is the joint distribution of $X$ and $Y$ and $Q = (\text{id},Y)_\ast P$. Supposing that the distribution $Q$ disintegrates into a conditional distribution</p>
+
+<p>\begin{equation}\notag
+\mfM \times \bbr^n \to \bbr, \quad (E,y) \mapsto P(E|y),
+\end{equation}</p>
+
+<p>and the marginal distribution $P_Y$, we have</p>
+
+<p>\begin{equation}\label{curtain-eqn}
+P_{X,Y}(A\times B) = Q\left( \{X\in A\} \times B \right) = \int_B P(\{X\in A\}| y) \ P_Y(\text{d}y)
+\end{equation}</p>
+
+<p>for all $A\in \mfb$ and $B\in \mfb^n$. For convenient reference, let’s draw some important conclusions and summarize the situation in the following box:</p>
+
+<div class="highlight-box2">
+  <p><strong>Random Vectors and Conditional Distributions.</strong></p>
+  <ol>
+    <li>Let $X:\Omega \to \bbr$ be a random variable and $Y:\Omega \to \bbr^n$ a random vector on a probability space $(\Omega,\mfM,P)$.</li>
+    <li>The joint distribution $P_{X,Y}$ on $\bbr \times \bbr^n$ is the pushforward along $X\times\text{id}$ of the distribution $Q = (\text{id},Y)_\ast P$ on $\Omega \times \bbr^n$.</li>
+    <li>We assume that $Q$ has a density with respect to the product measure $P \times \lambda^n$, where $\lambda^n$ is the Lebesgue measure on $\bbr^n$. This ensures that $Q$ disintegrates into a conditional distribution on $\Omega$ with respect to the marginal distribution $P_Y$.</li>
+    <li>There are <em>two</em> conditional distributions at hand, one on $\Omega$ and the other on $\bbr$. For fixed $y\in \bbr^n$, the first is
+ \begin{equation}\label{whosit-eqn}
+ E \mapsto P(E|Y=y) \defeq P(E|y), \quad E\in \mfM,
+ \end{equation}
+while the second is
+ \begin{equation}\label{second-eqn}
+ A \mapsto P(X\in A|Y=y) \defeq P(\{X\in A\} |y), \quad A\in \mfb.
+ \end{equation}</li>
+    <li>The second conditional distribution \eqref{second-eqn} is the pushforward of the first \eqref{whosit-eqn} along the random vector $X$.</li>
+    <li>The first measure \eqref{whosit-eqn} disintegrates $Q$ against the marginal distribution $P_Y$, while the second \eqref{second-eqn} disintegrates the joint distribution $P_{X,Y}$ against the marginal distribution $P_Y$. In particular, we have
+ \begin{equation}\label{tot-ha-eqn}
+ P\left(X\in A, Y\in B\right) = \int_B P(X\in A|Y=y) \ P_Y(\text{d}y)
+ \end{equation}
+for all $A\in \mfb$ and all $B\in \mfb^n$.</li>
+  </ol>
+</div>
+
+<p>If we take $B=\bbr^n$, then \eqref{tot-ha-eqn} turns into</p>
+
+<p>\begin{equation}\notag
+P(X\in A) = \int_{\bbr^n} P(X\in A| Y=y) \ P_Y(\text{d}y).
+\end{equation}</p>
+
+<p>But this is nothing but the familiar Law of Total Probability. In fact, a more general law holds, which we state below. It involves decomposing the random vector $Y: \Omega \to \bbr^n$ into a sequence $Y_1,\ldots,Y_n$ of random variables, in the usual way. Then, the conditional probability</p>
+
+<p>\begin{equation}\notag
+y \mapsto P(X\in A|Y=y)
+\end{equation}</p>
+
+<p>may instead be written as</p>
+
+<p>\begin{equation}\notag
+y \mapsto P(X\in A|Y_1=y_1,\ldots,Y_n=y_n),
+\end{equation}</p>
+
+<p>where $y = (y_1,\ldots,y_n) \in \bbr^n$.</p>
+
+<div class="highlight-box">
+  <p><strong>Generalized Law of Total Probability.</strong> Let the notation be as in the box on Random Vectors and Conditional Distributions. For all $n\geq 2$, the conditional probability</p>
+
+  <p>\begin{equation}
+P(X\in A | Y_1=y_1, \ldots, Y_{n-1}=y_{n-1})
+\end{equation}</p>
+
+  <p>is equal to the integral</p>
+
+  <p>\begin{equation}\label{long-eqn}
+\int_\bbr P(X\in A\ | Y_1=y_1,\ldots,Y_n=y_n) \ P( Y_{n} \in \text{d}y_{n} | Y_{n-1} = y_{n-1})
+\end{equation}</p>
+
+  <p>for all $A\in \mfb$ and almost all $y_1,\ldots,y_n\in \bbr$.</p>
+</div>
+
+<p>All the essential ideas in the proof are apparent in the case $n=2$, so we shall only prove that</p>
+
+<p>\begin{equation}\label{goal-eqn}
+P(X\in A| Y=y) = \int_\bbr P(X\in A|Y=y, Z=z) \ P(Z\in \text{d}z | Y=y)
+\end{equation}</p>
+
+<p>for all $A\in \mfb$ and almost all $y,z\in \bbr$. To do this, we begin by integrating the right-hand side over a Borel set $B\in \mfb$ with respect to the marginal measure $P_Y$; we get</p>
+
+<p>\begin{align}\notag
+\int_B \left\{ \int_\bbr P(X\in A|Y=y, Z=z) \ P(Z\in \text{d}z | Y=y)\right\} \ P_Y(\text{d}y)
+\end{align}</p>
+
+<p>which is equal to</p>
+
+<p>\begin{equation}\notag
+\int_{B \times \bbr} P(X\in A|Y=y,Z=z) f(z|y) f(y) \ \text{d}y\text{d}z
+\end{equation}</p>
+
+<p>where $z\mapsto f(z|y)$ is a density of the conditional distribution $C\mapsto P(Z\in C|Y=y)$ and $f(y)$ is a density of the marginal distribution $P_Y$. But this last integral is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{B\times \bbr} P(X\in A|Y=y,Z=z) \varphi(y,z) \ \text{d}y\text{d}z
+\end{equation}</p>
+
+<p>where $\varphi(y,z)$ is a density of the joint distribution $P_{Y,Z}$. Since this integral is equal to $P(X\in A, \ Y\in B)$, the desired equation \eqref{goal-eqn} then follows, Q.E.D.</p>
+
+<p>Notice that, if we hold the Borel set $A$ fixed and let $y$ vary, then we obtain a function</p>
+
+<p>\begin{equation}\notag
+\bbr^n \to \bbr, \quad y \mapsto P(X\in A |Y=y).
+\end{equation}</p>
+
+<p>We may precompose this function with $Y$ to obtain a random variable on the sample space $\Omega$:</p>
+
+<p>\begin{equation}\label{paper-eqn}
+P(X\in A | Y) : \Omega \xrightarrow{Y} \bbr^n \xrightarrow{ y \mapsto P(X\in A |Y=y)} \bbr, \quad \omega \mapsto P(X\in A|Y)(\omega).
+\end{equation}</p>
+
+<p>Then:</p>
+
+<div class="highlight-box">
+  <p><strong>Properties of Conditional Distributions.</strong> Let the notation be as in the box on Random Vectors and Conditional Distributions. For a fixed Borel set $A\in \mfb^m$, the random variable $P(X\in A|Y)$ defined by \eqref{paper-eqn} has the following properties:</p>
+
+  <ol>
+    <li>The function \eqref{paper-eqn} is a $\sigma(Y)$-measurable function, where $\sigma(Y)$ is the $\sigma$-algebra on $\Omega$ generated by $Y$.</li>
+    <li>For all $F\in \sigma(Y)$, we have
+ \begin{equation}\label{robe-eqn}
+ P(\{X\in A\} \cap F ) = \int_{F} P(X\in A | Y)(\omega) \ P(\text{d}\omega).
+ \end{equation}</li>
+    <li>The function \eqref{paper-eqn} is the almost surely unique function (relative to $P$) for which the equation \eqref{robe-eqn} holds for all $F\in \sigma(Y)$.</li>
+    <li>If $Y’: \Omega \to \bbr^n$ is a second random vector such that $\sigma(Y) = \sigma(Y’)$, then we have
+ \begin{equation}\notag
+ P(X\in A|Y) = P(X\in A |Y’)
+ \end{equation}
+almost surely (relative to $P$), for all Borel sets $A\in \mfb$.</li>
+  </ol>
+</div>
+
+<p>Properties (1.) and (3.) are clear, while the equation \eqref{robe-eqn} follows from \eqref{curtain-eqn} and the change-of-variables formula. Then, property (4.) follows from (2.) and the uniqueness statement (3.).</p>
+
+<p>Property (4.) shows that the conditional probability $P(X\in A|Y)$ only depends (almost surely) on the sub-$\sigma$-algebra $\sigma(Y)$ of $\mfM$. This suggests that it is possible to define more general conditional probabilities, where we condition on sub-$\sigma$-algebras of $\mfM$ instead of random vectors.</p>
+
+<h2 id="laws-of-total-probability">Laws of Total Probability</h2>
+
+<h2 id="conditional-expectations">Conditional expectations</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let the notation be as in the box on Random Vectors and Conditional Distributions. Given a value $y\in \bbr^n$, we define the <em>conditional expectation of $X$ given $Y=y$</em> to be the integral
+\begin{equation}
+\label{sofa-eqn}
+\be(X | Y=y) = \int_\Omega X(\omega) \ P(\text{d}\omega | Y=y),
+\end{equation}
+provided that the integral is finite. Here, the conditional distribution is the one given by \eqref{whosit-eqn}.</p>
+</div>
+
+<p>The discussion preceding the definition and the change-of-variables formula yields a proof of:</p>
+
+<div class="highlight-box">
+  <p><strong>Change-of-Variables Formula for Conditional Expectations.</strong> Let the notation be as in the box on Random Vectors and Conditional Distributions. If the conditional expectation $\be(X|Y=y)$ is finite, then
+\begin{equation}\notag
+\be(X|Y=y) = \int_\bbr x \ P(X\in \text{d}x|Y=y).
+\end{equation}
+Here, the conditional distribution is the one given by \eqref{second-eqn}.</p>
+</div>
+
+<p>The integral in \eqref{sofa-eqn} explicitly depends on the conditional probability distribution. My goal now is to “integrate out” this dependency and in the process obtain some key properties of conditional expectations. Let’s suppose that $Q$ has a density $\varphi(\omega,y)$ with respect to the product measure $P\times \lambda^n$, where $\lambda^n$ is the Lebesgue measure on $\bbr^n$. As we know, it is then possible to choose a density $\pi(y)$ of the marginal distribution $P_Y$ and a density $\omega \mapsto f(\omega|y)$ of the conditional distribution \eqref{whosit-eqn} such that</p>
+
+<p>\begin{equation}\notag
+\int_\Omega X(\omega) f(\omega|y) \pi(y) \ P(\text{d}\omega) = \int_\Omega X(\omega)\varphi(\omega,y) \ P(\text{d}\omega).
+\end{equation}</p>
+
+<p>Then, given a Borel set $B\in \mfb(\bbr)$, we compute:</p>
+
+<p>\begin{align}
+\int_B \be(X | Y=y) \ P_Y(\text{d}y) &amp;= \int_B \left\{ \int_\Omega X(\omega) \ P(\text{d}\omega|Y=y) \right\} \ P_Y(\text{d}y) \label{door-eqn} \\ &amp;= \int_B \left\{ \int_\Omega X(\omega) f(\omega|y)\pi(y) \ P(\text{d}\omega) \right\} \ \lambda^n(\text{d}y) \notag \\ &amp;= \int_B \left\{ \int_\Omega X(\omega) \varphi(\omega,y) \ P(\text{d}\omega) \right\} \ \lambda^n(\text{d}y) \notag \\ &amp;= \int_{\Omega \times \bbr^n} X(\omega)I_B(y)\varphi(\omega,y) \ (P \times \lambda^n)(\text{d}\omega,\text{d}y) \notag \\ &amp;= \int_{\Omega \times \bbr^n} X(\omega)I_B(y) \ Q(\text{d}x,\text{d}y) \notag \\ &amp;= \int_\Omega X(\omega)I_B(Y(\omega)) \ P(\text{d}\omega) \notag \\ &amp;= \int_{\{Y\in B\}} X(\omega) \ P(\text{d}\omega).\label{door2-eqn}
+\end{align}</p>
+
+<p>The integral \eqref{door2-eqn} is over a subset of $\Omega$, while the first integral in \eqref{door-eqn} is over a Borel subset of $\bbr^n$. It will be convenient to “pull back” the latter integral so that it is over $\Omega$, too. To do this, we define the random variable</p>
+
+<p>\begin{equation}\label{bucket-eqn}
+\be(X|Y) : \Omega \xrightarrow{Y} \bbr^n \xrightarrow{y\mapsto \be(X|Y=y)} \bbr, \quad \omega \mapsto \be(X|Y)(\omega).
+\end{equation}</p>
+
+<p>Then, by the change-of-variables formula, the first integral in \eqref{door-eqn} is the same as</p>
+
+<p>\begin{equation}\label{door3-eqn}
+\int_{\{Y\in B\}} \be(X|Y)(\omega) \ P(\text{d}\omega).
+\end{equation}</p>
+
+<p>Equating \eqref{door-eqn} and \eqref{door3-eqn} then gives us property (1.) in:</p>
+
+<div class="highlight-box">
+  <p><strong>Properties of Conditional Expectations.</strong> Let the notation be as in the box on Random Vectors and Conditional Distributions. The random variable $\be(X|Y)$ defined by \eqref{bucket-eqn} has the following properties:</p>
+
+  <ol>
+    <li>The function \eqref{bucket-eqn} is a $\sigma(Y)$-measurable function, where $\sigma(Y)$ is the $\sigma$-algebra on $\Omega$ generated by $Y$.</li>
+    <li>For all $F\in \sigma(Y)$, we have
+ \begin{equation}\label{pot2-eqn}
+ \int_{F} X(\omega) \ P(\text{d}\omega) = \int_{F} \be(X|Y)(\omega) \ P(\text{d}\omega).
+ \end{equation}</li>
+    <li>The function \eqref{bucket-eqn} is the almost surely unique function (relative to $P$) for which the equation \eqref{pot2-eqn} holds for all $F\in \sigma(Y)$.</li>
+    <li>If $Y’: \Omega \to \bbr^n$ is a second random vector such that $\sigma(Y) = \sigma(Y’)$, then we have
+ \begin{equation}\notag
+ \be(X|Y) = \be(X|Y’)
+ \end{equation}
+almost surely (relative to $P$).</li>
+  </ol>
+</div>
+
+<p>By taking $F=\Omega$ in \eqref{pot2-eqn}, we get</p>
+
+<p>\begin{equation}\label{tot-exp-eqn}
+\be(X) = \be(\be(X|Y)).
+\end{equation}</p>
+
+<p>This equation is variously called the <em>Law of Total Expectation</em>, the <em>Law of Iterated Expectation</em>, and <em>smoothing</em>.</p>
+
+<p>Notice the strong similarity between the properties of conditional expectations and the properties of conditional distributions. In fact, for a given Borel set $A\in \mfb$, we obtain</p>
+
+<p>\begin{equation}\notag
+P(\{X\in A\}\cap F) = \int_{F} I_{\{X\in A\}} \ P(\text{d}\omega) = \int_{F} \be(I_{\{X\in A\}} |Y)(\omega) \ P(\text{d}\omega)
+\end{equation}</p>
+
+<p>from the fundamental equation \eqref{pot2-eqn}. But by the uniqueness property of conditional distributions, we get:</p>
+
+<div class="highlight-box">
+  <p><strong>Conditional expectations versus conditional probabilities.</strong> Let the notation be as in the box on Random Vectors and Conditional Distributions. Given a Borel set $A\in \mfb$, the equation
+\begin{equation}\notag
+P(X\in A |Y) = \be(I_{\{X\in A\}}|Y)
+\end{equation}
+holds almost surely. In particular, by the Law of Iterated Expectation \eqref{tot-exp-eqn}, we have
+\begin{equation}\notag
+P(X\in A) = \be\left( P(X\in A|Y) \right).
+\end{equation}</p>
+</div>
+
+<p>The logical flow so far has been</p>
+
+<p>\begin{equation}\notag
+(\text{conditional probabilities}) \quad \Rightarrow \quad (\text{conditional expectations}).
+\end{equation}</p>
+
+<p>However, since the properties (1.)-(3.) of conditional expectations are free of any reference to conditional probabilities, it is possible to <em>reverse</em> this logical flow, and instead <em>begin</em> with conditional expectations and <em>define</em> conditional probabilities in terms of them. Indeed, suppose that we have a random variable $\be(Y|X)$ on $\Omega$ that satisfies properties (1.)-(3.), and that we take</p>
+
+<p>\begin{equation}\notag
+P(E|X)(\omega) \defeq \be(I_E |X)(\omega)
+\end{equation}</p>
+
+<p>for all $\omega \in \Omega$ and $E\in \mfM$. Then the fundamental equation \eqref{pot-eqn} follows from \eqref{pot2-eqn}, and properties (2.) and (4.) of conditional probabilities follow from the corresponding properties of conditional expectations. The <em>only</em> property that does not necessarily follow is that $E\mapsto P(E|X)(\omega)$ is a probability measure on $\Omega$ for fixed $\omega$.</p>
+
+<p>The Theorems on Conditional Probabilities and Expectations uniquely characterize these objects to within almost sure equality. This suggests that, if we are willing to define these objects only up to almost sure equality, we could take the properties in these theorems as the <em>definitions</em> of conditional probabilities and expectations. This is the route that we will take, when we move to the general not-necessarily-discrete setting.</p>
+
+<p>However, if we take the theorems as definitions of conditional probabilities and expectations, there is still the matter of proving that such objects actually <em>exist</em>. To see how we might prove existence, let’s proceed informally as follows. Everything we have done in this section stemmed from the equation \eqref{couch-eqn}, which you can easily see presents a problem if $X$ is not discrete, for then we might have $P(X=x)=0$ for <em>all</em> $x$. To get around this problem, let’s suppose that $[a,b]$ is a closed interval in $\bbr$ and then define</p>
+
+<p>\begin{equation}\notag
+P(E | a \leq X \leq b ) = \frac{P(E, \ a \leq X \leq b)}{P(a \leq X \leq b)},
+\end{equation}</p>
+
+<p>in the same spirit as \eqref{couch-eqn}, provided, of course, that the denominator is not $0$. Now, in order to obtain something resembling $P(E|X=x)$, we might hope that the limit</p>
+
+<p>\begin{equation}\label{jumping-eqn}
+\lim_{\dev\to 0^+}  P(E | x \leq X \leq x + \dev ) = \lim_{\dev\to 0^+}\frac{P(E, \ x \leq X \leq x +\dev)}{P(x \leq X \leq x+\dev)}
+\end{equation}</p>
+
+<p>exists. If it does, then it should (intuitively) be a good candidate for the probability $P(E|X=x)$. Our strategy for studying this limit will be motivated by the observation that it looks an awful lot like some sort of derivative. This leads us to consider…</p>
+
+<h2 id="derivatives-of-measures-and-the-radon-nikodym-theorem">Derivatives of measures and the Radon-Nikodym theorem</h2>
+
+<p>We consider two finite Borel measures $\nu$ and $\mu$ on the real line $\bbr$. For all $x\in \bbr$, we define</p>
+
+<p>\begin{equation}
+\label{derivative-eqn}
+\frac{\text{d}\nu}{\text{d}\mu}(x) = \lim_{\dev \to 0^+} \frac{\nu\left((x-\dev,x+\dev)\right)}{\mu\left((x-\dev,x+\dev)\right)},
+\end{equation}</p>
+
+<p>provided that the limit exists and is finite.</p>
+
+<div class="highlight-box">
+  <p>What use is the function $\text{d}\nu/\text{d}\mu$? And why have we chosen “derivative-like” notation to represent it?</p>
+</div>
+
+<p>Preliminary answers to these questions may be obtained by turning to a much more familiar situation, by considering the derivative</p>
+
+<p>\begin{equation}\notag
+\frac{\text{d} y}{\text{d}x}(x) = f’(x)
+\end{equation}</p>
+
+<p>of a differentiable function $y=f(x)$. Provided that $f’$ is Riemann integrable, the Fundamental Theorem of Calculus states that</p>
+
+<p>\begin{equation}\notag
+f(b) -f(a) = \int_a^b \frac{\text{d} y}{\text{d}x}(x) \dx{x}
+\end{equation}</p>
+
+<p>for all closed intervals $[a,b]$. If $f$ is non-decreasing, the left-hand side of this equality is equal to $\lambda_f([a,b])$, where $\lambda_f$ is the so-called <em>Lebesgue-Stieltjes measure</em> associated with $f$. If we write $\lambda$ for the standard Lebesgue measure and compare the equation</p>
+
+<p>\begin{equation}\label{final-eqn}
+\lambda_f([a,b]) = \int_a^b \frac{\text{d} y}{\text{d}x}(x) \dx{x}
+\end{equation}</p>
+
+<p>to the formula</p>
+
+<p>\begin{equation}\notag
+\lambda([a,b]) = \int_a^b \text{d}x,
+\end{equation}</p>
+
+<p>we see that $\lambda_f$ is essentially a “weighted Lebesgue measure” where the derivative $\text{d}y/\text{d}x$ serves as the weight function. Or, if we prefer physics-inspired terminology and conceptualize integrals as “masses,” then $\text{d}y/\text{d}x$ might be interpreted as a “density.”</p>
+
+<p>Now, as we will see below, under certain conditions the function $\text{d}\nu/\text{d}\mu$ fits into an equation that is conceptually identical to \eqref{final-eqn}, namely</p>
+
+<p>\begin{equation}\label{rn-eqn}
+\nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu,
+\end{equation}</p>
+
+<p>where $A$ is a Borel set. The notation $\text{d}\nu/\text{d}\mu$ was chosen for the right-hand side of \eqref{derivative-eqn} with this last equation in mind.</p>
+
+<p>Other than measurability and nonnegativity, there is nothing particularly special about the ability of $\text{d}\nu/\text{d}\mu$ to define a measure through the formula \eqref{rn-eqn}. In fact, if $\mu$ is <em>any</em> measure whatsoever on an arbitrary measurable space $(\calx, \mfM)$ and $h: \calx\to [0,\infty]$ is a nonnegative, measurable function, the formula</p>
+
+<p>\begin{equation}\label{density-eqn}
+\nu(A) = \int_A h \dx{\mu}
+\end{equation}</p>
+
+<p>always yields a well-defined measure $\nu$ on $\mfM$, such that</p>
+
+<p>\begin{equation}\notag
+\int_\calx g \dx{\nu} = \int_\calx gh \dx{\mu}
+\end{equation}</p>
+
+<p>for all measurable functions $g$ on $\calx$. With $\nu$ and $\mu$ connected through \eqref{density-eqn}, notice that</p>
+
+<p>\begin{equation}
+\mu(A) =0 \quad \Rightarrow \quad \nu(A)=0
+\end{equation}</p>
+
+<p>for all $A \in \mfM$. This property is called <em>absolute continuity of $\nu$ with respect to $\mu$,</em> and is represented symbolically as $\nu \ll \mu$.</p>
+
+<p>Returning to our situation of two finite Borel measures $\nu$ and $\mu$ on $\bbr$, we see that absolute continuity $\nu \ll \mu$ is a <em>necessary</em> condition in order for the equation \eqref{rn-eqn} to hold. In fact, as the next fundamental theorem shows, absolute continuity is also sufficient:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Radon-Nikodym, constructive version).</strong> Let $\mu$ and $\nu$ be two finite Borel measures on $\bbr$, and let $\text{d}\nu/\text{d}\mu$ be defined by \eqref{derivative-eqn}. Provided that $\nu$ is absolutely continuous with respect to $\mu$, we have that:</p>
+
+  <ol>
+    <li>The function $\text{d}\nu/\text{d}\mu$ exists and is finite almost everywhere, with respect to $\mu$.</li>
+    <li>The function $\text{d}\nu/\text{d}\mu$ is $\mu$-measurable.</li>
+    <li>For all Borel sets $A$, we have
+\begin{equation}\label{radon-nik-eqn}
+\nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu.
+\end{equation}</li>
+    <li>If $h$ is any other nonnegative, $\mu$-measurable function that satisfies \eqref{radon-nik-eqn} with $h$ in place of $\text{d}\nu/\text{d}\mu$, then $h = \text{d}\nu/\text{d}\mu$ almost everywhere with respect to $\mu$.</li>
+  </ol>
+</div>
+
+<p>The function $\text{d}\nu/\text{d}\mu$ is called the <em>Radon-Nikodym derivative</em> or <em>Radon-Nikodym density</em> of $\nu$ with respect to $\mu$. Proofs of the theorem may be found in the [references] below.</p>
+
+<p>The reason this statement of the Radon-Nikodym theorem is called “constructive” is because it gives an explicit formula \eqref{derivative-eqn} for the Radon-Nikodym derivative for restricted classes of measures. However, the theorem actually holds in more general settings, at the expense of losing the explicit formula.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Radon-Nikodym, nonconstructive version).</strong> Let $\mu$ and $\nu$ be two $\sigma$-finite measures on a measurable space $(\calx, \mfM)$. Provided that $\nu$ is absolutely continuous with respect to $\mu$, we have that:</p>
+
+  <ol>
+    <li>There is a nonnegative, $\mu$-measurable function $\text{d}\nu/\text{d}\mu$ on $\calx$ such that
+\begin{equation}\label{radon-nik2-eqn}
+\nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu
+\end{equation}
+for all $A\in \mfM$.</li>
+    <li>If $h$ is any other nonnegative, $\mu$-measurable function that satisfies \eqref{radon-nik2-eqn} with $h$ in place of $\text{d}\nu/\text{d}\mu$, then $h = \text{d}\nu/\text{d}\mu$ almost everywhere with respect to $\mu$.</li>
+  </ol>
+</div>
+
+<h2 id="conditional-probabilities-in-the-general-case">Conditional probabilities in the general case</h2>
+
+<p>Let’s now return to the considerations that led to the limit \eqref{jumping-eqn}. We define two new measures on the Borel algebra of $\bbr$, the first given by</p>
+
+<p>\begin{equation}\notag
+\mu(A) = P(X\in A),
+\end{equation}</p>
+
+<p>and the second given by</p>
+
+<p>\begin{equation}\notag
+\nu(A) = P(E, X\in A),
+\end{equation}</p>
+
+<p>where $A$ is a Borel set in $\bbr$ and $E$ is a fixed set in the $\sigma$-algebra $\mfM$ of $\Omega$. Notice that $\mu$ is nothing but the marginal distribution $P_X$ of $X$.</p>
+
+<p>Clearly $\nu$ is absolutely continuous with respect to $\mu$, and hence the Radon-Nikodym derivative $\text{d}\nu/ \text{d}\mu$ exists. In this setting, we write</p>
+
+<p>\begin{equation}\notag
+P(E | X=x) = \frac{\text{d}\nu}{ \text{d}\mu}(x),
+\end{equation}</p>
+
+<p>so that we have the fundamental equation</p>
+
+<p>\begin{equation}\notag
+P(E, X\in A) = \int_A P(E|X=x) \ P_X(\text{d}x),
+\end{equation}</p>
+
+<p>which is the general version of \eqref{tot-law-eqn}.</p>
+
+    </article>
+    
+  </body>
+</html>

@@ -1,0 +1,930 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>galilean relativity</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">galilean relativity</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li></li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="covariance-of-newtons-law-under-isometries">Covariance of Newton’s law under isometries</h2>
+
+<p>The cartesian spaces $\bbr^n$ are often referred to as euclidean spaces. But this isn’t quite right, as anybody who has studied Euclid knows that there are no coordinate systems in the Elements. Thus, the following definition is more appropriate:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>euclidean $n$-space</em> is a riemannian manifold $E$ that is (globally) isometric to $\bbr^n$ with the usual dot product.</p>
+</div>
+
+<p>Suppose that we have a smooth curve $\zeta: \bbr \to E$ in a euclidean $n$-space with tangent sheaf $\Theta_E$. Remember, this is just a fancy way of saying that, for each open set $U\subseteq E$, the set of sections $\Gamma(U,\Theta_E)$ consists of smooth vector fields on $E$ with domain $U$. We may then consider the pullback sheaf $\zeta^\ast \Theta_E$, which is the sheaf of vector fields along $\zeta$. Thus, a section $V\in \Gamma(I,\zeta^\ast\Theta_E)$, where $I$ is an open subset of $\bbr$, is a smooth function $V:I\to T(M)$ that lifts $\zeta$ to the tangent bundle $T(M)$, in the sense that</p>
+
+<p>\begin{equation}\notag
+V_t \in T_{\zeta(t)}(E)
+\end{equation}</p>
+
+<p>for each $t\in I$. In particular, for each $t\in \bbr$, we put</p>
+
+<p>\begin{equation}\notag
+\dot{\zeta}(t) \defeq \zeta_{\ast,t} (1) \in T_{\zeta(t)}(E),
+\end{equation}</p>
+
+<p>which yields a global section</p>
+
+<p>\begin{equation}\notag
+\dot{\zeta} \in \Gamma(\bbr, \zeta^\ast\Theta_E)
+\end{equation}</p>
+
+<p>called the <em>velocity</em> of $\zeta$. Since $E$ is riemannian, it has a Levi-Civita connection</p>
+
+<p>\begin{equation}\notag
+\nabla: \Theta_E \otimes_\const \Theta_E \to \Theta_E, \quad X \otimes Y \mapsto \nabla_XY.
+\end{equation}</p>
+
+<p>Here, we are viewing the structure sheaf $\sco_E$ of $E$ as an algebra over the constant sheaf $\const$, and hence all $\sco_E$-modules (like $\Theta_E$) are also $\const$-modules. From $\nabla$ we obtain the pullback connection</p>
+
+<p>\begin{equation}\notag
+\zeta^\ast \nabla : \Theta_\bbr \otimes_\const \zeta^\ast\Theta_E \to \zeta^\ast\Theta_E, \quad V \otimes W \mapsto \zeta^\ast\nabla_VW,
+\end{equation}</p>
+
+<p>where $\Theta_\bbr$ is the tangent sheaf of $\bbr$ and $\const$ now stands for the constant sheaf on $\bbr$. We define the <em>acceleration</em> of $\zeta$ to be</p>
+
+<p>\begin{equation}\notag
+\ddot{\zeta} = \zeta^\ast \nabla_1 \dot{\zeta}.
+\end{equation}</p>
+
+<p>In particular, suppose that we write $\dot{\zeta} = \dot{\zeta}^i \zeta^\ast\bd_i$ with respect to some smooth local coordinate frame</p>
+
+<p>\begin{equation}\notag
+K: \ \bd_1,\ldots,\bd_n
+\end{equation}</p>
+
+<p>on $E$. The component functions $\dot{\zeta}^i$ with respect to $K$ are given by</p>
+
+<p>\begin{equation}\notag
+\dot{\zeta}^i = \frac{d(x^i \circ \zeta)}{dt},
+\end{equation}</p>
+
+<p>where $x^i$ is the $i$-th local coordinate function associated to the coordinate frame $K$. Then, as we saw in a previous post, we have</p>
+
+<p>\begin{equation}\notag
+\ddot{\zeta} = \left(\ddot{\zeta}^k + \dot{\zeta}^i \dot{\zeta}^j \zeta^\ast \Gamma^k_{ij} \right)\zeta^\ast\bd_k
+\end{equation}</p>
+
+<p>where</p>
+
+<p>\begin{equation}\notag
+\ddot{\zeta}^i \defeq \frac{d \dot{\zeta}}{dt} = \frac{d^2 (x^i \circ \zeta)}{dt^2}
+\end{equation}</p>
+
+<p>for each $i$. In particular, since $E$ is euclidean, we may choose global coordinates with respect to which all Christoffel symbols vanish, in which case the acceleration may be computed via the familiar formula</p>
+
+<div class="highlight-box">
+  <p>\begin{equation}\label{familiar-eqn}
+\ddot{\zeta} = \ddot{\zeta}^k \zeta^\ast\bd_k.
+\end{equation}</p>
+</div>
+
+<p>Indeed, we may choose an isometry $\phi:\bbr^n \to E$. Then, as usual, the Christoffel symbols are related to the metric coefficients via the equation</p>
+
+<p>\begin{equation}\notag
+\Gamma_{ij}^k  = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right)g^{lk}.
+\end{equation}</p>
+
+<p>However, in the global coordinate system induced by $\phi$, the metric on $E$ is given by</p>
+
+<p>\begin{equation}\notag
+ds^2 = (dx^1)^2 + \cdots + (dx^n)^2,
+\end{equation}</p>
+
+<p>and hence $\Gamma^k_{ij}=0$ for all $i,j,k$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a euclidean $n$-space. A smooth global frame</p>
+
+  <p>\begin{equation}\notag
+K: \ \bd_1,\ldots,\bd_n
+\end{equation}</p>
+
+  <p>associated with an isometry $\phi: \bbr^n \to E$ is called a <em>cartesian frame</em>.</p>
+</div>
+
+<p>Thus, in a cartesian frame, accelerations may be computed by the same formula \eqref{familiar-eqn} that we learned in multivariable calculus.</p>
+
+<p>Now, let’s specialize to the case in which we have a smooth curve $\zeta: \bbr \to E$ in euclidean $3$-space. We conceptualize $\zeta$ as the trajectory of a particle of (constant) mass $m$. Then, given a vector field $F\in \Gamma(\bbr,\zeta^\ast\Theta_E)$, which we conceptualize as a <em>force</em> acting on the particle, <em>Newton’s Second Law of Motion</em> reads as an equality</p>
+
+<div class="highlight-box">
+  <p>\begin{equation}\label{orig-newton-eqn}
+F = m \ddot{\zeta}
+\end{equation}</p>
+</div>
+
+<p>of vector fields in $\Gamma(\bbr,\zeta^\ast\Theta_E)$. In a cartesian frame $K$, this equation is equivalent to the equation</p>
+
+<div class="highlight-box">
+  <p>\begin{equation}\label{covar-eqn}
+F^k\bd_k = m \ddot{\zeta}^k\bd_k,
+\end{equation}</p>
+</div>
+
+<p>which has the familiar form that we learn in introductory mechanics.</p>
+
+<p>Suppose that the cartesian frame $K$ is associated with an isometry</p>
+
+<p>\begin{equation}\notag
+\phi: \bbr^3 \to E,
+\end{equation}</p>
+
+<p>and that we have a second global frame $K’$ associated with a global parametrization</p>
+
+<p>\begin{equation}\notag
+\phi’: \bbr^3 \to E.
+\end{equation}</p>
+
+<p>Furthermore, suppose that the change-of-coordinates map $\psi = \phi’^{-1} \circ \phi$ is an isometry on the cartesian space $\bbr^3$. We will refer to $\psi$ as a transition map between the frames $K$ and $K’$. So, we have shown (2.) in:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Covariance of Newton’s Second Law of Motion under isometries).</strong></p>
+
+  <ol>
+    <li>Newton’s Second Law of Motion \eqref{orig-newton-eqn} takes the usual form \eqref{covar-eqn} in any cartesian frame $K$.</li>
+    <li>If $K’$ is a global frame linked to a cartesian frame $K$ via an isometric transition map, then Newton’s law takes the form \eqref{covar-eqn} in $K’$.</li>
+  </ol>
+</div>
+
+<p>In order to explain the term <em>covariance</em>, I think it will be helpful to explain the theorem and its relations to treatments in introductory physics texts.</p>
+
+<p>In these texts, newtonian mechanics is studied in the ambient cartesian space $\bbr^3$. Coordinate-change maps $\psi:\bbr^3 \to \bbr^3$ are considered, and questions arise as to which physical laws are unchanged upon passage through $\psi$. If such a law maintains its form under a certain class of coordinate changes, then it is called <em>covariant</em> under those types of coordinate changes.</p>
+
+<p>Now, while nobody faults these texts for not completely indulging themselves in the powerful machinery of manifolds and thereby utterly confusing their readers, nevertheless, a small amount of manifold language might shed light on what might otherwise appear to be rather strange definitions. For example, in such texts, a <em>$3$-vector</em> is defined to be a $3$-tuple of numbers</p>
+
+<p>\begin{equation}\notag
+v = v^ke_k =  (v^1,v^2,v^3)\in \bbr^3
+\end{equation}</p>
+
+<p>that “changes correctly” under isometric coordinate transitions. Precisely, this means that a $3$-vector is actually an entire <em>infinite collection</em> of $3$-tuples, with each $3$-tuple $(v^1,v^2,v^3)$ being based at a point $x\in \bbr^3$, the $3$-tuple visualized as a vector in the traditional sense with its tail at $x$. In other words, the $3$-tuple $(v^1,v^2,v^3)$ is considered a tangent vector in $T_x(\bbr^3)$; we will represent the base point $x$ in the $3$-tuple by writing</p>
+
+<p>\begin{equation}\notag
+(v^1(x),v^2(x),v^3(x)) \quad \text{in place of} \quad (v^1,v^2,v^3).
+\end{equation}</p>
+
+<p>Then, if</p>
+
+<p>\begin{equation}\notag
+(v’^1(x’),v’^2(x’),v’^3(x’)) \in T_{x’}(\bbr^3)
+\end{equation}</p>
+
+<p>is a second $3$-tuple associated with the same $3$-vector, to say that the $3$-tuples “change correctly” means that</p>
+
+<p>\begin{equation}\label{fan-eqn}
+v’^k(x’) = v^j(x) \frac{\bd x’^k}{\bd x^j}(x),
+\end{equation}</p>
+
+<p>where</p>
+
+<p>\begin{equation}\label{ceil-eqn}
+(x^1,x^2,x^3) \mapsto (x’^1,x’^2,x’^3)
+\end{equation}</p>
+
+<p>is an isometry.</p>
+
+<p>From our enlightened point of view, we recognize the formula \eqref{fan-eqn} as the transition rule for local representations of tangent vectors on a manifold. Thus, what these texts are attempting to do is define a $3$-vector as a tangent vector on a $3$-dimensional manifold without ever mentioning the word <em>manifold</em>. These texts play the same game with general <em>tensors</em>, defining a <em>tensor</em> to be an infinite collection of objects that change in a certain way under coordinate transitions. <em>This leads to the amusing circular definition of a tensor as a gadget that transforms like a tensor!</em></p>
+
+<p>Returning to Newton’s law, it is stated as the system of equations</p>
+
+<p>\begin{equation}\label{tree-eqn}
+F^k(\zeta(t)) = m \ddot{\zeta}^k(t), \quad k=1,2,3,
+\end{equation}</p>
+
+<p>in introductory texts, where $\zeta=(\zeta^1,\zeta^2,\zeta^3)$ is a smooth curve in $\bbr^3$ and $F = (F^1,F^2,F^3)$ is a vector field in $\bbr^3$ which may only be defined along the trace of the curve $\zeta$. The acceleration field is defined via the familiar formula from multivariable calculus, where</p>
+
+<p>\begin{equation}\label{speaker-eqn}
+\ddot{\zeta}^k = \frac{d^2 \zeta^k}{dt^2}.
+\end{equation}</p>
+
+<p>From our point of view, such an equation \eqref{tree-eqn} is essentially the pullback of Newton’s law \eqref{covar-eqn} from $E$ to $\bbr^3$ via an isometry $\phi:\bbr^3 \to E$. Indeed, to obtain a smooth curve in $\bbr^3$, we simply replace $\zeta$ with its coordinate representation $\phi^{-1} \circ \zeta$. Thus, newtonian mechanics in these introductory texts may be understood as occurring in but <em>one</em> choice of cartesian frame on a $3$-dimensional euclidean manifold. In particular, we should envision the vector field $F$ as a field of $3$-vectors as defined above, so that if we have an isometric coordinate transition \eqref{ceil-eqn}, then $(F^1,F^2,F^3)$ transforms to $(F’^1,F’^2,F’^3)$ according to the rule</p>
+
+<p>\begin{equation}\label{field-change-eqn}
+F’^k(x’) = F^j(x) \frac{\bd x’^k}{\bd x^j}(x).
+\end{equation}</p>
+
+<p>The observation that these introductory texts make is that, while Newton’s law \eqref{tree-eqn} may <em>not</em> change correctly under an <em>arbitrary</em> coordinate transition, it <em>does</em> change correctly under an isometry. This property of Newton’s law is stated concisely by saying <em>Newton’s law is covariant under isometries</em>.</p>
+
+<p>The proof of this covariance result is easy. For, if $x’ = \psi(x)$ is an isometry, then it is actually an affine map defined by</p>
+
+<p>\begin{equation}\notag
+x’^k = \theta^k_jx^je_k + v^k,
+\end{equation}</p>
+
+<p>where $v=v^k e_k \in \bbr^3$ is a fixed $3$-tuple serving as a <em>translation</em> of the origin, and $\theta^k_j$ is an orthogonal $3\times 3$ matrix representing a <em>rotation</em> (and possible <em>reflection</em>) of the coordinate axes. If we define $\zeta’ = \psi \circ \zeta$, then we have</p>
+
+<p>\begin{equation}\notag
+\zeta’^k(t) = \theta_j^k\zeta^j(t)  + v^k
+\end{equation}</p>
+
+<p>for each $k$, and hence</p>
+
+<p>\begin{equation}\label{acceleration-eqn}
+\ddot{\zeta}’^k(t) = \theta_j^k \ddot{\zeta}^j(t).
+\end{equation}</p>
+
+<p>But from \eqref{field-change-eqn} and the particular form of the coordinate transition, we have</p>
+
+<p>\begin{equation}\label{field-eqn}
+F’^k(\zeta’(t)) = F^j(\zeta(t)) \frac{\bd x’^k}{\bd x^j}(\zeta(t)) = \theta^k_jF^j(\zeta(t)).
+\end{equation}</p>
+
+<p>Then, combining \eqref{tree-eqn}, \eqref{acceleration-eqn}, and \eqref{field-eqn}, we get</p>
+
+<p>\begin{equation}\notag
+F’^k(\zeta’(t)) = m \ddot{\zeta}’^k(t), \quad k=1,2,3.
+\end{equation}</p>
+
+<p>But this is exactly the usual form of Newton’s law, demonstrating that its form is covariant under isometries, as claimed.</p>
+
+<p>Now, if we understand the discussion in introductory texts as taking place in one choice of cartesian frame on euclidean $3$-space, as I mentioned above, then we can see <em>why</em> Newton’s law is <em>not</em> covariant under arbitrary coordinate transitions. This is precisely because these texts use the “naïve” formula \eqref{speaker-eqn} for acceleration! If we alter this formula by adding the “correction terms” arising from the Christoffel symbols, then we obtain the “covariant” acceleration, and Newton’s law would be completely covariant under all coordinate transitions.</p>
+
+<h2 id="covariance-of-newtons-second-law-of-motion">Covariance of Newton’s Second Law of Motion</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> We define a <em>eucliean space</em> to be a $3$-dimensional riemannian manifold $E$ that is isometric to $\bbr^3$ with the standard dot product.</p>
+
+  <p>We define a <em>newtonian spacetime</em> to be a product manifold $\caln = \bbr \times E$, where $E$ is a euclidean space.</p>
+
+  <p>We define a <em>time-preserving parametrization</em> of a newtonian spacetime $\caln$ to be a global parametrization</p>
+
+  <p>\begin{equation}\notag
+\phi: \bbr \times \bbr^3 \to \caln
+\end{equation}</p>
+
+  <p>that commutes with the natural projections onto $\bbr$ up to an additive constant, i.e., $\phi$ is given by an expression of the form</p>
+
+  <p>\begin{equation}\notag
+\phi(t,x) = (t+c,\phi_t(x)),
+\end{equation}</p>
+
+  <p>where $c\in \bbr$ is a fixed constant and $\phi_t:\bbr^3 \to E$ is (necessarily) a diffeomorphism for each $t\in \bbr$.</p>
+</div>
+
+<p>If $\psi:\caln \to \bbr \times \bbr^3$ is the inverse diffeomorphism of a time-preserving parametrization $\phi$ as in the definition, it follows that $\psi$ is given by an expression of the form</p>
+
+<p>\begin{equation}\notag
+\psi(s,p) =(s-c, \psi_s(p)),
+\end{equation}</p>
+
+<p>where $\psi_s:E\to \bbr^3$ is a smooth function for each $s\in \bbr$. In particular, we have</p>
+
+<p>\begin{equation}\notag
+\phi_{s-c}\circ \psi_s = \id_E \quad \text{and} \quad \psi_{t+c} \circ \phi_t = \id_{\bbr^3}
+\end{equation}</p>
+
+<p>for all $s,t\in \bbr$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\caln = \bbr \times E$ be a newtonian spacetime, where $E$ is a euclidean space. An <em>inertial frame</em> in $\caln$ is a time-preserving parametrization</p>
+
+  <p>\begin{equation}\notag
+\phi: \bbr \times \bbr^3 \to \caln
+\end{equation}</p>
+
+  <p>for which each diffeomorphism $\phi_t:\bbr^3 \to E$ is an isometry.</p>
+</div>
+
+<p>Let $\zeta: \bbr \to E$ be a smooth curve in a euclidean space $E$.</p>
+
+<p>Now, suppose that we conceptualize $\zeta$ as the trajectory of a particle of (constant) mass $m$. If $F$ is a vector field in $\calx(\zeta)$ that we think of as a <em>force</em> acting on the particle, then Newton’s Second Law of Motion should read</p>
+
+<p>\begin{equation}\notag
+F = m \ddot{\zeta}
+\end{equation}</p>
+
+<p>as vector fields in $\calx(\zeta)$.</p>
+
+<p>Locally, in terms of Christoffel symbols, we have</p>
+
+<p>\begin{equation}\notag
+\ddot{\zeta}(t) = \left( \ddot{\zeta}^k(t) + \dot{\zeta}^i(t) \dot{\zeta}^j(t) \Gamma^k_{ij}\left(\zeta(t)\right) \right) \bd_k|_{\zeta(t)}.
+\end{equation}</p>
+
+<p>In particular, since $E$ is euclidean, it is possible to choose a global coordinate system with vanishing Christoffel symbols, in which case the acceleration is computed via the familiar formula</p>
+
+<p>\begin{equation}\notag
+\ddot{\zeta}(t) = \ddot{\zeta}^k(t) \bd_k|_{\zeta(t)}.
+\end{equation}</p>
+
+<h2 id="covariance-of-newtons-second-law-of-motion-1">Covariance of Newton’s Second Law of Motion</h2>
+
+<p>Suppose that $\delta:\bbr \to M$ is a smooth curve into a $4$-dimensional smooth manifold $M$. We conceptualize $M$ as a <em>spacetime</em>, and that $\delta$ traces out the <em>worldline</em> of a particle. In other words, we suppose that there is a special <strong>global</strong> parametrization</p>
+
+<p>\begin{equation}\label{worldline1-eqn}
+\phi: \bbr \times \bbr^3 \to M, \quad (x^0,x^1,x^2,x^3) = (x^0,x) \mapsto \phi(x^0,x),
+\end{equation}</p>
+
+<p>such that the smooth curve $\gamma \defeq \phi^{-1} \circ \delta$ has the form</p>
+
+<p>\begin{equation}\label{worldline2-eqn}
+t\mapsto (t,\gamma^1(t),\gamma^2(t),\gamma^3(t)) \in \bbr \times \bbr^3,
+\end{equation}</p>
+
+<p>i.e., $\gamma^0(t) = t$, for all $t\in \bbr$. If we conceptualize $x^0$ as <em>time</em> and $x=(x^1,x^2,x^3)$ as <em>position</em> coordinates, then the smooth curve</p>
+
+<p>\begin{equation}\notag
+t\mapsto \zeta(t) \defeq (\gamma^1(t),\gamma^2(t),\gamma^3(t)) \in \bbr^3
+\end{equation}</p>
+
+<p>is conceptualized as the trajectory of a particle.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Any global parametrization \eqref{worldline1-eqn} for which $\phi^{-1} \circ \delta$ has the form \eqref{worldline2-eqn} will be called a <em>worldline parametrization</em> (with respect to $\delta$), and the associated local coordinates $(x^0,x)$ will be called <em>worldline coordinates</em>.</p>
+</div>
+
+<p>Furthermore, we suppose that there is a smooth vector field $F\in \calx(\delta)$ along $\delta$ which is given in worldline coordinates along $\gamma$ by</p>
+
+<p>\begin{equation}\notag
+t \mapsto (0, F^1(\gamma(t)),F^2(\gamma(t)),F^3(\gamma(t))),
+\end{equation}</p>
+
+<p>i.e., $F^0(\gamma(t))=0$, for all $t\in \bbr$. Therefore, we have a particle with trajectory $\zeta:\bbr \to \bbr^3$ moving through a time-dependent vector field</p>
+
+<p>\begin{equation}\notag
+t \mapsto (F^1(t,\zeta(t)), F^2(t,\zeta(t)), F^3(t,\zeta(t)))
+\end{equation}</p>
+
+<p>in $\bbr^3$. If we conceptualize the vector field as a force field and suppose that the particle has (constant) mass $m$, then Newton’s second law predicts that</p>
+
+<p>\begin{equation}\label{second-law-eqn}
+F^i(t,\zeta(t)) = m\ddot{\zeta}^i(t)
+\end{equation}</p>
+
+<p>for each $i=1,2,3$ and all $t$.</p>
+
+<p>The central question is:</p>
+
+<div class="highlight-box2">
+  <p>For which worldline coordinates does the law \eqref{second-law-eqn} actually hold?</p>
+</div>
+
+<p>As the next theorem shows, assuming that the second law holds in <em>at least one</em> set of worldline coordinates, it holds in many more.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Covariance of Newton’s Second Law of Motion).</strong> Let the notation be as above, and suppose that the second law \eqref{second-law-eqn} holds in the worldline coordinates associated with \eqref{worldline1-eqn}. Let</p>
+
+  <p>\begin{equation}\label{new-coord-eqn}
+\phi’:\bbr \times \bbr^3 \to M
+\end{equation}</p>
+
+  <p>be a second worldline parametrization and let $\psi = \phi’^{-1} \circ \phi$ be the change-of-coordinates function. Suppose that the function $\psi$ has one of the following three forms:</p>
+
+  <ol>
+    <li>$\psi(x^0,x) = (x^0 + u, x + v)$, for some fixed $u\in \bbr$ and $v\in \bbr^3$.</li>
+    <li>$\psi(x^0,x) = (x^0,x + vx^0)$, for some fixed $v\in \bbr^3$.</li>
+    <li>$\psi(x^0,x) = (x^0, \theta(x))$, where $\theta$ is an orthogonal linear operator on $\bbr^3$.</li>
+  </ol>
+
+  <p>Then the second law holds in the “primed” worldline coordinates</p>
+
+  <p>\begin{equation}\notag
+(x’^0,x’) = (x’^0,x’^1,x’^2,x’^3)
+\end{equation}</p>
+
+  <p>associated with \eqref{new-coord-eqn}.</p>
+</div>
+
+<p>I will prove the theorem assuming that $\psi$ has the third form, leaving the rest of the proof to you. For simplicity, suppose that we extend $\theta$ to an orthogonal operator on all of $\bbr \times \bbr^3$, by letting it act as the identity on the first cartesian factor. Thus, the formula for $\psi$ may be rewritten as</p>
+
+<p>\begin{equation}\notag
+\psi(x^0,x) = \theta(x^0,x).
+\end{equation}</p>
+
+<p>Then, suppose that $\gamma’ \defeq \phi’^{-1} \circ \delta$ has the form</p>
+
+<p>\begin{equation}\notag
+t\mapsto (t,\gamma’^1(t),\gamma’^2(t),\gamma’^3(t)) \in \bbr \times \bbr^3,
+\end{equation}</p>
+
+<p>i.e., $\gamma’^0(t) = t$, for all $t\in \bbr$. Let</p>
+
+<p>\begin{equation}\notag
+\zeta’(t) = (\gamma’^1(t),\gamma’^2(t),\gamma’^3(t))
+\end{equation}</p>
+
+<p>be the trajectory of the particle in the “primed” position coordinates $x’^1,x’^2,x’^3$. Note that</p>
+
+<p>\begin{equation}\notag
+\gamma’(t) = (\phi’^{-1}\circ \delta)(t) = (\psi \circ \phi^{-1}\circ \delta)(t) = (\psi\circ\gamma)(t),
+\end{equation}</p>
+
+<p>which, in view of the form of $\psi$, implies that $\gamma’(t) = \theta(\gamma(t))$. But $\theta$ is linear, and hence we have</p>
+
+<p>\begin{equation}\notag
+\ddot{\gamma}’(t) = \theta(\ddot{\gamma}(t)) = \ddot{\gamma}^j(t) \theta^i_j e_i,
+\end{equation}</p>
+
+<p>where $e_0,e_1,e_2,e_3$ is the standard ordered basis of $\bbr^4$ and $\theta(e_j) = \theta^i_je_i$ for each $i,j$. Now, if we let $F’^i$ denote the components of $F$ in the primed worldline coordinates along $\gamma’$, then we have the familiar change-of-coordinates formula</p>
+
+<p>\begin{equation}\notag
+F’^i(\gamma’(t)) = F^j(\gamma(t)) \frac{\bd x’^i}{\bd x^j}(\gamma(t)).
+\end{equation}</p>
+
+<p>But the partial derivatives are nothing but the entries in the jacobian matrix of $\psi$, and hence</p>
+
+<p>\begin{equation}\notag
+F’^i(\gamma’(t)) = F^j(\gamma(t))\theta^i_j.
+\end{equation}</p>
+
+<p>Putting everything together, we get $F’^0(\gamma’(t))=0$ and</p>
+
+<p>\begin{equation}\notag
+F’^i(t,\zeta’(t)) = F^j(t,\zeta(t))\theta^i_j = m \ddot{\zeta}^j(t) \theta^i_j = m\ddot{\zeta}’^i(t).
+\end{equation}</p>
+
+<p>Q.E.D.</p>
+
+<h2 id="affine-spaces">Affine spaces</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $n\geq 1$ be an integer. An <em>$n$-dimensional affine space</em> is a pair $(A,V)$ where $A$ is a set and $V$ is an $n$-dimensional vector space. We require that there exists a free and transitive action of the additive group of $V$ on $A$:</p>
+
+  <p>\begin{equation}\notag
+V \times A \to A, \quad (v,a) \mapsto v+a.
+\end{equation}</p>
+
+  <p>The <em>dimension</em> of the affine space $(A,V)$ is the dimension $n$ of $V$.</p>
+
+  <p>If $(B,W)$ is a second affine space, then an <em>affine transformation</em> from $(A,V)$ to $(B,W)$, denoted</p>
+
+  <p>\begin{equation}\notag
+(\phi,\phi^\#):(A,V) \to (B,W),
+\end{equation}</p>
+
+  <p>is a pair $(\phi,\phi^\#)$ consisting of a set-theoretic function $\phi:A \to B$ and a linear transformation $\phi^\#:V \to W$ such that</p>
+
+  <p>\begin{equation}\notag
+\phi(v+a) = \phi^\#(v) + \phi(b)
+\end{equation}</p>
+
+  <p>for all $v\in V$ and $a\in A$. If $(C,U)$ is a third affine space and</p>
+
+  <p>\begin{equation}\notag
+(\psi,\psi^\#):(B,W) \to (C,U)
+\end{equation}</p>
+
+  <p>is an affine transformation, the <em>composite</em> of $(\phi,\phi^\#)$ and $(\psi,\psi^\#)$ is the affine transformation</p>
+
+  <p>\begin{equation}\notag
+(\psi,\psi^\#) \circ (\phi,\phi^\#) \defeq (\psi \circ \phi, \psi^\# \circ \phi^\#) : (A,V) \to (C,U).
+\end{equation}</p>
+
+  <p>Finally, the <em>identity map</em> of an affine space $(A,V)$ is the affine transformation $(\id_A,\id_V)$, where $\id_A$ and $\id_V$ are the identity maps on $A$ and $V$, respectively.</p>
+</div>
+
+<p>We have thus defined a category whose objects are affine spaces and whose morphisms are affine transformations. An <em>isomorphism</em> of affine spaces is then defined to be an isomorphism in this category.</p>
+
+<p>Though technically an affine space is a pair $(A,V)$, we shall often refer to just $A$ as an affine space, leaving $V$ implicit. If we need to call attention to it, we shall refer to $V$ as the vector space <em>associated</em> with $A$. Likewise, if</p>
+
+<p>\begin{equation}\notag
+(\phi,\phi^\#) :(A,V) \to (B,W)
+\end{equation}</p>
+
+<p>is an affine transformation, we shall often refer to just $\phi:A \to B$ as an affine transformation, leaving the linear transformation $\phi^\#:V \to W$ implicit.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Existence of Subtraction).</strong> Let $(A,V)$ be an affine space. There exists a set-theoretic function</p>
+
+  <p>\begin{equation}\notag
+A \times A \to V, \quad (a,b) \mapsto b-a,
+\end{equation}</p>
+
+  <p>called <em>subtraction</em>, such that $(b-a) + a =b$ for all $a,b\in A$.</p>
+</div>
+
+<p>Indeed, we simply note that for fixed $a\in A$, transitivity and freeness of the action of $V$ on $A$ implies that the function</p>
+
+<p>\begin{equation}\notag
+V \to A, \quad v\mapsto v+a
+\end{equation}</p>
+
+<p>is bijective. We then define $b-a$ to be the unique vector in $V$ such that $(b-a) + a = b$. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Vector spaces yield affine spaces).</strong>
+Let $V$ be a finite-dimensional vector space. The pair $(V,V)$ forms an affine space, where the group action $V\times V \to V$ is given by addition operation of vectors in $V$. If $\alpha:V \to W$ is a linear transformation between vector spaces, then the pair</p>
+
+  <p>\begin{equation}\notag
+(\alpha,\alpha): (V,V) \to (W,W)
+\end{equation}</p>
+
+  <p>is an affine transformation.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove the theorem.</li>
+    <li>While the affine transformation $(\alpha,\alpha)$ in the theorem preserves the zero vector (i.e., $\alpha(0)=0$), a general affine transformation
+ \begin{equation}\notag
+ (\phi,\phi^\#):(V,V) \to (W,W)
+ \end{equation}
+does not necessarily have this property. However, such an affine transformation differs from a zero-preserving linear transformation by a translation, in the sense that there is a vector $w_0\in W$ such that
+ \begin{equation}\notag
+ \phi(v) = \phi^\#(v) + w_0
+ \end{equation}
+for all $v\in V$. Prove this.</li>
+  </ol>
+</div>
+
+<p>It turns out that every affine space $(A,V)$ is isomorphic to an affine space induced by a vector space, as described in the theorem. To see how, suppose that $V$ is $n$-dimensional, choose a basis of $V$ by choosing a linear isomorphism $\phi^\#: V \to \bbr^n$, and choose a point $O\in A$ to serve as the “origin.” We then define a function $\phi:A \to \bbr^n$ by setting</p>
+
+<p>\begin{equation}\notag
+\phi(a) = \phi^\#(a - O).
+\end{equation}</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Coordinate frames in affine spaces).</strong> In the notation just introduced, the pair</p>
+
+  <p>\begin{equation}\notag
+(\phi,\phi^\#): (A,V) \to (\bbr^n,\bbr^n)
+\end{equation}</p>
+
+  <p>is an isomorphism of affine spaces. Such an isomorphism is called a <em>coordinate frame</em> or <em>coordinate system</em> in $(A,V)$ with <em>origin</em> $O\in A$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem. You’ll need to show that $(\phi,\phi^\#)$ is indeed an affine transformation, and you’ll need to construct its inverse.</p>
+</div>
+
+<p>Through an affine isomorphism</p>
+
+<p>\begin{equation}\notag
+(\phi,\phi^\#): (A,V) \to (\bbr^n,\bbr^n)
+\end{equation}</p>
+
+<p>as constructed in the theorem, the affine space $A$ is given an $n$-dimensional smooth manifold structure. Since all affine automorphisms of $(\bbr^n,\bbr^n)$ are clearly smooth, notice that this smooth structure does not depend on the choice of basis of $V$ or origin $O\in A$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> We define <em>$n$-dimensional cartesian space</em> to be $\bbr^n$, considered with its canonical vector space structure and <em>cartesian inner product</em> given by</p>
+
+  <p>\begin{equation}\notag
+\ang{-,-}: \bbr^n \otimes_\bbr \bbr^n \to \bbr, \quad \ang{u,v} = \sum_{i=1}^n u^i v^i.
+\end{equation}</p>
+
+  <p>As usual, the inner product defines a <em>cartesian norm</em> given by</p>
+
+  <p>\begin{equation}\notag
+|v| = \sqrt{\ang{v,v}}.
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> We define an <em>$n$-dimensional euclidean space</em> to be an affine space of the form $(E,\bbr^n)$.</p>
+</div>
+
+<p>Though the set $A$ in the definition is certainly not unique, it is traditional to write $\bbe^n$ to represent it. Any two realizations of $(\bbe^n,\bbr^n)$ are isomorphic to each other (as affine spaces) since they are both isomorphic to $(\bbr^n,\bbr^n)$ by choosing coordinate frames. However, these isomorphisms are in no way natural. As usual, we will write $\bbe$ in place of $\bbe^1$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> We define <em>cartesian spacetime</em> to be the affine space $(\bbr^4,\bbr^4)$, thought of as the cartesian product affine space</p>
+
+  <p>\begin{equation}\notag
+(\bbr,\bbr) \times (\bbr^3, \bbr^3) = (\bbr \times \bbr^3, \bbr \times \bbr^3).
+\end{equation}</p>
+
+  <p>A point $(t,x) \in \bbr \times \bbr^3$ is called an <em>event</em>, while $t$ is called a <em>time</em> and $x$ a <em>position</em>. There is a natural affine transformation</p>
+
+  <p>\begin{equation}\notag
+(\pi,\pi^\#):(\bbr \times \bbr^3, \bbr \times \bbr^3) \to (\bbr, \bbr)
+\end{equation}</p>
+
+  <p>which projects onto the first cartesian factors.</p>
+
+  <p>A <em>galilean transformation</em> is an affine automorphism</p>
+
+  <p>\begin{equation}\notag
+(\phi,\phi^\#): (\bbr^4,\bbr^4) \to (\bbr^4, \bbr^4)
+\end{equation}</p>
+
+  <p>with the following pair of properties:</p>
+
+  <ol>
+    <li>It commutes with the natural projection $(\pi,\pi^\#)$, i.e.,
+ \begin{equation}\notag
+ (\pi,\pi^\#)\circ (\phi,\phi^\#)= (\pi,\pi^\#).
+ \end{equation}</li>
+    <li>It preserves spatial distances of simultaneous events, i.e.,
+ \begin{equation}\notag
+ |\phi(t,x)-\phi(t,x’)| = |x-x’|
+ \end{equation}
+for all $t\in \bbr$ and $x,x’\in \bbr^3$.</li>
+  </ol>
+</div>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> We define a <em>galilean spacetime</em> to be an affine space $(G,\bbr^4)$ which is isomorphic (as an affine space) to cartesian spacetime:</p>
+
+  <p>\begin{equation}\notag
+(\psi,\psi^\#): (G,\bbr^4) \xrightarrow{\cong} (\bbr^4,\bbr^4).
+\end{equation}</p>
+
+  <p>Such a bijection is called a <em>coordinate frame</em> or <em>coordinate system</em> on $M$. A second coordinate frame</p>
+
+  <p>\begin{equation}\notag
+(\psi_0,\psi_0^\#): (G,\bbr^4) \to (\bbr^4,\bbr^4)
+\end{equation}</p>
+
+  <p>is said to <em>move uniformly</em> with respect to the first if the composite</p>
+
+  <p>\begin{equation}\notag
+(\psi_0,\psi_0^\#) \circ (\psi,\psi^\#)^{-1}: (\bbr^4,\bbr^4) \to (\bbr^4,\bbr^4)
+\end{equation}</p>
+
+  <p>is a galilean transformation.</p>
+</div>
+
+<p>There is a particular “coordinatized model” of a galilean spacetime given by the affine space induced by the cartesian product vector space $\bbr^4 = \bbr \times \bbr^3$. We call $\bbr^4 = \bbr \times \bbr^3$ the <em>galilean coordinate spacetime</em>.</p>
+
+<p>Let us discover all galilean transformations of galilean coordinate spacetime $\bbr^4$. For this, suppose that</p>
+
+<p>\begin{equation}\notag
+(\phi,\phi^\#): (\bbr^4, \bbr^4) \to (\bbr^4,\bbr^4)
+\end{equation}</p>
+
+<p>is a galilean transformation. We saw above (in a previous exercise) that we must have</p>
+
+<p>\begin{equation}\notag
+\phi(t,x) = \phi^\#(t,x) + (t_0,x_0),
+\end{equation}</p>
+
+<p>for some fixed $t_0\in \bbr$ and $x_0\in \bbr^3$. But since the galilean transformation must preserve time intervals, we must have</p>
+
+<p>\begin{equation}\notag
+\phi^\#(t,x) = (t, \phi’(x) + tv),
+\end{equation}</p>
+
+<p>for some $v\in \bbr^3$ and some linear transformation $\phi’:\bbr^3 \to \bbr^3$. But the galilean transformation must also preserve spatial distances between simultaneous events, and hence $\phi’$ must be an orthogonal transformation of $\bbr^3$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Generators of galilean transformations).</strong> Every galilean transformation $(\phi,\phi^\#)$ of galilean coordinate spacetime $\bbr^4$ has the form</p>
+
+  <p>\begin{equation}\notag
+\phi(t,x) = (t+t_0, \phi’(x) + tv + x_0),
+\end{equation}</p>
+
+  <p>for fixed $t_0\in \bbr$, $v,x_0\in \bbr^3$, and some orthogonal transformation $\phi’$ of $\bbr^3$. In particular, the group of all such transformations—called the <em>galilean group</em>—is generated by:</p>
+
+  <ol>
+    <li>The <em>origin translations</em> given by
+ \begin{equation}\notag
+ (t,x) \mapsto (t+t_0, x+x_0),
+ \end{equation}
+for some fixed $t_0\in \bbr$ and $x_0\in \bbr^3$.</li>
+    <li>The <em>uniform motions</em> given by
+ \begin{equation}\notag
+ (t,x) \mapsto (t, x+ tv),
+ \end{equation}
+for some fixed $v\in \bbr^3$. Here, we think of $v$ as representing a “velocity.”</li>
+    <li>The <em>rotations</em> given by
+ \begin{equation}\notag
+ (t,x) \mapsto (t,\phi’(x)),
+ \end{equation}
+where $\phi’$ is an orthogonal transformation of $\bbr^3$.</li>
+  </ol>
+</div>
+
+<h2 id="newtonian-spacetime-and-galilean-transformations">Newtonian spacetime and galilean transformations</h2>
+
+<p>A <em>newtonian spacetime</em> is a smooth fiber bundle which possess a global trivialization of a very particular form.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>newtonian spacetime</em> is a smooth surjective map of manifolds $\pi:\caln\to \bbe$ such that:</p>
+
+  <ol>
+    <li>The <em>total space</em> $\caln$ is a $4$-dimensional euclidean space, while the <em>base space</em> $\bbe$ is a $1$-dimensional euclidean space, with their smooth structures induced by their affine structures.</li>
+    <li>There exists an affine isomorphism $\phi: \bbr \times \bbr^3 \to \caln$ and an isometry $\psi: \bbr \to \bbe$ of euclidean spaces that fit into a commutative diagram of the form
+ \begin{equation}\notag
+ \begin{xy}
+ \xymatrix{
+ \color{white} \bbr \times \bbr^3 \ar@[white][r]^-{\color{white}\phi} \ar@[white][d]_{\color{white}\pi_1}  &amp; \color{white} \caln \ar@[white][d]^{\color{white}\pi} \\ \color{white} \bbr \ar@[white][r]_-{\color{white}\psi} &amp; \color{white} \bbe}
+ \end{xy}
+ \end{equation}
+where $\pi_1$ is the natural projection onto the first cartesian factor.</li>
+    <li>A pair of maps $(\phi,\psi)$ as in (2.) exists with the further property that for each $t\in \bbr$, the restriction
+ \begin{equation}\notag
+ \phi_t \defeq \phi|_{\pi_1^{-1}(t)} : \pi_1^{-1}(t) \to \caln_{\lambda},
+ \end{equation}
+is an isometry of riemannian manifolds, where $\lambda = \psi(t)$. Here, the fiber $\caln_\lambda$ is viewed as a $3$-dimensional properly embedded submanifold of $\caln$ with induced riemannian metric.</li>
+  </ol>
+
+  <p>An element $\lambda \in \bbe$ is called an <em>affine parameter</em>, while a point in $\caln$ is called an <em>event</em>. A pair of maps $(\phi,\psi)$ as in (3.) is called a <em>(global) newtonian frame</em> on the newtonian spacetime.</p>
+</div>
+
+<p>Given two newtonian frames $(\phi,\psi)$ and $(\phi’,\psi’)$ on a newtonian spacetime $\pi:\caln \to \bbe$, the coordinate-change map</p>
+
+<p>\begin{equation}\notag
+G \defeq {\phi’}^{-1} \circ \phi: \bbr\times \bbr^3 \to \bbr \times \bbr^3
+\end{equation}</p>
+
+<p>is a very particular kind of affine isomorphism called a <em>galilean transformation</em>. To obtain a formula for $G$, we first note that, since $G$ is affine, there is a fixed $(t_0,x_0)\in \bbr \times \bbr^3$ such that</p>
+
+<p>\begin{equation}\notag
+G(t,x) = G^\#(t,x) + (t_0,x_0)
+\end{equation}</p>
+
+<p>where $G^\#$ is the associated linear transformation. But the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix@C=0.75in{
+\color{white} \bbr \times \bbr^3 \ar@[white][r]^-{\color{white}G} \ar@[white][d]_{\color{white}\pi_1}  &amp; \color{white} \bbr \times \bbr^3 \ar@[white][d]^{\color{white}\pi_1} \\ \color{white} \bbr \ar@[white][r]_-{\color{white}{\psi’}^{-1}\circ \psi} &amp; \color{white} \bbr}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes, and the composite along the bottom is an isometry. This means that we must have</p>
+
+<p>\begin{equation}\label{fan2-eqn}
+G(t,x) = (\pm t + t_0, Ax + tv + x_0 ),
+\end{equation}</p>
+
+<p>where $v\in \bbr^3$ is fixed and $A$ is a $3\times 3$ real matrix. In fact, since the restriction of $G$ to fibers must be an isometry, $A$ is an orthogonal matrix in $O(3)$. If $\pm = +$ in \eqref{fan2-eqn}, we say that the galilean transformation is <em>time-preserving</em> or that it is <em>orthochronous</em>; otherwise, we say it is <em>time-reversing</em> or that it is <em>non-orthochronous</em>.</p>
+
+    </article>
+    
+  </body>
+</html>

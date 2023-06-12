@@ -1,0 +1,1554 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>sandbox</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">sandbox</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Topological algebra</li>
+  <li>Operator algebras</li>
+  <li>Normed vector spaces in finite dimensions</li>
+</ol>
+
+<h2 id="topological-algebra">Topological algebra</h2>
+
+<p>At the heart of Lie theory is the relation between group structures (i.e., Lie groups) and linear structures (i.e., Lie algebras). But other algebraic structures also come into play, including associative algebras. All these algebraic structures will encode symmetries or transformations of some sort, with the key feature being their continuity. In other words, we will deal with sets of symmetries endowed with a notion of “closeness,” so that it makes sense to say that one symmetry is “close” to another one. An example to keep in mind is the group</p>
+
+<p>\begin{equation}\notag
+\SO(2) = \left\{ A \in \M_2(\bbr) \mid A A^T = I, \ \det{A} =1  \right\},
+\end{equation}</p>
+
+<p>which acts on the circle $S^1$ by orientation-preserving rotations through an angle $\theta$. If $\theta_1$ and $\theta_2$ are two angles that are close to each other, then it makes intuitive sense to say that the associated symmetries in $\SO(2)$ are close to each other.</p>
+
+<p>Now, the mathematical theory of “closeness” is really the mathematical theory of continuity, which is just topology. So, what we need is a fusion of topology and algebra, wherein one studies algebraic structures like groups, vector spaces, and algebras that are also, at the same time, topological spaces. This theory is precisely the theory of <a href="https://en.wikipedia.org/wiki/Topological_algebra"><em>topological algebra</em></a>, which is the subject of this section.</p>
+
+<p>Before we begin, let’s fix some notation and terminology:</p>
+
+<div class="highlight-box2">
+  <p>Throughout this section, the letter $k$ will stand for either the field $\bbr$ of real numbers, or the field $\bbc$ of complex numbers.</p>
+
+  <p>We will have multiple types of algebras running around in this post, so let’s agree to say that the unmodified term <em>algebra</em> describes simply a $k$-vector space $A$ equipped with a $k$-bilinear multiplication map</p>
+
+  <p>\begin{equation}\label{mult1-eqn}
+A \otimes_k A \to A, \quad (a,b) \mapsto ab.
+\end{equation}</p>
+
+  <p>Then an <em>associative algebra</em> is an algebra $A$ whose multiplication map \eqref{mult1-eqn} is associative. All associative algebras will be assumed to have a multiplicative unit.</p>
+</div>
+
+<p>For applications in classical mechanics, which is our primary concern over the next few posts, the field will be $k=\bbr$, but for later applications to quantum mechanics, the field will be $k=\bbc$. The change from $\bbr$ to $\bbc$ is crucial for quantum mechanics, because the latter makes heavy use of <a href="https://en.wikipedia.org/wiki/Spectral_theory">spectral theory</a>, which requires complex numbers. But for the simple results that we will prove in this section, the choice of ground field does not matter.</p>
+
+<h2 id="operator-algebras">Operator algebras</h2>
+
+<p>We begin the post with a section outlining the main definitions and basic results regarding operator algebras on normed vector spaces. Everything in this section is well-known and contained in virtually every textbook on the subject, so we do not go into proofs. I will give several references for the proofs in the section on Further Reading; or, alternatively, you might just try to prove all these results on your own!</p>
+
+<p>In any case, let’s first fix some global notation:</p>
+
+<div class="highlight-box2">
+  <p>Throughout this post, the letter $\bk$ will stand for either the field of real numbers $\bbr$, or the field of complex numbers $\bbc$. In the section on spectral theory, we will take $\bk=\bbc$, but the first few sections do not depend on the specific identity of $\bk$.</p>
+</div>
+
+<p>The operator algebra introduced in the next definition is purely algebraic; it becomes a topological object when we introduce a norm on the underlying vector space immediately afterwards.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\calv$ be a $\bk$-vector space. We will write $\End{\calv}$ for the set of all linear operators $T: \calv \to \calv$.</p>
+
+  <p>The set $\End{\calv}$ is an associative, unital $\bk$-algebra with respect to the following operations and structures. Suppose $S,T\in \End{\calv}$ and $c\in \bk$.</p>
+
+  <ol>
+    <li>
+      <p>We define the <em>product</em> of $S$ and $T$, written $ST$, to be their composition as functions:
+ \begin{equation}\notag
+ ST = S\circ T.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>We define the <em>sum</em> of $S$ and $T$, written $S+T$, by the rule
+ \begin{equation}\notag
+ (S+T)v = Sv + Tv, \quad \forall v\in \calv.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>We define the <em>scalar product</em> of $c$ and $T$, written $cT$, by the rule
+ \begin{equation}\notag
+ (cT)v = c(Tv), \quad \forall v\in \calv.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>The multiplicative identity is the identity operator, denoted $\id$, given by the rule
+ \begin{equation}\notag
+ \id v =v , \quad \forall v\in \calv.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>The additive identity, denoted $\zero$, is given by the rule
+ \begin{equation}\notag
+ \zero v = 0, \quad \forall v\in \calv.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>We now introduce a norm on the ambient vector space, and state well-known criteria for continuity of a linear operator:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $T$ be a linear operator on a normed $\bk$-vector space $\calv$. The following statements are equivalent:</p>
+
+  <ol>
+    <li>
+      <p>$T$ is continuous.</p>
+    </li>
+    <li>
+      <p>$T$ is continuous at the zero vector $0\in \calv$.</p>
+    </li>
+    <li>
+      <p>$T$ is continuous at some vector $v_0\in \calv$.</p>
+    </li>
+    <li>
+      <p>There is a real constant $c&gt; 0$ such that
+ \begin{equation}\notag
+ \norm{Tv} \leq c \norm{v}, \quad \forall v\in \calv.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>The presence of a norm on the ambient vector space allows us to introduce a norm on operators:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\calv$ be a normed $\bk$-vector space. Given an operator $T\in \End{\calv}$, we define its <em>operator norm</em> to be the number</p>
+
+  <p>\begin{equation}\notag
+\norm{T} = \sup \{ \norm{Tv} : v\in \calv, \ \norm{v} \leq 1 \}.
+\end{equation}</p>
+
+  <p>Notice that $\norm{T} \in [0,\infty]$. We shall say $T$ is <em>bounded</em> if $\norm{T} &lt; \infty$, and we write $B(\calv)$ for the subset of $\End{\calv}$ consisting of all bounded operators.</p>
+</div>
+
+<p>We now have two conditions on a linear operator on a normed vector space: Continuity and boundedness. But are they really <em>two</em> conditions? Answer:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $T$ be an operator on a normed $\bk$-vector space $\calv$. Then $T$ is bounded if and only if it is continuous.</p>
+</div>
+
+<p>The operator norm endows the set $B(\calv)$ of bounded operators with the structure of a normed algebra:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\calv$ be a normed $\bk$-vector space.</p>
+
+  <ol>
+    <li>
+      <p>If $T\in B(\calv)$, then $\norm{T} =0$ if and only if $T=\zero$.</p>
+    </li>
+    <li>
+      <p>If $S,T\in B(\calv)$, then $S+T \in B(\calv)$. In particular, we have
+ \begin{equation}\notag
+ \norm{S+T} \leq \norm{S} + \norm{T}.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>If $S,T\in B(\calv)$, then $ST \in B(\calv)$. In particular, we have
+ \begin{equation}\notag
+ \norm{ST} \leq \norm{S} \norm{T}.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>If $T\in B(\calv)$ and $c\in \bk$, then $cT\in B(\calv)$. In particular, we have
+ \begin{equation}\notag
+ \norm{cT} = |c| \norm{T}.
+ \end{equation}</p>
+    </li>
+  </ol>
+
+  <p>In particular, the set $B(\calv)$ of bounded linear operators is an associative, unital, normed $\bk$-algebra.</p>
+</div>
+
+<p>It turns out that completeness of the ambient normed vector space passes to completeness of the algebra of bounded operators:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\calv$ be a Banach space. The algebra $B(\calv)$ of bounded linear operators on $\calv$ is a Banach algebra.</p>
+</div>
+
+<h2 id="normed-vector-spaces-in-finite-dimensions">Normed vector spaces in finite dimensions</h2>
+
+<p>We begin our study of operators on finite-dimensional vector spaces with a pair of facts that, together, imply that all norms on a finite-dimensional vector space are <em>equivalent</em>. This is an important result that allows us great flexibility in choosing a norm that might make an argument easier, for whatever particular application we might be working on.</p>
+
+<p>The first fact does <em>not</em>, however, require that the vector space is finite-dimensional:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\calv$ be a normed $\bk$-vector space, and let $x_1,\ldots,x_n$ be a fixed sequence of vectors in $\calv$. Then the function</p>
+
+  <p>\begin{equation}\notag
+f: \bk^n \to \bbr, \quad (\lambda_1,\ldots,\lambda_n) \mapsto \norm{\lambda_1 x_1 + \cdots + \lambda_n x_n}
+\end{equation}</p>
+
+  <p>is uniformly continuous.</p>
+</div>
+
+<p>To prove this, set $ v = \sum_{j=1}^n \lambda_j x_j$ and $w = \sum_{j=1}^n \mu_j x_j$, for some $\lambda_j,\mu_j\in \bk$. Then:</p>
+
+<p>\begin{equation}\label{string-eqn}
+| f(\lambda_1,\ldots,\lambda_n) - f(\mu_1,\ldots,\mu_n) |  \leq \sum_{j=1}^n |\lambda_j - \mu_j| \norm{x_j} \leq C \max{\{|\lambda_j - \mu_j|\}},
+\end{equation}</p>
+
+<p>where $C = n\cdot \max{\{\norm{x_j}\}}$. The first inequality in \eqref{string-eqn} follows from the “<a href="https://en.wikipedia.org/wiki/Triangle_inequality#Reverse_triangle_inequality">reverse triangle inequality</a>.” The desired result then follows; I will leave you to fill in the details. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $f_1$ and $f_2$ be two real-valued functions on a finite-dimensional $\bk$-vector space $\calv$, and let $e_1,\ldots,e_n$ be a basis for $\calv$. Suppose that both $f_1$ and $f_2$ have the following properties:</p>
+
+  <ol>
+    <li>
+      <p>$f_j(v)\geq 0$, for all $v\in \calv$ and for both $j=1,2$, with equality holding if and only if $v=0$.</p>
+    </li>
+    <li>
+      <p>$f_j(\lambda v) = |\lambda| f_j(v)$, for all $\lambda \in \bk$, $v\in \calv$, and for both $j=1,2$.</p>
+    </li>
+    <li>
+      <p>The composite mapping
+ \begin{equation}\notag
+ \bk^n \to \bbr, \quad (\lambda_1,\ldots,\lambda_n) \mapsto f_j(\lambda_1 e_1 + \cdots + \lambda_n e_n),
+ \end{equation}
+is continuous, for both $j=1,2$.</p>
+    </li>
+  </ol>
+
+  <p>Then there exist positive constants $a$ and $b$ such that</p>
+
+  <p>\begin{equation}\notag
+a  f_1(v) \leq f_2(v) \leq b f_1(v), \quad \forall v\in \calv.
+\end{equation}</p>
+</div>
+
+<p>To prove the result, first define</p>
+
+<p>\begin{equation}\notag
+h(\lambda_1,\ldots,\lambda_n) = \frac{f_2(\lambda_1 e_1 + \cdots + \lambda_n e_n)}{f_1(\lambda_1 e_1 + \cdots + \lambda_n e_n)}
+\end{equation}</p>
+
+<p>on the unit sphere</p>
+
+<p>\begin{equation}\notag
+S = \left\{ (\lambda_1,\ldots,\lambda_n) \in \bk^n : \sum_{j=1}^n |\lambda_j|^2 = 1  \right\}
+\end{equation}</p>
+
+<p>in $\bk^n$. Since $S$ is compact and $h$ is continuous, it achieves a maximum, $b$, and a minimum, $a$, which implies</p>
+
+<p>\begin{equation}\notag
+a  f_1(\lambda_1 e_1 + \cdots + \lambda_n e_n) \leq f_2(\lambda_1 e_1 + \cdots + \lambda_n e_n) \leq b f_1(\lambda_1 e_1 + \cdots + \lambda_n e_n)
+\end{equation}</p>
+
+<p>for all $(\lambda_1,\ldots,\lambda_n) \in S$. But, given a nonzero vector $v\in \calv$, there are scalars $\mu_j$ such that $v = \sum_{j=1}^n \mu_j e_j$. If we set $\mu=(\mu_1,\ldots,\mu_n)$ and $\norm{\mu}^2 = \sum_{j=1}^n |\mu_j|^2$, then $\mu/\norm{\mu}\in S$, and</p>
+
+<p>\begin{equation}\notag
+a  f_1(\norm{\mu}^{-1} v) \leq f_2(\norm{\mu}^{-1}v) \leq b f_1(\norm{v}^{-1}v). 
+\end{equation}</p>
+
+<p>The desired inequality then follows from this last inequality and (2.). Q.E.D.</p>
+
+<p>Given a $\bk$-vector space $\calv$, we recall that two norms $\norm{\cdot}_\alpha$ and $\norm{\cdot}_\beta$ on $\calv$ are called <em>equivalent</em> if there are positive constants $a$ and $b$ such that</p>
+
+<p>\begin{equation}\notag
+a \norm{v}_\alpha \leq \norm{v}_\beta \leq b \norm{v}_\alpha, \quad \forall v\in \calv.
+\end{equation}</p>
+
+<p>As you may check, equivalent norms induce the same metric topology on $\calv$. With this terminology, the combination of the two previous results immediately gives:</p>
+
+<div class="highlight-box">
+  <p><strong>Corollary.</strong> Any two norms on a finite-dimensional $\bk$-vector space are equivalent.</p>
+</div>
+
+<p>As our first application of this result, we have:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\calv$ be a finite-dimensional normed $\bk$-vector space.</p>
+
+  <ol>
+    <li>
+      <p>All linear operators $T$ on $\calv$ are continuous.</p>
+    </li>
+    <li>
+      <p>In particular, we have $B(\calv) = \End{\calv}$.</p>
+    </li>
+    <li>
+      <p>The vector space $\calv$ is a Banach space.</p>
+    </li>
+    <li>
+      <p>All vector subspaces of $\calv$ are norm-closed, and hence are themselves Banach spaces.</p>
+    </li>
+    <li>
+      <p>The normed $\bk$-algebra $B(\calv)$ is complete in the metric topology induced by the operator norm, and therefore it is a Banach algebra.</p>
+    </li>
+  </ol>
+</div>
+
+<p>(1.): Fix a basis $e_1,\ldots,e_n$ of $\calv$. Since all norms on $\calv$ are equivalent, we may as well choose the $l^\infty$-norm:</p>
+
+<p>\begin{equation}\notag
+\norm{v}_\infty \defeq \max \{|\lambda_j|\}, \quad v = \lambda_1 e_1 + \cdots + \lambda_n e_n.
+\end{equation}</p>
+
+<p>Then, we shall prove that $T$ is continuous by showing that it is continuous at $0$. To do this, we will show that $Tv_k \to 0$ for all sequences $(v_k)$ in $\calv$ with $v_k \to 0$. Note that for each $k$ we may write</p>
+
+<p>\begin{equation}\notag
+v_k = \lambda^k_1 e_1 + \cdots + \lambda^k_n e_n, \quad \lambda^k_j \in \bk.
+\end{equation}</p>
+
+<p>Then, we have</p>
+
+<p>\begin{equation}\notag
+\norm{Tv_k}_\infty \leq |\lambda^k_1| \norm{Te_1}_\infty + \cdots + |\lambda^k_n| \norm{Te_n}_\infty \leq C \norm{v_k}_\infty,
+\end{equation}</p>
+
+<p>where $C = n \cdot \max\{\norm{Te_j}_\infty\}$. Taking $k\to \infty$ shows $Tv_k \to 0$, as desired.</p>
+
+<p>(2.): This equation follows from (1.) and the fact that continuity and boundedness are the same thing.</p>
+
+<p>(3.): Since $\calv$ is finite-dimensional, there is a $\bk$-linear isomorphism $\bk^n \cong \calv$, where $n$ is the dimension of $\calv$. The space $\bk^n$ is well-known to be complete in the $l^2$-norm, and this norm may be transported to a norm on $\calv$ through the linear isomorphism. But this norm is equivalent to the given norm on the vector space $\calv$, and so the two metric topologies coincide. Since one is complete, so is the other.</p>
+
+<p>(4.): Let $\calw$ be a nonzero vector subspace of $\calv$ and let $(w_k)_{k=1}^\infty$ be a sequence of vectors in $\calw$ that converges to a vector $v\in \calv$; we need to prove that $v$ is in $\calw$. For this, let $e_1,\ldots,e_m$ be a basis of $\calw$, and extend it to a basis</p>
+
+<p>\begin{equation}\notag
+e_1,\ldots,e_m,e_{m+1},\ldots,e_n
+\end{equation}</p>
+
+<p>of all of $\calv$. Suppose that for each $k\geq 1$ we write</p>
+
+<p>\begin{equation}\notag
+w_k = \lambda^k_1 e_1 + \cdots + \lambda^k_m e_m + \underbrace{\lambda^k_{m+1} e_{m+1} + \cdots + \lambda^k_n e_n}_{\text{$\lambda^k_j=0$, $\forall j=m+1,\ldots,n$}}, 
+\end{equation}</p>
+
+<p>and similarly write</p>
+
+<p>\begin{equation}\notag
+v = \mu_1 e_1 + \cdots + \mu_m e_m + \mu_{m+1}e_{m+1}+\cdots + \mu_n e_n.
+\end{equation}</p>
+
+<p>Using the $l^\infty$-norm, it is easy to see that the convergence $w_k \to v$ implies $\lambda^k_j \to \mu_j$ as $k\to \infty$ for each $j=1,\ldots,n$. Thus,</p>
+
+<p>\begin{equation}\notag
+\mu_{m+1} = \cdots = \mu_n=0,
+\end{equation}</p>
+
+<p>which means $v\in \calw$.</p>
+
+<p>(5.): This follows from (3.), since the algebra of bounded linear operators over a Banach space is a Banach algebra. Q.E.D.</p>
+
+<h2 id="operator-algebras-1">Operator algebras</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $V$ be a Banach space. We will write $\End{V}$ for the set of all linear operators $T: V \to V$.</p>
+
+  <p>The set $\End{V}$ is an associative, unital $\bbc$-algebra with respect to the following operations and structures. Suppose $S,T\in \End{V}$ and $c\in \bbc$.</p>
+
+  <ol>
+    <li>
+      <p>We define the <em>product</em> of $S$ and $T$, written $ST$, to be their composition as functions:
+ \begin{equation}\notag
+ ST = S\circ T.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>We define the <em>sum</em> of $S$ and $T$, written $S+T$, by the rule
+ \begin{equation}\notag
+ (S+T)v = Sv + Tv, \quad \forall v\in V.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>We define the <em>scalar product</em> of $T$ and $c$, written $cT$, by the rule
+ \begin{equation}\notag
+ (cT)v = c(Tv), \quad \forall v\in V.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>The multiplicative identity is the identity operator, denoted $\id$, given by the rule
+ \begin{equation}\notag
+ \id v =v , \quad \forall v\in V.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>The additive identity, denoted $\zero$, is given by the rule
+ \begin{equation}\notag
+ \zero v = 0, \quad \forall v\in V.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove that $\End{V}$ really is an associative, unital $\bbc$-algebra by checking all the axioms in detail.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $T$ be a linear operator on a Banach space $V$. The following statements are equivalent:</p>
+
+  <ol>
+    <li>
+      <p>$T$ is continuous.</p>
+    </li>
+    <li>
+      <p>$T$ is continuous at the zero vector $0\in V$.</p>
+    </li>
+    <li>
+      <p>$T$ is continuous at some vector $v_0\in V$.</p>
+    </li>
+    <li>
+      <p>There is a real constant $c&gt; 0$ such that
+ \begin{equation}\label{bdd-eqn}
+ \norm{Tv} \leq c \norm{v}, \quad \forall v\in V.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>Clearly (1.) $\Rightarrow$ (2.) $\Rightarrow$ (3.) and (4.) $\Rightarrow$ (2.). Thus, it will suffice to prove (3.) $\Rightarrow$ (1.) and (2.) $\Rightarrow$ (4.).</p>
+
+<p>(3.) $\Rightarrow$ (1.): Suppose that $T$ is continuous at $v_0$, and let $v\in V$. Since the topology on $T$ is first-countable, it will suffice to show that $Tv_n \to Tv$ for all sequences $(v_n)$ in $V$ with $v_n \to v$. But notice that $v_n  - v +v_0 \to v_0$, and hence</p>
+
+<p>\begin{equation}\notag
+Tv_0 = \lim_{n\to \infty} T(v_n -v + v_0)= \left( \lim_{n\to\infty} Tv_n \right) - Tv + Tv_0,
+\end{equation}</p>
+
+<p>where we’ve used continuity of $T$ at $v_0$ in the first equality. It then follows that $Tv_n \to Tv$, as desired.</p>
+
+<p>(2.) $\Rightarrow$ (4.): By hypothesis, there is a $\delta&gt;0$ such that</p>
+
+<p>\begin{equation}\label{cont-eqn}
+T\left[ B(0;\delta) \right] \subseteq B(0;1),
+\end{equation}</p>
+
+<p>where, for any $r&gt;0$ and $v\in V$, we have</p>
+
+<p>\begin{equation}\notag
+B(v;r) \defeq \left\{ w\in V : \norm{w-v} &lt; r\right\}.
+\end{equation}</p>
+
+<p>Given $v\in V$ and $\dev&gt;0$, we have</p>
+
+<p>\begin{equation}\notag
+\adjnorm{ \frac{\delta v}{\norm{v} + \dev}} &lt;\delta.
+\end{equation}</p>
+
+<p>Therefore, from \eqref{cont-eqn}, we get that</p>
+
+<p>\begin{equation}\notag
+\norm{Tv} &lt; \delta^{-1}(\norm{v} + \dev).
+\end{equation}</p>
+
+<p>Letting $\dev \to 0$, we obtain our desired inequality \eqref{bdd-eqn} with $c = \delta^{-1}$. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $V$ be a Banach space. Given an operator $T\in \End{V}$, we define its <em>operator norm</em> to be the number</p>
+
+  <p>\begin{equation}\label{sup-eqn}
+\norm{T} = \sup \{ \norm{Tv} : v\in V, \ \norm{v} \leq 1 \}.
+\end{equation}</p>
+
+  <p>Notice that $\norm{T} \in [0,\infty]$. We shall say $T$ is <em>bounded</em> if $\norm{T} &lt; \infty$, and we write $B(V)$ for the subset of $\End{V}$ consisting of all bounded operators.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $T$ be an operator on a Banach space $V$. Then $T$ is bounded if and only if it is continuous.</p>
+</div>
+
+<p>If $T$ is continuous, there is a real constant $c&gt;0$ such that</p>
+
+<p>\begin{equation}\notag
+\norm{Tv} \leq c \norm{v}, \quad \forall v\in V.
+\end{equation}</p>
+
+<p>In particular, if $\norm{v} \leq 1$, then</p>
+
+<p>\begin{equation}\notag
+\norm{Tv} \leq c,
+\end{equation}</p>
+
+<p>and hence the supremum in \eqref{sup-eqn} is finite. Conversely, if $T$ is bounded and $v$ is a nonzero vector in $V$, then</p>
+
+<p>\begin{equation}\notag
+\adjnorm{T\left( \frac{v}{\norm{v}} \right)} \leq \norm{T},
+\end{equation}</p>
+
+<p>and so</p>
+
+<p>\begin{equation}\notag
+\norm{Tv} \leq \norm{A} \norm{v}.
+\end{equation}</p>
+
+<p>Since this inequality holds for all $v\in V$, we get that $T$ is continuous. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $V$ be a Banach space.</p>
+
+  <ol>
+    <li>
+      <p>If $T\in B(V)$, then $\norm{T} =0$ if and only if $T=\zero$.</p>
+    </li>
+    <li>
+      <p>If $S,T\in B(V)$, then $S+T \in B(V)$. In particular, we have
+ \begin{equation}\label{tri-eqn}
+ \norm{S+T} \leq \norm{S} + \norm{T}.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>If $S,T\in B(V)$, then $ST \in B(V)$. In particular, we have
+ \begin{equation}\label{submult-eqn}
+ \norm{ST} \leq \norm{S} \norm{T}.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>If $T\in B(V)$ and $c\in \bbc$, then $cT\in B(V)$. In particular, we have
+ \begin{equation}\label{homog-eqn}
+ \norm{cT} = |c| \norm{T}.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>(1.): One direction of the implication is easy. For the other, suppose $v\in V$ is a nonzero vector. Then</p>
+
+<p>\begin{equation}\notag
+T\left( \frac{v}{\norm{v}} \right) = 0
+\end{equation}</p>
+
+<p>since $\norm{T}=0$, and hence $Tv=0$.</p>
+
+<p>For the rest of the parts of the proof, note that sums, compositions, and scalar multiples of linear continuous functions are still continuous. Thus, we have</p>
+
+<p>\begin{equation}\notag
+S+T, ST, cT\in B(H),
+\end{equation}</p>
+
+<p>provided that $S,T\in B(V)$ and $c\in \bbc$. Thus, we need only establish the inequalities \eqref{tri-eqn} and \eqref{submult-eqn}, and the equality \eqref{homog-eqn}.</p>
+
+<p>(2.): Given $v\in V$ with $\norm{v} \leq 1$, we have</p>
+
+<p>\begin{equation}\notag
+\norm{(S+T)v} = \norm{Sv+Tv} \leq \norm{Sv} + \norm{Tv} \leq \norm{S} + \norm{T}.
+\end{equation}</p>
+
+<p>(3.): We have that</p>
+
+<p>\begin{equation}\notag
+\norm{Tv} \leq \norm{T} \norm{v}, \quad \forall v\in V,
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+\norm{Sw} \leq \norm{S} \norm{w}, \quad \forall w\in V.
+\end{equation}</p>
+
+<p>Combining these inequalities by taking $w = Tv$, we get:</p>
+
+<p>\begin{equation}\notag
+\norm{STv} \leq \norm{S} \norm{Tv} \leq \norm{S} \norm{T} \norm{v}, \quad \forall v\in V.
+\end{equation}</p>
+
+<p>But this implies $\norm{ST} \leq \norm{S} \norm{T}$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $H$ be a Banach space. The algebra $B(H)$ of bounded linear operators on $H$ is a Banach algebra.</p>
+</div>
+
+<h2 id="operator-theory-in-finite-dimensions">Operator theory in finite dimensions</h2>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Any linear operator $A$ on a finite-dimensional Hilbert space $H$ is continuous. In particular, we have $B(H) = \End{H}$ if $H$ is finite-dimensional.</p>
+</div>
+
+<p>We shall prove that $A$ is continuous at $0$ by showing that $Av_n \to 0$ for all sequences $(v_n)$ in $H$ with $v_n \to 0$. To do this, let $e_1,\ldots,e_n$ be a basis for $H$. Then for each $n$ we may write</p>
+
+<p>\begin{equation}\notag
+v_n = c^1_n e_1 + \cdots + c^k_n e_k,
+\end{equation}</p>
+
+<p>for some constants $c^1_n,\ldots,c^k_n$. Notice that $v_n \to 0$ implies that</p>
+
+<p>\begin{equation}\label{lim-eqn}
+\lim_{n\to \infty} c_n^i =0, \quad \forall i=1,\ldots,k.
+\end{equation}</p>
+
+<p>Then, we have</p>
+
+<p>\begin{equation}\notag
+Av_n = c^1_n A e_1 + \cdots + c^k_n Ae_k,
+\end{equation}</p>
+
+<p>and taking $n\to \infty$ on the right-hand side shows $Av_n \to 0$, in view of \eqref{lim-eqn}. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be an operator on a finite-dimensional Hilbert space $H$.</p>
+
+  <ol>
+    <li>We shall say $A$ is <em>self-adjoint</em> if
+ \begin{equation}\notag
+ \ang{Av, w} = \ang{v, Aw}
+ \end{equation}
+for all $v,w\in H$.</li>
+    <li>We shall say $A$ is <em>normal</em> if it commutes with its adjoint, i.e.,
+ \begin{equation}\notag
+ AA^\ast = A^\ast A.
+ \end{equation}</li>
+    <li>We shall say $A$ is <em>positive</em> if it is self-adjoint and
+ \begin{equation}\notag
+ \ang{Av,v} \geq 0
+ \end{equation}
+for all $v\in H$. In writing this inequality, of course, we are assuming that $\ang{Av,v}$ is real for each $v$.</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $P$ be an operator on a finite-dimensional Hilbert space $H$. We shall say $P$ is an <em>(orthogonal) projection</em> if it is self-adjoint and $P^2=P$.</p>
+</div>
+
+<h2 id="spectral-theory-in-finite-dimensions">Spectral theory in finite dimensions</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be an operator on a finite-dimensional Hilbert space $H$. A constant $\lambda \in \bbc$ is called an <em>eigenvalue</em> of $A$ if there exists a nonzero vector $v\in H$, called an <em>eigenvector</em>, such that</p>
+
+  <p>\begin{equation}\notag
+Av = \lambda v.
+\end{equation}</p>
+
+  <p>We write $\sigma(A)$ for the set of all eigenvalues of $A$, and call this set the <em>spectrum</em> of $A$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $A$ be an operator on a finite-dimensional Hilbert space $H$.</p>
+
+  <ol>
+    <li>If $A$ is self-adjoint, its eigenvalues are real numbers, i.e., $\sigma(A) \subset \bbr$.</li>
+    <li>If $A$ is positive, its eigenvalues are nonnegative real numbers, i.e., $\sigma(A) \subset [0,\infty)$.</li>
+  </ol>
+</div>
+
+<p>Let $\lambda$ be an eigenvalue of $A$ with eigenvector $v$. If $A$ is self-adjoint, then</p>
+
+<p>\begin{equation}\notag
+\lambda \norm{v}^2 = \ang{v,Av} = \ang{Av,v} = \bar{\lambda} \norm{v}^2,
+\end{equation}</p>
+
+<p>where we’ve used the fact $\ang{-,-}$ is antilinear in the first argument and linear in the second. But $v\neq 0$ and hence $\norm{v}^2\neq 0$, which implies $\lambda = \bar{\lambda}$. Hence, $\lambda$ is real. If $A$ is positive, then it is self-adjoint and hence $\lambda$ is real, but also</p>
+
+<p>\begin{equation}\notag
+\lambda \norm{v}^2 = \ang{Av,v} \geq 0.
+\end{equation}</p>
+
+<p>This implies $\lambda \geq 0$. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $P$ be a projection operator on a finite-dimensional Hilbert space $H$. Then $\sigma(P) \subset \{0,1\}$.</p>
+</div>
+
+<p>Let $\lambda$ be an eigenvalue of $P$ with eigenvector $v$. We then compute:</p>
+
+<p>\begin{equation}\notag
+\lambda(\lambda-1)v = (P^2 - P)v = 0.
+\end{equation}</p>
+
+<p>But since $v\neq 0$, we must have either $\lambda=0$ or $\lambda =1$. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $A$ be a normal operator on a finite-dimensional Hilbert space $H$. Then $v\in H$ is an eigenvector of $A$ with eigenvalue $\lambda$ if and only if $v$ is an eigenvector of $A^\ast$ with eigenvalue $\lambda^\ast$.</p>
+</div>
+
+<p>For any normal operator $B$ on $H$, and any vector $w\in H$, we have</p>
+
+<p>\begin{equation}\notag
+\norm{B w}^2 = \ang{Bw, Bw} = \ang{B^\ast Bw, w} = \ang{B B^\ast w,w} = \ang{B^\ast w, B^\ast w} = \norm{B^\ast w}^2,
+\end{equation}</p>
+
+<p>and hence</p>
+
+<p>\begin{equation}\label{norm-pres-eqn}
+\norm{Bw} = \norm{B^\ast w}.
+\end{equation}</p>
+
+<p>Now, it is easy to see that for <em>any</em> complex constant $\lambda$, the operator $A - \lambda \id$ is normal since $A$ is normal. By taking $B = A - \lambda \id$ and $B^\ast = A^\ast - \bar{\lambda}I$ in \eqref{norm-pres-eqn}, we get</p>
+
+<p>\begin{equation}\notag
+\norm{Av - \lambda v} = \norm{A^\ast v - \bar{\lambda}v}.
+\end{equation}</p>
+
+<p>The desired result then follows. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Spectral Theorem for Normal Operators (finite-dimensional version).</strong> Let $A$ be a normal linear operator on a finite-dimensional Hilbert space $H$. For each $\lambda$ in the spectrum $\sigma(A)$, let $P_\lambda$ denote the orthogonal projection of $H$ onto the eigenspace $E_\lambda$. Then</p>
+
+  <p>\begin{equation}\notag
+P_\lambda P_\mu = \delta_{\lambda \mu} P_\lambda
+\end{equation}</p>
+
+  <p>for all $\lambda ,\mu \in \sigma(A)$, as well as</p>
+
+  <p>\begin{equation}\label{spec-res-A-eqn}
+A = \sum_{\lambda \in \sigma(A)} \lambda P_\lambda
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\label{spec-res-I-eqn}
+\id = \sum_{\lambda \in \sigma(A)} P_\lambda.
+\end{equation}</p>
+</div>
+
+<p>The desired results essentially all flow from the single equation</p>
+
+<p>\begin{equation}\label{dir-sum-eqn}
+H = \bigoplus_{\lambda \in \sigma(A)} E_\lambda.
+\end{equation}</p>
+
+<p>To establish this latter equality, we will let $K$ denote the direct sum on the right-hand side and prove that $K^\perp=0$.</p>
+
+<p>Note, first, that $K$ is invariant under $A^\ast$ (and also $A$, but we don’t need this), in the sense that</p>
+
+<p>\begin{equation}\label{yup-eqn}
+w\in K \quad \Rightarrow \quad A^\ast w \in K.
+\end{equation}</p>
+
+<p>Indeed, since $w$ is a linear combination of eigenvectors of $A$, it is also a linear combination of eigenvectors of $A^\ast$ by the previous theorem, and then \eqref{yup-eqn} follows immediately from the definition of an eigenvector. From this, we get that the orthogonal complement $K^\perp$ is invariant under $A$, in the same sense; for if $v\in K^\perp$ and $w\in K$, we have</p>
+
+<p>\begin{equation}\notag
+\ang{Av,w} = \ang{v,A^\ast w} = 0
+\end{equation}</p>
+
+<p>since $A^\ast w\in K$ and $v\in K^\perp$. Thus, $Av\in K^\perp$ provided that $v\in K^\perp$.</p>
+
+<p>It follows that the restricted linear operator</p>
+
+<p>\begin{equation}\notag
+A|_{K^\perp} : K^\perp \to K^\perp
+\end{equation}</p>
+
+<p>is well-defined. If we assume to the contrary that the orthogonal complement $K^\perp$ is <em>not</em> zero, then the linear operator $A|_{K^\perp}$ has an eigenvector $u\in K^\perp$, say</p>
+
+<p>\begin{equation}\notag
+A|_{K^\perp} u = \mu u
+\end{equation}</p>
+
+<p>for some $\mu \in \bbc$. But the left-hand side of this equation is equal to $Au$, and hence $u$ is an eigenvector of $A$ that lives in $K^\perp$. This contradicts the definition of $K$, and hence we must have $K^\perp=0$. Q.E.D.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Fill in the missing details in the proof, showing how all statements in the theorem follow from \eqref{dir-sum-eqn}.</p>
+</div>
+
+<h2 id="lp-spaces">$L^p$-spaces</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $p$ be a real number with $0 &lt; p &lt; \infty$, and let $(\calx, \mfM,\mu)$ be a measure space. If $f:\calx \to \bbc$ is a measurable function, define</p>
+
+  <p>\begin{equation}\notag
+\norm{f}_p = \left\{ \int_\calx |f|^p \ \d \mu \right\}^{1/p},
+\end{equation}</p>
+
+  <p>and let $L^p(\mu)$ be the set of all $f$ such that $\norm{f}_p &lt; \infty$. We call $\norm{f}_p$ the <em>$p$-norm</em> of $f$.</p>
+
+  <p>If $\mu$ is the counting measure and $\mfM$ is the powerset of $\calx$, it is traditional to denote $L^p(\mu)$ by $l^p(\calx)$. If $\calx$ is finite or countably infinite, then a function $f\in l^p(\calx)$ is an $\calx$-indexed sequence $f = (f(x))_{x\in \calx}$, and</p>
+
+  <p>\begin{equation}\notag
+\norm{f}_p = \left\{ \sum_{x\in \calx} |f(x)|^p\right\}^{1/p}.
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $n\geq 1$ be an integer, $p$ a real number with $0&lt;p&lt;\infty$, and set $I_n = \{1,2,\ldots,n\}$.</p>
+
+  <ol>
+    <li>
+      <p>There is a bijective correspondence between $l^p(I_n)$ and $\bbc^n$, where a function $f\in l^p(I_n)$ is associated with the $n$-tuple $c = (c_1,\ldots,c_n)$ where $c_i = f(i)$.</p>
+    </li>
+    <li>
+      <p>If $c=(c_1,\ldots,c_n) \in \bbc^n$, then
+ \begin{equation}\notag
+ \norm{c}_p = \left\{ \sum_{i=1}^n |c_i|^p\right\}^{1/p}.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(\calx,\mfM,\mu)$ be a measure space. If $f:\calx \to \bbc$ is a measurable function, define</p>
+
+  <p>\begin{equation}\label{complicated-eqn}
+\norm{f}_\infty = \inf\left\{ c\in \bbr : \mu \left\{ |f|^{-1} \left( (c,\infty] \right) \right\} = 0 \right\},
+\end{equation}</p>
+
+  <p>provided that the set on the right-hand side is not empty. If it is empty, define $\norm{f}_\infty = \infty$. We let $L^\infty(\mu)$ be the set of all $f$ such that $\norm{f}_\infty &lt; \infty$, and we call $\norm{f}_\infty$ the <em>essential supremum</em> or the <em>$\infty$-norm</em> of $f$.</p>
+
+  <p>As with the $L^p$-spaces defined above ($0 &lt; p &lt; \infty$), in the case that $\mu$ is the counting measure and $\mfM$ is the power set, we write $l^\infty(\calx)$ in place of $L^\infty(\mu)$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\calx$ be a nonempty set. A function $f:\calx \to \bbc$ is in $l^\infty(\calx)$ if and only if it is bounded, i.e., if and only if the number</p>
+
+  <p>\begin{equation}\notag
+\sup \left\{ |f(x)| : x\in \calx \right\}
+\end{equation}</p>
+
+  <p>is finite. In this case, the $\infty$-norm $\norm{f}_\infty$ is equal to this supremum.</p>
+</div>
+
+<p>For the proof, note that, in this case, the definition \eqref{complicated-eqn} is equivalent to</p>
+
+<p>\begin{equation}\notag
+\norm{f}_\infty = \inf \left\{ c\in \bbr : \forall x\in \calx, \ |f(x)| \leq c \right\}.
+\end{equation}</p>
+
+<p>The desired conclusions then follow easily. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $n\geq 1$ be an integer and set $I_n = \{1,2,\ldots,n\}$.</p>
+
+  <ol>
+    <li>
+      <p>There is a bijective correspondence between $l^\infty(I_n)$ and $\bbc^n$, where a function $f\in l^\infty(I_n)$ is associated with the $n$-tuple $c = (c_1,\ldots,c_n)$ where $c_i = f(i)$.</p>
+    </li>
+    <li>
+      <p>If $c=(c_1,\ldots,c_n) \in \bbc^n$, then
+ \begin{equation}\notag
+ \norm{c}_\infty = \max\{c_i : i=1,2,\ldots,n \}.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<h2 id="hilbert-spaces">Hilbert spaces</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $H$ be a vector space. An $\bbr$-bilinear function</p>
+
+  <p>\begin{equation}\notag
+\ang{-,-} : H \otimes_\bbr H \to \bbc, \quad (v,w) \mapsto \ang{v,w},
+\end{equation}</p>
+
+  <p>is called a <em>hermitian inner product</em> if it has the following properties:</p>
+
+  <ol>
+    <li>
+      <p><em>Positive definiteness</em>. For each $v\in H$, the number $\ang{v,v}$ is a nonnegative real number, and is zero if and only if $v=0$.</p>
+    </li>
+    <li>
+      <p><em>$\bbc$-homogeneity in the first variable</em>. For all $v,w\in H$ and all $c\in \bbc$, we have
+ \begin{equation}\notag
+ \ang{cv,w} = c \ang{v,w}.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p><em>Conjugate symmetry.</em> For all $v,w\in H$, we have
+ \begin{equation}\notag
+ \ang{v,w} = \overline{\ang{w,v}},
+ \end{equation}
+where the bar denotes the complex conjugate.</p>
+    </li>
+  </ol>
+
+  <p>A vector space $H$ equipped with a hermitian inner product is called a <em>(complex) inner product space</em>.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that a hermitian inner product is conjugate $\bbc$-homogeneous in the second variable, which means that
+ \begin{equation}\notag
+ \ang{v,cw} = \bar{c}\ang{v,w}, \quad \forall c\in \bbc, \ v,w\in H.
+ \end{equation}</li>
+    <li>Prove (or look up a proof of) the <em>Cauchy-Schwarz Inequality</em>:
+ \begin{equation}\label{cs-eqn}
+ | \ang{v,w} |^2  \leq \ang{v,v} \ang{w,w}, \quad \forall v,w\in H.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $H$ be an inner product space and for each $v\in H$ define</p>
+
+  <p>\begin{equation}\notag
+\norm{v} = \sqrt{\ang{v,v}}.
+\end{equation}</p>
+
+  <p>Equipped with $\norm{\cdot}$, the vector space $H$ is a normed vector space.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem by carefully checking all the axioms of a normed vector space. (<em>Hint</em>: The Cauchy-Schwarz Inequality \eqref{cs-eqn} might be helpful.)</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $H$ be an inner product space. If $H$ is a complete metric space with the induced metric</p>
+
+  <p>\begin{equation}\notag
+\text{distance}(v,w) = \norm{v-w},
+\end{equation}</p>
+
+  <p>then $H$ is called a <em>Hilbert space</em>.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $H$ be an inner product space. For fixed $w\in H$, the three mappings</p>
+
+  <p>\begin{equation}\notag
+v\mapsto \ang{v,w} , \quad v\mapsto \ang{w,v}, \quad v \mapsto \norm{v},
+\end{equation}</p>
+
+  <p>are all uniformly continuous on $H$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem. (<em>Hint</em>: Again, the Cauchy-Schwarz Inequality \eqref{cs-eqn} will prove useful.)</p>
+</div>
+
+<h2 id="geometry-in-hilbert-spaces">Geometry in Hilbert spaces</h2>
+
+<p>Recall that two vectors $v$ and $w$ in an inner product space $H$ are called <em>orthogonal</em> if $\ang{v,w} = 0$. A set of vectors $S$ in $H$ is called <em>orthogonal</em> if $\ang{v,w}=0$ for all distinct $v$ and $w$ in $S$. The set $S$ is called <em>orthonormal</em> if it is orthogonal and $\norm{v}=1$ for all $v\in S$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $H$ be an inner product space.</p>
+
+  <ol>
+    <li>
+      <p><em>Parallelogram Law.</em> For all $v,w\in H$, we have
+ \begin{equation}\label{parallel-eqn}
+ \norm{v+w}^2 + \norm{v-w}^2 = 2 \left( \norm{v}^2 + \norm{w}^2 \right).
+ \end{equation}</p>
+    </li>
+    <li>
+      <p><em>Pythagorean Relation.</em> If $\{e_1,\ldots,e_n\}$ is an orthogonal set of vectors in $H$, then
+ \begin{equation}\label{pythag-eqn}
+ \norm{e_1 + \cdots + e_n}^2 = \norm{e_1}^2 + \cdots + \norm{e_n}^2.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>For the proof of (1.), note that</p>
+
+<p>\begin{equation}\label{yeah-eqn}
+\norm{v+w}^2 = \ang{v+w,v+w} = \norm{v}^2 + \norm{w}^2 + \ang{v,w} + \ang{w,v} = \norm{v}^2 + \norm{w}^2 + 2 \text{Re} \ang{v,w},
+\end{equation}</p>
+
+<p>where “$\text{Re}$” denotes the real part of a complex number. Similarly, we have</p>
+
+<p>\begin{equation}\notag
+\norm{v-w}^2 =  \norm{v}^2 + \norm{w}^2 - 2 \text{Re} \ang{v,w}.
+\end{equation}</p>
+
+<p>The desired relation \eqref{parallel-eqn} then follows immediately, and similar computations establish \eqref{pythag-eqn}. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $C$ be a nonempty, closed, convex subset of a Hilbert space $H$. Given $v\in H$, there exists a unique $w_0\in C$ such that</p>
+
+  <p>\begin{equation}\notag
+\norm{v-w_0} = \inf \left\{ \norm{v-w} :w\in C \right\}.
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>The Projection Theorem.</strong> Let $M$ be a closed, linear subspace of a Hilbert space $H$, and let $v\in H$.</p>
+
+  <ol>
+    <li>
+      <p>The vector $v$ has a unique decomposition
+ \begin{equation}\notag
+ v = Pv + Qv,
+ \end{equation}
+where $Pv \in M$ and $Qv \in M^\perp$.</p>
+    </li>
+    <li>
+      <p>The vectors $Pv$ and $Qv$ are the orthogonal projections of $v$ onto $M$ and $M^\perp$, respectively.</p>
+    </li>
+    <li>
+      <p>The mappings $P: H \to M$ and $Q: H \to M^\perp$ are linear.</p>
+    </li>
+    <li>
+      <p>We have
+ \begin{equation}\notag
+ \norm{v}^2 = \norm{Pv}^2 + \norm{Qv}^2.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<h2 id="series-in-hilbert-spaces">Series in Hilbert spaces</h2>
+
+<div class="highlight-box">
+  <p><strong>The Approximation Theorem.</strong> Let $\{e_1,\ldots,e_n\}$ be an orthonormal set of vectors in an inner product space $H$. Then the norm</p>
+
+  <p>\begin{equation}\notag
+\adjnorm{v - \sum_{k=1}^n c_k e_k}
+\end{equation}</p>
+
+  <p>is minimized when $c_k = \ang{v,e_k}$ for each $k=1,\ldots,n$.</p>
+</div>
+
+<p>Note that</p>
+
+<p>\begin{align}
+\adjnorm{v - \sum c_k e_k}^2 &amp;= \ang{v - \sum c_k e_k,v - \sum c_k e_k } \notag \\ &amp;= \norm{v}^2 - \sum c_k \ang{e_k,v} - \sum \bar{c}_k \ang{v,e_k} + \sum | c_k|^2. \notag
+\end{align}</p>
+
+<p>But</p>
+
+<p>\begin{align}
+-c_k \ang{e_k,v} - \bar{c}_k \ang{v,e_k} + |c_k|^2 &amp;= (c_k - \ang{v,e_k})\big(\bar{c}_k - \overline{\ang{v,e_k}}\big) - | \ang{v,e_k} |^2 \notag \\ &amp;= |c_k - \ang{v,e_k} |^2 - | \ang{v,e_k} |^2, \notag
+\end{align}</p>
+
+<p>and so</p>
+
+<p>\begin{equation}\label{past-eqn}
+\adjnorm{v - \sum c_k e_k}^2 = \norm{v}^2 + \sum |c_k - \ang{v,e_k} |^2 - \sum | \ang{v,e_k} |^2.
+\end{equation}</p>
+
+<p>Thus, the left-hand side of this last equation is minimized when we take $c_k = \ang{v,e_k}$. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $S = \{v_k\}_{k\in K}$ be a set of vectors in a normed vector space $V$ (real or complex) indexed by a set $K$, with no restrictions on its cardinality. We shall say the set $S$ is <em>summable</em>, with <em>sum</em> $v\in V$, if for every $\dev&gt;0$ there exists a finite subset $J\subseteq K$ such that</p>
+
+  <p>\begin{equation}\notag
+\adjnorm{v - \sum_{k\in L}v_k} &lt; \dev,
+\end{equation}</p>
+
+  <p>whenever $L$ is a finite set of indices in $K$ with $L \supseteq J$. In this case, we shall write</p>
+
+  <p>\begin{equation}\notag
+v = \sum_{k\in K} v_k.
+\end{equation}</p>
+</div>
+
+<p>For those readers who might know something about <a href="https://en.wikipedia.org/wiki/Net_(mathematics)"><em>nets</em></a>, note that the notion of a <em>summable</em> series just defined is really a special case of convergence of nets. Indeed, in the notation of the definition, let $\Lambda$ be the set of all finite subsets of $K$, and notice that $\Lambda$ is directed by inclusion. Then the function $\Lambda \to V$ given by</p>
+
+<p>\begin{equation}\notag
+J \mapsto \sum_{k\in J} v_k
+\end{equation}</p>
+
+<p>is a net in $V$ which converges to a vector $v\in V$ (as a net) if and only if the set $S$ is summable (as just defined) with sum $v$. In particular, since a normed vector space is Hausdorff, if a set of vectors is summable, then its sum is unique.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $S = \{v_k\}_{k\in K}$ be a set of vectors in a Hilbert space $H$. Then $S$ is summable if and only if for every $\dev&gt;0$ there is a finite subset $J \subseteq K$ such that</p>
+
+  <p>\begin{equation}\notag
+\adjnorm{\sum_{k\in M} v_k} &lt; \dev,
+\end{equation}</p>
+
+  <p>whenever $M$ is a finite set of indices in $K$ disjoint from $J$.</p>
+</div>
+
+<p>If the set is summable, with sum $v\in V$, then for every $\dev&gt;0$ there is a finite subset $J \subseteq K$ such that</p>
+
+<p>\begin{equation}\notag
+\adjnorm{v - \sum_{k\in L}v_k} &lt; \dev/2,
+\end{equation}</p>
+
+<p>whenever $L$ is a finite set of indices in $K$ with $L \supseteq J$. Thus, if $M$ is a finite subset of $K$ with $M \cap J = \emptyset$, then</p>
+
+<p>\begin{equation}\notag
+\adjnorm{ \sum_{k\in M} v_k} = \adjnorm{ \sum_{k\in M\cup J} v_k - \sum_{k\in J} v_k} \leq \adjnorm{ v- \sum_{k\in M\cup J} v_k} + \adjnorm{v- \sum_{k\in J} v_k} &lt; \dev.
+\end{equation}</p>
+
+<p>Conversely, if the condition is satisfied, then for every positive integer $n&gt;0$ there is a finite subset $J_n\subseteq K$ such that</p>
+
+<p>\begin{equation}\notag
+\adjnorm{\sum_{k\in M} v_k} &lt; \frac{1}{n}
+\end{equation}</p>
+
+<p>whenever $M$ is a finite set of indices in $K$ with $M\cap J_n = \emptyset$. By replacing $J_n$ with the union $J_1\cup \cdots \cup J_n$ if needed, we may assume that the $J_n$s form an ascending sequence</p>
+
+<p>\begin{equation}\label{asc-eqn}
+J_1 \subseteq J_2 \subseteq \cdots \subseteq J_n \subseteq \cdots.
+\end{equation}</p>
+
+<p>Then, if $m&gt;n$, we have</p>
+
+<p>\begin{equation}\notag
+\adjnorm{\sum_{k\in J_m} v_k - \sum_{k\in J_n}v_k} = \adjnorm{\sum_{k\in J_m \smallsetminus J_n} v_k} &lt; \frac{1}{n}.
+\end{equation}</p>
+
+<p>It follows from this and completeness of $H$ that there is a vector $v\in H$ such that</p>
+
+<p>\begin{equation}\notag
+v = \lim_{n\to \infty} \sum_{k\in J_n} v_k.
+\end{equation}</p>
+
+<p>Therefore, given $\dev&gt;0$, there is an integer $N$ such that</p>
+
+<p>\begin{equation}\notag
+n\geq N \quad \Rightarrow \quad \adjnorm{v - \sum_{k\in J_n} v_k} &lt; \dev/2.
+\end{equation}</p>
+
+<p>We may then choose $n$ large enough so that $1/n &lt; \dev/2$ and $n\geq N$, in which case, if $J$ is a finite set of indices in $K$ with $J\supseteq J_n$, we have</p>
+
+<p>\begin{equation}\notag
+\adjnorm{v - \sum_{k\in J} v_k} \leq \adjnorm{v - \sum_{k\in J_n} v_k} + \adjnorm{\sum_{k\in J\smallsetminus J_n}v_k} &lt; \dev.
+\end{equation}</p>
+
+<p>Thus, the set $S$ is summable with sum $v$. Q.E.D.</p>
+
+<p>The computations in the proof immediately imply the following:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $S = \{v_k\}_{k\in K}$ be a set of vectors in a Hilbert space $H$. If $S$ is summable, there are at most countably many indices $k\in K$ such that $v_k \neq 0$.</p>
+</div>
+
+<p>Indeed, if $k\in K$ is an index that does not belong to any of the sets in the ascending sequence \eqref{asc-eqn}, then $\norm{v_k}=0$, and hence $v_k=0$. But the union of the ascending sequence \eqref{asc-eqn} is at most countable since each $J_n$ is finite. Q.E.D.</p>
+
+<p>The next result is a generalization of the Pythagorean Relation to general orthogonal sets of vectors, not necessarily finite.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $S = \{e_k\}_{k\in K}$ be an orthogonal set of vectors in a Hilbert space $H$. Then $S$ is summable in $H$ if and only if $\{\norm{e_k}^2\}$ is summable in $\bbr$. In this case, we have</p>
+
+  <p>\begin{equation}\notag
+\adjnorm{\sum_{k\in K} e_k }^2 = \sum_{k\in K} \norm{e_k}^2.
+\end{equation}</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem. (<em>Hint</em>: If you find this difficult, see the section on Further Reading for appropriate references.)</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\mu$ be the counting measure on a nonempty set $K$ and let $f:K \to [0,\infty]$ be a function. Then the set $\{f(k)\}_{k\in K}$ is summable in $\bbr$ if and only if the integral $\int_K f \ \d\mu$ is finite, in which case</p>
+
+  <p>\begin{equation}\notag
+\sum_{k\in K} f(k) = \int_K f \ \d \mu.
+\end{equation}</p>
+</div>
+
+<p>Suppose first that the set $\{f(k)\}_{k\in K}$ is summable and let $K’$ be the subset of $K$ consisting of those indices $k$ such that $f(k)\neq 0$. Then $K’$ is at most countable, and thus we may write</p>
+
+<p>\begin{equation}\notag
+K_1 \subseteq K_2 \subseteq \cdots \subseteq K_n \subseteq \cdots \subseteq \bigcup_{n\geq 1} K_n = K’
+\end{equation}</p>
+
+<p>where each $K_n$ is a finite set of indices. It is then straightforward to show that</p>
+
+<p>\begin{equation}\notag
+\sum_{k\in K} f(k) = \lim_{n\to \infty} \sum_{k\in K_n} f(k).
+\end{equation}</p>
+
+<p>On the other hand, we also have</p>
+
+<p>\begin{equation}\notag
+\int_K f \ d \mu = \int_{K’} f \ \d \mu = \lim_{n\to \infty} \int_{K_n} f \ \d \mu.
+\end{equation}</p>
+
+<p>But since clearly $\sum_{k\in K_n} f(k) = \int_{K_n} f \ \d \mu$ for each $n\geq 1$, from the previous two displays we conclude that the integral $\int_K f \ \d \mu$ is finite and is equal to the sum $\sum_{k\in K} f(k)$.</p>
+
+<p>Conversely, suppose that the integral $\int_K f \ \d\mu$ is finite.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Bessel’s Inequality).</strong>
+Let $S = \{e_k\}_{k\in K}$ be an orthonormal set of vectors in an inner product space $H$. Then for any $v\in H$, the set $\{|\ang{v,e_k}|^2\}$ of nonnegative real numbers is summable in $\bbr$, and we have</p>
+
+  <p>\begin{equation}\label{bessel-eqn}
+\norm{v}^2 \geq \sum_{k\in K} | \ang{v,e_k} |^2.
+\end{equation}</p>
+
+  <p>Equality holds if and only if the set $\{\ang{v,e_k}e_k\}$ is summable in $H$, in which case its sum is</p>
+
+  <p>\begin{equation}\notag
+v = \sum_{k\in K} \ang{v,e_k} e_k.
+\end{equation}</p>
+</div>
+
+<h2 id="bases-in-hilbert-spaces">Bases in Hilbert spaces</h2>
+
+<p>The notion of <em>basis</em> is fundamental in linear algebra. But when the vector space under study is infinite-dimensional, and comes equipped with topological structure, it pays to take care to distinguish between different types of bases.</p>
+
+<p>Let’s begin the discussion with some terminology.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $S = \{v_k\}_{k\in K}$ be a set of vectors in a vector space $V$.</p>
+
+  <ol>
+    <li>
+      <p>The <em>algebraic linear span</em> of $S$ is the set of all vectors $v\in V$ of the form
+ \begin{equation}\notag
+ v = \sum_{k\in F} c_k v_k,
+ \end{equation}
+where $F$ is a finite set of indices in $K$ and $c_k\in \bbc$.</p>
+    </li>
+    <li>
+      <p>Suppose $V$ is a topological vector space. The <em>topological linear span</em> of $S$ is the closure of its algebraic linear span.</p>
+    </li>
+  </ol>
+</div>
+
+<p>Thus, the algebraic linear span of a set of vectors is just another name for the linear span that we studied in our first courses in linear algebra.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $S = \{e_k\}_{k\in K}$ be an orthonormal set of vectors in an inner product space $H$. Then the topological linear span of $S$ is equal to all vectors $v\in V$ of the form</p>
+
+  <p>\begin{equation}\label{lin-comb-eqn}
+v = \sum_{k\in K} c_k e_k,
+\end{equation}</p>
+
+  <p>where $c_k\in \bbc$.</p>
+</div>
+
+<p>Given a vector $v$ in the topological linear span, there is a sequence $(s_n)_{n=1}^\infty$ in the algebraic linear span that converges to $v$. Let $K’$ consist of those indices $k$ for which $\ang{v,e_k} \neq 0$ or $\ang{s_n,e_k}\neq 0$ for some $n$. Then $K’$ is countable, since, by Bessel’s Inequality, the set $\{|\ang{v,e_k}|^2\}$ is summable and therefore at most countably many of the inner products $\ang{v,e_k}$ are nonzero, while clearly there are only countably many $k$ for which $\ang{s_n,e_k}\neq 0$ for some $n$ since each $s_n$ is a finite linear combination of the $e_k$s. My goal is then to show that</p>
+
+<p>\begin{equation}\notag
+v = \sum_{k\in K} \ang{v,e_k} e_k.
+\end{equation}</p>
+
+<p>In particular, given $\dev&gt;0$, there is an integer $N&gt;0$ such that</p>
+
+<p>\begin{equation}\notag
+n \geq N \quad \Rightarrow \quad \norm{v-s_n} &lt; \dev.
+\end{equation}</p>
+
+<p>However, by the Approximation Theorem, we have</p>
+
+<p>\begin{equation}\notag
+\adjnorm{v - \sum_{k\in F_n} \ang{v,e_k}e_k} \leq \adjnorm{v - \sum_{k\in F_n} c_k^n e_k},
+\end{equation}</p>
+
+<p>where $F_n$ is the finite subset of indices in $K$ such that $s_n = \sum_{k\in F_n} c_k^n e_k$. Thus,</p>
+
+<p>\begin{equation}\notag
+n \geq N \quad \Rightarrow \quad \adjnorm{v - \sum_{k\in F_n} \ang{v,e_k}e_k} &lt; \dev.
+\end{equation}</p>
+
+<p>Since the set $S$ is orthonormal, each $s_n$ is of the form</p>
+
+<p>\begin{equation}\notag
+s_n = \sum_{k\in K} \ang{s_n,e_k} e_k,
+\end{equation}</p>
+
+<p>where all but finitely many of the inner products $\ang{s_n,e_k}$ are zero. I claim that the set $\{\ang{v,e_k}e_k\}$ is summable in $H$, with sum</p>
+
+<p>\begin{equation}\notag
+v = \sum_{k\in K} \ang{v,e_k}e_k.
+\end{equation}</p>
+
+<p>To prove this, it will suffice to show that equality is obtained in Bessel’s inequality</p>
+
+<p>\begin{equation}\notag
+\norm{v}^2 \geq \sum_{k\in K} | \ang{v,e_k}|^2.
+\end{equation}</p>
+
+<p>But for each $k\in K$, we have</p>
+
+<p>\begin{equation}\notag
+| \ang{s_n,e_k} |^2 \leq \norm{s_n}^2.
+\end{equation}</p>
+
+<p>Of course, our primary concern is not with bases of plain vector spaces, but rather we aim to describe useful bases of <em>Hilbert spaces</em>. Such bases will be the maximally orthonormal sets. In fact, it is frequently the case in functional analysis that these are the <em>only</em> types of bases considered, and so one re-defines the word <em>basis</em> to refer to such a basis. This means that the familiar bases in elementary linear algebra need new names. All of this is sorted out in:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $S$ be a set of vectors in a vector space $V$.</p>
+
+  <ol>
+    <li>
+      <p>The set $S$ is said to be a <em>Hamel basis</em> if it is linear independent and its algebraic linear span is equal to $V$.</p>
+    </li>
+    <li>
+      <p>Suppose $V$ is an inner product space. The set $S$ is said to be a <em>basis</em> if it is a maximal orthonormal set.</p>
+    </li>
+  </ol>
+</div>
+
+<p>Thus, the bases from elementary linear algebra are now called <em>Hamel bases</em>, and the unmodified word <em>basis</em> refers to a maximally orthonormal set of vectors in an inner product space.</p>
+
+<div class="highlight-box">
+  <p><strong>The Basis Theorem.</strong> Let $S = \{e_k\}_{k\in K}$ be an orthonormal set of vectors in a Hilbert space $H$. The following conditions are equivalent:</p>
+
+  <ol>
+    <li>
+      <p>The set $S$ is a basis.</p>
+    </li>
+    <li>
+      <p>The set $S$ is <em>total</em>, in the sense that
+ \begin{equation}\notag
+ \ang{v,e_k}=0, \ \forall k \in K \quad \Rightarrow \quad v=0.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>The topological linear span of $S$ is equal to $H$.</p>
+    </li>
+    <li>
+      <p><em>Fourier series.</em> For all $v\in H$, the set $\{\ang{v,e_k}\}$ is summable in $H$ with sum
+ \begin{equation}\label{fourier-eqn}
+ v = \sum_{k\in K}\ang{v,e_k} e_k.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p><em>Parseval’s Identity (v.1).</em> For all $v,w\in H$, we have
+ \begin{equation}\label{pars1-eqn}
+ \ang{v,w} = \sum_{k\in K} \ang{v,e_k}\overline{\ang{w,e_k}}.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p><em>Parseval’s Identity (v.2).</em> For all $v\in H$, we have
+ \begin{equation}\label{pars2-eqn}
+ \norm{v}^2 = \sum_{k\in K} | \ang{v,e_k} |^2.
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>(1.) $\Rightarrow$ (2.): If it were the case that there exists a nonzero $v\in V$ for which $\ang{v,e_k}=0$ for all $k\in K$, then the set $S \cup \{v/\norm{v}\}$ is orthonormal and properly contains $S$.</p>
+
+<p>(2.) $\Rightarrow$ (3.): Pick $v\in H$, and let $M$ denote the topological linear span of $S$. Since $M$ is closed, we may use the Projection Theorem to write</p>
+
+<p>\begin{equation}\notag
+v = Pv + Qv,
+\end{equation}</p>
+
+<p>where $Pv \in M$ and $Qv\in M^\perp$. But then $\ang{Qv,e_k}=0$ for each $k\in K$, and hence $Qv=0$.</p>
+
+<p>(3.) $\Rightarrow$ (4.): Given $v\in V$ and $\dev&gt;0$, there is a sequence of scalars $(c_k)_{k\geq0}$, all but finitely many of which are zero, such that</p>
+
+<p>\begin{equation}\notag
+\adjnorm{v -  \sum_{k=0}^\infty c_k e_k} &lt; \dev.
+\end{equation}</p>
+
+<p>In particular, if we choose $n$ large enough, by the Best Approximation Theorem we have</p>
+
+<p>\begin{equation}\notag
+\adjnorm{v -  \sum_{k=0}^n \ang{v,e_k} e_k}\leq \adjnorm{v -  \sum_{k=0}^n c_k e_k} &lt; \dev.
+\end{equation}</p>
+
+<p>But then</p>
+
+<p>\begin{equation}\notag
+v = \lim_{n\to \infty} \sum_{k=0}^n \ang{v,e_k} e_k = \sum_{k=0}^\infty \ang{v,e_k} e_k.
+\end{equation}</p>
+
+<p>which establishes the equality \eqref{fourier-eqn}.</p>
+
+<p>To finish the proof that $(e_k)$ is a Schauder basis, we need to prove that the coefficients $\ang{v,e_k}$ in \eqref{fourier-eqn} are unique. But this is easy. If we have</p>
+
+<p>\begin{equation}\notag
+v = \sum_{j=0}^\infty b_j e_j
+\end{equation}</p>
+
+<p>for some $b_j\in \bbc$, then</p>
+
+<p>\begin{equation}\notag
+\ang{v,e_k} = \sum_{j=0}^\infty b_j\ang{e_j,e_k} = b_k,
+\end{equation}</p>
+
+<p>where we’ve used continuity of the inner product in the first equality.</p>
+
+<p>(4.) $\Rightarrow$ (5.): Apply $\ang{-,w}$ to both sides of</p>
+
+<p>\begin{equation}\notag
+v=\sum_{k=0}^\infty \ang{v,e_k} e_k,
+\end{equation}</p>
+
+<p>and use continuity of the inner product.</p>
+
+<p>(5.) $\Rightarrow$ (6.): Take $v=w$ in \eqref{pars1-eqn}.</p>
+
+<p>(6.) $\Rightarrow$ (1.): Let $S$ be an orthonormal set in $H$ containing $(e_k)$. If there exists a $v\in S$ which is not one of the $e_k$s, then we have</p>
+
+<p>\begin{equation}\notag
+\norm{v}^2 = \sum_{k=0}^\infty |\ang{v,e_k}|^2 = 0
+\end{equation}</p>
+
+<p>and hence $v=0$. But $v$ is assumed to be an element in an orthonormal set, and so this is a contradiction. It then follows that there are <em>no</em> vectors in $S$ that are not in $(e_k)$, and hence the sequence $(e_k)$ is a maximal orthonormal set. Q.E.D.</p>
+
+    </article>
+    
+  </body>
+</html>

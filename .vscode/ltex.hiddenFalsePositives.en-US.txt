@@ -3,3 +3,8 @@
 {"rule":"COLLECTIVE_NOUN_VERB_AGREEMENT_VBP","sentence":"^\\QVector fields\nThe module of sections\nVector fields as derivations\nLocalization\nConnections and Lie brackets\\E$"}
 {"rule":"EN_WORD_COHERENCY","sentence":"^\\Q^footnote4: Just as one proves that the tangent space \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is independent of the choice of local parameterization, one may prove easily that the definition of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q does not depend on local parametrizations.\\E$"}
 {"rule":"EN_WORD_COHERENCY","sentence":"^\\QWe may choose local parametrizations\\E$"}
+{"rule":"PREPOSITION_VERB","sentence":"^\\QIndeed, we simply describe a set of subsets which will serve as the system of neighborhoods of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, and we then declare the translates of these sets to be the systems of neighobhroods of all other points \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"CAPITALIZATION_NNP_DERIVED","sentence":"^\\QLet \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q be a \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-vector space whose underlying additive abelian group is equipped with a homogeneous topology.\\E$"}
+{"rule":"PREPOSITION_VERB","sentence":"^\\QIndeed, we simply describe a set of subsets which will serve as the system of neighborhoods of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, and we then declare the translates of these sets to be the systems of neighborhoods of all other points.\\E$"}
+{"rule":"AND_SO_ONE","sentence":"^\\QIn fact, it is frequently the case in functional analysis that these are the only types of bases considered, and so one re-defines the terminology basis to refer to an orthonormal basis.\\E$"}
+{"rule":"MASS_AGREEMENT","sentence":"^\\QA probability measure.\\E$"}

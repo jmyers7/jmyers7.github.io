@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>curvature + spacetime</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">curvature + spacetime</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Lorentzian manifolds</li>
+  <li>A first glimpse of curvature: Theorema Egregium</li>
+  <li>Further reading</li>
+  <li>References and footnotes</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<div class="highlight-box2">
+  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
+</div>
+
+<h2 id="lorentzian-manifolds">Lorentzian manifolds</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $n\geq 1$ be an integer. We define <em>$(n+1)$-dimensional Minkowski space</em> to be the pair $(\bbr^{n+1},\ang{-,-})$, where</p>
+
+  <p>\begin{equation}\label{mink-met-eqn}
+\ang{-,-} : \bbr^{n1} \otimes_\bbr \bbr^{n+1} \to \bbr
+\end{equation}</p>
+
+  <p>is the function given by</p>
+
+  <p>\begin{equation}\notag
+\ang{v,w} = -v^0w^0 + \sum_{i=1}^n v^i w^i.
+\end{equation}</p>
+</div>
+
+<p>Through the identifications $\bbr^{n+1}=T_p(\bbr^{n+1})$ for each $p\in \bbr^{n+1}$, the function \eqref{mink-met-eqn} may be viewed as a field of bilinear forms over $\bbr^{n+1}$. Since each of these bilinear forms is obviously symmetric and nondegenerate (but not positive definite!), we conclude that $(n+1)$-dimensional Minkowski space is a pseudo-riemannian manifold (which isn’t riemannian!). We refer to $\ang{-,-}$ as a <em>Minkowski pseudo-metric</em>.</p>
+
+<p>Now, suppose that $M$ is a manifold embedded in $\bbr^{n+1}$. The restriction of the Minkowski pseudo-metric on $\bbr^{n+1}$ to each tangent space $T_p(M)$ yields a field of symmetric bilinear forms</p>
+
+<p>\begin{equation}\notag
+g_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
+\end{equation}</p>
+
+<p>which will place $M$ into one of the following three mutually exclusive categories:</p>
+
+<ol>
+  <li>Each $g_p$ is positive definite, for all $p\in M$. In this case, $M$ is a riemannian manifold.</li>
+  <li>Each $g_p$ is non-degenerate for all $p\in M$, but there is at least one $p\in M$ such that $g_p$ is positive indefinite. In this case, $M$ is a pseudo-riemannian manifold which is not riemannian.</li>
+  <li>There is at least one $p\in M$ such that $g_p$ is degenerate. In this case, $M$ is merely a manifold with a smooth, symmetric $2$-form.</li>
+</ol>
+
+<p>The category into which the manifold $M$ belongs describes its so-called <em>causal character</em>; these characters are given names in:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let the notation be as above. Those manifolds included in category (1.) are called <em>spacelike</em>, those in category (2.) are called <em>timelike</em>, while those in category (3.) are called <em>lightlike</em>. The timelike manifolds $M$ obtained in this way are called <em>(embedded) lorentzian manifolds</em>.</p>
+</div>
+
+<h2 id="a-first-glimpse-of-curvature-theorema-egregium">A first glimpse of curvature: Theorema Egregium</h2>
+
+<p><img src="/assets/images/curvature.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let the notation be as above. Prove that</p>
+
+  <p>\begin{equation}\notag
+\dev^2\left(\nabla_X \nabla_YZ - \nabla_Y\nabla_XZ\right)_p   = Z_s - Z_t + O(\dev^3)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+\dev^2\left(\nabla_{[X,Y]}Z\right)_p = Z_s - Z_t + O(\dev^3).
+\end{equation}</p>
+
+  <p>for all $p\in M$ and all $\dev&gt;0$.</p>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+
+<h2 id="references-and-footnotes">References and footnotes</h2>
+
+
+    </article>
+    
+  </body>
+</html>

@@ -1,0 +1,568 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>markov chains</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">markov chains</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Definitions and notation</li>
+  <li>Three preliminary theorems</li>
+  <li>Further reading</li>
+  <li>References</li>
+</ol>
+
+<h2 id="definitions-and-notation">Definitions and notation</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> An $\bbn$-indexed sequence $\{X_n\}_{n\geq 0}$ of random variables, all defined on the same probability space $(\Omega,\mfM,P)$, is called a <em>Markov chain with transition kernel $K$</em> if $K$ is a stochastic transition kernel</p>
+
+  <p>\begin{equation}\notag
+K: \mfB(\bbr) \times \bbr \to [0,1], \quad (A,x) \mapsto K(A,x)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\label{sink-eqn}
+P(X_{n+1}\in A | X_0 = x_0, \ldots, X_n=x_n) = P(X_{n+1} \in A | X_n=x_n) = K(A,x_n)
+\end{equation}</p>
+
+  <p>for all integers $n\geq 0$, all Borel sets $A\in \mfB(\bbr)$, and almost all $x_0,\ldots,x_n \in \bbr$.</p>
+</div>
+
+<p>While the two conditional probabilities in \eqref{sink-eqn} depend on the choice of random variables $X_0,\ldots,X_n$, notice that the transition kernel $K$ does <em>not</em>. In particular, we have</p>
+
+<p>\begin{equation}\label{homog-eqn}
+P(X_{n+1} \in A | X_n=x) = K(A,x) = P(X_{m+1} \in A | X_m = x)
+\end{equation}</p>
+
+<p>for all $A\in \mfB(\bbr)$ and almost all $x\in \bbr$. This property \eqref{homog-eqn} is called <em>time homogeneity</em>, or simply <em>homogeneity</em>.</p>
+
+<p>Our treatment of conditional distributions requires that all probability measures in sight have densities against an ambient measure. So, let’s agree to fix some assumptions and notation for the rest of this post:</p>
+
+<div class="highlight-box2" id="notation">
+  <p><strong>Notations for Densities.</strong> Let $\{X_n\}_{n\geq 0}$ be a Markov chain with transition kernel $K$ on a probability space $(\Omega,\mfM,P)$, as in the definition above. We assume that there is a fixed measure $\mu$ on $(\bbr,\mfB(\bbr))$, usually either the Lebesgue measure or a discrete measure.</p>
+
+  <ol>
+    <li>
+      <p>We shall assume that the marginal distribution of each $X_i$ has a density against $\mu$. In order to prevent a proliferation of subscripts, we shall write $f(x_i)$ for a density function of the marginal distribution, using the subscript on the $x$ as an identifier for the random variable. Technically, we should write something like $f_i(x_i)$, but we won’t.</p>
+    </li>
+    <li>
+      <p>For each $x_0\in \bbr$, we write $x\mapsto f(x|x_0)$ for a density function against $\mu$ of the probability distribution $B\mapsto K(B,x_0)$.</p>
+    </li>
+    <li>
+      <p>It follows that the joint distribution of a finite sequence $X_n,\ldots,X_1,X_0$ of random variables has a density against the product measure $\mu \times \cdots \times \mu$ on $(\bbr^n,\mfB^n)$. We will write $f(x_n,\ldots,x_1,x_0)$ to represent a joint density function, using the subscripts on the $x$’s to identify the random variables.</p>
+    </li>
+  </ol>
+</div>
+
+<h2 id="three-preliminary-theorems">Three preliminary theorems</h2>
+
+<p>Having fixed the notation, we state the first important result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Joint Densities of Markov Chains.</strong> Let the notation be as in the <a href="#notation">box</a> above. For each $n\geq 1$, we have that
+\begin{equation}\label{picture-eqn}
+f(x_n,\ldots,x_0) = f(x_n|x_{n-1}) \cdots f(x_1|x_0)f(x_0)
+\end{equation}</p>
+
+  <p>for almost all $x_0,x_1,\ldots,x_n\in \bbr$.</p>
+</div>
+
+<p>The proof for general $n$ goes by induction, with the base case $n=1$ following from the definitions. For $n\geq 2$, suppose that $A_0,\ldots,A_n\in \mfB$ are Borel sets and note that the joint probability</p>
+
+<p>\begin{equation}\notag
+P(X_n\in A_n,\ldots,X_0\in A_0)
+\end{equation}</p>
+
+<p>is equal to the integral</p>
+
+<p>\begin{equation}\notag
+\int_{A_{n-1} \times \cdots \times A_0} P(X_n\in A_n|X_{n-1}=x_{n-1},\ldots,X_0=x_0) \ P(X_{n-1}\in \text{d}x_{n-1},\ldots,X_0 \in \text{d}x_0).
+\end{equation}</p>
+
+<p>But, by the Markov property \eqref{sink-eqn}, this last integral is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{A_{n-1} \times \cdots \times A_0} P(X_n\in A_n|X_{n-1}=x_{n-1}) \ P(X_{n-1}\in \text{d}x_{n-1},\ldots,X_0 \in \text{d}x_0),
+\end{equation}</p>
+
+<p>which, in turn, is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{A_{n-1} \times \cdots \times A_0} f(x_n|x_{n-1}) f(x_{n-1},\ldots,x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_{n-1},\ldots,\text{d}x_0).
+\end{equation}</p>
+
+<p>Now, if we suppose by induction that the joint density $f(x_{n-1},\ldots,x_0)$ factors as desired, then the desired equation \eqref{picture-eqn} follows immediately, Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on $m$-step Transition Probabilities.</strong> Let the notation be as in the <a href="#notation">box</a> above, and let $m\geq 1$ be an integer. For each Borel set $A_m\in \mfB(\bbr)$ and almost all $x_0 \in \bbr$, the conditional probability
+\begin{equation}\notag
+P(X_m\in A_m | X_0=x_0)
+\end{equation}
+is equal to
+\begin{equation}\label{cup-eqn}
+\int_{A_m \times \bbr^{m-1}} f(x_m|x_{m-1}) \cdots f(x_1|x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_1).
+\end{equation}</p>
+</div>
+
+<p>We integrate \eqref{cup-eqn} over a Borel set $A_0\in \mfB$ to produce the integral</p>
+
+<p>\begin{equation}\label{rug-eqn}
+\int_{A_0} \left\{\int_{A_m\times \bbr^{m-1}} f(x_m|x_{m-1}) \cdots f(x_1|x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_1) \right\} P(X_0 \in \text{d}x_0).
+\end{equation}</p>
+
+<p>But this is the same as</p>
+
+<p>\begin{equation}\notag
+\int_{A_m\times \bbr^{m-1}\times A_0} f(x_m|x_{m-1}) \cdots f(x_1|x_0) f(x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_0),
+\end{equation}</p>
+
+<p>which is equal to</p>
+
+<p>\begin{equation}\notag
+\int_{A_m\times \bbr^{m-1}\times A_0} f(x_m,\ldots,x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_m,\ldots,\text{d}x_0)
+\end{equation}</p>
+
+<p>by the Theorem on Joint Densities of Markov Chains. Thus, \eqref{rug-eqn} is equal to the joint probability</p>
+
+<p>\begin{equation}\notag
+P(X_m \in A_m, X_0\in A_0),
+\end{equation}</p>
+
+<p>which establishes the desired equality, Q.E.D.</p>
+
+<p>It will be convenient to have an alternate description of the $m$-step transition probabilities in the previous theorem. For this, we need to fix some more notation. For each $m\geq 1$, we define an <em>$m$-th power operation</em> that carries a transition kernel $K$ to another transition kernel</p>
+
+<p>\begin{equation}\notag
+K^m:\mfB(\bbr) \times \bbr \to [0,1], \quad (A,x) \mapsto K^m(A,x),
+\end{equation}</p>
+
+<p>defined inductively by first setting $K^1 = K$, and then putting</p>
+
+<p>\begin{equation}\notag
+K^m(A,x_0) = \int_\bbr K^{m-1}(A,x) \ K(\text{d}x,x_0)
+\end{equation}</p>
+
+<p>for all $m\geq 2$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Powers of Transition Kernels.</strong> Let the notation be as in the <a href="#notation">box</a> above, and let $m\geq 1$ be an integer. For each Borel set $A_m\in \mfB$ and almost all $x_0 \in \bbr$, we have
+\begin{equation}\label{clock-eqn}
+P(X_m\in A_m |X_0=x_0) = K^m(A_m,x_0).
+\end{equation}</p>
+</div>
+
+<p>From the Markov property \eqref{sink-eqn}, it follows that the desired statement is true in the case $m=1$. For $m\geq 2$, in view of the Theorem on $m$-step Transition Probabilities, it will suffice to show that $A_m \mapsto K^m(A_m,x_0)$ has a density given by</p>
+
+<p>\begin{equation}\notag
+x_m \mapsto \int_{\bbr^{m-1}} f(x_m|x_{m-1}) \cdots f(x_1|x_0) \ (\mu \times \cdots \times \mu)(\text{d}x_{m-1},\ldots, \text{d}x_1),
+\end{equation}</p>
+
+<p>for all $x_0\in \bbr$. For the base case $m=2$, we integrate this function over $A_2$ to get</p>
+
+<p>\begin{equation}\notag
+\int_{A_2} \left\{ \int_\bbr f(x_2|x_1)f(x_1|x_0) \ \mu(\text{d}x_1) \right\} \ \mu(\text{d}x_2).
+\end{equation}</p>
+
+<p>But this is the same as the first integral in the sequence of equalities</p>
+
+<p>\begin{align}
+\int_\bbr \left\{ \int_{A_2} f(x_2|x_1) \ \mu(\text{d}x_2) \right\} f(x_1|x_0) \ \mu(\text{d}x_1) &amp;= \int_\bbr K(A_2,x_1) \ K(\text{d}x_1,x_0) \notag \\ &amp;= K^2(A_2,x_0). \notag
+\end{align}</p>
+
+<p>The desired equation \eqref{clock-eqn} then follows in the case $m=2$. I will leave it to you to complete the proof by induction on $m$. Q.E.D.</p>
+
+<h2 id="stationary-distributions">Stationary distributions</h2>
+
+<p>Let $P_0$ be a probability distribution on $(\bbr,\mfB)$. We obtain a related probability measure on $\bbr$ via the formula</p>
+
+<p>\begin{equation}\notag
+(P_0 K)(B) \defeq \int_{\bbr} K(B,x) \ P_0(\text{d}x), \quad B\in \mfB.
+\end{equation}</p>
+
+<p>Recall that the conditional probability $P(X_{n+1} \in B |X_n=x)$ may be viewed as a random variable on the sample space $\Omega$ by precomposing with $X_n$:</p>
+
+<p>\begin{equation}\label{towel-eqn}
+P(X_{n+1}| X_n) : \Omega \xrightarrow{X_n} \bbr \xrightarrow{ x\mapsto P(X_{n+1}| X_n=x) } \bbr, \quad \omega \mapsto P(X_{n+1}|X_n)(\omega).
+\end{equation}</p>
+
+<p>Similarly, the transition kernel may also be viewed as a random variable, using the same trick:</p>
+
+<p>\begin{equation}\notag
+K_n(B, -) : \Omega \xrightarrow{X_n} \bbr \xrightarrow{x \mapsto K(B,x)}\bbr, \quad \omega \mapsto K_n(B,\omega) \defeq K(B,X_n(\omega)).
+\end{equation}</p>
+
+<p>Now, if we define $P_{k} = P_{X_k}$ for all $k\geq 0$, and if $B\in \mfB$, then we compute</p>
+
+<p>\begin{align}
+P_{n+1}(B) &amp;= P(X_{n+1}\in B) \notag \\ &amp;= \be\left( P(X_{n+1} \in B| X_n) \right) \notag \\ &amp;= \be\left( K_n(B,\omega) \right) \notag \\ &amp;= \int_\Omega K_n(B,\omega) \ P(\text{d}\omega) \notag \\ &amp;= \int_\bbr K(B,x) \ P_n(\text{d}x) \notag \\ &amp;= (P_nK)(B). \notag
+\end{align}</p>
+
+<p>The second equality uses the Law of Iterated Expectation applied to the random variable \eqref{towel-eqn}, while the fifth equality uses the change-of-variable formula for Lebesgue integrals.</p>
+
+<h2 id="finite-state-markov-chains">finite-state markov chains</h2>
+
+<p>Next!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Suppose that $\left\{x_n\right\}_{n=0}^\infty$ is a discrete-state stochastic process. We shall say $\left\{x_n\right\}$ is a <em>discrete-state Markov chain</em> if</p>
+
+  <p>\begin{equation}
+\label{markov-eqn}
+P(x_n = j | x_1=i_1,\ldots,x_{n-1}=i_{n-1}) = P(x_n = j | x_{n-1}=i_{n-1})
+\end{equation}</p>
+
+  <p>for all $n=1,2,\ldots$ and all states $j,i_1,\ldots,i_{n-1}$; it is called a <em>homogeneous discrete-state Markov chain</em> if, in addition, the probabilities $P(x_{n+1}=j | x_n=i)$ do <em>not</em> depend on $n$, in the sense that</p>
+
+  <p>\begin{equation}\notag
+P(x_{n+1}=j|x_n=i) = P(x_{m+1}=j | x_m=i)
+\end{equation}</p>
+
+  <p>for all $m,n\geq 0$ and all states $i$ and $j$.</p>
+
+  <p>If a discrete-state Markov chain actually has a <em>finite</em> state space, then it will be called a <em>finite-state Markov chain</em>.</p>
+</div>
+
+<p>Let’s begin our investigations by making the global proclamation: <strong>We will only consider homogeneous Markov chains</strong>! Thus, the unqualified terminology “Markov chain” will hereafter always mean “homogeneous Markov chain”.</p>
+
+<p>Given a discrete-state Markov chain, the probabilities that appear in the definition <em>are</em> the probability density (i.e., mass) functions. If we use $f$’s to represent these functions, then \eqref{markov-eqn} has the immediate consequence</p>
+
+<p>\begin{equation}\notag
+f(x_0, x_1, \ldots,x_n) = f(x_0) f(x_1|x_0) \cdots f(x_n|x_{n-1})
+\end{equation}</p>
+
+<p>for all $n\geq 1$.</p>
+
+<p>Finite-state (homogeneous!) Markov chains may be represented by directed graphs. For example, a $3$-state Markov chain might be represented as:</p>
+
+<p><img src="/assets/images/markov.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>In this figure, the nodes of the graph represent the state space $\left\{ i,j,k\right\}$, while the directed edges and their labels represent the probabilities of transitioning between the states. For example, the two highlighted edges (in magenta) represent the probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_{n + 1} = j | x_n = i) = 0.2 \quad \text{and} \quad P(x_{n+1}=k| x_n=i) = 0.3.
+\end{equation}</p>
+
+<p>Observe here that we are using the homogeneity property of the Markov chain; these probabilities do not depend on the particular choice of $n$. Notice that the sum of the probabilities associated with all “outgoing” edges at a fixed node is equal to $1$, as is required for a valid probability distribution.</p>
+
+<p>For <em>any</em> finite-state Markov chain $\{x_n\}$ whose state space is enumerated by the integers $1,2,\ldots,c$, we call the number</p>
+
+<p>\begin{equation}\notag
+p_{ij} = P(x_{n+1}=j|x_n=i)
+\end{equation}</p>
+
+<p>the <em>transition probability</em> from state $i$ to state $j$, and the matrix</p>
+
+<p>\begin{equation}\notag
+P = \begin{bmatrix} p_{11} &amp; \cdots &amp; p_{1c} \\ \vdots &amp; \ddots &amp; \vdots \\ p_{c1} &amp; \cdots &amp; p_{cc} \end{bmatrix}
+\end{equation}</p>
+
+<p>is called the <em>transition matrix</em>. The $i$-th row of this matrix encodes the probabilities of transitioning <em>out</em> of state $i$, while the $j$-th column encodes the probabilities of transitioning <em>to</em> state $j$. Note that the rows all must sum to $1$. The transition matrix for the Markov chain displayed in the figure above is</p>
+
+<p>\begin{equation}\notag
+P = \begin{bmatrix} 0.5 &amp; 0.3 &amp; 0.2 \\ 0.3 &amp; 0.5 &amp; 0.2 \\ 0.5 &amp; 0.1 &amp; 0.4 \end{bmatrix}.
+\end{equation}</p>
+
+<h2 id="simulations-and-trace-plots">simulations and trace plots</h2>
+
+<p>It is rather easy to simulate the observed values of a finite-state Markov chain with state space $\{1,2,\ldots,c\}$. For example, suppose that we pick some definite initial state $x_0=i$. We then choose for $x_1$ a random state from $\{1,2,\ldots,c\}$, with our choice weighted by the conditional probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_1 = 1 | x_0=i), \ \ldots \ , P(x_1 = c | x_0=i).
+\end{equation}</p>
+
+<p>Then, having chosen $x_1=j$, say, we choose for $x_2$ a random state from the state space, with our choice weighted by the conditional probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_2 = 1 | x_1=j), \ \ldots \ , P(x_2 = c | x_1=j).
+\end{equation}</p>
+
+<p>And so on.</p>
+
+<p>If we carry through with this process $n=100$ times for the $3$-state Markov chain pictured above, with initial choice $x_0=1$, we get a figure that looks like:</p>
+
+<p><img src="/assets/images/trace1.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>Along the right-hand side of this figure, which is called a <em>trace plot</em>, you see a (rotated) bar plot which records the density (i.e., proportion) of visits to the various states $1$, $2$, and $3$. For this particular (simulated) Markov chain, it appears that state $1$ is visited roughly half of the time in the first $100$ terms.</p>
+
+<p>But why stop with $n=100$? Let’s add a few more terms:</p>
+
+<p><img src="/assets/images/trace2.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>WHY NOT EVEN MORE?!?!?!</p>
+
+<p><img src="/assets/images/trace3.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>The key comparison between these three trace plots is between the distributions along the right-hand sides: they don’t appear to be that different from each other. Though the relative frequency of visits to states $2$ and $3$ trade positions going from the first plot to the second, these frequencies are both still quite a bit less than the density of visits to state $1$ in all three plots. Let’s generate an additional 1,000 terms, just to be sure:</p>
+
+<p><img src="/assets/images/trace4.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>Now, there’s hardly any difference between the distributions for $n=1000$ and $n=2000$, i.e., it appears that the distribution has <em>stabilized</em>, in the evident sense of the word.</p>
+
+<p>But what if we choose a different initial value for $x_0$? Here are the relevant trace plots:</p>
+
+<p><img src="/assets/images/trace5.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p><img src="/assets/images/trace6.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>Again, the distributions don’t look altogether dissimilar to the distributions when $x_0=1$, and you might imagine that they would be even <em>more</em> similar if I increased $n$.</p>
+
+<p>How about a simulation with a larger state space? Here’s an example:</p>
+
+<p><img src="/assets/images/trace7.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>With only $n=100$ steps, the distribution is strongly bimodal. Let’s add a few more steps:</p>
+
+<p><img src="/assets/images/trace8.png" alt="sum" style="margin: 40px auto; display: block; width: 95%;" /></p>
+
+<p>From these two trace plots, we conclude that states 3 and 7 are quite popular, which means that the transition probabilities</p>
+
+<p>\begin{equation}\notag
+P(x_{n+1} = 3 | x_n = i) \quad \text{and} \quad P(x_{n+1} = 7 | x_n = i)
+\end{equation}</p>
+
+<p>are probably quite high for most $i$. Indeed, I specifically designed this simulation to have this bimodal behavior by using the following transition matrix:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+<span class="p">[[</span><span class="mf">0.031</span> <span class="mf">0.078</span> <span class="mf">0.351</span> <span class="mf">0.049</span> <span class="mf">0.013</span> <span class="mf">0.013</span> <span class="mf">0.329</span> <span class="mf">0.071</span> <span class="mf">0.005</span> <span class="mf">0.06</span> <span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.002</span> <span class="mf">0.097</span> <span class="mf">0.322</span> <span class="mf">0.021</span> <span class="mf">0.018</span> <span class="mf">0.018</span> <span class="mf">0.357</span> <span class="mf">0.052</span> <span class="mf">0.03</span>  <span class="mf">0.083</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.061</span> <span class="mf">0.014</span> <span class="mf">0.263</span> <span class="mf">0.037</span> <span class="mf">0.046</span> <span class="mf">0.079</span> <span class="mf">0.4</span>   <span class="mf">0.052</span> <span class="mf">0.02</span>  <span class="mf">0.029</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.052</span> <span class="mf">0.014</span> <span class="mf">0.306</span> <span class="mf">0.081</span> <span class="mf">0.082</span> <span class="mf">0.069</span> <span class="mf">0.357</span> <span class="mf">0.008</span> <span class="mf">0.026</span> <span class="mf">0.006</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.012</span> <span class="mf">0.049</span> <span class="mf">0.292</span> <span class="mf">0.09</span>  <span class="mf">0.026</span> <span class="mf">0.065</span> <span class="mf">0.381</span> <span class="mf">0.051</span> <span class="mf">0.031</span> <span class="mf">0.003</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.086</span> <span class="mf">0.069</span> <span class="mf">0.293</span> <span class="mf">0.079</span> <span class="mf">0.053</span> <span class="mf">0.082</span> <span class="mf">0.231</span> <span class="mf">0.017</span> <span class="mf">0.008</span> <span class="mf">0.083</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.035</span> <span class="mf">0.024</span> <span class="mf">0.441</span> <span class="mf">0.032</span> <span class="mf">0.025</span> <span class="mf">0.048</span> <span class="mf">0.238</span> <span class="mf">0.071</span> <span class="mf">0.013</span> <span class="mf">0.074</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.075</span> <span class="mf">0.019</span> <span class="mf">0.272</span> <span class="mf">0.079</span> <span class="mf">0.069</span> <span class="mf">0.071</span> <span class="mf">0.331</span> <span class="mf">0.007</span> <span class="mf">0.075</span> <span class="mf">0.001</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.07</span>  <span class="mf">0.051</span> <span class="mf">0.3</span>   <span class="mf">0.005</span> <span class="mf">0.025</span> <span class="mf">0.026</span> <span class="mf">0.384</span> <span class="mf">0.052</span> <span class="mf">0.059</span> <span class="mf">0.027</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.012</span> <span class="mf">0.074</span> <span class="mf">0.285</span> <span class="mf">0.058</span> <span class="mf">0.079</span> <span class="mf">0.051</span> <span class="mf">0.264</span> <span class="mf">0.044</span> <span class="mf">0.054</span> <span class="mf">0.078</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Notice that the probabilities in the third and seventh columns are quite a bit larger than the probabilities in the other columns.</p>
+
+<h2 id="stationary-distributions-1">stationary distributions</h2>
+
+<p>Now, imagine that $x_0$ is the initial term of a finite-state Markov chain with state space $\{1,2,\ldots,c\}$. We may collect the probabilities in the distribution of $x_0$ and place them into a row vector:</p>
+
+<p>\begin{equation}\notag
+v_0 = \begin{bmatrix} P(x_0=1) &amp; \cdots &amp; P(x_0=c) \end{bmatrix}.
+\end{equation}</p>
+
+<p>If $P$ denotes the transition matrix of the Markov chain, then the $j$-th column of the $1\times c$ row vector</p>
+
+<p>\begin{equation}\notag
+v_1 \overset{\text{def}}{=} v_0P
+\end{equation}</p>
+
+<p>is</p>
+
+<p>\begin{equation} \notag
+\sum_{i=1}^c P(x_0=i)P(x_1 = j | x_0=i) = \sum_{i=1}^c P(x_0=i, \ x_1 = j) = P(x_1=j).
+\end{equation}</p>
+
+<p>Thus, $v_1$ encodes the marginal distribution of $x_1$, just as $v_0$ does the same for $x_0$. But, if we carry through another multiplication to compute</p>
+
+<p>\begin{equation}\notag
+v_2 \overset{\text{def}}{=} v_1P,
+\end{equation}</p>
+
+<p>we see that its $j$-th column is given by</p>
+
+<p>\begin{equation} \notag
+\sum_{i=1}^c P(x_1=i)P(x_2 = j | x_1=i) = \sum_{i=1}^c P(x_1=i, \ x_2 = j) = P(x_2=j).
+\end{equation}</p>
+
+<p>Hence, $v_2$ encodes the marginal distribution of $x_2$. Of course, the pattern continues, so that for each $n\geq 1$, the row vector</p>
+
+<p>\begin{equation}\notag
+v_n \overset{\text{def}}{=} v_{n-1}P = v_0 P^n
+\end{equation}</p>
+
+<p>encodes the marginal distribution of $x_n$.</p>
+
+<p>These observations constitute a proof of the following important theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Any finite-state Markov chain $\{x_n\}$ is completely determined by the distribution of the initial term $x_0$ and the transition matrix $P$.</p>
+</div>
+
+<p>Of course, what I mean by “determined” is that the probability distributions of all terms $x_n$ in the chain are known once we know the distribution of the initial term $x_0$ and the transition matrix $P$.</p>
+
+    </article>
+    
+  </body>
+</html>
