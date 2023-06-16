@@ -140,7 +140,7 @@ While the <a href="https://en.wikipedia.org/wiki/Ringed_space">most general defi
 **Definition.** A *ringed space* is a pair $(X,\calo_X)$ consisting of the following:
 
 1. A topological space $X$.
-2. A sheaf $\calo_X$ on $X$ with values in the category of commutative $\bbr$-algebras. In particular, we require that each $\calo_X(U)$ is a commutative $\bbr$-algebra of real-valued functions $f:U \to \bbr$ that contains $\bbr$ as the subalgebra of all constant functions.
+2. A sheaf $\calo_X$ on $X$ with values in the category of commutative $\bbr$-algebras. In particular, we require that each $\calo_X(U)$ is a commutative $\bbr$-algebra of real-valued, continuous functions $f:U \to \bbr$ that contains $\bbr$ as the subalgebra of all constant functions.
 
 The sheaf $\calo_X$ is called the *structure sheaf* of the ringed space.
 

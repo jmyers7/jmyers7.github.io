@@ -89,6 +89,7 @@
                 calo: ['\\mathcal{O}'],
                 calp: ['\\mathcal{P}'],
                 cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
                 calu: ['\\mathcal{U}'],
                 calv: ['\\mathcal{V}'],
                 calw: ['\\mathcal{W}'],
@@ -2286,6 +2287,312 @@ R: \calx(M) \otimes_{C^\infty(M)} \calx(M) \otimes_{C^\infty(M)} \calx(M) \to \c
 <p>where it is claimed that $R$ is a $\binom{1}{3}$-tensor. But this description of $R$ doesn’t fit with any of our four descriptions of tensors! However, can you see how to use the isomorphism \eqref{book-eqn} to confirm that $R$ can, indeed, be identified with a $\binom{1}{3}$-tensor?</p>
 
 <p>Thus, you can see that there are very many ways to specify tensors. It would be quite difficult (and useless) for me to try to enumerate all these different ways; rather, it would be much more beneficial for you to spend time on your own getting used to the mechanics of these natural isomorphisms, so that you’ll know how to recognize tensors when you see them.</p>
+
+<h2 id="locally-trivial-vector-bundles-1">Locally trivial vector bundles</h2>
+
+<p>We defined in an <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier post</a> a <em>set-theoretic vector bundle</em> to be a surjective function</p>
+
+<p>\begin{equation}\notag
+\pi: E\to B
+\end{equation}</p>
+
+<p>of sets such that each <em>fiber</em></p>
+
+<p>\begin{equation}\notag
+E_b \defeq \pi^{-1}(b)
+\end{equation}</p>
+
+<p>is an $\bbr$-vector space. If</p>
+
+<p>\begin{equation}\notag
+\pi’:E’ \to B
+\end{equation}</p>
+
+<p>is a second set-theoretic vector bundle, then a <em>morphism of set-theoretic vector bundles</em> from $\pi$ to $\pi’$ is a function $\theta: E\to E’$ such that the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}E \ar@[white][rr]^{\color{white}\theta} \ar@[white][dr]_{\color{white}\pi} &amp; &amp; \color{white} E’ \ar@[white][dl]^{\color{white}\pi’} \\ &amp; \color{white}B}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes. We say $\theta$ is an <em>isomorphism</em> if it is bijective, in which case its inverse $\theta^{-1}:E’ \to E$ is easily seen to be a morphism of set-theoretic vector bundles.</p>
+
+<p>Now, suppose that we are given a set-theoretic vector bundle $\pi:E \to B$. From the fibers of $\pi$ we may form the disjoint union</p>
+
+<p>\begin{equation}\notag
+E’ = \bigsqcup_{b\in B} E_b,
+\end{equation}</p>
+
+<p>and then let $\pi’: E’ \to B$ be the natural projection. Then there is an evident isomorphism of set-theoretic vector bundles $\theta: E \to E’$ which is given on fibers by</p>
+
+<p>\begin{equation}\notag
+\theta_b: E_b \to E’_b = \{b\} \times E_b, \quad e \mapsto (b,e).
+\end{equation}</p>
+
+<p>This shows that an equivalent way to conceptualize a set-theoretic vector bundle (up to isomorphism) is as an indexed (or parametrized) collection $\{E_b\}_{b\in B}$ of vector spaces.</p>
+
+<p>In this post, we shall consider set-theoretic vector bundles in the category of smooth manifolds:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>smooth vector bundle</em> is a set-theoretic vector bundle $\pi:E \to M$ where the sets $E$ and $M$ are both smooth manifolds, and with respect to these structures, $\pi$ is a smooth map. The spaces $E$ and $M$ are called the <em>total</em> and <em>base spaces</em> of the vector bundle.</p>
+
+  <p>A <em>morphism of smooth vector bundles</em>, denoted</p>
+
+  <p>\begin{equation}\notag
+\theta: (\pi:E\to M) \to (\pi’:E’\to M),
+\end{equation}</p>
+
+  <p>is a function $\theta:E\to E’$ which is both a morphism of the underlying set-theoretic vector bundles and is smooth. (Note that this a slight abuse of notation, by using the symbol $\theta$ twice.)</p>
+
+  <p>The <em>identity morphism</em></p>
+
+  <p>\begin{equation}\notag
+\id_\pi: (\pi:E\to M) \to (\pi:E\to M)
+\end{equation}</p>
+
+  <p>of the smooth vector bundle $\pi$ is defined to be the morphism $\id_\pi = \id_E : E\to E$.</p>
+
+  <p>If</p>
+
+  <p>\begin{equation}\notag
+\theta’: (\pi:E’\to M) \to (\pi'':E''\to M)
+\end{equation}</p>
+
+  <p>is a second morphism of smooth vector bundles, the <em>composition</em></p>
+
+  <p>\begin{equation}\notag
+\theta’ \circ \theta: (\pi:E\to M) \to (\pi'':E''\to M)
+\end{equation}</p>
+
+  <p>is defined to be the standard composition $\theta’ \circ \theta:E\to E’’$ of functions.</p>
+
+  <p>With these objects, morphisms, identity morphisms, and composition law, we obtain the <em>category of smooth vector bundles over $M$</em>, denoted $\Vect_M$.</p>
+</div>
+
+<p>As with set-theoretic vector bundles, we may conceptualize a smooth vector bundle $\pi:E \to M$ as an indexed collection $\{E_p\}_{p\in M}$ of vector spaces. This time, however, the indexing set is a smooth manifold, and thus we may conceptualize the collection $\{E_p\}_{p\in M}$ as a “smoothly parametrized” family of vector spaces. Here, “smoothness” of the parametrization is encoded in the smoothness of $E$, $M$ and $\pi$.</p>
+
+<p>For example, we might consider the collection $\{T_p(M)\}_{p\in M}$ of all tangent spaces over a smooth manifold $M$. Intuitively, the vector spaces in this collection should “vary smoothly” with $p$. But as we saw in a <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">previous post</a>, the tangent bundle</p>
+
+<p>\begin{equation}\notag
+T(M) \defeq \bigsqcup_{p\in M} T_p(M)
+\end{equation}</p>
+
+<p>has a smooth manifold structure with respect to which the natural projection $\pi:T(M) \to M$ is smooth. The fiber</p>
+
+<p>\begin{equation}\notag
+\pi^{-1}(p) = \{p\} \times T_p(M)
+\end{equation}</p>
+
+<p>may be naturally identified with $T_p(M)$, and thus the family of vector spaces $\{T_p(M)\}_{p\in M}$ may be naturally identified with the smooth vector bundle $\pi:T(M) \to M$. This identification makes precise our intuition that the tangent space $T_p(M)$ should “vary smoothly” with $p$.</p>
+
+<p>We may manufacture a smooth vector bundle over a smooth manifold $M$ by taking the natural projection</p>
+
+<p>\begin{equation}\notag
+\pi_1: M \times \bbr^k \to M
+\end{equation}</p>
+
+<p>onto the first cartesian factor. If $\pi:E \to M$ is a smooth vector bundle which is isomorphic to $\pi_1$ (in the category $\Vect_M$), then $\pi$ is called a <em>trivial smooth vector bundle of rank $k$.</em></p>
+
+<p>Not all smooth vector bundles are trivial; in fact, we saw in our <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier post</a> on tangent bundles that the tangent bundle of the sphere $S^2$ is not trivial. However, if $M$ is <em>any</em> manifold, we also saw that there is an open covering $\{U_i\}_{i\in I}$ of $M$ for which the restricted smooth vector bundle</p>
+
+<p>\begin{equation}\notag
+\pi: \pi^{-1}(U_i) \to U_i
+\end{equation}</p>
+
+<p><em>is</em> trivial, as a smooth vector bundle over the open set $U_i$. Thus, while the tangent bundle $T(M)$ may not be globally trivial, it is always <em>locally trivial</em> in this sense.</p>
+
+<p>The category of locally trivial smooth vector bundles will be one of the main focuses of this post. Let’s formally define this category:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>locally trivial smooth vector bundle of rank $k$</em> is a smooth vector bundle $\pi:E\to M$ for which there exists an open cover $\{U_i\}_{i\in I}$ such that each restricted smooth vector bundle</p>
+
+  <p>\begin{equation}\notag
+\pi: \pi^{-1}(U_i) \to U_i
+\end{equation}</p>
+
+  <p>is isomorphic (in the category $\Vect_{U_i}$) to the trivial smooth vector bundle</p>
+
+  <p>\begin{equation}\notag
+\pi_1: U_i \times \bbr^k \to U_i.
+\end{equation}</p>
+
+  <p>In this case, the open cover $\{U_i\}_{i\in I}$ is called a <em>trivializing open cover</em> of the vector bundle, the vector bundle is said to <em>trivialize</em> over $\{U_i\}_{i\in I}$, and isomorphisms</p>
+
+  <p>\begin{equation}\notag
+\Phi_i: (U_i \times \bbr^k \to U_i) \to (\pi^{-1}(U_i) \to U_i)
+\end{equation}</p>
+
+  <p>of smooth vector bundles over $U_i$ are called <em>(local) trivializations</em>.</p>
+
+  <p>The <em>category of locally trivial smooth vector bundles</em> is the full subcategory of $\Vect_M$ whose objects are the locally trivial smooth vector bundles of rank $k$, for all $k$.</p>
+</div>
+
+<p>In many texts, locally trivial smooth vector bundles are the <em>only</em> types of vector bundles considered, and hence these objects are usually just called <em>vector bundles</em>. We shall follow the same practice:</p>
+
+<div class="highlight-box2">
+  <p><strong>Terminology and Notation.</strong> For the rest of this post, a <em>vector bundle</em> will be a locally trivial smooth vector bundle of rank $k$, for some $k$. A <em>morphism of vector bundles</em> will be a morphism of smooth vector bundles. In particular, the notation $\Vect_M$ will be re-defined to stand for the category of locally trivial smooth vector bundles over $M$.</p>
+
+  <p>Furthermore, when no confusion is likely to arise, we will reference a vector bundle $\pi:E \to M$ by its total space $E$ only. Accordingly, a morphism of vector bundles</p>
+
+  <p>\begin{equation}\notag
+\theta: (\pi:E \to M) \to (\pi’: E’\to M)
+\end{equation}</p>
+
+  <p>will be denoted only by the map $\theta:E \to E’$ on total spaces.</p>
+</div>
+
+<p>One of the most useful properties of morphisms of (locally trivial smooth!) vector bundles is that the isomorphism property may be tested locally on the fibers. Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Fiberwise Criterion for Vector Bundle Isomorphisms.</strong> Let $\theta: E \to E’$ be a morphism of vector bundles over a common base space $M$. Then $\theta$ is an isomorphism of vector bundles if and only if each induced map $\alpha_p:E_p \to E’_p$ on the fibers is a linear isomorphism.</p>
+</div>
+
+<p>I suggest that you attempt to prove this theorem on your own. You will see that the local triviality of the vector bundles is used in a crucial way.</p>
+
+<h2 id="sections-of-vector-bundles">Sections of vector bundles</h2>
+
+<p>In this section we study smooth sections of (locally trivial) vector bundles. We have already seen examples of these gadgets in two places: (1) One guise of smooth vector fields on a manifold is as smooth (global) sections of the tangent bundle, and (2) smooth sections of the trivial vector bundle $M \times \bbr \to M$ are exactly smooth functions on $M$. Indeed, we covered (1) in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>, while to verify that claim (2) is true, we note that a smooth map $\sigma: M \to M \times \bbr$ of the form</p>
+
+<p>\begin{equation}\notag
+\sigma(p) = (p,f(p))
+\end{equation}</p>
+
+<p>is uniquely determined by the smooth function $f\in C^\infty(M)$. In general, the definition is as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to M$ be a vector bundle and $U\subseteq M$ a nonempty open set. A <em>local section</em> of the vector bundle over $U$ is a function $\sigma:U\to E$ such that $\pi\circ \sigma = \id_U$. We shall say $\sigma$ is a <em>smooth local section</em> if it is a smooth map between manifolds.</p>
+
+  <p>We write $\Gamma(U,E)$ for the set of smooth local sections over $U$. If the vector bundle $E$ is clear from context, we will write $\Gamma(U)$ in place of $\Gamma(U,E)$. Sections in $\Gamma(M)$ are called <em>smooth global sections</em>.</p>
+
+  <p>We will often write the functional value $\sigma(p) \in E_p$ of a section as $\sigma_p$. If the section happens to have an index, like $\sigma_i$, then we will write $\sigma_i|_p$ in place of $(\sigma_i)_p$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Given two smooth local sections $\sigma,\tau\in \Gamma(U)$, we define their <em>sum</em>, denoted $\sigma+\tau$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(\sigma+\tau)_p = \sigma_p + \tau_p,
+\end{equation}</p>
+
+  <p>where the sum on the right-hand side occurs in the fiber $E_p$. If $f\in C^\infty(U)$ is a function, we define the <em>product</em> of $f$ and $\sigma$, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\sigma)_p = f(p) \sigma_p,
+\end{equation}</p>
+
+  <p>where the product on the right-hand side occurs in the fiber $E_p$. Prove that with respect to these operations, the set $\Gamma(U)$ is a $C^\infty(U)$-module.</p>
+</div>
+
+<p>A smoothly varying collection of bases of the fibers of a vector bundle is called a <em>smooth local frame</em>, which is terminology that you should recognize from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields. Officially:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Then a collection of smooth local sections $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ is called a <em>smooth local frame</em> over $U$ if</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1|_p,\ldots,\vartheta_k|_p \in E_p
+\end{equation}</p>
+
+  <p>is a basis for all $p\in U$.</p>
+</div>
+
+<p>One of the main uses of smooth local frames is to test for smoothness of general sections:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Componentwise criterion for smoothness).</strong> Let $\pi:E\to M$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Given a function $\sigma:U\to E$ (not necessarily smooth, or even continuous) such that $\pi \circ \sigma = \id_U$ and a smooth local frame $\vartheta_1,\ldots,\vartheta_k\in \Gamma(U)$, we may write</p>
+
+  <p>\begin{equation}\notag
+\sigma_p = \sigma^i(p) \vartheta_i|_p
+\end{equation}</p>
+
+  <p>for each $p\in U$, where $\sigma^i: U \to \bbr$ are uniquely determined real-valued functions (not necessarily smooth, or even continuous). These functions are called the <em>component functions</em> of $\sigma$ with respect to the local frame.</p>
+
+  <p>Then $\sigma$ is smooth if and only if each component function $\sigma^i$ is smooth.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove that the local frame $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ forms a basis as a $C^\infty(U)$-module.</p>
+</div>
+
+<p>Given a manifold $M$, we recall that we proved the assignments $U \mapsto C^\infty(U)$ and $U \mapsto \calx(U)$ are examples of sheaves in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>. Had we known at the time that $\calx(U)$ could be viewed as smooth local sections of a certain vector bundle, then we could have applied the following general result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Sections of vector bundles form sheaves).</strong> Let $E$ be a vector bundle over a manifold $M$. If for each open set $U\subseteq M$ we define $\cale(U) = \Gamma(U,E)$, then $\cale$ is a $C^\infty_M$-module, where $C^\infty_M$ is the sheaf of smooth functions on $M$. The sheaf $\cale$ is called the <em>sheaf of sections</em> of the vector bundle $E$.</p>
+</div>
+
+<p>We learned the general definition of a sheaf in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. When we say that $\cale$ is a sheaf of $C^\infty_M$-modules, we really mean that $\cale$ is a sheaf of modules over the sheaf of rings $C^\infty_M$. For the general definition of these latter types of objects, see <a href="https://en.wikipedia.org/wiki/Sheaf_of_modules">here</a>.</p>
+
+<p>You also learned the definition of <em>stalks</em> of structure sheaves of ringed spaces in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. It turns out that such <em>stalks</em> may be defined for <em>any</em> sheaf and, in particular, they may be defined for sheaves of sections of vector bundles. You should have no trouble, therefore, in adapting the definition of <em>stalks</em> in the previous post to apply to our sheaves of sections. Otherwise, see <a href="https://en.wikipedia.org/wiki/Stalk_(sheaf)">here</a> for the official definition.</p>
+
+<p>Let’s set some notation for stalks:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We will write $\cale_p$ for the stalk of $\cale$ at $p\in M$. Elements in $\cale_p$ will be called <em>germs</em> of sections.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that each stalk $\cale_p$ is a module over the local ring $C^\infty_{M,p}$ with respect the evident operations. (By now, I’m hoping that this proof is routine!)</li>
+    <li>For each $p\in M$, recall that there is a well-defined homomorphism
+ \begin{equation}\notag
+ \dev_p:C^\infty_{M,p} \to \bbr, \quad f \mapsto f(p),
+ \end{equation}
+of $\bbr$-algebras. By restricting scalars along this map, a fiber $E_p$ of the vector bundle may be given a $C^\infty_{M,p}$-module structure. With respect to this structure, prove that the map
+ \begin{equation}\notag
+ e_p: \cale_p \to E_p, \quad \sigma \mapsto \sigma_p,
+ \end{equation}
+is a well-defined homomorphism of $C^\infty_{M,p}$-modules.</li>
+  </ol>
+</div>
+
+<p>Remember that the germs in the stalk $\cale_p$ are actually equivalence classes of sections $\sigma$ defined on open neighborhoods of $p$, so my definition “$\sigma \mapsto \sigma_p$” of the evaluation map $e_p$ is technically an abuse of notation. However, as I’ve mentioned in the past, this is a typical abuse, and going forth I will use it without further comment.</p>
+
+<p>Take care to notice the difference between $\cale_p$ and $E_p$ for a vector bundle $E$ over a manifold $M$. The former is the stalk of the sheaf of sections at the point $p\in M$, while the latter is the fiber over $p$. While these are <strong>different</strong> objects, there is, nevertheless, a tight link between them:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. For each $p\in M$, let $\mfm_p$ denote the maximal ideal of the local ring $C^\infty_{M,p}$. The sequence</p>
+
+  <p>\begin{equation}\notag
+0 \to \mfm_p \to \cale_p \xrightarrow{e_p} E_p \to 0
+\end{equation}</p>
+
+  <p>is exact, where the first map is the inclusion and the second is the evaluation map.</p>
+</div>
+
+<p>A proof is in contained in Jet’s book, Chapter 12.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Extension theorem for local sections).</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$ and each open neighbohrood $U$ of $p$, the natural localization map</p>
+
+  <p>\begin{equation}\notag
+\lambda_{U,p}: \cale(U) \to \cale_p
+\end{equation}</p>
+
+  <p>sending a section to the germ that it represents is surjective.</p>
+</div>
+
+<p>The proof uses bump functions, just like the same extension theorem for smooth functions.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Stalks of vector bundles are free).</strong> Let $E$ be a rank-$k$ vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$, the stalk $\cale_p$ is a free $C^\infty_{M,p}$-module of rank $k$. In particular, if $U$ is an open neighborhood of $p$ over which $E$ trivializes, then the natural map</p>
+
+  <p>\begin{equation}\label{nat-eqn}
+C^\infty_{M,p} \otimes_{C^\infty(U)} \cale(U)   \to \cale_p, \quad f \otimes \sigma \mapsto f\lambda_{U,p}(\sigma),
+\end{equation}</p>
+
+  <p>is an isomorphism of $C^\infty_{M,p}$-modules, where $\lambda_{U,p}$ is the natural localization map from the previous theorem.</p>
+</div>
+
+<p>We have already observed that a choice of local frame</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(U)
+\end{equation}</p>
+
+<p>forms a basis of $\cale(U)$ as a $C^\infty(U)$-module, and that the localization map $\lambda_{U,p}$ is surjective. Thus, we need only show that the map \eqref{nat-eqn} is injective. So, suppose that we have an element $f^i \otimes \vartheta_i$ in the domain of \eqref{nat-eqn}, with summation over repeated indices implied. Suppose that it is sent to zero in the stalk, so that we have $f^i \vartheta_i = 0$. (Be very careful to understand exactly what this equation means, as I am confusing sections with germs again, and have omitted the localization map.) By shrinking $U$ to a smaller neighborhood $V$ of $p$ if needed, we may suppose that this equation actually occurs in the module $\cale(V)$, where now $f^i \in C^\infty(V)$. But the sections $\vartheta_1,\ldots,\vartheta_k$ are linearly independent in $\cale(V)$ as well, and hence $f^i = 0$ on $V$ for each $i$. Hence $f^i=0$ in $C^\infty_{M,p}$, which is what we wanted to prove. Q.E.D.</p>
 
     </article>
     

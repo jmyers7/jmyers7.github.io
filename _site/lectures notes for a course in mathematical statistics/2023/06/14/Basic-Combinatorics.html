@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>quantum mechanics I&#58 an introduction to the C$^\ast$-formalism</title>
+    <title>basic combinatorics</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -89,6 +89,7 @@
                 calo: ['\\mathcal{O}'],
                 calp: ['\\mathcal{P}'],
                 cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
                 calu: ['\\mathcal{U}'],
                 calv: ['\\mathcal{V}'],
                 calw: ['\\mathcal{W}'],
@@ -175,33 +176,113 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">quantum mechanics I: an introduction to the C$^\ast$-formalism</h1>
+  <h1 class="accent-color">basic combinatorics</h1>
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
 <ol>
-  <li></li>
+  <li>The Product Rule for Counting</li>
+  <li>The Sum Rule for Counting</li>
+  <li>Permutations and combinations</li>
 </ol>
 
-<h2 id="cast-algebraic-treatment">$C^\ast$-algebraic treatment</h2>
+<h2 id="the-product-rule-for-counting">The Product Rule for Counting</h2>
 
 <div class="highlight-box">
-  <p><strong>Quantum systems.</strong>
-A <em>quantum system</em> is defined to be a pair $(A,S)$, where $A$ is a noncommutative, unital $C^\ast$-algebra, and $S$ is the set of all positive, normalized linear functionals on $A$.</p>
-
-  <ol>
-    <li>
-      <p>The self-adjoint elements in $A$ are called the <em>observables</em> of the system. The algebra $A$ is called the <em>algebra of observables</em>.</p>
-    </li>
-    <li>
-      <p>The functionals in $S$ are called <em>states</em> of the system. The set $S$ is called the <em>state space</em> of the system.</p>
-    </li>
-  </ol>
+  <p><strong>The Product Rule for Counting.</strong> Suppose that a procedure can be broken down into a sequence of two tasks. If there are $m$ ways to do the first task, and for each of these ways of doing the first task there are $n$ ways to do the second task, then there are $mn$ total ways to do the procedure.</p>
 </div>
 
-<h2 id="probability-measures-from-self-adjoint-elements">Probability measures from self-adjoint elements</h2>
+<h2 id="the-sum-rule-for-counting">The Sum Rule for Counting</h2>
 
+<div class="highlight-box">
+  <p><strong>The Sum Rule for Counting.</strong> If a task can be done either in one of $m$ ways or in one of $n$ ways, where none of the set of $m$ ways is the same as any of the set of $n$ ways, then there are $m+n$ ways to do the task.</p>
+</div>
+
+<h2 id="permutations-and-combinations">Permutations and combinations</h2>
+
+<p>The Product Rule for Counting tells us how to count the number of ways to accomplish a task that can be broken down into a sequence of smaller, sub-tasks. One very simple (yet very important) example of such a task is choosing, in order, a collection of objects from a larger collection of objects. Such collections have names:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> An ordered collection of $k$ distinct objects is called a <em>permutation</em> of those objects. The number of permutations of $k$ objects selected from a collection of $n$ objects will be designated by the symbol $P^n_k$.</p>
+</div>
+
+<p><img src="/assets/images/permutation.svg" alt="sum" style="margin: 40px auto; display: block; width: 75%;" /></p>
+
+<div class="highlight-box">
+  <p><strong>Formulas for Permutations.</strong> For $0 \leq k \leq n$, we have
+    \begin{equation}\notag
+    P^n_k = \frac{n!}{(n-k)!}.
+    \end{equation}
+<em>Note</em>: Remember the convention that $0! = 1$.</p>
+</div>
+
+<p>Why is this true? Remember that a permutation of $k$ objects may be represented as a $k$-tuple:</p>
+
+<p>\begin{equation}\notag
+(\text{object $1$},\text{object $2$},\ldots, \text{object $k$}).
+\end{equation}</p>
+
+<p>But then, written like this, we see that counting the number of permutations is a simple application of the Product Rule for Counting; indeed, the number of permutations is the product</p>
+
+<p>\begin{equation}\notag
+(\text{# ways to choose object $1$}) \times (\text{# ways to choose object $2$}) \times \cdots \times (\text{# ways to choose object $k$}),
+\end{equation}</p>
+
+<p>which is equal to</p>
+
+<p>\begin{equation}\notag
+n \times (n-1) \times (n-2) \times \cdots \times (n-k+1) = \frac{n!}{(n-k)!}.
+\end{equation}</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> For a simple application of the formula for permutations, do Problem 4 on the worksheet.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> An unordered collection of $k$ distinct objects is called a <em>combination</em> of those objects. The number of combinations of $k$ objects selected from a collection of $n$ objects will be designated by the symbol $C^n_k$ or $\binom{n}{k}$.</p>
+</div>
+
+<p><img src="/assets/images/combination.svg" alt="sum" style="margin: 40px auto; display: block; width: 75%;" /></p>
+
+<div class="highlight-box">
+  <p><strong>Formula for Combinations.</strong> For $0 \leq k \leq n$, we have
+    \begin{equation}\notag
+    \binom{n}{k} = C^n_k = \frac{n!}{(n-k)!k!}.
+    \end{equation}
+<em>Note</em>: Remember the convention that $0! = 1$.</p>
+</div>
+
+<p>To see why this formula works, think of the process of forming a <em>permutation</em> as a two-step process:</p>
+
+<ol>
+  <li>Choose a combination.</li>
+  <li>Rearrange the objects in your chosen combination.</li>
+</ol>
+
+<p>(Take a moment to convince yourself that you do, in fact, generate all possible permutations in this manner.) Then, it follows from the Product Rule for Counting that the total number of permutations, $P^n_k$, is the product of the number of ways to accomplish the first task with the number of ways to accomplish the second task. In an equation, this means:</p>
+
+<p>\begin{equation}\notag
+P^n_k = C^n_k \cdot P^k_k.
+\end{equation}</p>
+
+<p>Indeed, on the right-hand side you see $C^n_k$, which is the number of ways to accomplish the first task, while $P^k_k$ represents the number of permutations of $k$ objects selected from a total number of $k$ objects (which are just rearrangements of those objects). But we have</p>
+
+<p>\begin{equation}\notag
+P^n_k = \frac{n!}{(n-k)!} \quad \text{and} \quad P^k_k = k!
+\end{equation}</p>
+
+<p>from the formula above, which means that we must have</p>
+
+<p>\begin{equation}\notag
+C^n_k = \frac{ n!}{(n-k)!k!}.
+\end{equation}</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> Finish off the worksheet by completing Problems 5 and 6.</p>
+</div>
 
     </article>
     

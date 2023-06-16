@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>quantum mechanics I&#58 the C$^\ast$-formalism</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{Vect}'],
+                SO: ['\\operatorname{SO}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                be: ['\\mathbf{E}'],
+                br: ['\\mathbf{R}'],
+                bx: ['\\mathbf{x}'],
+                bX: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: true,
+        }
+      };
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
+    -->
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">quantum mechanics I: the C$^\ast$-formalism</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Observables and states; the general definition of a physical system</li>
+  <li>$\upC^\ast$-algebras and classical mechanics</li>
+  <li>Classical to quantum: commutativity to noncommutativity</li>
+  <li>$\upC^\ast$-algebras and quantum mechanics</li>
+</ol>
+
+<h2 id="observables-and-states-the-general-definition-of-a-physical-system">Observables and states; the general definition of a physical system</h2>
+
+<p>An <em>observable</em> of a physical system is a real-valued, variable physical quantity that may be measured. As a simple example, if we consider a physical system consisting of a single (newtonian) point-mass moving about on the real line $\bbr$, then one such observable might be the position $q$ of the particle while another might be its momentum $p = m \dot{q}$ (where $m=$ mass).</p>
+
+<p>To a first approximation, a <em>state</em> of a physical system is exactly what it sounds like: It is a certain <em>configuration</em> of the system. In our simple example of a single particle moving along $\bbr$, one possible state might be:</p>
+
+<div class="highlight-box2">
+  <p>The particle is at the point in $\bbr$ with coordinate $q=1$, with velocity $\dot{q}=2$.</p>
+</div>
+
+<p>Operationally, a state is a mechanism that allows one to pass from observables to their measured values; it <em>actualizes</em> the abstract observables, in other words. For our particle in the above explicit state, the position observable $q$ is measured to have the definite value $q=1$, while the momentum observable is measured to have value $p = 2m$. Thus, mathematically, a state is a function</p>
+
+<p>\begin{equation}\label{state-eqn}
+\omega: \calo \to \bbr,
+\end{equation}</p>
+
+<p>where $\calo$ is the set of observables of the system, and we say that the real number $\omega(a)$ is the definite value of the observable $a\in \calo$ in the state $\omega$.</p>
+
+<p>However, such a definite state (called a <em>pure state</em>) is a mathematical idealization. In the real world, we would never be able to nail down the <em>exact</em> position of the particle as $q=1$; the best we can do is $q = 1 \pm \dev$, where $\dev$ is some small number determined by the precision of our instruments and measuring devices. Or, one might imagine a physical system consisting of a huge number (perhaps $\approx 10^{23}$) of particles; then, even if we <em>could</em> precisely determine the position of a single particle, there is <em>no way</em> we would be able to do it for <em>each</em> particle!</p>
+
+<p>Thus, in addition to the idealized pure states mentioned above, in which every observable has a precise and definite value, we might also admit more general states that account for uncertainty or imprecision in our knowledge of the system. By allowing such states—which are called <em>mixed states</em>, in contrast to the definite <em>pure states</em>—we bring the mathematics closer to the real world that we actually live in.</p>
+
+<p>The trick to accomplishing this is to keep our realization of a state $\omega$ as a function \eqref{state-eqn}, but to change our interpretation of the value $\omega(a)\in \bbr$, for an observable $a\in \calo$. Indeed, rather than conceptualizing $\omega(a)$ as the <em>definite value</em> of the observable $a$ in the state $\omega$, we instead understand it as the <em>expected value</em> of the observable in the state $\omega$. In the mathematical literature, one sometimes sees the alternate notation</p>
+
+<p>\begin{equation}\notag
+\ang{a| \omega} \defeq \omega(a)
+\end{equation}</p>
+
+<p>for the expected value, which is suggestive of physicists’ Dirac notation; indeed, they would write the expected value (which they call the <em>expectation value</em>) as $\ang{\omega |a | \omega}$.</p>
+
+<p>Remember, the mathematical realization of our set of observables $\calo$ has not been given yet—as of right now, it is merely a <em>set</em>, with no further structure. But the conceptualization of states acting on observables as expected values might suggest that an observable is some sort of random variable, in particular, that it is a real-valued, measurable function (in the technical sense of abstract measure theory) on some probability space. Now we <em>could</em> realize the set of observables $\calo$ this way, but when we do, we will see later that we obtain <em>classical</em> physical systems. For now, it is best to take a more abstract approach.</p>
+
+<p>The only reason that random variables and probability spaces are brought to mind is because we are trained to understand expected values as (Lebesgue) integrals against probability measures. But remember that the key properties of the abstract Lebesgue integral are its <em>linearity</em> and <em>positivity</em>; indeed, as long as our probability space is a (sufficiently nice) topological space and we restrict ourselves to (sufficiently nice) continuous functions, then the <a href="https://en.wikipedia.org/wiki/Riesz%E2%80%93Markov%E2%80%93Kakutani_representation_theorem">Riesz-Markov-Kakutani Representation Theorem</a> tells us that (sufficiently nice) measures are the <em>same</em> as positive linear functionals. Therefore, if we’re not prepared to realize $\calo$ as a set of random variables on a probability space in order to realize states as expected values via Lebesgue integrals, then we might instead <em>only</em> assume merely that:</p>
+
+<div class="highlight-box">
+  <p><strong>Pre-definition.</strong> The set of observables $\calo$ is an $\bbr$-vector space, and a state is a linear functional $\omega: \calo \to \bbr$.</p>
+</div>
+
+<p>Amazingly, this beautifully simple realization turns out to actually work! However, as the prefix “pre-“ suggests, it’s not the entire story. After all, as I just mentioned, expected values are supposed to be <em>positive</em> linear functionals, so $\calo$ must have some sort of (partial) ordering so that we can make sense of <em>positivity</em>.</p>
+
+<p>Now, here comes the big leap. An $\bbr$-vector space of observables does not arrive as just any old vector space—rather, it materializes in the following very special way:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>physical system</em> is a unital $\upC^\ast$-algebra $\cala$.</p>
+
+  <ol>
+    <li>
+      <p>The set of <em>observables</em> of the system is the $\bbr$-vector space $\calo = \cala_{\text{sa}}$ of self-adjoint elements in $\cala$.</p>
+    </li>
+    <li>
+      <p>A <em>state</em> of the system is a normalized, positive $\bbc$-linear functional $\omega: \cala \to \bbc$. We write $\cals(\cala)$ for the set of all states.</p>
+    </li>
+  </ol>
+</div>
+
+<p>So, sitting over a space of observables of a physical system is an entire $\upC^\ast$-algebra, with all its intricate mathematical structure, including its multiplication, involution, and its norm; moreover, states are now $\bbc$-valued, rather than $\bbr$-valued. It really does seem like a huge leap to go from spaces of observables as simple $\bbr$-vector spaces, as in the pre-definition, to assuming that these spaces are embedded as self-adjoint elements in $\upC^\ast$-algebras! The reader is certainly entitled to some justification or rationale for this leap.</p>
+
+<p>There are essentially two routes to a justification. The first begins from first principles with the definitions of observables and states, and little by little adds mathematical structure, eventually culminating with the definition given above in terms of $\upC^\ast$-algebras. Each addition of mathematical structure is motivated or justified either on physical or operational grounds (e.g., integer powers of observables may be motivated operationally), or on mathematical grounds in order to obtain theoretical efficiency or usefulness (e.g., passing to completions of normed vector spaces is motivated in this second way).</p>
+
+<p>However, the second route toward justification skips the slow and incremental build-up of mathematical structure, and instead jumps straight to the point. It begins with the following two postulates:</p>
+
+<div class="highlight-box2">
+  <ol>
+    <li>
+      <p>The space of observables of a <em>classical mechanical system</em> is modeled as the space of smooth functions on a phase space. The states are modeled as probability measures on the phase space, with pure states corresponding to Dirac measures.</p>
+    </li>
+    <li>
+      <p>The space of observables of a <em>quantum mechanical system</em> is modeled as the space of self-adjoint operators on a Hilbert space. The states are modeled as density operators (i.e., positive, trace-class operators) on the Hilbert space, with pure states corresponding to orthogonal projections onto one-dimensional subspaces.</p>
+    </li>
+  </ol>
+</div>
+
+<p>Indeed, these are the models that we learned in our courses on classical and quantum mechanics, perhaps stated much more formally with fancy mathematical language.</p>
+
+<p>Then, the ultimate justification for the $\upC^\ast$-formalism is that it provides a framework that <em>unifies</em> both the classical and quantum models in a single mathematical theory. So, <em>if</em> you agree that these are <em>useful</em> mathematical models for classical and quantum mechanical systems—where <em>useful</em> might mean that they yield physical theories with considerable predictive power in their domains of applicability—and <em>if</em> you are interested in mathematical theories that decrease the conceptual distance between smooth functions on phase spaces and operators on Hilbert spaces, <em>then</em> the $\upC^\ast$-formalism might be of considerable interest to you.</p>
+
+<h2 id="cast-algebras-and-classical-mechanics">C$^\ast$-algebras and classical mechanics</h2>
+
+<h2 id="classical-to-quantum-commutativity-to-noncommutativity">Classical to quantum: commutativity to noncommutativity</h2>
+
+<h2 id="cast-algebras-and-quantum-mechanics">C$^\ast$-algebras and quantum mechanics</h2>
+
+    </article>
+    
+  </body>
+</html>

@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>risks and losses</title>
+    <title>laws of probability, conditional probability</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -176,111 +176,160 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">risks and losses</h1>
+  <h1 class="accent-color">laws of probability, conditional probability</h1>
 </div>
 
-<h2 id="theoretical-risk-minimization">Theoretical risk minimization</h2>
+<h2 id="table-of-contents">Table of contents</h2>
 
-<p>We assume that $\calx$ and $\caly$ are measurable spaces, and that we are given a statistical model on $\calx \times \caly$ which, as you will recall from the first post, is a probability measure $Q$ on the cartesian product. For simplicity, we will assume that $\calx$ is a euclidean space $\bbr^n$, while $\caly$ is $\bbr$.</p>
+<ol>
+  <li>The Sum Rule for Probability</li>
+  <li>Conditional probability</li>
+  <li>Independent events</li>
+  <li>The Product Rule for Probability</li>
+</ol>
 
-<p>Furthermore, it will be convenient to assume that the statistical model on $\calx \times \caly$ is actually the joint distribution of a pair of random variables $X$ and $Y$. Precisely, we suppose that there is an ambient sample space $\Omega$, and that</p>
-
-<p>\begin{equation}\notag
-X: \Omega \to \calx = \bbr^d \quad \text{and} \quad Y: \Omega \to \caly = \bbr
-\end{equation}</p>
-
-<p>are random variables. We assume that the statistical model $Q$ is the joint distribution of $X$ and $Y$, which has a density with respect to the Lebesgue measure on $\bbr^d$, and either the Lebesgue measure on</p>
-
-<h2 id="empirical-risk-minimization">Empirical risk minimization</h2>
+<h2 id="the-sum-rule-for-probability">The Sum Rule for Probability</h2>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Given a sample</p>
+  <p><strong>The Sum Rule for Probability.</strong> The probability of the union of two events $A$ and $B$ is</p>
 
   <p>\begin{equation}\notag
-S = \left\{ (x_i,y_i)\right\}_{i=1}^m
+P(A \cup B) = P(A) + P(B) - P(A\cap B).
 \end{equation}</p>
 
-  <p>and a predictor $f:\calx \to \caly$, we define the <em>empirical risk of $f$</em> to be</p>
+  <p>In particular, if $A$ and $B$ are disjoint, then</p>
 
   <p>\begin{equation}\notag
-\widehat{\br}_S[f] = \frac{1}{m} \sum_{i=1}^m loss(f(x_i), y_i).
+P(A\cup B) = P(A) + P(B).
 \end{equation}</p>
 </div>
 
-<p>The empirical risk is an unbiased estimator of the true risk and more closely approximates the latter as the size of the sample grows. To formulate these claims more precisely, we must conceive of our sample as a realization of a sequence of iid random variables. Here are the details: We suppose that the original random variables $X$ and $Y$ are defined on a common sample space $\Omega$:</p>
+<h2 id="conditional-probability">Conditional probability</h2>
+
+<p>So far, we have studied just plain probabilities $P(A)$. Intuitively, this value represents the probability that you expect the event $A$ to occur, <em>in the absence of any additional information</em>. But what if you actually <em>had</em> additional information that might affect the probability of the event occurring? How would you update the probability $P(A)$?</p>
+
+<p>Let’s do an example. Suppose that you roll two fair, six-sided dice. The sample space $S$ in this scenario is the collection of all ordered pairs</p>
 
 <p>\begin{equation}\notag
-X: \Omega \to \bbr^d \quad \text{and} \quad Y: \Omega \to \bbr.
+(\text{roll 1}, \text{roll 2}).
 \end{equation}</p>
 
-<p>Together, these define a random variable</p>
+<p>Since there are six possibilities for each roll, according to the Product Rule for Counting, the cardinality of the sample space is $6^2 = 36$. And, since each die is fair, any number is equally likely to be rolled as any other, and hence the probability measure is uniform: Each possible pair of numbers has probability $1/36$ of being rolled.</p>
+
+<p>Now, suppose I ask you to compute the probability of the event $A$ that your two rolls together sum to 6. This computation is pretty easy, since you can just count the possibilities by hand:</p>
+
+<p>\begin{equation}\label{who-eqn}
+(5,1), (4,2), (3,3), (2,4), (1,5).
+\end{equation}</p>
+
+<p>Then, we have</p>
 
 <p>\begin{equation}\notag
-(X,Y): \Omega \to \bbr^d \times \bbr, \quad \omega \mapsto (X(\omega),Y(\omega)).
+P(A) = \frac{5}{36} \approx 0.1389.
 \end{equation}</p>
 
-<p>For each $i=1,\ldots,m$, we define the composite map</p>
+<p>However, what if I <em>now</em> tell you that your first roll is an odd number. Does this affect your expected probability for $A$?</p>
 
-<p>\begin{equation}\label{fire-eqn}
-\Omega^m \xrightarrow{\text{$i$-th projection}} \Omega \xrightarrow{(X,Y)} \bbr^d \times \bbr,
-\end{equation}</p>
+<p><em>It does</em>!</p>
 
-<p>where $\Omega^m$ is the $m$-fold cartesian power of $\Omega$. By composing these maps with the natural projections</p>
+<p>To see why, notice that if the first roll is an odd number, then we must throw out two of the pairs that we tallied above in \eqref{who-eqn}. But then does this simply mean that</p>
 
 <p>\begin{equation}\notag
-\bbr^d \times \bbr \to \bbr^d \quad \text{and} \quad \bbr^d \times \bbr \to \bbr,
+P(A) = \frac{3}{36}?
 \end{equation}</p>
 
-<p>for each $i=1,\ldots,m$ we get random variables</p>
+<p><em>No, it doesn’t.</em> Unfortunately, it’s not that simple.</p>
+
+<p>To convince ourselves that the value $3/36 = 0.08\bar{3}$ cannot possibly be right, let’s take a look at a computer simulation. Let’s have the computer roll two dice $n$ times, and then compute the relative frequency</p>
+
+<p>\begin{equation}\label{freq-eqn}
+\frac{\text{number of rolls where the total sum $=6$ and the first roll is odd}}{\text{number of rolls where first roll is odd}}.
+\end{equation}</p>
+
+<p>The results are displayed in the plot below, out to a maximum of $n=250$ rolls:</p>
+
+<p><img src="/assets/images/conditional_fives.png" alt="" style="margin: 40px auto; display: block; width: 75%;" /></p>
+
+<p>You can see that the long-run relative frequency (as $n$ gets large) seems to be stabilizing on a number that is just less than $0.2$, so, in fact, the value $3/36 = 0.08\bar{3}$ is not right.</p>
+
+<p>But the key to getting the right value is actually sitting right in front of our faces. What if I strategically and cleverly divide the numerator and denominator in \eqref{freq-eqn} by the total number of rolls $n$; then I get the expression</p>
+
+<p>\begin{equation}\label{freq2-eqn}
+\frac{\frac{\text{number of rolls where the total sum $=6$ and the first roll is odd}}{n = \text{total number of rolls}}}{\frac{\text{number of rolls where first roll is odd}}{n = \text{total number of rolls}}}.
+\end{equation}</p>
+
+<p>This is the <em>same</em> number as \eqref{freq-eqn}, of course, but its new form looks an awful lot like a ratio of two probabilities. To be precise, let’s give a name to the event that the first roll is odd—let’s call this event $B$. Then the ratio \eqref{freq2-eqn} appears to be</p>
+
+<p>\begin{equation}\label{freq3-eqn}
+\frac{P(A\cap B)}{P(B)}.
+\end{equation}</p>
+
+<p>Since this is an important step, stop for a moment and make sure you understand <em>why</em> the ratio \eqref{freq2-eqn} suggests \eqref{freq3-eqn}.</p>
+
+<p>Now, let’s compute this new ratio \eqref{freq3-eqn}. We already know that the intersection $A\cap B$ consists of the three pairs</p>
 
 <p>\begin{equation}\notag
-X_i: \Omega^m \to \bbr^d \quad \text{and} \quad Y_i: \Omega^m \to \bbr
+(5,1), (3,3), (1,5),
 \end{equation}</p>
 
-<p>such that the random variable</p>
+<p>while the cardinality of $B$ is $18= 3\times 6$. Therefore, we have</p>
 
 <p>\begin{equation}\notag
-(X_i,Y_i): \Omega^m \to \bbr^d \times \bbr, \quad \omega \mapsto (X_i(\omega),Y_i(\omega))
-\end{equation}
-is equal to the map \eqref{fire-eqn}. Furthermore, it’s easy to check that the random variables</p>
-
-<p>\begin{equation}\notag
-(X_1,Y_1),\ldots,(X_m,Y_m)
+\frac{P(A\cap B)}{P(B)} = \frac{\frac{3}{36}}{\frac{18}{36}} = \frac{3}{18} = 0.1\bar{6}.
 \end{equation}</p>
 
-<p>are independent and $(X_i,Y_i) \sim (X,Y)$ for each $i$. Our sample $S$ is then conceived as a realization of this sequence of iid random variables.</p>
+<p>Now <em>this</em> value appears to be <em>much</em> closer to the stable value in the plot above, represented by the dashed red line!</p>
 
-<p>Now, assuming that the loss function and the predictor $f$ are measurable, the sequence</p>
-
-<p>\begin{equation}\label{sample-eqn}
-Z_1 = loss(f(X_1),Y_1), \ldots, Z_m = loss(f(X_m),Y_m)
-\end{equation}</p>
-
-<p>of random variables is independent and identically distributed, with $Z_i \sim Z$, where</p>
-
-<p>\begin{equation}\notag
-Z = loss(f(X),Y).
-\end{equation}</p>
-
-<p>We then view our empirical risk as a realization of the random variable</p>
-
-<p>\begin{equation}\label{average-mean}
-\cl{Z}_m \defeq \frac{1}{m} \sum_{i=1}^m Z_i = \frac{1}{m} \sum_{i=1}^m loss(f(X_i),Y_i),
-\end{equation}</p>
-
-<p>which is nothing but the sample mean of the random sample \eqref{sample-eqn}.</p>
+<p>So, in summary, we believe that ratios of the form \eqref{freq3-eqn} might help us compute probabilities in the presence of <em>additional</em> information. Let’s give these special ratios a name:</p>
 
 <div class="highlight-box">
-  <p><strong>Theorem.</strong> The empirical risk, conceived as a realization of the random variable \eqref{average-mean}, converges in probability to the true risk. Precisely, for each $\dev&gt;0$, we have</p>
+  <p><strong>Definition.</strong> Let $A$ and $B$ be two events in a probability space. Then the <em>conditional probability of $A$ given $B$</em> is the ratio</p>
 
   <p>\begin{equation}\notag
-\lim_{m\to \infty} P \left\{\left| \frac{1}{m} \sum_{i=1}^m loss(f(X_i),Y_i) - loss(f(X),Y) \right| &gt;\dev  \right\} =0.
+P(A|B) \defeq \frac{P(A\cap B)}{P(B)},
 \end{equation}</p>
 
-  <p>In addition, the empirical risk is an unbiased estimator of the true risk.</p>
+  <p>provided that $P(B) &gt;0$.</p>
 </div>
 
-<p>The first claim regarding convergence is a direct application of the Law of Large Numbers, and, since the expected value of a sample mean is always equal to the population mean, the second claim is clear.</p>
+<p>Intuitively, the conditional probability $P(A|B)$ represents the probability that $A$ will occur, <em>provided that you already knew event $B$ has occurred</em>. Notice that $P(A|B)$ is <em>not</em> defined if $P(B)=0$.</p>
+
+<p>Conceptually, a conditional probability $P(A|B)$ may be thought of as a probability measure where the event $B$ takes the place of $S$ as the sample space, and all events in $B$ are of the form $A\cap B$, where $A$ is an event in $S$:</p>
+
+<p><img src="/assets/images/conditional.svg" alt="" style="margin: 40px auto; display: block; width: 75%;" /></p>
+
+<p>If this point of view makes sense to you, and it helps clarify things in your mind, then hold onto it. But if this is confusing, then forget about it, because it’s not super important.</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> Blah!</p>
+</div>
+
+<h2 id="independent-events">Independent events</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Two events $A$ and $B$ in a sample space are <em>independent</em> if</p>
+
+  <p>\begin{equation}\notag
+P(A\cap B) = P(A)P(B).
+\end{equation}</p>
+</div>
+
+<h2 id="the-product-rule-for-probability">The Product Rule for Probability</h2>
+
+<div class="highlight-box">
+  <p><strong>The Product Rule for Probability.</strong> The probability of the intersection of two events $A$ and $B$ is</p>
+
+  <p>\begin{equation}\notag
+P(A \cap B) = P(A|B) P(B) = P(B|A)P(A).
+\end{equation}</p>
+
+  <p>In particular, if $A$ and $B$ are independent, then</p>
+
+  <p>\begin{equation}\notag
+P(A\cap B) = P(A) P(B).
+\end{equation}</p>
+</div>
+
 
     </article>
     
