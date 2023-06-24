@@ -1,6 +1,6 @@
 ---
 layout: post
-title: the algebraic theory III&#58l local geometry, vector bundles, and sheaves of modules
+title: the algebraic theory III&#58 local geometry, vector bundles, and sheaves of modules
 category: a geometric and topological toolkit
 ---
 
