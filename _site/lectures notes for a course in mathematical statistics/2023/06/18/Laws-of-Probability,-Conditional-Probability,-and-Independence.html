@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>laws of probability, conditional probability</title>
+    <title>laws of probability, conditional probability, and independence</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -53,21 +53,32 @@
                 const: ['\\underline{\\mathbb{R}}'],
                 SetVect: ['\\mathsf{SetVect}'],
                 Mfld: ['\\mathsf{Mfld}'],
-                Vect: ['\\mathsf{Vect}'],
+                Vect: ['\\mathsf{VectB}'],
+                ltVect: ['\\mathsf{VectB}^{\\mathsf{lt}}'],
+                ltVB: ['#1\\text{-}\\mathsf{VB}^{\\mathsf{lt}}', 1],
+                VB: ['#1\\text{-}\\mathsf{VB}', 1],
+                O: ['\\operatorname{O}'],
                 SO: ['\\operatorname{SO}'],
+                Sp: ['\\operatorname{Sp}'],
                 so: ['\\mathfrak{so}'],
-                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                Mod: ['\\mathsf{Mod}'],
+                lfMod: ['\\mathsf{Mod}^{\\mathsf{lf}}'],
                 norm: ['\\|  #1  \\|', 1],
                 adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
                 bk: ['\\Bbbk'],
                 Sh: ['\\mathsf{Sh}'],
-                be: ['\\mathbf{E}'],
-                br: ['\\mathbf{R}'],
+                ba: ['\\mathbf{a}'],
+                bp: ['\\mathbf{p}'],
+                bv: ['\\mathbf{v}'],
                 bx: ['\\mathbf{x}'],
+                bE: ['\\mathbf{E}'],
+                bF: ['\\mathbf{F}'],
+                bR: ['\\mathbf{R}'],
                 bX: ['\\mathbf{X}'],
                 upC: ['\\text{C}'],
                 bbc: ['\\mathbb{C}'],
                 bbe: ['\\mathbb{E}'],
+                bbm: ['\\mathbb{M}'],
                 bbn: ['\\mathbb{N}'],
                 bbp: ['\\mathbb{P}'],
                 bbq: ['\\mathbb{Q}'],
@@ -101,7 +112,8 @@
                 mfg: ['\\mathfrak{g}'],
                 mfh: ['\\mathfrak{h}'],
                 mfj: ['\\mathfrak{J}'],
-                mfl: ['\\mathfrak{L}'],
+                mfl: ['\\mathfrak{l}'],
+                mfL: ['\\mathfrak{L}'],
                 mfM: ['\\mathfrak{M}'],
                 mfm: ['\\mathfrak{m}'],
                 mfN: ['\\mathfrak{N}'],
@@ -176,19 +188,22 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">laws of probability, conditional probability</h1>
+  <h1 class="accent-color">laws of probability, conditional probability, and independence</h1>
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
 <ol>
-  <li>The Sum Rule for Probability</li>
-  <li>Conditional probability</li>
-  <li>Independent events</li>
-  <li>The Product Rule for Probability</li>
+  <li><a href="#the-sum-rule-for-probability" style="font-family: 'Lora', serif; font-size: 1em;">The Sum Rule for Probability</a></li>
+  <li><a href="#conditional-probability" style="font-family: 'Lora', serif; font-size: 1em;">Conditional probability</a></li>
+  <li><a href="#independent-events" style="font-family: 'Lora', serif; font-size: 1em;">Independent events</a></li>
+  <li><a href="#the-product-rule-for-probability" style="font-family: 'Lora', serif; font-size: 1em;">The Product Rule for Probability</a></li>
+  <li><a href="#the-law-of-total-probability-and-bayes-theorem" style="font-family: 'Lora', serif; font-size: 1em;">The Law of Total Probability and Bayes’ Theorem</a></li>
 </ol>
 
 <h2 id="the-sum-rule-for-probability">The Sum Rule for Probability</h2>
+
+<p>We begin this section with our first rule for computing probabilities:</p>
 
 <div class="highlight-box">
   <p><strong>The Sum Rule for Probability.</strong> The probability of the union of two events $A$ and $B$ is</p>
@@ -202,6 +217,74 @@ P(A \cup B) = P(A) + P(B) - P(A\cap B).
   <p>\begin{equation}\notag
 P(A\cup B) = P(A) + P(B).
 \end{equation}</p>
+</div>
+
+<p>In plain language, the Sum Rule for Probability tells you how to compute the probability of a <em>union</em> of two events; we will see later a different rule that tells you how to compute the probability of an <em>intersection</em>.</p>
+
+<p>In the very special case that the sample space $S$ is finite and the probability measure $P$ is uniform, I claim that the Sum Rule for Probability is “obvious.”</p>
+
+<p>Let me explain.</p>
+
+<p>Notice that we have</p>
+
+<p>\begin{equation}\label{inc-ex-eqn}
+|A\cup B| = |A| + |B| - |A\cap B|,
+\end{equation}</p>
+
+<p>where the vertical bars denote cardinalities. Can you see why this is true? If you want to count the number of points in the union $A\cup B$, then you count all the points in $A$, then all the points in $B$, but you have to subtract out the points in $A\cap B$ because they would be double counted (this is called <a href="https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle"><em>inclusion-exclusion</em></a>).</p>
+
+<p>Now, if we divide both sides of \eqref{inc-ex-eqn} by the cardinality $|S|$, we get</p>
+
+<p>\begin{equation}\notag
+\frac{|A\cup B|}{|S|} = \frac{|A|}{|S|} + \frac{|B|}{|S|} - \frac{|A\cap B|}{|S|}.
+\end{equation}</p>
+
+<p>But because we are working with a uniform probability measure $P$, each of these four ratios <em>are</em> the probabilities:</p>
+
+<p>\begin{equation}\notag
+P(A \cup B) = P(A) + P(B) - P(A\cap B).
+\end{equation}</p>
+
+<p>Simple!</p>
+
+<p>But what if $P$ is <em>not</em> uniform? Why is the Sum Rule still true?</p>
+
+<p>To explain, imagine the usual Venn diagram with the events $A$ and $B$ inside the sample space S:</p>
+
+<p><img src="/assets/images/eventssum.svg" alt="" style="margin: 40px auto; display: block; width: 25%;" /></p>
+
+<p>The argument that I am about to give depends crucially on the two equations</p>
+
+<p>\begin{equation}\label{fund-eqn}
+A\cup B = A \cup ( A^c \cap B) \quad \text{and} \quad B = (A^c \cap B) \cup ( A\cap B),
+\end{equation}</p>
+
+<p>where for brevity I’ve written $A^c$ for the complement $S\smallsetminus A$. If you’re not quite sure why these equations are true, here’s a visual explanation using Venn diagrams:</p>
+
+<p><img src="/assets/images/sumrule.svg" alt="" style="margin: 40px auto; display: block; width: 70%;" /></p>
+
+<p>The first row of this figure simply shows you how to visualize the intersection $A^c \cap B$, and the second two rows explain the fundamental equations \eqref{fund-eqn} above. The crucial point to notice is that the two pairs of sets on the right-hand sides of the equations \eqref{fund-eqn} are <em>disjoint</em>, which you can see easily from the Venn diagrams. Thus, if we apply $P$ to both sides of these equations, we get:</p>
+
+<p>\begin{equation}\notag
+P(A\cup B) = P(A) + P(A^c\cap B) \quad \text{and} \quad P(B) = P(A^c \cap B) +P(A\cap B).
+\end{equation}</p>
+
+<p>Now subtract these equations to get</p>
+
+<p>\begin{equation}\notag
+P(A\cup B) - P(B) = P(A) + P(A^c\cap B) - (P(A^c \cap B) + P(A\cap B)),
+\end{equation}</p>
+
+<p>which we may rearrange to get the Sum Rule:</p>
+
+<p>\begin{equation}\notag
+P(A\cup B) = P(A) + P(B) - P(A\cap B).
+\end{equation}</p>
+
+<p>And voila! This explains why the Sum Rule works.</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> Have a go at Problems 1-4 in the worksheet.</p>
 </div>
 
 <h2 id="conditional-probability">Conditional probability</h2>
@@ -292,7 +375,7 @@ P(A|B) \defeq \frac{P(A\cap B)}{P(B)},
   <p>provided that $P(B) &gt;0$.</p>
 </div>
 
-<p>Intuitively, the conditional probability $P(A|B)$ represents the probability that $A$ will occur, <em>provided that you already knew event $B$ has occurred</em>. Notice that $P(A|B)$ is <em>not</em> defined if $P(B)=0$.</p>
+<p>In plain language, the conditional probability $P(A|B)$ represents the probability that $A$ will occur, <em>provided that you already knew event $B$ has occurred</em>. Notice that $P(A|B)$ is <em>not</em> defined if $P(B)=0$.</p>
 
 <p>Conceptually, a conditional probability $P(A|B)$ may be thought of as a probability measure where the event $B$ takes the place of $S$ as the sample space, and all events in $B$ are of the form $A\cap B$, where $A$ is an event in $S$:</p>
 
@@ -301,35 +384,155 @@ P(A|B) \defeq \frac{P(A\cap B)}{P(B)},
 <p>If this point of view makes sense to you, and it helps clarify things in your mind, then hold onto it. But if this is confusing, then forget about it, because it’s not super important.</p>
 
 <div class="highlight-box3">
-  <p><strong>Problem Prompt.</strong> Blah!</p>
+  <p><strong>Problem Prompt.</strong> Do Problems 5 and 6 on the worksheet.</p>
 </div>
 
 <h2 id="independent-events">Independent events</h2>
 
+<p>Sometimes the outcomes of two experiments or processes do not affect each other. For example, if I flip a single coin twice, then we would expect that the outcome of the first flip should have no effect on the outcome of the second flip. Such events are called <em>independent</em>, and they are defined formally in:</p>
+
 <div class="highlight-box">
   <p><strong>Definition.</strong> Two events $A$ and $B$ in a sample space are <em>independent</em> if</p>
 
-  <p>\begin{equation}\notag
+  <p>\begin{equation}\label{ind2-eqn}
 P(A\cap B) = P(A)P(B).
 \end{equation}</p>
 </div>
 
+<p>It’s easy to come up with events that are <em>not</em> independent (so they are <em>dependent</em>). For example, the event that it is cloudy tomorrow and the event that it rains are surely dependent on each other.</p>
+
+<p>The definition of independence officially only applies to two events, but there’s an obvious generalization of the definition to an arbitrary number of events. Indeed, we say that events $A_1,A_2,\ldots,A_n$ are <em>independent</em> if</p>
+
+<p>\begin{equation}\notag
+P(A_1 \cap A_2 \cap \cdots \cap A_n) = P(A_1)P(A_2) \cdots P(A_n).
+\end{equation}</p>
+
+<p>Here’s a test for independence that involves conditional probabilities:</p>
+
+<div class="highlight-box">
+  <p><strong>Conditional Criterion for Independence.</strong>
+Two events $A$ and $B$ with nonzero probability are independent if and only if</p>
+
+  <p>\begin{equation}\label{ind-eqn}
+P(A|B) = P(A) \quad \text{or} \quad P(B|A) = P(B).
+\end{equation}</p>
+</div>
+
+<p>Think about what the first equation in \eqref{ind-eqn} is attempting to tell you: It says that the probability that $A$ occurs, <em>given that $B$ has occurred</em>, is just the original probability $P(A)$. This means that whether $B$ has occurred has <em>no</em> effect on whether $A$ occurs! I don’t know about you, but I think this viewpoint on independence is much more intuitive then the official definition in terms of the equation \eqref{ind2-eqn}.</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> Do Problems 7 and 8 on the worksheet.</p>
+</div>
+
 <h2 id="the-product-rule-for-probability">The Product Rule for Probability</h2>
+
+<p>Just as the Sum Rule for Probability expresses the probability of a union $A\cup B$ of two events as a sum of probabilities, the next rule expresses the probability of an intersection $A\cap B$ as a product of probabilities:</p>
 
 <div class="highlight-box">
   <p><strong>The Product Rule for Probability.</strong> The probability of the intersection of two events $A$ and $B$ is</p>
 
-  <p>\begin{equation}\notag
+  <p>\begin{equation}\label{product-eqn}
 P(A \cap B) = P(A|B) P(B) = P(B|A)P(A).
-\end{equation}</p>
-
-  <p>In particular, if $A$ and $B$ are independent, then</p>
-
-  <p>\begin{equation}\notag
-P(A\cap B) = P(A) P(B).
 \end{equation}</p>
 </div>
 
+<p>Notice that the equations in \eqref{product-eqn} are immediate consequences of the definition of conditional probability, so there’s not really any mystery for why they hold.</p>
+
+<div class="highlight-box2">
+  <p><strong>A technical point.</strong> If you’re paying close attention, you may remember that the conditional probability $P(A|B)$ in \eqref{product-eqn} is not defined if $P(B)=0$, and likewise $P(B|A)$ is not defined if $P(A)=0$. So, you might worry that the Product Rule for Probability doesn’t work if either $P(A) =0$ or $P(B)=0$. However, if $P(A)=0$, then necessarily $P(A\cap B)=0$ as well, because the inclusion $A\cap B \subset A$ implies the second inequality in the string</p>
+
+  <p>\begin{equation}\notag
+0 \leq P(A\cap B) \leq P(A) = 0.
+\end{equation}</p>
+
+  <p>Therefore, <em>if</em> $P(B|A)$ were somehow defined when $P(A)=0$, no matter what it is, the equation</p>
+
+  <p>\begin{equation}\notag
+P(A\cap B) = P(B|A)P(A)
+\end{equation}</p>
+
+  <p>still holds true. Similarly, if $P(B)=0$, the equation</p>
+
+  <p>\begin{equation}\notag
+P(A\cap B) = P(A|B)P(B)
+\end{equation}</p>
+
+  <p>is still true, no matter how $P(A|B)$ might be defined.</p>
+
+  <p>In more advanced treatments of probability theory, we do not leave $P(A|B)$ undefined if $P(B)=0$, as we have in these notes; rather, it is defined to be some arbitrary number (we don’t care which!) subject to a couple of conditions.</p>
+</div>
+
+<h2 id="the-law-of-total-probability-and-bayes-theorem">The Law of Total Probability and Bayes’ Theorem</h2>
+
+<p>A <em>partition</em> of a sample space $S$ is exactly what it sounds like: It’s a division of the sample space into a collection of disjoint subsets. For example, the six subsets $B_1,B_2,\ldots,B_6$ of the sample space $S$ in the following Venn diagram form a partition:</p>
+
+<p><img src="/assets/images/partition.svg" alt="" style="margin: 40px auto; display: block; width: 35%;" /></p>
+
+<p>So, there are two things require of a partition: All the sets in the partition must be pairwise disjoint, and their union must be the entire sample space $S$.</p>
+
+<p>Using the concept of a partition, we may state the following law of probability:</p>
+
+<div class="highlight-box">
+  <p><strong>The Law of Total Probability.</strong> Suppose that $\{B_1,B_2,\ldots,B_k\}$ is a partition of a sample space $S$, where each $B_i$ is an event. Then for any event $A$, we have</p>
+
+  <p>\begin{equation}\notag
+P(A) = \sum_{i=1}^k P(A|B_i) P(B_i).
+\end{equation}</p>
+</div>
+
+<p>Why is this law true? Notice first that</p>
+
+<p>\begin{equation}\notag
+A = \bigcup_{i=1}^k ( A\cap B_i),
+\end{equation}</p>
+
+<p>and that the sets in the union on the right-hand side are pairwise disjoint (why?). Therefore, if we apply the probability measure $P$ to both sides of this last equation, we get</p>
+
+<p>\begin{equation}\notag
+P(A) = \sum_{i=1}^k P(A\cap B_i).
+\end{equation}</p>
+
+<p>But $P(A\cap B_i) = P(A|B_i) P(B_i)$ by the Product Rule for Probability, and hence we get</p>
+
+<p>\begin{equation}\notag
+P(A) = \sum_{i=1}^k P(A|B_i) P(B_i),
+\end{equation}</p>
+
+<p>which is what we wanted to prove.</p>
+
+<p>Often times, the Law of Total Probability is applied when only <em>two</em> events are involved. In this case, the formula simplifies considerably:</p>
+
+<div class="highlight-box">
+  <p><strong>Total Law of Probability (Two-Event Version).</strong> Let $A$ and $B$ be two events in a sample space $S$. Then</p>
+
+  <p>\begin{equation}\notag
+P(A) = P(A|B)P(B) + P(A|B^c)P(B^c),
+\end{equation}</p>
+
+  <p>where I’ve written $B^c$ for $S \smallsetminus B $.</p>
+</div>
+
+<p>Indeed, this version of the Total Law of Probability is the special case of the first where the partition is $\{B,B^c\}$. Check this!</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> Do Problem 9 on the worksheet.</p>
+</div>
+
+<p>Finally, our last result in this (long) section:</p>
+
+<div class="highlight-box">
+  <p><strong>Bayes’ Theorem.</strong> Let $A$ and $B$ be two events in a sample space $S$ with $P(B)&gt;0$. Then</p>
+
+  <p>\begin{equation}\notag
+P(A| B) = \frac{P(B|A)P(A)}{P(B)}.
+\end{equation}</p>
+</div>
+
+<p>In plain language, Bayes’ Theorem allows you to switch the order of conditioning. What I mean is, if you want to compute $P(A|B)$ but you only know $P(B|A)$, then Bayes’ Theorem allows you to find the former, provided that you know $P(A)$ and $P(B)$.</p>
+
+<div class="highlight-box3">
+  <p><strong>Problem Prompt.</strong> Do Problem 10 on the worksheet.</p>
+</div>
 
     </article>
     

@@ -53,21 +53,32 @@
                 const: ['\\underline{\\mathbb{R}}'],
                 SetVect: ['\\mathsf{SetVect}'],
                 Mfld: ['\\mathsf{Mfld}'],
-                Vect: ['\\mathsf{Vect}'],
+                Vect: ['\\mathsf{VectB}'],
+                ltVect: ['\\mathsf{VectB}^{\\mathsf{lt}}'],
+                ltVB: ['#1\\text{-}\\mathsf{VB}^{\\mathsf{lt}}', 1],
+                VB: ['#1\\text{-}\\mathsf{VB}', 1],
+                O: ['\\operatorname{O}'],
                 SO: ['\\operatorname{SO}'],
+                Sp: ['\\operatorname{Sp}'],
                 so: ['\\mathfrak{so}'],
-                Mod: ['#1\\text{-}\\mathsf{Mod}', 1],
+                Mod: ['\\mathsf{Mod}'],
+                lfMod: ['\\mathsf{Mod}^{\\mathsf{lf}}'],
                 norm: ['\\|  #1  \\|', 1],
                 adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
                 bk: ['\\Bbbk'],
                 Sh: ['\\mathsf{Sh}'],
-                be: ['\\mathbf{E}'],
-                br: ['\\mathbf{R}'],
+                ba: ['\\mathbf{a}'],
+                bp: ['\\mathbf{p}'],
+                bv: ['\\mathbf{v}'],
                 bx: ['\\mathbf{x}'],
+                bE: ['\\mathbf{E}'],
+                bF: ['\\mathbf{F}'],
+                bR: ['\\mathbf{R}'],
                 bX: ['\\mathbf{X}'],
                 upC: ['\\text{C}'],
                 bbc: ['\\mathbb{C}'],
                 bbe: ['\\mathbb{E}'],
+                bbm: ['\\mathbb{M}'],
                 bbn: ['\\mathbb{N}'],
                 bbp: ['\\mathbb{P}'],
                 bbq: ['\\mathbb{Q}'],
@@ -101,7 +112,8 @@
                 mfg: ['\\mathfrak{g}'],
                 mfh: ['\\mathfrak{h}'],
                 mfj: ['\\mathfrak{J}'],
-                mfl: ['\\mathfrak{L}'],
+                mfl: ['\\mathfrak{l}'],
+                mfL: ['\\mathfrak{L}'],
                 mfM: ['\\mathfrak{M}'],
                 mfm: ['\\mathfrak{m}'],
                 mfN: ['\\mathfrak{N}'],
@@ -1456,6 +1468,156 @@ A <em>quantum system</em> is defined to be a pair $(A,S)$, where $A$ is a noncom
     </li>
   </ol>
 </div>
+
+<h2 id="proper-acceleration">Proper acceleration</h2>
+
+<h2 id="sandbox">Sandbox</h2>
+
+<p>Note that the squared-norm of $v^\mu$ with respect to the lorentzian metric is</p>
+
+<p>\begin{equation}\notag
+|v^\mu|^2 = \gamma^2c^2 - \gamma^2v^2 = \frac{c^2-v^2}{1-v^2/c^2} = c^2.
+\end{equation}</p>
+
+<p>The <em>proper velocity</em> of the particle is $\bv = \gamma \vec{v}$, which is the spatial part of the velocity $4$-vector. The <em>acceleration $4$-vector</em> is</p>
+
+<p>\begin{equation}\notag
+a^\mu = \frac{\d v^\mu}{\d \tau} = \frac{\d v^\mu}{\d t} \frac{\d t}{\d \tau} = (c \gamma\dot{\gamma}, \gamma\dot{\gamma}\vec{v} + \gamma^2 \vec{a})
+\end{equation}</p>
+
+<p>where $\dot{\gamma}$ is the derivative of $\gamma$ with respect to coordinate time $t$, and</p>
+
+<p>\begin{equation}\notag
+\vec{a} = \frac{\d \vec{v}}{\d t}
+\end{equation}</p>
+
+<p>is the <em>ordinary acceleration $3$-vector</em>. The <em>proper acceleration</em> of the particle is</p>
+
+<p>\begin{equation}\label{accel-prop-eqn}
+\ba = \gamma \dot{\gamma}\vec{v} + \gamma^2 \vec{a},
+\end{equation}</p>
+
+<p>which is the spatial part of the acceleration $4$-vector.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> The acceleration $4$-vector may be written as</p>
+
+  <p>\begin{equation}\notag
+a^\mu = \left( \frac{\gamma^4}{c} (\vec{v} \cdot \vec{a}), \frac{\gamma^4}{c^2}(\vec{v}\cdot \vec{a})\vec{v} + \gamma^2\vec{a} \right).
+\end{equation}</p>
+</div>
+
+<p>Indeed, this follows from the expression \eqref{accel-prop-eqn} via the simple computation:</p>
+
+<p>\begin{equation}\notag
+\dot{\gamma} = \frac{\d \gamma}{\d t} = \frac{\gamma^3}{c^2}(\vec{v}\cdot \vec{a}).
+\end{equation}</p>
+
+<h2 id="lortenz-transformations">Lortenz transformations</h2>
+
+<p>There are three types of Lorentz transformations that will be important for us. The first type consists of the <em>boosts</em> along the $x^1$-axis, defined to be those Lorentz transformations of the form</p>
+
+<p>\begin{equation}\label{boost-eqn}
+B(\phi) = \begin{bmatrix} \cosh{\phi} &amp; \sinh{\phi} &amp; 0 &amp; 0 \\ \sinh{\phi} &amp; \cosh{\phi} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix},
+\end{equation}</p>
+
+<p>for $\phi\in \bbr$. The second type consists of the <em>spatial rotations</em>, those Lorentz transformations with block form</p>
+
+<p>\begin{equation}\notag
+R(S) = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; S \end{bmatrix},
+\end{equation}</p>
+
+<p>where $S\in \O(3)$. The third special type of Lorentz transformations actually consists of a <em>single</em> transformation given by</p>
+
+<p>\begin{equation}\notag
+P = \begin{bmatrix} -1 &amp; 0 \\ 0 &amp; I \end{bmatrix},
+\end{equation}</p>
+
+<p>where $I$ is the $3\times 3$ identity matrix. I will leave you to verify that each of these transformations are indeed inside $\call$. In particular, notice that each boost $B(\phi)$ is in $\call^\uparrow_+$, while each spatial rotation $R(S)$ is in $\call^\uparrow$. If $S\in \SO(3)$, then $R(S)\in \call^\uparrow_+$ as well.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Every orthochronous Lorentz transformation $\Lambda \in \call^\uparrow$ may be factored as</p>
+
+  <p>\begin{equation}\notag
+\Lambda = R(S)B(\phi) R(T),
+\end{equation}</p>
+
+  <p>for some $\phi \in \bbr$, and $S,T\in \O(3)$. If $\Lambda$ is proper, $S$ and $T$ may be chosen in $\SO(3)$.</p>
+</div>
+
+<p>For the proof, suppose that we write</p>
+
+<p>\begin{equation}\notag
+\Lambda e^0 = \begin{bmatrix} x^0 \\ \vec{x} \end{bmatrix},
+\end{equation}</p>
+
+<p>where $\vec{x}$ is a $3$-dimensional column vector. We must then have</p>
+
+<p>\begin{equation}\label{pres-eqn}
+(x^0)^2 - \norm{\vec{x}}^2 = 1, \quad x^0 \geq 1,
+\end{equation}</p>
+
+<p>and so</p>
+
+<p>\begin{equation}\notag
+x^0 = \sqrt{1+\norm{\vec{x}}^2}.
+\end{equation}</p>
+
+<p>Choosing a matrix $Q\in \SO(3)$ such that</p>
+
+<p>\begin{equation}\notag
+Q\vec{x} = \begin{bmatrix} \norm{\vec{x}} \\ 0 \\ 0 \end{bmatrix},
+\end{equation}</p>
+
+<p>we get</p>
+
+<p>\begin{equation}\notag
+R(Q) \Lambda e^0 = \begin{bmatrix} x^0 \\ \norm{\vec{x}} \\ 0 \\ 0 \end{bmatrix}.
+\end{equation}</p>
+
+<p>Let $\phi\in \bbr$ be the unique number for which $\sinh{\phi} = \norm{\vec{x}}$; then, in view of \eqref{pres-eqn} and the fact that</p>
+
+<p>\begin{equation}\notag
+\cosh^2{\phi} - \sinh^2{\phi}=1, \quad \cosh{\phi}\geq 1,
+\end{equation}</p>
+
+<p>we must have $x^0 = \cosh{\phi}$. Thus,</p>
+
+<p>\begin{equation}\notag
+R(Q) \Lambda = \begin{bmatrix} \cosh{\phi} &amp; ? &amp; ? &amp; ? \\ \sinh{\phi} &amp; ? &amp; ? &amp; ? \\ 0 &amp; ? &amp; ? &amp; ? \\ 0 &amp; ? &amp; ? &amp; ? \end{bmatrix}.
+\end{equation}</p>
+
+<p>The trick now is to compare $R(Q)\Lambda$ to the boost $B(\phi)$, defined by \eqref{boost-eqn}. To do so, let’s define</p>
+
+<p>\begin{equation}\notag
+L = B(\phi)^{-1}R(Q) \Lambda = \begin{bmatrix} 1 &amp; a &amp; b &amp; c \\ 0 &amp; ? &amp; ? &amp; ? \\ 0 &amp; ? &amp; ? &amp; ? \\ 0 &amp; ? &amp; ? &amp; ? \end{bmatrix}.
+\end{equation}</p>
+
+<p>But $L$, being a product of Lorentz transformations, must itself be a Lorentz transformation. Thus,</p>
+
+<p>\begin{equation}\label{pres2-eqn}
+L^T \eta L = \eta,
+\end{equation}</p>
+
+<p>where $\eta$ is the matrix of the Lorentz scalar product:</p>
+
+<p>\begin{equation}\notag
+\eta = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; -1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; -1 \end{bmatrix}.
+\end{equation}</p>
+
+<p>But the left-hand side of \eqref{pres2-eqn} is easily computed to be</p>
+
+<p>\begin{equation}\notag
+\begin{bmatrix} 1 &amp; a &amp; b &amp; c \\ a &amp; ? &amp; ? &amp; ? \\ b &amp; ? &amp; ? &amp; ? \\ c &amp; ? &amp; ? &amp; ? \end{bmatrix}.
+\end{equation}</p>
+
+<p>Since this must equal $\eta$, we must have $a=b=c=0$. In particular, $L$ must be a spatial rotation, say $L = R(T)$. But then</p>
+
+<p>\begin{equation}\notag
+\Lambda = R(S)B(\phi)R(T),
+\end{equation}</p>
+
+<p>where $S = Q^{-1}$. If $\Lambda$ is proper, then since $S$ was chosen in $\SO(3)$, we must then have $T\in \SO(3)$ as well. Q.E.D.</p>
 
     </article>
     
