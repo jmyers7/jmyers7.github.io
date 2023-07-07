@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="utf-8">
-    <title>curvature + spacetime</title>
+    <title>electrodynamics I&#58 the basic theory</title>
 
     <!-- font stuff -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -29,10 +29,17 @@
                 floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
                 sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
                 lcm: ['\operatorname{lcm}#1', 1],
+                Dom: ['\\operatorname{Dom}#1', 1],
+                Ran: ['\\operatorname{Ran}#1', 1],
                 Aut: ['\\operatorname{Aut}#1', 1],
+                imag: ['\\operatorname{Im}#1', 1],
+                essSup: ['\\operatorname*{ess sup}'],
+                colim: ['\\operatorname*{colim}'],
+                real: ['\\operatorname{Re}#1', 1],
                 Spec: ['\\operatorname{Spec}#1', 1],
                 Hom: ['\\operatorname{Hom}#1', 1],
                 End: ['\\operatorname{End}#1', 1],
+                Supp: ['\\operatorname{Supp}#1', 1],
                 Diff: ['\\operatorname{Diff}#1', 1],
                 ShHom: ['\\mathcal{H}om'],
                 Iso: ['\\operatorname{Iso}'],
@@ -188,86 +195,106 @@
     
     <article class="post-content">
         <div class="post-title">
-  <h1 class="accent-color">curvature + spacetime</h1>
+  <h1 class="accent-color">electrodynamics I: the basic theory</h1>
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 
 <ol>
-  <li>Lorentzian manifolds</li>
-  <li>A first glimpse of curvature: Theorema Egregium</li>
-  <li>Further reading</li>
-  <li>References and footnotes</li>
+  <li><a href="#the-electromagnetic-field-tensor">The electromagnetic field tensor</a></li>
+  <li><a href="#maxwells-laws-----coordinate-dependent-form">Maxwell’s laws — coordinate-dependent form</a></li>
+  <li><a href="#maxwells-laws-----coordinate-independent-form">Maxwell’s laws — coordinate-independent form</a></li>
 </ol>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
-<div class="highlight-box2">
-  <p>In this post, we continue to assume that our manifolds are embedded in an ambient euclidean space, in the style of Guillemin and Pollack’s book.</p>
-</div>
+<h2 id="the-electromagnetic-field-tensor">The electromagnetic field tensor</h2>
 
-<h2 id="lorentzian-manifolds">Lorentzian manifolds</h2>
-
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $n\geq 1$ be an integer. We define <em>$(n+1)$-dimensional Minkowski space</em> to be the pair $(\bbr^{n+1},\ang{-,-})$, where</p>
-
-  <p>\begin{equation}\label{mink-met-eqn}
-\ang{-,-} : \bbr^{n1} \otimes_\bbr \bbr^{n+1} \to \bbr
-\end{equation}</p>
-
-  <p>is the function given by</p>
-
-  <p>\begin{equation}\notag
-\ang{v,w} = -v^0w^0 + \sum_{i=1}^n v^i w^i.
-\end{equation}</p>
-</div>
-
-<p>Through the identifications $\bbr^{n+1}=T_p(\bbr^{n+1})$ for each $p\in \bbr^{n+1}$, the function \eqref{mink-met-eqn} may be viewed as a field of bilinear forms over $\bbr^{n+1}$. Since each of these bilinear forms is obviously symmetric and nondegenerate (but not positive definite!), we conclude that $(n+1)$-dimensional Minkowski space is a pseudo-riemannian manifold (which isn’t riemannian!). We refer to $\ang{-,-}$ as a <em>Minkowski pseudo-metric</em>.</p>
-
-<p>Now, suppose that $M$ is a manifold embedded in $\bbr^{n+1}$. The restriction of the Minkowski pseudo-metric on $\bbr^{n+1}$ to each tangent space $T_p(M)$ yields a field of symmetric bilinear forms</p>
+<p>Consider a material charged particle moving through an electromagnetic field in euclidean $3$-space with electric and magnetic components $\vec{E}$ and $\vec{B}$. Let $\bp$ denote the <em>proper momentum</em> (or <em>relativistic momentum</em>) of the particle, i.e., the spatial part of the <em>momentum $4$-vector</em></p>
 
 <p>\begin{equation}\notag
-g_p : T_p(M) \otimes_\bbr T_p(M) \to \bbr,
+p^\mu = (p^0,\bp).
 \end{equation}</p>
 
-<p>which will place $M$ into one of the following three mutually exclusive categories:</p>
+<p>If the particle has charge $q$, then the classical <em>Lorentz force law</em> still holds with $\bp$ in place of the usual momentum:</p>
 
-<ol>
-  <li>Each $g_p$ is positive definite, for all $p\in M$. In this case, $M$ is a riemannian manifold.</li>
-  <li>Each $g_p$ is non-degenerate for all $p\in M$, but there is at least one $p\in M$ such that $g_p$ is positive indefinite. In this case, $M$ is a pseudo-riemannian manifold which is not riemannian.</li>
-  <li>There is at least one $p\in M$ such that $g_p$ is degenerate. In this case, $M$ is merely a manifold with a smooth, symmetric $2$-form.</li>
-</ol>
+<p>\begin{equation}\label{lorentz-eqn}
+\frac{\d \bp}{\d t} = q ( \vec{E} + \vec{v} \times \vec{B}).
+\end{equation}</p>
 
-<p>The category into which the manifold $M$ belongs describes its so-called <em>causal character</em>; these characters are given names in:</p>
+<p>Here, $t$ stands for the coordinate time and $\vec{v}$ is the ordinary velocity of the particle. The goal in this section is to transport the Lorentz force law to a covariant expression that lives on Minkowski spacetime $\bbm^4$. In particular, we want to produce an expression</p>
+
+<p>\begin{equation}\label{goal-eqn}
+\frac{\d p^\mu}{\d \tau} = (\text{something})
+\end{equation}</p>
+
+<p>that reduces to \eqref{lorentz-eqn} when equating spatial parts. Here, $\tau$ is the proper time of the particle and $p^\mu$ is its momentum $4$-vector defined above.</p>
+
+<p>Now, the spatial part of the left-hand side of \eqref{goal-eqn} is</p>
+
+<p>\begin{equation}\notag
+\frac{\d \bp}{\d \tau} = \gamma \frac{\d \bp}{\d t} = q\left( v^0 \frac{\vec{E}}{c} + \bv \times \vec{B} \right)
+\end{equation}</p>
+
+<p>where $\bv = \gamma \vec{v}$ is the <em>proper velocity</em> of the particle, which is the spatial part of the <em>velocity $4$-vector</em></p>
+
+<p>\begin{equation}\notag
+v^\mu = (\gamma c, \gamma \vec{v}).
+\end{equation}</p>
+
+<p>The number</p>
+
+<p>\begin{equation}\notag
+\gamma = \frac{1}{\sqrt{1 - v^2/c^2}}
+\end{equation}</p>
+
+<p>is the usual <em>Lorentz factor</em> (with $v^2 = \vec{v} \cdot \vec{v}$). On the other hand, the temporal component on the left-hand side of \eqref{goal-eqn} is</p>
+
+<p>\begin{equation}\notag
+\frac{\d p^0}{\d \tau} = \frac{\gamma}{c} \frac{\d E}{\d t} = \frac{\gamma}{c} \frac{\d \bp}{\d t} \cdot \vec{v} = \frac{\gamma}{c} q \vec{E} \cdot \vec{v} = q\frac{\vec{E}}{c} \cdot \bv,
+\end{equation}</p>
+
+<p>where $E=cp^0$ is the (total) relativistic energy of the particle. If we then define a $\binom{1}{1}$-tensor $F^\mu{}_\nu$ with standard components</p>
+
+<p>\begin{equation}\notag
+\begin{bmatrix} 0 &amp; E_x/c &amp; E_y/c &amp; E_z/c \\ E_x/c &amp; 0 &amp; B_z &amp; -B_y \\ E_y/c &amp; -B_z &amp; 0 &amp; B_x \\ E_z/c &amp; B_y &amp; -B_x &amp; 0 \end{bmatrix},
+\end{equation}</p>
+
+<p>then an easy check reveals that our desired expression \eqref{goal-eqn} can be given in the covariant form</p>
+
+<p>\begin{equation}\label{lorentz-mink-eqn}
+\frac{\d p^\mu}{\d \tau} = q F^{\mu}{}_\nu v^\nu.
+\end{equation}</p>
+
+<p>Using the Minkowski metric $\eta = \eta_{\mu\nu}$ with signature $(+,-,-,-)$, we may lower the first index to obtain the tensor $F_{\mu\nu}$ with components</p>
+
+<p>\begin{equation}\label{matrix-eqn}
+\begin{bmatrix} 0 &amp; E_x/c &amp; E_y/c &amp; E_z/c \\ -E_x/c &amp; 0 &amp; -B_z &amp; B_y \\ -E_y/c &amp; B_z &amp; 0 &amp; -B_x \\ -E_z/c &amp; -B_y &amp; B_x &amp; 0 \end{bmatrix}.
+\end{equation}</p>
+
+<p>Then:</p>
 
 <div class="highlight-box">
-  <p><strong>Definition.</strong> Let the notation be as above. Those manifolds included in category (1.) are called <em>spacelike</em>, those in category (2.) are called <em>timelike</em>, while those in category (3.) are called <em>lightlike</em>. The timelike manifolds $M$ obtained in this way are called <em>(embedded) lorentzian manifolds</em>.</p>
+  <p><strong>Definition.</strong> The antisymmetric rank-$2$ covariant tensor $F_{\mu\nu}$ on $\bbm^4$ with standard components \eqref{matrix-eqn} is called the <em>electromagnetic field tensor</em>. The equation \eqref{lorentz-mink-eqn} is called the <em>relativistic Lorentz force law</em>.</p>
 </div>
 
-<h2 id="a-first-glimpse-of-curvature-theorema-egregium">A first glimpse of curvature: Theorema Egregium</h2>
+<h2 id="maxwells-laws--coordinate-dependent-form">Maxwell’s laws — coordinate-dependent form</h2>
 
-<p><img src="/assets/images/curvature.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
+<p>We categorize Maxwell’s classical equations of electrodynamics into the <em>magnetostatic</em> and <em>magnetodynamic</em> equations</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong> Let the notation be as above. Prove that</p>
-
-  <p>\begin{equation}\notag
-\dev^2\left(\nabla_X \nabla_YZ - \nabla_Y\nabla_XZ\right)_p   = Z_s - Z_t + O(\dev^3)
+<p>\begin{equation}\label{magnetic-eqn}
+\nabla \cdot \vec{B} = 0 \quad \text{and} \quad \nabla \times \vec{E} + \frac{\bd \vec{B}}{\bd t}  = 0,
 \end{equation}</p>
 
-  <p>and</p>
+<p>and the <em>electrostatic</em> and <em>electrodynamic</em> equations</p>
 
-  <p>\begin{equation}\notag
-\dev^2\left(\nabla_{[X,Y]}Z\right)_p = Z_s - Z_t + O(\dev^3).
+<p>\begin{equation}\label{electric-eqn}
+\nabla \cdot \vec{E} = \rho/\dev_0 \quad \text{and} \quad \nabla \times \vec{B}-\mu_0\dev_0 \frac{\bd \vec{E}}{\bd t}  = \mu_0 \vec{J}.
 \end{equation}</p>
 
-  <p>for all $p\in M$ and all $\dev&gt;0$.</p>
-</div>
+<p>Here, $\rho$ and $\vec{J}$ are the <em>charge</em> and <em>current densities</em>, respectively, while $\dev_0$ and $\mu_0$ are (small) physical constants.</p>
 
-<h2 id="further-reading">Further reading</h2>
-
-<h2 id="references-and-footnotes">References and footnotes</h2>
-
+<h2 id="maxwells-laws--coordinate-independent-form">Maxwell’s laws — coordinate-independent form</h2>
 
     </article>
     
