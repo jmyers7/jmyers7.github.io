@@ -381,16 +381,14 @@ G \times G \to G, \quad (g,h) \mapsto gh^{-1},
     <li><em>Triangle inequality.</em> $\norm{w+v} \leq \norm{w} + \norm{v}$ for all $v\in w\in B$.</li>
   </ol>
 
-  <p>A <em>normed $k$-vector space</em> is a $k$-vector space equipped with a norm $\norm{\cdot}$. A normed $k$-vector space is called a <em>Banach space</em> if it is complete in the metric induced by the norm (see immediately below).</p>
+  <p>A <em>normed $k$-vector space</em> is a $k$-vector space equipped with a norm $\norm{\cdot}$. A normed $k$-vector space is called a <em>Banach space</em> if it is complete in the metric $d$ given by</p>
+
+  <p>\begin{equation}\notag
+d(v,w) \defeq \norm{v-w}, \quad v,w\in V.
+\end{equation}</p>
 </div>
 
-<p>Every normed vector space $V$ is a topological space, equipped with the metric topology induced by</p>
-
-<p>\begin{equation}\notag
-\text{distance}(v,w) \defeq \norm{v-w}, \quad v,w\in V.
-\end{equation}</p>
-
-<p>While it is quite straightforward to prove directly that a normed vector space is a topological vector space, it is perhaps instructive to use some of the theory that we’ve built up in this section.</p>
+<p>Then:</p>
 
 <div class="highlight-box">
   <p><strong>Theorem.</strong> Every normed $k$-vector space $V$ is a topological vector space.</p>
