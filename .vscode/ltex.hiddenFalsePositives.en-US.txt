@@ -9,3 +9,4 @@
 {"rule":"AND_SO_ONE","sentence":"^\\QIn fact, it is frequently the case in functional analysis that these are the only types of bases considered, and so one re-defines the terminology basis to refer to an orthonormal basis.\\E$"}
 {"rule":"MASS_AGREEMENT","sentence":"^\\QA probability measure.\\E$"}
 {"rule":"PHRASE_REPETITION","sentence":"^\\QSheaves of modules\nLocally free sheaves\nVector bundles\nVector bundles \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q locally free sheaves\nLocally free sheaves associated with vector bundles\nThe main equivalence\nAppendix: construction lemmas\\E$"}
+{"rule":"CAPITALIZATION_NNP_DERIVED","sentence":"^\\QThe underlying additive abelian group of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is a topological group.\\E$"}

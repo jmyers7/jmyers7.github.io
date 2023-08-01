@@ -205,6 +205,14 @@ code {
   padding: 1px 20px;
 }
 
+.highlight-code {
+  background-color: black;
+  width: 85%;
+  margin: 0 auto;
+  padding: 1px 20px;
+  border: 0.1px solid #6c6066;
+}
+
 /* this prevents the navbar from covering the target when a link to an anchor is pressed */
 :target {
   scroll-margin-top: 140px; 

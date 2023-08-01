@@ -6,10 +6,9 @@
 }
 .highlight, .highlight .w {
   color: #d0d0d0;
-  /*background-color: #151515;*/
-  background-color: black;
-  padding: 10px;
-  margin: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 10px; /* was at 10px */
+  margin: 10px; /* was at 10px */
   overflow: scroll;
 }
 .highlight .err {
