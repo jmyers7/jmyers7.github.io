@@ -16,6 +16,7 @@
       MathJax = {
         loader: {
           load: ['[custom]/xypic.js'],
+          jax: ["input/TeX","output/SVG"],
           paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
         },
         tex: {
@@ -166,16 +167,13 @@
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
-    
+    <!-- Do not use this because equation references look strange!
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
-    
+    -->
 
-    <!--
     <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
-    -->
     
-
   </head>
   
   <body>
