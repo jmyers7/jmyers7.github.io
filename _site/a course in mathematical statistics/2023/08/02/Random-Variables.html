@@ -159,22 +159,16 @@
           },
         },
         svg: {
-          fontCache: 'none',
+          fontCache: 'global',
           mtextInheritFont: false,
         }
       };
     </script>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-
-    <!-- Do not use this because equation references look strange!
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-chtml-full.js"></script>
-    -->
-
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js?config=TeX-AMS-SVG">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js">
     </script>
-    
-    
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     
   </head>
   
@@ -619,7 +613,7 @@ Q(p) = \min\{y\in \bbr : F(y)\geq p\}.
 
 <h2 id="4-expected-values">4. Expected values</h2>
 
-<p>You should review problem 6 from the worksheet, if it isn’t already fresh in your mind. In that problem, we saw the discrete random variable</p>
+<p>You should review problem 6 from the worksheet if it isn’t already fresh in your mind. In that problem, we saw the discrete random variable</p>
 
 <p>\begin{equation}\notag
 Y: S \to \bbr, \quad Y = \text{ largest of two numbers}.
