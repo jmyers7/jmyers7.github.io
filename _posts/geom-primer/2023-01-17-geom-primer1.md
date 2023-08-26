@@ -259,7 +259,7 @@ is a basis for the tangent space $T_p(M)$ called the *coordinate basis* associat
 
 [^footnote3]: This means that $e_i$ is the vector in $\bbr^n$ with a $1$ in the $i$-th entry and zeros elsewhere.
 
-The rather strange choice of notation for the coordinate basis vectors will be explained when we study the relationship between tangent vectors and derivations in a later post. However, notice that the index $i$ appears in the subscript of the coordinate basis vector $\bd_{x^i}\|_p$, which means that we consider it to be a *lower* index on this basis vector. In the [series]({% post_url /tensors/2022-11-19-tensors1 %}) on tensors, we used a summation convention that said an index repeated in a single expression in both an upper and lower position is to be summed over. In view of this convention, a tangent vector $v\in T_p(M)$ may be written in components as
+The rather strange choice of notation for the coordinate basis vectors will be explained when we study the relationship between tangent vectors and derivations in a later post. However, notice that the index $i$ appears in the subscript of the coordinate basis vector $\bd_{x^i}\|_p$, which means that we consider it to be a *lower* index on this basis vector. One often sees the convention that stipulates that an index repeated in a single expression in both an upper and lower position is to be summed over. In view of this convention, a tangent vector $v\in T_p(M)$ may be written in components as
 
 <div style='overflow: scroll'>
 \begin{equation}\notag
