@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>a tensorized fully-connected feed-forward network</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          jax: ["input/TeX", "output/SVG", "output/PreviewHTML"],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Dom: ['\\operatorname{Dom}#1', 1],
+                Ber: ['\\operatorname{\\mathcal{Ber}}#1', 1],
+                Bin: ['\\operatorname{\\mathcal{Bin}}#1', 1],
+                Geo: ['\\operatorname{\\mathcal{Geo}}#1', 1],
+                HGeo: ['\\operatorname{\\mathcal{HGeo}}#1', 1],
+                Pois: ['\\operatorname{\\mathcal{Pois}}#1', 1],
+                Ran: ['\\operatorname{Ran}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                imag: ['\\operatorname{Im}#1', 1],
+                essSup: ['\\operatorname*{ess sup}'],
+                colim: ['\\operatorname*{colim}'],
+                real: ['\\operatorname{Re}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Supp: ['\\operatorname{Supp}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{VectB}'],
+                ltVect: ['\\mathsf{VectB}^{\\mathsf{lt}}'],
+                ltVB: ['#1\\text{-}\\mathsf{VB}^{\\mathsf{lt}}', 1],
+                VB: ['#1\\text{-}\\mathsf{VB}', 1],
+                O: ['\\operatorname{O}'],
+                SO: ['\\operatorname{SO}'],
+                Sp: ['\\operatorname{Sp}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['\\mathsf{Mod}'],
+                lfMod: ['\\mathsf{Mod}^{\\mathsf{lf}}'],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                ba: ['\\mathbf{a}'],
+                bp: ['\\mathbf{p}'],
+                bv: ['\\mathbf{v}'],
+                bx: ['\\mathbf{x}'],
+                bE: ['\\mathbf{E}'],
+                bF: ['\\mathbf{F}'],
+                bR: ['\\mathbf{R}'],
+                bX: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbm: ['\\mathbb{M}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{l}'],
+                mfL: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: false,
+        }
+      };
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js">
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">writings</a>
+
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html">math-stats book</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">a tensorized fully-connected feed-forward network</h1>
+</div>
+
+    </article>
+    
+  </body>
+</html>

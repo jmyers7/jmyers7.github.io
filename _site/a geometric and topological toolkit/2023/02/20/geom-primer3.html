@@ -284,7 +284,7 @@
 
 <p>All this material (and more) is contained in the first two chapters of Atiyah and Macdonald’s text (<sup id="fnref:AtiyahMacDonald1969" role="doc-noteref"><a href="#fn:AtiyahMacDonald1969" class="footnote" rel="footnote">2</a></sup>), which was actually written to help prepare students to study scheme-theoretic algebraic geometry, which I mentioned above (that’s what I used it for). The material in the third chapter on algebraic localization would be helpful for general culture, but is not strictly required.</p>
 
-<p>Though it will be helpful to have seen the definition of <em>category</em> and <em>functor</em>, prior exposure to category theory proper is not strictly required. The same goes for sheaf theory:  Though I will use the term <em>sheaf</em>, it will be in an informal way, and I do not assume you’ve seen them before.</p>
+<p>Though it will be helpful to have seen the definition of <em>category</em> and <em>functor</em>, prior exposure to category theory proper is not strictly required. The same goes for sheaf theory: Though I will use the term <em>sheaf</em>, it will be in an informal way, and I do not assume you’ve seen them before.</p>
 
 <p>I fear that the reader may initially balk at the rather demanding and intimidating algebraic prerequisites (which certainly extend beyond the material in a typical undergraduate mathematics degree), but I would assure them that the algebraic material is no more difficult to learn and master than smooth manifold theory.</p>
 
@@ -314,27 +314,28 @@
 
 <p>To prove the theorem, one needs to check that $X$ and $\widehat{X}$ are smooth simultaneously. You will do this, and more, in the following:</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong> Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.</p>
+<p>```{admonition} Exercise</p>
 
-  <ol>
-    <li>In the notation of the previous theorem, prove that $X$ is smooth if and only if $\widehat{X}$ is smooth.</li>
-    <li>Prove that smoothness of a vector field $X$ is equivalent to smoothness of its (local) component functions, in the following sense. Let
-      <div style="overflow: scroll">
-        <p>\begin{equation}\notag
- \bd_1|_p,\ldots,\bd_n|_p\in T_p(M)
- \end{equation}</p>
-      </div>
-      <p>be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write</p>
-      <div style="overflow: scroll">
-        <p>\begin{equation}\notag
- X_p = X^j(p) \bd_j|_p,
- \end{equation}</p>
-      </div>
-      <p>for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.</p>
-    </li>
-  </ol>
-</div>
+<p>Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.</p>
+
+<ol>
+  <li>In the notation of the previous theorem, prove that $X$ is smooth if and only if $\widehat{X}$ is smooth.</li>
+  <li>
+    <p>Prove that smoothness of a vector field $X$ is equivalent to smoothness of its (local) component functions, in the following sense. Let</p>
+
+\[\bd_1\|_p,\ldots,\bd_n\|\_p\in T_p(M)\]
+  </li>
+</ol>
+
+<p>be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$
+X_p = X^j(p) \bd_j\|\_p,
+##
+</code></pre></div></div>
+
+<p>for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.
+```</p>
 
 <p>Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient cartesian space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.</p>
 

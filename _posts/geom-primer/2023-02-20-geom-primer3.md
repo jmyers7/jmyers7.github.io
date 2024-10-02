@@ -81,7 +81,7 @@ Besides linear algebra, the algebraic prerequisites include a familiarity with t
 
 All this material (and more) is contained in the first two chapters of Atiyah and Macdonald's text ([^AtiyahMacDonald1969]), which was actually written to help prepare students to study scheme-theoretic algebraic geometry, which I mentioned above (that's what I used it for). The material in the third chapter on algebraic localization would be helpful for general culture, but is not strictly required.
 
-Though it will be helpful to have seen the definition of *category* and *functor*, prior exposure to category theory proper is not strictly required. The same goes for sheaf theory:  Though I will use the term *sheaf*, it will be in an informal way, and I do not assume you've seen them before.
+Though it will be helpful to have seen the definition of *category* and *functor*, prior exposure to category theory proper is not strictly required. The same goes for sheaf theory: Though I will use the term *sheaf*, it will be in an informal way, and I do not assume you've seen them before.
 
 I fear that the reader may initially balk at the rather demanding and intimidating algebraic prerequisites (which certainly extend beyond the material in a typical undergraduate mathematics degree), but I would assure them that the algebraic material is no more difficult to learn and master than smooth manifold theory.
 
@@ -128,24 +128,25 @@ Smooth vector fields on $M$ may be related to the tangent bundle $T(M)$ through 
 
 To prove the theorem, one needs to check that $X$ and $\widehat{X}$ are smooth simultaneously. You will do this, and more, in the following:
 
-<div class="highlight-box2">
-**Exercise.** Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.
+```{admonition} Exercise
+
+Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.
 
 1. In the notation of the previous theorem, prove that $X$ is smooth if and only if $\widehat{X}$ is smooth.
 2. Prove that smoothness of a vector field $X$ is equivalent to smoothness of its (local) component functions, in the following sense. Let  
-    <div style='overflow: scroll'>
-\begin{equation}\notag
+
+    $$
     \bd_1\|_p,\ldots,\bd_n\|\_p\in T_p(M)
-    \end{equation}
-    </div>
+    $$
+
 be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write
-    <div style='overflow: scroll'>
-\begin{equation}\notag
+    
+    $$
     X_p = X^j(p) \bd_j\|\_p,
-    \end{equation}
-    </div>
+    ##
+
 for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.
-</div>
+```
 
 Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient cartesian space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.
 

@@ -1,0 +1,594 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>random variables</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          jax: ["input/TeX", "output/SVG", "output/PreviewHTML"],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Dom: ['\\operatorname{Dom}#1', 1],
+                Ber: ['\\operatorname{\\mathcal{Ber}}#1', 1],
+                Bin: ['\\operatorname{\\mathcal{Bin}}#1', 1],
+                Geo: ['\\operatorname{\\mathcal{Geo}}#1', 1],
+                HGeo: ['\\operatorname{\\mathcal{HGeo}}#1', 1],
+                Pois: ['\\operatorname{\\mathcal{Pois}}#1', 1],
+                Ran: ['\\operatorname{Ran}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                imag: ['\\operatorname{Im}#1', 1],
+                essSup: ['\\operatorname*{ess sup}'],
+                colim: ['\\operatorname*{colim}'],
+                real: ['\\operatorname{Re}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Supp: ['\\operatorname{Supp}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{VectB}'],
+                ltVect: ['\\mathsf{VectB}^{\\mathsf{lt}}'],
+                ltVB: ['#1\\text{-}\\mathsf{VB}^{\\mathsf{lt}}', 1],
+                VB: ['#1\\text{-}\\mathsf{VB}', 1],
+                O: ['\\operatorname{O}'],
+                SO: ['\\operatorname{SO}'],
+                Sp: ['\\operatorname{Sp}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['\\mathsf{Mod}'],
+                lfMod: ['\\mathsf{Mod}^{\\mathsf{lf}}'],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                ba: ['\\mathbf{a}'],
+                bp: ['\\mathbf{p}'],
+                bv: ['\\mathbf{v}'],
+                bx: ['\\mathbf{x}'],
+                bE: ['\\mathbf{E}'],
+                bF: ['\\mathbf{F}'],
+                bR: ['\\mathbf{R}'],
+                bX: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbm: ['\\mathbb{M}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{l}'],
+                mfL: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: false,
+        }
+      };
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js">
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">writings</a>
+
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html">math-stats book</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">random variables</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>A crash course in abstract integration</li>
+  <li>Discrete and absolutely continuous measures</li>
+  <li>Random variables, expected values, and variances</li>
+  <li>Random vectors</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="a-crash-course-in-abstract-integration">A crash course in abstract integration</h2>
+
+<p>As I just mentioned in the section on prerequisites, I will assume that you’re familiar with the very basics of measure theory, so let us just quickly fix terminology and notation:</p>
+
+<div class="highlight-box2">
+  <p><strong>Notation and terminology from measure theory.</strong></p>
+
+  <ol>
+    <li>A <em>measurable space</em> is a pair $(\calx,\mfM)$, where $\calx$ is a set and $\mfM$ is a $\sigma$-algebra on $\calx$.</li>
+    <li>Let $(\calx,\mfM)$ be a measurable space. A <em>(positive) measure</em> on $\mfM$ is a function
+ \begin{equation}\notag
+ \mu: \mfM \to [0,\infty]
+ \end{equation}
+which is <em>$\sigma$-additive</em>, in the sense that if $\{A_i\}$ is a countably infinite collection of sets in $\mfM$ that are pairwise disjoint, then
+ \begin{equation}\notag
+ \mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i).
+ \end{equation}</li>
+    <li>A <em>measure space</em> is a triple $(\calx,\mfM,\mu)$, where $(\calx,\mfM)$ is a measurable space and $\mu$ is a measure on $\mfM$.</li>
+    <li>If $\calx$ is a set, then we will write $\sigma(\cals)$ for the $\sigma$-algebra in $\calx$ generated by a collection $\cals$ of subsets of $\calx$.</li>
+    <li>If $\calx$ is a topological space, its <em>Borel algebra</em>, denoted $\mfB(\calx)$, is the $\sigma$-algebra in $\calx$ generated by the topology of $\calx$.</li>
+    <li>We will write $\bar{\bbr}$ for the extended real line, $[-\infty,\infty]$. We equip $\bar{\bbr}$ with its standard <a href="https://en.wikipedia.org/wiki/Extended_real_number_line#Order_and_topological_properties" style="font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">order topology</a>.</li>
+    <li>If $(\calx,\mfM)$ is a measurable space, we will write $M(\calx,\mfM)$ for the set of all measurable functions
+ \begin{equation}\notag
+ f: (\calx,\mfM) \to (\bar{\bbr}, \mfB(\bar{\bbr})).
+ \end{equation}
+We will write $M_+(\calx,\mfM)$ for the subset of $M(\calx,\mfM)$ consisting of all functions with range in $[0,\infty]$.</li>
+    <li>Let $(\Omega,\mfM)$ be a measurable space. A measure $P$ on $\mfM$ is called a <em>probability measure</em> if $P(\Omega)=1$. In this case, the measure space $(\Omega,\mfM,P)$ is called a <em>probability space</em> and a set $A\in \mfM$ is called an <em>event</em>.</li>
+  </ol>
+</div>
+
+<p>The fundamental theorem of this section gives the existence and uniqueness of abstract integrals corresponding to positive measures. Of course, in a traditional course on measure theory and integration, a good amount of work goes into the proof of this result, showing how to construct general integrals by approximations from below by integrals of simple functions. We will just take this result on faith, and I will leave you to look up proofs in any book on abstract integration.</p>
+
+<div class="highlight-box" id="extuni">
+  <p><strong>Existence and uniqueness of abstract integrals.</strong> Let $(\calx,\mfM)$ be a measurable space. For each (positive) measure $\mu$ on $\mfM$, there is a unique function</p>
+
+  <p>\begin{equation}\notag
+M_+(\calx,\mfM) \to [0,\infty], \quad f\mapsto \int_\calx f \ \d \mu,
+\end{equation}</p>
+
+  <p>called the <em>(Lebesgue) integral with respect to $\mu$</em>, with the following properties:</p>
+
+  <ol>
+    <li>Letting $I_A$ denote the indicator function of a set $A\in \mfM$, we have
+ \begin{equation}\notag
+ \mu(A) = \int_\calx I_A \ \d \mu, \quad \forall A\in \mfM.
+ \end{equation}</li>
+    <li>We have $\int_\calx 0 \ \d \mu = 0$.</li>
+    <li>For all $f,g\in M_+(\calx,\mfM)$ and $a,b\in [0,\infty)$, we have
+ \begin{equation}\notag
+ \int_\calx( a f + b g) \ \d \mu = a \int_\calx f \ \d \mu + b \int_\calx g \ \d \mu.
+ \end{equation}</li>
+    <li>For all $f,g\in M_+(\calx,\mfM)$, we have 
+ \begin{equation}\notag
+ f\leq g \quad \Rightarrow \quad \int_\calx f \ \d \mu \leq \int_\calx g \ \d \mu.
+ \end{equation}</li>
+    <li>If $f_1,f_2,\ldots$ is a sequence in $M_+(\calx, \mfM)$ such that
+ \begin{equation}\notag
+ 0 \leq f_1(x) \leq f_2(x) \leq \cdots
+ \end{equation}
+for each $x\in \calx$, then
+ \begin{equation}\notag
+ \lim_{n\to \infty} \int_\calx f_n \ \d \mu = \int_\calx f \ \d \mu,
+ \end{equation}
+where $f$ is the pointwise limit of the $f_n$s.</li>
+  </ol>
+</div>
+
+<p>The informed reader will, of course, recognize property (5.) in the theorem as the familiar Monotone Convergence Theorem.</p>
+
+<p>It is important to point out that all sorts of alternate notations for the integral exist:</p>
+
+<div class="highlight-box2">
+  <p><strong>Alternate notation for integrals.</strong> The integral $\int_\calx f \ \d \mu$ is also sometimes denoted by</p>
+
+  <p>\begin{equation}\notag
+\int_\calx f(x) \ d \mu(x)
+\end{equation}</p>
+
+  <p>if one wants to call attention to the independent variable $x$. Also, the differentials and the functions are sometimes permuted and rearranged, so that $\int_\calx f \ \d \mu$ might be written as</p>
+
+  <p>\begin{equation}\notag
+\int_\calx \d \mu  f.
+\end{equation}</p>
+
+  <p>If $\calx$ happens to be an $n$-dimensional space of some sort (perhaps an $n$-dimensional manifold) and one wants to call attention to the dimension, then one often writes</p>
+
+  <p>\begin{equation}\notag
+\int_\calx f \ \d^n \mu.
+\end{equation}</p>
+
+  <p>In particular, the Lebesgue measure on $\bbr^n$ will be written as $\d^n \bx$, where the single $\bx$ stands for $(x_1,\ldots,x_n)$. So, integrals with respect to the Lebesgue measure will always be written as</p>
+
+  <p>\begin{equation}\notag
+\int_{\bbr^n} f(\bx) \ \d^n \bx \quad \text{or} \quad \int_{\bbr^n} \d^n \bx f(\bx).
+\end{equation}</p>
+
+  <p>Finally, if it is understood that an integral is to be taken over the <em>entire</em> measure space $\calx$, then the subscript on the integral will be omitted:</p>
+
+  <p>\begin{equation}\notag
+\int f \ \d \mu = \int_{\calx} f \ \d \mu.
+\end{equation}</p>
+</div>
+
+<p>An (abstract) integral may be extended to all (extended) real-valued measurable functions using the standard trick:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(\calx,\mfM,\mu)$ be a measure space. Then integration with respect to $\mu$ may be extended to a function</p>
+
+  <p>\begin{equation}\notag
+M(\calx,\mfM) \to [-\infty,\infty], \quad f \mapsto \int_\calx f \ \d \mu,
+\end{equation}</p>
+
+  <p>by setting</p>
+
+  <p>\begin{equation}\label{huh-eqn}
+\int_\calx f \ \d \mu = \int_\calx f^+ \ \d \mu - \int_\calx f^- \ \d \mu,
+\end{equation}</p>
+
+  <p>where $f^+ = \max\{0,f\}$ and $f^- = \max\{0,-f\}$.</p>
+
+  <p>We shall say that a function $f\in M(\calx,\mfM)$ is <em>integrable</em> if</p>
+
+  <p>\begin{equation}\notag
+\int_\calx |f| \ \d \mu &lt; \infty.
+\end{equation}</p>
+
+  <p>In this case, we write $f \in L^1(\calx,\mfM,\mu)$ or simply $f\in L^1(\calx)$, if the $\sigma$-algebra and measure $\mu$ are understood. Note that the two integrals on the right-hand side of \eqref{huh-eqn} are both finite, provided that $f\in L^1(\calx)$.</p>
+</div>
+
+<p>It will be convenient for us to be able to construct new measures using “densities”:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem/Definition (Constructing measures via densities).</strong> Let $(\calx,\mfM,\mu)$ be a measure space and suppose $f\in M_+(\calx,\mfM)$. If for each $A\in \mfM$ we define</p>
+
+  <p>\begin{equation}\label{ind-mea-eqn}
+\nu(A) = \int_A f \ \d \mu,
+\end{equation}</p>
+
+  <p>then $\nu$ is a measure on $\mfM$. Furthermore, we have</p>
+
+  <p>\begin{equation}\label{ind2-mea-eqn}
+\int_\calx g \ \d \nu = \int_\calx fg \ \d \mu
+\end{equation}</p>
+
+  <p>for each $g\in M(\calx,\mfM)$. In this case, the measure $\nu$ is said to <em>have a density with respect to $\mu$</em>, and the function $f$ (which is unique a.e.) is called a <em>density function</em>.</p>
+</div>
+
+<p>That the formula \eqref{ind-mea-eqn} defines a measure is more or less a consequence of the Monotone Convergence Theorem, i.e., property (5.) of the existence and uniqueness <a href="#extuni">theorem</a> above. I will leave you to work out the details or to look them up in a suitable reference. (See the section on Further Reading.) The equality of integrals \eqref{ind2-mea-eqn} may be demonstrated using the same theorem, by showing that the function</p>
+
+<p>\begin{equation}\notag
+M_+(\calx,\mfM) \to [0,\infty], \quad g \mapsto \int_\calx fg \ \d \mu,
+\end{equation}</p>
+
+<p>has all the defining properties of the integral with respect to $\nu$. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $g:(\calx,\mfM) \to (\caly,\mfN)$ be a measurable function between two measurable spaces. If $\mu$ is a measure on $\mfM$, we define the <em>pushforward of $\mu$ along $g$</em>, denoted $g_\ast \mu$, to be the measure on $\mfN$ defined by</p>
+
+  <p>\begin{equation}\notag
+(g_\ast \mu)(B) = \mu\left( g^{-1}(B) \right), \quad B\in \mfN.
+\end{equation}</p>
+</div>
+
+<p>That the pushforward measure really is a measure is easily proved; I will leave the details to you. These measures feature prominently in the following fundamental result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Change of variables).</strong> Let $(\calx,\mfM,\mu)$ be a measure space, $(\caly,\mfN)$ a measurable space, and suppose</p>
+
+  <p>\begin{equation}\notag
+g: (\calx,\mfM) \to (\caly,\mfN)
+\end{equation}</p>
+
+  <p>is a measurable function. Then, for any $f \in M(\caly,\mfN)$, we have</p>
+
+  <p>\begin{equation}\notag
+\int_\calx (f\circ g) \ \d \mu = \int_\caly f \ \d (g_\ast \mu).
+\end{equation}</p>
+</div>
+
+<p>The result follows by showing that the function</p>
+
+<p>\begin{equation}\notag
+M_+(\caly,\mfN) \to [0,\infty], \quad f\mapsto \int_\calx (f\circ g) \ \d \mu,
+\end{equation}</p>
+
+<p>has all the defining properties of the integral with respect to the pushforward measure $g_\ast \mu$ (in the sense of the existence and uniqueness <a href="#extuni">theorem</a> above). The argument is straightforward, and I will leave it to you.</p>
+
+<h2 id="discrete-and-absolutely-continuous-measures">Discrete and absolutely continuous measures</h2>
+
+<p>Let $(\calx,\mfM)$ be a measurable space and $C\in \mfM$ a finite or countably infinite set. If we write $\mfP(C)$ for the power set of $C$, then the inclusion map</p>
+
+<p>\begin{equation}\label{inc-eqn}
+\iota:(C,\mfP(C)) \to (\calx, \mfM)
+\end{equation}</p>
+
+<p>is measurable. We will write $\gamma_C$ for the pushforward of the counting measure from $(C,\mfP(C))$ to $(\calx,\mfM)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong></p>
+
+  <ol>
+    <li>Let $\mu$ be a measure on a measurable space $(\calx,\mfM)$. We shall say that $\mu$ is <em>discrete</em> if it has a density with respect to $\gamma_C$, for some finite or countably infinite set $C\in \mfM$. In this case, $\mu$ is said to be <em>concentrated</em> on $C$.</li>
+    <li>Let $\mu$ be a measure on $(\bbr^n,\mfB(\bbr^n))$. We shall say $\mu$ is <em>absolutely continuous</em> if it has a density with respect to the Lebesgue measure $\d^n \bx$.</li>
+  </ol>
+</div>
+
+<p>If $\mu$ is discrete, concentrated on $C$ with density $f\in M_+(\calx,\mfM)$, and $\iota$ is the inclusion \eqref{inc-eqn}, then by the change-of-variables formula we have</p>
+
+<p>\begin{equation}\label{density-off-eqn}
+\mu(A) = \int_A f \dx{\gamma_C} = \sum_{x\in A\cap C} f(x)
+\end{equation}</p>
+
+<p>for all $A\in \mfM$. In particular, if each singleton $\{x\}$ is measurable, then</p>
+
+<p>\begin{equation}\notag
+\mu(\{x\}) = \begin{cases} f(x) &amp; : x \in C, \\ 0 &amp; : x\notin C. \end{cases}
+\end{equation}</p>
+
+<p>In this case, we may write $\mu(x)$ in place of $f(x)$. Notice also from \eqref{density-off-eqn} that the values of the density $f$ on the complement $\calx \smallsetminus C$ are irrelevant as far as the measure $\mu$ is concerned; in particular, we may assume that $f(x) = 0$ for all $x\notin C$, while still retaining the fundamental equation $\mu(A) = \int_A f \dx{\mu}$. In this case, if all singletons are measurable, we have $\mu(x) = f(x)$ for <em>all</em> $x\in \calx$, not just those points $x\in C$.</p>
+
+<h2 id="random-variables-expected-values-and-variances">Random variables, expected values, and variances</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>random variable</em> on a probability space $(\Omega,\mfM,P)$ is a measurable function $X \in M(\Omega,\mfM)$. We write $P_X$ for the pushforward measure $X_\ast P$ on $\bbr$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ be a random variable on a probability space $(\Omega,\mfM,P)$.</p>
+
+  <ol>
+    <li>We define the <em>expected value</em> of $X$, denoted $E(X)$, to be the integral
+ \begin{equation}\notag
+ E(X) = \int_\Omega X \ \d P.
+ \end{equation}
+If $X\in L^1(\Omega)$, so that the integral $E(X)$ is finite, then we shall say that $X$ <em>has an expected value</em>. The expected value is also sometimes called the <em>mean value</em> of $X$ and is denoted $\mu_X$.</li>
+    <li>If $X$ has an expected value, then we define its <em>variance</em>, denoted $V(X)$, to be
+ \begin{equation}\notag
+ V(X) = E\big[ \left(X - \mu_X\right)^2 \big].
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $X$ be a random variable on a probability space $(\Omega,\mfM,P)$ with expected value $\mu_X$.</p>
+
+  <ol>
+    <li>
+      <p>We have
+ \begin{equation}\notag
+ V(X) = E(X^2) - \mu_X^2.
+ \end{equation}</p>
+    </li>
+    <li>
+      <p>We have 
+ \begin{equation}\notag
+ E(X) = \int_\bbr x \ \d P_X\left( x\right).
+ \end{equation}</p>
+    </li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $X$ be a random variable on a probability space $(\Omega,\mfM,P)$.</p>
+
+  <ol>
+    <li>We shall say $X$ is <em>discrete</em> if $P_X$ is a discrete measure on $\bbr$.</li>
+    <li>We shall say $X$ is <em>continuous</em> if $P_X$ is an absolutely continuous measure on $\bbr$.</li>
+  </ol>
+
+  <p>In either case, a density function $f$ of $P_X$ is called a <em>density function</em> of $X$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $X$ be a discrete random variable on a probability space $(\Omega,\mfM, P)$. Suppose that $P_X$ is concentrated on $C\in \mfB(\bbr)$ with density $f$. Then</p>
+
+  <p>\begin{equation}\notag
+E(X) = \sum_{x\in C}x f(x).
+\end{equation}</p>
+</div>
+
+<h2 id="random-vectors">Random vectors</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>random vector</em> on a probability space $(\Omega,\mfM, P)$ is a measurable function</p>
+
+  <p>\begin{equation}\notag
+\bX : (\Omega,\mfM) \to (\bbr^n,\mfB(\bbr^n)).
+\end{equation}</p>
+
+  <p>We call the integer $n$ the <em>dimension</em> of $\bX$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(\Omega,\mfM,P)$ be a probability space, and suppose that</p>
+
+  <p>\begin{equation}\notag
+\bX : \Omega \to \bbr^n
+\end{equation}</p>
+
+  <p>is a function. Then $\bX$ is a random vector if and only if each function</p>
+
+  <p>\begin{equation}\label{comp-rv-eqn}
+X_i \defeq \pi_i \circ \bX : (\Omega,\mfM) \to (\bbr, \mfB(\bbr)), \quad i=1,\ldots,n,
+\end{equation}</p>
+
+  <p>is a random variable, where $\pi_i$ is the $i$-th natural projection of $\bbr^n$ onto the $i$-th cartesian factor.</p>
+</div>
+
+<p>Indeed, this follows from the fact that the Borel algebra $\mfB(\bbr^n)$ is the product $\sigma$-algebra of the Borel algebras on each of the cartesian factors of $\bbr^n$, and the universal property of product $\sigma$-algebras. See the section on Further Reading for references.</p>
+
+<p>If $\bX$ is an $n$-dimensional random vector, we will write</p>
+
+<p>\begin{equation}\notag
+\bX = (X_1,\ldots,X_n)
+\end{equation}</p>
+
+<p>when we want to call attention to the component random variables \eqref{comp-rv-eqn} defined in the theorem.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\bX = (X_1,\ldots,X_n)$ be a random vector on a probability space $(\Omega,\mfM,P)$. We define the <em>expected value</em> of $\bX$, denoted $E(\bX)$, to be the $n$-dimensional vector</p>
+
+  <p>\begin{equation}\notag
+E(\bX) = (E(X_1),\ldots,E(X_n))\in \bbr^n,
+\end{equation}</p>
+
+  <p>provided that each of the expected values $E(X_i)$ exist.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\bX = (X_1,\ldots,X_n)$ be a random vector on a probability space $(\Omega,\mfM,P)$ and let $P_\bX = \bX_\ast P$ be the pushforward measure.</p>
+
+  <ol>
+    <li>We shall say the random variables $X_1,\ldots,X_n$ are <em>jointly discrete</em> if $P_\bX$ is a discrete measure on $\bbr^n$.</li>
+    <li>We shall say the random variables $X_1,\ldots,X_n$ are <em>jointly continuous</em> if $P_\bX$ is an absolutely continuous measure on $\bbr^n$.</li>
+  </ol>
+
+  <p>In either case, a density function $f$ of $P_\bX$ is called a <em>joint density function</em> of the random variables $X_1,\ldots,X_n$.</p>
+</div>
+
+<p>Let $\bX = (X_1,\ldots,X_n)$ be a random vector on a probability space $(\Omega,\mfM,P)$. Given a measurable function $h \in M(\bbr^n,\mfB(\bbr^n))$, we shall write</p>
+
+<p>\begin{equation}\label{trans-eqn}
+h(\bX) = h(X_1,\ldots,X_n)
+\end{equation}</p>
+
+<p>for the random variable on $\Omega$ defined as the composite</p>
+
+<p>\begin{equation}\notag
+h \circ \bX : \Omega \to \bbr, \quad \omega \mapsto h(\bX(\omega)).
+\end{equation}</p>
+
+<p>The random variable \eqref{trans-eqn} is called a <em>transformation</em> of the $X_i$s.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\bX$ be a random vector on a probability space $(\Omega,\mfM,P)$, and let $h\in M(\calx, \mfM)$. If the transformed random variable $h(\bX)$ has an expected value, then</p>
+
+  <p>\begin{equation}\notag
+E\big[ h(\bX) \big] = \int_{\bbr^n} h(\bx) \ \d^nP_{\bx}(\bx).
+\end{equation}</p>
+</div>
+
+
+    </article>
+    
+  </body>
+</html>

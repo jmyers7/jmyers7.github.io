@@ -1,0 +1,588 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>abstract integration</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          jax: ["input/TeX", "output/SVG", "output/PreviewHTML"],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Dom: ['\\operatorname{Dom}#1', 1],
+                Ber: ['\\operatorname{\\mathcal{Ber}}#1', 1],
+                Bin: ['\\operatorname{\\mathcal{Bin}}#1', 1],
+                Geo: ['\\operatorname{\\mathcal{Geo}}#1', 1],
+                HGeo: ['\\operatorname{\\mathcal{HGeo}}#1', 1],
+                Pois: ['\\operatorname{\\mathcal{Pois}}#1', 1],
+                Ran: ['\\operatorname{Ran}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                imag: ['\\operatorname{Im}#1', 1],
+                essSup: ['\\operatorname*{ess sup}'],
+                colim: ['\\operatorname*{colim}'],
+                real: ['\\operatorname{Re}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Supp: ['\\operatorname{Supp}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{VectB}'],
+                ltVect: ['\\mathsf{VectB}^{\\mathsf{lt}}'],
+                ltVB: ['#1\\text{-}\\mathsf{VB}^{\\mathsf{lt}}', 1],
+                VB: ['#1\\text{-}\\mathsf{VB}', 1],
+                O: ['\\operatorname{O}'],
+                SO: ['\\operatorname{SO}'],
+                Sp: ['\\operatorname{Sp}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['\\mathsf{Mod}'],
+                lfMod: ['\\mathsf{Mod}^{\\mathsf{lf}}'],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                ba: ['\\mathbf{a}'],
+                bp: ['\\mathbf{p}'],
+                bv: ['\\mathbf{v}'],
+                bx: ['\\mathbf{x}'],
+                bE: ['\\mathbf{E}'],
+                bF: ['\\mathbf{F}'],
+                bR: ['\\mathbf{R}'],
+                bX: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbm: ['\\mathbb{M}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{l}'],
+                mfL: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: false,
+        }
+      };
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js">
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">writings</a>
+
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html">math-stats book</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">abstract integration</h1>
+</div>
+
+<p>With the notion of general measure space in hand, in this post we move on to defining the general Lebesgue integral. We already saw a “pre-definition” of the integral in the previous post in this series, which was obtained from the definition of the Riemann integral by replacing “approximations by step functions” with “approximations by simple functions.” It was referred to as a <strong>pre</strong>-definition because it uses the Jordan measure and Jordan algebra instead of the Lebesgue measure and Lebesgue $\sigma$-algebra. My goal was to make the pre-definition appear quite natural and well-motivated by explaining its connection to the familiar Riemann integral.</p>
+
+<p>This post begins with <em>another</em> motivation for the general Lebesgue integral, by explaining Lebesgue’s original definition obtained by partitioning the <em>range</em> of a function rather than its <em>domain</em>. In informal introductions to the Lebesgue integral (c.f., the Wikipedia entry), Lebesgue’s definition is the one often given to convey intuition.</p>
+
+<p>After explaining Lebesgue’s definition, we move on to the “modern” definition of the integral, in all of its details. I will then state a core convergence result called Lebesgue’s Monotone Convergence Theorem, and give two applications: For the first, I will use the theorem to show that Lebesgue’s original definition coincides with our “modern” one, and for the second application, I will use the theorem to show that Lebesgue integrals with respect to counting measures are sums. This latter fact will be particularly relevant when we move on to probability theory.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>The first two posts in this series are prerequisites for reading this one: the links are <a href="uniting">here</a> and <a href="algebras">here</a>. Familiarity with the general notion of a <em>topological space</em> will be helpful when I define Borel algebras; but if you don’t know what that terminology means, you can safely assume that the topological space under consideration is a euclidean space $\bbr^n$.</p>
+
+<h2 id="lebesgues-definition-of-the-integral">Lebesgue’s definition of the integral</h2>
+
+<p>You saw a preliminary definition of the Lebesgue integral of a function $f:[a,b] \to [0,\infty)$ in the previous post. The overarching goal of this post is to upgrade this “pre-definition” of Lebesgue’s integral to the official definition. In informal introductions to Lebesgue’s theory, you’ll often hear that, while the Riemann integral is based on partitions of the <em>domain</em> of a function $f:[a,b]\to \bbr$, the Lebesgue integral is based on partitions of the <em>range</em> of $f$. In this section, I will explain how this works.</p>
+
+<p>Given a bounded function $f:[a,b]\to[0,\infty)$ and a positive integer $n\geq 1$, we first chop the $y$-axis into subintervals of length $1/2^n$, beginning at $y=0$ and ending at $y=n$. For $n=2$, the picture looks like this:</p>
+
+<p>/* partition-y.png */</p>
+
+<p>Here, the graph of the function $f$ is shown in blue. We then consider the preimages</p>
+
+<p>\begin{equation}
+\label{first-eqn}
+A_k = f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right) \subseteq [a,b]
+\end{equation}</p>
+
+<p>for each $k=0,1,\ldots,n2^n-1$, along with the preimage</p>
+
+<p>\begin{equation}
+\label{second-eqn}
+A_{n2^n} = f^{-1} \left( [n,\infty) \right) \subseteq [a,b].
+\end{equation}</p>
+
+<p>In the picture, for a fixed $k$, the preimage \eqref{first-eqn} is exactly the collection of those $x$-values in $[a,b]$ such that $f(x)$ lies between the $k$-th and $(k+1)$-st horizontal dashed line.</p>
+
+<p>If our function $f$ is the one given in the figure, then each $A_k$ is either an interval or a union of disjoint intervals; hence, each length $\lambda(A_k)$ is defined. We thus have the approximation</p>
+
+<p>\begin{equation}\notag
+\int_a^b f(x) \ \text{d}x \approx \sum_{k=0}^{n2^n} \frac{k}{2^n} \lambda(A_k),
+\end{equation}</p>
+
+<p>where the integral on the left is the riemannian one. Indeed, the right-hand side of this approximation is the Riemann integral of a step function $s_n:[a,b]\to \bbr$ defined using the given partition of the $y$-axis. In the case of our figure above, when $n=2$, the graph of the step function $s_2$ is given by the thick red horizontal lines in the figure:</p>
+
+<p>/* lebesgue-step.png */</p>
+
+<p>Our intuition then suggests that the approximation becomes an equality in the limit:</p>
+
+<p>\begin{equation}
+\label{leb-defn-eqn}
+\int_a^b f(x) \ \text{d}x = \lim_{n\to \infty} \sum_{k=0}^{n2^n-1} \frac{k}{2^n} \lambda\left\{f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right) \right\}.
+\end{equation}</p>
+
+<p>Notice that I have dropped the preimage \eqref{second-eqn}, which does not change the limit since $f$ is assumed to be bounded.</p>
+
+<p>The limit on the right-hand side of \eqref{leb-defn-eqn} is Lebesgue’s original definition of his integral. For our specific function $f$, drawn in the figures above, the right-hand side is equal to the Riemann integral of $f$. However, notice that the right-hand side makes sense for <em>any</em> bounded function $f:\calx \to [0,\infty)$ defined on a measure space $(\calx,\mfm,\mu)$, as long as we replace the Lebesgue measure $\lambda$ with $\mu$ and we suppose that each set</p>
+
+<p>\begin{equation}
+\label{preimage-eqn}
+A_k = f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right)
+\end{equation}</p>
+
+<p>is measurable (i.e., in the $\sigma$-algebra $\mfm$). Thus, in this case, we take the limit on the right-hand side of {eq}<code class="language-plaintext highlighter-rouge">leb-defn-eqn</code> as the <em>definition</em> of the Lebesgue integral:</p>
+
+<p>\begin{equation}
+\label{lebesgues-defn}
+\int_\calx f \ \text{d}\mu = \lim_{n\to \infty} \sum_{k=0}^{n2^n-1} \frac{k}{2^n} \mu\left\{f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right) \right\}.
+\end{equation}</p>
+
+<h2 id="measurable-functions">Measurable functions</h2>
+
+<p>We saw in the {prf:ref}<code class="language-plaintext highlighter-rouge">"pre-definition" &lt;pre-defn-lebesgue-def&gt;</code> of the Lebesgue integral in the previous post that the Lebesgue integral is only defined for functions $f:[a,b]\to \bbr$ that are “Jordan measurable,” though it wasn’t immediately clear what role that restriction plays in the theory. A similar restriction on an arbitrary function $f:\calx \to \bbr$ defined on a measure space $(\calx,\mfm,\mu)$ is evident in \eqref{lebesgues-defn} since it requires each set</p>
+
+<p>\begin{equation}
+\label{jordan-measurable-yup-eqn}
+f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right)
+\end{equation}</p>
+
+<p>to be measurable. It is clear that these two restrictions on functions are closely related as they both deal with measurability of preimages of certain sets; indeed, these conditions are actually specific examples of the general notion of “measurability” of functions that I will define in this section.</p>
+
+<p>Before the general definition, first notice that the measure $\mu$ plays no role in the measurability of \eqref{jordan-measurable-yup-eqn}. Indeed, measurability of this set is simply a question of whether the set is a member of the $\sigma$-algebra $\mfm$. Thus, it is helpful to define a “measure space without a measure” as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>measurable space</em> is a pair $(\calx, \mfm)$ consisting of a $\sigma$-algebra of sets $\mfm$ in a set $\calx$.</p>
+</div>
+
+<p>If you’ve seen enough mathematics, you’ve undoubtedly noticed the ubiquity of &lt;a href=https://en.wikipedia.org/wiki/Mathematical_structure&gt;”sets with structure”&lt;/a&gt;: For example, every vector space, topological space, group, ring, field, manifold, variety, scheme, <em>etc</em>., is a set equipped with some sort of extra structure. For instance:</p>
+
+<ol>
+  <li>A vector space is a set <em>equipped with a scalar multiplication and vector addition</em>;</li>
+  <li>a group is a set <em>equipped with an associative and invertible binary operation</em>;</li>
+  <li>a topological space is a set <em>equipped with a topology</em>.</li>
+</ol>
+
+<p>And so on. One of the lessons that &lt;a href=https://en.wikipedia.org/wiki/Category_theory&gt;category theory&lt;/a&gt; teaches us is that the “structure-preserving functions” between these sets with structure (i.e., the <em>morphisms</em>) are just as important as the structured sets themselves. The respective morphisms for the three classes of examples above are:</p>
+
+<ol>
+  <li>Linear transformations,</li>
+  <li>group homomorphisms, and</li>
+  <li>continuous functions.</li>
+</ol>
+
+<p>Now, every measurable space $(\calx, \mfm)$ qualifies as a set with structure because it is a set—namely $\calx$—equipped with extra structure in the form of a $\sigma$-algebra of sets. But what are the associated structure-preserving functions? Here’s the answer:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $f: \calx \to \caly$ be a function between two measurable spaces $(\calx,\mfm)$ and $(\caly,\mfn)$, which we will denote by $f:(\calx,\mfm) \to (\caly,\mfn)$. We shall say $f$ is $(\mfm,\mfn)$-<em>measurable</em> if $f^{-1}(B) \in \mfm$ for all $B\in \mfn$.</p>
+</div>
+
+<p>The seasoned reader will surely notice the strong similarity to the definition of a continuous function between topological spaces. If there is no chance for confusion about the identities of the $\sigma$-algebras, then we will abbreviate “$(\mfm,\mfn)$-measurable” to simply “measurable.”</p>
+
+<p>The real line $\bbr$ has a distinguished $\sigma$-algebra that plays a fundamental role. Indeed, this $\sigma$-algebra may actually be defined for any topological space $\calx$:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\calx$ be a topological space. The <em>Borel ($\sigma$-)algebra</em> on $\calx$, denoted $\mfb(\calx)$, is the smallest $\sigma$-algebra in $\calx$ that contains all open sets in $\calx$.</p>
+</div>
+
+<p>Naturally, one wonders whether Borel algebras even exist. They do, and this is a consequence of the following two facts:</p>
+
+<ol>
+  <li>Every set $\mfe$ of subsets in $\calx$ is contained in a $\sigma$-algebra in $\calx$.</li>
+  <li>The intersection of any collection of $\sigma$-algebras in $\calx$ is a $\sigma$-algebra.</li>
+</ol>
+
+<p>Therefore, if $\mfe$ is a set of subsets of a set $\calx$ (e.g., $\mfe$ could be the topology on $\calx$ if the latter is a topological space), then the intersection of <em>all</em> $\sigma$-algebras in $\calx$ that contain $\mfe$ is itself a $\sigma$-algebra. If we denote it by $\sigma(\mfe)$, then $\sigma(\mfe)$ is the <em>smallest</em> $\sigma$-algebra in $\calx$ that contains $\mfe$, in the sense that $\sigma(\mfe) \subseteq \mfm$ if $\mfm$ is a $\sigma$-algebra that contains $\mfe$.</p>
+
+<p>The $\sigma$-algebra $\sigma(\mfe)$ is called the <em>$\sigma$-algebra generated by $\mfe$</em>, and $\mfe$ is called a <em>generating class</em> of $\sigma(\mfe)$. Generating classes are <strong>not</strong> unique, in the sense that if $\mfm$ is a $\sigma$-algebra and</p>
+
+<p>\begin{equation}\notag
+\sigma(\mfe) = \mfm = \sigma(\mfe’)
+\end{equation}</p>
+
+<p>for two $\mfe$ and $\mfe’$, then it does <strong>not</strong> necessarily follow that $\mfe = \mfe’$. Here is a fundamental example illustrating non-uniqueness:</p>
+
+<div class="highlight-box">
+  <p><strong>Example.</strong> Let $\mfb(\bbr)$ be the Borel algebra on the real line $\bbr$, i.e., the smallest $\sigma$-algebra in $\bbr$ containing all open sets. If we let $\mfe$ consist of all intervals in $\bbr$ of the form $[a,\infty)$ for $a\in \bbr$, then $\mfe$ is a generating class of $\mfb(\bbr)$.</p>
+
+  <p>Another generating class of $\mfb(\bbr)$ is given by $\mfe’$, consisting of all intervals of the form $[a,b)$, for $-\infty &lt; a &lt; b \leq +\infty$.</p>
+</div>
+
+<p>It is a basic but important fact that measurability of a function can be tested against generating classes:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $f:(\calx, \mfm) \to (\caly, \mfn)$ be a function between two measurable spaces, and suppose $\mfn = \sigma(\mfe)$ for some generating class $\mfe$. Then $f$ is $(\mfm,\mfn)$-measurable if and only if $f^{-1}(E) \in \mfm$ for all $E\in \mfe$.</p>
+</div>
+
+<p>Measurability of a function $f:(\calx, \mfm) \to (\caly, \mfn)$ can be characterized in terms of inclusions of $\sigma$-algebras. For this, define $\sigma(f)$ to be the $\sigma$-algebra in $\mfm$ generated by the set</p>
+
+<p>\begin{equation}\notag
+\left\{ f^{-1}(B) : B\in \mfn \right\}.
+\end{equation}</p>
+
+<p>Then it is easy to prove that $f$ is $(\mfm,\mfn)$-measurable if and only if $\sigma(f) \subseteq \mfm$. This also proves that $\sigma(f)$ is the <em>smallest</em> $\sigma$-algebra in $\calx$ for which $f$ is $(\sigma(f),\mfn)$-measurable.</p>
+
+<p>Finally, in the general definition of the Lebesgue integral (yet to come), it will be convenient to allow our functions $f:\calx \to \bbr$ to take values in the <em>extended real number system</em>, denoted $\ebbr = [-\infty,\infty]$ and defined as follows. First, as a set, we define</p>
+
+<p>\begin{equation}\notag
+\ebbr = \bbr \cup {-\infty,\infty},
+\end{equation}</p>
+
+<p>where $\infty$ and $-\infty$ are formal symbols. The set $\ebbr$ has the obvious linear ordering, given by</p>
+
+<p>\begin{equation}\notag
+ -\infty &lt;x &lt; \infty
+\end{equation}</p>
+
+<p>for all $x\in \bbr$. The set $\ebbr$ may also be topologized naturally, by declaring the sets of the form $[-\infty,a)$, $(a,\infty]$, and $(a,b)$ as a basis for the topology (for all $a,b\in \bbr$). As a topological space, $\ebbr$ has a Borel algebra, and thus we may talk about measurable functions</p>
+
+<p>\begin{equation}
+\label{set-measurable-func-eqn}
+f:(\calx, \mfm) \to ( \ebbr, \mfb(\ebbr))
+\end{equation}</p>
+
+<p>for any measurable space $(\calx,\mfm)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(\calx,\mfm)$ be a measurable space. We write $M(\calx, \mfm)$ for the set of all measurable functions \eqref{set-measurable-func-eqn}. We write $M^+(\calx,\mfm)$ for the subset of $M(\calx,\mfm)$ consisting of all measurable functions $f$ with $f(x) \geq 0$ for all $x\in \calx$.</p>
+</div>
+
+<h2 id="the-axiomatic-definition">The axiomatic definition</h2>
+
+<div class="highlight-box" id="axiomatic-defn">
+  <p><strong>Definition.</strong> Let $(\calx,\mfm,\mu)$ be a measure space. A function</p>
+
+  <p>\begin{equation}\notag
+\tl{\mu} : M^+(\calx, \mfm) \to [0,\infty]
+\end{equation}</p>
+
+  <p>is called a <em>(Lebesgue) integral with respect to $\mu$</em> if the following four properties hold:</p>
+
+  <ol>
+    <li>For every $A\in \mfm$, we have $\tl{\mu}(\chi_A) = \mu(A)$, where $\chi_A$ is the indicator function of $A$.</li>
+    <li>We have $\tl{\mu}(0) = 0$, where the zero inside $\tl{\mu}(0)$ represents the (constant) zero function.</li>
+    <li>For all nonnegative real numbers $a,b\in \bbr$ and functions $f,g\in M^+(\calx,\mfa)$, we have
+ \begin{equation}\notag
+ \tl{\mu}(af + bg) = a \tl{\mu}(f) + b\tl{\mu}(g).
+ end{equation}</li>
+    <li>
+      <p>Suppose $f_1,f_2,\ldots$ is a sequence in $M^+(\calx,\mfa)$ with</p>
+
+      <p>\begin{equation}\notag
+ 0 \leq f_1(x) \leq f_2(x) \leq \cdots
+ \end{equation}</p>
+
+      <p>for all $x\in \calx$. Further, suppose that we set $f(x) = \lim_{n\to \infty}f_n(x)$ for each $x\in \calx$. Then $\tl{\mu}(f_n) \to \tl{\mu}(f)$ as $n\to \infty$.</p>
+    </li>
+  </ol>
+</div>
+
+<p>Let me make two immediate remarks regarding the definition:</p>
+
+<ol>
+  <li>Measurability of $af + bg$ in part (3.) of the definition follows from measurability of $f$ and $g$.</li>
+  <li>
+    <p>Measurability of $f$ in part (4.) of the definition follows from measurability of the $f_n$’s. The dual conditions</p>
+
+    <p>\begin{equation}\notag
+ 0 \leq f_1(x) \leq f_2(x) \leq \cdots
+ \end{equation}
+ and $f(x) = \lim_{n\to \infty}f(x)$ are often represented simply by writing $f_n \uparrow f$ (as $n\to \infty$).</p>
+  </li>
+</ol>
+
+<h2 id="existence-and-uniqueness-of-the-integral">Existence and uniqueness of the integral</h2>
+
+<p>With measurability of functions and the extended real number system in hand, we can now begin working toward the “modern” definition of the Lebesgue integral, which is more or less the “pre-definition” that you saw in (???). First, we define the Lebesgue integrals of (nonnegative) simple functions:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $s:(\calx,\mfm,\mu) \to [0,\infty)$ be a simple function, defined on a measure space, with range $\{y_1,\ldots,y_n\}$. We define the <em>Lebesgue integral</em> of $s$ over $\calx$ to be the sum</p>
+
+  <p>\begin{equation}\notag
+\int_\calx s \ \text{d}\mu = \sum_{i=1}^n y_i \mu \left( s^{-1}(y_i) \right).
+\end{equation}</p>
+
+  <p>If $A\in \mfm$, we define the <em>Lebesgue integral</em> of $s$ over $A$ to be the sum</p>
+
+  <p>\begin{equation}\notag
+\int_A s \ \text{d}\mu = \sum_{i=1}^n y_i \mu \left( s^{-1}(y_i) \cap A \right).
+\end{equation}</p>
+</div>
+
+<p>If $(\calx,\mfm,\mu)$ is a measure space and $A\in \mfm$, then $A$ is itself a measure space with $\sigma$-algebra of measurable sets $\mfm_A$ and measure $\mu_A$, where $\mfm_A$ consists of all sets of the form $E\cap A$, for $E\in \mfm$, and $\mu_A(E\cap A) = \mu(E\cap A)$. Therefore, in the previous definition, the definition of $\int_A s \ \text{d}\mu$ is included in the definition of $\int_\calx s \ \text{d}\mu$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $f:(\calx,\mfm,\mu) \to [0,\infty]$ be a measurable function defined on a measure space. Given $A\in \mfm$, we define the <em>Lebesgue integral</em> of $f$ over $A$ to be</p>
+
+  <p>\begin{equation}\notag
+\int_A f \ \text{d}\mu = \sup \left\{ \int_A s \ \text{d}\mu \right\},
+\end{equation}</p>
+
+  <p>where the supremum is taken over all measurable simple functions $s:\calx \to \bbr$ such that $0\leq s\leq f$ pointwise (i.e., $0\leq s(x) \leq f(x)$ for all $x\in A$).</p>
+</div>
+
+<p>At first glance, it’s not clear what role measurability of $f$ plays in the definition—indeed, the definition appears to apply to <em>any</em> function $f$! But as we saw in the previous section, Lebesgue’s original definition of the integral uses measurability of $f$ in a crucial way, and in order to reconcile our definition of $\int_\calx f \ \text{d}\mu$ with Lebesgue’s definition, we must require our function $f$ to measurable as well. Also, while our definition of the Lebesgue integral doesn’t appear to use measurability of $f$, the subsequent theorems regarding the integral <em>do</em> require measurability.</p>
+
+<p>It very well could be the case that the integral $\int_\calx f \dx{\mu}$ is equal to $\infty$. Thus, the Lebesgue integral takes its values in the extended real number system.</p>
+
+<p>The definition of the integral only applies to nonnegative measurable functions $f:\calx \to [0,\infty]$. In order to extend the definition to functions that take negative values, we observe that</p>
+
+<p>\begin{equation}\notag
+f(x) = f^+(x) - f^-(x),
+\end{equation}</p>
+
+<p>where $f^+(x) = \max\{f(x),0\}$ and $f^-(x) = - \min\{ f(x),0 \}$, for all $x\in \calx$. It is a general fact that measurability of $f$ implies the same for $f^+$ and $f^-$, and since these latter two functions take only nonnegative values, the integrals</p>
+
+<p>\begin{equation}
+\label{int-ext-eqn}
+\int_\calx f^+ \dx{\mu} \quad \text{and} \quad \int_\calx f^- \dx{\mu}
+\end{equation}</p>
+
+<p>are defined. If at least one of these latter integrals is finite, we then <em>define</em></p>
+
+<p>\begin{equation}\notag
+\int_\calx f \dx{\mu} = \int_\calx f^+ \dx{\mu} - \int_\calx f^- \dx{\mu}.
+\end{equation}</p>
+
+<p>Using monotonicity of the Lebesgue integral, one may prove that</p>
+
+<p>\begin{equation}
+\label{L1-eqn}
+\int_\calx |f| \dx{\mu} &lt;\infty
+\end{equation}</p>
+
+<p>implies both of the integrals \eqref{int-ext-eqn} are finite, and hence the integral $\int_\calx f\dx{\mu}$ is finite (measurability of $f$ implies the same for $|f|$).</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> The measurable functions $f:(\calx,\mfm,\mu) \to \bbr$ such that \eqref{L1-eqn} holds are called <em>integrable</em>, and we write $f \in L^1(\calx,\mu)$ or simply $f\in L^1(\mu)$.</p>
+</div>
+
+<h2 id="reconciliation-of-the-two-definitions-lebesgues-monotone-convergence-theorem">Reconciliation of the two definitions: Lebesgue’s Monotone Convergence Theorem</h2>
+
+<p>The “modern” definition of the Lebesgue integral of a nonnegative measurable function $f$ takes a supremum over the integrals of <em>all</em> measurable simple functions $s$ such that $0\leq s \leq f$. While this gives the definition many theoretical advantages, it also prevents us from computing the integral $\int_\calx f \dx{\mu}$ using restricted classes of simple functions that may be specially adapted to the function $f$ in order to facilitate computations. Indeed, by the very definition of the integral, we have to consider <em>all</em> simple functions!</p>
+
+<p>However, the main result in this section shows that we need <em>not</em> consider all such simple functions in order to compute the integral $\int_\calx f \dx{\mu}$, as long as we can find a (pointwise) monotonically increasing sequence of simple functions that converge (pointwise) to the function $f$ from below. More generally, it shows that <em>any</em> monotonically increasing sequence of functions suffices, not just sequences of simple ones:</p>
+
+<div class="highlight-box">
+  <p><strong>Lebesgue’s Monotone Convergence Theorem.</strong> For each $n\geq 1$, let $f_n:(\calx,\mfm,\mu) \to [0,\infty]$ be a measurable function on a measure space such that</p>
+
+  <p>\begin{equation}\notag
+0\leq f_1 \leq f_2 \leq \cdots
+\end{equation}</p>
+
+  <p>pointwise. Let $f:\calx \to [0,\infty]$ be defined pointwise by the limit $f_n \to f$ as $n\to \infty$. Then $f$ is a measurable function, and</p>
+
+  <p>\begin{equation}\notag
+\int_\calx f_n \dx{\mu} \to \int_\calx f \dx{\mu}
+\end{equation}</p>
+
+  <p>as $n\to \infty$.</p>
+</div>
+
+<p>This is one of the core results in Lebesgue’s theory, and a proof can be found in virtually any textbook on measure theory and abstract integration. Several references are given in the section on <a href="#6-further-reading">further reading</a>.</p>
+
+<p>Now, in order to prove Lebesgue’s definition coincides with the “modern” one using the theorem, we refer back to the simple functions $s_n$ described in <a href="#1-lebesgues-definition-of-the-integral">section 2</a>. It is possible to state a <em>formula</em> for these functions: If $f:(\calx,\mfm,\mu) \to [0,\infty]$ is a measurable function, then for each $n\geq 1$ we define $s_n:\calx \to [0,\infty)$ by setting $s_n(x) = n$ if $f(x)\geq n$, and $s_n(x) = k/2^n$ if there is an integer $k \in\{0,1,\ldots, n2^n-1\}$ such that $k/2^n \leq f(x) &lt; (k+1)/2^n$ (notice that such a $k$ is unique, if it exists). In particular, one easily shows that we have</p>
+
+<p>\begin{equation}\notag
+0 \leq s_1 \leq s_2  \leq \cdots \leq f
+\end{equation}</p>
+
+<p>pointwise, that each $s_n$ is measurable (since $f$ is measurable!), and that $s_n \to f$ pointwise. Thus, by the theorem, we have</p>
+
+<p>\begin{equation}\notag
+\int_\calx s_n \dx{\mu} \to \int_\calx f \dx{\mu}
+\end{equation}</p>
+
+<p>as $n\to \infty$. But I will leave you to show that</p>
+
+<p>\begin{equation}\notag
+\lim_{n\to \infty} \int_\calx s_n \dx{\mu} = \lim_{n\to \infty} \sum_{k=0}^{n2^n-1} \frac{k}{2^n} \mu\left\{f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right) \right\},
+\end{equation}</p>
+
+<p>and hence</p>
+
+<p>\begin{equation}\notag
+\int_\calx f \dx{\mu} = \lim_{n\to \infty} \sum_{k=0}^{n2^n-1} \frac{k}{2^n} \mu\left\{f^{-1}\left( \left[\frac{k}{2^n},\frac{k+1}{2^n} \right) \right) \right\},
+\end{equation}</p>
+
+<p>provided that $f$ is bounded.</p>
+
+<h2 id="unification-of-the-continuous-and-discrete">Unification of the continuous and discrete</h2>
+
+<p>A second application of the Monotone Convergence Theorem shows that integration over a counting measure is the same thing as summation. This observation will be useful later in order to unify continuous and discrete probabilities.</p>
+
+<p>The setup begins with a measure space $(\calx, \mfm,\mu)$, where $\calx$ is countably infinite, $\mfm$ is the powerset of $\calx$, and $\mu$ is the counting measure. Letting $f:\calx \to [0,\infty)$ be a measurable function, my goal is to prove that</p>
+
+<p>\begin{equation}
+\label{cont-disc-eqn}
+\int_\calx f \dx{\mu} = \sum_{x\in \calx} f(x).
+\end{equation}</p>
+
+<p>Notice that since $f$ is nonnegative, the order of the summation on the right-hand side is immaterial.</p>
+
+<p>To prove \eqref{cont-disc-eqn}, let $\calx = \{x_1,x_2,\ldots\}$ be an enumeration of the elements of $\calx$. For each integer $n\geq 1$, define $f_n: \calx \to [0,\infty)$ by setting</p>
+
+<p>\begin{equation}\notag
+f_n(x_k) = \begin{cases} f(x_k) &amp; : 1 \leq k \leq n, \\ 0 &amp; : k&gt;n. \end{cases}
+\end{equation}</p>
+
+<p>Then the sequence of functions $\{f_n\}$ clearly satisfies the hypotheses of the Monotone Convergence Theorem, and hence</p>
+
+<p>\begin{equation}\notag
+\int_\calx f \dx{\mu} = \lim_{n\to \infty} \int_\calx f_n \dx{\mu}.
+\end{equation}</p>
+
+<p>But, using simplicity of $f_n$, one computes easily that</p>
+
+<p>\begin{equation}\notag
+\int_\calx f_n \dx{\mu} = \sum_{k=1}^n f(x_k).
+\end{equation}</p>
+
+<p>The desired result \eqref{cont-disc-eqn} then follows immediately.</p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>In the next post in this series, we finally begin talking about probability theory! We will talk about probability spaces (in more detail), random variables, and expected values.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>There are quite a few variations on the “modern” definition of the Lebesgue integral. The one that I’ve given in this post follows Rudin’s definition in (both) his <em>Principles of Mathematical Analysis</em> and his <em>Real and Complex Analysis</em>. All the unproven facts and results in this post can be found in those references with complete proofs, including the Monotone Convergence Theorem (MCT).</p>
+
+<p>Rudin proves the MCT directly, and then uses it to deduce two more fundamental results in Lebesgue’s theory, namely, Fatou’s Lemma and Lebesgue’s Dominated Convergence Theorem. (I will state these latter results in a future post, when they are required for the applications at hand.) If you’d like to see a different route toward the MCT, take a look at Stein and Shakarchi’s book <em>Real Analysis</em>, where they first establish Fatou’s Lemma via another convergence theorem called the Bounded Convergence Theorem, and then obtain the MCT from Fatou’s Lemma.</p>
+
+    </article>
+    
+  </body>
+</html>

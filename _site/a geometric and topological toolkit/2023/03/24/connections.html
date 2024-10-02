@@ -1,0 +1,780 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>the algebraic theory V&#58 connections</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script>
+      MathJax = {
+        loader: {
+          load: ['[custom]/xypic.js'],
+          jax: ["input/TeX", "output/SVG", "output/PreviewHTML"],
+          paths: {custom: 'https://cdn.jsdelivr.net/gh/sonoisa/XyJax-v3@3.0.1/build/'}
+        },
+        tex: {
+          tags: 'ams',
+          packages: {'[+]': ['xypic']},
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          macros: {
+                bold: ['{\bf #1}',1],
+                ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
+                abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
+                floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
+                sfrac: ['{ \frac {\ #1 \ }{#2}}', 2],
+                lcm: ['\operatorname{lcm}#1', 1],
+                Dom: ['\\operatorname{Dom}#1', 1],
+                Ber: ['\\operatorname{\\mathcal{Ber}}#1', 1],
+                Bin: ['\\operatorname{\\mathcal{Bin}}#1', 1],
+                Geo: ['\\operatorname{\\mathcal{Geo}}#1', 1],
+                HGeo: ['\\operatorname{\\mathcal{HGeo}}#1', 1],
+                Pois: ['\\operatorname{\\mathcal{Pois}}#1', 1],
+                Ran: ['\\operatorname{Ran}#1', 1],
+                Aut: ['\\operatorname{Aut}#1', 1],
+                imag: ['\\operatorname{Im}#1', 1],
+                essSup: ['\\operatorname*{ess sup}'],
+                colim: ['\\operatorname*{colim}'],
+                real: ['\\operatorname{Re}#1', 1],
+                Spec: ['\\operatorname{Spec}#1', 1],
+                Hom: ['\\operatorname{Hom}#1', 1],
+                End: ['\\operatorname{End}#1', 1],
+                Supp: ['\\operatorname{Supp}#1', 1],
+                Diff: ['\\operatorname{Diff}#1', 1],
+                ShHom: ['\\mathcal{H}om'],
+                Iso: ['\\operatorname{Iso}'],
+                Der: ['\\operatorname{Der}#1', 1],
+                Tr: ['\\operatorname{Tr}#1', 1],
+                Fun: ['\\operatorname{Fun}#1', 1],
+                GL: ['\\operatorname{GL}#1', 1],
+                ad: ['\\operatorname{ad}#1', 1],
+                gl: ['\\operatorname{\\mathfrak{gl}}#1', 1],
+                M: ['\\operatorname{M}#1', 1],
+                ev: ['\\operatorname{ev}'],
+                Open: ['\\mathsf{Open}#1', 1],
+                d: ['\\text{d}'],
+                op: ['\\text{op}'],
+                Te: ['T_{\\text{e}}^{\\ast}'],
+                iprod: ['\\mathbin{\\lrcorner}'],
+                Set: ['\\mathsf{Set}'],
+                const: ['\\underline{\\mathbb{R}}'],
+                SetVect: ['\\mathsf{SetVect}'],
+                Mfld: ['\\mathsf{Mfld}'],
+                Vect: ['\\mathsf{VectB}'],
+                ltVect: ['\\mathsf{VectB}^{\\mathsf{lt}}'],
+                ltVB: ['#1\\text{-}\\mathsf{VB}^{\\mathsf{lt}}', 1],
+                VB: ['#1\\text{-}\\mathsf{VB}', 1],
+                O: ['\\operatorname{O}'],
+                SO: ['\\operatorname{SO}'],
+                Sp: ['\\operatorname{Sp}'],
+                so: ['\\mathfrak{so}'],
+                Mod: ['\\mathsf{Mod}'],
+                lfMod: ['\\mathsf{Mod}^{\\mathsf{lf}}'],
+                norm: ['\\|  #1  \\|', 1],
+                adjnorm: ['\\left\\lVert#1\\right\\rVert', 1],
+                bk: ['\\Bbbk'],
+                Sh: ['\\mathsf{Sh}'],
+                ba: ['\\mathbf{a}'],
+                bp: ['\\mathbf{p}'],
+                bv: ['\\mathbf{v}'],
+                bx: ['\\mathbf{x}'],
+                bE: ['\\mathbf{E}'],
+                bF: ['\\mathbf{F}'],
+                bR: ['\\mathbf{R}'],
+                bX: ['\\mathbf{X}'],
+                upC: ['\\text{C}'],
+                bbc: ['\\mathbb{C}'],
+                bbe: ['\\mathbb{E}'],
+                bbm: ['\\mathbb{M}'],
+                bbn: ['\\mathbb{N}'],
+                bbp: ['\\mathbb{P}'],
+                bbq: ['\\mathbb{Q}'],
+                bbr: ['\\mathbb{R}'],
+                bbz: ['\\mathbb{Z}'],
+                cala: ['\\mathcal{A}'],
+                calb: ['\\mathcal{B}'],
+                calc: ['\\mathcal{C}'],
+                cald: ['\\mathcal{D}'],
+                cale: ['\\mathcal{E}'],
+                calf: ['\\mathcal{F}'],
+                calg: ['\\mathcal{G}'],
+                calh: ['\\mathcal{H}'],
+                cali: ['\\mathcal{I}'],
+                calk: ['\\mathcal{K}'],
+                call: ['\\mathcal{L}'],
+                calm: ['\\mathcal{M}'],
+                caln: ['\\mathcal{N}'],
+                calo: ['\\mathcal{O}'],
+                calp: ['\\mathcal{P}'],
+                cals: ['\\mathcal{S}'],
+                calt: ['\\mathcal{T}'],
+                calu: ['\\mathcal{U}'],
+                calv: ['\\mathcal{V}'],
+                calw: ['\\mathcal{W}'],
+                calx: ['\\mathcal{X}'],
+                caly: ['\\mathcal{Y}'],
+                calz: ['\\mathcal{Z}'],
+                mfa: ['\\mathfrak{A}'],
+                mfB: ['\\mathfrak{B}'],
+                mfg: ['\\mathfrak{g}'],
+                mfh: ['\\mathfrak{h}'],
+                mfj: ['\\mathfrak{J}'],
+                mfl: ['\\mathfrak{l}'],
+                mfL: ['\\mathfrak{L}'],
+                mfM: ['\\mathfrak{M}'],
+                mfm: ['\\mathfrak{m}'],
+                mfN: ['\\mathfrak{N}'],
+                mfn: ['\\mathfrak{n}'],
+                mfP: ['\\mathfrak{P}'],
+                ttk: ['\\mathtt{K}'],
+                ttq: ['\\mathtt{Q}'],
+                ttr: ['\\mathtt{R}'],
+                tts: ['\\mathtt{S}'],
+                ttt: ['\\mathtt{T}'],
+                ttw: ['\\mathtt{W}'],
+                ttx: ['\\mathtt{X}'],
+                sfv: ['\\mathsf{v}'],
+                sfx: ['\\mathsf{x}'],
+                sco: ['\\mathcal{O}'],
+                bff: ['\\mathbf{f}'],
+                bfg: ['\\mathbf{g}'],
+                bfh: ['\\mathbf{h}'],
+                bfx: ['\\mathbf{x}'],
+                sfc: ['\\mathsf{C}'],
+                dev: ['\\varepsilon'],
+                bd: ['\\partial'],
+                dx: ['{\\ \\text{d} #1}', 1],
+                id: ['\\boldsymbol{1}'],
+                zero: ['\\boldsymbol{0}'],
+                defeq: ['\\overset{\\text{def}}{=}'],
+                tl: ['\\widetilde{#1}', 1],
+                cl: ['\\overline{#1}', 1],
+                ang: ['\\langle #1 \\rangle', 1]
+          },
+        },
+        svg: {
+          fontCache: 'global',
+          mtextInheritFont: false,
+        }
+      };
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js">
+    </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+  </head>
+  
+  <body>
+    
+    <div class="nav-center">
+  <nav class="bar">
+
+    <a href="/">root</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/about.html">about</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    
+    <a href="/projects.html"  class="accent-color">writings</a>
+
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html">math-stats book</a>
+    
+    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+
+    <a href="http://www.johnmyersmath.com">academic website</a>
+    
+  </nav>
+</div>
+    
+    <article class="post-content">
+        <div class="post-title">
+  <h1 class="accent-color">the algebraic theory V: connections</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>The natural connection on a manifold</li>
+  <li>General connections</li>
+  <li>Connections on pullbacks</li>
+  <li>Differentiating sections along curves</li>
+  <li>Connections on direct sums</li>
+  <li>Connections on homs</li>
+  <li>The category of modules with connections</li>
+  <li>Connections on tensor products</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="the-natural-connection-on-a-manifold">The natural connection on a manifold</h2>
+
+<p>Before we begin, we need to remember that if $(M,\sco)$ is a smooth manifold, then the structure sheaf $\sco$ is an algebra over the constant sheaf $\underline{\bbr}_M$ with value $\bbr$. If there is no ambiguity about the manifold under consideration, we will write $\underline{\bbr}$ in place of $\underline{\bbr}_M$. This extra structure on $\sco$ is extremely important in this post, because it allows us to encode $\bbr$-linearity at the level of sheaves.</p>
+
+<p>Now, in order to motivate the definition of a <em>connection</em> on a general $\sco$-module $\cale$, we will examine the special case of a connection on the structure sheaf $\sco$:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$. We define the <em>natural connection</em> on the manifold to be the $\underline{\bbr}$-linear map</p>
+
+  <p>\begin{equation}\notag
+D: \calx \otimes_\const \sco \to \sco, \quad X \otimes f \mapsto D_Xf,
+\end{equation}</p>
+
+  <p>where</p>
+
+  <p>\begin{equation}\notag
+D_Xf(p) = df_p(X_p).
+\end{equation}</p>
+</div>
+
+<p>So, the natural connection is nothing but the differential in disguise (and fancy language). It is an instructive exercise to prove to yourself that $D$ really is a well-defined $\const$-linear map. In particular, given an open subset $U$ of $M$, do you see why the induced map on local sections</p>
+
+<p>\begin{equation}\notag
+D: \calx(U) \otimes_{\const (U)} \sco(U) \to \sco(U)
+\end{equation}</p>
+
+<p>is $\const(U)$-linear? Once you justify this, you’ll also need to prove that $D$ commutes with restrictions, so that, given open sets $U\subseteq V$, the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{ \color{white} \calx(V) \otimes_{\underline{\bbr}(V)} \sco(V) \ar@[white][d]_{\color{white} \text{res}} \ar@[white][r]^-{\color{white}D} &amp; \color{white} \sco(V) \ar@[white][d]^{\color{white}\text{res}} \\ \color{white} \calx(U) \otimes_{\const (U)} \sco(U) \ar@[white][r]_-{\color{white}D} &amp; \color{white} \sco(U)}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes. But, as you’ll see yourself, commutativity of this diagram crucially depends on the fact that differentials are <em>local</em> objects, in the sense that $df_p(X_p)$ may be computed on any open neighborhood of $p$.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> So, if you haven’t already, prove that the natural connection $D$ is a well-defined $\const$-linear map.</p>
+</div>
+
+<p>Now, there are two important properties that the natural connection $D$ possess that will be abstracted and become part of our definition of connections on general $\sco$-modules. Here’s the first:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Natural connections depend $\sco$-linearly on vector fields).</strong> Let $D$ be the natural connection on a manifold $(M,\sco)$ with tangent sheaf $\calx$. Then</p>
+
+  <p>\begin{equation}\notag
+D: \calx \otimes_\const \sco \to \sco
+\end{equation}</p>
+
+  <p>is $\sco$-linear on the first tensor factor, in the sense that the diagram</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}\sco \otimes \calx \otimes \sco \ar@[white][d]_{\color{white}\text{mult}\otimes \id} \ar@[white][r]^-{\color{white}\id \otimes D} &amp; \color{white} \sco \otimes \calo \ar@[white][d]^{\color{white}\text{mult}} \\ \color{white} \calx \otimes \calo \ar@[white][r]_{\color{white}D} &amp; \color{white} \sco}
+\end{xy}
+\end{equation}</p>
+
+  <p>commutes, where I’ve written $\otimes$ in place of $\otimes_\const$.</p>
+</div>
+
+<p>We can test for commutativity of the diagram locally on stalks. So, choose a point $p\in M$, and let $f,g\in \sco_p$ and $X\in \calx_p$. Then</p>
+
+<p>\begin{equation}\notag
+\left(D\circ (\text{mult} \otimes \id)\right)(g \otimes X \otimes f) = D_{gX}f
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+\left(\text{mult} \circ (\id \otimes D)\right) = gD_Xf.
+\end{equation}</p>
+
+<p>Now, for all $q\in M$ sufficiently close to $p$, we have</p>
+
+<p>\begin{equation}\notag
+D_{gX}f(q) = df_q(g(q)X|_q) = g(q)df_q(X|_q) = (gD_Xf)(q).
+\end{equation}</p>
+
+<p>Thus, the diagram commutes, as claimed. Q.E.D.</p>
+
+<p>The second important property of natural connections is:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Natural connections are derivations of functions).</strong> Let $D$ be the natural connection on a manifold $(M,\sco)$ with tangent sheaf $\calx$. Then</p>
+
+  <p>\begin{equation}\notag
+D: \calx \otimes_\const \sco \to \sco
+\end{equation}</p>
+
+  <p>is a derivation on the second tensor factor, in the sense that the diagram</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix@C=1in{
+\color{white} \calx \otimes \sco \otimes \sco \ar@[white][r]^{\color{white}\cong} \ar@[white][d]_{\color{white}\id \otimes \text{mult}} &amp; \color{white} \sco \otimes \calx \otimes \sco \ar@[white][r]^-{\color{white} (D \circ \text{tw}) \otimes \id + \id \otimes D} &amp; \color{white} \sco \otimes \sco \ar@[white][d]^{\color{white}\text{mult}} \\ \color{white} \calx \otimes \sco \ar@[white][rr]_{\color{white}D} &amp;&amp; \color{white} \sco}
+\end{xy}
+\end{equation}</p>
+
+  <p>commutes, where</p>
+
+  <p>\begin{equation}\notag
+\text{tw}: \calx \otimes \sco \to \sco \otimes \calx
+\end{equation}</p>
+
+  <p>denotes the natural “twisting map” (i.e., the natural commutativity isomorphism of the tensor product).</p>
+</div>
+
+<p>Again, we can test for commutativity of the diagram locally on stalks. Let $p\in M$ be a point, and $f,g\in \sco_p$ and $X\in \calx_p$. Starting with the tensor product</p>
+
+<p>\begin{equation}\notag
+X \otimes g \otimes f
+\end{equation}</p>
+
+<p>in the upper-left hand corner of the diagram and proceeding to the lower-right corner by first going along the top horizontal composite map, we get</p>
+
+<p>\begin{equation}\notag
+X \otimes g \otimes f \mapsto (D_Xg)f + gD_Xf.
+\end{equation}</p>
+
+<p>Along the other path to the lower-right corner, we get</p>
+
+<p>\begin{equation}\notag
+X \otimes g \otimes f \mapsto D_X(gf).
+\end{equation}</p>
+
+<p>Now, for all $q\in M$ sufficiently close to $p$, we have</p>
+
+<p>\begin{equation}\notag
+D_X(gf)(q) = d(gf)_q(X|_q) = dg_q(X|_q)f(q) + g(q) df_q(X|_q) = \left((D_Xg)f + gD_Xf\right)(q).
+\end{equation}</p>
+
+<p>Thus</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{leibniz-eqn}
+D_X(gf) = (D_Xg)f + gD_Xf,
+\end{equation}</p>
+</div>
+
+<p>as desired. Q.E.D.</p>
+
+<p>Equation \eqref{leibniz-eqn} is highlighted because it is important enough to have a name: It is called the <em>Leibniz rule</em>, or the <em>product rule</em>.</p>
+
+<p>While we are not done with our study of the natural connection on a manifold, you have essentially seen all that you need in order to motivate the definition of a connection on a general $\sco$-module. If you’d like, <a href="#conn-def">scroll down</a> and take a peek at the definition before continuing with this section. It should look familiar!</p>
+
+<p>The local nature of the natural connection $D$ may be exploited to give an equivalent structure on the manifold. Admittedly, this new structure isn’t so interesting for the natural connection $D$, but it will inspire a similar construction for general connections which will prove to be highly useful.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$. We define the <em>natural field of directional derivatives</em> on $M$ to be the collection of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+D^p : T_p(M) \otimes_\bbr \sco_p \to \bbr, \quad v \otimes f \mapsto D^p_v f \defeq df_p(v),
+\end{equation}</p>
+
+  <p>one for each $p\in M$.</p>
+</div>
+
+<p>So, we have the natural connection $D$ and the natural field of directional derivatives $\{D^p\}_{p\in M}$. Since both are defined through differentials, it is perhaps not surprising that these are equivalent structures on the manifold. However, as I will now show, the directional derivatives $D^p$ may actually be recovered from the natural connection $D$, not based on their mutual pre-existing definitions in terms of differentials, but (miraculously!) through the $\sco$-linearity of $D$ on its first tensor factor.</p>
+
+<p>In fact, as you will see, $\sco$-linearity is the crucial ingredient in the following preliminary fact:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Natural connections depend pointwise on vector fields).</strong> Let $D$ be the natural connection on a manifold $(M,\sco)$ with tangent sheaf $\calx$. If $X,Y\in \calx(U)$ are two vector fields for which $X_p = Y_p$ at a point $p\in U$, then</p>
+
+  <p>\begin{equation}\notag
+D_Xf(p) = D_Yf(p)
+\end{equation}</p>
+
+  <p>for all $f\in \sco(U)$.</p>
+</div>
+
+<p>Contemplate carefully the title of this theorem:</p>
+
+<div class="highlight-box2">
+  <p>“Natural connections depend pointwise on vector fields.”</p>
+</div>
+
+<p>For comparison, the title of the theorem about $\sco$-linearity was:</p>
+
+<div class="highlight-box2">
+  <p>“Natural connections depend $\sco$-linearly on vector fields.”</p>
+</div>
+
+<p>In fact, $\sco$-linear dependence is <em>equivalent</em> to pointwise and $\const$-linear dependence. The theorem as stated is one half of this equivalence; you might try to find a proof of the converse on your own.</p>
+
+<p>The argument is standard and is contained in nearly every book on differential geometry. I will leave it to you to show that it suffices to prove</p>
+
+<p>\begin{equation}\notag
+D_Xf(p) = 0
+\end{equation}</p>
+
+<p>for all $f\in \sco(U)$, provided that $X_p=0$. We may resolve $X$ in terms of components in a local coordinate frame on an open neighborhood $V$ of $p$ as</p>
+
+<p>\begin{equation}\notag
+X = X^i \bd_i.
+\end{equation}</p>
+
+<p>By shrinking $V$ if needed, we may choose a bump function $h\in \sco(U)$ with support in $V$ and $h(p)=1$. But then each $hX^i$ may be considered a smooth function on all of $U$, and likewise each $h\bd_i$ is a smooth vector field on $U$. Then</p>
+
+<p>\begin{equation}\notag
+h^2 D_Xf = D_{h^2X}f = hX^i D_{h \bd_i}f,
+\end{equation}</p>
+
+<p>and by evaluating at $p$ we get</p>
+
+<p>\begin{equation}\notag
+D_Xf(p) = h(p)^2 D_Xf(p) = h(p)X^i(p) D_{h \bd_i}f(p) = 0,
+\end{equation}</p>
+
+<p>since $X^i(p)=0$ for each $i$. Q.E.D.</p>
+
+<p>Now, here’s the result—precisely stated—that shows the natural field of directional derivatives may be recovered from the natural connection:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Natural connections determine natural directional derivatives).</strong> Let $D$ be the natural connection on a manifold $(M,\sco)$ with tangent sheaf $\calx$. Given a point $p\in M$, a function $f\in \sco_p$, and a vector $T_p(M)$, suppose that we <strong>define</strong></p>
+
+  <p>\begin{equation}\notag
+D^p_vf = D_{X_p}f(p),
+\end{equation}</p>
+
+  <p>where $X$ is a vector field defined in an open neighborhood of $p$ with $X_p = v$. Then $D^p_vf$ does not depend on the choice of $X$, and coincides with the natural directional derivative as defined above.</p>
+</div>
+
+<p>It is well known that such vector fields $X$ always exist. The fact that $D^p_vf$ does not depend on the choice of $X$ is exactly the conclusion of the previous theorem (which was a consequence of $\sco$-linearity!), so there’s nothing really to prove.</p>
+
+<h2 id="general-connections">General connections</h2>
+
+<p>You now have everything that you need in order to appreciate the following definition, one of the most important in all of differential geometry.</p>
+
+<div class="highlight-box" id="conn-def">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$ and natural connection $D$, and let $\cale$ be an $\sco$-module. A <em>connection on $\cale$</em> is an $\underline{\bbr}$-linear morphism</p>
+
+  <p>\begin{equation}\notag
+\nabla : \calx \otimes_{\underline{\bbr}} \cale \to \cale, \quad X \otimes s \mapsto \nabla_Xs,
+\end{equation}</p>
+
+  <p>which is $\sco$-linear on the first tensor factor and a derivation on the second. Precisely, this means that the two diagrams</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}\sco \otimes \calx \otimes \cale \ar@[white][d]_{\color{white}\text{mult}\otimes \id} \ar@[white][r]^-{\color{white}\id \otimes \nabla} &amp; \color{white} \sco \otimes \cale \ar@[white][d]^{\color{white}\text{mult}} \\ \color{white} \calx \otimes \cale \ar@[white][r]_{\color{white}\nabla} &amp; \color{white} \cale}
+\end{xy}
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix@C=1in{
+\color{white} \calx \otimes \cale \otimes \sco \ar@[white][r]^{\color{white}\cong} \ar@[white][d]_{\color{white}\id \otimes \text{mult}} &amp; \color{white} \sco \otimes \calx \otimes \cale \ar@[white][r]^-{\color{white} (D \otimes \id)\circ \text{tw} + \id \otimes \nabla} &amp; \color{white} \sco \otimes \cale \ar@[white][d]^{\color{white}\text{mult}} \\ \color{white} \calx \otimes \cale \ar@[white][rr]_{\color{white}\nabla} &amp;&amp; \color{white} \cale}
+\end{xy}
+\end{equation}</p>
+
+  <p>both commute, where</p>
+
+  <p>\begin{equation}\notag
+\text{tw}: \sco \otimes \calx \to \calx \otimes \sco
+\end{equation}</p>
+
+  <p>denotes the natural “twisting map” (i.e., the natural commutativity isomorphism of the tensor product).</p>
+</div>
+
+<p>In this language, we would say that the natural connection $D$ is a connection on the structure sheaf $\sco$ (as an $\sco$-module). So, you already know of an example!</p>
+
+<p>Our study of natural connections suggests that connections $\nabla$ on $\cale$ should provide directional derivatives which act on sections of $\cale$. Indeed, they do! What follows is the relevant definition to make this notion precise, adapted from the previous section. In it, remember that $\cale_p$ and $E_p$ are <em>different</em> objects; the former is the stalk of $\cale$ at $p$, while the latter is the fiber of $\cale$ at $p$. Given a section $s\in \cale(U)$ and a point $p\in U$, its value in the fiber is denoted $s_p\in E_p$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$ and let $\cale$ be an $\sco$-module. We define a <em>field of directional derivatives on $\cale$</em> to be a collection of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\label{field-eqn}
+\nabla^p : T_p(M) \otimes_\bbr \cale_p \to E_p, \quad v \otimes s \mapsto \nabla^p_v s,
+\end{equation}</p>
+
+  <p>one for each $p\in M$, such that</p>
+
+  <p>\begin{equation}\label{leib-eqn}
+\nabla^p_v(fs) = df_p(v) s_p + f(p) \nabla_v^ps
+\end{equation}</p>
+
+  <p>for all $v\in T_p(M)$, $ s \in \cale_p$, and $f\in C^{\infty}_{M,p}$.</p>
+
+  <p>The field \eqref{field-eqn} is said to be <em>smooth</em> if, for all open sets $U\subseteq M$, all smooth vector fields $X\in \calx(U)$, and all sections $s \in \cale(U)$, the induced section</p>
+
+  <p>\begin{equation}\notag
+p\mapsto \nabla_{X_p}^p s \in E_p
+\end{equation}</p>
+
+  <p>is in $\cale(U)$.</p>
+</div>
+
+<p>Notice that the <em>Leibniz rule</em> \eqref{leib-eqn} is built into the definition, which wasn’t required for the natural field of directional derivatives in the last section.</p>
+
+<p>The main result of this section is to prove that every connection $\nabla$ on a locally free $\sco$-module $\cale$ induces a smooth field of directional derivatives on $\cale$, and conversely, every such field induces a connection. These correspondences between connections and directional derivatives are inverses of each other, so if you perform one and then the other, you obtain the original object.</p>
+
+<p>In order to prove this, we need the following important (and familiar!) result. Notice that the $\sco$-module is assumed to be locally free.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Connections depend pointwise on vector fields).</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$ and let $\nabla$ be a connection on a locally free $\sco$-module $\cale$. If $X,Y\in \calx(U)$ are two vector fields for which $X_p = Y_p$ at a point $p\in U$, then</p>
+
+  <p>\begin{equation}\notag
+(\nabla_Xs)_p = (\nabla_Ys)_p
+\end{equation}</p>
+
+  <p>for all sections $s\in \cale(U)$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem.</p>
+</div>
+
+<p>Here’s the main theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Connections and directional derivatives are equivalent).</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$, and let $\cale$ be a locally free $\sco$-module.</p>
+
+  <ol>
+    <li>Let $\nabla^p$ be a smooth field of directional derivatives on $\cale$. For each open set $U\subseteq M$, vector field $X\in \calx(U)$, and section $s\in \cale(U)$, suppose that we define
+ \begin{equation}\notag
+ (\nabla_Xs)_p = \nabla^p_{X_p} s
+ \end{equation}
+for all $p\in U$. Then the induced map
+ \begin{equation}\notag
+ \nabla : \calx \otimes_\const \cale \to \cale, \quad X\otimes s \mapsto \nabla_X s,
+ \end{equation}
+is a connection on $\cale$.</li>
+    <li>Let $\nabla$ be a connection on $\cale$. For each point $p\in M$, vector $v\in T_p(M)$, and section $s \in \cale_p$, suppose that we define
+ \begin{equation}\notag
+ \nabla^p_vs = (\nabla_{X}s)_p
+ \end{equation}
+where $X$ is a vector field on an open neighborhood of $p$ with $X_p=v$. Then $\nabla^p_vs$ does not depend on the choice of $p$, and the induced maps
+ \begin{equation}\notag
+ \nabla^p : T_p(M) \otimes_\bbr \cale_p \to E_p, \quad v \otimes s \mapsto \nabla^p_v s,
+ \end{equation}
+yield a smooth field of directional derivatives on $\cale$.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> The proof amounts to checking all of the details. There’s nothing too hard or tricky. Try it out on your own!</p>
+</div>
+
+<p>One of the main uses of connections is to define classes of sections of $\sco$-modules which are “constant” in a sense. This will be very important later, when we use Levi-Civita connections on tangent sheaves of riemannian manifolds to define the important <em>parallel transport</em> operation.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$ and let $\cale$ be an $\sco$-module with connection $\nabla$. Then a section $s\in \cale(U)$ is called <em>horizontal</em> (relative to $\nabla$) if $\nabla_Xs=0$ for all $X\in \calx(U)$.</p>
+</div>
+
+<p>The terminology is motivated by the natural connection $D$ on $\bbr$ and connections on other vector bundles for which there is a natural “vertical orientation” with the total space stacked on top of the base space. In this case, if we are given a smooth function $f:\bbr \to \bbr$ such that $D_Xf=0$ for all vector fields of $X$, then the graph of $f$ is, indeed, horizontal.</p>
+
+<p>We may compare two $\sco$-modules by constructing an $\sco$-linear map between them; if those $\sco$-modules happen to have connections, then we may compare them using the following special types of $\sco$-linear maps:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$, and let $\cale$ and $\cale’$ be two $\sco$-modules with connections $\nabla$ and $\nabla’$, respectively. An $\sco$-linear map</p>
+
+  <p>\begin{equation}\notag
+\theta : \cale \to \cale’
+\end{equation}</p>
+
+  <p>is called a <em>morphism of modules with connections</em> if the diagram</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white} \calx \otimes_\const \cale \ar@[white][r]^-{\color{white}\nabla} \ar@[white][d]_{\color{white}\id \otimes \theta} &amp; \color{white} \cale \ar@[white][d]^{\color{white}\theta} \\ \color{white} \calx \otimes_\const \cale’ \ar@[white][r]_-{\color{white}\nabla’} &amp; \color{white} \cale’}
+\end{xy}
+\end{equation}</p>
+
+  <p>commutes.</p>
+</div>
+
+<p>So far, I have eschewed coordinates, typical of a mathematician with an inclination toward intricate abstract algebraic structures. :) However, this doesn’t mean that computations in local coordinates aren’t important! To help facilitate them, we introduce the following objects:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$ and let $\cale$ be a locally free $\sco$-module with connection $\nabla$. Suppose that $U\subseteq M$ is an open subset over which $M$ has a coordinate frame</p>
+
+  <p>\begin{equation}\label{coord-eqn}
+\bd_1,\ldots,\bd_n \in \calx(U),
+\end{equation}</p>
+
+  <p>and suppose that $\cale$ trivializes over $U$ with local frame</p>
+
+  <p>\begin{equation}\label{framey-eqn}
+e_1,\ldots, e_r \in \cale(U).
+\end{equation}</p>
+
+  <p>Then for all $i=1,\ldots,n$ and $j=1,\ldots,r$ we have</p>
+
+  <p>\begin{equation}\notag
+\nabla_{\bd_i}e_j = \Gamma^k_{ij} e_k,
+\end{equation}</p>
+
+  <p>where the functions $\Gamma_{ij}^k \in \sco(U)$ are called the <em>connection coefficients</em> of $\nabla$ relative to the frames \eqref{coord-eqn} and \eqref{framey-eqn}.</p>
+</div>
+
+<p>When $\nabla$ is the Levi-Civita connection on a riemannian manifold, the connection coefficients $\Gamma^k_{ij}$ are classically called <em>Christoffel symbols</em>.</p>
+
+<p>The importance of the connection coefficients comes from the local expressions of connections that are obtainable using them:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $(M,\sco)$ be a manifold with tangent sheaf $\calx$ and let $\cale$ be a locally free $\sco$-module with connection $\nabla$. Let $\Gamma^k_{ij}$ be the connection coefficients over an open set $U$ relative to a coordinate frame $\bd_i$ of $\calx(U)$ and a frame $e_j$ of $\cale(U)$. Given a vector field $X\in \calx(U)$ and a section $s\in \cale(U)$, we have</p>
+
+  <p>\begin{equation}\notag
+\nabla_X s = \left(D_Xs^k + X^i s^j\Gamma^k_{ij}\right)e_k.
+\end{equation}</p>
+
+  <p>In particular, if the connection coefficients all vanish on $U$, then $\nabla_Xs$ is computed simply by taking component-wise derivatives.</p>
+</div>
+
+<h2 id="connections-on-pullbacks">Connections on pullbacks</h2>
+
+<p>Our first goal is to use the correspondence between connections and directional derivatives to define <em>pullback connections</em>. It turns out that attempting to construct these connections from the <em>definition</em> of a connection is quite fussy. However, with directional derivatives, it becomes a breeze.</p>
+
+<p>Here’s the situation. Suppose that we have a morphism $\alpha:(N,\sco_N) \to (M,\sco_M)$ of manifolds and a locally free $\sco_M$-module $\cale$ with connection $\nabla$. In the previous post, we constructed the pullback module $\alpha^\ast \cale$, which is locally free over $\sco_N$. We ask: Is it possible to construct a <em>pullback connection</em> on $\alpha^\ast \cale$?</p>
+
+<p>As I mentioned, the answer is <em>yes</em>, and the pullback connection is often denoted $\alpha^\ast \nabla$. However, despite what the notation might suggest, it is <em>not</em> the pullback of the map</p>
+
+<p>\begin{equation}\notag
+\nabla: \calx_M \otimes_{\const_M} \cale \to \cale
+\end{equation}</p>
+
+<p>under the pullback functor</p>
+
+<p>\begin{equation}\notag
+\alpha^\ast: \Mod{\sco_M} \to \Mod{\sco_N}.
+\end{equation}</p>
+
+<p>This is because $\nabla$ is not a morphism in the category $\Mod{\sco_M}$; remember, it is only $\const_M$-linear, not $\sco_M$-linear!</p>
+
+<p>Here’s our construction:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\alpha:(N,\sco_N) \to (M,\sco_M)$ be a morphism of manifolds and let $\cale$ be a locally free $\sco_M$-module with connection $\nabla$. There exists a unique connection</p>
+
+  <p>\begin{equation}\notag
+\alpha^\ast\nabla: \calx_N \otimes_{\const_N} \alpha^\ast \cale \to \alpha^\ast \cale
+\end{equation}</p>
+
+  <p>whose directional derivatives $\alpha^\ast\nabla^q$ satisfy the relations</p>
+
+  <p>\begin{equation}\label{defining-eqn}
+\alpha^\ast\nabla^q_w(\alpha^\ast s) = \nabla^v_ps
+\end{equation}</p>
+
+  <p>for all $w\in T_q(N)$ and $s \in \cale_p$, where $p = \alpha(q)$ and $v = \alpha_{\ast,q}(w)$.</p>
+</div>
+
+<p>Suppose that such a connection $\alpha^\ast \nabla$ exists, satisfying \eqref{defining-eqn}. Then, since the natural map</p>
+
+<p>\begin{equation}\label{zeroth-eqn}
+\sco_{N,q} \otimes_{\sco_{M,p}} \cale_p \to (\alpha \cale)_q, \quad g \otimes s \mapsto g \alpha^\ast s,
+\end{equation}</p>
+
+<p>is an isomorphism, the action of $\alpha^\ast \nabla^q_w$ on the stalk $(\alpha \cale)_q$ is determined by its action on (germs of) sections of the form $g\alpha^\ast s$. But, by the Leibniz rule, we have</p>
+
+<p>\begin{equation}\label{extend-eqn}
+\alpha^\ast\nabla^q_w(g \alpha^\ast s) = dg_q(w) s_p + g(q) \nabla^p_vs
+\end{equation}</p>
+
+<p>where $p = \alpha(q)$ and $v = \alpha_{\ast,q}(w)$. Thus, if the connection $\alpha^\ast \nabla$ exists, then it is uniquely determined by $\nabla$.</p>
+
+<p>To establish existence of $\alpha^\ast \nabla$, we shall construct its directional derivatives $\alpha^\ast \nabla^q$. The first step is to consider the isomorphism</p>
+
+<p>\begin{equation}\label{first-eqn}
+T_q(N) \otimes_\bbr (\alpha^\ast \cale)_q \xrightarrow{\cong} T_q(N) \otimes_\bbr ( \sco_{N,q} \otimes_{\sco_{M,p}} \cale_p) 
+\end{equation}</p>
+
+<p>induced by the natural map \eqref{zeroth-eqn} above. Now, we have two maps</p>
+
+<p>\begin{equation}\label{second-eqn}
+(T_q(N) \otimes_\bbr \sco_{N,q} ) \otimes_{\sco_{M,p}} \cale_p \xrightarrow{d \otimes \dev_p} \bbr \otimes_{\sco_{M,p}} E_p \to E_p
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\label{third-eqn}
+\sco_{N,q} \otimes_{\sco_{M,p}} ( T_q(N) \otimes_\bbr \cale_p ) \xrightarrow{\id \otimes \alpha_{\ast,q} \otimes \id} \sco_{N,q} \otimes_{\sco_{M,p}} ( T_p(M) \otimes_\bbr \cale_p ) \xrightarrow{\dev_q \otimes \nabla^p} \bbr \otimes_{\sco_{M,p}} E_p \to E_p.
+\end{equation}</p>
+
+<p>Notice that the domains of \eqref{second-eqn} and \eqref{third-eqn} are naturally isomorphic to the codomain of the isomorphism \eqref{first-eqn} via natural associativity and commutativity isomorphisms of the tensor product. By composing \eqref{second-eqn} with \eqref{first-eqn}, we obtain one map</p>
+
+<p>\begin{equation}\notag
+T_q(N) \otimes_\bbr (\alpha^\ast \cale)_q \to E_p,
+\end{equation}</p>
+
+<p>and by composing \eqref{third-eqn} with \eqref{first-eqn}, we obtain a second. We then define</p>
+
+<p>\begin{equation}\label{field1-eqn}
+\alpha^\ast\nabla^q: T_q(N) \otimes_\bbr (\alpha^\ast \cale)_q \to E_p
+\end{equation}</p>
+
+<p>to be the sum of the two maps obtained in this manner. As you may easily check, the resulting map $\alpha^\ast \nabla^q_w$ satisfies the Leibniz rule for each $w\in T_q(N)$, and thus we have obtained a field of directional derivatives which will (after we establish smoothness) induce the connection $\alpha^\ast \nabla$. If you trace through this argument, you’ll notice that we have essentially <em>defined</em> the connection $\alpha^\ast\nabla$ by the formula \eqref{extend-eqn}.</p>
+
+<p>All that remains is to show that the field of directional derivatives \eqref{field1-eqn} is smooth. For this, we fix an open set $V\subseteq N$, a smooth vector field $Y\in \calx_N(V)$, and a section $s\in \alpha^\ast\cale(V)$. We must then show that the mapping</p>
+
+<p>\begin{equation}\notag
+q \mapsto \alpha^\ast \nabla^q_{Y_q}s \in E_p
+\end{equation}</p>
+
+<p>defines a section in $\alpha^\ast\cale(V)$. But this is a purely local condition, so, by shrinking $V$ if needed, we may assume that $V$ is parametrized and that $\alpha(V) \subseteq U$, where $U$ is an open parametrizable subset of $M$ over which $\cale$ trivializes. If we choose a frame</p>
+
+<p>\begin{equation}\label{frame-eqn}
+e_1,\ldots,e_r \in \cale(U),
+\end{equation}</p>
+
+<p>then the pullbacks</p>
+
+<p>\begin{equation}\notag
+\alpha^\ast e_1,\ldots,\alpha^\ast e_r \in \alpha^\ast\cale(V)
+\end{equation}</p>
+
+<p>form a local frame for the pullback sheaf $\alpha^\ast \cale$. Thus, we may write</p>
+
+<p>\begin{equation}\notag
+s = s^j \alpha^\ast e_j,
+\end{equation}</p>
+
+<p>where $s^j \in \sco_N(V)$ are the component functions of $s$. In terms of the coordinate frame on $V$, suppose that we also write</p>
+
+<p>\begin{equation}\notag
+Y = Y^l \bd_l.
+\end{equation}</p>
+
+<p>Now, for each $q\in V$, I will leave it as a straightforward computation to prove that</p>
+
+<p>\begin{equation}\notag
+\alpha^\ast \nabla^q_{Y_q}s = \left[Y^l(q) (\bd_l s^k)(q) + Y^l(q) s^j(q) (\bd_l\alpha^i)(q) \alpha^\ast\Gamma^k_{ij}(q) \right] \alpha^\ast e_k|_{q},
+\end{equation}</p>
+
+<p>where $\Gamma^k_{ij}$ are the connection coefficients of $\nabla$ relative to the frame \eqref{frame-eqn}. But all the terms in the brackets smoothly depend on $q$. Thus, the directional derivatives \eqref{field-eqn} are indeed smooth, and they induce the desired connection $\alpha^\ast \nabla$. Q.E.D.</p>
+
+<h2 id="differentiating-sections-along-curves">Differentiating sections along curves</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,\sco)$ be a smooth manifold, let $\cale$ be a locally free $\sco$-module with connection $\nabla$, and let $\gamma: \bbr \to M$ be a smooth curve. Given a local section $s\in \gamma^\ast\cale(V)$ over an open set $V\subseteq \bbr$, we define the <em>time derivative</em> of $s$ to be the section $\dot{s} \in \gamma^\ast \cale(V)$ where</p>
+
+  <p>\begin{equation}\notag
+\dot{s}(t) = \gamma^\ast \nabla^t_1 s
+\end{equation}</p>
+
+  <p>for each $t\in V$.</p>
+</div>
+
+<p>If $\Gamma^k_{ij}$ are the connection coefficients of $\nabla$ relative to some smooth local frame $\{e_k\}$ of $\cale$, then we have</p>
+
+<p>\begin{equation}\notag
+\dot{s} = \left( \dot{s}^k + \dot{\gamma}^is^j\gamma^\ast \Gamma^k_{ij}\right)\gamma^\ast e_k.
+\end{equation}</p>
+
+<p>In particular, if the connection coefficients vanish, then $\dot{s}$ is given by the familiar formula</p>
+
+<p>\begin{equation}\notag
+\dot{s} = \dot{s}^k \gamma^\ast e_k.
+\end{equation}</p>
+
+    </article>
+    
+  </body>
+</html>
