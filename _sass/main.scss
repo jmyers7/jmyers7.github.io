@@ -218,6 +218,15 @@ code {
   scroll-margin-top: 140px; 
 }
 
+.caption {
+  font-size: 14px;       /* Change font size */
+  text-align: center;    /* Center the text (optional) */
+  margin-top: 10px;      /* Add some space above the caption (optional) */
+  color: #e0e0e0;
+  font-family: 'Lora', serif;
+}
+
+
 /********** links **********/
 
 p a {
