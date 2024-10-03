@@ -1,14 +1,16 @@
 /********** title page **********/
 
 #name {
-  color: #f5f5f5;
+  /*color: #f5f5f5;*/
+  color: black;
   text-align: center;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 }
 
 #subtitle {
-  color: #f5f5f5;
+  /*color: #f5f5f5;*/
+  color: black;
   text-align: center;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 100;
@@ -42,6 +44,7 @@
   color: #f5f5f5;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
+  font-size: 0.65em;
 }
 
 .bar-white {
@@ -49,6 +52,7 @@
   color: black;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
+  font-size: 0.65em;
 }
 
 .item {
@@ -64,7 +68,8 @@
 }
 
 body {
-  background-color: black;
+  /*background-color: black;*/
+  background-color: white;
 }
 
 .accent-color {
@@ -94,7 +99,8 @@ p {
 }
 
 .about-page p {
-  color: white;
+  /*color: white;*/
+  color: black;
   font-family: 'IBM Plex Mono', monospace;
   width: 75%;
   margin: 10px auto;
@@ -121,7 +127,8 @@ ol {
 
 ul {
   /* color: #f5f5f5; */
-  color: #e0e0e0;
+  /*color: #e0e0e0;*/
+  color: black;
   font-family: 'Lora', serif;
 }
 
@@ -150,7 +157,8 @@ code {
 }
 
 .category-headings {
-  color: white;
+  /*color: white;*/
+  color: black;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 1.43em;
 }
@@ -174,7 +182,7 @@ code {
   position: fixed;
   width: 60%;
   text-align: center;
-  top: 40px;
+  top: 30px;
   padding-bottom: 7px;
   background-color: white;
   z-index: 1;
@@ -242,7 +250,8 @@ p a {
 }
 
 nav a {
-  color: #f5f5f5;
+  /*color: #f5f5f5;*/
+  color: black;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
   font-size: 1.25em;
@@ -260,7 +269,8 @@ nav a {
 */
 
 li a {
-  color: #f5f5f5;
+  /*color: #f5f5f5;*/
+  color: black;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
   font-size: 1.25em;
@@ -279,8 +289,10 @@ a:hover {
 
 /* this changes the color of \eqref links */
 mjx-container[jax="SVG"] > svg a[href] {
-  fill: #e0e0e0;
-  stroke: #e0e0e0;
+  /*fill: #e0e0e0;*/
+  /*stroke: #e0e0e0;*/
+  fill: black;
+  stroke: black;
 }
 
 .about-page a {

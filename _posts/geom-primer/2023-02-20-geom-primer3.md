@@ -1,10 +1,10 @@
 ---
-layout: post
+layout: post-white
 title: the algebraic theory I&#58 vector fields + derivations
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title">
+<div class="post-title-white">
 <h1 class="accent-color">the algebraic theory I: vector fields + derivations</h1>
 </div>
 
@@ -128,25 +128,22 @@ Smooth vector fields on $M$ may be related to the tangent bundle $T(M)$ through 
 
 To prove the theorem, one needs to check that $X$ and $\widehat{X}$ are smooth simultaneously. You will do this, and more, in the following:
 
-```{admonition} Exercise
+<div class="highlight-box2">
+**Exercise.**
 
 Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.
 
 1. In the notation of the previous theorem, prove that $X$ is smooth if and only if $\widehat{X}$ is smooth.
 2. Prove that smoothness of a vector field $X$ is equivalent to smoothness of its (local) component functions, in the following sense. Let  
-
-    $$
+    \begin{equation}\notag
     \bd_1\|_p,\ldots,\bd_n\|\_p\in T_p(M)
-    $$
-
-be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write
-    
-    $$
-    X_p = X^j(p) \bd_j\|\_p,
-    ##
-
+    \end{equation}
+be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write    
+    \begin{equation}\notag
+        X_p = X^j(p) \bd_j\|\_p,
+    \end{equation}
 for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.
-```
+</div>
 
 Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient cartesian space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.
 
@@ -592,7 +589,7 @@ This map ${\alpha^\ast_p}'$ is called a *pullback* map, since it is the "localiz
     \begin{equation}\notag
     \begin{xy}
     \xymatrix{
-    \color{white}T_p(M) \ar@[white][r]^-{\color{white}\Theta_{M,p}} \ar@[white][d]\_{\color{white}\alpha_{\ast,p}} & \color{white} \Der_\bbr(C^\infty_{M,p},\bbr) \ar@[white][d]^{\color{white}\alpha_{\ast,p}'} \\\ \color{white} T_q(N) \ar@[white][r]_-{\color{white}\Theta\_{N,q}} & \color{white} \Der\_\bbr(C^\infty\_{N,q},\bbr)}
+    T_p(M) \ar[r]^-{\Theta_{M,p}} \ar[d]\_{\alpha_{\ast,p}} &  \Der_\bbr(C^\infty_{M,p},\bbr) \ar[d]^{\alpha_{\ast,p}'} \\\  T_q(N) \ar[r]_-{\Theta\_{N,q}} &  \Der\_\bbr(C^\infty\_{N,q},\bbr)}
     \end{xy}
     \end{equation}
 commutes.
@@ -660,7 +657,7 @@ Let's now turn toward the proof of the <a href="#main-thm">main theorem</a>. Let
 \begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white}T_p(M) \ar@[white][r]^-{\color{white}\Theta_{M,p}} & \color{white} \Der_\bbr(C^\infty_{M,p},\bbr) \\\ \color{white} T_p(U) \ar@[white][u]^{\color{white}\iota_{\ast,p}}\_{\color{white}=} \ar@[white][r]^-{\color{white} \Theta_{U,p}} & \color{white} \Der_\bbr(C^\infty_{U,p},\bbr) \ar@[white][u]\_{\color{white} \iota_{\ast,p}'}^{\color{white}\cong } \\\ \color{white} T_x(\bbr^n) \ar@[white][r]^-{\color{white}\Theta_{\bbr^n,x}} \ar@[white][u]^{\color{white} \phi_{\ast,x}}\_{\color{white}\cong} & \color{white} \Der_\bbr(C^\infty_{\bbr^n,x},\bbr) \ar@[white][u]\_{\color{white} \phi_{\ast,x}'}^{\color{white}\cong} }
+T_p(M) \ar[r]^-{\Theta_{M,p}} &  \Der_\bbr(C^\infty_{M,p},\bbr) \\\  T_p(U) \ar[u]^{\iota_{\ast,p}}\_{=} \ar[r]^-{ \Theta_{U,p}} &  \Der_\bbr(C^\infty_{U,p},\bbr) \ar[u]\_{ \iota_{\ast,p}'}^{\cong } \\\  T_x(\bbr^n) \ar[r]^-{\Theta_{\bbr^n,x}} \ar[u]^{ \phi_{\ast,x}}\_{\cong} &  \Der_\bbr(C^\infty_{\bbr^n,x},\bbr) \ar[u]\_{ \phi_{\ast,x}'}^{\cong} }
 \end{xy}
 \end{equation}
 </div>
@@ -840,7 +837,7 @@ To prove the theorem, we shall take advantage of the fact that the diagram
 \begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white} \calx(M) \ar@[white][r]^-{\color{white}\Xi_M} \ar@[white][d]\_{\color{white}r^M_U} & \color{white} \Der_\bbr(C^\infty(M),C^\infty(M)) \ar@[white][d]^{\color{white} s^M_U} \\\ \color{white} \calx(U) \ar@[white][r]^-{\color{white}\Xi_U} & \color{white} \Der_\bbr(C^\infty(U),C^\infty(U)) }
+ \calx(M) \ar[r]^-{\Xi_M} \ar[d]\_{r^M_U} &  \Der_\bbr(C^\infty(M),C^\infty(M)) \ar[d]^{ s^M_U} \\\  \calx(U) \ar[r]^-{\Xi_U} &  \Der_\bbr(C^\infty(U),C^\infty(U)) }
 \end{xy}
 \end{equation}
 
@@ -1104,7 +1101,7 @@ You will first establish the "naturality" part in:
 \begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white}\mfm_{M,p}/\mfm_{M,p}^2 \ar@[white][r]^{\color{white} \Phi_{M,p}} & \color{white} T_p^\ast(M) \\\ \color{white} \mfm_{N,q}/\mfm_{N,q}^\ast \ar@[white][r]\_{\color{white}\Phi_{N,q}} \ar@[white][u]^{\color{white} {\alpha_p^\ast}''}  & \color{white} T_q^\ast(N) \ar@[white][u]_{\color{white}\alpha_p^\ast}}
+\mfm_{M,p}/\mfm_{M,p}^2 \ar[r]^{ \Phi_{M,p}} &  T_p^\ast(M) \\\  \mfm_{N,q}/\mfm_{N,q}^\ast \ar[r]\_{\Phi_{N,q}} \ar[u]^{ {\alpha_p^\ast}''}  &  T_q^\ast(N) \ar[u]_{\alpha_p^\ast}}
 \end{xy}
 \end{equation}
 </div>

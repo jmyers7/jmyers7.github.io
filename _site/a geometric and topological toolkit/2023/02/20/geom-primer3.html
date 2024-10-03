@@ -24,7 +24,7 @@
           packages: {'[+]': ['xypic']},
           inlineMath: [['$', '$'], ['\\(', '\\)']],
           macros: {
-                bold: ['{\bf #1}',1],
+            bold: ['{\bf #1}',1],
                 ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
                 abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
                 floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
@@ -161,7 +161,7 @@
         svg: {
           fontCache: 'global',
           mtextInheritFont: false,
-        }
+          }
       };
     </script>
 
@@ -169,37 +169,45 @@
     </script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    
+
   </head>
   
-  <body>
+  <body class="post-white">
     
-    <div class="nav-center">
-  <nav class="bar">
+    <div class="nav-center-white">
+  <nav class="bar-white">
 
-    <a href="/">root</a>
+    <a href="/" class="accent-color2">root</a>
     
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
     
-    <a href="/about.html">about</a>
+    <a href="/about.html" class="accent-color2">about</a>
     
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
     
-    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    <a href="/projects.html" class="accent-color">projects + writings</a>
 
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
 
-    <a href="https://mml.johnmyersmath.com/stats-book/intro.html">probability theory + ml book</a>
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html" class="accent-color2">probabilistic machine learning</a>
+
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
     
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <a href="https://github.com/jmyers7">github</a>
+    
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
 
-    <a href="http://www.johnmyersmath.com">academic website</a>
+    <a href="http://www.johnmyersmath.com" class="accent-color2">academic website</a>
+
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
+
+    <a href="mailto:jmmyers25@gmail.com" class="accent-color2">email</a>
     
   </nav>
 </div>
     
-    <article class="post-content">
-        <div class="post-title">
+    <article class="post-content-white">
+        <div class="post-title-white">
   <h1 class="accent-color">the algebraic theory I: vector fields + derivations</h1>
 </div>
 
@@ -314,28 +322,24 @@
 
 <p>To prove the theorem, one needs to check that $X$ and $\widehat{X}$ are smooth simultaneously. You will do this, and more, in the following:</p>
 
-<p>```{admonition} Exercise</p>
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
 
-<p>Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.</p>
+  <p>Let $M$ be an $n$-dimensional manifold embedded in $\bbr^s$.</p>
 
-<ol>
-  <li>In the notation of the previous theorem, prove that $X$ is smooth if and only if $\widehat{X}$ is smooth.</li>
-  <li>
-    <p>Prove that smoothness of a vector field $X$ is equivalent to smoothness of its (local) component functions, in the following sense. Let</p>
-
-\[\bd_1\|_p,\ldots,\bd_n\|\_p\in T_p(M)\]
-  </li>
-</ol>
-
-<p>be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$
-X_p = X^j(p) \bd_j\|\_p,
-##
-</code></pre></div></div>
-
-<p>for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.
-```</p>
+  <ol>
+    <li>In the notation of the previous theorem, prove that $X$ is smooth if and only if $\widehat{X}$ is smooth.</li>
+    <li>Prove that smoothness of a vector field $X$ is equivalent to smoothness of its (local) component functions, in the following sense. Let<br />
+ \begin{equation}\notag
+ \bd_1|_p,\ldots,\bd_n|_p\in T_p(M)
+ \end{equation}
+be a coordinate vector basis at a point $p$ in an open parametrizable subset $U$. For each $p\in U$, we may write  <br />
+ \begin{equation}\notag
+     X_p = X^j(p) \bd_j|_p,
+ \end{equation}
+for some (unique!) collection of scalars $X^j(p)\in \bbr$ (summation over repeated indices implied). Prove that the restriction of $X$ to $U$ is smooth if and only if each function $X^j:U \to \bbr$ is smooth.</li>
+  </ol>
+</div>
 
 <p>Going forward, it will be convenient to pass back and forth between these two interpretations of smooth vector fields, i.e., as smooth functions into the ambient cartesian space, and as smooth sections of the tangent bundle. In fact, we will often make the passage between the two without explicit comment, and I will not notationally distinguish between $X$ and $\widehat{X}$.</p>
 
@@ -769,7 +773,7 @@ v(f) \defeq  f_{\ast,p}(v)
  \begin{equation}\notag
  \begin{xy}
  \xymatrix{
- \color{white}T_p(M) \ar@[white][r]^-{\color{white}\Theta_{M,p}} \ar@[white][d]_{\color{white}\alpha_{\ast,p}} &amp; \color{white} \Der_\bbr(C^\infty_{M,p},\bbr) \ar@[white][d]^{\color{white}\alpha_{\ast,p}’} \\ \color{white} T_q(N) \ar@[white][r]_-{\color{white}\Theta_{N,q}} &amp; \color{white} \Der_\bbr(C^\infty_{N,q},\bbr)}
+ T_p(M) \ar[r]^-{\Theta_{M,p}} \ar[d]_{\alpha_{\ast,p}} &amp;  \Der_\bbr(C^\infty_{M,p},\bbr) \ar[d]^{\alpha_{\ast,p}’} \\  T_q(N) \ar[r]_-{\Theta_{N,q}} &amp;  \Der_\bbr(C^\infty_{N,q},\bbr)}
  \end{xy}
  \end{equation}
 commutes.</li>
@@ -840,7 +844,7 @@ is an $\bbr$-linear isomorphism.</li>
   <p>\begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white}T_p(M) \ar@[white][r]^-{\color{white}\Theta_{M,p}} &amp; \color{white} \Der_\bbr(C^\infty_{M,p},\bbr) \\ \color{white} T_p(U) \ar@[white][u]^{\color{white}\iota_{\ast,p}}_{\color{white}=} \ar@[white][r]^-{\color{white} \Theta_{U,p}} &amp; \color{white} \Der_\bbr(C^\infty_{U,p},\bbr) \ar@[white][u]_{\color{white} \iota_{\ast,p}’}^{\color{white}\cong } \\ \color{white} T_x(\bbr^n) \ar@[white][r]^-{\color{white}\Theta_{\bbr^n,x}} \ar@[white][u]^{\color{white} \phi_{\ast,x}}_{\color{white}\cong} &amp; \color{white} \Der_\bbr(C^\infty_{\bbr^n,x},\bbr) \ar@[white][u]_{\color{white} \phi_{\ast,x}’}^{\color{white}\cong} }
+T_p(M) \ar[r]^-{\Theta_{M,p}} &amp;  \Der_\bbr(C^\infty_{M,p},\bbr) \\  T_p(U) \ar[u]^{\iota_{\ast,p}}_{=} \ar[r]^-{ \Theta_{U,p}} &amp;  \Der_\bbr(C^\infty_{U,p},\bbr) \ar[u]_{ \iota_{\ast,p}’}^{\cong } \\  T_x(\bbr^n) \ar[r]^-{\Theta_{\bbr^n,x}} \ar[u]^{ \phi_{\ast,x}}_{\cong} &amp;  \Der_\bbr(C^\infty_{\bbr^n,x},\bbr) \ar[u]_{ \phi_{\ast,x}’}^{\cong} }
 \end{xy}
 \end{equation}</p>
 </div>
@@ -1024,7 +1028,7 @@ X = \delta(x^i) \bd_i
 <p>\begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white} \calx(M) \ar@[white][r]^-{\color{white}\Xi_M} \ar@[white][d]_{\color{white}r^M_U} &amp; \color{white} \Der_\bbr(C^\infty(M),C^\infty(M)) \ar@[white][d]^{\color{white} s^M_U} \\ \color{white} \calx(U) \ar@[white][r]^-{\color{white}\Xi_U} &amp; \color{white} \Der_\bbr(C^\infty(U),C^\infty(U)) }
+ \calx(M) \ar[r]^-{\Xi_M} \ar[d]_{r^M_U} &amp;  \Der_\bbr(C^\infty(M),C^\infty(M)) \ar[d]^{ s^M_U} \\  \calx(U) \ar[r]^-{\Xi_U} &amp;  \Der_\bbr(C^\infty(U),C^\infty(U)) }
 \end{xy}
 \end{equation}</p>
 
@@ -1257,7 +1261,7 @@ and
     <p>\begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white}\mfm_{M,p}/\mfm_{M,p}^2 \ar@[white][r]^{\color{white} \Phi_{M,p}} &amp; \color{white} T_p^\ast(M) \\ \color{white} \mfm_{N,q}/\mfm_{N,q}^\ast \ar@[white][r]_{\color{white}\Phi_{N,q}} \ar@[white][u]^{\color{white} {\alpha_p^\ast}’’}  &amp; \color{white} T_q^\ast(N) \ar@[white][u]_{\color{white}\alpha_p^\ast}}
+\mfm_{M,p}/\mfm_{M,p}^2 \ar[r]^{ \Phi_{M,p}} &amp;  T_p^\ast(M) \\  \mfm_{N,q}/\mfm_{N,q}^\ast \ar[r]_{\Phi_{N,q}} \ar[u]^{ {\alpha_p^\ast}’’}  &amp;  T_q^\ast(N) \ar[u]_{\alpha_p^\ast}}
 \end{xy}
 \end{equation}</p>
   </div>

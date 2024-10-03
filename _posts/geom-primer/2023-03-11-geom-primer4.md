@@ -1,10 +1,10 @@
 ---
-layout: post
+layout: post-white
 title: the algebraic theory II&#58 ringed spaces
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title">
+<div class="post-title-white">
 <h1 class="accent-color">the algebraic theory II: ringed spaces</h1>
 </div>
 

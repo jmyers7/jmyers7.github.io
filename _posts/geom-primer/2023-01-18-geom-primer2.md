@@ -1,10 +1,10 @@
 ---
-layout: post
+layout: post-white
 title: tangent bundles
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title">
+<div class="post-title-white">
 <h1 class="accent-color">tangent bundles</h1>
 </div>
 

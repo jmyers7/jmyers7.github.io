@@ -20,8 +20,6 @@ In this first post, we will begin by discussing embedded smooth manifolds, which
 
 [^foonote0]: A major upside to presenting the theory in an entirely mathematical, abstract framework is that you can easily apply what you've learned in other settings (e.g., physics).
 
-*And yes, the background color of this post is white, instead of black. :) This is because the figures that I've drawn look much better on a light background.*
-
 ## Table of contents
 
 1. <a href="#defn" style="font-family: 'Lora', serif; font-size: 1em;">Basic definitions</a>

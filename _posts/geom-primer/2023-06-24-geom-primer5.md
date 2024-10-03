@@ -1,10 +1,10 @@
 ---
-layout: post
+layout: post-white
 title: the algebraic theory III&#58 local geometry, vector bundles, and sheaves of modules
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title">
+<div class="post-title-white">
 <h1 class="accent-color">the algebraic theory III: local geometry, vector bundles, and sheaves of modules</h1>
 </div>
 
@@ -766,7 +766,7 @@ We then have a commutative diagram
 \begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white} E\|_W \ar@[white][r]^{\color{white}\psi} & \color{white} E'\|\_W \\\ \color{white} W \times \bbr^k \ar@[white][u]^{\color{white} \phi} \ar@[white][r]\_{\color{\white}\tl{\psi}} & \color{white} W \times \bbr^k \ar@[white][u]\_{\color{white}\phi'} }
+ E\|_W \ar[r]^{\psi} &  E'\|\_W \\\  W \times \bbr^k \ar[u]^{ \phi} \ar[r]\_{\color{\white}\tl{\psi}} &  W \times \bbr^k \ar[u]\_{\phi'} }
 \end{xy}
 \end{equation}
 
@@ -1015,7 +1015,7 @@ whose fiber maps are the same as those of $\phi$, up to "evaluation at $p$." Pre
     \begin{equation}\notag
     \begin{xy}
     \xymatrix{
-    \color{white} \kappa(p)^k \ar@[white][r]^-{\color{white} \Phi_p} \ar@[white][d]\_{\color{white}\ev_{\sco_M^k,p}} & \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white}\ev_{E,p}} \\\ \color{white} \bbr^k \ar@[white][r]\_-{\color{white} \phi_p} & \color{white} E_p}
+     \kappa(p)^k \ar[r]^-{ \Phi_p} \ar[d]\_{\ev_{\sco_M^k,p}} &  \cale_p \otimes \kappa(p) \ar[d]^{\ev_{E,p}} \\\  \bbr^k \ar[r]\_-{ \phi_p} &  E_p}
     \end{xy}
     \end{equation}
 commutes, where the vertical maps are the evaluation maps defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a> and <a href="#vb-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.
@@ -1024,7 +1024,7 @@ commutes, where the vertical maps are the evaluation maps defined <a href="#mod-
     \begin{equation}\label{yeah-boy-eqn}
     \begin{xy}
     \xymatrix{
-    \color{white} V \times \sco_M(V)^k \ar@[white][r]^-{\color{white} \id \times \Phi\_V} \ar@[white][d]\_{\color{white} \ev_{\sco_M^k,V}} & \color{white} V \times \cale(V) \ar@[white][d]^{\color{white} \ev_{E,V}} \\\ \color{white} V \times \bbr^k \ar@[white][r]\_-{\color{white} \phi} & \color{white} E\|\_V}
+     V \times \sco_M(V)^k \ar[r]^-{ \id \times \Phi\_V} \ar[d]\_{ \ev_{\sco_M^k,V}} &  V \times \cale(V) \ar[d]^{ \ev_{E,V}} \\\  V \times \bbr^k \ar[r]\_-{ \phi} &  E\|\_V}
     \end{xy}
     \end{equation}
 where the vertical maps are the evaluation maps defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a> and <a href="#vb-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.
@@ -1241,7 +1241,7 @@ whose fiber maps are the same as those of $\Phi$, up to "evaluation at $p$." Pre
     \begin{equation}\notag
     \begin{xy}
     \xymatrix{
-    \color{white} \kappa(p)^k \ar@[white][r]^-{\color{white} \Phi_p} \ar@[white][d]\_{\color{white}\ev_{\sco_M^k,p}} & \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white}=} \\\ \color{white} \bbr^k \ar@[white][r]\_-{\color{white} \phi_p} & \color{white} E_p}
+     \kappa(p)^k \ar[r]^-{ \Phi_p} \ar[d]\_{\ev_{\sco_M^k,p}} &  \cale_p \otimes \kappa(p) \ar[d]^{=} \\\  \bbr^k \ar[r]\_-{ \phi_p} &  E_p}
     \end{xy}
     \end{equation}
 commutes, where the vertical map is the evaluation map defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.
@@ -1250,7 +1250,7 @@ commutes, where the vertical map is the evaluation map defined <a href="#mod-eva
     \begin{equation}\notag
     \begin{xy}
     \xymatrix{
-    \color{white} V \times \sco_M(V)^k \ar@[white][r]^-{\color{white} \id \times \Phi\_V} \ar@[white][d]\_{\color{white} \ev_{\sco_M^k,V}} & \color{white} V \times \cale(V) \ar@[white][d]^{\color{white} \ev_{\cale,V}} \\\ \color{white} V \times \bbr^k \ar@[white][r]\_-{\color{white} \phi} & \color{white} E\|\_V}
+     V \times \sco_M(V)^k \ar[r]^-{ \id \times \Phi\_V} \ar[d]\_{ \ev_{\sco_M^k,V}} &  V \times \cale(V) \ar[d]^{ \ev_{\cale,V}} \\\  V \times \bbr^k \ar[r]\_-{ \phi} &  E\|\_V}
     \end{xy}
     \end{equation}
 where the vertical maps are the evaluation maps defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.
@@ -1354,7 +1354,7 @@ then:
 3. The trivializations $\Phi$ and $\phi'$ fit into a composite commutative diagram
     \begin{equation}\notag
     \begin{xy}
-    \xymatrix{ \color{white} \bbr^k \ar@[white][r]^-{\color{white} \phi_p'} & \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white} = }  \\\ \color{white} \kappa(p)^k \ar@[white][r]^-{\color{white} \Phi_p} \ar@[white][d]\_{\color{white}\ev_{\sco_M^k,p}} \ar@[white][u]^{\color{white} \ev_{\sco_M^k,p}} & \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white}\ev_{E,p}}  \\\ \color{white} \bbr^k \ar@[white][r]\_-{\color{white} \phi_p} & \color{white} E_p}
+    \xymatrix{  \bbr^k \ar[r]^-{ \phi_p'} &  \cale_p \otimes \kappa(p) \ar[d]^{ = }  \\\  \kappa(p)^k \ar[r]^-{ \Phi_p} \ar[d]\_{\ev_{\sco_M^k,p}} \ar[u]^{ \ev_{\sco_M^k,p}} &  \cale_p \otimes \kappa(p) \ar[d]^{\ev_{E,p}}  \\\  \bbr^k \ar[r]\_-{ \phi_p} &  E_p}
     \end{xy}
     \end{equation}
 
@@ -1362,7 +1362,7 @@ Thus, we have a commutative diagram
 
 \begin{equation}\notag
 \begin{xy}
-\xymatrix{ \color{white} \bigsqcup_{p\in W} (\cale_p \otimes \kappa(p)) \ar@[white][r]^-{\color{white} \dev\_E} & \color{white} \bigsqcup_{p\in W} E_p \\\ \color{white} W\times \bbr^k \ar@[white][r]\_-{\color{white}=} \ar@[white][u]^{\color{white}\phi'} & \color{white} W \times \bbr^k \ar@[white][u]\_{\color{white} \phi} }
+\xymatrix{  \bigsqcup_{p\in W} (\cale_p \otimes \kappa(p)) \ar[r]^-{ \dev\_E} &  \bigsqcup_{p\in W} E_p \\\  W\times \bbr^k \ar[r]\_-{=} \ar[u]^{\phi'} &  W \times \bbr^k \ar[u]\_{ \phi} }
 \end{xy}
 \end{equation}
 

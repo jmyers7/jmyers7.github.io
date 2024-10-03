@@ -24,7 +24,7 @@
           packages: {'[+]': ['xypic']},
           inlineMath: [['$', '$'], ['\\(', '\\)']],
           macros: {
-                bold: ['{\bf #1}',1],
+            bold: ['{\bf #1}',1],
                 ddfrac: ['{\frac{\displaystyle #1}{\displaystyle #2}}', 2],
                 abs: ['\left\lvert #2 \right\rvert_{\text{#1}}', 2, ""],
                 floor: ['\left\lfloor #2 \right\rfloor_{\text{#1}}', 2, ""],
@@ -161,7 +161,7 @@
         svg: {
           fontCache: 'global',
           mtextInheritFont: false,
-        }
+          }
       };
     </script>
 
@@ -169,37 +169,45 @@
     </script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    
+
   </head>
   
-  <body>
+  <body class="post-white">
     
-    <div class="nav-center">
-  <nav class="bar">
+    <div class="nav-center-white">
+  <nav class="bar-white">
 
-    <a href="/">root</a>
+    <a href="/" class="accent-color2">root</a>
     
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
     
-    <a href="/about.html">about</a>
+    <a href="/about.html" class="accent-color2">about</a>
     
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
     
-    <a href="/projects.html"  class="accent-color">projects + writings</a>
+    <a href="/projects.html" class="accent-color">projects + writings</a>
 
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
 
-    <a href="https://mml.johnmyersmath.com/stats-book/intro.html">probability theory + ml book</a>
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html" class="accent-color2">probabilistic machine learning</a>
+
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
     
-    <span style="font-size: 1.25em; margin: 0 25px;">\</span>
+    <a href="https://github.com/jmyers7">github</a>
+    
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
 
-    <a href="http://www.johnmyersmath.com">academic website</a>
+    <a href="http://www.johnmyersmath.com" class="accent-color2">academic website</a>
+
+    <span style="font-size: 1.25em; margin: 0 5px;">\</span>
+
+    <a href="mailto:jmmyers25@gmail.com" class="accent-color2">email</a>
     
   </nav>
 </div>
     
-    <article class="post-content">
-        <div class="post-title">
+    <article class="post-content-white">
+        <div class="post-title-white">
   <h1 class="accent-color">the algebraic theory III: local geometry, vector bundles, and sheaves of modules</h1>
 </div>
 
@@ -1027,7 +1035,7 @@ is called a <em>fiber transition function</em>.</p>
 <p>\begin{equation}\notag
 \begin{xy}
 \xymatrix{
-\color{white} E|_W \ar@[white][r]^{\color{white}\psi} &amp; \color{white} E’|_W \\ \color{white} W \times \bbr^k \ar@[white][u]^{\color{white} \phi} \ar@[white][r]_{\color{\white}\tl{\psi}} &amp; \color{white} W \times \bbr^k \ar@[white][u]_{\color{white}\phi’} }
+ E|_W \ar[r]^{\psi} &amp;  E’|_W \\  W \times \bbr^k \ar[u]^{ \phi} \ar[r]_{\color{\white}\tl{\psi}} &amp;  W \times \bbr^k \ar[u]_{\phi’} }
 \end{xy}
 \end{equation}</p>
 
@@ -1272,7 +1280,7 @@ whose fiber maps are the same as those of $\phi$, up to “evaluation at $p$.”
   \begin{equation}\notag
   \begin{xy}
   \xymatrix{
-  \color{white} \kappa(p)^k \ar@[white][r]^-{\color{white} \Phi_p} \ar@[white][d]_{\color{white}\ev_{\sco_M^k,p}} &amp; \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white}\ev_{E,p}} \\ \color{white} \bbr^k \ar@[white][r]_-{\color{white} \phi_p} &amp; \color{white} E_p}
+   \kappa(p)^k \ar[r]^-{ \Phi_p} \ar[d]_{\ev_{\sco_M^k,p}} &amp;  \cale_p \otimes \kappa(p) \ar[d]^{\ev_{E,p}} \\  \bbr^k \ar[r]_-{ \phi_p} &amp;  E_p}
   \end{xy}
   \end{equation}
 commutes, where the vertical maps are the evaluation maps defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a> and <a href="#vb-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.</p>
@@ -1282,7 +1290,7 @@ commutes, where the vertical maps are the evaluation maps defined <a href="#mod-
   \begin{equation}\label{yeah-boy-eqn}
   \begin{xy}
   \xymatrix{
-  \color{white} V \times \sco_M(V)^k \ar@[white][r]^-{\color{white} \id \times \Phi_V} \ar@[white][d]_{\color{white} \ev_{\sco_M^k,V}} &amp; \color{white} V \times \cale(V) \ar@[white][d]^{\color{white} \ev_{E,V}} \\ \color{white} V \times \bbr^k \ar@[white][r]_-{\color{white} \phi} &amp; \color{white} E|_V}
+   V \times \sco_M(V)^k \ar[r]^-{ \id \times \Phi_V} \ar[d]_{ \ev_{\sco_M^k,V}} &amp;  V \times \cale(V) \ar[d]^{ \ev_{E,V}} \\  V \times \bbr^k \ar[r]_-{ \phi} &amp;  E|_V}
   \end{xy}
   \end{equation}
 where the vertical maps are the evaluation maps defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a> and <a href="#vb-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.</p>
@@ -1506,7 +1514,7 @@ whose fiber maps are the same as those of $\Phi$, up to “evaluation at $p$.”
   \begin{equation}\notag
   \begin{xy}
   \xymatrix{
-  \color{white} \kappa(p)^k \ar@[white][r]^-{\color{white} \Phi_p} \ar@[white][d]_{\color{white}\ev_{\sco_M^k,p}} &amp; \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white}=} \\ \color{white} \bbr^k \ar@[white][r]_-{\color{white} \phi_p} &amp; \color{white} E_p}
+   \kappa(p)^k \ar[r]^-{ \Phi_p} \ar[d]_{\ev_{\sco_M^k,p}} &amp;  \cale_p \otimes \kappa(p) \ar[d]^{=} \\  \bbr^k \ar[r]_-{ \phi_p} &amp;  E_p}
   \end{xy}
   \end{equation}
 commutes, where the vertical map is the evaluation map defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.</p>
@@ -1516,7 +1524,7 @@ commutes, where the vertical map is the evaluation map defined <a href="#mod-eva
   \begin{equation}\notag
   \begin{xy}
   \xymatrix{
-  \color{white} V \times \sco_M(V)^k \ar@[white][r]^-{\color{white} \id \times \Phi_V} \ar@[white][d]_{\color{white} \ev_{\sco_M^k,V}} &amp; \color{white} V \times \cale(V) \ar@[white][d]^{\color{white} \ev_{\cale,V}} \\ \color{white} V \times \bbr^k \ar@[white][r]_-{\color{white} \phi} &amp; \color{white} E|_V}
+   V \times \sco_M(V)^k \ar[r]^-{ \id \times \Phi_V} \ar[d]_{ \ev_{\sco_M^k,V}} &amp;  V \times \cale(V) \ar[d]^{ \ev_{\cale,V}} \\  V \times \bbr^k \ar[r]_-{ \phi} &amp;  E|_V}
   \end{xy}
   \end{equation}
 where the vertical maps are the evaluation maps defined <a href="#mod-eval" style="color: #f5f5f5; font-family: 'Lora', serif; font-size: 1em; text-decoration: underline;">here</a>.</p>
@@ -1622,7 +1630,7 @@ which on sections over an open set $W$ is given by the adjoint evaluation map
     <p>The trivializations $\Phi$ and $\phi’$ fit into a composite commutative diagram
  \begin{equation}\notag
  \begin{xy}
- \xymatrix{ \color{white} \bbr^k \ar@[white][r]^-{\color{white} \phi_p’} &amp; \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white} = }  \\ \color{white} \kappa(p)^k \ar@[white][r]^-{\color{white} \Phi_p} \ar@[white][d]_{\color{white}\ev_{\sco_M^k,p}} \ar@[white][u]^{\color{white} \ev_{\sco_M^k,p}} &amp; \color{white} \cale_p \otimes \kappa(p) \ar@[white][d]^{\color{white}\ev_{E,p}}  \\ \color{white} \bbr^k \ar@[white][r]_-{\color{white} \phi_p} &amp; \color{white} E_p}
+ \xymatrix{  \bbr^k \ar[r]^-{ \phi_p’} &amp;  \cale_p \otimes \kappa(p) \ar[d]^{ = }  \\  \kappa(p)^k \ar[r]^-{ \Phi_p} \ar[d]_{\ev_{\sco_M^k,p}} \ar[u]^{ \ev_{\sco_M^k,p}} &amp;  \cale_p \otimes \kappa(p) \ar[d]^{\ev_{E,p}}  \\  \bbr^k \ar[r]_-{ \phi_p} &amp;  E_p}
  \end{xy}
  \end{equation}</p>
   </li>
@@ -1632,7 +1640,7 @@ which on sections over an open set $W$ is given by the adjoint evaluation map
 
 <p>\begin{equation}\notag
 \begin{xy}
-\xymatrix{ \color{white} \bigsqcup_{p\in W} (\cale_p \otimes \kappa(p)) \ar@[white][r]^-{\color{white} \dev_E} &amp; \color{white} \bigsqcup_{p\in W} E_p \\ \color{white} W\times \bbr^k \ar@[white][r]_-{\color{white}=} \ar@[white][u]^{\color{white}\phi’} &amp; \color{white} W \times \bbr^k \ar@[white][u]_{\color{white} \phi} }
+\xymatrix{  \bigsqcup_{p\in W} (\cale_p \otimes \kappa(p)) \ar[r]^-{ \dev_E} &amp;  \bigsqcup_{p\in W} E_p \\  W\times \bbr^k \ar[r]_-{=} \ar[u]^{\phi’} &amp;  W \times \bbr^k \ar[u]_{ \phi} }
 \end{xy}
 \end{equation}</p>
 
