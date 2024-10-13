@@ -1,5 +1,5 @@
 ---
-layout: post-white
+layout: post
 title: a primer on embedded manifolds
 category: a geometric and topological toolkit
 ---

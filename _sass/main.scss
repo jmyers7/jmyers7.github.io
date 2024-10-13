@@ -1,16 +1,31 @@
-/********** title page **********/
+/**************** global stuff ****************/
+body {
+  color: black;
+  font-family: 'Lora', serif;
+}
+
+a:hover {
+  color: #FD46FC;
+}
+
+a {
+  color: black;
+}
+
+.accent-color {
+  color: #486AFB;
+}
+
+/**************** title page ****************/
 
 #name {
-  /*color: #f5f5f5;*/
-  color: black;
   text-align: center;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
 }
 
+
 #subtitle {
-  /*color: #f5f5f5;*/
-  color: black;
   text-align: center;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 100;
@@ -19,177 +34,98 @@
   font-size: 1em;
 }
 
-/********** navbar **********/
+/**************** flex containers ****************/
 
-.nav-center {
-  position: fixed;
-  width: 100%;
-  text-align: center;
-  top: 0;
-  background-color: black;
-  z-index: 1;
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.nav-center-white {
+.nav-container {
   position: fixed;
-  width: 100%;
-  text-align: center;
   top: 0;
+  width: 100%;
   background-color: white;
-  z-index: 1;
+  text-align: center;
+  z-index: 1000;
 }
 
-.bar {
-  margin: 10px auto;
-  color: #f5f5f5;
+.post-title {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
-  font-size: 0.65em;
+  color:#486AFB;
+  font-size: 1.25em;
+  padding: 10px 0;
 }
 
-.bar-white {
-  margin: 10px auto;
-  color: black;
+.content-container {
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
+
+/**************** navbar stuff ****************/
+
+.navbar {
+  margin-top: 10px;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 400;
-  font-size: 0.65em;
+  font-size: 0.8em;
 }
 
-.item {
-  color: #f5f5f5;
+.nav-item {
   display: inline-block;
-  margin: 0 15px;
 }
 
-/********** body + paragraphs **********/
-
-.post-white {
-  background-color: white;
+.navbar div+div::before {
+  padding: 5px;
+  content: "\\"; 
 }
 
-body {
-  /*background-color: black;*/
-  background-color: white;
+.navbar a {
+  text-decoration: none;
 }
 
-.accent-color {
-  color: #486AFB;
+/* this prevents the navbar from covering the target when a link to an anchor is pressed */
+:target {
+  scroll-margin-top: 80px; 
 }
 
-.accent-color2 {
-  color: black;
-}
+/**************** about page ****************/
 
-p {
-  color: #e0e0e0;
-  font-family: 'Lora', serif;
-}
-
-.post-white p {
-  color: black;
-  font-family: 'Lora', serif;
-}
-
-.projects-page p {
-  color: white;
-  font-family: 'IBM Plex Mono', monospace;
-  width: 75%;
-  margin: 0 auto 60px auto;
-  font-size: 1.23em;
-}
-
-.about-page p {
-  /*color: white;*/
-  color: black;
+.about-page {
   font-family: 'IBM Plex Mono', monospace;
   width: 75%;
   margin: 10px auto;
 }
 
-.who p {
-  margin: 110px auto 10px;
-}
-
-.viz-page {
-  text-align: center;
-  margin-top: 100px;
-}
-
-ol {
-  color: #e0e0e0;
-  font-family: 'Lora', serif;
-}
-
-.post-white ol {
-  color: black;
-  font-family: 'Lora', serif;
-}
-
-ul {
-  /* color: #f5f5f5; */
-  /*color: #e0e0e0;*/
-  color: black;
-  font-family: 'Lora', serif;
-}
-
-h1, h2 {
-  color: white;
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-.post-content {
-  width: 60%;
-  margin: 150px auto;
-}
-
-.post-content-white {
-  width: 60%;
-  margin: 150px auto;
-}
- 
-.post-content-white h2 {
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-code {
-  font-size: 1.2em;
-}
+/**************** projects page ****************/
 
 .category-headings {
-  /*color: white;*/
-  color: black;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 1.43em;
 }
 
-.center {
-  width: 80%;
-  margin: 110px auto;
+.projects-page a {
+  color: black;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 400;
+  font-size: 1.25em;
+  text-decoration: none;
 }
 
-.post-title {
-  position: fixed;
-  width: 60%;
-  text-align: center;
-  top: 40px;
-  padding-bottom: 7px;
-  background-color: black;
-  z-index: 1;
+/**************** posts ****************/
+
+/* section headings */
+.post h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.25em;
 }
 
-.post-title-white {
-  position: fixed;
-  width: 60%;
-  text-align: center;
-  top: 30px;
-  padding-bottom: 7px;
-  background-color: white;
-  z-index: 1;
-}
-
-.viz-img {
-  margin-bottom: 40px;
+.toc {
+  text-decoration: none;
 }
 
 .highlight-box {
@@ -213,78 +149,10 @@ code {
   padding: 1px 20px;
 }
 
-.highlight-code {
-  background-color: black;
-  width: 85%;
-  margin: 0 auto;
-  padding: 1px 20px;
-  border: 0.1px solid #6c6066;
-}
-
-/* this prevents the navbar from covering the target when a link to an anchor is pressed */
-:target {
-  scroll-margin-top: 140px; 
-}
-
 .caption {
-  font-size: 14px;       /* Change font size */
-  text-align: center;    /* Center the text (optional) */
-  margin-top: 10px;      /* Add some space above the caption (optional) */
-  color: #e0e0e0;
-  font-family: 'Lora', serif;
-}
-
-
-/********** links **********/
-
-p a {
-  color: #e0e0e0;
-  font-family: 'Lora', serif;
-  /*text-decoration: none;*/
-  /*font-size: 0.75em;*/
-}
-
-.post-content-white a {
-  color: black;
-  font-family: 'Lora', serif;
-}
-
-nav a {
-  /*color: #f5f5f5;*/
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 400;
-  font-size: 1.25em;
-  text-decoration: none;
-}
-
-/*
-.bar-white a {
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 400;
-  font-size: 1.25em;
-  text-decoration: none;
-}
-*/
-
-li a {
-  /*color: #f5f5f5;*/
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 400;
-  font-size: 1.25em;
-  text-decoration: none;
-}
-
-ol a {
-  color: #f5f5f5;
-  font-family: 'Lora', serif;
-  font-size: 1em;
-}
-
-a:hover {
-  color: #FD46FC;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 /* this changes the color of \eqref links */
@@ -293,13 +161,4 @@ mjx-container[jax="SVG"] > svg a[href] {
   /*stroke: #e0e0e0;*/
   fill: black;
   stroke: black;
-}
-
-.about-page a {
-  color: #486AFB;
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-.about-page a:hover {
-  color: #FD46FC;
 }

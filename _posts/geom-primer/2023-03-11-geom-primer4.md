@@ -1,5 +1,5 @@
 ---
-layout: post-white
+layout: post
 title: the algebraic theory II&#58 ringed spaces
 category: a geometric and topological toolkit
 ---

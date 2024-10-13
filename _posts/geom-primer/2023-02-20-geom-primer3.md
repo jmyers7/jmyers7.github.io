@@ -1,5 +1,5 @@
 ---
-layout: post-white
+layout: post
 title: the algebraic theory I&#58 vector fields + derivations
 category: a geometric and topological toolkit
 ---

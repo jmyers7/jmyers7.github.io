@@ -1,5 +1,5 @@
 ---
-layout: post-white
+layout: post
 title: tangent bundles
 category: a geometric and topological toolkit
 ---
