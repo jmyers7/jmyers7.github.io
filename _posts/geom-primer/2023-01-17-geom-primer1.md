@@ -4,10 +4,6 @@ title: a primer on embedded manifolds
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title-white">
-<h1 class="accent-color">a primer on embedded manifolds</h1>
-</div>
-
 The possibility of applying geometric techniques to machine learning is what originally sparked my interest in the latter subject. Using such methods, the goal is to inject spatial intuition into mathematical machine learning, which is often presented---at least in many introductory textbooks---as an almost purely analytical subject, with a heavy reliance on probability theory. A prime and very simple example of geometric intuition applied to machine learning is the familiar description of the gradient descent algorithm as *walking downhill to find the minimum*. In this description, you are being asked to *visualize* the graph of the objective function, and therefore to conceive of the function as a geometric object, and not purely an analytic one. The geometry lends insight and *explains* why the algorithm works.
 
 The possibilities of using geometry in machine learning go well beyond the basic gradient descent algorithm, however, and finding new and interesting geometric applications in machine learning is an active and exciting area of contemporary research. For example, there are several papers appearing in recent proceedings of the <a href="https://icml.cc/">ICML</a> (from the "Topology, Algebra, and Geometry in Machine Learning" workshop) that I want to explore in future posts in this blog. In addition, there is the fascinating area of so-called *geometric deep learning* (see <a href="https://www.youtube.com/watch?v=w6Pw4MOzMuo&t=88s">here</a> and <a href="https://geometricdeeplearning.com/">here</a>), that I'd like to begin exploring.

@@ -4,10 +4,6 @@ title: the algebraic theory I&#58 vector fields + derivations
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title-white">
-<h1 class="accent-color">the algebraic theory I: vector fields + derivations</h1>
-</div>
-
 This is the first of four posts devoted to the algebraic side of smooth manifold theory. These posts will be longer and more comprehensive than all the others on my website, due to two primary reasons:
 
 1. This material is spread throughout many references, that all use slightly different language and notation, and several of the references are quite advanced, making them difficult to consult for beginners.

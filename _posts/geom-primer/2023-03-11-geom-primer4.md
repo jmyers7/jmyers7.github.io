@@ -4,11 +4,6 @@ title: the algebraic theory II&#58 ringed spaces
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title-white">
-<h1 class="accent-color">the algebraic theory II: ringed spaces</h1>
-</div>
-
-
 In this post, we make the jump from considering only manifolds embedded in cartesian spaces $\bbr^n$ in the style of Guillemin and Pollack's book ([^GP2010]), to general abstract manifolds which need not be embedded in *any* ambient space.
 
 To be entirely truthful, I will actually assume that you are already familiar with the definitions and basic rudiments of these general manifolds (i.e., charts, atlases, and all the rest). I admit that this means this series of posts is not entirely self-contained, and that there is left a large gap which the reader needs to fill in for themselves using outside resources. But there are already many fantastic texts on introductory (abstract) manifold theory, and anything I would attempt to write would be at best second-rate in comparison. I will point you toward several of these references below in the section on prerequisites.

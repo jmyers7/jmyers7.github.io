@@ -4,9 +4,6 @@ title: tangent bundles
 category: a geometric and topological toolkit
 ---
 
-<div class="post-title-white">
-<h1 class="accent-color">tangent bundles</h1>
-</div>
 
 The tangent space $T_p(M)$ at a point $p$ on a manifold $M$ is a purely local object, in the sense that it only depends on the "first-order infinitesimal neighborhoods" of $p$. In this post, we will see how to combine all the tangent spaces $T_p(M)$ into a single global object called the *tangent bundle*, denoted $T(M)$. While the tangent bundle $T(M)$ is composed of linear building blocks (i.e., the tangent spaces $T_p(M)$), we will see that $T(M)$ carries its own manifold structure which may have a non-trivial topology. As an example, we will explore the tangent bundle $T(S^1)$ of the unit circle $S^1$ in some detail, and we will see that $T(S^1)$ is a cylinder in $\bbr^3$.
 
