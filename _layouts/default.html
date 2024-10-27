@@ -1,8 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
   
   <head>
-    <meta charset="utf-8">
+    
     <title>{{ page.title }}</title>
 
     <!-- font stuff -->
@@ -10,22 +10,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
   
   </head>
   
   <body>
 
-    <div class="flex-container">
-      
-      <div class="nav-container">
-        {% include navigation.html %}
-      </div>
-      
-      <div class="content-container">
-        {{ content }}
-      </div>
-    
+    <div class="header-container" id="header">
+      {% include navigation.html %}
     </div>
+      
+    <div class="content-container" id="content">
+      {{ content }}
+    </div>
+
+    <script>
+      window.addEventListener('load', () => adjustContentPadding("header", "content", 70));
+      window.addEventListener('resize', () => adjustContentPadding("header", "content", 70));
+    </script>
     
   </body>
 </html>

@@ -1,8 +1,76 @@
-<div class="post-title-white">
-  <h1 class="accent-color">an abstract framework</h1>
-</div>
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    
+    <title>an abstract framework</title>
 
-<p>In real-world applications, the vectors that appear in the compositional graphs of neural networks (see the <a href="/a%20dynamical%20framework%20for%20the%20backpropagation%20algorithm/2024/10/02/backprop1.html">previous post</a>) are actual numerical column (or row) vectors, matrices, or tensors of higher rank. While it is certainly possible to build our theory around these concrete objects, in this series we prefer a more abstract framework in which we work with vectors drawn from abstract vector spaces:</p>
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet">
+    <script src="/assets/js/prism.js"></script>
+    
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "2"
+    </script>
+
+  </head>
+  
+  <body>
+  
+    <div class="header-container" id="header">
+      <nav class="navbar">
+  
+  <div class="nav-item">
+    <a href="/">root</a>
+  </div>
+  
+  <div class="nav-item">
+    <a href="/about.html">about</a>
+  </div>
+  
+  <div class="nav-item">
+    <a href="/projects.html" class="accent-color">projects + writings</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://github.com/jmyers7" target="_blank">github</a>
+  </div>
+    
+  <div class="nav-item">
+    <a href="http://www.johnmyersmath.com" target="_blank">academic website</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="mailto:jmmyers25@gmail.com">email</a>
+  </div>
+      
+</nav>
+      <div class="post-title">  
+        <div>a dynamical framework for the backpropagation algorithm</div>
+        <div>2. an abstract framework</div>
+      </div>
+    </div>
+    
+    <div class="content-container post" id="content">
+      <p>In real-world applications, the vectors that appear in the compositional graphs of neural networks (see the <a href="/a%20dynamical%20framework%20for%20the%20backpropagation%20algorithm/2024/10/02/backprop1.html">previous post</a>) are actual numerical column (or row) vectors, matrices, or tensors of higher rank. While it is certainly possible to build our theory around these concrete objects, in this series we prefer a more abstract framework in which we work with vectors drawn from abstract vector spaces:</p>
 
 <html>
 <figure style="margin: 40px auto; text-align: center;">
@@ -21,20 +89,24 @@
 
 <p>The fourth section contains a brief description of <em>norms</em> and <em>inner products</em>. In fact, while our definition of an abstract compositional graph uses only vector space structures, in order to compute derivatives over compositional graphs one needs the vector spaces to be normed, while an inner product is required in order to compute gradients (for use in the gradient descent algorithm, for example).</p>
 
-<div>
-  <h2 id="table-of-contents">Table of contents</h2>
-</div>
+<h2 id="20-table-of-contents">2.0. Table of contents</h2>
 
 <ol>
-  <li><a href="#direct-sum">Direct sums</a></li>
-  <li><a href="#proj-inc">Natural projection and inclusion maps</a></li>
-  <li><a href="#matrix-rep">Matrix representations</a></li>
-  <li>Norms and inner products</li>
+  <li>
+    <p><a href="#21-direct-sums" class="toc">Direct sums</a></p>
+  </li>
+  <li>
+    <p><a href="#22-natural-projection-and-inclusion-maps" class="toc">Natural projection and inclusion maps</a></p>
+  </li>
+  <li>
+    <p><a href="#23-matrix-representations" class="toc">Matrix representations</a></p>
+  </li>
+  <li>
+    <p><a href="#24-norms-and-inner-products" class="toc">Norms and inner products</a></p>
+  </li>
 </ol>
 
-<div id="direct-sum">
-  <h2 id="direct-sums">Direct sums</h2>
-</div>
+<h2 id="21-direct-sums">2.1. Direct sums</h2>
 
 <p>As we mentioned in the introduction, the <em>direct sum</em> of (finitely many) vector spaces may be viewed as a generalization of the binary Cartesian product $V_1 \times V_2$ of two vector spaces. Recall that this latter object consists of all ordered pairs $v = (v_1,v_2)$, with $v_i \in V_i$ for both $i=1,2$. Equivalently, the Cartesian product may also be thought of as the collection of all <em>functions</em></p>
 
@@ -68,8 +140,8 @@ v: \Lambda \to \bigcup_{\lambda \in \Lambda} V_\lambda, \quad \lambda \mapsto v_
 
 <p>The official definition is as follows:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $\{V_\lambda\}_{\lambda\in \Lambda}$ be a set of vector spaces, indexed by a finite set $\Lambda$. The <em>direct sum</em> of these vector spaces, denoted
+<div class="defn" id="direct-sum">
+  <p>Let $\{V_\lambda\}_{\lambda\in \Lambda}$ be a set of vector spaces, indexed by a finite set $\Lambda$. The <em>direct sum</em> of these vector spaces, denoted
     \begin{equation}\notag
     \bigoplus_{\lambda \in \Lambda} V_\lambda,
     \end{equation}
@@ -96,9 +168,7 @@ for vectors $v = (v_\lambda)_\lambda$ and $v’ = (v’_\lambda)_\lambda$ in the
 
 <p>may be identified with the space of all $2\times 3$ matrices. Spaces of tensors of higher rank may be obtained as direct sums in a similar fashion.</p>
 
-<div id="proj-inc">
-  <h2 id="natural-projection-and-inclusion-maps">Natural projection and inclusion maps</h2>
-</div>
+<h2 id="22-natural-projection-and-inclusion-maps">2.2. Natural projection and inclusion maps</h2>
 
 <p>The direct sum of vector spaces comes with more structure than just its vector space operations; indeed, it comes with certain special types of maps called <em>natural projections</em> and <em>natural inclusions</em> that give it the structure of a categorical <a href="https://en.wikipedia.org/wiki/Biproduct" target="_blank"><em>biproduct</em></a>. To describe these maps, it will be convenient to consider a direct sum of the form</p>
 
@@ -123,8 +193,8 @@ for vectors $v = (v_\lambda)_\lambda$ and $v’ = (v’_\lambda)_\lambda$ in the
 
 <p>For an arbitrary direct sum, the definitions of these maps are as follows:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$ be a vector space written as a direct sum. For each $\lambda\in \Lambda$, define the linear maps
+<div class="defn" id="nat-proj-inc">
+  <p>Let $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$ be a vector space written as a direct sum. For each $\lambda\in \Lambda$, define the linear maps
     \begin{equation}\notag
     \pi_\lambda:V \to V_\lambda, \quad \pi_\lambda( v ) = v_\lambda
     \end{equation}
@@ -138,9 +208,9 @@ and
 We call $\pi_\lambda$ and $\iota_\lambda$ a <em>natural projection map</em> and <em>natural inclusion map</em>, respectively.</p>
 </div>
 
-<p>The natural projection and inclusion maps have certain properties that will be of fundamental importance in our work. First, if we write $\id_V$ for the <a href="https://en.wikipedia.org/wiki/Identity_function" target="_blank">identity map</a> on a direct sum $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$, then the reader may easily check that</p>
+<p>The natural projection and inclusion maps have certain properties that will be of fundamental importance in our work. First, if we write $\id$ for the <a href="https://en.wikipedia.org/wiki/Identity_function" target="_blank">identity map</a> on a direct sum $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$, then the reader may easily check that</p>
 
-\[\sum_{\lambda \in \Lambda} \iota_\lambda \circ \pi_\lambda = \id_V.\]
+\[\sum_{\lambda \in \Lambda} \iota_\lambda \circ \pi_\lambda = \id.\]
 
 <p>The sum on the left is the point-wise sum given by the formula</p>
 
@@ -149,12 +219,38 @@ We call $\pi_\lambda$ and $\iota_\lambda$ a <em>natural projection map</em> and 
 <p>Second, the reader may also check that we have</p>
 
 \[\pi_\lambda \circ \iota_{\lambda'} = \begin{cases}
-\id_{V_\lambda} &amp; : \lambda = \lambda', \\
+\id &amp; : \lambda = \lambda', \\
 \zero &amp; : \lambda \neq \lambda ',
 \end{cases}\]
 
-<p>where $\id_{V_\lambda}$ denotes the identity map on $V_\lambda$ and where we write $\zero$ for the <a href="https://en.wikipedia.org/wiki/Zero_morphism" target="_blank">zero map</a> in the case that $\lambda \neq \lambda’$.</p>
+<p>where $\id$ and denote the identity map and <a href="https://en.wikipedia.org/wiki/Zero_morphism" target="_blank">zero map</a>, respectively.</p>
 
-<div id="matrix-rep">
-  <h2 id="matrix-representations">Matrix representations</h2>
+<p>Here is a reference to <span id="direct-sum-ref"><script>refDefn(pageNum, "direct-sum");</script></span>.</p>
+
+<p>Here is a reference to <span id="nat-proj-inc-ref"><script>refDefn(pageNum, "nat-proj-inc");</script></span>.</p>
+
+<h2 id="23-matrix-representations">2.3. Matrix representations</h2>
+
+<h2 id="24-norms-and-inner-products">2.4. Norms and inner products</h2>
+
+<div id="code-block">
+  <script>
+const pythonCode =
+`print("Hello, world!")
+print("What is going on?")`
+createCodeBlock("code-block", pythonCode);
+</script>
+
 </div>
+
+
+    </div>
+  
+    <script>
+      window.addEventListener('DOMContentLoaded', () => makeDefns(pageNum));
+      window.addEventListener('load', () => adjustContentPadding("header", "content", 10));
+      window.addEventListener('resize', () => adjustContentPadding("header", "content", 10));
+    </script>
+
+  </body>
+</html>

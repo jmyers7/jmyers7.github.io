@@ -1,26 +1,22 @@
 /**************** global stuff ****************/
 @import url(syntax.css);
-body { color: black; font-family: 'Lora', serif; }
-
-a:hover { color: #FD46FC; }
+body { color: black; font-family: 'Lora', serif; font-size: 16px; }
 
 a { color: black; }
+
+a:hover { color: #FD46FC; }
 
 .accent-color { color: #486AFB; }
 
 /**************** title page ****************/
 #name { text-align: center; font-family: 'IBM Plex Mono', monospace; font-weight: 400; }
 
-#subtitle { text-align: center; font-family: 'IBM Plex Mono', monospace; font-weight: 100; letter-spacing: 3px; margin-top: 15px; font-size: 1em; }
+#subtitle { text-align: center; font-family: 'IBM Plex Mono', monospace; font-weight: 100; letter-spacing: 3px; margin-top: 15px; }
 
-/**************** flex containers ****************/
-.flex-container { display: flex; flex-direction: column; height: 100%; }
+/**************** containers ****************/
+.header-container { position: fixed; top: 0; width: 100%; background-color: white; text-align: center; z-index: 10; }
 
-.nav-container { position: fixed; top: 0; width: 100%; background-color: white; text-align: center; z-index: 1000; }
-
-.post-title { font-family: 'IBM Plex Mono', monospace; font-weight: 400; color: #486AFB; font-size: 1.25em; padding: 10px 0; }
-
-.content-container { margin-top: 60px; margin-left: auto; margin-right: auto; width: 75%; }
+.content-container { margin-left: auto; margin-right: auto; width: 75%; }
 
 /**************** navbar stuff ****************/
 .navbar { margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 0.8em; }
@@ -32,29 +28,39 @@ a { color: black; }
 .navbar a { text-decoration: none; }
 
 /* this prevents the navbar from covering the target when a link to an anchor is pressed */
-:target { scroll-margin-top: 80px; }
+:target { scroll-margin-top: 120px; }
 
 /**************** about page ****************/
-.about-page { font-family: 'IBM Plex Mono', monospace; width: 75%; margin: 10px auto; }
+#about-page { font-family: 'IBM Plex Mono', monospace; width: 75%; margin: 10px auto; }
 
 /**************** projects page ****************/
-.category-headings { font-family: 'IBM Plex Mono', monospace; font-size: 1.43em; }
+#projects-page { font-family: 'IBM Plex Mono', monospace; }
 
-.projects-page a { color: black; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 1.25em; text-decoration: none; }
+#projects-page a { text-decoration: none; /*font-size: 1.25em;*/ }
 
 /**************** posts ****************/
+.post-title { font-family: 'IBM Plex Mono', monospace; font-weight: 400; color: #486AFB; font-size: 1.75em; margin-top: 10px; margin-bottom: 5px; }
+
 /* section headings */
-.post h2 { font-family: 'IBM Plex Mono', monospace; font-size: 1.25em; }
+.post h2 { font-family: 'IBM Plex Mono', monospace; font-size: 1.5em; }
 
 .toc { text-decoration: none; }
 
-.highlight-box { background-color: #486AFB30; width: 85%; margin: 0 auto; padding: 1px 20px; }
+.defn { background-color: #486AFB30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
 
-.highlight-box2 { background-color: #FD46FC30; width: 85%; margin: 0 auto; padding: 1px 20px; }
+/* deprecated! */
+.highlight-box { background-color: #486AFB30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
 
-.highlight-box3 { background-color: #FF000030; width: 85%; margin: 0 auto; padding: 1px 20px; }
+.highlight-box2 { background-color: #FD46FC30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
+
+.highlight-box3 { background-color: #FF000030; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
 
 .caption { font-size: 14px; text-align: center; margin-top: 10px; }
 
 /* this changes the color of \eqref links */
 mjx-container[jax="SVG"] > svg a[href] { /*fill: #e0e0e0;*/ /*stroke: #e0e0e0;*/ fill: black; stroke: black; }
+
+/**************** code box styling ****************/
+.code-container { position: relative; width: 85%; margin: 0 auto; border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8; border-radius: 5px; }
+
+.copy-button { position: absolute; font-family: "Geneva"; font-size: 0.8em; top: 10px; right: 10px; padding: 5px 10px; cursor: pointer; color: #808080; background-color: #f8f8f8; border: none; border-radius: 3px; }

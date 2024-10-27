@@ -1,8 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
   
   <head>
-    <meta charset="utf-8">
+    
     <title>john myers, ph.d.</title>
 
     <!-- font stuff -->
@@ -10,15 +10,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
   
   </head>
   
   <body>
 
-    <div class="flex-container">
-      
-      <div class="nav-container">
-        <nav class="navbar">
+    <div class="header-container" id="header">
+      <nav class="navbar">
   
   <div class="nav-item">
     <a href="/" class="accent-color">root</a>
@@ -49,15 +50,18 @@
   </div>
       
 </nav>
-      </div>
+    </div>
       
-      <div class="content-container">
-        <h1 id="name">john myers, ph.d.</h1>
+    <div class="content-container" id="content">
+      <h1 id="name">john myers, ph.d.</h1>
 <h2 id="subtitle">math + science + engineering  <span style="border-bottom: 2.5px solid #486AFB;">&nbsp&nbsp</span></h2>
 
-      </div>
-    
     </div>
+
+    <script>
+      window.addEventListener('load', () => adjustContentPadding("header", "content", 70));
+      window.addEventListener('resize', () => adjustContentPadding("header", "content", 70));
+    </script>
     
   </body>
 </html>

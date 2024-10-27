@@ -4,5 +4,3 @@
   link: /about.html
 - name: projects + writings
   link: /projects.html
-- name: viz gallery
-  link: /viz.html

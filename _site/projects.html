@@ -1,8 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
   
   <head>
-    <meta charset="utf-8">
+    
     <title>projects + writings</title>
 
     <!-- font stuff -->
@@ -10,15 +10,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
   
   </head>
   
   <body>
 
-    <div class="flex-container">
-      
-      <div class="nav-container">
-        <nav class="navbar">
+    <div class="header-container" id="header">
+      <nav class="navbar">
   
   <div class="nav-item">
     <a href="/" >root</a>
@@ -49,12 +50,12 @@
   </div>
       
 </nav>
-      </div>
+    </div>
       
-      <div class="content-container">
-        <div class="projects-page">
+    <div class="content-container" id="content">
+      <div id="projects-page">
     
-    <h1 class="category-headings">a dynamical framework for the backpropagation algorithm</h1>
+    <h2>a dynamical framework for the backpropagation algorithm</h2>
     <ul>
         
             
@@ -70,7 +71,7 @@
     </ul>
     <br>
     
-    <h1 class="category-headings">topological algebra</h1>
+    <h2>topological algebra</h2>
     <ul>
         
             
@@ -86,7 +87,7 @@
     </ul>
     <br>
     
-    <h1 class="category-headings">the mathematical structures of physics</h1>
+    <h2>the mathematical structures of physics</h2>
     <ul>
         
             
@@ -97,7 +98,7 @@
     </ul>
     <br>
     
-    <h1 class="category-headings">a geometric and topological toolkit</h1>
+    <h2>a geometric and topological toolkit</h2>
     <ul>
         
             
@@ -130,9 +131,12 @@
     
 </div>
 
-      </div>
-    
     </div>
+
+    <script>
+      window.addEventListener('load', () => adjustContentPadding("header", "content", 70));
+      window.addEventListener('resize', () => adjustContentPadding("header", "content", 70));
+    </script>
     
   </body>
 </html>

@@ -1,8 +1,76 @@
-<div class="post-title-white">
-  <h1 class="accent-color">a first look at compositional graphs</h1>
-</div>
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    
+    <title>a first look at compositional graphs</title>
 
-<p>At the most basic level, by a <em>neural network</em> we mean a particular type of function</p>
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet">
+    <script src="/assets/js/prism.js"></script>
+    
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "1"
+    </script>
+
+  </head>
+  
+  <body>
+  
+    <div class="header-container" id="header">
+      <nav class="navbar">
+  
+  <div class="nav-item">
+    <a href="/">root</a>
+  </div>
+  
+  <div class="nav-item">
+    <a href="/about.html">about</a>
+  </div>
+  
+  <div class="nav-item">
+    <a href="/projects.html" class="accent-color">projects + writings</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="https://github.com/jmyers7" target="_blank">github</a>
+  </div>
+    
+  <div class="nav-item">
+    <a href="http://www.johnmyersmath.com" target="_blank">academic website</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="mailto:jmmyers25@gmail.com">email</a>
+  </div>
+      
+</nav>
+      <div class="post-title">  
+        <div>a dynamical framework for the backpropagation algorithm</div>
+        <div>1. a first look at compositional graphs</div>
+      </div>
+    </div>
+    
+    <div class="content-container post" id="content">
+      <p>At the most basic level, by a <em>neural network</em> we mean a particular type of function</p>
 
 <p>\begin{equation}\notag
 F: X \to O,
@@ -80,3 +148,14 @@ G(\theta_1,\theta_2,\theta_3) \def \call(f_3(f_2(f_1(\theta_1),\theta_2),\theta_
 \end{equation}</p>
 
 <p>The training algorithm is an optimization algorithm whose goal is to minimize this objective function $G$ over the parameter vectors $\theta_1$, $\theta_2$, and $\theta_3$.</p>
+
+    </div>
+  
+    <script>
+      window.addEventListener('DOMContentLoaded', () => makeDefns(pageNum));
+      window.addEventListener('load', () => adjustContentPadding("header", "content", 10));
+      window.addEventListener('resize', () => adjustContentPadding("header", "content", 10));
+    </script>
+
+  </body>
+</html>

@@ -1,15 +1,21 @@
+// * {
+//   border: 1px solid red;
+// }
+
+
 /**************** global stuff ****************/
 body {
   color: black;
   font-family: 'Lora', serif;
-}
-
-a:hover {
-  color: #FD46FC;
+  font-size: 16px;
 }
 
 a {
   color: black;
+}
+
+a:hover {
+  color: #FD46FC;
 }
 
 .accent-color {
@@ -31,36 +37,20 @@ a {
   font-weight: 100;
   letter-spacing: 3px;
   margin-top: 15px;
-  font-size: 1em;
 }
 
-/**************** flex containers ****************/
+/**************** containers ****************/
 
-.flex-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.nav-container {
+.header-container {
   position: fixed;
   top: 0;
   width: 100%;
   background-color: white;
   text-align: center;
-  z-index: 1000;
-}
-
-.post-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 400;
-  color:#486AFB;
-  font-size: 1.25em;
-  padding: 10px 0;
+  z-index: 10;
 }
 
 .content-container {
-  margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
   width: 75%;
@@ -90,12 +80,12 @@ a {
 
 /* this prevents the navbar from covering the target when a link to an anchor is pressed */
 :target {
-  scroll-margin-top: 80px; 
+  scroll-margin-top: 120px; 
 }
 
 /**************** about page ****************/
 
-.about-page {
+#about-page {
   font-family: 'IBM Plex Mono', monospace;
   width: 75%;
   margin: 10px auto;
@@ -103,36 +93,53 @@ a {
 
 /**************** projects page ****************/
 
-.category-headings {
+#projects-page {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.43em;
 }
 
-.projects-page a {
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 400;
-  font-size: 1.25em;
+#projects-page a {
   text-decoration: none;
+  /*font-size: 1.25em;*/
 }
 
 /**************** posts ****************/
 
+.post-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 400;
+  color:#486AFB;
+  font-size: 1.75em;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 /* section headings */
 .post h2 {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.25em;
+  font-size: 1.5em;
 }
 
 .toc {
   text-decoration: none;
 }
 
+.defn {
+  background-color: #486AFB30;
+  width: 85%;
+  margin: 0 auto;
+  padding: 1px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* deprecated! */
 .highlight-box {
   background-color: #486AFB30;
   width: 85%;
   margin: 0 auto;
   padding: 1px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .highlight-box2 {
@@ -140,6 +147,8 @@ a {
   width: 85%;
   margin: 0 auto;
   padding: 1px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .highlight-box3 {
@@ -147,6 +156,8 @@ a {
   width: 85%;
   margin: 0 auto;
   padding: 1px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .caption {
@@ -161,4 +172,30 @@ mjx-container[jax="SVG"] > svg a[href] {
   /*stroke: #e0e0e0;*/
   fill: black;
   stroke: black;
+}
+
+/**************** code box styling ****************/
+
+.code-container {
+  position: relative;
+  width: 85%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.copy-button {
+  position: absolute;
+  font-family: "Geneva";
+  font-size: 0.8em;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #808080;
+  background-color: #f8f8f8;
+  border: none;
+  border-radius: 3px;
 }
