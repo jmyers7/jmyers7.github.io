@@ -35,6 +35,8 @@ nav a { text-decoration: none; }
 /**************** projects page ****************/
 #projects-page { font-family: "IBM Plex Mono", monospace; }
 
+#projects-page h2 { font-weight: 400; }
+
 #projects-page a { text-decoration: none; /*font-size: 1.25em;*/ }
 
 /**************** posts ****************/
