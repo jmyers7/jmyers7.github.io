@@ -1,53 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  
   <head>
-    
     <title>{{ page.title }}</title>
 
     <!-- font stuff -->
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- latex stuff -->
     <script src="/assets/js/latex.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
 
     <!-- syntax highlighting stuff-->
-    <link href="/assets/themes/prism.css" rel="stylesheet">
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
     <script src="/assets/js/prism.js"></script>
-    
+
     <!-- custom scripts -->
     <script src="/assets/js/scripts.js"></script>
 
     {% assign post_num = page.slug | slice: -1, 1 %}
     <script>
-      const pageNum = "{{ post_num }}"
+      const pageNum = "{{ post_num }}";
     </script>
-
   </head>
-  
+
   <body>
-  
     <div class="header-container" id="header">
       {% include navigation-post.html %}
-      <div class="post-title">  
-        <div>{{ page.category }}</div>
-        <div>{{ post_num }}. {{ page.title }}</div>
-      </div>
+        <div class="post-title">
+          <div>{{ page.category }}</div>
+            <span class="post-name">
+              {{ post_num }}. {{ page.title }}
+              <div class="dropdown">
+                <ul>
+                  <li>
+                    <a href="#">{{ post_num }}.0. introduction</a>
+                  </li>
+                  {% for section in page.sections %}
+                    <li>
+                      <a href="#{{ section | slugify }}">{{ post_num }}.{{ forloop.index }}. {{ section }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </span>
+          <div id="current-section">introduction</div>
+        </div>
     </div>
-    
+
     <div class="content-container post" id="content">
       {{ content }}
     </div>
-  
-    <script>
-      window.addEventListener('DOMContentLoaded', () => makeDefns(pageNum));
-      window.addEventListener('load', () => adjustContentPadding("header", "content", 10));
-      window.addEventListener('resize', () => adjustContentPadding("header", "content", 10));
-    </script>
 
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+    </script>
   </body>
 </html>

@@ -1,38 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  
   <head>
-    
     <title>tangent bundles</title>
 
     <!-- font stuff -->
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- latex stuff -->
     <script src="/assets/js/latex.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
 
     <!-- syntax highlighting stuff-->
-    <link href="/assets/themes/prism.css" rel="stylesheet">
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
     <script src="/assets/js/prism.js"></script>
-    
+
     <!-- custom scripts -->
     <script src="/assets/js/scripts.js"></script>
 
     
     <script>
-      const pageNum = "2"
+      const pageNum = "2";
     </script>
-
   </head>
-  
+
   <body>
-  
     <div class="header-container" id="header">
-      <nav class="navbar">
+      <nav>
   
   <div class="nav-item">
     <a href="/">root</a>
@@ -63,350 +62,377 @@
   </div>
       
 </nav>
-      <div class="post-title">  
-        <div>a geometric and topological toolkit</div>
-        <div>2. tangent bundles</div>
-      </div>
+        <div class="post-title">
+          <div>a geometric and topological toolkit</div>
+            <span class="post-name">
+              2. tangent bundles
+              <div class="dropdown">
+                <ul>
+                  <li>
+                    <a href="#">2.0. introduction</a>
+                  </li>
+                  
+                    <li>
+                      <a href="#prerequisites">2.1. prerequisites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#the-tangent-bundle">2.2. the tangent bundle</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#the-tangent-bundle-of-the-circle">2.3. the tangent bundle of the circle</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#tangent-bundles-as-vector-bundles">2.4. tangent bundles as vector bundles</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#tangent-bundles-as-locally-trivial-vector-bundles">2.5. tangent bundles as locally trivial vector bundles</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#references-and-footnotes">2.6. references and footnotes</a>
+                    </li>
+                  
+                </ul>
+              </div>
+            </span>
+          <div id="current-section">introduction</div>
+        </div>
     </div>
-    
+
     <div class="content-container post" id="content">
       <p>The tangent space $T_p(M)$ at a point $p$ on a manifold $M$ is a purely local object, in the sense that it only depends on the “first-order infinitesimal neighborhoods” of $p$. In this post, we will see how to combine all the tangent spaces $T_p(M)$ into a single global object called the <em>tangent bundle</em>, denoted $T(M)$. While the tangent bundle $T(M)$ is composed of linear building blocks (i.e., the tangent spaces $T_p(M)$), we will see that $T(M)$ carries its own manifold structure which may have a non-trivial topology. As an example, we will explore the tangent bundle $T(S^1)$ of the unit circle $S^1$ in some detail, and we will see that $T(S^1)$ is a cylinder in $\bbr^3$.</p>
 
 <p>A tangent bundle is actually a specific example of a more general structure called a (<em>locally trivial</em>) <em>vector bundle</em>, which are ubiquitous in topology. I will only have the time to state the definitions and most basic properties of these gadgets; a more thorough exploration will have to wait till a future post.</p>
 
-<h2 id="table-of-contents">Table of contents</h2>
+<section data-sec-title="2.1. prerequisites">
+  <h2 id="prerequisites">2.1. prerequisites</h2>
 
-<ol>
-  <li><a href="#tan-bundle" style="font-family: 'Lora', serif; font-size: 1em;">The tangent bundle</a></li>
-  <li><a href="#circle-tan-bundle" style="font-family: 'Lora', serif; font-size: 1em;">The tangent bundle of the circle</a></li>
-  <li><a href="#vec-bundle" style="font-family: 'Lora', serif; font-size: 1em;">Tangent bundles as vector bundles</a></li>
-  <li><a href="#locally-trivial-vec-bundle" style="font-family: 'Lora', serif; font-size: 1em;">Tangent bundles as locally trivial vector bundles</a></li>
-  <li><a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
-</ol>
+  <p>Of course, you’ll want to be familiar with the basic definitions, notation, and terminology in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">first post</a> of this series. In particular, our manifolds are embedded in cartesian spaces by definition, in the style of Guillemin and Pollack’s book (<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">1</a></sup>), which will make for a handy reference for this post.</p>
+</section>
 
-<h2 id="prerequisites">Prerequisites</h2>
+<section data-sec-title="2.2. the tangent bundle">
+  <h2 id="the-tangent-bundle">2.2. the tangent bundle</h2>
 
-<p>Of course, you’ll want to be familiar with the basic definitions, notation, and terminology in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">first post</a> of this series. In particular, our manifolds are embedded in cartesian spaces by definition, in the style of Guillemin and Pollack’s book (<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">1</a></sup>), which will make for a handy reference for this post.</p>
+  <p>As a set, the tangent bundle is very easy to define. However, the tangent bundle carries an entire smooth manifold structure, which takes some time and care to define properly. While you’re working through this section, I recommend taking a peek at the <a href="#circle-tan-bundle" class="article">section</a> following this one (and its figure), which gives a concrete example of a tangent bundle.</p>
 
-<div id="tan-bundle">
-  <h2 id="the-tangent-bundle">The tangent bundle</h2>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Suppose that $M$ is an $n$-dimensional manifold embedded in an ambient cartesian space $\bbr^r$. Then each tangent space $T_p(M)$ is also in $\bbr^r$, and it makes sense to define the <em>tangent bundle</em> as a subset of $\bbr^{2r}$ to be</p>
 
-<p>As a set, the tangent bundle is very easy to define. However, the tangent bundle carries an entire smooth manifold structure, which takes some time and care to define properly. While you’re working through this section, I recommend taking a peek at the <a href="#circle-tan-bundle" class="article">section</a> following this one (and its figure), which gives a concrete example of a tangent bundle.</p>
-
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Suppose that $M$ is an $n$-dimensional manifold embedded in an ambient cartesian space $\bbr^r$. Then each tangent space $T_p(M)$ is also in $\bbr^r$, and it makes sense to define the <em>tangent bundle</em> as a subset of $\bbr^{2r}$ to be</p>
-
-  <p>\begin{equation}\notag
+    <p>\begin{equation}\notag
 T(M) = \left\{ (p,v) \in M \times \bbr^r \mid v\in T_p(M) \right\}.
 \end{equation}</p>
-</div>
+  </div>
 
-<p>As I mentioned, the tangent bundle $T(M)$ is more than just a subset of $\bbr^{2r}$, it’s actually a $2n$-dimensional smooth manifold. To see this, we first note that the assignment $M \mapsto T(M)$ is functorial: If $\alpha:M \to N$ is a smooth map, then there is an induced map</p>
+  <p>As I mentioned, the tangent bundle $T(M)$ is more than just a subset of $\bbr^{2r}$, it’s actually a $2n$-dimensional smooth manifold. To see this, we first note that the assignment $M \mapsto T(M)$ is functorial: If $\alpha:M \to N$ is a smooth map, then there is an induced map</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \alpha_\ast:T(M) \to T(N), \quad (p,v) \mapsto \big(\alpha(p),\alpha_{\ast p}(v)\big),
 \end{equation}</p>
 
-<p>that we call the <em>global derivative</em> or <em>global pushforward</em> of $\alpha$. One checks easily that $\alpha_\ast$ is smooth, i.e., that it is locally extendible at each point $(p,v) \in T(M)$ to a smooth map on an open neighborhood of $(p,v)$ in $\bbr^{2r}$. Furthermore, by the usual chain rule, if $\beta:N \to L$ is a second smooth map, we have</p>
+  <p>that we call the <em>global derivative</em> or <em>global pushforward</em> of $\alpha$. One checks easily that $\alpha_\ast$ is smooth, i.e., that it is locally extendible at each point $(p,v) \in T(M)$ to a smooth map on an open neighborhood of $(p,v)$ in $\bbr^{2r}$. Furthermore, by the usual chain rule, if $\beta:N \to L$ is a second smooth map, we have</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 (\beta\circ \alpha)_\ast = \beta_\ast \circ \alpha_\ast,
 \end{equation}</p>
 
-<p>and if $\id_M:M \to M$ is the identity map, then</p>
+  <p>and if $\id_M:M \to M$ is the identity map, then</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \id_{M\ast} = \id_{T(M)}.
 \end{equation}</p>
 
-<p>It follows immediately, as usual, that if $\alpha:M \to N$ is a diffeomorphism, then $\alpha_\ast$ is too.</p>
+  <p>It follows immediately, as usual, that if $\alpha:M \to N$ is a diffeomorphism, then $\alpha_\ast$ is too.</p>
 
-<p>Now, to get local parametrizations on $T(M)$, we let $\phi:U\to V$ be a local parametrization on $M$, where $U$ is an open subset of $\bbr^n$ and $V$ is an open subset of $M$. We then have the global derivative</p>
+  <p>Now, to get local parametrizations on $T(M)$, we let $\phi:U\to V$ be a local parametrization on $M$, where $U$ is an open subset of $\bbr^n$ and $V$ is an open subset of $M$. We then have the global derivative</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \phi_\ast: T(U) \to T(V)
 \end{equation}</p>
 
-<p>which we just saw is a diffeomorphism. Because we may identify each tangent space $T_t(U)$ with $\bbr^n$ ($t\in U$), we have that $T(U) = U \times \bbr^n$, and hence $T(U)$ is an open subset of $\bbr^{2n}$. On the other hand, because $V$ is open in $M$ and $T_p(V) = T_p(M)$ for all $p\in V$, we have</p>
+  <p>which we just saw is a diffeomorphism. Because we may identify each tangent space $T_t(U)$ with $\bbr^n$ ($t\in U$), we have that $T(U) = U \times \bbr^n$, and hence $T(U)$ is an open subset of $\bbr^{2n}$. On the other hand, because $V$ is open in $M$ and $T_p(V) = T_p(M)$ for all $p\in V$, we have</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 T(V) = (V \times \bbr^N) \cap T(M),
 \end{equation}</p>
 
-<p>so $T(V)$ is an open subset of $T(M)$. We may thus take the global derivatives $\phi_\ast$ of local parametrizations of $M$ to obtain local parametrizations of $T(M)$, giving the latter the structure of a $2n$-dimensional manifold.</p>
+  <p>so $T(V)$ is an open subset of $T(M)$. We may thus take the global derivatives $\phi_\ast$ of local parametrizations of $M$ to obtain local parametrizations of $T(M)$, giving the latter the structure of a $2n$-dimensional manifold.</p>
 
-<p>From this description, we can easily describe local coordinates on the codomain of a local parametrization $\phi_\ast:T(U) \to T(V)$. First, recall (from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">first post</a>) that the associated local coordinates $x^1,\ldots,x^n$ on the open subset $V\subseteq M$ are, by definition, the component functions of the inverse function $\phi^{-1}$, namely</p>
+  <p>From this description, we can easily describe local coordinates on the codomain of a local parametrization $\phi_\ast:T(U) \to T(V)$. First, recall (from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/17/geom-primer1.html">first post</a>) that the associated local coordinates $x^1,\ldots,x^n$ on the open subset $V\subseteq M$ are, by definition, the component functions of the inverse function $\phi^{-1}$, namely</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \phi^{-1}(p) = (x^1(p),\ldots,x^n(p)),
 \end{equation}</p>
 
-<p>for all $p\in V$. It is quite common to intentionally confuse the numbers $x^1(p),\ldots,x^n(p)$ with the functions $x^1,\ldots,x^n$ themselves, so that we might say (for example) the point $p\in V$ (on a $3$-dimensional manifold) has local coordinates</p>
+  <p>for all $p\in V$. It is quite common to intentionally confuse the numbers $x^1(p),\ldots,x^n(p)$ with the functions $x^1,\ldots,x^n$ themselves, so that we might say (for example) the point $p\in V$ (on a $3$-dimensional manifold) has local coordinates</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 (x^1,x^2,x^3) = (-2, 3, 0),
 \end{equation}</p>
 
-<p>when what we <em>really</em> mean is that</p>
+  <p>when what we <em>really</em> mean is that</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 (x^1(p),x^2(p),x^3(p)) = (-2, 3, 0).
 \end{equation}</p>
 
-<p>With respect to the local parametrization $\phi$, we also talked about the associated coordinate basis</p>
+  <p>With respect to the local parametrization $\phi$, we also talked about the associated coordinate basis</p>
 
-<p>\begin{equation}
+  <p>\begin{equation}
 \label{tan-basis-eqn}
 \bd_1|_p,\ldots,\bd_n|_p
 \end{equation}</p>
 
-<p>of the tangent space $T_p(M)$ at a point $p\in V$. Thus, every vector $v\in T_p(V)$ may be written as</p>
+  <p>of the tangent space $T_p(M)$ at a point $p\in V$. Thus, every vector $v\in T_p(V)$ may be written as</p>
 
-<p>\begin{equation}
+  <p>\begin{equation}
 \label{tan-comp-eqn}
 v = v^i \bd_i|_p
 \end{equation}</p>
 
-<p>for some (unique) collection of scalars $v^i \in \bbr$, with summation over $i$ implied.</p>
+  <p>for some (unique) collection of scalars $v^i \in \bbr$, with summation over $i$ implied.</p>
 
-<p>Now, it follows immediately from our discussion that a point $(p,v) \in T(V) \subseteq T(M)$ has local coordinates given by</p>
+  <p>Now, it follows immediately from our discussion that a point $(p,v) \in T(V) \subseteq T(M)$ has local coordinates given by</p>
 
-<p>\begin{equation}
+  <p>\begin{equation}
 \label{hor-ver-eqn}
 (x^1,\ldots,x^n,v^1,\ldots,v^n) \in \bbr^{2n}.
 \end{equation}</p>
 
-<p>Take care to make sure you understand what this means! First, I am intentionally confusing the functions $x^1,\ldots,x^n$ with the numbers $x^1(p),\ldots,x^n(p)$ as I mentioned above, and the numbers $v^1,\ldots,v^n$ are the components of $v$ displayed in \eqref{tan-comp-eqn} with respect to the associated coordinate basis \eqref{tan-basis-eqn}.</p>
+  <p>Take care to make sure you understand what this means! First, I am intentionally confusing the functions $x^1,\ldots,x^n$ with the numbers $x^1(p),\ldots,x^n(p)$ as I mentioned above, and the numbers $v^1,\ldots,v^n$ are the components of $v$ displayed in \eqref{tan-comp-eqn} with respect to the associated coordinate basis \eqref{tan-basis-eqn}.</p>
 
-<p>Local coordinates of the form \eqref{hor-ver-eqn} are so important that they get their own name:</p>
+  <p>Local coordinates of the form \eqref{hor-ver-eqn} are so important that they get their own name:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let the notation be as above. The local coordinates $x^1,\ldots,x^n$ in \eqref{hor-ver-eqn} are called the <em>horizontal local coordinates</em> of $(p,v)$, while the local coordinates $v^1,\ldots,v^n$ are called the <em>vertical local coordinates</em>.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let the notation be as above. The local coordinates $x^1,\ldots,x^n$ in \eqref{hor-ver-eqn} are called the <em>horizontal local coordinates</em> of $(p,v)$, while the local coordinates $v^1,\ldots,v^n$ are called the <em>vertical local coordinates</em>.</p>
+  </div>
 
-<p>The language in the definition is the first of many “vertical/horizontal” dichotomies that you’d see if you continued your study of vector and fiber bundles. This language comes from how we typically draw tangent bundles, as we will see in the next section.</p>
+  <p>The language in the definition is the first of many “vertical/horizontal” dichotomies that you’d see if you continued your study of vector and fiber bundles. This language comes from how we typically draw tangent bundles, as we will see in the next section.</p>
+</section>
 
-<div id="circle-tan-bundle">
-  <h2 id="the-tangent-bundle-of-the-circle">The tangent bundle of the circle</h2>
-</div>
+<section data-sec-title="2.3. the tangent bundle of the circle">
+  <h2 id="the-tangent-bundle-of-the-circle">2.3. the tangent bundle of the circle</h2>
 
-<p>Given a point $p = (x,y) \in S^1$, where $S^1$ denotes the unit circle in $\bbr^2$, it’s easy to see that</p>
+  <p>Given a point $p = (x,y) \in S^1$, where $S^1$ denotes the unit circle in $\bbr^2$, it’s easy to see that</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 T_p(S^1) = \left\{ (u,v) \in \bbr^2 \mid xu+yv = 0 \right\}.
 \end{equation}</p>
 
-<p>Thus</p>
+  <p>Thus</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 T(S^1) = \left\{ (x,y,u,v) \in \bbr^4 \mid x^2+y^2 = 1, \ xu + yv = 0 \right\}.
 \end{equation}</p>
 
-<p>Now, this is all well and good, but I actually want to find a different description of $T(S^1)$. For this, we define a smooth map</p>
+  <p>Now, this is all well and good, but I actually want to find a different description of $T(S^1)$. For this, we define a smooth map</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \alpha: S^1 \times \bbr \to T(S^1)
 \end{equation}</p>
 
-<p>by setting</p>
+  <p>by setting</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \alpha(x,y,r) = ( x,y , -yr,xr ).
 \end{equation}</p>
 
-<p>One shows easily that $\alpha$ is an injective immersion, and that it is also proper; hence, $\alpha$ is an embedding. But its image is easily seen to be all of $T(S^1)$, which means that it is a diffeomorphism. Thus, at least up to diffeomorphism, the tangent bundle $T(S^1)$ is the same thing as the infinite cylinder $S^1 \times \bbr$.</p>
+  <p>One shows easily that $\alpha$ is an injective immersion, and that it is also proper; hence, $\alpha$ is an embedding. But its image is easily seen to be all of $T(S^1)$, which means that it is a diffeomorphism. Thus, at least up to diffeomorphism, the tangent bundle $T(S^1)$ is the same thing as the infinite cylinder $S^1 \times \bbr$.</p>
 
-<p>The structure of the tangent bundle is shown in the following figure:</p>
+  <p>The structure of the tangent bundle is shown in the following figure:</p>
 
-<p><img src="/assets/images/tan-bundle-circle0.png" alt="sum" style="margin: 40px auto; display: block; width: 80%;" /></p>
+  <p><img src="/assets/images/tan-bundle-circle0.png" alt="sum" style="margin: 40px auto; display: block; width: 80%;" /></p>
 
-<p>In the upper left, we begin with a single tangent line to the circle $S^1$ at a point in the fourth quadrant. Moving to the upper right, we view the circle $S^1$ as embedded in the $xy$-plane in $\bbr^3$, and we physically grab the tangent line and rotate it so that it is parallel with the $z$-axis. Then, if we imagine rotating <em>all</em> tangent lines to $S^1$ in this manner, we “fill in” the infinite cylinder $S^1 \times \bbr$, which is shown in the center of the figure labeled as $T(S^1)$.</p>
+  <p>In the upper left, we begin with a single tangent line to the circle $S^1$ at a point in the fourth quadrant. Moving to the upper right, we view the circle $S^1$ as embedded in the $xy$-plane in $\bbr^3$, and we physically grab the tangent line and rotate it so that it is parallel with the $z$-axis. Then, if we imagine rotating <em>all</em> tangent lines to $S^1$ in this manner, we “fill in” the infinite cylinder $S^1 \times \bbr$, which is shown in the center of the figure labeled as $T(S^1)$.</p>
 
-<p>At the bottom of the figure, I have drawn a copy of $S^1$ and placed it below the tangent bundle $T(S^1)$. This is a very typical convention, where we imagine (and sometimes actually draw, if possible) the tangent bundle $T(M)$ sitting “over” the manifold $M$. In fact, the manifold $M$ is sometimes called the <em>base manifold</em> of the bundle $T(M)$, because of this vertical orientation.</p>
+  <p>At the bottom of the figure, I have drawn a copy of $S^1$ and placed it below the tangent bundle $T(S^1)$. This is a very typical convention, where we imagine (and sometimes actually draw, if possible) the tangent bundle $T(M)$ sitting “over” the manifold $M$. In fact, the manifold $M$ is sometimes called the <em>base manifold</em> of the bundle $T(M)$, because of this vertical orientation.</p>
 
-<p>I have also drawn the smooth map</p>
+  <p>I have also drawn the smooth map</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \pi:T(S^1) \to S^1, \quad (p,v) \mapsto p,
 \end{equation}</p>
 
-<p>which is often called the <em>bundle projection</em> or simply the <em>projection</em>. Notice that this map makes sense for <em>all</em> tangent bundles, so that we always have the projection map</p>
+  <p>which is often called the <em>bundle projection</em> or simply the <em>projection</em>. Notice that this map makes sense for <em>all</em> tangent bundles, so that we always have the projection map</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \pi:T(M) \to M, \quad (p,v) \mapsto p,
 \end{equation}</p>
 
-<p>for any manifold $M$. To get extra practice with the manifold structure on $T(M)$, it might be worth proving on your own that $\pi$ is indeed smooth.</p>
+  <p>for any manifold $M$. To get extra practice with the manifold structure on $T(M)$, it might be worth proving on your own that $\pi$ is indeed smooth.</p>
 
-<p>Using the figure, you might be able to see the reasoning for the “vertical/horizontal” naming convention for local coordinates on a tangent bundle. Here, given a point $(p,v)\in T(S^1)$, we might take a local coordinate of the point $p\in S^1$ to be the angle $\theta$ that the line segment connecting the origin in $\bbr^2$ to $p$ makes with one of the coordinate axes. Then, this same local coordinate serves as a “horizontal” local coordinate in $T(S^1)$ which, using the figure above, you can actually see is a coordinate that measures the horizontal position of the point $(p,v)$. On the other hand, if we write $v = v^1 \bd_1|_p$, then $v^1$ measures the length of the vector $v$ relative to the basis vector $\bd_1|_p$. But $v^1$ also serves as the vertical local coordinate of $(p,v)$, whose magnitude may be interpreted as the vertical distance of the point $(p,v)$ from the “zero section”</p>
+  <p>Using the figure, you might be able to see the reasoning for the “vertical/horizontal” naming convention for local coordinates on a tangent bundle. Here, given a point $(p,v)\in T(S^1)$, we might take a local coordinate of the point $p\in S^1$ to be the angle $\theta$ that the line segment connecting the origin in $\bbr^2$ to $p$ makes with one of the coordinate axes. Then, this same local coordinate serves as a “horizontal” local coordinate in $T(S^1)$ which, using the figure above, you can actually see is a coordinate that measures the horizontal position of the point $(p,v)$. On the other hand, if we write $v = v^1 \bd_1|_p$, then $v^1$ measures the length of the vector $v$ relative to the basis vector $\bd_1|_p$. But $v^1$ also serves as the vertical local coordinate of $(p,v)$, whose magnitude may be interpreted as the vertical distance of the point $(p,v)$ from the “zero section”</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 S^1_0 \defeq  \left\{ (q,0) \in T(S^1) \mid q \in S^1\right\}.
 \end{equation}</p>
 
-<p>Depending on orientations, the sign of $v^1$ tells us whether $(p,v)$ is above or below the zero section $S^1_0$.</p>
+  <p>Depending on orientations, the sign of $v^1$ tells us whether $(p,v)$ is above or below the zero section $S^1_0$.</p>
+</section>
 
-<div id="vec-bundle">
-  <h2 id="tangent-bundles-as-vector-bundles">Tangent bundles as vector bundles</h2>
-</div>
+<section data-sec-title="2.4. tangent bundles as vector bundles">
+  <h2 id="tangent-bundles-as-vector-bundles">2.4. tangent bundles as vector bundles</h2>
 
-<p>The example in the previous section shows that the tangent bundle $T(S^1)$ of the unit circle is, up to diffeomorphism, just the product manifold $S^1 \times \bbr$. Is this always true? If $M$ is an $n$-dimensional manifold, is the tangent bundle $T(M)$ just $M \times \bbr^n$, up to diffeomorphism? Of course, the answer must be <em>no</em>, because otherwise we would have just <em>defined</em> the tangent bundle $T(M)$ to be $M \times \bbr^n$.</p>
+  <p>The example in the previous section shows that the tangent bundle $T(S^1)$ of the unit circle is, up to diffeomorphism, just the product manifold $S^1 \times \bbr$. Is this always true? If $M$ is an $n$-dimensional manifold, is the tangent bundle $T(M)$ just $M \times \bbr^n$, up to diffeomorphism? Of course, the answer must be <em>no</em>, because otherwise we would have just <em>defined</em> the tangent bundle $T(M)$ to be $M \times \bbr^n$.</p>
 
-<p>I’ll come back to this point in a moment, giving you an example of a manifold whose tangent bundle is <em>not</em> globally a product, but first I want to highlight an important property of the diffeomorphism $\alpha$ in the example of $T(S^1)$. The diffeomorphism $\alpha$ preserves the structure of both $S^1 \times \bbr$ and $T(S^1)$ as general “bundles” of vector spaces. In order to most clearly explain what I mean, it will be convenient to introduce the objects in the following definition.</p>
+  <p>I’ll come back to this point in a moment, giving you an example of a manifold whose tangent bundle is <em>not</em> globally a product, but first I want to highlight an important property of the diffeomorphism $\alpha$ in the example of $T(S^1)$. The diffeomorphism $\alpha$ preserves the structure of both $S^1 \times \bbr$ and $T(S^1)$ as general “bundles” of vector spaces. In order to most clearly explain what I mean, it will be convenient to introduce the objects in the following definition.</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> A <em>set-theoretic vector bundle</em> over a set $B$ is a surjective function $\pi:E\to B$ such that for each $b\in B$, the fiber</p>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> A <em>set-theoretic vector bundle</em> over a set $B$ is a surjective function $\pi:E\to B$ such that for each $b\in B$, the fiber</p>
 
-  <p>\begin{equation}\notag
+    <p>\begin{equation}\notag
 E_b \defeq \pi^{-1}(b)
 \end{equation}</p>
 
-  <p>is an $\bbr$-vector space. If all the vector spaces $E_b$ are finite-dimensional with common dimension $k$, then $E$ is called a <em>rank-$k$ set-theoretic vector bundle</em>. The set $B$ is called the <em>base set</em>, while $E$ is called the <em>total set</em>.</p>
+    <p>is an $\bbr$-vector space. If all the vector spaces $E_b$ are finite-dimensional with common dimension $k$, then $E$ is called a <em>rank-$k$ set-theoretic vector bundle</em>. The set $B$ is called the <em>base set</em>, while $E$ is called the <em>total set</em>.</p>
 
-  <p>If $\pi’:E’ \to B$ is a second set-theoretic vector bundle over $B$, then a <em>homomorphism</em> of set-theoretic vector bundles is a function $\alpha:E \to E’$ that restricts to a linear transformation
+    <p>If $\pi’:E’ \to B$ is a second set-theoretic vector bundle over $B$, then a <em>homomorphism</em> of set-theoretic vector bundles is a function $\alpha:E \to E’$ that restricts to a linear transformation
 \begin{equation}\notag
 \alpha|_{E_b}:E_b \to E_b’
 \end{equation}</p>
 
-  <p>on each fiber. To be clear, this means that we require $\alpha(E_b) \subseteq E_b’$ for each $b\in B$. Instead of writing $\alpha|_{E_b}$ for the restricted map, we shall often write $\alpha_b$ instead.</p>
+    <p>on each fiber. To be clear, this means that we require $\alpha(E_b) \subseteq E_b’$ for each $b\in B$. Instead of writing $\alpha|_{E_b}$ for the restricted map, we shall often write $\alpha_b$ instead.</p>
 
-  <p>We shall say the homomorphism $\alpha:E \to E’$ of set-theoretic vector bundles is an <em>isomorphism</em> if there is a homomorphism of set-theoretic vector bundles $\beta:E’\to E$ such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E’}$.</p>
-</div>
+    <p>We shall say the homomorphism $\alpha:E \to E’$ of set-theoretic vector bundles is an <em>isomorphism</em> if there is a homomorphism of set-theoretic vector bundles $\beta:E’\to E$ such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E’}$.</p>
+  </div>
 
-<p>As our first example of a set-theoretic vector bundle, we consider the natural projection</p>
+  <p>As our first example of a set-theoretic vector bundle, we consider the natural projection</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \pi:T(M) \to M
 \end{equation}</p>
 
-<p>of the tangent bundle of a manifold $M$. The fiber of $\pi$ over a point $p\in M$ is technically the product</p>
+  <p>of the tangent bundle of a manifold $M$. The fiber of $\pi$ over a point $p\in M$ is technically the product</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \{p\} \times T_p(M).
 \end{equation}</p>
 
-<p>However, if we identify this product with $T_p(M)$, then each fiber of $\pi$ is an $n$-dimensional vector space (provided that $M$ is $n$-dimensional). Thus, the tangent bundle is a rank-$n$ set-theoretic vector bundle.</p>
+  <p>However, if we identify this product with $T_p(M)$, then each fiber of $\pi$ is an $n$-dimensional vector space (provided that $M$ is $n$-dimensional). Thus, the tangent bundle is a rank-$n$ set-theoretic vector bundle.</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong></p>
+  <div class="highlight-box2">
+    <p><strong>Exercise.</strong></p>
 
-  <ol>
-    <li>Let $\alpha:E \to E’$ be an isomorphism of set-theoretic vector bundles over a base set $B$. Prove that for each $b\in B$, the linear transformations $\alpha_b:E_b \to E_b’$ are isomorphisms of vector spaces.</li>
-    <li>Conversely, suppose that we have a collection $\{\alpha_b: E_b \to E_b’\}_{b\in B}$ of homomorphisms of vector spaces. Show that if the $\alpha_b$’s are isomorphisms of vector spaces, then $\alpha$ is an isomorphism of set-theoretic vector bundles.</li>
-  </ol>
-</div>
+    <ol>
+      <li>Let $\alpha:E \to E’$ be an isomorphism of set-theoretic vector bundles over a base set $B$. Prove that for each $b\in B$, the linear transformations $\alpha_b:E_b \to E_b’$ are isomorphisms of vector spaces.</li>
+      <li>Conversely, suppose that we have a collection $\{\alpha_b: E_b \to E_b’\}_{b\in B}$ of homomorphisms of vector spaces. Show that if the $\alpha_b$’s are isomorphisms of vector spaces, then $\alpha$ is an isomorphism of set-theoretic vector bundles.</li>
+    </ol>
+  </div>
 
-<p>The reason that the result in (2.) holds is because set-theoretic vector bundles carry so little structure. They are literally just indexed collections of vector spaces, and nothing more. However, we will later equip our vector bundles with more structure and demand that homomorphisms of vector bundles preserve the extra structure. In this case, the result in (2.) might fail.</p>
+  <p>The reason that the result in (2.) holds is because set-theoretic vector bundles carry so little structure. They are literally just indexed collections of vector spaces, and nothing more. However, we will later equip our vector bundles with more structure and demand that homomorphisms of vector bundles preserve the extra structure. In this case, the result in (2.) might fail.</p>
 
-<p>Given a set $B$, there’s a really easy way to manufacture a rank-$k$ set-theoretic vector bundle over $B$ by simply considering the natural projection</p>
+  <p>Given a set $B$, there’s a really easy way to manufacture a rank-$k$ set-theoretic vector bundle over $B$ by simply considering the natural projection</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \pi: B \times \bbr^k \to B
 \end{equation}</p>
 
-<p>onto the first cartesian factor. Here, the fiber of $\pi$ over $b$ is technically $\{b\} \times \bbr^k$, but we can naturally identify this with $\bbr^k$, giving the fiber $\pi^{-1}(b)$ a vector space structure. This set-theoretic vector bundle is called a <em>trivial set-theoretic vector bundle</em>.</p>
+  <p>onto the first cartesian factor. Here, the fiber of $\pi$ over $b$ is technically $\{b\} \times \bbr^k$, but we can naturally identify this with $\bbr^k$, giving the fiber $\pi^{-1}(b)$ a vector space structure. This set-theoretic vector bundle is called a <em>trivial set-theoretic vector bundle</em>.</p>
 
-<p>Remember, we began our considerations of set-theoretic vector bundles by trying to find the right framework in which to view the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section. The special property of $\alpha$ that we are attempting to identify is elucidated in the following exercise:</p>
+  <p>Remember, we began our considerations of set-theoretic vector bundles by trying to find the right framework in which to view the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section. The special property of $\alpha$ that we are attempting to identify is elucidated in the following exercise:</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong> Prove that the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section is an isomorphism of set-theoretic vector bundles, where we view $S^1 \times \bbr$ as the total set of the trivial rank-$1$ set-theoretic vector bundle over $S^1$.</p>
-</div>
+  <div class="highlight-box2">
+    <p><strong>Exercise.</strong> Prove that the diffeomorphism $\alpha: S^1 \times \bbr \to T(S^1)$ from the previous section is an isomorphism of set-theoretic vector bundles, where we view $S^1 \times \bbr$ as the total set of the trivial rank-$1$ set-theoretic vector bundle over $S^1$.</p>
+  </div>
 
-<p>We now come to another central definition:</p>
+  <p>We now come to another central definition:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold. We shall say that the tangent bundle $T(M)$ is <em>trivial</em> if there is a diffeomorphism $\alpha: M\times \bbr^n \to T(M)$ that is also an isomorphism of set-theoretic vector bundles (here, $M\times \bbr^n$ is the total set of the trivial set-theoretic vector bundle). The diffeomorphism $\alpha$ is called a <em>(global) trivialization</em> of the tangent bundle, and, in this case, we shall say $M$ is <em>parallelizable</em>.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold. We shall say that the tangent bundle $T(M)$ is <em>trivial</em> if there is a diffeomorphism $\alpha: M\times \bbr^n \to T(M)$ that is also an isomorphism of set-theoretic vector bundles (here, $M\times \bbr^n$ is the total set of the trivial set-theoretic vector bundle). The diffeomorphism $\alpha$ is called a <em>(global) trivialization</em> of the tangent bundle, and, in this case, we shall say $M$ is <em>parallelizable</em>.</p>
+  </div>
 
-<p>Thus, we have shown that the manifold $S^1$ is parallelizable. Lest you believe that <em>all</em> manifolds are parallelizable, I offer:</p>
+  <p>Thus, we have shown that the manifold $S^1$ is parallelizable. Lest you believe that <em>all</em> manifolds are parallelizable, I offer:</p>
 
-<div class="highlight-box">
-  <p><strong>Example.</strong> I claim that the sphere $S^2$ is <em>not</em> parallelizable, which means that there does <em>not</em> exist a diffeomorphism</p>
+  <div class="highlight-box">
+    <p><strong>Example.</strong> I claim that the sphere $S^2$ is <em>not</em> parallelizable, which means that there does <em>not</em> exist a diffeomorphism</p>
 
-  <p>\begin{equation}\notag
+    <p>\begin{equation}\notag
 \alpha: S^2 \times \bbr^2 \to T(S^2)
 \end{equation}</p>
 
-  <p>which is an isomorphism of set-theoretic vector bundles. In general, non-existence proofs are very difficult in topology, but in this case we get lucky. For <em>if</em> such a diffeomorphism $\alpha$ exists, then we consider the smooth map</p>
+    <p>which is an isomorphism of set-theoretic vector bundles. In general, non-existence proofs are very difficult in topology, but in this case we get lucky. For <em>if</em> such a diffeomorphism $\alpha$ exists, then we consider the smooth map</p>
 
-  <p>\begin{equation}\notag
+    <p>\begin{equation}\notag
 X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
 \end{equation}</p>
 
-  <p>where the first unlabeled map is given by $p \mapsto (p,v_0)$ for some fixed nonzero vector $v_0\in \bbr^2$. We can then interpret $X$ as an assignment of a nonzero tangent vector in $T_p(S^2)$ to every $p\in S^2$. But no such assignment exists! Indeed, this is a consequence of the theorem stated <a href="https://en.wikipedia.org/wiki/Hairy_ball_theorem">here</a>.</p>
-</div>
+    <p>where the first unlabeled map is given by $p \mapsto (p,v_0)$ for some fixed nonzero vector $v_0\in \bbr^2$. We can then interpret $X$ as an assignment of a nonzero tangent vector in $T_p(S^2)$ to every $p\in S^2$. But no such assignment exists! Indeed, this is a consequence of the theorem stated <a href="https://en.wikipedia.org/wiki/Hairy_ball_theorem">here</a>.</p>
+  </div>
 
-<p>Here’s another pair of exercises on parallelizable manifolds. I bet the appendix in (<sup id="fnref:Milnore1997" role="doc-noteref"><a href="#fn:Milnore1997" class="footnote" rel="footnote">2</a></sup>) will be helpful for the second exercise.</p>
+  <p>Here’s another pair of exercises on parallelizable manifolds. I bet the appendix in (<sup id="fnref:Milnore1997" role="doc-noteref"><a href="#fn:Milnore1997" class="footnote" rel="footnote">2</a></sup>) will be helpful for the second exercise.</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong></p>
+  <div class="highlight-box2">
+    <p><strong>Exercise.</strong></p>
 
-  <ol>
-    <li>Prove that the torus $T = S^1 \times S^1$ is parallelizable.</li>
-    <li>Are all $1$-dimensional manifolds parallelizable? Prove your answer.</li>
-  </ol>
-</div>
+    <ol>
+      <li>Prove that the torus $T = S^1 \times S^1$ is parallelizable.</li>
+      <li>Are all $1$-dimensional manifolds parallelizable? Prove your answer.</li>
+    </ol>
+  </div>
+</section>
 
-<div id="locally-trivial-vec-bundle">
-  <h2 id="tangent-bundles-as-locally-trivial-vector-bundles">Tangent bundles as locally trivial vector bundles</h2>
-</div>
+<section data-sec-title="2.5. tangent bundles as locally trivial vector bundles">
+  <h2 id="tangent-bundles-as-locally-trivial-vector-bundles">2.5. tangent bundles as locally trivial vector bundles</h2>
 
-<p>The tangent bundle $\pi:T(M)\to M$ is not just a set-theoretic vector bundle. Indeed, both $T(M)$ and $M$ are smooth manifolds, and $\pi$ is smooth, so it could rightly be called a <em>smooth vector bundle</em>.</p>
+  <p>The tangent bundle $\pi:T(M)\to M$ is not just a set-theoretic vector bundle. Indeed, both $T(M)$ and $M$ are smooth manifolds, and $\pi$ is smooth, so it could rightly be called a <em>smooth vector bundle</em>.</p>
 
-<p>The introduction of topology and manifold theory into vector bundle theory allows us to make sense of the notion of <em>local triviality</em> of vector bundles. The idea is that, while a given smooth vector bundle (like a tangent bundle) may not be trivial at the global level, it may be trivial at the local level.</p>
+  <p>The introduction of topology and manifold theory into vector bundle theory allows us to make sense of the notion of <em>local triviality</em> of vector bundles. The idea is that, while a given smooth vector bundle (like a tangent bundle) may not be trivial at the global level, it may be trivial at the local level.</p>
 
-<p>We will talk about general locally trivial (smooth) vector bundles in a future post; for now, however, we prove the following important result:</p>
+  <p>We will talk about general locally trivial (smooth) vector bundles in a future post; for now, however, we prove the following important result:</p>
 
-<div class="highlight-box">
-  <p><strong>Theorem.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $T(M)$. For every point $p\in M$, there is an open neighborhood $V\subseteq M$ of $p$ such that the preimage $\pi^{-1}(V)$ is a trivial smooth vector bundle. More precisely, there is a diffeomorphism</p>
+  <div class="highlight-box">
+    <p><strong>Theorem.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $T(M)$. For every point $p\in M$, there is an open neighborhood $V\subseteq M$ of $p$ such that the preimage $\pi^{-1}(V)$ is a trivial smooth vector bundle. More precisely, there is a diffeomorphism</p>
 
-  <p>\begin{equation}\notag
+    <p>\begin{equation}\notag
 \alpha: V \times \bbr^n \to \pi^{-1}(V)
 \end{equation}</p>
 
-  <p>that is also an isomorphism of set-theoretic vector bundles.</p>
-</div>
+    <p>that is also an isomorphism of set-theoretic vector bundles.</p>
+  </div>
 
-<p>For proof, let $\phi:U \to V$ be a local parametrization on $M$ containing $p$ in its codomain, and suppose that $\phi(x) = p$. Then we know that the global derivative</p>
+  <p>For proof, let $\phi:U \to V$ be a local parametrization on $M$ containing $p$ in its codomain, and suppose that $\phi(x) = p$. Then we know that the global derivative</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \phi_\ast: T(U) \to T(V) = \pi^{-1}(V)
 \end{equation}</p>
 
-<p>serves as a local parametrization of the tangent bundle $T(M)$. Now, note that the diagram</p>
+  <p>serves as a local parametrization of the tangent bundle $T(M)$. Now, note that the diagram</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \begin{xy}
 \xymatrix@C=1in{
 \color{white}V \times \bbr^n \ar@[white][d]_{\color{white}\pi_1} \ar@[white][r]^{\color{white}\phi^{-1} \times \bbr^n}_{\color{white}\cong} &amp; \color{white}U \times \bbr^n = T(U) \ar@[white][r]^{\color{white}\phi_\ast}_{\color{white}\cong} &amp; \color{white}T(V) \ar@[white][d]^{\color{white}\pi|_{T(V)}} \\ \color{white}V \ar@[white][rr]_{\color{white}=} &amp;  &amp; \color{white}V }
 \end{xy}
 \end{equation}</p>
 
-<p>commutes. Furthermore, the (smooth!) composite across the top row is given on the fibers by the map</p>
+  <p>commutes. Furthermore, the (smooth!) composite across the top row is given on the fibers by the map</p>
 
-<p>\begin{equation}\notag
+  <p>\begin{equation}\notag
 \{p\} \times \bbr^n \to \{p\} \times T_p(M), \quad (p,v) \mapsto (p,\phi_{\ast, x}(v)),
 \end{equation}</p>
 
-<p>which is a linear isomorphism. Q.E.D.</p>
+  <p>which is a linear isomorphism. Q.E.D.</p>
 
-<p>Keeping the notation of the proof, take care to note the difference between the diffeomorphism $\alpha:V \times \bbr^n \to \pi^{-1}(V)$ and the local parametrization $\phi_\ast: U \times \bbr^n \to \pi^{-1}(V)$: The first has domain $V \times \bbr^n$, where $V$ is an open subset of the manifold $M$, where the latter has domain $U \times \bbr^n$, where $U$ is an open subset of $\bbr^n$.</p>
+  <p>Keeping the notation of the proof, take care to note the difference between the diffeomorphism $\alpha:V \times \bbr^n \to \pi^{-1}(V)$ and the local parametrization $\phi_\ast: U \times \bbr^n \to \pi^{-1}(V)$: The first has domain $V \times \bbr^n$, where $V$ is an open subset of the manifold $M$, where the latter has domain $U \times \bbr^n$, where $U$ is an open subset of $\bbr^n$.</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $\pi:T(M) \to M$ and $V$ an open subset of $M$. Any diffeomorphism</p>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let $M$ be an $n$-dimensional manifold with tangent bundle $\pi:T(M) \to M$ and $V$ an open subset of $M$. Any diffeomorphism</p>
 
-  <p>\begin{equation}\notag
+    <p>\begin{equation}\notag
 \alpha:V \times \bbr^n \to \pi^{-1}(V)
 \end{equation}</p>
 
-  <p>as in previous theorem is called a <em>local trivialization</em> of the tangent bundle. In this case, we also say that the tangent bundle <em>trivializes over $V$</em>.</p>
-</div>
+    <p>as in previous theorem is called a <em>local trivialization</em> of the tangent bundle. In this case, we also say that the tangent bundle <em>trivializes over $V$</em>.</p>
+  </div>
+</section>
 
-<div id="ref">
-  <h2 id="references-and-footnotes">References and footnotes</h2>
-</div>
+<section data-sec-title="2.6. references and footnotes">
+  <h2 id="references-and-footnotes">2.6. references and footnotes</h2>
 
+</section>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:GP2010" role="doc-endnote">
@@ -419,12 +445,25 @@ X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
 </div>
 
     </div>
-  
-    <script>
-      window.addEventListener('DOMContentLoaded', () => makeDefns(pageNum));
-      window.addEventListener('load', () => adjustContentPadding("header", "content", 10));
-      window.addEventListener('resize', () => adjustContentPadding("header", "content", 10));
-    </script>
 
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+    </script>
   </body>
 </html>

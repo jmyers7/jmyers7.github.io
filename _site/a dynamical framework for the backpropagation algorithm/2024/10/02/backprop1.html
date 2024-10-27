@@ -1,38 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  
   <head>
-    
     <title>a first look at compositional graphs</title>
 
     <!-- font stuff -->
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- latex stuff -->
     <script src="/assets/js/latex.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
 
     <!-- syntax highlighting stuff-->
-    <link href="/assets/themes/prism.css" rel="stylesheet">
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
     <script src="/assets/js/prism.js"></script>
-    
+
     <!-- custom scripts -->
     <script src="/assets/js/scripts.js"></script>
 
     
     <script>
-      const pageNum = "1"
+      const pageNum = "1";
     </script>
-
   </head>
-  
+
   <body>
-  
     <div class="header-container" id="header">
-      <nav class="navbar">
+      <nav>
   
   <div class="nav-item">
     <a href="/">root</a>
@@ -63,12 +62,23 @@
   </div>
       
 </nav>
-      <div class="post-title">  
-        <div>a dynamical framework for the backpropagation algorithm</div>
-        <div>1. a first look at compositional graphs</div>
-      </div>
+        <div class="post-title">
+          <div>a dynamical framework for the backpropagation algorithm</div>
+            <span class="post-name">
+              1. a first look at compositional graphs
+              <div class="dropdown">
+                <ul>
+                  <li>
+                    <a href="#">1.0. introduction</a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </span>
+          <div id="current-section">introduction</div>
+        </div>
     </div>
-    
+
     <div class="content-container post" id="content">
       <p>At the most basic level, by a <em>neural network</em> we mean a particular type of function</p>
 
@@ -150,12 +160,25 @@ G(\theta_1,\theta_2,\theta_3) \def \call(f_3(f_2(f_1(\theta_1),\theta_2),\theta_
 <p>The training algorithm is an optimization algorithm whose goal is to minimize this objective function $G$ over the parameter vectors $\theta_1$, $\theta_2$, and $\theta_3$.</p>
 
     </div>
-  
-    <script>
-      window.addEventListener('DOMContentLoaded', () => makeDefns(pageNum));
-      window.addEventListener('load', () => adjustContentPadding("header", "content", 10));
-      window.addEventListener('resize', () => adjustContentPadding("header", "content", 10));
-    </script>
 
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+    </script>
   </body>
 </html>

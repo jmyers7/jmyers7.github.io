@@ -2,6 +2,15 @@
 layout: post
 title: the algebraic theory I&#58 vector fields + derivations
 category: a geometric and topological toolkit
+sections:
+- prerequisites
+- vector fields
+- a first glimpse of sheaves
+- tangent vectors and vector fields as derivations
+- an interlude on cotangent spaces
+- Zariski tangent spaces and a summary of the five fundamental functors
+- further reading
+- references and footnotes
 ---
 
 This is the first of four posts devoted to the algebraic side of smooth manifold theory. These posts will be longer and more comprehensive than all the others on my website, due to two primary reasons:
@@ -50,17 +59,16 @@ In fact, there is a certain type of geometry, modern *scheme-theoretic algebraic
 
 We shall have occasion in this and later posts to use the rudiments of *category theory*. For example, the construction of the tangent spaces to a manifold comes along with the attendant construction of pushforwards between tangent spaces. These constructions satisfy certain abstract axioms, which means that together they form a *functor* from the *category of (pointed) manifolds* to the *category of vector spaces*. However, as I mentioned above, we will discuss two purely algebraic ways to construct the tangent spaces. These constructions, too, come along with their associated pushforwards, and hence we obtain two more functors from the category of (pointed) manifolds to the category of vector spaces. Stated precisely, the main goal of this first post is to show that these three functors are actually *naturally isomorphic*, in the technical, categorical sense. Along the way, we will obtain another pair of functors (for a total of five!) that realize the cotangent spaces of a manifold and the associated pullbacks, and these two will be shown to be naturally isomorphic, as well.
 
-## Table of contents
 
-1. <a href="#vector" style="font-family: 'Lora', serif; font-size: 1em;">Vector fields</a>
-2. <a href="#sheaves" style="font-family: 'Lora', serif; font-size: 1em;">A first glimpse of sheaves</a>
-3. <a href="#der" style="font-family: 'Lora', serif; font-size: 1em;">Tangent vectors and vector fields as derivations</a>
-4. <a href="#cotangent" style="font-family: 'Lora', serif; font-size: 1em;">An interlude on cotangent spaces</a>
-5. <a href="#zariski" style="font-family: 'Lora', serif; font-size: 1em;">Zariski co/tangent spaces and a summary of the five fundamental functors</a>
-6. <a href="#further-reading" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a>
-7. <a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a>
 
-## Prerequisites
+
+
+
+{% assign post_num = page.slug | slice: -1, 1 %}
+{% assign sec_num = 1 %}
+{% assign sec_idx = 0 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 The geometric and topological prerequisites are contained in the first two posts of this series ([here]({% post_url /geom-primer/2023-01-17-geom-primer1 %}), and [here]({% post_url /geom-primer/2023-01-18-geom-primer2 %})). These posts, in turn, are based on Guillemin and Pollack's book ([^GP2010]), from which we take our initial definition of a manifold. Thus, it seems appropriate to make the global proclamation:
 
@@ -80,6 +88,7 @@ All this material (and more) is contained in the first two chapters of Atiyah an
 Though it will be helpful to have seen the definition of *category* and *functor*, prior exposure to category theory proper is not strictly required. The same goes for sheaf theory: Though I will use the term *sheaf*, it will be in an informal way, and I do not assume you've seen them before.
 
 I fear that the reader may initially balk at the rather demanding and intimidating algebraic prerequisites (which certainly extend beyond the material in a typical undergraduate mathematics degree), but I would assure them that the algebraic material is no more difficult to learn and master than smooth manifold theory.
+</section>
 
 
 
@@ -97,10 +106,10 @@ I fear that the reader may initially balk at the rather demanding and intimidati
 
 
 
-
-<div id="vector">
-## Vector fields
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 We begin by giving a definition of smooth vector fields that leverages the ambient cartesian space.
 
@@ -211,6 +220,7 @@ You will prove this theorem, among other things, in:
 such that $\bd_1,\ldots,\bd_n$ is a smooth local frame over $U$. This local frame is called a *coordinate local frame*, and the function $\bd_i$ is called a *coordinate (local) section* or *coordinate (local) vector field*.
 3. Let $M$ be an $n$-dimensional manifold and $U\subseteq M$ an open set. Prove that a smooth local frame over $U$ exists if and only if $T(M)$ trivializes over $U$.
 </div>
+</section>
 
 
 
@@ -227,10 +237,10 @@ such that $\bd_1,\ldots,\bd_n$ is a smooth local frame over $U$. This local fram
 
 
 
-
-<div id="sheaves">
-## A first glimpse of sheaves
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Vector fields on manifolds carry very rich algebraic structures, which was hinted at in the previous section. Now, we begin to explore these structures in more detail.
 
@@ -355,6 +365,7 @@ While a given projective module may not be free, it still shares several importa
 </div>
 
 Again, the importance of this result will become apparent in a later post when we talk about tensor fields. We will not prove the theorem in this series of posts; see, however, the section on <a href="#further-reading">Further Reading</a>.
+</section>
 
 
 
@@ -373,10 +384,10 @@ Again, the importance of this result will become apparent in a later post when w
 
 
 
-
-<div id="der">
-## Tangent vectors and vector fields as derivations
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Let's move on to an algebraic description of tangent vectors and vector fields. We essentially have two definitions of a vector field $X$ on a manifold $M$: On the one hand, it is a certain type of smooth map from $M$ to the ambient cartesian space containing the manifold, while on the other hand it may be viewed as a (smooth) section of the tangent bundle $T(M)$. I will give a third definition in this section, and it rests on the observation that a tangent vector $v\in T_p(M)$ "acts" on a function $f\in C^\infty(U)$ defined over an open neighborhood $U$ of $p$ by
 
@@ -844,6 +855,7 @@ Thus, we may as well assume that $M$ has a global coordinate system. But then, t
 <div class="highlight-box2">
 **Notation.** Over an open parametrizable subset $U$ of a manifold $M$, with local coordinates $x^1,\ldots,x^n$, we have seen that the coordinate local section $\bd_i$ corresponds to the derivation $\bd/\bd x^i$ of the algebra $C^\infty(U)$ under the natural isomorphism $\Xi_U$. In the interest of notational brevity and clarity, we shall henceforth intentionally confuse the coordinate local section $\bd_i$ with this partial derivative operator, writing $\bd_i$ when we really mean $\bd/\bd x^i$.
 </div>
+</section>
 
 
 
@@ -863,10 +875,10 @@ Thus, we may as well assume that $M$ has a global coordinate system. But then, t
 
 
 
-
-<div id="cotangent">
-## An interlude on cotangent spaces
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 In certain situations, it is more natural (in the colloquial sense, not the categorial one) to consider the $\bbr$-linear duals of tangent spaces. In this section, we quickly give the definitions and the basic properties of these dual objects.
 
@@ -942,6 +954,7 @@ Let $(M,p)$ be a pointed manifold and suppose $x^1,\ldots,x^n$ are local coordia
 </div>
 
 In particular, the differentials $dx^1_p,\ldots,dx^n_p$ form a basis of the cotangent space $T_p^\ast(M)$. They are called *coordinate covectors*.
+</section>
 
 
 
@@ -960,10 +973,10 @@ In particular, the differentials $dx^1_p,\ldots,dx^n_p$ form a basis of the cota
 
 
 
-
-<div id="zariski">
-## Zariski co/tangent spaces and a summary of the five fundamental functors
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 If three(!) functors aren't enough, we now add *two* more to our repertoire: Let $(M,p)$ be a pointed manifold, and let $\mfm_{M,p}$ be the maximal ideal of the local ring $C^\infty_{M,p}$. We define the *Zariski cotangent space* at $p$ to be the quotient
 
@@ -1317,6 +1330,7 @@ T_p(M) \xrightarrow{\Omega_{M,p}} (\mfm_{M,p}/\mfm_{M,p}^2)^\ast \xrightarrow{\P
 
 is equal to $\Theta_{M,p}$.
 </div>
+</section>
 
 
 
@@ -1328,16 +1342,17 @@ is equal to $\Theta_{M,p}$.
 
 
 
-
-<div id="further-reading">
-## Further reading
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Just how far can the algebraic treatment of smooth manifolds be pushed? To see how deep this rabbit hole goes, I would recommend taking a look at Nestruev's fascinating textbook ([^Nestruev2020]). In particular, this book contains a complete proof of a more general version of the Serre-Swan Theorem.
 
 The version of "Taylor's Theorem" that I refer to in this post may be found in Lee's comprehensive book ([^Lee2013]), though do also check out Nestruev's book for a related result and the <a href="https://ncatlab.org/nlab/show/Hadamard+lemma">link</a> to the nLab.
 
 As I mentioned in the introduction, algebra and geometry become truly equivalent in scheme-theoretic algebraic geometry. Here, the standard reference in the field is, of course, Hartshorne's book ([^Hartshorne1977]). However, I don't think this book is well-suited for an introduction to algebraic geometry. Instead, I would recommend one of my favorite texts, Kunz's book ([^Kunz2013]). You will also find a very nice treatment of projective modules in this last reference.
+</section>
 
 
 
@@ -1352,10 +1367,10 @@ As I mentioned in the introduction, algebra and geometry become truly equivalent
 
 
 
-
-<div id="ref">
-## References and footnotes
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 [^AtiyahMacDonald1969]: M. F. Atiyah and I. G. MacDonald. *Introduction to Commutative Algebra*. Advanced Book Program, Westview Press, 1969.
 
@@ -1368,3 +1383,4 @@ As I mentioned in the introduction, algebra and geometry become truly equivalent
 [^Hartshorne1977]: R. Hartshorne. *Algebraic geometry*. Graduate Texts in Mathematics, No. 52. Springer-Verlag, New York-Heidelberg, 1977.
 
 [^Kunz2013]: E. Kunz. *Introduction to commutative algebra and algebraic geometry*. Modern Birkhäuser Classics. Birkhäuser/Springer, New York, 2013.
+</section>

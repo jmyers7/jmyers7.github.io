@@ -2,6 +2,13 @@
 layout: post
 title: tangent bundles
 category: a geometric and topological toolkit
+sections:
+- prerequisites
+- the tangent bundle
+- the tangent bundle of the circle
+- tangent bundles as vector bundles
+- tangent bundles as locally trivial vector bundles
+- references and footnotes
 ---
 
 
@@ -9,17 +16,20 @@ The tangent space $T_p(M)$ at a point $p$ on a manifold $M$ is a purely local ob
 
 A tangent bundle is actually a specific example of a more general structure called a (*locally trivial*) *vector bundle*, which are ubiquitous in topology. I will only have the time to state the definitions and most basic properties of these gadgets; a more thorough exploration will have to wait till a future post.
 
-## Table of contents
 
-1. <a href="#tan-bundle" style="font-family: 'Lora', serif; font-size: 1em;">The tangent bundle</a>
-2. <a href="#circle-tan-bundle" style="font-family: 'Lora', serif; font-size: 1em;">The tangent bundle of the circle</a>
-3. <a href="#vec-bundle" style="font-family: 'Lora', serif; font-size: 1em;">Tangent bundles as vector bundles</a>
-4. <a href="#locally-trivial-vec-bundle" style="font-family: 'Lora', serif; font-size: 1em;">Tangent bundles as locally trivial vector bundles</a>
-5. <a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a>
 
-## Prerequisites
+
+
+
+
+{% assign post_num = page.slug | slice: -1, 1 %}
+{% assign sec_num = 1 %}
+{% assign sec_idx = 0 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Of course, you'll want to be familiar with the basic definitions, notation, and terminology in the [first post]({% post_url /geom-primer/2023-01-17-geom-primer1 %}) of this series. In particular, our manifolds are embedded in cartesian spaces by definition, in the style of Guillemin and Pollack's book ([^GP2010]), which will make for a handy reference for this post.
+</section>
 
 
 
@@ -39,9 +49,10 @@ Of course, you'll want to be familiar with the basic definitions, notation, and 
 
 
 
-<div id="tan-bundle">
-## The tangent bundle
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 As a set, the tangent bundle is very easy to define. However, the tangent bundle carries an entire smooth manifold structure, which takes some time and care to define properly. While you're working through this section, I recommend taking a peek at the <a href="#circle-tan-bundle" class="article">section</a> following this one (and its figure), which gives a concrete example of a tangent bundle.
 
@@ -137,6 +148,7 @@ Local coordinates of the form \eqref{hor-ver-eqn} are so important that they get
 </div>
 
 The language in the definition is the first of many "vertical/horizontal" dichotomies that you'd see if you continued your study of vector and fiber bundles. This language comes from how we typically draw tangent bundles, as we will see in the next section.
+</section>
 
 
 
@@ -153,10 +165,10 @@ The language in the definition is the first of many "vertical/horizontal" dichot
 
 
 
-
-<div id="circle-tan-bundle">
-## The tangent bundle of the circle
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Given a point $p = (x,y) \in S^1$, where $S^1$ denotes the unit circle in $\bbr^2$, it's easy to see that
 
@@ -213,6 +225,7 @@ S^1_0 \defeq  \left\\{ (q,0) \in T(S^1) \mid q \in S^1\right\\}.
 \end{equation}
 
 Depending on orientations, the sign of $v^1$ tells us whether $(p,v)$ is above or below the zero section $S^1_0$.
+</section>
 
 
 
@@ -230,10 +243,10 @@ Depending on orientations, the sign of $v^1$ tells us whether $(p,v)$ is above o
 
 
 
-
-<div id="vec-bundle">
-## Tangent bundles as vector bundles
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 The example in the previous section shows that the tangent bundle $T(S^1)$ of the unit circle is, up to diffeomorphism, just the product manifold $S^1 \times \bbr$. Is this always true? If $M$ is an $n$-dimensional manifold, is the tangent bundle $T(M)$ just $M \times \bbr^n$, up to diffeomorphism? Of course, the answer must be *no*, because otherwise we would have just *defined* the tangent bundle $T(M)$ to be $M \times \bbr^n$.
 
@@ -327,6 +340,7 @@ Here's another pair of exercises on parallelizable manifolds. I bet the appendix
 1. Prove that the torus $T = S^1 \times S^1$ is parallelizable.
 2. Are all $1$-dimensional manifolds parallelizable? Prove your answer.
 </div>
+</section>
 
 
 
@@ -345,10 +359,10 @@ Here's another pair of exercises on parallelizable manifolds. I bet the appendix
 
 
 
-
-<div id="locally-trivial-vec-bundle">
-## Tangent bundles as locally trivial vector bundles
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 The tangent bundle $\pi:T(M)\to M$ is not just a set-theoretic vector bundle. Indeed, both $T(M)$ and $M$ are smooth manifolds, and $\pi$ is smooth, so it could rightly be called a *smooth vector bundle*.
 
@@ -400,11 +414,19 @@ Keeping the notation of the proof, take care to note the difference between the 
 
 as in previous theorem is called a *local trivialization* of the tangent bundle. In this case, we also say that the tangent bundle *trivializes over $V$*.
 </div>
+</section>
 
-<div id="ref">
-## References and footnotes
-</div>
+
+
+
+
+
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 [^GP2010]: V. Guillemin and A. Pollack, *Differential topology*, AMS Chelsea Publishing, Providence, RI, 2010, reprint of the 1974 original.
 
 [^Milnore1997]: J. W. Milnor, *Topology from the differentiable viewpoint*, Princeton Landmarks in Mathematics, Princeton University Press, Princeton, NJ, 1997, based on notes by D. W. Weaver, revised reprint of the 1965 original.
+</section>

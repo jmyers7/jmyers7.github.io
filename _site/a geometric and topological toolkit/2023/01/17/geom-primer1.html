@@ -1,38 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  
   <head>
-    
     <title>a primer on embedded manifolds</title>
 
     <!-- font stuff -->
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- latex stuff -->
     <script src="/assets/js/latex.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
 
     <!-- syntax highlighting stuff-->
-    <link href="/assets/themes/prism.css" rel="stylesheet">
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
     <script src="/assets/js/prism.js"></script>
-    
+
     <!-- custom scripts -->
     <script src="/assets/js/scripts.js"></script>
 
     
     <script>
-      const pageNum = "1"
+      const pageNum = "1";
     </script>
-
   </head>
-  
+
   <body>
-  
     <div class="header-container" id="header">
-      <nav class="navbar">
+      <nav>
   
   <div class="nav-item">
     <a href="/">root</a>
@@ -63,12 +62,43 @@
   </div>
       
 </nav>
-      <div class="post-title">  
-        <div>a geometric and topological toolkit</div>
-        <div>1. a primer on embedded manifolds</div>
-      </div>
+        <div class="post-title">
+          <div>a geometric and topological toolkit</div>
+            <span class="post-name">
+              1. a primer on embedded manifolds
+              <div class="dropdown">
+                <ul>
+                  <li>
+                    <a href="#">1.0. introduction</a>
+                  </li>
+                  
+                    <li>
+                      <a href="#prerequisites">1.1. prerequisites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#basic-definitons">1.2. basic definitons</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#tangent-spaces-and-derivatives">1.3. tangent spaces and derivatives</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#further-reading">1.4. further reading</a>
+                    </li>
+                  
+                    <li>
+                      <a href="#references-and-footnotes">1.5. references and footnotes</a>
+                    </li>
+                  
+                </ul>
+              </div>
+            </span>
+          <div id="current-section">introduction</div>
+        </div>
     </div>
-    
+
     <div class="content-container post" id="content">
       <p>The possibility of applying geometric techniques to machine learning is what originally sparked my interest in the latter subject. Using such methods, the goal is to inject spatial intuition into mathematical machine learning, which is often presented—at least in many introductory textbooks—as an almost purely analytical subject, with a heavy reliance on probability theory. A prime and very simple example of geometric intuition applied to machine learning is the familiar description of the gradient descent algorithm as <em>walking downhill to find the minimum</em>. In this description, you are being asked to <em>visualize</em> the graph of the objective function, and therefore to conceive of the function as a geometric object, and not purely an analytic one. The geometry lends insight and <em>explains</em> why the algorithm works.</p>
 
@@ -80,377 +110,371 @@
 
 <p>In this first post, we will begin by discussing embedded smooth manifolds, which make for a good introduction to topology due to their concreteness. We will stick with embedded manifolds for a few posts, using the ambient cartesian spaces as a concrete setting in which to learn the rudiments of the theory. Later, we will remove our reliance on the ambient cartesian spaces and consider instead general <em>abstract manifolds</em>. The theory of these more general manifolds can be much more difficult, but having learned about embedded manifolds beforehand, we will have no problems!</p>
 
-<h2 id="table-of-contents">Table of contents</h2>
+<section data-sec-title="1.1. prerequisites">
+  <h2 id="prerequisites">1.1. prerequisites</h2>
 
-<ol>
-  <li><a href="#defn" style="font-family: 'Lora', serif; font-size: 1em;">Basic definitions</a></li>
-  <li><a href="#tangent" style="font-family: 'Lora', serif; font-size: 1em;">Tangent spaces and derivatives/pushforwards</a></li>
-  <li><a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a></li>
-  <li><a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a></li>
-</ol>
+  <p>Though I want to minimize the prerequisites for this series of posts as much as possible, I have to begin somewhere. If I were to assume <em>no</em> training in mathematics beyond, say, basic single-variable calculus, then I would have to write an entire book to ultimately get where I want to go.</p>
 
-<h2 id="prerequisites">Prerequisites</h2>
+  <p>Therefore, I’ve pitched these posts at the level of a junior or senior mathematics major. I’m assuming that you’ve had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. It will also be very helpful to be familiar with the basic definitions and results in the first chapter of Guillemin and Pollack’s <em>Differential Topology</em>.<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup></p>
 
-<p>Though I want to minimize the prerequisites for this series of posts as much as possible, I have to begin somewhere. If I were to assume <em>no</em> training in mathematics beyond, say, basic single-variable calculus, then I would have to write an entire book to ultimately get where I want to go.</p>
+  <p>You will also need to know the definition of <em>commutative $\bbr$-algebras</em> and their <em>homomorphisms</em>. You can look up these definitions on the internet, or see the section on <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further Reading</a>.</p>
+</section>
 
-<p>Therefore, I’ve pitched these posts at the level of a junior or senior mathematics major. I’m assuming that you’ve had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. It will also be very helpful to be familiar with the basic definitions and results in the first chapter of Guillemin and Pollack’s <em>Differential Topology</em>.<sup id="fnref:GP2010" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup></p>
+<section data-sec-title="1.2. basic definitons">
+  <h2 id="basic-definitons">1.2. basic definitons</h2>
 
-<p>You will also need to know the definition of <em>commutative $\bbr$-algebras</em> and their <em>homomorphisms</em>. You can look up these definitions on the internet, or see the section on <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further Reading</a>.</p>
+  <p>The entire theory that we will develop is based on the notion of smoothness. Therefore, the following definition is <em>absolutely</em> fundamental:</p>
 
-<div id="defn">
-  <h2 id="basic-definitions">Basic definitions</h2>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let $M$ be a nonempty subset of $\bbr^s$, $N$ a nonempty subset of $\bbr^r$, and let $\alpha:M \to N$ be a function. For each $p\in M$, we may write</p>
 
-<p>The entire theory that we will develop is based on the notion of smoothness. Therefore, the following definition is <em>absolutely</em> fundamental:</p>
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
+\alpha(p) = (\alpha^1(p),\ldots,\alpha^r(p))
+\end{equation}</p>
+    </div>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $M$ be a nonempty subset of $\bbr^s$, $N$ a nonempty subset of $\bbr^r$, and let $\alpha:M \to N$ be a function. For each $p\in M$, we may write</p>
+    <p>for some collection of functions $\alpha^i : M \to \bbr$ ($i=1,\ldots,r$) called the <em>component functions</em> of $\alpha$.</p>
+
+    <ol>
+      <li>If $M$ is open, then $\alpha$ is called <em>smooth</em> if the partial derivatives of all orders of each component function $\alpha^i:M \to \bbr$ exist at every point $p\in M$.</li>
+      <li>If $M$ is a general subset of $\bbr^s$, not necessarily open, then we shall say $\alpha$ is <em>smooth</em> if it is locally extendible at each point $p\in M$ to a smooth function on an open subset in the ambient cartesian space $\bbr^s$. Precisely, we require that each $p\in M$ has an open neighborhood $V$ in $\bbr^s$ for which there exists a smooth function $\tl{\alpha}:V\to \bbr^r$ with $\alpha = \tl{\alpha}$ on $V\cap M$.</li>
+    </ol>
+  </div>
+
+  <p>For example, the function</p>
 
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
-\alpha(p) = (\alpha^1(p),\ldots,\alpha^r(p))
+\alpha: \bbr^3 \to \bbr^2, \quad \alpha(x,y,z) = (x^2y, x+yz^3)
 \end{equation}</p>
   </div>
 
-  <p>for some collection of functions $\alpha^i : M \to \bbr$ ($i=1,\ldots,r$) called the <em>component functions</em> of $\alpha$.</p>
+  <p>is smooth, precisely because the two component functions</p>
 
-  <ol>
-    <li>If $M$ is open, then $\alpha$ is called <em>smooth</em> if the partial derivatives of all orders of each component function $\alpha^i:M \to \bbr$ exist at every point $p\in M$.</li>
-    <li>If $M$ is a general subset of $\bbr^s$, not necessarily open, then we shall say $\alpha$ is <em>smooth</em> if it is locally extendible at each point $p\in M$ to a smooth function on an open subset in the ambient cartesian space $\bbr^s$. Precisely, we require that each $p\in M$ has an open neighborhood $V$ in $\bbr^s$ for which there exists a smooth function $\tl{\alpha}:V\to \bbr^r$ with $\alpha = \tl{\alpha}$ on $V\cap M$.</li>
-  </ol>
-</div>
-
-<p>For example, the function</p>
-
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
-\alpha: \bbr^3 \to \bbr^2, \quad \alpha(x,y,z) = (x^2y, x+yz^3)
-\end{equation}</p>
-</div>
-
-<p>is smooth, precisely because the two component functions</p>
-
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 \alpha^1(x,y,z) = x^2y \quad \text{and} \quad \alpha^2(x,y,z) = x+yz^3
 \end{equation}</p>
-</div>
+  </div>
 
-<p>are polynomials, which are smooth. Can you write down other examples of smooth functions?</p>
+  <p>are polynomials, which are smooth. Can you write down other examples of smooth functions?</p>
 
-<p>Notice that I am writing <em>superscripts</em> to index the component functions, rather than (the more typical) subscripts. In particular, $\alpha^2$ does not stand for “$\alpha$ squared”, but rather for the second component function of $\alpha$. As we will see later, the placement of indices in superscripts versus subscripts will be significant.</p>
+  <p>Notice that I am writing <em>superscripts</em> to index the component functions, rather than (the more typical) subscripts. In particular, $\alpha^2$ does not stand for “$\alpha$ squared”, but rather for the second component function of $\alpha$. As we will see later, the placement of indices in superscripts versus subscripts will be significant.</p>
 
-<p>While reading the definition, you may have wondered if the two definitions of smoothness coincide when $M$ is open. In other words, you may have asked: If $\alpha:M \to N$ is a function on an open set $M$ which is smooth according to part (1.) of the definition, is it also smooth according to part (2.)? I suggest that you prove the answer is <em>yes</em>, and to also prove the converse, so that the two definitions are equivalent when $M$ is open.</p>
+  <p>While reading the definition, you may have wondered if the two definitions of smoothness coincide when $M$ is open. In other words, you may have asked: If $\alpha:M \to N$ is a function on an open set $M$ which is smooth according to part (1.) of the definition, is it also smooth according to part (2.)? I suggest that you prove the answer is <em>yes</em>, and to also prove the converse, so that the two definitions are equivalent when $M$ is open.</p>
 
-<p>We will need special types of smooth functions in order to define smooth manifolds:</p>
+  <p>We will need special types of smooth functions in order to define smooth manifolds:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> A function $\alpha:M \to N$ as in the definition above (where neither $M$ nor $N$ is necessarily open) is called a <em>diffeomorphism</em> if it is smooth, invertible, and if its inverse $\alpha^{-1}:N \to M$ is also smooth.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> A function $\alpha:M \to N$ as in the definition above (where neither $M$ nor $N$ is necessarily open) is called a <em>diffeomorphism</em> if it is smooth, invertible, and if its inverse $\alpha^{-1}:N \to M$ is also smooth.</p>
+  </div>
 
-<p>If two sets $M$ and $N$ are linked by a diffeomorphism $\alpha:M \to N$ (so that they are <em>diffeomorphic</em>), then, from our viewpoint, they are to be considered indistinguishable or “the same.” In other words, the type of topology that we are studying only considers properties of sets $M$ and $N$ that are <em>invariant</em> under diffeomorphism, in the sense that if $M$ has such and such property, then so does $N$ (provided $M$ and $N$ are diffeomorphic).</p>
+  <p>If two sets $M$ and $N$ are linked by a diffeomorphism $\alpha:M \to N$ (so that they are <em>diffeomorphic</em>), then, from our viewpoint, they are to be considered indistinguishable or “the same.” In other words, the type of topology that we are studying only considers properties of sets $M$ and $N$ that are <em>invariant</em> under diffeomorphism, in the sense that if $M$ has such and such property, then so does $N$ (provided $M$ and $N$ are diffeomorphic).</p>
 
-<p>As an (extremely simple) example, the real line $\bbr$ and the parabola</p>
+  <p>As an (extremely simple) example, the real line $\bbr$ and the parabola</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 N = \left\{ (x,y) \in \bbr^2 : y=x^2\right\}
 \end{equation}</p>
-</div>
+  </div>
 
-<p>are diffeomorphic via the map $\alpha: \bbr \to N$ with $x\mapsto (x, x^2)$. Can you prove that $\alpha$ is smooth, and identify its (smooth) inverse?</p>
+  <p>are diffeomorphic via the map $\alpha: \bbr \to N$ with $x\mapsto (x, x^2)$. Can you prove that $\alpha$ is smooth, and identify its (smooth) inverse?</p>
 
-<p>Armed with the definition of a diffeomorphism, we arrive at the main definition:</p>
+  <p>Armed with the definition of a diffeomorphism, we arrive at the main definition:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> A <em>smooth $n$-dimensional manifold</em> is a nonempty subset $M$ of an ambient cartesian space $\bbr^s$ that is locally diffeomorphic to $\bbr^n$. Precisely, we require that every $p\in M$ has an open neighborhood $V$ in $M$ for which there exists a diffeomorphism $\phi:U \to V$ with $U$ an open subset of $\bbr^n$.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> A <em>smooth $n$-dimensional manifold</em> is a nonempty subset $M$ of an ambient cartesian space $\bbr^s$ that is locally diffeomorphic to $\bbr^n$. Precisely, we require that every $p\in M$ has an open neighborhood $V$ in $M$ for which there exists a diffeomorphism $\phi:U \to V$ with $U$ an open subset of $\bbr^n$.</p>
+  </div>
 
-<p>The cartoon to keep in mind is the following:</p>
+  <p>The cartoon to keep in mind is the following:</p>
 
-<p><img src="/assets/images/manifold.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+  <p><img src="/assets/images/manifold.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
-<p>Here, I’ve drawn $M$ as a $2$-dimensional smooth manifold (in particular, a “two-holed torus”). You should imagine that the diffeomorphism $\phi$ is “painting” a set of local coordinate axes on $M$. Though this figure only shows <em>one</em> such diffeomorphism, the definition requires that the entire manifold $M$ is covered with these local coordinate systems. In other words, no matter what point $p\in M$ I choose, there is a diffeomorphism $\phi: U \to V$ as in the figure with $p \in V$.</p>
+  <p>Here, I’ve drawn $M$ as a $2$-dimensional smooth manifold (in particular, a “two-holed torus”). You should imagine that the diffeomorphism $\phi$ is “painting” a set of local coordinate axes on $M$. Though this figure only shows <em>one</em> such diffeomorphism, the definition requires that the entire manifold $M$ is covered with these local coordinate systems. In other words, no matter what point $p\in M$ I choose, there is a diffeomorphism $\phi: U \to V$ as in the figure with $p \in V$.</p>
 
-<p>Our smooth manifolds carry the subspace topologies from their ambient cartesian spaces, so the open neighborhood $V$ in the definition is a <em>relatively</em> open subset of $M$. A diffeomorphism $\phi$ as in the definition is called a <em>local parameterization</em> on $M$ and its inverse $\phi^{-1}:V\to U$ is called a <em>local coordinate system</em> or a <em>chart</em> on $M$. The coordinate functions $(\phi^{-1})^i:V\to \bbr$ ($i=1,\ldots,n$) are often suggestively written as</p>
+  <p>Our smooth manifolds carry the subspace topologies from their ambient cartesian spaces, so the open neighborhood $V$ in the definition is a <em>relatively</em> open subset of $M$. A diffeomorphism $\phi$ as in the definition is called a <em>local parameterization</em> on $M$ and its inverse $\phi^{-1}:V\to U$ is called a <em>local coordinate system</em> or a <em>chart</em> on $M$. The coordinate functions $(\phi^{-1})^i:V\to \bbr$ ($i=1,\ldots,n$) are often suggestively written as</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\label{local-coord-eqn}
+  <div style="overflow: scroll">
+    <p>\begin{equation}\label{local-coord-eqn}
 x^1,\ldots,x^n,
 \end{equation}</p>
-</div>
+  </div>
 
-<p>which are often (intentionally) confused with the map $\phi^{-1}$ itself and called <em>local coordinates</em> or a <em>local coordinate system</em> on $M$. Given a point $p\in M$, we shall say that \eqref{local-coord-eqn} are local coordinates <em>near $p$</em> if $p$ is in the domain $V$ of the local coordinate system $\phi^{-1}$.</p>
+  <p>which are often (intentionally) confused with the map $\phi^{-1}$ itself and called <em>local coordinates</em> or a <em>local coordinate system</em> on $M$. Given a point $p\in M$, we shall say that \eqref{local-coord-eqn} are local coordinates <em>near $p$</em> if $p$ is in the domain $V$ of the local coordinate system $\phi^{-1}$.</p>
 
-<p>Often we shall omit the modifier “smooth” and simply write “manifold” when we really mean “smooth manifold.”</p>
+  <p>Often we shall omit the modifier “smooth” and simply write “manifold” when we really mean “smooth manifold.”</p>
 
-<p>As with any category of mathematical objects, it’s not enough to <em>only</em> define the objects, but we also need to define the appropriate maps between them:</p>
+  <p>As with any category of mathematical objects, it’s not enough to <em>only</em> define the objects, but we also need to define the appropriate maps between them:</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> A function $\alpha:M \to N$ between two manifolds $M$ and $N$ is called <em>smooth</em> if it is smooth as a function between subsets of cartesian spaces (which may not be open). A smooth function will also be called a <em>smooth map</em> or simply a <em>map</em>.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> A function $\alpha:M \to N$ between two manifolds $M$ and $N$ is called <em>smooth</em> if it is smooth as a function between subsets of cartesian spaces (which may not be open). A smooth function will also be called a <em>smooth map</em> or simply a <em>map</em>.</p>
+  </div>
 
-<p>So, a typical smooth map between manifolds might look something like this:</p>
+  <p>So, a typical smooth map between manifolds might look something like this:</p>
 
-<p><img src="/assets/images/smooth-map.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+  <p><img src="/assets/images/smooth-map.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
-<p>Here, $\alpha:M \to N$ is a smooth map that sends a “two-holed” torus $M$ to a sphere $N$ (i.e., the surface of a ball). I tend to picture smooth maps as dynamic processes that somehow bend, twist or otherwise transform the domain manifold to land in (or on) the codomain manifold. So, I would picture $\alpha$ as some sort of (smooth) transformation that places the two-holed torus $M$ onto the surface of the sphere $N$. As an extreme example, $\alpha$ could collapse all of $M$ to a point, and then map that point to the north pole of $M$. Can you picture other examples for what $\alpha$ might do?</p>
+  <p>Here, $\alpha:M \to N$ is a smooth map that sends a “two-holed” torus $M$ to a sphere $N$ (i.e., the surface of a ball). I tend to picture smooth maps as dynamic processes that somehow bend, twist or otherwise transform the domain manifold to land in (or on) the codomain manifold. So, I would picture $\alpha$ as some sort of (smooth) transformation that places the two-holed torus $M$ onto the surface of the sphere $N$. As an extreme example, $\alpha$ could collapse all of $M$ to a point, and then map that point to the north pole of $M$. Can you picture other examples for what $\alpha$ might do?</p>
 
-<p>Though not always rigidly observed and followed, in some branches of topology and geometry it is traditional to use the word “function” as a stand-in for “$\bbr$-valued”, so that a <em>smooth function</em> on a manifold $M$ is a smooth map $\alpha:M \to \bbr$. The set of such smooth functions is so important that it has its own special notation:</p>
+  <p>Though not always rigidly observed and followed, in some branches of topology and geometry it is traditional to use the word “function” as a stand-in for “$\bbr$-valued”, so that a <em>smooth function</em> on a manifold $M$ is a smooth map $\alpha:M \to \bbr$. The set of such smooth functions is so important that it has its own special notation:</p>
 
-<div class="highlight-box">
-  <p><strong>Notation.</strong> We write $C^\infty(M)$ for the set of all smooth functions $f:M \to \bbr$ on a manifold $M$.</p>
-</div>
+  <div class="highlight-box">
+    <p><strong>Notation.</strong> We write $C^\infty(M)$ for the set of all smooth functions $f:M \to \bbr$ on a manifold $M$.</p>
+  </div>
 
-<p>In fact, given a manifold $M$, the set $C^\infty(M)$ of smooth functions is a commutative $\bbr$-algebra with respect to the standard pointwise operations: Given two functions $f,g\in C^\infty(M)$, their <em>sum</em>, denoted $f+g$, is defined via the formula</p>
+  <p>In fact, given a manifold $M$, the set $C^\infty(M)$ of smooth functions is a commutative $\bbr$-algebra with respect to the standard pointwise operations: Given two functions $f,g\in C^\infty(M)$, their <em>sum</em>, denoted $f+g$, is defined via the formula</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag  <br />
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag  <br />
 (f+g)(p) = f(p)+g(p)
 \end{equation}</p>
-</div>
+  </div>
 
-<p>for all $p\in M$, while their <em>product</em>, denoted $fg$, is defined via the formula</p>
+  <p>for all $p\in M$, while their <em>product</em>, denoted $fg$, is defined via the formula</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 (fg)(p) = f(p)g(p)
 \end{equation}</p>
-</div>
+  </div>
 
-<p>for all $p\in M$. Then, given a scalar $c\in \bbr$, we define the <em>scalar product</em> of $c$ and $f$, denoted $cf$, via the formula</p>
+  <p>for all $p\in M$. Then, given a scalar $c\in \bbr$, we define the <em>scalar product</em> of $c$ and $f$, denoted $cf$, via the formula</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag	
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag	
 (cf)(p) = cf(p)
 \end{equation}</p>
-</div>
+  </div>
 
-<p>for all $p\in M$.</p>
+  <p>for all $p\in M$.</p>
 
-<p>In the next exercise, I want you to check that $C^\infty(M)$ actually is a commutative $\bbr$-algebra and several other things.</p>
+  <p>In the next exercise, I want you to check that $C^\infty(M)$ actually is a commutative $\bbr$-algebra and several other things.</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong></p>
+  <div class="highlight-box2">
+    <p><strong>Exercise.</strong></p>
 
-  <ol>
-    <li>Prove that $C^\infty(M)$ is indeed a commutative $\bbr$-algebra.</li>
-    <li>Let $\alpha:M \to N$ be a smooth map between manifolds. Define the function
+    <ol>
+      <li>Prove that $C^\infty(M)$ is indeed a commutative $\bbr$-algebra.</li>
+      <li>Let $\alpha:M \to N$ be a smooth map between manifolds. Define the function
 \begin{equation}\notag
 \alpha^\ast: C^\infty(N) \to C^\infty(M), \quad f \mapsto \alpha^\ast f,
 \end{equation}
 called the <em>pullback of $\alpha$</em>, by setting $\alpha^\ast f = f\circ \alpha$. Prove that $\alpha^\ast$ is a homomorphism of $\bbr$-algebras. (See the figure below.)</li>
-    <li>Continuing with our smooth map $\alpha:M \to N$ from part (2.), let $\beta:N \to L$ be a second smooth map. Prove that $(\beta \circ \alpha)^\ast = \alpha^\ast \circ \beta^\ast$. If $\id_M:M \to M$ is the identity map on $M$, prove that $\id_M^\ast = \id_{C^\infty(M)}$ where $\id_{C^\infty(M)}$ is the identity map on $C^\infty(M)$.</li>
-    <li>If $M$ and $N$ are diffeomorphic manifolds, prove that $C^\infty(M)$ and $C^\infty(N)$ are isomorphic as $\bbr$-algebras.</li>
-  </ol>
-</div>
+      <li>Continuing with our smooth map $\alpha:M \to N$ from part (2.), let $\beta:N \to L$ be a second smooth map. Prove that $(\beta \circ \alpha)^\ast = \alpha^\ast \circ \beta^\ast$. If $\id_M:M \to M$ is the identity map on $M$, prove that $\id_M^\ast = \id_{C^\infty(M)}$ where $\id_{C^\infty(M)}$ is the identity map on $C^\infty(M)$.</li>
+      <li>If $M$ and $N$ are diffeomorphic manifolds, prove that $C^\infty(M)$ and $C^\infty(N)$ are isomorphic as $\bbr$-algebras.</li>
+    </ol>
+  </div>
 
-<p>A cartoon illustrating the mechanics of a pullback of a smooth map is shown here:</p>
+  <p>A cartoon illustrating the mechanics of a pullback of a smooth map is shown here:</p>
 
-<p><img src="/assets/images/smooth-func.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+  <p><img src="/assets/images/smooth-func.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
-<p>The smooth function $f: N\to \bbr$ is defined on the codomain manifold of the smooth map $\alpha$. Notice that $f$ maps to the real line $\bbr$ in the figure, and so does $\alpha^\ast f:M \to \bbr$. The smooth map $\alpha$ maps <em>from</em> $M$ <em>to</em> $N$, but the pullback $\alpha^\ast$ goes backwards, mapping $C^\infty(N)$ to $C^\infty(M)$. This “reversal of directions” is an example of (<em>functorial</em>) <em>contravariance</em>.</p>
+  <p>The smooth function $f: N\to \bbr$ is defined on the codomain manifold of the smooth map $\alpha$. Notice that $f$ maps to the real line $\bbr$ in the figure, and so does $\alpha^\ast f:M \to \bbr$. The smooth map $\alpha$ maps <em>from</em> $M$ <em>to</em> $N$, but the pullback $\alpha^\ast$ goes backwards, mapping $C^\infty(N)$ to $C^\infty(M)$. This “reversal of directions” is an example of (<em>functorial</em>) <em>contravariance</em>.</p>
 
-<p>The last part of the exercise is significant because it shows that the algebras of smooth functions of manifolds are diffeomorphism invariants. Thus, if you want to show that two manifolds are <em>not</em> diffeomorphic, you can do so by showing that their algebras of smooth functions are <em>not</em> isomorphic. The latter may not be any easier than the former, but it’s still quite interesting because it shows that the pullback operation turns a topological problem (the non-existence of a diffeomorphism) into an algebraic problem (the non-existence of an isomorphism).<sup id="fnref:footnotewho" role="doc-noteref"><a href="#fn:footnotewho" class="footnote" rel="footnote">3</a></sup></p>
+  <p>The last part of the exercise is significant because it shows that the algebras of smooth functions of manifolds are diffeomorphism invariants. Thus, if you want to show that two manifolds are <em>not</em> diffeomorphic, you can do so by showing that their algebras of smooth functions are <em>not</em> isomorphic. The latter may not be any easier than the former, but it’s still quite interesting because it shows that the pullback operation turns a topological problem (the non-existence of a diffeomorphism) into an algebraic problem (the non-existence of an isomorphism).<sup id="fnref:footnotewho" role="doc-noteref"><a href="#fn:footnotewho" class="footnote" rel="footnote">3</a></sup></p>
 
-<div id="tangent">
-  <h2 id="tangent-spaces-and-derivativespushforwards">Tangent spaces and derivatives/pushforwards</h2>
-</div>
+</section>
 
-<p>If the pullback operation turns a smooth map into an algebra homomorphism pointing in the “opposite direction,” then the <em>pushforward</em> operation turns a smooth map into a homomorphism of vector spaces pointing the “same direction.” In particular, pushforwards <em>also</em> turn topology into (linear) algebra.</p>
+<section data-sec-title="1.3. tangent spaces and derivatives">
+  <h2 id="tangent-spaces-and-derivatives">1.3. tangent spaces and derivatives</h2>
 
-<p>Pushforwards aren’t really that mysterious, since they are nothing but directional derivatives with a fancy name, and you certainly know what a derivative is. So, let’s begin by recalling the definition of derivatives on open sets in cartesian space:</p>
+  <p>If the pullback operation turns a smooth map into an algebra homomorphism pointing in the “opposite direction,” then the <em>pushforward</em> operation turns a smooth map into a homomorphism of vector spaces pointing the “same direction.” In particular, pushforwards <em>also</em> turn topology into (linear) algebra.</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> If $\phi:U \to \bbr^r$ is a smooth function on an open subset of a cartesian space $\bbr^s$, its <em>derivative at $t\in U$</em>, or its <em>pushforward at $t\in U$</em>, is the linear map</p>
+  <p>Pushforwards aren’t really that mysterious, since they are nothing but directional derivatives with a fancy name, and you certainly know what a derivative is. So, let’s begin by recalling the definition of derivatives on open sets in cartesian space:</p>
 
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> If $\phi:U \to \bbr^r$ is a smooth function on an open subset of a cartesian space $\bbr^s$, its <em>derivative at $t\in U$</em>, or its <em>pushforward at $t\in U$</em>, is the linear map</p>
+
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \phi_{\ast t}: \bbr^s \to \bbr^r
 \end{equation}</p>
-  </div>
+    </div>
 
-  <p>defined by</p>
+    <p>defined by</p>
 
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \phi_{\ast t}(v) = \lim_{\dev \to 0} \frac{ \phi(t+\dev v) - \phi(t)}{\dev}
 \end{equation}</p>
+    </div>
+
+    <p>for $v\in \bbr^s$.</p>
   </div>
 
-  <p>for $v\in \bbr^s$.</p>
-</div>
+  <p>With $\phi$ given as in the definition, and with respect to the standard ordered bases on $\bbr^s$ and $\bbr^r$, one may prove easily that the derivative $\phi_{\ast t}$ is represented by the $r\times s$ <em>jacobian matrix</em></p>
 
-<p>With $\phi$ given as in the definition, and with respect to the standard ordered bases on $\bbr^s$ and $\bbr^r$, one may prove easily that the derivative $\phi_{\ast t}$ is represented by the $r\times s$ <em>jacobian matrix</em></p>
-
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 J(\phi)_t \defeq \left[ \frac{\bd \phi^j}{\bd t^i}(t) \right]_{ij}
 \end{equation}</p>
-</div>
+  </div>
 
-<p>where $t^1,\ldots,t^s$ are the standard ordered coordinates<sup id="fnref:footnote1" role="doc-noteref"><a href="#fn:footnote1" class="footnote" rel="footnote">4</a></sup> on $\bbr^s$. For more details, see Chapter 2 of (<sup id="fnref:Spivak1965" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">5</a></sup>).</p>
+  <p>where $t^1,\ldots,t^s$ are the standard ordered coordinates<sup id="fnref:footnote1" role="doc-noteref"><a href="#fn:footnote1" class="footnote" rel="footnote">4</a></sup> on $\bbr^s$. For more details, see Chapter 2 of (<sup id="fnref:Spivak1965" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">5</a></sup>).</p>
 
-<p>The tangent spaces to a manifold are the direct generalizations of the tangent lines and planes that you studied in single- and multi-variable calculus.</p>
+  <p>The tangent spaces to a manifold are the direct generalizations of the tangent lines and planes that you studied in single- and multi-variable calculus.</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $p$ be a point on a smooth $n$-dimensional manifold $M$ and select a local parameterization $\phi:U \to V$ with $p\in V$. The <em>tangent space</em> of $M$ at $p$, denoted $T_p(M)$, is defined to be the image of the pushforward $\phi_{\ast t}$ where $t$ is the (unique) point in $U$ with $\phi(t) = p$.<sup id="fnref:footnote2" role="doc-noteref"><a href="#fn:footnote2" class="footnote" rel="footnote">6</a></sup></p>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let $p$ be a point on a smooth $n$-dimensional manifold $M$ and select a local parameterization $\phi:U \to V$ with $p\in V$. The <em>tangent space</em> of $M$ at $p$, denoted $T_p(M)$, is defined to be the image of the pushforward $\phi_{\ast t}$ where $t$ is the (unique) point in $U$ with $\phi(t) = p$.<sup id="fnref:footnote2" role="doc-noteref"><a href="#fn:footnote2" class="footnote" rel="footnote">6</a></sup></p>
 
-  <p>Now, let $e_1,\ldots,e_n$ be the standard ordered basis<sup id="fnref:footnote3" role="doc-noteref"><a href="#fn:footnote3" class="footnote" rel="footnote">7</a></sup> of $\bbr^n$ and let $x^1,\ldots,x^n$ be the local coordinates on $M$ corresponding to $\phi$. If we set</p>
+    <p>Now, let $e_1,\ldots,e_n$ be the standard ordered basis<sup id="fnref:footnote3" role="doc-noteref"><a href="#fn:footnote3" class="footnote" rel="footnote">7</a></sup> of $\bbr^n$ and let $x^1,\ldots,x^n$ be the local coordinates on $M$ corresponding to $\phi$. If we set</p>
 
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \bd_{x^i}|_p = \phi_{\ast t}(e_i)
 \end{equation}</p>
+    </div>
+
+    <p>for each $i=1,\ldots,n$, then</p>
+
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
+\bd_{x^1}|_p,\ldots,\bd_{x^n}|_p
+\end{equation}</p>
+    </div>
+
+    <p>is a basis for the tangent space $T_p(M)$ called the <em>coordinate basis</em> associated to the local coordinates $x^1,\ldots,x^n$.</p>
   </div>
 
-  <p>for each $i=1,\ldots,n$, then</p>
+  <p>The rather strange choice of notation for the coordinate basis vectors will be explained when we study the relationship between tangent vectors and derivations in a later post. However, notice that the index $i$ appears in the subscript of the coordinate basis vector $\bd_{x^i}|_p$, which means that we consider it to be a <em>lower</em> index on this basis vector. One often sees the convention that stipulates that an index repeated in a single expression in both an upper and lower position is to be summed over. In view of this convention, a tangent vector $v\in T_p(M)$ may be written in components as</p>
 
   <div style="overflow: scroll">
     <p>\begin{equation}\notag
-\bd_{x^1}|_p,\ldots,\bd_{x^n}|_p
+v = v^i \bd_{x^i}|_p,
 \end{equation}</p>
   </div>
 
-  <p>is a basis for the tangent space $T_p(M)$ called the <em>coordinate basis</em> associated to the local coordinates $x^1,\ldots,x^n$.</p>
-</div>
+  <p>with summation over $i$ implied (from $1$ to $n$). When specific mention of the local coordinates is not necessary, we will write $\bd_i|_p$ in place of $\bd_{x^i}|_p$.</p>
 
-<p>The rather strange choice of notation for the coordinate basis vectors will be explained when we study the relationship between tangent vectors and derivations in a later post. However, notice that the index $i$ appears in the subscript of the coordinate basis vector $\bd_{x^i}|_p$, which means that we consider it to be a <em>lower</em> index on this basis vector. One often sees the convention that stipulates that an index repeated in a single expression in both an upper and lower position is to be summed over. In view of this convention, a tangent vector $v\in T_p(M)$ may be written in components as</p>
+  <p>Now, having defined pushforwards of smooth maps defined on open subsets of cartesian spaces, we generalize to pushforwards of smooth maps between manifolds. So, let $\alpha:M \to N$ be a smooth map between manifolds, let $p\in M$, and set $q = \alpha(p)$. We may choose local parametrizations</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
-v = v^i \bd_{x^i}|_p,
-\end{equation}</p>
-</div>
-
-<p>with summation over $i$ implied (from $1$ to $n$). When specific mention of the local coordinates is not necessary, we will write $\bd_i|_p$ in place of $\bd_{x^i}|_p$.</p>
-
-<p>Now, having defined pushforwards of smooth maps defined on open subsets of cartesian spaces, we generalize to pushforwards of smooth maps between manifolds. So, let $\alpha:M \to N$ be a smooth map between manifolds, let $p\in M$, and set $q = \alpha(p)$. We may choose local parametrizations</p>
-
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 \phi: U \to V \quad \text{and} \quad \psi:W \to G
 \end{equation}</p>
-</div>
+  </div>
 
-<p>on $M$ and $N$, respectively, with $p\in V$ and $q\in G$. By shrinking $U$ and $V$ if needed, we may suppose that $\alpha(V) \subseteq G$. Thus, the diagram</p>
+  <p>on $M$ and $N$, respectively, with $p\in V$ and $q\in G$. By shrinking $U$ and $V$ if needed, we may suppose that $\alpha(V) \subseteq G$. Thus, the diagram</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 \begin{xy}
 \xymatrix@C=1in{
 V \ar[r]^{\alpha|_V} &amp; G \\ U \ar[r]_{\beta \ =\  \psi^{-1} \ \circ \ \alpha \ \circ \ \phi} \ar[u]^\phi &amp; W \ar[u]_\psi
 }
 \end{xy}
 \end{equation}</p>
-</div>
+  </div>
 
-<p>is well-defined and commutes. If $x^1,\ldots,x^n$ and $y^1,\ldots,y^m$ are the local coordinates on $M$ and $N$ associated with the parametrizations $\phi$ and $\psi$ (hence $M$ is $n$-dimensional while $N$ is $m$-dimensional), then the composite $\beta$ along the bottom of the diagram is called the <em>local coordinate representation of $\alpha$ with respect to the $x^j$’s and $y^i$’s</em>; a cartoon representation of the situation is given in the figure:</p>
+  <p>is well-defined and commutes. If $x^1,\ldots,x^n$ and $y^1,\ldots,y^m$ are the local coordinates on $M$ and $N$ associated with the parametrizations $\phi$ and $\psi$ (hence $M$ is $n$-dimensional while $N$ is $m$-dimensional), then the composite $\beta$ along the bottom of the diagram is called the <em>local coordinate representation of $\alpha$ with respect to the $x^j$’s and $y^i$’s</em>; a cartoon representation of the situation is given in the figure:</p>
 
-<p><img src="/assets/images/smooth-map-local-rep.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
+  <p><img src="/assets/images/smooth-map-local-rep.png" alt="sum" style="margin: 40px auto; display: block; width: 70%;" /></p>
 
-<p>The jacobian matrix of $\beta$ at the point $\phi^{-1}(p)$ is denoted</p>
+  <p>The jacobian matrix of $\beta$ at the point $\phi^{-1}(p)$ is denoted</p>
 
-<div style="overflow: scroll">
-  <p>\begin{equation}\notag
+  <div style="overflow: scroll">
+    <p>\begin{equation}\notag
 \frac{\bd(y^1\circ\alpha,\ldots,y^m\circ \alpha)}{\bd(x^1,\ldots,x^n)}(p).
 \end{equation}</p>
-</div>
+  </div>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let the notation be as above and set $t = \phi^{-1}(p)$ and $u = \psi^{-1}(q)$. The <em>derivative of $\alpha$ at $p$</em>, or the <em>pushforward of $\alpha$ at $p$</em>, is defined to be the linear map</p>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let the notation be as above and set $t = \phi^{-1}(p)$ and $u = \psi^{-1}(q)$. The <em>derivative of $\alpha$ at $p$</em>, or the <em>pushforward of $\alpha$ at $p$</em>, is defined to be the linear map</p>
 
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \alpha_{\ast p} : T_p(M) \to T_q(N)
 \end{equation}</p>
-  </div>
+    </div>
 
-  <p>given as the composite<sup id="fnref:footnote4" role="doc-noteref"><a href="#fn:footnote4" class="footnote" rel="footnote">8</a></sup></p>
+    <p>given as the composite<sup id="fnref:footnote4" role="doc-noteref"><a href="#fn:footnote4" class="footnote" rel="footnote">8</a></sup></p>
 
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \alpha_{\ast p} = \psi_{\ast u} \circ \beta_{\ast t} \circ (\phi_{\ast t})^{-1}.
 \end{equation}</p>
+    </div>
+
+    <p>Here, in writing the inverse $(\phi_{\ast t})^{-1}$, we are viewing the derivative $\phi_{\ast t}$ as an isomorphism $\bbr^n \to T_p(M)$, not simply as an injective linear map from $\bbr^n$ to the ambient cartesian space containing $M$.</p>
   </div>
 
-  <p>Here, in writing the inverse $(\phi_{\ast t})^{-1}$, we are viewing the derivative $\phi_{\ast t}$ as an isomorphism $\bbr^n \to T_p(M)$, not simply as an injective linear map from $\bbr^n$ to the ambient cartesian space containing $M$.</p>
-</div>
+  <p>The cartoon representation of the derivative is:</p>
 
-<p>The cartoon representation of the derivative is:</p>
+  <p><img src="/assets/images/local-derivative.png" alt="sum" style="margin: 40px auto; display: block; width: 100%;" /></p>
 
-<p><img src="/assets/images/local-derivative.png" alt="sum" style="margin: 40px auto; display: block; width: 100%;" /></p>
+  <p>To the extent that the tangent spaces $T_p(M)$ and $T_q(N)$ can be considered “infinitesimal” neighborhoods of $p$ and $q$, the action of the smooth map $\alpha$ on these neighborhoods is given by a linear transformation $\alpha_{\ast p} : T_p(M) \to T_q(N)$.</p>
 
-<p>To the extent that the tangent spaces $T_p(M)$ and $T_q(N)$ can be considered “infinitesimal” neighborhoods of $p$ and $q$, the action of the smooth map $\alpha$ on these neighborhoods is given by a linear transformation $\alpha_{\ast p} : T_p(M) \to T_q(N)$.</p>
+  <p>The following fundamental result is proved on page 11 of (<sup id="fnref:GP2010:1" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup>):</p>
 
-<p>The following fundamental result is proved on page 11 of (<sup id="fnref:GP2010:1" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup>):</p>
+  <div class="highlight-box">
+    <p><strong>Theorem (Chain Rule).</strong> Let $\alpha:M \to N$ and $\beta:N \to L$ be two smooth maps of manifolds. Then for all $p\in M$ we have</p>
 
-<div class="highlight-box">
-  <p><strong>Theorem (Chain Rule).</strong> Let $\alpha:M \to N$ and $\beta:N \to L$ be two smooth maps of manifolds. Then for all $p\in M$ we have</p>
-
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 (\beta \circ \alpha)_{\ast p} = \beta_{\ast \alpha(p)} \circ \alpha_{\ast p}.
 \end{equation}</p>
+    </div>
   </div>
-</div>
 
-<p>As a sanity check, can you recover the usual single-variable chain rule from this version as a special case? I suggest you try!</p>
+  <p>As a sanity check, can you recover the usual single-variable chain rule from this version as a special case? I suggest you try!</p>
 
-<p>Now, the derivative of a smooth map between <em>open sets</em> of cartesian spaces may be represented by a jacobian matrix. The same is true for smooth maps between manifolds, but in general, this matrix will depend on the choice of local coordinates. In fact, these jacobian matrices actually coincide with the jacobian matrices of the local coordinate representations as defined above. The first step to obtaining these jacobian matrices is to define partial derivatives of functions on a manifold, which <em>also</em> depend on the choice of local coordinates.</p>
+  <p>Now, the derivative of a smooth map between <em>open sets</em> of cartesian spaces may be represented by a jacobian matrix. The same is true for smooth maps between manifolds, but in general, this matrix will depend on the choice of local coordinates. In fact, these jacobian matrices actually coincide with the jacobian matrices of the local coordinate representations as defined above. The first step to obtaining these jacobian matrices is to define partial derivatives of functions on a manifold, which <em>also</em> depend on the choice of local coordinates.</p>
 
-<div class="highlight-box">
-  <p><strong>Definition.</strong> Let $f\in C^\infty(M)$ be a smooth function on a manifold $M$ and let $\phi:U \to V$ be a local parameterization on $M$ with local coordinates $x^1,\ldots,x^n$. For each $i=1,\ldots,n$, define the <em>$i$-th partial derivative of $f$ relative to the $x^i$’s</em> to be the composite</p>
+  <div class="highlight-box">
+    <p><strong>Definition.</strong> Let $f\in C^\infty(M)$ be a smooth function on a manifold $M$ and let $\phi:U \to V$ be a local parameterization on $M$ with local coordinates $x^1,\ldots,x^n$. For each $i=1,\ldots,n$, define the <em>$i$-th partial derivative of $f$ relative to the $x^i$’s</em> to be the composite</p>
 
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \frac{\bd f}{ \bd x^i} : V \xrightarrow{\phi^{-1}} U \xrightarrow{\frac{\bd (f\circ \phi)}{\bd t^i}} \bbr
 \end{equation}</p>
+    </div>
+
+    <p>where $t^1,\ldots,t^n$ are the standard ordered coordinates on $U$.</p>
   </div>
 
-  <p>where $t^1,\ldots,t^n$ are the standard ordered coordinates on $U$.</p>
-</div>
+  <p>In the next exercise, you will work out, for yourself, the relationship between partial derivatives of component functions of smooth maps and jacobian matrices.</p>
 
-<p>In the next exercise, you will work out, for yourself, the relationship between partial derivatives of component functions of smooth maps and jacobian matrices.</p>
+  <div class="highlight-box2">
+    <p><strong>Exercise.</strong>  Let $\alpha:M \to N$ be a smooth map between manifolds, let $p\in M$, and set $q = \alpha(p)$. Choose local coordinates $x^1,\ldots,x^n$ and $y^1,\ldots,y^m$ on open parametrizable neighborhoods of $p$ and $q$, respectively, making adjustments (i.e., shrinking) if needed so that the jacobian matrix</p>
 
-<div class="highlight-box2">
-  <p><strong>Exercise.</strong>  Let $\alpha:M \to N$ be a smooth map between manifolds, let $p\in M$, and set $q = \alpha(p)$. Choose local coordinates $x^1,\ldots,x^n$ and $y^1,\ldots,y^m$ on open parametrizable neighborhoods of $p$ and $q$, respectively, making adjustments (i.e., shrinking) if needed so that the jacobian matrix</p>
-
-  <div style="overflow: scroll">
-    <p>\begin{equation}\notag
+    <div style="overflow: scroll">
+      <p>\begin{equation}\notag
 \label{tired-eqn}
 \frac{\bd(y^1\circ\alpha,\ldots,y^m\circ \alpha)}{\bd(x^1,\ldots,x^n)}(p)
 \end{equation}</p>
-  </div>
+    </div>
 
-  <p>is defined.</p>
+    <p>is defined.</p>
 
-  <ol>
-    <li>Prove that the above jacobian matrix represents the derivative $\alpha_{\ast p}$ with respect to the coordinate bases
+    <ol>
+      <li>Prove that the above jacobian matrix represents the derivative $\alpha_{\ast p}$ with respect to the coordinate bases
 \begin{equation}\notag
 \bd_{x^1}|_p,\ldots, \bd_{x^n}|_p \quad \text{and} \quad \bd_{y^1}|_q,\ldots, \bd_{y^m}|_q
 \end{equation}
 of $T_p(M)$ and $T_q(N)$.</li>
-    <li>Prove that the above jacobian matrix coincides with the $m\times n$ matrix
+      <li>Prove that the above jacobian matrix coincides with the $m\times n$ matrix
 \begin{equation}\notag
 \left[ \frac{\bd(y^j \circ \alpha)}{\bd x^i}(p) \right]_{ij}
 \end{equation}
 of partial derivatives.</li>
-  </ol>
-</div>
+    </ol>
+  </div>
+</section>
 
-<div id="further">
-  <h2 id="further-reading">Further reading</h2>
-</div>
+<section data-sec-title="1.4. further reading">
+  <h2 id="further-reading">1.4. further reading</h2>
 
-<p>In my opinion, the best introduction to topology is Guillemin and Pollack’s book <em>Differential Topology</em>.<sup id="fnref:GP2010:2" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup> My treatment of (embedded) smooth manifolds in the first few posts of this series will closely follow the first chapter of this book. A pair of very good related texts is Spivak’s <em>Calculus on Manifolds</em><sup id="fnref:Spivak1965:1" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">5</a></sup> and Milnor’s <em>Topology from the Differential Viewpoint</em>.<sup id="fnref:Milnore1997" role="doc-noteref"><a href="#fn:Milnore1997" class="footnote" rel="footnote">9</a></sup></p>
+  <p>In my opinion, the best introduction to topology is Guillemin and Pollack’s book <em>Differential Topology</em>.<sup id="fnref:GP2010:2" role="doc-noteref"><a href="#fn:GP2010" class="footnote" rel="footnote">2</a></sup> My treatment of (embedded) smooth manifolds in the first few posts of this series will closely follow the first chapter of this book. A pair of very good related texts is Spivak’s <em>Calculus on Manifolds</em><sup id="fnref:Spivak1965:1" role="doc-noteref"><a href="#fn:Spivak1965" class="footnote" rel="footnote">5</a></sup> and Milnor’s <em>Topology from the Differential Viewpoint</em>.<sup id="fnref:Milnore1997" role="doc-noteref"><a href="#fn:Milnore1997" class="footnote" rel="footnote">9</a></sup></p>
 
-<p>For the material in this post on commutative $\bbr$-algebras, see MacLane and Birkhoff’s <em>Algebra</em><sup id="fnref:BirkhoffMacLane1988" role="doc-noteref"><a href="#fn:BirkhoffMacLane1988" class="footnote" rel="footnote">10</a></sup>, particularly Chapter IX.</p>
+  <p>For the material in this post on commutative $\bbr$-algebras, see MacLane and Birkhoff’s <em>Algebra</em><sup id="fnref:BirkhoffMacLane1988" role="doc-noteref"><a href="#fn:BirkhoffMacLane1988" class="footnote" rel="footnote">10</a></sup>, particularly Chapter IX.</p>
+</section>
 
-<div id="ref">
-  <h2 id="references-and-footnotes">References and footnotes</h2>
-</div>
+<section data-sec-title="1.5. references and footnotes">
+  <h2 id="references-and-footnotes">1.5. references and footnotes</h2>
 
+</section>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:foonote0" role="doc-endnote">
@@ -487,12 +511,25 @@ of partial derivatives.</li>
 </div>
 
     </div>
-  
-    <script>
-      window.addEventListener('DOMContentLoaded', () => makeDefns(pageNum));
-      window.addEventListener('load', () => adjustContentPadding("header", "content", 10));
-      window.addEventListener('resize', () => adjustContentPadding("header", "content", 10));
-    </script>
 
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+    </script>
   </body>
 </html>

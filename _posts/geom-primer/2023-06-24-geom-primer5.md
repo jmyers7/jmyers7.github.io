@@ -2,6 +2,18 @@
 layout: post
 title: the algebraic theory III&#58 local geometry, vector bundles, and sheaves of modules
 category: a geometric and topological toolkit
+sections:
+- prerequisites
+- sheaves of modules
+- locally free modules
+- vector bundles
+- locally trivial vector bundles and reduction of structure groups
+- infinitesimal geometric structures, examples
+- locally trivial vector bundles to locally free modules
+- locally free modules to locally trivial vector bundles
+- the main equivalence
+- appendix, construction lemmas
+- references
 ---
 
 One cannot overstate the importance of the notion of vector bundle in the local geometric theory of manifolds. Indeed, the local (or infinitesimal) geometry on a manifold $M$ takes place in its tangent spaces $T_p(M)$, and one wants these geometries to be glued together smoothly and coherently as one transitions from one tangent space to another. This notion is made precise by first observing that each of these geometries comes with its own group $G$ of linear transformations that preserve the features of the geometry; for example, the orthogonal groups $G = \O(n)$ for euclidean geometry, the indefinite orthogonal group $G = \O(1,3)$ for Minkowski geometry, the symplectic groups $G=\Sp(2n)$ for symplectic geometry, and the complex general linear groups $G=\GL(n,\bbc)$ for (almost) complex geometry. Then, this "smooth dependence" of the geometry in the tangent space $T_p(M)$ on the point $p$ is captured precisely by certain families of linear transformations in the appropriate $G$ that smoothly depend on $p$. I'm speaking here of so-called *$G$-reductions* of the tangent bundle $T(M)$, which are some of the main objects that we will study in this post. Thus, the vector bundle structure of $T(M)$ is intimately related---through group theory---to the various types of local geometries that may be placed on the manifold $M$.
@@ -12,21 +24,23 @@ Though the tangent bundle $T(M)$ is front and center in this story, other vector
 
 A vector bundle over $M$ is technically not just another manifold, but rather a certain type of smooth map $\pi:E \to M$ where $E$ is called the *total space* (with $E=T(M)$, in the case of the tangent bundle). Sometimes, however, the total space $E$ plays an intermediary role, and it's really the modules of *sections* of the vector bundle that are primary. These collections of sections form *sheaves of modules*, which are special types of sheaves which we studied in the previous post. You have already seen examples of these gadgets; for example, vector fields on $M$ as sections of the tangent bundle form a sheaf of modules, as do smooth functions on $M$ as sections of the trivial rank-$1$ vector bundle. One of the major results of this post is that one can actually throw away the (locally trivial) vector bundle completely, keeping only its modules of sections, and essentially lose no information. This is formalized as an equivalence between the categories of locally trivial vector bundles and locally free sheaves of modules, which I will prove in the last section. Though this equivalence is well-known, my treatment here is considerably more detailed than the typical references (at least the ones on my bookshelf).
 
-## Table of contents
-
-1. <a href="#sheaves-of-modules">Sheaves of modules</a>
-2. <a href="#locally-free-modules">Locally free modules</a>
-3. <a href="#vector-bundles">Vector bundles</a>
-4. <a href="#locally-trivial-vector-bundles-and-reduction-of-structure-groups">Locally trivial vector bundles and reduction of structure groups</a>
-5. <a href="#infinitesimal-geometric-structures-examples">Infinitesimal geometric structures, examples</a>
-6. <a href="#locally-trivial-vector-bundles-to-locally-free-modules">Locally trivial vector bundles to locally free modules</a>
-6. <a href="#locally-free-modules-to-locally-trivial-vector-bundles">Locally free modules to locally trivial vector bundles</a>
-7. <a href="#the-main-equivalence">The main equivalence</a>
-8. <a href="#appendix-construction-lemmas">Appendix: construction lemmas</a>
-9. <a href="#references">References</a>
 
 
-## Prerequisites
+
+
+
+
+
+
+
+
+
+
+{% assign post_num = page.slug | slice: -1, 1 %}
+{% assign sec_num = 1 %}
+{% assign sec_idx = 0 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 You should at least glance through the [previous post]({% post_url /geom-primer/2023-03-11-geom-primer4 %}) to familiarize yourself with sheaves and the notion of manifolds as locally ringed spaces. For those who might already know a little about locally ringed spaces, let me note that I am actually only considering special types:
 
@@ -37,6 +51,7 @@ You should at least glance through the [previous post]({% post_url /geom-primer/
 A firm command of basic commutative algebra is still required, including rings, algebras and their homomorphisms; modules and their homomorphisms; tensor products; and local rings.
 
 A handy reference for details in sheaf theory is Tennison's book cited in the <a href="#references">References</a>. My treatment of $G$-reductions and infinitesimal geometric structures is closely modeled on Conlon's book on manifold theory, which is also a very nice reference. I am not assuming any prerequisite knowledge from either of these texts, however.
+</section>
 
 
 
@@ -47,8 +62,10 @@ A handy reference for details in sheaf theory is Tennison's book cited in the <a
 
 
 
-
-## Sheaves of modules
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 While we defined sheaves in the previous post, we did not define *morphisms* of sheaves. We do so now, restricting to the case of sheaves of sets:
 
@@ -368,6 +385,7 @@ If $\eta$ is an isomorphism of $\sco_X$-modules, prove:
 
 *Note*: In this post, the fiber maps $\eta_p^{\text{f}}$ will be much more important than the stalk maps $\eta_p$, and hence the former should have the simpler notation. Therefore, I will often write $\eta_p$ for when I really mean $\eta_p^{\text{f}}$, and you should rely on context to determine which map I intend.
 </div>
+</section>
 
 
 
@@ -383,8 +401,10 @@ If $\eta$ is an isomorphism of $\sco_X$-modules, prove:
 
 
 
-
-## Locally free modules
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 The definition of *freeness* for regular modules adapts easily to the case of sheaves of modules. But for the latter there is also a notion of *local freeness*.
 
@@ -451,6 +471,7 @@ is a $k$-linear isomorphism.
 </div>
 
 Again, it is clear that $\alpha$ being an isomorphism implies $\alpha \otimes_A k$ is one too. Conversely, if $\alpha \otimes_A k$ is an isomorphism, then its determinant is nonzero in the residue field $k$. Thus, the determinant of $\alpha$ is not in the maximal ideal $\mfm$, which means that it must be a unit. Hence, $\alpha$ is an isomorphism. This completes the proof of the theorem. Q.E.D.
+</section>
 
 
 
@@ -487,8 +508,10 @@ Again, it is clear that $\alpha$ being an isomorphism implies $\alpha \otimes_A 
 
 
 
-
-## Vector bundles
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Having defined the first main actor in this story, we now move on to the second.
 
@@ -660,6 +683,7 @@ by setting
 </div>
 
 Provided that $X$ is a manifold, we will see later that the functor $S$ is one half of an equivalence between certain full subcategories of $\Vect_X$ and $\Mod_X$.
+</section>
 
 
 
@@ -670,8 +694,10 @@ Provided that $X$ is a manifold, we will see later that the functor $S$ is one h
 
 
 
-
-## Locally trivial vector bundles and reduction of structure groups
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Vector bundles in the previous section were defined over arbitrary locally ringed spaces. However, in order to define the analog for vector bundles of the *locally free* condition on sheaves of modules, we must specialize to manifolds.
 
@@ -787,6 +813,7 @@ W \to \bbr^k , \quad p \mapsto S(p)e_j, \quad j=1,\ldots,k,
 \end{equation}
 
 are smooth, and hence each entry in the columns of $S(p)$ are smooth functions of $p$. Hence $S$ is smooth. Q.E.D.
+</section>
 
 
 
@@ -799,8 +826,10 @@ are smooth, and hence each entry in the columns of $S(p)$ are smooth functions o
 
 
 
-
-## Infinitesimal geometric structures, examples
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Reductions of structure groups of tangent bundles are of particular interest as they often correspond to familiar geometric structures on manifolds. We study these in more detail in this section, and then offer a class of very important examples of reductions that occur in physics.
 
@@ -967,6 +996,7 @@ g: \calx_M \otimes_{\sco_M} \calx_M \to \sco_M
 \end{equation}
 
 where $\calx_M$ is the sheaf of vector bundles on $M$, i.e., the sheaf of sections of the tangent bundle $T(M)$. But notice that we are (apparently) tensoring $\calx_M$ against itself over the structure sheaf $\sco_M$; this tensor operation---which is a bit tricky to define---will be described in the next post of this series.
+</section>
 
 
 
@@ -979,8 +1009,10 @@ where $\calx_M$ is the sheaf of vector bundles on $M$, i.e., the sheaf of sectio
 
 
 
-
-## Locally trivial vector bundles to locally free modules
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Let's return to the general theory. We have the functor
 
@@ -1105,6 +1137,7 @@ s = \Phi_V(f_1,\ldots,f_k),
 \end{equation}
 
 then $\dev_p(s) = s(p) =v$. Q.E.D.
+</section>
 
 
 
@@ -1116,8 +1149,10 @@ then $\dev_p(s) = s(p) =v$. Q.E.D.
 
 
 
-
-## Locally free modules to locally trivial vector bundles
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Having described a method to associate a locally free sheaf of modules to every locally trivial vector bundle via the functor
 
@@ -1281,6 +1316,7 @@ V(\eta) = \bigsqcup_{p\in M} \eta_p: V(\cale) \to V(\cale').
 
 2. Prove that the operation $\eta \mapsto V(\eta)$ preserves compositions and identity morphisms, and conclude that \eqeref{vec-fun-eqn} is indeed a functor.
 </div>
+</section>
 
 
 
@@ -1296,8 +1332,10 @@ V(\eta) = \bigsqcup_{p\in M} \eta_p: V(\cale) \to V(\cale').
 
 
 
-
-## The main equivalence
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 We have (finally!) reached the final section of this post, in which we prove that the functors
 
@@ -1451,6 +1489,7 @@ is actually the *inverse* of the (isomorphic) evaluation map
 \end{equation}
 
 Thus, \eqref{tv2-eqn} is indeed an isomorphism. Then, to complete the proof, one needs to check that $\eta$ is a natural transformation, which I will again leave to you. Q.E.D.
+</section>
 
 
 
@@ -1458,8 +1497,10 @@ Thus, \eqref{tv2-eqn} is indeed an isomorphism. Then, to complete the proof, one
 
 
 
-
-## Appendix: construction lemmas
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Here, we prove two "construction" lemmas that we will use to obtain manifold structures on the vector bundles associated with locally free modules. The first lemma constructs topologies, while the second lemma constructs structure sheaves.
 
@@ -1609,6 +1650,7 @@ f\circ \phi_i \in \sco_{Y_i}(\phi_i^{-1}(V)),
 \end{equation}
 
 as desired. From the equivalence of (1.) and (2.), it follows immediately that each $\phi_i$ is an isomorphism. Q.E.D.
+</section>
 
 
 
@@ -1616,10 +1658,13 @@ as desired. From the equivalence of (1.) and (2.), it follows immediately that e
 
 
 
-
-## References
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 * L. Conlon. Differentiable manifolds. Reprint of the 2001 second edition. Mod. Birkhäuser Class. *Birkhäuser Boston, Inc., Boston, MA*, 2008.
 
 * B. R. Tennison. Sheaf theory. London Mathematical Society Lecture Note Series, No. 20.
 *Cambridge University Press, Cambridge, England-New York-Melbourne*, 1975,
+</section>

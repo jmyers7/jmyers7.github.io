@@ -2,6 +2,12 @@
 layout: post
 title: the algebraic theory II&#58 ringed spaces
 category: a geometric and topological toolkit
+sections:
+- prerequisites
+- sheaves in general
+- ringed spaces
+- abstract manifolds as locally ringed spaces
+- references
 ---
 
 In this post, we make the jump from considering only manifolds embedded in cartesian spaces $\bbr^n$ in the style of Guillemin and Pollack's book ([^GP2010]), to general abstract manifolds which need not be embedded in *any* ambient space.
@@ -16,18 +22,20 @@ The reason for introducing this algebraic definition of smooth manifolds is not 
 
 The general method of defining a class of geometric objects by defining the algebras of "allowable" functions on them is common in modern geometry and topology. The most basic object in this paradigm is a so-called *ringed space*, which consists of a topological space along with a sheaf of rings of "allowable" functions. In considering a smooth manifold $M$, this sheaf is taken to be the sheaf of smooth functions $C^\infty_M$, already familiar to us from the [previous post]({% post_url /geom-primer/2023-02-20-geom-primer3 %}), at least in the embedded case. But by simply changing the sheaf of rings, one obtains other types of geometries: real analytic, complex holomorphic, algebraic, *etc*. So, if nothing else, in this sense this "ringed space" approach to smooth manifolds unites it with other types of geometries. If *unity* is something that you appreciate in mathematics, then I think you'll like the approach taken in this post!
 
-## Table of contents
 
-1. <a href="#sheaves" style="font-family: 'Lora', serif; font-size: 1em;">Sheaves in general</a>
-2. <a href="#ringed" style="font-family: 'Lora', serif; font-size: 1em;">Ringed spaces</a>
-3. <a href="#manifolds" style="font-family: 'Lora', serif; font-size: 1em;">Abstract manifolds as locally ringed spaces</a>
-5. <a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References</a>
 
-## Prerequisites
+
+
+{% assign post_num = page.slug | slice: -1, 1 %}
+{% assign sec_num = 1 %}
+{% assign sec_idx = 0 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 The [previous post]({% post_url /geom-primer/2023-02-20-geom-primer3 %}) is a certain prerequisite. Beyond that, as I mentioned above, in order to read this post, you'll need to know something about the traditional "charts-and-atlas" definition of smooth manifolds. I would recommend Lee's book ([^Lee2013]). In particular, you should know the definitions and basic results regarding submanifolds, immersions, submersions, and embeddings.
 
 We encountered sheaves in a very informal way in the previous post. In this post, however, I will be defining these gadgets "for real." Since they are defined as a certain type of <a href="https://en.wikipedia.org/wiki/Functor">functor</a> on a <a href="https://en.wikipedia.org/wiki/Category_(mathematics)">category</a>, it will be helpful to be familiar with the basic definitions of these objects.
+</section>
 
 
 
@@ -39,9 +47,10 @@ We encountered sheaves in a very informal way in the previous post. In this post
 
 
 
-<div id="sheaves">
-## Sheaves in general
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 A presheaf is nothing but a mathematical bookkeeping device that helps us make sense of a "function" that assigns "objects" to all the open sets of a topological space, in such a manner that inclusions of open sets yield restriction maps on the "objects." The two examples that we saw in the [previous post]({% post_url /geom-primer/2023-02-20-geom-primer3 %}) were the assignments $U\mapsto C^\infty(U)$ and $U \mapsto \calx(U)$, where $C^\infty(U)$ is the commutative $\bbr$-algebra of all smooth functions on an open set $U$ of a manifold $M$, and $\calx(U)$ is the $C^\infty(U)$-module of all vector fields over $U$. This is all formalized by defining a presheaf as a type of contravariant functor.
 
@@ -110,6 +119,7 @@ In attempting to wrap your head around property (2.), it is helpful to remember 
 Here, the topological space is $D^2$, the (solid) unit disk in $\bbr^2$. We have four real-valued functions $f_1,f_2,f_3,f_4$ defined on the open sets $U_1,U_2,U_3,U_4$ of a cover of $D^2$. If we conceive of these functions as sections of some sheaf, then assuming that they agree on overlaps, they "glue" together to yield a global function $f:D^2 \to \bbr$.
 
 While the theory of general sheaves is quite general and extensive, we will use them primarily as organizing devices to help us track "function-like" objects on manifolds, like smooth functions, vector fields, differential forms, and tensor fields more generally. If you understand the basic definitions above, that's all the sheaf theory you'll need.
+</section>
 
 
 
@@ -123,10 +133,10 @@ While the theory of general sheaves is quite general and extensive, we will use 
 
 
 
-
-<div id="ringed">
-## Ringed spaces
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 While the <a href="https://en.wikipedia.org/wiki/Ringed_space">most general definition</a> of a so-called "ringed space" demands only that the structure sheaf is a sheaf of abstract rings, we will consider only a special case, where the structure sheaf consists of rings of *actual* functions on a topological space:
 
@@ -286,6 +296,7 @@ is an isomorphism.
     \end{equation}
 is an isomorphism.
 </div>
+</section>
 
 
 
@@ -299,10 +310,10 @@ is an isomorphism.
 
 
 
-
-<div id="manifolds">
-## Abstract manifolds as locally ringed spaces
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 We define manifolds as particular types of locally ringed spaces, which are locally modeled by cartesian spaces. These latter model spaces are of the form $(\bbr^n,C^\infty_{\bbr^n})$, where $C^\infty_{\bbr^n}$ is the sheaf of smooth functions on $\bbr^n$, in the traditional sense.
 
@@ -568,6 +579,7 @@ C^\infty(S^2) \cong \frac{C^\infty(\bbr^3)}{(x^2+y^2+z^2-1)},
 </div>
 
 where the isomorphism is induced by the restriction map $\rho: C^\infty(\bbr^3) \to C^\infty(S^2)$.
+</section>
 
 
 
@@ -578,11 +590,12 @@ where the isomorphism is induced by the restriction map $\rho: C^\infty(\bbr^3) 
 
 
 
-
-<div id="ref">
-## References
-</div>
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 [^Lee2013]: J. M. Lee. *Introduction to smooth manifolds*. Second edition. Graduate Texts in Mathematics, 218. Springer, New York, 2013.
 
 [^GP2010]: V. Guillemin and A. Pollack. *Differential topology*. AMS Chelsea Publishing. Providence, RI, 2010.
+</section>

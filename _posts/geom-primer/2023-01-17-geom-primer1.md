@@ -2,6 +2,12 @@
 layout: post
 title: a primer on embedded manifolds
 category: a geometric and topological toolkit
+sections:
+- prerequisites
+- basic definitons
+- tangent spaces and derivatives
+- further reading
+- references and footnotes
 ---
 
 The possibility of applying geometric techniques to machine learning is what originally sparked my interest in the latter subject. Using such methods, the goal is to inject spatial intuition into mathematical machine learning, which is often presented---at least in many introductory textbooks---as an almost purely analytical subject, with a heavy reliance on probability theory. A prime and very simple example of geometric intuition applied to machine learning is the familiar description of the gradient descent algorithm as *walking downhill to find the minimum*. In this description, you are being asked to *visualize* the graph of the objective function, and therefore to conceive of the function as a geometric object, and not purely an analytic one. The geometry lends insight and *explains* why the algorithm works.
@@ -16,24 +22,31 @@ In this first post, we will begin by discussing embedded smooth manifolds, which
 
 [^foonote0]: A major upside to presenting the theory in an entirely mathematical, abstract framework is that you can easily apply what you've learned in other settings (e.g., physics).
 
-## Table of contents
 
-1. <a href="#defn" style="font-family: 'Lora', serif; font-size: 1em;">Basic definitions</a>
-2. <a href="#tangent" style="font-family: 'Lora', serif; font-size: 1em;">Tangent spaces and derivatives/pushforwards</a>
-3. <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further reading</a>
-4. <a href="#ref" style="font-family: 'Lora', serif; font-size: 1em;">References and footnotes</a>
 
-## Prerequisites
+
+
+
+{% assign post_num = page.slug | slice: -1, 1 %}
+{% assign sec_num = 1 %}
+{% assign sec_idx = 0 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 Though I want to minimize the prerequisites for this series of posts as much as possible, I have to begin somewhere. If I were to assume *no* training in mathematics beyond, say, basic single-variable calculus, then I would have to write an entire book to ultimately get where I want to go.
 
 Therefore, I've pitched these posts at the level of a junior or senior mathematics major. I'm assuming that you've had a full sequence of calculus (including multi-variable calculus), as well as a good course in linear algebra and abstract vector spaces and linear transformations. It will also be very helpful to be familiar with the basic definitions and results in the first chapter of Guillemin and Pollack's *Differential Topology*.[^GP2010]
 
 You will also need to know the definition of *commutative $\bbr$-algebras* and their *homomorphisms*. You can look up these definitions on the internet, or see the section on <a href="#further" style="font-family: 'Lora', serif; font-size: 1em;">Further Reading</a>.
+</section>
 
-<div id="defn">
-## Basic definitions
-</div>
+
+
+
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 The entire theory that we will develop is based on the notion of smoothness. Therefore, the following definition is *absolutely* fundamental:
 
@@ -184,10 +197,28 @@ The smooth function $f: N\to \bbr$ is defined on the codomain manifold of the sm
 The last part of the exercise is significant because it shows that the algebras of smooth functions of manifolds are diffeomorphism invariants. Thus, if you want to show that two manifolds are *not* diffeomorphic, you can do so by showing that their algebras of smooth functions are *not* isomorphic. The latter may not be any easier than the former, but it's still quite interesting because it shows that the pullback operation turns a topological problem (the non-existence of a diffeomorphism) into an algebraic problem (the non-existence of an isomorphism).[^footnotewho]
 
 [^footnotewho]: There's an entire field of mathematics that concerns itself with "turning topology into algebra" called *algebraic topology*.
+</section>
 
-<div id="tangent">
-## Tangent spaces and derivatives/pushforwards
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 If the pullback operation turns a smooth map into an algebra homomorphism pointing in the "opposite direction," then the *pushforward* operation turns a smooth map into a homomorphism of vector spaces pointing the "same direction." In particular, pushforwards *also* turn topology into (linear) algebra.
 
@@ -377,18 +408,31 @@ of $T_p(M)$ and $T_q(N)$.
 \end{equation}
 of partial derivatives.
 </div>
+</section>
 
-<div id="further">
-## Further reading
-</div>
+
+
+
+
+
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 In my opinion, the best introduction to topology is Guillemin and Pollack's book *Differential Topology*.[^GP2010] My treatment of (embedded) smooth manifolds in the first few posts of this series will closely follow the first chapter of this book. A pair of very good related texts is Spivak's *Calculus on Manifolds*[^Spivak1965] and Milnor's *Topology from the Differential Viewpoint*.[^Milnore1997]
 
 For the material in this post on commutative $\bbr$-algebras, see MacLane and Birkhoff's *Algebra*[^BirkhoffMacLane1988], particularly Chapter IX.
+</section>
 
-<div id="ref">
-## References and footnotes
-</div>
+
+
+
+
+{% assign sec_num = sec_num | plus: 1 %}
+{% assign sec_idx = sec_idx | plus: 1 %}
+<section data-sec-title="{{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}">
+## {{ post_num }}.{{ sec_num }}. {{ page.sections[sec_idx] }}
 
 [^GP2010]: V. Guillemin and A. Pollack, *Differential topology*, AMS Chelsea Publishing, Providence, RI, 2010, reprint of the 1974 original.
 
@@ -397,3 +441,4 @@ For the material in this post on commutative $\bbr$-algebras, see MacLane and Bi
 [^Milnore1997]: J. W. Milnor, *Topology from the differentiable viewpoint*, Princeton Landmarks in Mathematics, Princeton University Press, Princeton, NJ, 1997, based on notes by D. W. Weaver, revised reprint of the 1965 original.
 
 [^BirkhoffMacLane1988]: S. MacLane and G. Birkhoff. *Algebra.* Chelsea Publishing Co., New York, third edition, 1988.
+</section>

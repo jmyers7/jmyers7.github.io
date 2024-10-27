@@ -1,20 +1,22 @@
 function copyCode(button) {
-    const code = document.getElementById("code-snippet").innerText;
-    
-    // Display the initial button
-    const displayCopy = () => {
-      button.innerHTML = '<img src="/assets/images/copy.svg" style="vertical-align: middle; width: 15px; height: 15px;">  copy code'
-    }
+  const code = document.getElementById("code-snippet").innerText;
 
-    // Display the "Copied!" button (and check mark image) on click, then cycle back to the default button after 2 sec
-    const displayCopied = () => {
-      button.innerHTML = '<img src="/assets/images/check.svg" style="vertical-align: middle; width: 15px; height: 15px;">  copied!';
-      setTimeout(displayCopy, 2000);
-    }
+  // Display the initial button
+  const displayCopy = () => {
+    button.innerHTML =
+      '<img src="/assets/images/copy.svg" style="vertical-align: middle; width: 15px; height: 15px;">  copy code';
+  };
 
-    // Copy to the clipboard!
-    navigator.clipboard.writeText(code).then(displayCopied)
-  }
+  // Display the "Copied!" button (and check mark image) on click, then cycle back to the default button after 2 sec
+  const displayCopied = () => {
+    button.innerHTML =
+      '<img src="/assets/images/check.svg" style="vertical-align: middle; width: 15px; height: 15px;">  copied!';
+    setTimeout(displayCopy, 2000);
+  };
+
+  // Copy to the clipboard!
+  navigator.clipboard.writeText(code).then(displayCopied);
+}
 
 function createCodeBlock(containerId, codeText) {
   const container = document.getElementById(containerId);
@@ -69,17 +71,20 @@ function createCodeBlock(containerId, codeText) {
 }
 
 function makeDefns(pageNum) {
-  const defns = document.querySelectorAll('.defn');
-  defns.forEach(
-        (defn, idx) => {
-          defn.insertAdjacentHTML('afterbegin' ,`<div style="font-weight: bold; margin-top: 10px; font-size: 1.2em;">Definition ${pageNum}.${idx + 1}.</div>`);
-        }
-      );
+  const defns = document.querySelectorAll(".defn");
+  defns.forEach((defn, idx) => {
+    defn.insertAdjacentHTML(
+      "afterbegin",
+      `<div style="font-weight: bold; margin-top: 10px; font-size: 1.2em;">Definition ${pageNum}.${
+        idx + 1
+      }.</div>`
+    );
+  });
 }
 
 function refDefn(pageNum, defnId) {
   const spanId = defnId + "-ref";
-  const defns = document.querySelectorAll('.defn');
+  const defns = document.querySelectorAll(".defn");
   let defnNumber;
   for (let i = 0; i < defns.length; i++) {
     if (defns[i].id === defnId) {
@@ -87,11 +92,53 @@ function refDefn(pageNum, defnId) {
       break;
     }
   }
-  document.getElementById(spanId).innerHTML = `<a href="#${defnId}">Definition ${pageNum}.${defnNumber}</a>`;
+  document.getElementById(
+    spanId
+  ).innerHTML = `<a href="#${defnId}">Definition ${pageNum}.${defnNumber}</a>`;
 }
 
 function adjustContentPadding(headerId, contentId, offset = 0) {
   const headerHeight = document.getElementById(headerId).offsetHeight;
   const postContent = document.getElementById(contentId);
-  postContent.style.marginTop = headerHeight + offset + 'px';
+  postContent.style.marginTop = headerHeight + offset + "px";
+}
+
+function setScrollMargin(headerId, currentSectionId) {
+  const headerHeight = document.getElementById(headerId).offsetHeight;
+  const currentSectionHeight =
+    document.getElementById(currentSectionId).offsetHeight;
+  const subHeaderHeight = headerHeight - currentSectionHeight;
+
+  const nonSectionTargetElements = document.querySelectorAll("[id]:not(h2)");
+  const sectionTargetElements = document.querySelectorAll("h2");
+
+  nonSectionTargetElements.forEach((element) => {
+    element.style.scrollMarginTop = headerHeight + 5 + "px";
+  });
+
+  sectionTargetElements.forEach((element) => {
+    element.style.scrollMarginTop = subHeaderHeight + "px";
+  });
+}
+
+// Function to check which section is currently in view
+function updateCurrentSectionOnScroll(pageNum, currentSectionId, headerId) {
+  const currentSectionDisplay = document.getElementById(currentSectionId);
+  const headerHeight = document.getElementById(headerId).offsetHeight;
+  let currentSection = null;
+
+  // Loop through each section to check if it's partially in view
+  document.querySelectorAll("section").forEach((section) => {
+    const rect = section.getBoundingClientRect();
+
+    // Check if the section is partially in view
+    if (rect.top < headerHeight && rect.bottom > 0) {
+      currentSection = section.getAttribute("data-sec-title");
+    }
+  });
+
+  // Update the display with the current section title
+  currentSectionDisplay.textContent = currentSection
+    ? `${currentSection}`
+    : `${pageNum}.0. introduction`;
 }
