@@ -3,13 +3,19 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 113.1 80.2" style="enable-background:new 0 0 113.1 80.2;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke:#FD46FC;stroke-width:13;stroke-miterlimit:10;}
-	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:none;}
-	.st2{fill:#FD46FC;}
-	.st3{font-family:'DejaVuSansMono';}
-	.st4{font-size:36px;}
+	.st0{fill:none;stroke:#FD46FC;stroke-width:13;stroke-miterlimit:10;}
+	.st1{fill:none;}
+	.st2{enable-background:new    ;}
+	.st3{fill:#FD46FC;}
 </style>
 <rect x="6.5" y="6.5" class="st0" width="100.1" height="67.2"/>
 <rect x="22.8" y="24.6" class="st1" width="67.6" height="31.1"/>
-<text transform="matrix(1 0 0 1 22.7598 51.9166)" class="st2 st3 st4">www</text>
+<g class="st2">
+	<path class="st3" d="M22.8,32.2H26l3.4,15.9L32.2,38H35l2.8,10.2l3.4-15.9h3.2l-4.6,19.7h-3.1l-3.1-10.8l-3.1,10.8h-3.1L22.8,32.2z
+		"/>
+	<path class="st3" d="M44.4,32.2h3.2l3.4,15.9L53.9,38h2.8l2.8,10.2l3.4-15.9h3.2l-4.6,19.7h-3.1l-3.1-10.8l-3.1,10.8H49L44.4,32.2z
+		"/>
+	<path class="st3" d="M66.1,32.2h3.2l3.4,15.9L75.5,38h2.8l2.8,10.2l3.4-15.9h3.2l-4.6,19.7h-3.1l-3.1-10.8l-3.1,10.8h-3.1
+		L66.1,32.2z"/>
+</g>
 </svg>
