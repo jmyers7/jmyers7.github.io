@@ -65,15 +65,19 @@ nav {
   margin-top: 10px;
   font-family: "IBM Plex Mono", monospace;
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: 1em;
 }
 
-.nav-item {
+nav ul {
+  list-style-type: none;
+}
+
+nav li {
   display: inline-block;
 }
 
-nav div + div::before {
-  padding: 5px;
+nav li + li::before {
+  margin: 0 10px;
   content: "\\";
 }
 
@@ -196,15 +200,8 @@ mjx-container[jax="SVG"] > svg a[href] {
   color: #fd46fc;
 }
 
-// .post-name {
-//   position: relative;
-// }
-
 .post-name:hover .dropdown {
   display: block;
-  // text-align: left;
-  // left: 50%;
-  // transform: translateX(-50%);
   background-color: white;
   position: absolute;
   padding: 0;

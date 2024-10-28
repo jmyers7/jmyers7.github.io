@@ -1,31 +1,11 @@
 <nav>
-  
-  <div class="nav-item">
-    <a href="/" {% if page.url == "/" %}class="accent-color"{% endif %}>root</a>
-  </div>
-  
-  <div class="nav-item">
-    <a href="/about.html" {% if page.url == "/about.html" %}class="accent-color"{% endif %}>about</a>
-  </div>
-  
-  <div class="nav-item">
-    <a href="/projects.html" {% if page.url == "/projects.html" %}class="accent-color"{% endif %}>projects + writings</a>
-  </div>
-
-  <div class="nav-item">
-    <a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a>
-  </div>
-
-  <div class="nav-item">
-    <a href="https://github.com/jmyers7" target="_blank">github</a>
-  </div>
-    
-  <div class="nav-item">
-    <a href="http://www.johnmyersmath.com" target="_blank">academic website</a>
-  </div>
-
-  <div class="nav-item">
-    <a href="mailto:jmmyers25@gmail.com">email</a>
-  </div>
-      
+  <ul class="navbar">
+    <li><a href="/" {% if page.url == "/" %}class="accent-color"{% endif %}>root</a></li><li><a href="/about.html" {% if page.url == "/about.html" %}class="accent-color"{% endif %}>about</a></li><li><a href="/projects.html" {% if page.url == "/projects.html" %}class="accent-color"{% endif %}>projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+  </ul>
 </nav>
+
+<script>
+  hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
+  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
+  hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
+</script>

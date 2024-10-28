@@ -142,3 +142,9 @@ function updateCurrentSectionOnScroll(pageNum, currentSectionId, headerId) {
     ? `${currentSection}`
     : `${pageNum}.0. introduction`;
 }
+
+function hoverImage(imgId, blackImgSrc, accentImgSrc) {
+  const image = document.getElementById(imgId);
+  image.addEventListener("mouseover", () => (image.src = accentImgSrc));
+  image.addEventListener("mouseout", () => (image.src = blackImgSrc));
+}

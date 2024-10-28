@@ -21,11 +21,13 @@ html { scroll-behavior: smooth; }
 .content-container { margin-left: auto; margin-right: auto; width: 75%; }
 
 /**************** navbar stuff ****************/
-nav { margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-weight: 400; font-size: 0.8em; }
+nav { margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-weight: 400; font-size: 1em; }
 
-.nav-item { display: inline-block; }
+nav ul { list-style-type: none; }
 
-nav div + div::before { padding: 5px; content: "\\"; }
+nav li { display: inline-block; }
+
+nav li + li::before { margin: 0 10px; content: "\\"; }
 
 nav a { text-decoration: none; }
 
