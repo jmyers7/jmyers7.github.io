@@ -71,20 +71,25 @@ function createCodeBlock(containerId, codeText) {
 }
 
 function makeDefns(pageNum) {
-  const defns = document.querySelectorAll(".defn");
+  const defns = document.querySelectorAll(".highlight-box");
   defns.forEach((defn, idx) => {
+    let title = defn.id.split("-").pop();
+    if (title === "defn") {
+      title = "Definition";
+    } else if (title === "thm") {
+      title = "Theorem";
+    }
     defn.insertAdjacentHTML(
       "afterbegin",
-      `<div style="font-weight: bold; margin-top: 10px; font-size: 1.2em;">Definition ${pageNum}.${
-        idx + 1
-      }.</div>`
+      '<div style="font-weight: bold; margin-top: 10px; font-size: 1.2em;">' +
+        `${title} ${pageNum}.${idx + 1}.</div>`
     );
   });
 }
 
 function refDefn(pageNum, defnId) {
   const spanId = defnId + "-ref";
-  const defns = document.querySelectorAll(".defn");
+  const defns = document.querySelectorAll(".highlight-box");
   let defnNumber;
   for (let i = 0; i < defns.length; i++) {
     if (defns[i].id === defnId) {
@@ -92,9 +97,17 @@ function refDefn(pageNum, defnId) {
       break;
     }
   }
+
+  let title = defnId.split("-").pop();
+    if (title === "defn") {
+      title = "Definition";
+    } else if (title === "thm") {
+      title = "Theorem";
+    }
+
   document.getElementById(
     spanId
-  ).innerHTML = `<a href="#${defnId}">Definition ${pageNum}.${defnNumber}</a>`;
+  ).innerHTML = `<a href="#${defnId}">${title} ${pageNum}.${defnNumber}</a>`;
 }
 
 function adjustContentPadding(headerId, contentId, offset = 0) {
@@ -143,8 +156,14 @@ function updateCurrentSectionOnScroll(pageNum, currentSectionId, headerId) {
     : `${pageNum}.0. introduction`;
 }
 
-function hoverImage(imgId, blackImgSrc, accentImgSrc) {
+function hoverImage(imgId, blackImgSrc, accentImgSrc, altTargetId = null) {
   const image = document.getElementById(imgId);
   image.addEventListener("mouseover", () => (image.src = accentImgSrc));
   image.addEventListener("mouseout", () => (image.src = blackImgSrc));
+
+ if (altTargetId !== null) {
+  const altElement = document.getElementById(altTargetId);
+  altElement.addEventListener("mouseover", () => (image.src = accentImgSrc));
+  altElement.addEventListener("mouseout", () => (image.src = blackImgSrc));
+ } 
 }

@@ -44,34 +44,22 @@
 </script>
         <div class="post-title">
           <div>a geometric and topological toolkit</div>
-            4. the algebraic theory II&#58 ringed spaces<br>
-            <span class="post-name">
-              <span id="current-section">introduction</span>
+            <span>4. the algebraic theory II&#58 ringed spaces</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
               <div class="dropdown">
                 <ul>
-                  <li>
-                    <a href="#">4.0. introduction</a>
-                  </li>
+                  <li><a href="#">4.0. introduction</a></li>
                   
-                    <li>
-                      <a href="#prerequisites">4.1. prerequisites</a>
-                    </li>
+                    <li><a href="#prerequisites">4.1. prerequisites</a></li>
                   
-                    <li>
-                      <a href="#sheaves-in-general">4.2. sheaves in general</a>
-                    </li>
+                    <li><a href="#sheaves-in-general">4.2. sheaves in general</a></li>
                   
-                    <li>
-                      <a href="#ringed-spaces">4.3. ringed spaces</a>
-                    </li>
+                    <li><a href="#ringed-spaces">4.3. ringed spaces</a></li>
                   
-                    <li>
-                      <a href="#abstract-manifolds-as-locally-ringed-spaces">4.4. abstract manifolds as locally ringed spaces</a>
-                    </li>
+                    <li><a href="#abstract-manifolds-as-locally-ringed-spaces">4.4. abstract manifolds as locally ringed spaces</a></li>
                   
-                    <li>
-                      <a href="#references">4.5. references</a>
-                    </li>
+                    <li><a href="#references">4.5. references</a></li>
                   
                 </ul>
               </div>
@@ -652,6 +640,9 @@ C^\infty(S^2) \cong \frac{C^\infty(\bbr^3)}{(x^2+y^2+z^2-1)},
 
       window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
       window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
     </script>
   </body>
 </html>

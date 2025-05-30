@@ -44,46 +44,28 @@
 </script>
         <div class="post-title">
           <div>a geometric and topological toolkit</div>
-            3. the algebraic theory I&#58 vector fields + derivations<br>
-            <span class="post-name">
-              <span id="current-section">introduction</span>
+            <span>3. the algebraic theory I&#58 vector fields + derivations</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
               <div class="dropdown">
                 <ul>
-                  <li>
-                    <a href="#">3.0. introduction</a>
-                  </li>
+                  <li><a href="#">3.0. introduction</a></li>
                   
-                    <li>
-                      <a href="#prerequisites">3.1. prerequisites</a>
-                    </li>
+                    <li><a href="#prerequisites">3.1. prerequisites</a></li>
                   
-                    <li>
-                      <a href="#vector-fields">3.2. vector fields</a>
-                    </li>
+                    <li><a href="#vector-fields">3.2. vector fields</a></li>
                   
-                    <li>
-                      <a href="#a-first-glimpse-of-sheaves">3.3. a first glimpse of sheaves</a>
-                    </li>
+                    <li><a href="#a-first-glimpse-of-sheaves">3.3. a first glimpse of sheaves</a></li>
                   
-                    <li>
-                      <a href="#tangent-vectors-and-vector-fields-as-derivations">3.4. tangent vectors and vector fields as derivations</a>
-                    </li>
+                    <li><a href="#tangent-vectors-and-vector-fields-as-derivations">3.4. tangent vectors and vector fields as derivations</a></li>
                   
-                    <li>
-                      <a href="#an-interlude-on-cotangent-spaces">3.5. an interlude on cotangent spaces</a>
-                    </li>
+                    <li><a href="#an-interlude-on-cotangent-spaces">3.5. an interlude on cotangent spaces</a></li>
                   
-                    <li>
-                      <a href="#zariski-tangent-spaces-and-a-summary-of-the-five-fundamental-functors">3.6. Zariski tangent spaces and a summary of the five fundamental functors</a>
-                    </li>
+                    <li><a href="#zariski-tangent-spaces-and-a-summary-of-the-five-fundamental-functors">3.6. Zariski tangent spaces and a summary of the five fundamental functors</a></li>
                   
-                    <li>
-                      <a href="#further-reading">3.7. further reading</a>
-                    </li>
+                    <li><a href="#further-reading">3.7. further reading</a></li>
                   
-                    <li>
-                      <a href="#references-and-footnotes">3.8. references and footnotes</a>
-                    </li>
+                    <li><a href="#references-and-footnotes">3.8. references and footnotes</a></li>
                   
                 </ul>
               </div>
@@ -1413,6 +1395,9 @@ T_p(M) \xrightarrow{\Omega_{M,p}} (\mfm_{M,p}/\mfm_{M,p}^2)^\ast \xrightarrow{\P
 
       window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
       window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
     </script>
   </body>
 </html>

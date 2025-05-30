@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>classical mechanics II&#58 symmetry</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
+    <script src="/assets/js/prism.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "y";
+    </script>
+  </head>
+
+  <body>
+    <div class="header-container" id="header">
+      <nav>
+  <ul class="navbar">
+    <li><a href="/">root</a></li><li><a href="/about.html">about</a></li><li><a href="/projects.html" class="accent-color">projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+  </ul>
+</nav>
+
+<script>
+  hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
+  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
+  hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
+</script>
+        <div class="post-title">
+          <div>the mathematical structures of physics</div>
+            <span>y. classical mechanics II&#58 symmetry</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
+              <div class="dropdown">
+                <ul>
+                  <li><a href="#">y.0. introduction</a></li>
+                  
+                </ul>
+              </div>
+            </span>
+        </div>
+    </div>
+
+    <div class="content-container post" id="content">
+      <div class="post-title">
+  <h1 class="accent-color">classical mechanics II: symmetry</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Continuous groups of symmetries</li>
+  <li>Smooth groups of symmetries, a.k.a., Lie groups</li>
+  <li>Lie algebras and vector fields</li>
+  <li>Further reading</li>
+  <li>References</li>
+</ol>
+
+<h2 id="lie-algebras-and-vector-fields">Lie algebras and vector fields</h2>
+
+<p>We begin with the definition of the central algebraic objects of this post.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>(real) Lie algebra</em> is an $\bbr$-vector space $\mfg$ equipped with a bilinear operation</p>
+
+  <p>\begin{equation}\notag
+[-,-]: \mfg \otimes_\bbr \mfg \to \mfg, \quad (X,Y) \mapsto [X,Y],
+\end{equation}</p>
+
+  <p>called the <em>bracket</em>, such that:</p>
+
+  <ol>
+    <li>The bracket is antisymmetric, i.e., $[X,Y] = -[Y,X]$, for all $X,Y\in \mfg$.</li>
+    <li>The bracket satisfies the <em>Jacobi identity</em>, i.e.,
+ \begin{equation}\notag
+ [X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]]=0,
+ \end{equation}
+for all $X,Y,Z\in \mfg$.</li>
+  </ol>
+
+  <p>If $\mfh$ is a second Lie algebra, then an $\bbr$-linear map $\phi: \mfg \to \mfh$ is called a <em>Lie algebra homomorphism</em> if</p>
+
+  <p>\begin{equation}\notag
+\phi[X,Y] = [\phi X, \phi Y], \quad \forall X,Y\in \mfg.
+\end{equation}</p>
+
+  <p>Note that the bracket on the left-hand side of this equation is the one in $\mfg$, while the bracket on the right-hand side is in $\mfh$.</p>
+</div>
+
+<p>You should think of the bracket of a Lie algebra as a non-associative multiplication, so that the “product” of $X$ and $Y$ in $\mfg$ is $[X,Y]$. This looks a bit strange at first glance, since we are used to representing multiplications via juxtaposition of symbols, as in $XY$. Nevertheless, you should think of a Lie algebra as a special type of non-associative algebra. We will encounter more types as we progress through this series of posts.</p>
+
+<p>Perhaps the first examples that we all see of Lie algebras are endomorphisms of vector spaces:</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $V$ be an $\bbr$-vector space. Define $\gl(V)$ to be the $\bbr$-vector space of all $\bbr$-linear endomorphisms. Given $\alpha,\beta \in \gl(V)$, define</p>
+
+  <p>\begin{equation}\label{comm-eqn}
+[\alpha,\beta] = \alpha \circ \beta - \beta \circ \alpha.
+\end{equation}</p>
+
+  <p>With \eqref{comm-eqn} as the bracket, prove that $\gl(V)$ is a Lie algebra.</p>
+</div>
+
+<p>The bracket \eqref{comm-eqn} is called the <em>commutator bracket</em>, or just the <em>commutator</em>.</p>
+
+<p>Lie algebras will appear in our work in three guises: As Lie algebras of derivations, as vector fields, and—in the next post—as infinitesimal symmetries. While the first manifestation is purely algebraic, and the latter two are geometric, all three sources of Lie algebras are tightly linked with one another and one of our goals over this post and the next is to discover these relations.</p>
+
+<p>Let’s discuss the first source of Lie algebras, as algebras of derivations. It turns out that these gadgets are related to the Lie algebras of endomorphisms discovered above. For our purposes, it will suffice to let $A$ be a (possibly non-associative) real algebra, e.g., $A$ could be a Lie algebra, or an associative commutative algebra. We recall that a <em>derivation</em> on $A$ is an $\bbr$-linear endomorphism $\delta: A \to A$ such that</p>
+
+<p>\begin{equation}\notag
+\delta(a\cdot b) = \delta(a) \cdot b + a \cdot \delta(b), \quad \forall a,b\in A,
+\end{equation}</p>
+
+<p>where $\cdot$ denotes the (possibly non-associative) multiplication in $A$. In this post, we will write $\Der(A)$ for the $\bbr$-vector space of all derivations on $A$, which was written as $\Der_\bbr(A,A)$ in our <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields and derivations.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let the notation be as above.</p>
+
+  <ol>
+    <li>Prove that $\Der(A)$ is a vector subspace of $\gl(A)$.</li>
+    <li>Given two derivations $\delta$ and $\eta$ in $\Der(A)$, prove that their commutator
+ \begin{equation}\notag
+ [\delta,\eta] = \delta \circ \eta - \eta \circ \delta
+ \end{equation}
+is a derivation in $\Der(A)$.</li>
+    <li>Conclude that $\Der(A)$ is a <em>Lie subalgebra</em> of $\gl(A)$, in the sense that the inclusion map $\Der(A) \to \gl(A)$ is a Lie algebra homomorphism.</li>
+  </ol>
+</div>
+
+<p>Though the next constructions appear to be excessively formal, they will prove to be very important by the end of this section.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Let $G$ be a group with multiplication $\ast$. Define the <em>opposite group</em> of $G$, denoted $G^\op$, to be equal to $G$ as a set, but with <em>opposite multiplication</em> $\ast^\op$ given by
+ \begin{equation}\notag
+ g \ast^\op h = h \ast g, \quad g,h\in G^\op.
+ \end{equation}
+Equipped with this multiplication, prove that $G^\op$ is a group.</li>
+    <li>Let $\mfg$ be a Lie algebra with bracket $[-,-]$. Define the <em>opposite Lie algebra</em> of $\mfg$, denoted $\mfg^\op$, to be equal to $\mfg$ as a vector space, but with <em>opposite bracket</em> $[-,-]^\op$ given by
+ \begin{equation}\notag
+ [X,Y]^\op = -[X,Y], \quad X,Y\in \mfg^\op.
+ \end{equation}
+Equipped with this bracket, prove that $\mfg^\op$ is a Lie algebra.</li>
+  </ol>
+</div>
+
+<p>Due to antisymmetry of Lie brackets, notice that the opposite Lie bracket is equivalently given by</p>
+
+<p>\begin{equation}\notag
+[X,Y]^\op = [Y,X], \quad X,Y\in \mfg^\op.
+\end{equation}</p>
+
+<p>If the original bracket $[-,-]$ on $\mfg$ happens to be a commutator bracket, then the opposite bracket is often called the <em>anticommutator bracket</em> or just <em>anticommutator</em>.</p>
+
+<p>Having considered only algebra so far, let’s now bring in the geometry. First:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a smooth manifold.</p>
+
+  <ol>
+    <li>We define
+ \begin{equation}\notag
+ \Aut(M) = \Aut(C^\infty(M)),
+ \end{equation}
+where the right-hand side is the group of all $\bbr$-algebra automorphisms of the algebra of smooth functions $C^\infty(M)$.</li>
+    <li>We define $\Diff(M)$ to be the group of all self-diffeomorphisms $\phi: M \to M$.</li>
+    <li>We define
+ \begin{equation}\notag
+ \Der(M) = \Der(C^\infty(M)).
+ \end{equation}</li>
+    <li>We define $\calx(M)$ to be the vector space of all smooth vector bundles on $M$, i.e., the space of all smooth sections of the tangent bundle $TM$.</li>
+  </ol>
+</div>
+
+<p>Of course, we already knew the definition of $\calx(M)$, but I wanted to include it so that I have four objects to pair off as</p>
+
+<div class="highlight-box2">
+  <p>\begin{equation}\label{pairing-eqn}
+\Diff(M) \leftrightarrow \Aut(M) \quad \text{and} \quad \calx(M) \leftrightarrow \Der(M).
+\end{equation}</p>
+</div>
+
+<p>You should think of the objects on the right-hand sides of these pairings as algebraic avatars of the objects on the left-hand sides. In fact, as we saw in an <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a>, the two objects $\calx(M)$ and $\Der(M)$ are linearly isomorphic via an isomorphism that we denoted by $\Xi_M$. But now that we know the definition of a Lie derivative (from the <a href="/the%20mathematical%20structures%20of%20physics/2023/05/11/physics1.html">previous post</a> in this series), we recognize that this linear isomorphism $\Xi_M$ is nothing but the Lie derivative operation</p>
+
+<p>\begin{equation}\notag
+\call : \calx(M) \xrightarrow{\cong} \Der(M), \quad X \mapsto \call_X,
+\end{equation}</p>
+
+<p>where</p>
+
+<p>\begin{equation}\notag
+(\call_X f)(x) = \d f_x (X_x), \quad f\in C^\infty(M), \ x\in M.
+\end{equation}</p>
+
+<p>Now, neither of the two groups $\Aut(M)$ and $\Diff(M)$ are technically Lie groups, as they might be infinite-dimensional. Nevertheless, merely for sake of intuition, it is often convenient to pretend that they <em>are</em> Lie groups, and that $\Der(M)$ is the Lie algebra of $\Aut(M)$, while $\calx(M)$ is the Lie algebra of $\Diff(M)$. There’s a slight problem of course, because the space $\calx(M)$ has not been assigned a Lie bracket yet; ignoring this for the moment, note that if $\Diff(M)$ <em>were</em> a Lie group, then we know from Lie theory that its Lie algebra would be in one-to-one correspondence with the set of all one-parameter subgroups which, by definition, are smooth group homomorphisms</p>
+
+<p>\begin{equation}\notag
+\theta: \bbr \to \Diff(M), \quad t\mapsto \theta_t.
+\end{equation}</p>
+
+<p>But we know from the Fundamental Theorem of Flows in the <a href="/the%20mathematical%20structures%20of%20physics/2023/05/11/physics1.html">previous post</a> that such subgroups are in one-to-one correspondence with $\calx(M)$, at least if all vector fields on $M$ are complete. Thus, our intuition that $\calx(M)$ is the Lie algebra of the “Lie group” $\Diff(M)$ is (at least somewhat) justified.</p>
+
+<p>I suggest that you complete the next exercise, which gives some justification for our intuition. The first part of the exercise is entirely straightforward, and is just a check to make sure that you understand the definitions.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a smooth manifold.</p>
+
+  <ol>
+    <li>Recall that a one-parameter group of diffeomorphisms of $M$ is a group homomorphism
+ \begin{equation}\notag
+ \theta: \bbr \to \Diff(M), \quad t\mapsto \theta_t,
+ \end{equation}
+which is smooth in the sense that the “adjoint” map $(t,x) \mapsto \theta_t(x)$ is smooth. Assuming for simplicity that $M$ is compact, so that all vector fields are complete, prove that the set of one-parameter groups of diffeomorphisms of $M$ is in one-to-one correspondence with the space $\calx(M)$.</li>
+    <li>Blah!</li>
+  </ol>
+</div>
+
+<p>We could give $\calx(M)$ the Lie bracket that it inherits from $\Der(M)$ under the isomorphism $\call$, but it turns out that (for our purposes, at least) it is more natural to give $\calx(M)$ the bracket induced by the <em>anticommutator</em> on $\Der{M}$, so that $\call$ induces an isomorphism</p>
+
+<p>\begin{equation}\label{lie-op-eqn}
+\call: \calx(M) \xrightarrow{\cong} \Der(M)^\op, \quad X \mapsto \call_X,
+\end{equation}</p>
+
+<p>of Lie algebras. In other words, the bracket on $\calx(M)$ is cooked up so that</p>
+
+<p>\begin{equation}\notag
+\call_{[X,Y]} = -[\call_X,\call_Y], \quad \forall X,Y\in \calx(M),
+\end{equation}</p>
+
+<p>where the bracket on the left-hand side is the one in $\calx(M)$, while the bracket on the right is the commutator bracket in $\Der(M)$. Let’s make this official:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a smooth manifold. We define the <em>Lie bracket</em> of $X,Y\in \calx(M)$, denoted $[X,Y]$, to be the unique vector field on $M$ such that</p>
+
+  <p>\begin{equation}\label{vec-bracket-eqn}
+\call_{[X,Y]} = -[\call_X,\call_Y],
+\end{equation}</p>
+
+  <p>where the bracket on the right-hand side is the commutator bracket in $\Der(M)$. Equipped with this bracket, $\calx(M)$ is a Lie algebra.</p>
+</div>
+
+<p>The motivation for this definition \eqref{vec-bracket-eqn} comes from the intuition mentioned above that $\calx(M)$ and $\Der(M)$ should be the Lie algebras of the “Lie groups” $\Diff(M)$ and $\Aut(M)$. Indeed, from this perspective, the isomorphism \eqref{lie-op-eqn} given by Lie differentiation should be the “derivative” of the natural pullback map</p>
+
+<p>\begin{equation}\notag
+(-)^\ast : \Diff(M) \to \Aut(M), \quad \varphi \mapsto \varphi^\ast,
+\end{equation}</p>
+
+<p>where</p>
+
+<p>\begin{equation}\notag
+\phi^\ast f = f\circ \varphi, \quad f\in C^\infty(M).
+\end{equation}</p>
+
+<p>But notice that this pullback map reverses the group operations, in the sense that</p>
+
+<p>\begin{equation}\notag
+(\psi \circ \varphi)^\ast = \varphi^\ast \circ \psi^\ast, \quad \forall \varphi,\psi \in \Diff(M),
+\end{equation}</p>
+
+<p>and so $(-)^\ast$ yields a group homomorphism</p>
+
+<p>\begin{equation}\notag
+(-)^\ast : \Diff(M) \to \Aut(M)^\op.
+\end{equation}</p>
+
+<p>Let’s make this an official definition:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a smooth manifold. With the space $\calx(M)$ of smooth vector fields on $M$ defined as the space \eqref{der-eqn} of derivations, $\calx(M)$ is a Lie algebra when equipped with the commutator bracket</p>
+
+  <p>\begin{equation}\notag
+[X,Y] = X \circ Y - Y \circ X, \quad X,Y\in \calx(M).
+\end{equation}</p>
+</div>
+
+<p>However, provided that our manifold $M$ is embedded in some ambient cartesian space $\bbr^m$, there is an alternate “geometric” description of the Lie algebra structure on $\calx(M)$ that arises from an alternate definition of $\calx(M)$ itself. Indeed, recall that in this situation, each tangent space $T_xM$ may be identified with a linear subspace of $\bbr^m$, and a vector field $X$ on $M$ may be identified with a smooth map</p>
+
+<p>\begin{equation}\label{geo-eqn}
+X: M \to \bbr^m, \quad x\mapsto X(x),
+\end{equation}</p>
+
+<p>to the ambient cartesian space such that</p>
+
+<p>\begin{equation}\label{geo2-eqn}
+X(x) \in T_xM, \quad \forall x\in M.
+\end{equation}</p>
+
+<p>We will call such a map \eqref{geo-eqn} satisfying \eqref{geo2-eqn} a <em>geometric vector field</em> on $M$, to distinguish it from a vector field defined as a derivation in \eqref{der-eqn}. The $\bbr$-vector space of all geometric vector fields will be denoted $\calx_\text{geo}(M)$.</p>
+
+<p>As we saw in an <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a>, the two spaces of vector fields are isomorphic, via an isomorphism that we denoted</p>
+
+<p>\begin{equation}\notag
+\Xi : \calx_\text{geo}(M) \to \calx(M),
+\end{equation}</p>
+
+<p>whose action is given by</p>
+
+<p>\begin{equation}\label{xi-eqn}
+\left[\Xi(X)\right](f)(x) = \d f_x (X(x)), \quad f\in C^\infty(M), \ x\in M.
+\end{equation}</p>
+
+<p>Now, in the case that our manifold is embedded in a cartesian space, here is the “geometric” definition of the bracket:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be an embedded submanifold of $\bbr^m$. We define the <em>bracket</em> of two geometric vector fields $X$ and $Y$ on $M$, denoted $[X,Y]$, to be the smooth map with</p>
+
+  <p>\begin{equation}\label{brack-def-eqn}
+[X,Y] (x) = Y_{\ast,x}(X(x)) - X_{\ast,x}(Y(x)), \quad x\in M.
+\end{equation}</p>
+</div>
+
+<p>Thus, the bracket $[X,Y]$ is a smooth map $M\to \bbr^m$, but it is not at all obvious that it is actually a geometric vector field, i.e.,</p>
+
+<p>\begin{equation}\notag
+[X,Y](x) \in T_xM, \quad \forall x\in M.
+\end{equation}</p>
+
+<p>But this is actually true! One way to prove this is to give local coordinate descriptions of the bracket:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Brackets of geometric vector fields in coordinates).</strong> Let $M$ be an embedded submanifold of $\bbr^m$ and $X$ and $Y$ two geometric vector fields on $M$. If $\bd_1,\ldots,\bd_n$ is the coordinate local frame on an open parametrizable subset $U$ with local coordinates $x^1,\ldots,x^n$, and if</p>
+
+  <p>\begin{equation}\notag
+X = X^i \bd_i \quad \text{and} \quad Y = Y^i \bd_i
+\end{equation}</p>
+
+  <p>on $U$, then</p>
+
+  <p>\begin{equation}\notag
+[X,Y](x) = \left(X^i(x) \frac{\bd Y^j}{\bd x^i}(x) - Y^i(x) \frac{\bd X^j}{\bd x^i}(x) \right) \bd_j|_x, \quad \forall x\in U.
+\end{equation}</p>
+
+  <p>In particular, the bracket $[X,Y]$ is a geometric vector field on $M$.</p>
+</div>
+
+<p>To prove the theorem, we first fix some notation:</p>
+
+<ol>
+  <li>We let $\phi: \bbr^n \to U$ be the local parametrization corresponding to the local coordinates $x^1,\ldots,x^n$.</li>
+  <li>We let $t^1,\ldots,t^n$ be the standard global euclidean coordinates on $\bbr^n$.</li>
+  <li>We let $u_1,\ldots,u_n$ be the standard ordered basis of $\bbr^n$.</li>
+  <li>We let $v_1,\ldots,v_m$ be the standard ordered basis of $\bbr^m$.</li>
+</ol>
+
+<p>Now, as you may easily check, we have</p>
+
+<p>\begin{equation}\notag
+X\circ \phi = a^j \frac{ \bd \phi^k}{\bd t^j} v_k \quad \text{and} \quad Y\circ \phi = b^j \frac{ \bd \phi^k}{\bd t^j} v_k
+\end{equation}</p>
+
+<p>where $a^j = X^j \circ \phi$ and $b^j = Y^j \circ \phi$. Given $x\in U$ with $\phi(t)=x$, we have</p>
+
+<p>\begin{equation}\notag
+\phi_{\ast,t}(a^i(t)u_i) = X(x) \quad \text{and} \quad \phi_{\ast,t}(b^i(t)u_i) = Y(x).
+\end{equation}</p>
+
+<p>Thus, by the Chain Rule, we get</p>
+
+<p>\begin{equation}\label{sput1-eqn}
+X_{\ast,x}(Y(x)) = b^i(t) \frac{\bd a^j}{\bd t^i}(t) \frac{\bd \phi^k}{\bd t^j}(t)v_k + a^j(t)b^i(t) \frac{\bd ^2 \phi^k}{\bd t^i \bd t^j}(t) v_k
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\label{sput2-eqn}
+Y_{\ast,x}(X(x)) = a^i(t) \frac{\bd b^j}{\bd t^i}(t) \frac{\bd \phi^k}{\bd t^j}(t)v_k + a^j(t)b^i(t) \frac{\bd^2 \phi^k}{\bd t^j \bd t^i}(t) v_k.
+\end{equation}</p>
+
+<p>But then</p>
+
+<p>\begin{align}
+[X,Y](x) &amp;= Y_{\ast,x}(X(x)) - X_{\ast,x}(Y(x)) \notag \\ &amp;= \left(a^i(t) \frac{\bd b^j}{\bd t^i}(t) - b^i(t) \frac{\bd a^j}{\bd t^i}(t) \right)\frac{\bd \phi^k}{\bd t^j}(t)v_k\notag \\ &amp;= \left(X^i(x) \frac{\bd Y^j}{\bd x^i}(x) - Y^i(x) \frac{\bd X^j}{\bd x^i}(x) \right)\bd_j|_x, \notag
+\end{align}</p>
+
+<p>where we used equality of the second-order mixed partial derivatives in \eqref{sput1-eqn} and \eqref{sput2-eqn} in the second equality. Q.E.D.</p>
+
+<p>Now that we know the bracket operation on geometric vector fields is well-defined, we would want to prove that we obtain a Lie algebra structure on $\calx_\text{geo}(M)$. We could prove this directly, but instead we will prove it by comparing the bracket on geometric vector fields with the commutator bracket on $\calx(M)$ through the isomorphism $\Xi$. The first step in this comparison is to obtain a local coordinate description of the commutator bracket:</p>
+
+<div class="highlight-box" id="yeah">
+  <p><strong>Theorem (Brackets of vector fields in coordinates).</strong> Let $M$ be a manifold and $X$ and $Y$ two vector fields on $M$. If $x^1,\ldots,x^n$ are local coordinates on an open parametrizable subset $U$, and if</p>
+
+  <p>\begin{equation}\notag
+X = X^i\frac{\bd}{\bd x^i} \quad \text{and} \quad Y = Y^i \frac{\bd}{\bd x^i}
+\end{equation}</p>
+
+  <p>on $U$, then</p>
+
+  <p>\begin{equation}\notag
+[X,Y] = \left(X^i\frac{\bd Y^j}{\bd x^i} - Y^i\frac{\bd X^j}{\bd x^i}\right) \frac{\bd }{\bd x^j}
+\end{equation}</p>
+
+  <p>on $U$.</p>
+</div>
+
+<p>The crucial fact used in the proof of the previous theorem was that certain second-order mixed partial derivatives were equal. This fact is also used in the current proof. Indeed, given $f\in C^\infty(U)$, we have</p>
+
+<p>\begin{align}
+Y(X(f)) &amp;= Y \left(X^j \frac{\bd f}{\bd x^j} \right) \notag \\ &amp;= Y(X^j) \frac{\bd f}{\bd x^j} + X^j Y\left(\frac{\bd f}{\bd x^j}\right) \notag \\ &amp;= Y^i\frac{\bd X^j}{\bd x^i} \frac{\bd f}{\bd x^j} + X^j Y^i \frac{\bd^2 f}{\bd x^i \bd x^j} \notag
+\end{align}</p>
+
+<p>and similarly</p>
+
+<p>\begin{equation}\notag
+X(Y(f)) = X^i\frac{\bd Y^j}{\bd x^i} \frac{\bd f}{\bd x^j} +  X^j Y^i \frac{\bd^2 f}{\bd x^j \bd x^i}.
+\end{equation}</p>
+
+<p>Thus, we have</p>
+
+<p>\begin{equation}\notag
+[X,Y] = \left(X^i\frac{\bd Y^j}{\bd x^i}  - Y^i\frac{\bd X^j}{\bd x^i}\right) \frac{\bd }{\bd x^j}
+\end{equation}</p>
+
+<p>over $U$, as desired. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Corollary.</strong> Let $M$ be an embedded submanifold of $\bbr^m$.</p>
+
+  <ol>
+    <li>The bracket of geometric vector fields defined by \eqref{brack-def-eqn} endows $\calx_\text{geo}(M)$ with the structure of a Lie algebra.</li>
+    <li>The linear isomorphism
+ \begin{equation}\notag
+ \Xi : \calx_\text{geo}(M) \to \calx(M)
+ \end{equation}
+defined as in \eqref{xi-eqn} is an isomorphism of Lie algebras.</li>
+  </ol>
+</div>
+
+<p>To prove both statements, it suffices to prove</p>
+
+<p>\begin{equation}\notag
+\Xi([X,Y]) = [\Xi(X),\Xi(Y)], \quad \forall X,Y\in \calx_\text{geo}(M).
+\end{equation}</p>
+
+<p>But this equality may be verified locally over an open parametrizable subset, which is an easy check using the local coordinate descriptions in the previous two theorems. I will leave the details to you. Q.E.D.</p>
+
+<div class="highlight-box2">
+  <p><strong>Summary.</strong> Let $M$ be a manifold. The space of vector fields $\calx(M)$ is always a Lie algebra when equipped with the commutator bracket. However, if $M$ happens to be embedded in a cartesian space, then the Lie algebra $\calx(M)$ may be replaced with the (isomorphic!) Lie algebra $\calx_\text{geo}(M)$ of geometric vector fields.</p>
+</div>
+
+<p>In the embedded case, the advantage of working with $\calx_\text{geo}(X)$ in place of $\calx(M)$ is that geometric vector fields are typically easier to visualize. In this case, the pushforwards in the definition</p>
+
+<p>\begin{equation}\notag
+[X,Y](x) = Y_{\ast,x}(X(x)) - X_{\ast,x}(Y(x))
+\end{equation}</p>
+
+<p>may be computed as directional derivatives. If a point $x\in M$ is fixed, then these pushforwards measure the first-order infinitesimal changes in the vector fields, in the sense that</p>
+
+<p>\begin{equation}\notag
+Y(y) - Y(x) = \dev Y_{\ast,x}(X(x)) + O(\dev^2)
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+X(z) - X(x) = \dev X_{\ast,x}(Y(x)) + O(\dev^2),
+\end{equation}</p>
+
+<p>where $y=x+\dev X(x)$ and $z = x+\dev Y(x)$. The vectors on the left-hand sides of these equations (each scaled by $\dev$) may be placed into a figure of the form:</p>
+
+<p><img src="/assets/images/lie-bracket.png" alt="sum" style="margin: 40px auto; display: block; width: 50%;" /></p>
+
+<p>Thus, we see that the bracket $[X,Y]$ of geometric vector fields at a point $x$ measures the second-order infinitesimal deviation of the displayed parallelogram from being “closed.” In other words, if $[X,Y](x)=0$, then the two blue dots in the upper right-hand corner of the figure coincide, at least up to second-order infinitesimals.</p>
+
+<p>While these constructions only apply to geometric vector fields on embedded manifolds and not general vector fields on general manifolds, we <em>still</em> often use these intuitions for understanding the commutator bracket $[X,Y]$ of general vector fields.</p>
+
+<p>Before we finish this section, it will be important for us to establish a connection between commutator brackets and the Lie derivatives defined in the <a href="/the%20mathematical%20structures%20of%20physics/2023/05/11/physics1.html">previous post</a>. This is a completely general relationship, and it works over any manifold, whether assumed embedded in a cartesian space or not. It is quite remarkable, as it shows that the Lie derivative, with its rather complicated definition in terms of flows, has a very simple description in terms of commutators.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Lie derivatives $=$ commutator brackets).</strong> Let $M$ be a manifold and $X$ and $Y$ two vector fields on $M$. Then</p>
+
+  <p>\begin{equation}\notag
+\call_X Y = [X,Y],
+\end{equation}</p>
+
+  <p>where the bracket on the right is the commutator bracket.</p>
+</div>
+
+<p>Assume for simplicity that the flow $\theta_t$ generated by $X$ is global, though this isn’t strictly required. Given a function $f\in C^\infty(M)$, we define a family $f_t$ of smooth functions on $M$ by setting</p>
+
+<p>\begin{equation}\notag
+f_t = f \circ \theta_t.
+\end{equation}</p>
+
+<p>Since for each $x\in M$ the function</p>
+
+<p>\begin{equation}\notag
+t\mapsto f_t(x) - f(x)
+\end{equation}</p>
+
+<p>vanishes at $t=0$, we may factor out a $t$ to obtain</p>
+
+<p>\begin{equation}\notag
+f_t(x) - f(x) = t g_t(x),
+\end{equation}</p>
+
+<p>where $g_t$ is a smooth family of smooth functions on $M$. Indeed, we simply define</p>
+
+<p>\begin{equation}\notag
+g_t(x) = \int_0^1 \frac{\bd}{\bd s}\left( f_{st}(x) - f(x) \right) \ \d s.
+\end{equation}</p>
+
+<p>Notice that</p>
+
+<p>\begin{equation}\notag
+g_0(x) = \frac{\bd}{\bd t} \Big|_{t=0} f_t(x) = \d f_x(X_x).
+\end{equation}</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<h2 id="references">References</h2>
+
+    </div>
+
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
+    </script>
+  </body>
+</html>

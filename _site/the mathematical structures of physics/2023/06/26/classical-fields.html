@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>classical fields</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
+    <script src="/assets/js/prism.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "s";
+    </script>
+  </head>
+
+  <body>
+    <div class="header-container" id="header">
+      <nav>
+  <ul class="navbar">
+    <li><a href="/">root</a></li><li><a href="/about.html">about</a></li><li><a href="/projects.html" class="accent-color">projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+  </ul>
+</nav>
+
+<script>
+  hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
+  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
+  hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
+</script>
+        <div class="post-title">
+          <div>the mathematical structures of physics</div>
+            <span>s. classical fields</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
+              <div class="dropdown">
+                <ul>
+                  <li><a href="#">s.0. introduction</a></li>
+                  
+                </ul>
+              </div>
+            </span>
+        </div>
+    </div>
+
+    <div class="content-container post" id="content">
+      <div class="post-title">
+  <h1 class="accent-color">classical fields</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li></li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="functionals">Functionals</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a subset of $\bbr^m$, $V$ a real vector space, and write $\calf$ for a subset of the set of all functions $M \to V$. Given an integer $n\geq 1$, a <em>real-valued $n$-functional</em> is a function on the $n$-fold cartesian product $\calf^n$:</p>
+
+  <p>\begin{equation}\notag
+F: \calf^n \to \bbr, \quad \phi \mapsto F(\phi),
+\end{equation}</p>
+
+  <p>where $\phi = (\phi_1,\ldots,\phi_n)$. One obtains <em>complex-valued $n$-functionals</em> by changing $\bbr$ to $\bbc$. Functions in $\calf$ are called <em>$V$-valued fields</em> on $M$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> The <em>variation</em> of an $n$-functional $F$ at $\phi$ in the direction of $\eta$ is the derivative</p>
+
+  <p>\begin{equation}\notag
+\delta F_\phi(\eta) = \frac{\d }{\d \dev} \Bigg|_{\dev=0} F(\phi + \dev \eta).
+\end{equation}</p>
+
+  <p>The <em>functional derivative</em> of $F$ at $\phi$ is a function</p>
+
+  <p>\begin{equation}\notag
+D F_\phi: M \to \Hom_\bbr{(\bbr^n,\bbr)}, \quad x \mapsto DF_\phi(x),
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\delta F_\phi(\eta) = \int \d^m x \ DF_\phi(x) \eta(x).
+\end{equation}</p>
+</div>
+
+<p>Note that</p>
+
+<p>\begin{equation}\notag
+\delta F_\phi(\eta) = \sum_{a=1}^n \frac{\d}{\d \dev}\Bigg|_{\dev=0} F(\phi_1,\ldots,\phi_a+\dev \eta_a,\ldots,\phi_n) = \int \d^m x \ \left\{\sum_{a=1}^n \frac{\delta F(\phi)}{\delta \phi_a(x)} \eta_a(x) \right\}
+\end{equation}</p>
+
+<p>where the <em>$a$-th partial functional derivative</em> in the integral is obtained by (functionally) differentiating the functional $F$ in the $a$-th slot while holding the other arguments constant:</p>
+
+<p>\begin{equation}\notag
+\frac{\d}{\d \dev}\Bigg|_{\dev=0} F(\phi_1,\ldots,\phi_a+\dev \eta_a,\ldots,\phi_n) = \int \d^m x \ \frac{\delta F(\phi)}{\delta \phi_a(x)}\eta_a(x).
+\end{equation}</p>
+
+<p>This suggests that the functional derivative $DF_\phi(x)$ is represented by the row vector of partial functional derivatives:</p>
+
+<p>\begin{equation}\notag
+[DF_\phi(x)] = \begin{bmatrix} \displaystyle\frac{\delta F(\phi)}{\delta \phi_1(x)} &amp; \cdots &amp; \displaystyle \frac{\delta F(\phi)}{\delta \phi_n(x)} \end{bmatrix}.
+\end{equation}</p>
+
+    </div>
+
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
+    </script>
+  </body>
+</html>

@@ -116,7 +116,6 @@ nav a {
   color: #486afb;
   font-size: 1.2em;
   margin-top: 10px;
-  // margin-bottom: 5px;
   width: 75%;
   text-align: left;
   margin-left: auto;
@@ -134,29 +133,21 @@ nav a {
   color: #486afb;
   position: sticky;
   font-size: 1.2em;
+  margin-left: 30px;
 }
 
 .toc {
   text-decoration: none;
 }
 
-.defn {
-  background-color: #486afb30;
-  width: 85%;
-  margin: 0 auto;
-  padding: 1px 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* deprecated! */
 .highlight-box {
   background-color: #486afb30;
   width: 85%;
-  margin: 0 auto;
+  margin: 25px auto;
   padding: 1px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .highlight-box2 {
@@ -166,6 +157,7 @@ nav a {
   padding: 1px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .highlight-box3 {
@@ -175,6 +167,7 @@ nav a {
   padding: 1px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .caption {
@@ -209,6 +202,7 @@ mjx-container[jax="SVG"] > svg a[href] {
   font-size: 0.8em;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .dropdown ul {
@@ -227,11 +221,12 @@ mjx-container[jax="SVG"] > svg a[href] {
 .code-container {
   position: relative;
   width: 85%;
-  margin: 0 auto;
+  margin: 25px auto;
   border: 1px solid #ccc;
   padding: 10px;
   background-color: #f8f8f8;
   border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .copy-button {

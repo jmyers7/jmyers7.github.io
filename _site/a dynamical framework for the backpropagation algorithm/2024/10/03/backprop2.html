@@ -44,30 +44,22 @@
 </script>
         <div class="post-title">
           <div>a dynamical framework for the backpropagation algorithm</div>
-            2. an abstract framework<br>
-            <span class="post-name">
-              <span id="current-section">introduction</span>
+            <span>2. an abstract framework</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
               <div class="dropdown">
                 <ul>
-                  <li>
-                    <a href="#">2.0. introduction</a>
-                  </li>
+                  <li><a href="#">2.0. introduction</a></li>
                   
-                    <li>
-                      <a href="#direct-sums">2.1. direct sums</a>
-                    </li>
+                    <li><a href="#direct-sums">2.1. direct sums</a></li>
                   
-                    <li>
-                      <a href="#natural-projection-and-inclusion-maps">2.2. natural projection and inclusion maps</a>
-                    </li>
+                    <li><a href="#function-spaces">2.2. function spaces</a></li>
                   
-                    <li>
-                      <a href="#matrix-representations">2.3. matrix representations</a>
-                    </li>
+                    <li><a href="#natural-projection-and-inclusion-maps">2.3. natural projection and inclusion maps</a></li>
                   
-                    <li>
-                      <a href="#norms-and-inner-products">2.4. norms and inner products</a>
-                    </li>
+                    <li><a href="#matrix-representations">2.4. matrix representations</a></li>
+                  
+                    <li><a href="#norms-and-inner-products">2.5. norms and inner products</a></li>
                   
                 </ul>
               </div>
@@ -76,7 +68,7 @@
     </div>
 
     <div class="content-container post" id="content">
-      <p>In real-world applications, the vectors that appear in the compositional graphs of neural networks (see the <a href="/a%20dynamical%20framework%20for%20the%20backpropagation%20algorithm/2024/10/02/backprop1.html">previous post</a>) are actual numerical column (or row) vectors, matrices, or tensors of higher rank. While it is certainly possible to build our theory around these concrete objects, in this series we prefer a more abstract framework in which we work with vectors drawn from abstract vector spaces:</p>
+      <p>In real-world applications, the vectors that appear in the compositional graphs of neural networks (see the <a href="/a%20dynamical%20framework%20for%20the%20backpropagation%20algorithm/2024/10/02/backprop1.html">previous post</a>) are actual numerical column (or row) vectors, matrices, or tensors of some higher rank. While it is certainly possible to build our theory around these concrete objects, in this paper we prefer a more abstract framework in which we work with vectors drawn from abstract vector spaces:</p>
 
 <html>
 <figure style="margin: 40px auto; text-align: center;">
@@ -85,15 +77,28 @@
 </figure>
 </html>
 
-<p>The two main benefits gained by working in this abstract framework are: (1) Abstraction strips away all but the most essential structure, revealing the core reasons why a piece of mathematics works the way that it does; (2) An abstract mathematical theory has wide applicability. It does not matter what sorts of objects make up a neural network—whether they be vectors, matrices, higher-rank tensors, or whatever—our theory applies as long as the objects may be viewed as vectors in an abstract vector space. However, the price to pay for these benefits is that the reader must be comfortable with abstract mathematical theories. The purpose of this post is to help the reader gain this comfort.</p>
+<p>The two main benefits gained by working in this abstract framework are:</p>
 
-<p>In the first section of this post, we discuss <em>direct sums</em>. As the reader will see in the next post, in order to define and study the dynamics on compositional graphs, we will need to combine all the ambient vector spaces (from which the vectors in a compositional graph are drawn) into a single object via this direct sum operation. Actually, when there are only finitely many vector spaces involved, the underlying vector space of a direct sum is the same as a Cartesian product, the latter of which the reader might already be familiar. However, though they share the same underlying vector space, a direct sum and a Cartesian product are technically not the same thing, since the former comes equipped with both <em>natural projection maps</em> and <em>natural inclusion maps</em>, making it an example of a (categorical) <em>biproduct</em>. These projections and inclusions will prove to be <em>very</em> important in future posts, so we discuss them at length in the second section of the current post.</p>
+<ol>
+  <li>
+    <p>Abstraction strips away all but the most essential structure, revealing the core reasons why a piece of mathematics works the way that it does;</p>
+  </li>
+  <li>
+    <p>An abstract mathematical theory has wide applicability. It does not matter what sorts of objects make up a neural network—whether they be vectors, matrices, higher-rank tensors, or whatever—our theory applies as long as the objects may be viewed as vectors in an abstract vector space.</p>
+  </li>
+</ol>
 
-<p>Another important feature of our treatment of direct sums is that we do not assume the indexing sets have a natural linear ordering. This has the benefit of simplifying some computations and formulas, along with helping us avoid unpleasant and unnatural operations like “flattening” matrices and tensors into column or row vectors.</p>
+<p>However, the price to pay for these benefits is that the reader must be comfortable with abstract mathematical theories. The purpose of this section is to help the reader gain this comfort.</p>
 
-<p>In the third section of this post, we show how the natural projection and inclusion maps allow us to represent functions between direct sums (linear or not) as “matrices” of functions between the summands. We use quotation marks since these are not matrices of numbers, and also since they may not be visualized as rectangular arrays unless the indexing sets of the direct sums are linearly ordered.</p>
+<p>As the reader will see in the next section, in order to define and study the dynamics on compositional graphs, we will need to combine all the ambient vector spaces (from which the vectors in a compositional graph are drawn) into a single vector space via an operation called a <em>direct sum</em>, which we discuss in the first part of this section. Actually, when there are only finitely many vector spaces involved, the underlying vector space of a direct sum is the same as a Cartesian product, the latter of which the reader might already be familiar. However, though they share the same underlying vector space, a direct sum and a Cartesian product are technically not the same thing, since the former comes equipped with both <em>natural projection maps</em> and <em>natural inclusion maps</em>, making it an example of a (categorical) <em>biproduct</em>. These projections and inclusions will prove to be <em>very</em> important in future sections, so we discuss them at length in the third part of this section.</p>
 
-<p>The fourth section contains a brief description of <em>norms</em> and <em>inner products</em>. In fact, while our definition of an abstract compositional graph uses only vector space structures, in order to compute derivatives over compositional graphs one needs the vector spaces to be normed, while an inner product is required in order to compute gradients (for use in the gradient descent algorithm, for example).</p>
+<!-- Another important feature of our treatment of direct sums is that we do not assume the indexing sets have a natural linear ordering. This has the benefit of simplifying some computations and formulas, along with helping us avoid unpleasant and unnatural operations like "flattening" matrices and tensors into column or row vectors. -->
+
+<p>In the four part, we show how the natural projection and inclusion maps allow us to represent functions between direct sums (linear or not) as “matrices” of functions between the summands. We use quotation marks since these are not matrices of numbers, and also since they may not be visualized as rectangular arrays unless the indexing sets of the direct sums are linearly ordered.</p>
+
+<p>The fifth part contains a brief description of <em>norms</em> and <em>inner products</em>. In fact, while our definition of an abstract compositional graph uses only vector space structures, in order to compute derivatives over compositional graphs one needs the vector spaces to be normed, while an inner product is required in order to compute gradients (for use in the gradient descent algorithm, for example).</p>
+
+<!-- direct sums -->
 
 <section data-sec-title="2.1. direct sums">
   <h2 id="direct-sums">2.1. direct sums</h2>
@@ -130,7 +135,7 @@ v: \Lambda \to \bigcup_{\lambda \in \Lambda} V_\lambda, \quad \lambda \mapsto v_
 
   <p>The official definition is as follows:</p>
 
-  <div class="defn" id="direct-sum">
+  <div class="highlight-box" id="direct-sum-defn">
     <p>Let $\{V_\lambda\}_{\lambda\in \Lambda}$ be a set of vector spaces, indexed by a finite set $\Lambda$. The <em>direct sum</em> of these vector spaces, denoted
     \begin{equation}\notag
     \bigoplus_{\lambda \in \Lambda} V_\lambda,
@@ -159,10 +164,38 @@ for vectors $v = (v_\lambda)_\lambda$ and $v’ = (v’_\lambda)_\lambda$ in the
   <p>may be identified with the space of all $2\times 3$ matrices. Spaces of tensors of higher rank may be obtained as direct sums in a similar fashion.</p>
 </section>
 
-<section data-sec-title="2.2. natural projection and inclusion maps">
-  <h2 id="natural-projection-and-inclusion-maps">2.2. natural projection and inclusion maps</h2>
+<!-- function spaces -->
 
-  <p>The direct sum of vector spaces comes with more structure than just its vector space operations; indeed, it comes with certain special types of maps called <em>natural projections</em> and <em>natural inclusions</em> that give it the structure of a categorical <a href="https://en.wikipedia.org/wiki/Biproduct" target="_blank"><em>biproduct</em></a>. To describe these maps, it will be convenient to consider a direct sum of the form</p>
+<section data-sec-title="2.2. function spaces">
+  <h2 id="function-spaces">2.2. function spaces</h2>
+
+  <p>One of the primary classes of vector spaces appearing in this paper are function spaces. In this short part, we define them:</p>
+
+  <div class="highlight-box" id="func-space-defn">
+
+    <p>If $U$ and $V$ are vector spaces, we shall write</p>
+
+\[\Fun(U,V)\]
+
+    <p>for the vector space of all functions $f:U \to V$ (not necessarily linear). The vector space operations are the usual point-wise ones; for example, the sum $f+g$ of two functions in $\Fun(U,V)$ is defined via the formula</p>
+
+\[(f+g)(u) = f(u) + f(u),\]
+
+    <p>for all $u\in U$. The zero vector in $\Fun(U,V)$, denoted $\zero$, is defined via the formula</p>
+
+\[\zero(u) = 0,\]
+
+    <p>for all $u\in U$.</p>
+
+  </div>
+</section>
+
+<!-- natural projection and inclusion maps -->
+
+<section data-sec-title="2.3. natural projection and inclusion maps">
+  <h2 id="natural-projection-and-inclusion-maps">2.3. natural projection and inclusion maps</h2>
+
+  <p>The direct sum of vector spaces comes with more structure than just its vector space operations; indeed, it comes with certain special types of maps called <em>natural projections</em> and <em>natural inclusions</em> that give it the structure of a categorical <a href="https://en.wikipedia.org/wiki/Biproduct" target="_blank"><em>biproduct</em></a>. To describe these maps, we begin with a simple example of a direct sum of the form</p>
 
 \[V_1 \oplus V_2 \oplus V_3 \def \bigoplus_{\lambda \in \{1,2,3\}} V_\lambda,\]
 
@@ -185,7 +218,7 @@ for vectors $v = (v_\lambda)_\lambda$ and $v’ = (v’_\lambda)_\lambda$ in the
 
   <p>For an arbitrary direct sum, the definitions of these maps are as follows:</p>
 
-  <div class="defn" id="nat-proj-inc">
+  <div class="highlight-box" id="nat-proj-inc-defn">
     <p>Let $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$ be a vector space written as a direct sum. For each $\lambda\in \Lambda$, define the linear maps
     \begin{equation}\notag
     \pi_\lambda:V \to V_\lambda, \quad \pi_\lambda( v ) = v_\lambda
@@ -200,45 +233,44 @@ and
 We call $\pi_\lambda$ and $\iota_\lambda$ a <em>natural projection map</em> and <em>natural inclusion map</em>, respectively.</p>
   </div>
 
-  <p>The natural projection and inclusion maps have certain properties that will be of fundamental importance in our work. First, if we write $\id$ for the <a href="https://en.wikipedia.org/wiki/Identity_function" target="_blank">identity map</a> on a direct sum $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$, then the reader may easily check that</p>
+  <p>The natural projection and inclusion maps have a pair of special properties that will be of fundamental importance in our work:</p>
 
-\[\sum_{\lambda \in \Lambda} \iota_\lambda \circ \pi_\lambda = \id.\]
+  <div class="highlight-box" id="ortho-thm">
 
-  <p>The sum on the left is the point-wise sum given by the formula</p>
+    <p>Let $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$ be a vector space written as a direct sum.</p>
 
-\[\left(\sum_{\lambda \in \Lambda} \iota_\lambda \circ \pi_\lambda\right)(v) = \sum_{\lambda \in \Lambda} (\iota_\lambda \circ \pi_\lambda)(v), \quad v\in V.\]
-
-  <p>Second, the reader may also check that we have</p>
-
-\[\pi_\lambda \circ \iota_{\lambda'} = \begin{cases}
-\id &amp; : \lambda = \lambda', \\
-\zero &amp; : \lambda \neq \lambda ',
-\end{cases}\]
-
-  <p>where $\id$ and denote the identity map and <a href="https://en.wikipedia.org/wiki/Zero_morphism" target="_blank">zero map</a>, respectively.</p>
-
-  <p>Here is a reference to <span id="direct-sum-ref"><script>refDefn(pageNum, "direct-sum");</script></span>.</p>
-
-  <p>Here is a reference to <span id="nat-proj-inc-ref"><script>refDefn(pageNum, "nat-proj-inc");</script></span>.</p>
-</section>
-
-<section data-sec-title="2.3. matrix representations">
-  <h2 id="matrix-representations">2.3. matrix representations</h2>
-</section>
-
-<section data-sec-title="2.4. norms and inner products">
-  <h2 id="norms-and-inner-products">2.4. norms and inner products</h2>
-
-  <div id="code-block">
-    <script>
-const pythonCode =
-`print("Hello, world!")
-print("What is going on?")`
-createCodeBlock("code-block", pythonCode);
-</script>
-
+    <ol>
+      <li>If we write $\id$ for the <a href="https://en.wikipedia.org/wiki/Identity_function" target="_blank">identity map</a> on a direct sum $V = \bigoplus_{\lambda \in \Lambda} V_\lambda$, then
+ \begin{equation}\notag
+ \sum_{\lambda \in \Lambda} \iota_\lambda \circ \pi_\lambda = \id.
+ \end{equation}
+ The sum on the left is the point-wise sum given in <span id="func-space-defn-ref"><script>refDefn(pageNum, "func-space-defn");</script></span>.</li>
+      <li>We have
+ \begin{equation}\notag
+ \pi_\lambda \circ \iota_{\lambda’} = \begin{cases}
+ \id &amp; : \lambda = \lambda’, \\
+ \zero &amp; : \lambda \neq \lambda ‘,
+ \end{cases}
+ \end{equation}
+ where $\id$ and $\zero$ denote the identity map and <a href="https://en.wikipedia.org/wiki/Zero_morphism" target="_blank">zero map</a>, respectively.</li>
+    </ol>
   </div>
+
 </section>
+
+<!-- matrix representations -->
+
+<section data-sec-title="2.4. matrix representations">
+  <h2 id="matrix-representations">2.4. matrix representations</h2>
+
+</section>
+
+<!-- norms and inner products -->
+
+<section data-sec-title="2.5. norms and inner products">
+  <h2 id="norms-and-inner-products">2.5. norms and inner products</h2>
+</section>
+
 
     </div>
 
@@ -260,6 +292,9 @@ createCodeBlock("code-block", pythonCode);
 
       window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
       window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
     </script>
   </body>
 </html>

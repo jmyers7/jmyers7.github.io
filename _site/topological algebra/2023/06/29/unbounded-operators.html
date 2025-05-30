@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>operator theory II&#58 unbounded operators</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
+    <script src="/assets/js/prism.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "s";
+    </script>
+  </head>
+
+  <body>
+    <div class="header-container" id="header">
+      <nav>
+  <ul class="navbar">
+    <li><a href="/">root</a></li><li><a href="/about.html">about</a></li><li><a href="/projects.html" class="accent-color">projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+  </ul>
+</nav>
+
+<script>
+  hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
+  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
+  hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
+</script>
+        <div class="post-title">
+          <div>topological algebra</div>
+            <span>s. operator theory II&#58 unbounded operators</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
+              <div class="dropdown">
+                <ul>
+                  <li><a href="#">s.0. introduction</a></li>
+                  
+                </ul>
+              </div>
+            </span>
+        </div>
+    </div>
+
+    <div class="content-container post" id="content">
+      <div class="post-title">
+  <h1 class="accent-color">operator theory II: unbounded operators</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li></li>
+</ol>
+
+<h2 id="general-linear-operators">General linear operators</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\calh$ be a Hilbert space. A <em>linear operator</em> on $\calh$ is a linear transformation $T:\Dom{T} \to \calh$ where $\Dom{T}$ is a vector subspace of $\calh$, called the <em>domain</em> of $T$. Though it may be the case that $\Dom{T} \neq \calh$, we nevertheless still write</p>
+
+  <p>\begin{equation}\notag
+T:\calh \to \calh,
+\end{equation}</p>
+
+  <p>leaving the domain of $T$ implicit. We write $\Ran{T}$ for the usual <em>range</em> of $T$.</p>
+
+  <ol>
+    <li>
+      <p>Let $S,T:\calh \to \calh$ be two linear operators. Then:</p>
+
+      <ul>
+        <li>
+          <p>The linear operators $S$ and $T$ are said to be <em>equal</em>, written $S=T$, if $\Dom{S} = \Dom{T}$ and $Tv = Sv$ for all $v\in \Dom{S}$.</p>
+        </li>
+        <li>
+          <p>The <em>sum</em> of $S$ and $T$ is the linear operator
+  \begin{equation}\notag
+  S+T: \calh \to \calh, \quad v\mapsto Sv + Tv
+  \end{equation}
+ with $\Dom{(S+T)} = \Dom{S} \cap \Dom{T}$.</p>
+        </li>
+        <li>
+          <p>Let $\lambda \in \bbc$. The <em>product</em> of $c$ and $T$ is the linear operator
+  \begin{equation}\notag
+  \lambda T: \calh \to \calh, \quad v\mapsto \lambda Tv
+  \end{equation}
+ with $\Dom{(\lambda T)} = \Dom{T}$.</p>
+        </li>
+        <li>
+          <p>The <em>composition</em> of $S$ and $T$ is the linear operator
+  \begin{equation}\notag
+  ST : \calh \to \calh, \quad v\mapsto S(Tv),
+  \end{equation}
+ with $\Dom{ST} = T^{-1}(\Dom{S})$.</p>
+        </li>
+        <li>
+          <p>The operator $S$ is called an <em>extension</em> of $T$, written $S\supseteq T$, if
+  \begin{equation}\notag
+  \Dom{S} \supseteq \Dom{T} \quad \text{and} \quad Sv=Tv, \forall v\in \Dom{T}.
+  \end{equation}</p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Let $T:\calh \to \calh$ be a linear operator. Then $T$ is called …</p>
+
+      <ul>
+        <li>
+          <p>… <em>globally-defined</em> if $\Dom{T} = \calh$; it is called <em>densely-defined</em> if $\Dom{T}$ is dense in $\calh$.</p>
+        </li>
+        <li>
+          <p>… <em>bounded</em> if there is a constant $C&gt;0$ such that
+  \begin{equation}\notag
+  \norm{Tv} \leq C \norm{v}, \quad \forall v\in \Dom{T}.
+  \end{equation}
+ As usual, we write $\calb(\calh)$ for the set of all bounded linear operators on $\calh$.</p>
+        </li>
+        <li>
+          <p>… <em>symmetric</em> if
+  \begin{equation}\notag
+  \ang{Tv,w} = \ang{v,Tw}, \quad \forall v,w\in \Dom{A}.
+  \end{equation}</p>
+        </li>
+        <li>
+          <p>… <em>closed</em> if its <em>graph</em>
+  \begin{equation}\notag
+  \Gamma(T) \defeq \{ (v,Tv)\in \calh \times \calh : v\in \Dom{T}\}
+  \end{equation}
+ is closed in the product topology on $\calh \times \calh$.</p>
+        </li>
+        <li>
+          <p>… <em>closable</em> if the closure of its graph $\Gamma(T)$ in $\calh \times \calh$ is the graph of a function.</p>
+        </li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $S$ and $T$ be two linear operators on a Hilbert space $\calh$. We shall say $T$ is an <em>extension</em> of $S$, written $S\subseteq T$, provided $D(S) \subseteq D(T)$ and $S=T$ on $D(S)$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $T$ be a linear operator on a Hilbert space $\calh$. We shall say $T$ is <em>boundedly invertible</em> if there is a bounded linear opeartor $S$ on $\calh$ such that $TS=I$ and $ST \subseteq I$, where $I$ is the (globally-defined) identity operator on $\calh$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> If $T$ is a boundedly invertible linear operator on a Hilbert space $\calh$, then $T$ is bijective. Every bounded inverse of $T$ is globally-defined.</p>
+</div>
+
+<p>Let $S$ be a bounded inverse of $T$. Since $I$ is globally-defined, we have $TSv = v$ for all $v\in \calh$, which proves $T$ is surjective. By equating domains on both sides of $TS=I$, we also get</p>
+
+<p>\begin{equation}\notag
+\calh = \Dom{I} = S^{-1}(\Dom{T}) \subseteq \Dom{S},
+\end{equation}</p>
+
+<p>which shows $S$ is globally-defined; hence</p>
+
+<p>\begin{equation}\notag
+\Dom{ST} = T^{-1}(\Dom{S}) = \Dom{T},
+\end{equation}</p>
+
+<p>and so $ST \subseteq I$ implies $ST(v) = v$ for all $v\in \Dom{T}$. This proves $T$ is injective since it has a left-inverse. Q.E.D.</p>
+
+<h2 id="multiplication-operators">Multiplication operators</h2>
+
+<p>Let $L^2 = L^2(\bbr,\d q)$, where $\d q$ denotes the usual Lebesgue measure. We define the <em>multiplication operator</em></p>
+
+<p>\begin{equation}\notag
+Q: L^2 \to L^2 \quad \text{by setting} \quad (Q\psi)(q) = q\psi(q)
+\end{equation}</p>
+
+<p>for all $\psi \in L^2$ and $q\in \bbc$. Interpreted literally, this actually isn’t well-defined! The problem is that there is no reason that $Q\psi \in L^2$ provided that $\psi \in L^2$. For example, the function</p>
+
+<p>\begin{equation}\notag
+\psi: \bbr \to \bbr \quad \text{with} \quad \psi(q) = \begin{cases} 1/q &amp; : q \notin (-1,1), \\ 0 &amp; : q \in (-1,1) \end{cases}
+\end{equation}</p>
+
+<p>is in $L^2$, but clearly $Q\psi \notin L^2$.</p>
+
+<p>However, if we replace $L^2$ with the subspace</p>
+
+<p>\begin{equation}\notag
+\Dom{Q} = \{ \psi \in L^2 : Q\psi \in L^2\},
+\end{equation}</p>
+
+<p>then we get a well-defined linear operator $Q:\Dom{Q} \to L^2$. One can even show that $\Dom{Q}$ is dense in $L^2$ by proving it contains $C_c(\bbr)$.</p>
+
+<p>I now want to study the <em>resolvents</em> of $Q$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> For each $\lambda \in \bbc$, define the linear operator</p>
+
+  <p>\begin{equation}\notag
+Q_\lambda: L^2 \to L^2 \quad \text{by} \quad (Q_\lambda\psi)(q) = (q - \lambda)\psi(q),
+\end{equation}</p>
+
+  <p>with $\Dom{Q_\lambda} = \Dom{Q}$.</p>
+
+  <ol>
+    <li>
+      <p>The linear operator $Q_\lambda$ is injective.</p>
+    </li>
+    <li>
+      <p>If $\lambda \notin \bbr$, then $Q_\lambda$ is boundedly invertible.</p>
+    </li>
+    <li>
+      <p>If $\lambda \in \bbr$, then $Q_\lambda$ is not surjective, but as dense range.</p>
+    </li>
+  </ol>
+</div>
+
+<p>(1.): Suppose that $\psi\in \Dom{Q}$ is in the kernel of $Q_\lambda$, so that</p>
+
+<p>\begin{equation}\notag
+(q-\lambda)\psi(q) = 0
+\end{equation}</p>
+
+<p>for almost all $q\in \bbr$. But then we have $\psi(q)=0$ for almost all $q$, and hence $\psi =0$ in $L^2$. This proves $\psi$ is injective.</p>
+
+<p>(2.): Define the linear operator</p>
+
+<p>\begin{equation}\notag
+S_\lambda: L^2 \to L^2, \quad (S_\lambda\varphi)(q) = \frac{\varphi(q)}{q-\lambda}.
+\end{equation}</p>
+
+<p>This operator is globally-defined; in fact, we actually have $\Ran{S_\lambda} \subseteq \Dom{Q_\lambda}$. To prove this, let $\varphi\in L^2$ and note that</p>
+
+<p>\begin{equation}\notag
+\int_\bbr q^2 \left| \frac{\varphi(q)}{q-\lambda} \right|^2 \ \d q \leq C \int_\bbr |\varphi(q)|^2 \ \d q &lt; \infty
+\end{equation}</p>
+
+<p>where $C$ is a positive constant bounding the function $q^2/|q-\lambda|^2$. Moreover, $S_\lambda$ is also bounded, for we have</p>
+
+<p>\begin{equation}\notag
+\norm{S_\lambda\varphi}^2 = \int_\bbr \frac{|\varphi(q)|^2}{|q-\lambda|^2} \ \d q \leq \frac{1}{|\imag{\lambda}|^2} \norm{\varphi}^2
+\end{equation}</p>
+
+<p>since</p>
+
+<p>\begin{equation}\notag
+|\imag{\lambda}| = |\real{\lambda} - \lambda | \leq |q-\lambda|
+\end{equation}</p>
+
+<p>for all $q\in \bbr$. I will leave it to the reader to check that</p>
+
+<p>\begin{equation}\notag
+Q_\lambda S_\lambda = I \quad \text{and} \quad S_\lambda Q_\lambda \subseteq I,
+\end{equation}</p>
+
+<p>which includes checking that the domain of $Q_\lambda S_\lambda$ is all of $L^2$.</p>
+
+<p>(3.): The function $\varphi(q) = e^{-q^2}$ is in $L^2$, but it is not in the range of $Q_\lambda$. Indeed, if there <em>were</em> a function $\psi \in D(Q)$ such that $Q_\lambda \psi = \varphi$, then we must have</p>
+
+<p>\begin{equation}\notag
+\psi(q) = \frac{e^{-q^2}}{q-\lambda}
+\end{equation}</p>
+
+<p>for almost all $q\in \bbr$. But $\psi \notin L^2$ if $\lambda \in \bbr$.</p>
+
+<p>We now argue that the range space $\Ran{Q_\lambda}$ is dense in $L^2$. I shall prove this by showing the orthogonal complement is zero:</p>
+
+<p>\begin{equation}\label{comp-eqn}
+(\Ran{Q_\lambda})^\perp=0.
+\end{equation}</p>
+
+<p>As a preliminary step, we let $K$ be a compact subset of $\bbr$, let $\chi_K$ its characteristic function, and let $\varphi\in L^2$. Notice that the functions</p>
+
+<p>\begin{equation}\label{huh-eqn}
+q\mapsto \frac{\varphi(q)\chi_K(q)}{q-\lambda}
+\end{equation}</p>
+
+<p>are contained in $\Dom{Q_\lambda}$, and $\varphi\chi_K$ is the image of \eqref{huh-eqn} under $Q_\lambda$. Thus, the range space $\Ran{Q_\lambda}$ contains all functions of the form $\varphi\chi_K$ where $\varphi \in L^2$ and $K$ is a compact subset of $\bbr$ not containing $\lambda$.</p>
+
+<p>Therefore, if $\varphi \in (\Ran{Q_\lambda})^\perp$, then we have</p>
+
+<p>\begin{equation}\notag
+\int_K |\varphi(q)|^2 \ \d q = \int_\bbr \varphi(q) \overline{\varphi(q)} \chi_K(q) \ \d q = \ang{\varphi,\varphi\chi_K} = 0
+\end{equation}</p>
+
+<p>for all compact sets $K$ not containing $\lambda$. For each integer $n\geq1$, we define</p>
+
+<p>\begin{equation}\notag
+K_n = [-n,\lambda - 1/n] \cup [ \lambda + 1/n,n].
+\end{equation}</p>
+
+<p>Since $|\varphi \chi_{K_n}|^2 \to |\varphi|^2$ pointwise almost everywhere, $|\varphi \chi_{K_n}|^2 \leq |\varphi|^2$, and $|\varphi|^2 \in L^1$, by dominated convergence we have</p>
+
+<p>\begin{equation}\notag
+\norm{\varphi}^2 = \int_\bbr |\varphi(q)|^2 \ \d q = \lim_{n\to \infty} \int_\bbr |\varphi(q) \chi_{K_n}(q) |^2 \ \d q = \lim_{n\to \infty} \int_{K_n} |\varphi(q)|^2 \ \d q = 0.
+\end{equation}</p>
+
+<p>Thus, $\varphi=0$ in $L^2$, establishing the desired result \eqref{comp-eqn}. Q.E.D.</p>
+
+<h2 id="spectra-of-general-linear-operators">Spectra of general linear operators</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $T$ be a linear operator on a Hilbert space $\calh$ with domain. For each $\lambda \in \bbc$, we define the linear operator</p>
+
+  <p>\begin{equation}\notag
+T-\lambda: \calh \to \calh, \quad (T-\lambda)v = Tv - \lambda v,
+\end{equation}</p>
+
+  <p>with $\Dom{(T-\lambda)} = \Dom{T}$. The <em>resolvent set</em> of $T$, denoted $\rho(T)$, is the set of all $\lambda \in \bbc$ for which $T-\lambda$ is boundedly invertible. The <em>spectrum</em> of $T$, denoted $\sigma(T)$, is the complement $\bbc \smallsetminus \rho(T)$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $T$ be a linear operator on a Hilbert space $\calh$ with spectrum $\sigma(T)$. Then $\sigma(T)$ decomposes as a disjoint union</p>
+
+  <p>\begin{equation}\notag
+\sigma(T) = \sigma_p(T) \cup \sigma_c(T) \cup \sigma_r(T)
+\end{equation}</p>
+
+  <p>where:</p>
+
+  <ol>
+    <li>
+      <p>The set $\sigma_p(T)$, called the <em>point spectrum</em> of $T$, consists of those $\lambda$ such that $T-\lambda$ is not injective. The numbers in $\sigma_p(T)$ are called <em>eigenvalues</em> of $T$.</p>
+    </li>
+    <li>
+      <p>The set $\sigma_c(T)$, called the <em>continuous spectrum</em> of $T$, consists of those $\lambda$ such that $T - \lambda$ is injective with dense range, but for which $T-\lambda$ is not surjective.</p>
+    </li>
+    <li>
+      <p>The set $\sigma_r(T)$, called the <em>residual spectrum</em> of $T$, is the complement in $\sigma(T)$ of $\sigma_p(T) \cup \sigma_c(T)$.</p>
+    </li>
+  </ol>
+</div>
+
+
+    </div>
+
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
+    </script>
+  </body>
+</html>

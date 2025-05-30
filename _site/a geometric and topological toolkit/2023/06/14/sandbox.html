@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>sandbox</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
+    <script src="/assets/js/prism.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "x";
+    </script>
+  </head>
+
+  <body>
+    <div class="header-container" id="header">
+      <nav>
+  <ul class="navbar">
+    <li><a href="/">root</a></li><li><a href="/about.html">about</a></li><li><a href="/projects.html" class="accent-color">projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+  </ul>
+</nav>
+
+<script>
+  hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
+  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
+  hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
+</script>
+        <div class="post-title">
+          <div>a geometric and topological toolkit</div>
+            <span>x. sandbox</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
+              <div class="dropdown">
+                <ul>
+                  <li><a href="#">x.0. introduction</a></li>
+                  
+                </ul>
+              </div>
+            </span>
+        </div>
+    </div>
+
+    <div class="content-container post" id="content">
+      <div class="post-title">
+  <h1 class="accent-color">sandbox</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li>Locally trivial vector bundles</li>
+  <li>Locally free sheaves</li>
+  <li>Equivalence</li>
+  <li>Sections and sheaves</li>
+  <li>Construction lemmas</li>
+  <li>Pullbacks</li>
+  <li>Direct sums, duals, and tensor products</li>
+  <li>Derivatives in vector bundles: connections</li>
+  <li>Connections on direct sums</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="locally-trivial-vector-bundles">Locally trivial vector bundles</h2>
+
+<p>If $M$ is a manifold, we saw <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier</a> that the tangent bundle $T(M)$ is <em>locally trivial</em>, in the sense that $M$ is covered by open sets $V$ such that there is a local trivialization</p>
+
+<p>\begin{equation}\notag
+\alpha: V \times \bbr^n \to \pi^{-1}(V).
+\end{equation}</p>
+
+<p>Here, $\pi$ is the natural smooth projection map $\pi:T(M) \to M$, and to say that $\alpha$ is a <em>local trivialization</em> means that it is a diffeomorphism of smooth manifolds which restricts to a linear isomorphism on each fiber. These considerations inspire and motivate the following abstract structure:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>locally trivial vector bundle</em> is a surjective smooth map $\pi:E \to M$ of smooth manifolds with the following properties:</p>
+
+  <ol>
+    <li>The map $\pi$ is a set-theoretic vector bundle, so that each <em>fiber</em>
+ \begin{equation}\notag
+ E_p \defeq \pi^{-1}(p)
+ \end{equation}
+is a finite-dimensional $\bbr$-vector space.</li>
+    <li>The manifold $M$ is covered in open sets $V$ for which there exists a diffeomorphism
+ \begin{equation}\notag
+ \alpha: V \times \bbr^k \to \pi^{-1}(V)
+ \end{equation}
+which is also a homomorphism of set-theoretic vector bundles over $V$. Here, $V\times \bbr^k$ is viewed as the total set of the trivial set-theoretic vector bundle with base $V$. Such a diffeomorphism $\alpha$ is called a <em>local trivialization</em> (over $V$).</li>
+  </ol>
+
+  <p>If each vector space $E_p$ has a fixed (finite) dimension $k$, then $\pi$ is called a <em>rank-$k$ locally trivial vector bundle</em>.</p>
+
+  <p>If $\pi’:E’ \to M$ is a second locally trivial vector bundle, then a <em>homomorphism</em> of vector bundles is a function $\alpha:E \to E’$ which is a homomorphism of set-theoretic vector bundles and which is smooth. Remember that the first condition means that $\alpha$ restricts to a linear transformation</p>
+
+  <p>\begin{equation}\notag
+\alpha_p \defeq \alpha|_{E_p}: E_p \to E’_p
+\end{equation}</p>
+
+  <p>on each fiber. In particular, we require that $\alpha(E_p) \subseteq E_p’$, for all $p\in M$.</p>
+
+  <p>We shall say that $\alpha:E\to E’$ is an <em>isomorphism of locally trivial vector bundles</em> if there exists a homomorphism $\beta:E’\to E$ of locally trivial vector bundles such that $\beta \circ \alpha = \id_E$ and $\alpha \circ \beta = \id_{E’}$.</p>
+</div>
+
+<p>In the locally trivial case, the manifolds $E$ and $M$, which were called the <em>total set</em> and <em>base set</em> in the context of set-theoretic vector bundles, are now called the <em>total space</em> and <em>base space</em>.</p>
+
+<p>Since locally trivial vector bundles will be the primary types of vector bundles we will consider henceforth, we will often drop the modifier “locally trivial” and simply refer to <em>vector bundles</em>. Also, though technically we have defined a vector bundle to be a certain type of surjective map $\pi:E \to M$, we will often refer to vector bundle by referencing only the total space $E$.</p>
+
+<p>One of the most useful properties of homomorphisms of vector bundles is that the isomorphism property may be tested locally on the fibers. Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Fiberwise Criterion for Vector Bundle Isomorphisms.</strong> Let $\alpha: E \to E’$ be a homomorphism of vector bundles over a common base space $M$. Then $\alpha$ is an isomorphism of vector bundles if and only if each induced map $\alpha_p:E_p \to E’_p$ on the fibers is a linear isomorphism.</p>
+</div>
+
+<p>I suggest that you attempt to prove this theorem on your own. You will see that the local triviality of the vector bundles is used in a crucial way.</p>
+
+<h2 id="sections-and-sheaves">Sections and sheaves</h2>
+
+<p>In this section we study smooth sections of (locally trivial) vector bundles. We have already seen examples of these gadgets in two places: (1) One guise of smooth vector fields on a manifold is as smooth (global) sections of the tangent bundle, and (2) smooth sections of the trivial vector bundle $M \times \bbr \to M$ are exactly smooth functions on $M$. Indeed, we covered (1) in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>, while to verify that claim (2) is true, we note that a smooth map $\sigma: M \to M \times \bbr$ of the form</p>
+
+<p>\begin{equation}\notag
+\sigma(p) = (p,f(p))
+\end{equation}</p>
+
+<p>is uniquely determined by the smooth function $f\in C^\infty(M)$. In general, the definition is as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to M$ be a vector bundle and $U\subseteq M$ a nonempty open set. A <em>local section</em> of the vector bundle over $U$ is a function $\sigma:U\to E$ such that $\pi\circ \sigma = \id_U$. We shall say $\sigma$ is a <em>smooth local section</em> if it is a smooth map between manifolds.</p>
+
+  <p>We write $\Gamma(U,E)$ for the set of smooth local sections over $U$. If the vector bundle $E$ is clear from context, we will write $\Gamma(U)$ in place of $\Gamma(U,E)$. Sections in $\Gamma(M)$ are called <em>smooth global sections</em>.</p>
+
+  <p>We will often write the functional value $\sigma(p) \in E_p$ of a section as $\sigma_p$. If the section happens to have an index, like $\sigma_i$, then we will write $\sigma_i|_p$ in place of $(\sigma_i)_p$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Given two smooth local sections $\sigma,\tau\in \Gamma(U)$, we define their <em>sum</em>, denoted $\sigma+\tau$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(\sigma+\tau)_p = \sigma_p + \tau_p,
+\end{equation}</p>
+
+  <p>where the sum on the right-hand side occurs in the fiber $E_p$. If $f\in C^\infty(U)$ is a function, we define the <em>product</em> of $f$ and $\sigma$, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\sigma)_p = f(p) \sigma_p,
+\end{equation}</p>
+
+  <p>where the product on the right-hand side occurs in the fiber $E_p$. Prove that with respect to these operations, the set $\Gamma(U)$ is a $C^\infty(U)$-module.</p>
+</div>
+
+<p>A smoothly varying collection of bases of the fibers of a vector bundle is called a <em>smooth local frame</em>, which is terminology that you should recognize from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields. Officially:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Then a collection of smooth local sections $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ is called a <em>smooth local frame</em> over $U$ if</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1|_p,\ldots,\vartheta_k|_p \in E_p
+\end{equation}</p>
+
+  <p>is a basis for all $p\in U$.</p>
+</div>
+
+<p>One of the main uses of smooth local frames is to test for smoothness of general sections:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Componentwise criterion for smoothness).</strong> Let $\pi:E\to M$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Given a function $\sigma:U\to E$ (not necessarily smooth, or even continuous) such that $\pi \circ \sigma = \id_U$ and a smooth local frame $\vartheta_1,\ldots,\vartheta_k\in \Gamma(U)$, we may write</p>
+
+  <p>\begin{equation}\notag
+\sigma_p = \sigma^i(p) \vartheta_i|_p
+\end{equation}</p>
+
+  <p>for each $p\in U$, where $\sigma^i: U \to \bbr$ are uniquely determined real-valued functions (not necessarily smooth, or even continuous). These functions are called the <em>component functions</em> of $\sigma$ with respect to the local frame.</p>
+
+  <p>Then $\sigma$ is smooth if and only if each component function $\sigma^i$ is smooth.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove that the local frame $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ forms a basis as a $C^\infty(U)$-module.</p>
+</div>
+
+<p>Given a manifold $M$, we recall that we proved the assignments $U \mapsto C^\infty(U)$ and $U \mapsto \calx(U)$ are examples of sheaves in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>. Had we known at the time that $\calx(U)$ could be viewed as smooth local sections of a certain vector bundle, then we could have applied the following general result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Sections of vector bundles form sheaves).</strong> Let $E$ be a vector bundle over a manifold $M$. If for each open set $U\subseteq M$ we define $\cale(U) = \Gamma(U,E)$, then $\cale$ is a $C^\infty_M$-module, where $C^\infty_M$ is the sheaf of smooth functions on $M$. The sheaf $\cale$ is called the <em>sheaf of sections</em> of the vector bundle $E$.</p>
+</div>
+
+<p>We learned the general definition of a sheaf in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. When we say that $\cale$ is a sheaf of $C^\infty_M$-modules, we really mean that $\cale$ is a sheaf of modules over the sheaf of rings $C^\infty_M$. For the general definition of these latter types of objects, see <a href="https://en.wikipedia.org/wiki/Sheaf_of_modules">here</a>.</p>
+
+<p>You also learned the definition of <em>stalks</em> of structure sheaves of ringed spaces in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. It turns out that such <em>stalks</em> may be defined for <em>any</em> sheaf and, in particular, they may be defined for sheaves of sections of vector bundles. You should have no trouble, therefore, in adapting the definition of <em>stalks</em> in the previous post to apply to our sheaves of sections. Otherwise, see <a href="https://en.wikipedia.org/wiki/Stalk_(sheaf)">here</a> for the official definition.</p>
+
+<p>Let’s set some notation for stalks:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We will write $\cale_p$ for the stalk of $\cale$ at $p\in M$. Elements in $\cale_p$ will be called <em>germs</em> of sections.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that each stalk $\cale_p$ is a module over the local ring $C^\infty_{M,p}$ with respect the evident operations. (By now, I’m hoping that this proof is routine!)</li>
+    <li>For each $p\in M$, recall that there is a well-defined homomorphism
+ \begin{equation}\notag
+ \dev_p:C^\infty_{M,p} \to \bbr, \quad f \mapsto f(p),
+ \end{equation}
+of $\bbr$-algebras. By restricting scalars along this map, a fiber $E_p$ of the vector bundle may be given a $C^\infty_{M,p}$-module structure. With respect to this structure, prove that the map
+ \begin{equation}\notag
+ e_p: \cale_p \to E_p, \quad \sigma \mapsto \sigma_p,
+ \end{equation}
+is a well-defined homomorphism of $C^\infty_{M,p}$-modules.</li>
+  </ol>
+</div>
+
+<p>Remember that the germs in the stalk $\cale_p$ are actually equivalence classes of sections $\sigma$ defined on open neighborhoods of $p$, so my definition “$\sigma \mapsto \sigma_p$” of the evaluation map $e_p$ is technically an abuse of notation. However, as I’ve mentioned in the past, this is a typical abuse, and going forth I will use it without further comment.</p>
+
+<p>Take care to notice the difference between $\cale_p$ and $E_p$ for a vector bundle $E$ over a manifold $M$. The former is the stalk of the sheaf of sections at the point $p\in M$, while the latter is the fiber over $p$. While these are <strong>different</strong> objects, there is, nevertheless, a tight link between them:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. For each $p\in M$, let $\mfm_p$ denote the maximal ideal of the local ring $C^\infty_{M,p}$. The sequence</p>
+
+  <p>\begin{equation}\notag
+0 \to \mfm_p \to \cale_p \xrightarrow{e_p} E_p \to 0
+\end{equation}</p>
+
+  <p>is exact, where the first map is the inclusion and the second is the evaluation map.</p>
+</div>
+
+<p>A proof is in contained in Jet’s book, Chapter 12.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Extension theorem for local sections).</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$ and each open neighbohrood $U$ of $p$, the natural localization map</p>
+
+  <p>\begin{equation}\notag
+\lambda_{U,p}: \cale(U) \to \cale_p
+\end{equation}</p>
+
+  <p>sending a section to the germ that it represents is surjective.</p>
+</div>
+
+<p>The proof uses bump functions, just like the same extension theorem for smooth functions.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Stalks of vector bundles are free).</strong> Let $E$ be a rank-$k$ vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$, the stalk $\cale_p$ is a free $C^\infty_{M,p}$-module of rank $k$. In particular, if $U$ is an open neighborhood of $p$ over which $E$ trivializes, then the natural map</p>
+
+  <p>\begin{equation}\label{nat-eqn}
+C^\infty_{M,p} \otimes_{C^\infty(U)} \cale(U)   \to \cale_p, \quad f \otimes \sigma \mapsto f\lambda_{U,p}(\sigma),
+\end{equation}</p>
+
+  <p>is an isomorphism of $C^\infty_{M,p}$-modules, where $\lambda_{U,p}$ is the natural localization map from the previous theorem.</p>
+</div>
+
+<p>We have already observed that a choice of local frame</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(U)
+\end{equation}</p>
+
+<p>forms a basis of $\cale(U)$ as a $C^\infty(U)$-module, and that the localization map $\lambda_{U,p}$ is surjective. Thus, we need only show that the map \eqref{nat-eqn} is injective. So, suppose that we have an element $f^i \otimes \vartheta_i$ in the domain of \eqref{nat-eqn}, with summation over repeated indices implied. Suppose that it is sent to zero in the stalk, so that we have $f^i \vartheta_i = 0$. (Be very careful to understand exactly what this equation means, as I am confusing sections with germs again, and have omitted the localization map.) By shrinking $U$ to a smaller neighborhood $V$ of $p$ if needed, we may suppose that this equation actually occurs in the module $\cale(V)$, where now $f^i \in C^\infty(V)$. But the sections $\vartheta_1,\ldots,\vartheta_k$ are linearly independent in $\cale(V)$ as well, and hence $f^i = 0$ on $V$ for each $i$. Hence $f^i=0$ in $C^\infty_{M,p}$, which is what we wanted to prove. Q.E.D.</p>
+
+<h2 id="construction-theorems">Construction theorems</h2>
+
+<p>It will be very important for us to be able to construct vector bundles and homomorphisms between them efficiently. In order to do this, we will first begin by identifying the sorts of <em>necessary</em> structures that come along with vector bundles and homomorphisms, and then show that these structures are actually <em>sufficient</em> to construct such objects.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\alpha:M\to N$ be a smooth map, and let</p>
+
+  <p>\begin{equation}\notag
+\{U_i,\tau_{ij}\}_{i,j\in I} \quad \text{and} \quad \{V_i,\sigma_{ij}\}_{i,j\in I}
+\end{equation}</p>
+
+  <p>be a $\GL_n$-cocyle on $M$ and a $\GL_m$-cocycle on $N$, respectively, indexed by the same set $I$, with the property that $\alpha(U_i ) \subseteq V_i$ for each $i$. Then a <em>homomorphism of cocycles over $\alpha$</em> is a collection $\{A_i\}_{i\in I}$ of smooth maps $A_i: U_i \to \M_{m\times n}$ such that</p>
+
+  <p>\begin{equation}\notag
+A_i(p)\tau_{ij}(p) = \sigma_{ij}(\alpha(p))A_j(p)
+\end{equation}</p>
+
+  <p>for all $p\in U_i \cap U_j$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Vector Bundle Homomorphism Construction Theorem.</strong> Let $E$ and $F$ be a rank-$n$ and rank-$m$ vector bundle over manifolds $M$ and $N$, respectively, and suppose $\alpha:M \to N$ is a smooth map. Choose a representative $\GL_n$- and $\GL_m$-cocycle</p>
+
+  <p>\begin{equation}\notag
+\{U_i,\tau_{ij}\}_{i,j\in I} \quad \text{and} \quad \{V_i,\sigma_{ij}\}_{i,j\in I}
+\end{equation}</p>
+
+  <p>of $E$ and $F$, respectively, such that $\alpha(U_i) \subseteq V_i$ for each $i\in I$.</p>
+
+  <ol>
+    <li>A homomorphism $\theta: E \to F$ of vector bundles over $\alpha$ determines a homomorphism
+ \begin{equation}\label{start-eqn}
+ \{A_i\}_{i\in I} : \{U_i,\tau_{ij}\} \to \{V_i,\sigma_{ij}\}
+ \end{equation}
+of cocycles over $\alpha$ such that $\theta$ is locally given by the map
+ \begin{equation}\label{local-eqn}
+ U_i \times \bbr^n \to V_i \times \bbr^m, \quad (p,v) \mapsto (\alpha(p), A_i(p)v).
+ \end{equation}</li>
+    <li>Conversely, suppose that we are given a homomorphism \eqref{start-eqn} of cocycles over $\alpha$. Then there is a homomorphism $\theta:E \to F$ of vector bundles over $\alpha$ which is locally given by the formula \eqref{local-eqn}.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove the theorem.</p>
+</div>
+
+<p>In the notation of the theorem, given a homomorphism $\theta:E\to F$ of vector bundles over $\alpha$, any homomorphism of cocycles as in (1.) is said to <em>represent</em> the homomorphism $\theta$. Note that this homomorphism of cocycles is not uniquely determined by $\theta$ alone, but rather by $\theta$ and the representative cocycles of the vector bundles.</p>
+
+<h2 id="pullbacks">Pullbacks</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to N$ be a vector bundle in $\SetVect_N$ and $\alpha:M \to N$ a morphism in $\Set$. We define the set</p>
+
+  <p>\begin{equation}\notag
+\alpha^\ast E = \bigsqcup_{p\in M} E_{\alpha(p)}
+\end{equation}</p>
+
+  <p>and let $\rho:\alpha^\ast E \to M$ be the canonical projection. Then $\rho$ is a vector bundle in $\SetVect_M$ called the <em>pullback of $E$ along $\alpha$</em>, with fibers</p>
+
+  <p>\begin{equation}\notag
+(\alpha^\ast E)_p = \{p\} \times E_{\alpha(p)}.
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Cocycle representations of smooth pullbacks).</strong> Let $\pi:E \to N$ be a rank-$k$ vector bundle in $\Vect_N$ and $\alpha:M \to N$ a morphism in $\Mfld$. Then:</p>
+
+  <ol>
+    <li>A representative $\GL_k$-cocycle
+ \begin{equation}\label{equiv-eqn}
+ \{U_i,\tau_{ij}\}_{i\in I}
+ \end{equation}
+of $E$ with trivializations
+ \begin{equation}\notag
+ \Phi_i: U_i \times \bbr^k \to \pi^{-1}(U_i)
+ \end{equation}
+induces a smooth structure on the pullback bundle $\rho:\alpha^\ast E \to M$ in $\SetVect_M$.</li>
+    <li>This smooth structure has a representative $\GL_k$-cocycle $\{V_i,\sigma_{ij}\}_{i\in I}$ with
+ \begin{equation}\notag
+ V_i = \alpha^{-1}(U_i) \quad \text{and} \quad \sigma_{ij}: V_i \cap V_j \xrightarrow{\alpha} U_i \cap U_j \xrightarrow{\tau_{ij}} \GL_k
+ \end{equation}
+and trivializations
+ \begin{equation}\notag
+ \Psi_i: V_i \times \bbr^k \to \rho^{-1}(V_i), \quad (p,v) \mapsto (p, \Phi_i(\alpha(p),v)).
+ \end{equation}</li>
+    <li>Finally, this smooth structure depends only on the equivalence class of the cocycle \eqref{equiv-eqn}, and hence it only depends on the isomorphism class of $\pi:E \to N$.</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Universal property of set-theoretic pullback bundles).</strong> Let $\pi:E \to N$ be a vector bundle in $\SetVect_N$, let $\alpha:M \to N$ be a morphism in $\Set$, and let $\rho:\alpha^\ast E \to M$ be the pullback bundle in $\SetVect_M$.</p>
+
+  <ol>
+    <li>The function
+ \begin{equation}\notag
+ \tl{\alpha}: \alpha^\ast E \to E, \quad (p,v) \mapsto v,
+ \end{equation}
+is a well-defined morphism in $\SetVect_\alpha$.</li>
+    <li>If $\theta: F\to E$ is a morphism in $\SetVect_\alpha$, then the function
+ \begin{equation}\notag
+ \kappa:F\to \alpha^\ast E, \quad x\mapsto (\pi_F(x),\theta(x)),
+ \end{equation}
+is a well-defined morphism in $\SetVect_M$, where $\pi_F: F\to M$ is the structural projection.</li>
+    <li>The morphism $\kappa$ is the <em>unique</em> morphism in $\SetVect_M$ for which $\theta = \tl{\alpha}\circ \kappa$.</li>
+  </ol>
+</div>
+
+<p>The proof is trivial. I will leave it to you.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Universal property of smooth pullback bundles).</strong> Let $\pi:E \to N$ be a vector bundle in $\Vect_N$, let $\alpha:M \to N$ be a morphism in $\Mfld$, and let $\rho:\alpha^\ast E \to M$ be the pullback bundle in $\SetVect_M$. Let $\rho$ have the smooth structure induced by a $\GL_k$-cocycle of $E$. In the notation of that theorem:</p>
+
+  <ol>
+    <li>The function
+ \begin{equation}\notag
+ \tl{\alpha}: \alpha^\ast E \to E, \quad (p,v) \mapsto v,
+ \end{equation}
+is a well-defined morphism in $\Vect_\alpha$. It is represented by the morphism of cocycles
+ \begin{equation}\notag
+ \{I_i\}_{i\in I} : \{V_i,\sigma_{ij}\}_{i\in I} \to \{U_i,\tau_{ij}\}_{i\in I}
+ \end{equation}
+over $\alpha$ with
+ \begin{equation}\notag
+ I_i: V_i \to \M_{k\times k}, \quad I_i(p) = \id_{\bbr^k},
+ \end{equation}
+for each $i$.</li>
+    <li>If $\theta: F\to E$ is a morphism in $\Vect_\alpha$, then the function
+ \begin{equation}\notag
+ \kappa:F\to \alpha^\ast E, \quad x\mapsto (\pi_F(x),\theta(x)),
+ \end{equation}
+is a well-defined morphism in $\Vect_M$, where $\pi_F: F\to M$ is the structural projection. If $\theta$ is represented by the morphism of cocycles
+ \begin{equation}\notag
+ \{A_i\}_{i\in I} : \{W_i,\chi_{ij}\}_{i\in I} \to \{U_i,\tau_{ij}\}_{i\in I}
+ \end{equation}
+over $\id_M$, then</li>
+  </ol>
+</div>
+
+<p>for which the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}\alpha^\ast E \ar@[white][r]^-{\color{white}\tl{\alpha}} \ar@[white][d]_{\color{white}\rho} &amp; \color{white} E \ar@[white][d]^{\color{white}\pi} \\ \color{white} M \ar@[white][r]_{\color{white}\alpha} &amp; \color{white} N}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes. Furthermore, the set-theoretic vector bundle $\rho$ and map $\tl{\alpha}$ are the <em>universal</em> objects for which this diagram commutes, in the sense that if</p>
+
+<p>\begin{equation}\notag
+\varsigma: F \to M
+\end{equation}</p>
+
+<p>is a second set-theoretic vector bundle and $\beta:F \to E$ is a set-theoretic map for which</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}F \ar@[white][r]^-{\color{white}\beta} \ar@[white][d]_{\color{white}\varsigma} &amp; \color{white} E \ar@[white][d]^{\color{white}\pi} \\ \color{white} M \ar@[white][r]_{\color{white}\alpha} &amp; \color{white} N}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes, then there is a unique homomorphism $\phi: F\to \alpha^\ast E$ of set-theoretic vector bundles over $M$ for which the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}F \ar@[white]@/^1.0pc/[drr]^{\color{white}\beta} \ar@[white]@/_1.0pc/[ddr]_{\color{white}\varsigma} \ar@[white][dr]^{\color{white}\phi} \\ &amp; \color{white}\alpha^\ast E \ar@[white][r]^-{\color{white}\tl{\alpha}} \ar@[white][d]_{\color{white}\rho} &amp; \color{white} E \ar@[white][d]^{\color{white}\pi} \\ &amp; \color{white} M \ar@[white][r]_{\color{white}\alpha} &amp; \color{white} N}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes.
+We shall use the Vector Bundle Chart Lemma to construct the vector bundle $\rho:\alpha^\ast E \to M$. As a set-theoretic vector bundle, we define</p>
+
+<p>\begin{equation}\notag
+\alpha^\ast E = \bigsqcup_{p\in M} E_{\alpha(p)}
+\end{equation}</p>
+
+<p>and let $\rho:\alpha^\ast E\to M$ be the natural projection. Notice that $\alpha^\ast E$ is nothing but the <a href="https://en.wikipedia.org/wiki/Pullback_(category_theory)">fiber product</a> of sets</p>
+
+<p>\begin{equation}\notag
+M \times_N E \defeq \left\{ (p,v) \in M \times E : \alpha(p) = \pi(v)\right\}.
+\end{equation}</p>
+
+<p>Suppose that $E$ trivializes over the open cover $\{U_i\}$ of $N$, with trivialization maps</p>
+
+<p>\begin{equation}\notag
+\Phi_i: U_i \times \bbr^k \to \pi^{-1}(U_i).
+\end{equation}</p>
+
+<p>For each index $i$, set $V_i = \alpha^{-1}(U_i)$, and define the isomorphisms</p>
+
+<p>\begin{equation}\label{yuppers-eqn}
+\Psi_i: V_i \times \bbr^k \to \rho^{-1}(V_i) = \bigsqcup_{p\in V_i} E_{\alpha(p)}, \quad \Psi_i(p,v) = (p, \Phi_i(\alpha(p),v)),
+\end{equation}</p>
+
+<p>of set-theoretic vector bundles. If</p>
+
+<p>\begin{equation}\notag
+\tau_{ij}: U_i \cap U_j \to \GL_k(\bbr)
+\end{equation}</p>
+
+<p>are the transition maps of $E$, and if $V_i \cap V_j \neq \emptyset$, then the composite</p>
+
+<p>\begin{equation}\notag
+\Psi^{-1}_i \circ \Psi_j : (V_i\cap V_j) \times \bbr^k \to (V_i\cap V_j) \times \bbr^k
+\end{equation}</p>
+
+<p>has the form</p>
+
+<p>\begin{equation}\notag
+(p,v) \mapsto (p, \tau_{ij}(\alpha(p))v).
+\end{equation}</p>
+
+<p>But the composites</p>
+
+<p>\begin{equation}\label{yuppers2-eqn}
+\sigma_{ij}: V_i \cap V_j \xrightarrow{\alpha} U_i \cap U_j \xrightarrow{\tau_{ij}} \GL_k(\bbr)
+\end{equation}</p>
+
+<p>are smooth. Thus, by the Vector Bundle Chart Lemma, the natural surjection $\rho:\alpha^\ast E \to M$ is a rank-$k$ vector bundle with trivializations \eqref{yuppers-eqn} and transition maps \eqref{yuppers2-eqn}.</p>
+
+<p>We define the map</p>
+
+<p>\begin{equation}\notag
+\tl{\alpha}:\alpha^\ast E \to E, \quad (p,v) \mapsto v.
+\end{equation}</p>
+
+<p>It fits into commutative diagrams</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{ \color{white} V_i \times \bbr^k \ar@[white][r]^{\color{white} \alpha \times \id} \ar@[white][d]_{\color{white}\Psi_i} &amp; \color{white} U_i \times \bbr^k \ar@[white][d]^{\color{white}\Phi_i} \\ \color{white} \rho^{-1}(V_i) \ar@[white][r]_{\color{white}\tl{\alpha}} &amp; \color{white} \pi^{-1}(U_i) }
+\end{xy}
+\end{equation}</p>
+
+<p>along with the trivialization maps, and is thus smooth.</p>
+
+<p>Clearly $\pi\circ \tl{\alpha} = \alpha \circ \rho$, so all we need to do is establish the universal property of the bundle $\rho:\alpha^\ast E\to M$. So, let $\varsigma: F\to M$ be a vector bundle with the property stated in the theorem. We then define the map</p>
+
+<p>\begin{equation}\notag
+\phi: F \to \alpha^\ast E, \quad \phi(x) = (\varsigma(x), \beta(x)).
+\end{equation}</p>
+
+<p>This is obviously the unique set-theoretic map for which</p>
+
+<p>\begin{equation}\notag
+\varsigma = \rho \circ \phi \quad \text{and} \quad \beta = \tl{\alpha} \circ \phi,
+\end{equation}</p>
+
+<p>so we need only prove that $\phi$ is a homomorphism of vector bundles. But if $x\in F_p$ for some $p\in M$, then</p>
+
+<p>\begin{equation}\notag
+\phi(x) = (p, \beta(x)) \in (\alpha^\ast E)_p = \{p\} \times E_{\alpha(p)}.
+\end{equation}</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Identification of stalks of pullbacks).</strong> Let $E$ be a vector bundle over a manifold $N$ with sheaf of sections $\cale$, let $\alpha:M \to N$ be a smooth map, and let $\alpha^\ast \cale$ be the sheaf of sections of the pullback bundle $\alpha^\ast E$. Then for each $p\in M$ with $q=\alpha(p)$, the natural $C^\infty_{M,p}$-linear map</p>
+
+  <p>\begin{equation}\notag
+\Theta_p: C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \to (\alpha^\ast\cale)_p, \quad f \otimes \sigma \mapsto f\alpha^\ast\sigma,
+\end{equation}</p>
+
+  <p>is an isomorphism and fits into the commutative diagram</p>
+
+  <p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \ar@[white][r]^-{\color{white}\Theta_p} \ar@[white][d]_{\color{white}\dev_p \otimes e_q} &amp; \color{white} (\alpha^\ast \cale)_p \ar@[white][d]^{\color{white}e_p} \\ \color{white} \bbr \otimes_{C^\infty_{N,q}} E_q \ar@[white][r] &amp; \color{white} (\alpha^\ast\cale)_p = E_q }
+\end{xy}
+\end{equation}</p>
+
+  <p>where $\dev_p,e_p,e_q$ are the evaluation maps and the bottom horizontal map is the natural map.</p>
+</div>
+
+<h2 id="direct-sums-duals-and-tensor-products">Direct sums, duals, and tensor products</h2>
+
+<h2 id="derivatives-in-vector-bundles-connections">Derivatives in vector bundles: connections</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$. A <em>Koszul connection on $E$</em> (or simply a <em>connection</em>) is an $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\nabla: \calx(M) \otimes_\bbr \Gamma(E) \to \Gamma(E), \quad (X,\sigma) \mapsto \nabla_X\sigma,
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\nabla_X(f\sigma) = \nabla_X(f)\sigma + f\nabla_X\sigma
+\end{equation}</p>
+
+  <p>for all $X\in \calx(M)$, $\sigma\in \Gamma(E)$, and $f\in C^\infty(M)$. In this equation, we define</p>
+
+  <p>\begin{equation}\notag
+\nabla_X(f) = X(f).
+\end{equation}</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $\nabla$ be a Koszul connection on a vector bundle $\pi:E \to M$.</p>
+
+  <ol>
+    <li>If $X$ and $Y$ are two vector fields on $M$ that agree at a point $p\in M$, then
+ \begin{equation}\notag
+ (\nabla_X\sigma)_p=(\nabla_Y\sigma)_p
+ \end{equation}
+for all sections $\sigma \in \Gamma(E)$.</li>
+    <li>If $\sigma$ and $\tau$ are two global sections of $E$ that coincide on an open neighborhood of a point $p\in M$, then
+ \begin{equation}\notag
+ (\nabla_X\sigma)_p = (\nabla_X\tau)_p
+ \end{equation}
+for all vector fields $X\in \calx(M)$.</li>
+  </ol>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We define a <em>field of Koszul connections on $E$</em> (or simply a <em>field of connections</em>) to be a collection $\{\nabla^p\}_{p\in M}$ of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+\nabla^p : T_p(M) \otimes_\bbr \cale_p \to E_p, \quad (v,\sigma) \mapsto \nabla^p_v \sigma,
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\nabla^p_v(f\sigma) = (\nabla_v^pf)\sigma_p + f(p) \nabla_v^p\sigma
+\end{equation}</p>
+
+  <p>for all $v\in T_p(M)$, $\sigma\in \cale_p$, and $f\in C^{\infty}_{M,p}$. In this equation, we define</p>
+
+  <p>\begin{equation}\notag
+(\nabla_v^pf) = df_p(v).
+\end{equation}</p>
+
+  <p>The field of connections is said to be <em>smooth</em> if, for all smooth vector fields $X\in \calx(M)$ and smooth sections $\sigma \in \cale(M)$, the induced section</p>
+
+  <p>\begin{equation}\notag
+p\mapsto \nabla_{X_p}^p \sigma \in E_p
+\end{equation}</p>
+
+  <p>is smooth.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $N$ with sheaf of sections $\cale$, let $\alpha:M \to N$ be a smooth map, and let $\alpha^\ast E$ be the pullback bundle over $M$ with sheaf of sections $\alpha^\ast \cale$. If $\nabla$ is a connection on $E$, then there is a unique connection</p>
+
+  <p>\begin{equation}\notag
+\alpha^\ast\nabla: \calx(M) \otimes_\bbr \Gamma(\alpha^\ast E) \to \Gamma(\alpha^\ast E),
+\end{equation}</p>
+
+  <p>called the <em>pullback connection</em>, such that</p>
+
+  <p>\begin{equation}\label{defining-eqn}
+\alpha^\ast\nabla^p_v(\alpha^\ast \sigma) = \nabla^q_w\sigma
+\end{equation}</p>
+
+  <p>for all $v\in T_p(M)$ and $\sigma \in \cale_q$, where $q = \alpha(p)$ and $w = \alpha_{\ast,p}(v)$.</p>
+</div>
+
+<p>Suppose that such a connection $\alpha^\ast \nabla$ exists, satisfying \eqref{defining-eqn}. Then, since the natural map</p>
+
+<p>\begin{equation}\notag
+\Theta_p : C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \xrightarrow{\cong} (\alpha \cale)_p, \quad f \otimes \sigma \mapsto f \alpha^\ast \sigma,
+\end{equation}</p>
+
+<p>is an isomorphism, the action of $\alpha^\ast \nabla^p_v$ on the stalk $(\alpha \cale)_p$ is determined by its action on (germs of) sections of the form $f\alpha^\ast \sigma$. But, by the Leibniz rule, we have</p>
+
+<p>\begin{equation}\label{extend-eqn}
+\alpha^\ast\nabla^p_v(f \alpha^\ast \sigma) = df_p(v) \sigma_q + f(p) \nabla^q_w\sigma
+\end{equation}</p>
+
+<p>where $q = \alpha(p)$ and $w = \alpha_{\ast,p}(v)$. Thus, if the connection $\alpha^\ast \nabla$ exists, then it is uniquely determined by the equations \eqref{defining-eqn}.</p>
+
+<p>To establish existence of the pullback connection, we shall construct it as a smooth field of connections. The first step is to consider the isomorphism</p>
+
+<p>\begin{equation}\label{first-eqn}
+T_p(M) \otimes_\bbr (\alpha^\ast \cale)_p \xrightarrow{\cong} T_p(M) \otimes_\bbr \left(C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \cale_q \right)
+\end{equation}</p>
+
+<p>induced by the natural map $\Theta_p$ above. Now, we have two maps</p>
+
+<p>\begin{equation}\label{second-eqn}
+\left(T_p(M) \otimes_\bbr C^\infty_{M,p}\right) \otimes_{C^\infty_{N,q}} \cale_q \xrightarrow{d \otimes \dev_q} \bbr \otimes_{\bbr} E_q \xrightarrow{\cong} E_q
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\label{third-eqn}
+C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \left( T_p(M) \otimes_\bbr \cale_q \right) \xrightarrow{\id \otimes \alpha_{\alpha,p} \otimes \id} C^\infty_{M,p} \otimes_{C^\infty_{N,q}} \left( T_q(N) \otimes_\bbr \cale_q \right) \xrightarrow{\dev_p \otimes \nabla^q} \bbr \otimes_\bbr E_q \xrightarrow{\cong} E_q.
+\end{equation}</p>
+
+<p>Notice that the domains of \eqref{second-eqn} and \eqref{third-eqn} are naturally isomorphic to the codomain of the isomorphism \eqref{first-eqn} via natural associativity and commutativity isomorphisms of the tensor product. Therefore, we may define</p>
+
+<p>\begin{equation}\label{field-eqn}
+\alpha^\ast\nabla^p: T_p(M) \otimes_\bbr (\alpha^\ast \cale)_p \to (\alpha^\ast E)_p = E_q
+\end{equation}</p>
+
+<p>to be the isomorphism \eqref{first-eqn} followed by the <em>sum</em> of the two maps \eqref{second-eqn} and \eqref{third-eqn}. As the reader may easily check, the resulting map $\alpha^\ast \nabla^p_v$ satisfies the Leibniz rule for each $v\in T_p(M)$, and thus we have obtained a field of connections on the pullback $\alpha^\ast E$. If you trace through this argument, you’ll notice that we have essentially <em>defined</em> the pullback connection by the formula \eqref{extend-eqn}.</p>
+
+<p>All that remains is to show that the field of connections given by \eqref{field-eqn} is smooth. For this, let’s suppose that the vector bundle $E$ and the tangent bundle $T(N)$ both trivialize over the open set $V\subseteq N$. Let</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(V)
+\end{equation}</p>
+
+<p>be a frame of $E$, and let</p>
+
+<p>\begin{equation}\notag
+\bd_1,\ldots,\bd_n \in \calx(V)
+\end{equation}</p>
+
+<p>be the coordinate frame.</p>
+
+<h2 id="connections-on-direct-sums">Connections on direct sums</h2>
+
+<h2 id="forms-and-fields">Forms and fields</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold, $k\geq 1$ an integer, and write $F(M)$ for the commutative $\bbr$-algebra of <em>all</em> real-valued functions $f:M \to \bbr$, not necessarily smooth. We define a <em>$k$-form</em> on $M$ to be a $C^\infty(M)$-linear function</p>
+
+  <p>\begin{equation}\notag
+\omega: \underbrace{\calx(M) \otimes_{C^\infty(M)} \cdots \otimes_{C^\infty(M)} \calx(M)}_{\text{$k$ factors}} \to F(M).
+\end{equation}</p>
+
+  <p>Here, the algebra $F(M)$ is viewed as a $C^\infty(M)$-module by restricting scalars along the inclusion map $C^\infty(M) \to F(M)$ of $\bbr$-algebras.</p>
+
+  <ol>
+    <li>The $k$-form $\omega$ is said to be <em>symmetric</em> if
+ \begin{equation}\notag
+ \omega(X_1,\ldots,X_i,\ldots,X_j,\ldots,X_k) = \omega(X_1,\ldots,X_j,\ldots,X_i,\ldots,X_k)
+ \end{equation}
+for all $X_1,\ldots,X_k\in \calx(M)$ and $1\leq i &lt; j \leq k$.</li>
+    <li>The $k$-form $\omega$ is said to be <em>alternating</em> (or <em>anti-symmetric</em>) if
+ \begin{equation}\notag
+ \omega(X_1,\ldots,X_i,\ldots,X_j,\ldots,X_k) = -\omega(X_1,\ldots,X_j,\ldots,X_i,\ldots,X_k)
+ \end{equation}
+for all $X_1,\ldots,X_k\in \calx(M)$ and $1\leq i &lt; j \leq k$.</li>
+    <li>The $k$-form $\omega$ is said to be <em>smooth</em> if its image lands in the subalgebra $C^\infty(M)$ of $F(M)$.</li>
+  </ol>
+
+  <p>Given two $k$-forms $\omega,\eta$ and a scalar $c\in \bbr$, we define the <em>sum</em> $k$-form $\omega+\eta$ and the <em>product</em> $k$-form $c\omega$ via the following formulas:</p>
+
+  <p>\begin{equation}\notag
+(\omega+\eta)(X_1,\ldots,X_k) = \omega(X_1,\ldots,X_k) + \eta(X_1,\ldots,X_k)
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+(c\omega)(X_1,\ldots,X_k) = c\omega(X_1,\ldots,X_k).
+\end{equation}</p>
+
+  <p>Forms of certain types naturally form $\bbr$-vector spaces with respect to these operations:</p>
+
+  <ol>
+    <li>We will write $T^{\text{$k$-form}}_{\text{rough}}(M)$ for the $\bbr$-vector space of all $k$-forms on $M$. The subspace of all smooth $k$-forms will be written as $T^{\text{$k$-form}}(M)$.</li>
+    <li>We will write $S^{\text{$k$-form}}_\text{rough}(M)$ for the $\bbr$-vector space of all symmetric $k$-forms on $M$. The subspace of all smooth symmetric $k$-forms will be written as $S^{\text{$k$-form}}(M)$.</li>
+    <li>We will write $A^{\text{$k$-form}}_\text{rough}(M)$ for the $\bbr$-vector space of all alternating $k$-forms on $M$. The subspace of all smooth alternating $k$-forms will be written as $A^{\text{$k$-form}}(M)$.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. Given a $k$-form $\omega \in T^\text{$k$-form}_\text{rough}(M)$ and a function $f\in F(M)$, define their <em>product</em>, denoted $f\omega$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\omega)(X_1,\ldots,X_k)(p) = f(p) \omega(X_1,\ldots,X_k)(p).
+\end{equation}</p>
+
+  <ol>
+    <li>Prove that $T^\text{$k$-form}_{\text{rough}}(M)$ is an $F(M)$-module with respect to the above product, and that $S^\text{$k$-form}_{\text{rough}}(M)$ and $A^\text{$k$-form}_{\text{rough}}(M)$ are $F(M)$-submodules.</li>
+    <li>Prove that $T^\text{$k$-form}(M)$ is a $C^\infty(M)$-module with respect to the above product, and that $S^\text{$k$-form}(M)$ and $A^\text{$k$-form}(M)$ are $C^\infty(M)$-submodules.</li>
+  </ol>
+</div>
+
+<p>The usage of the tensor product $\otimes_{C^\infty(M)}$ in the definition of a $k$-form $\omega$ is just a cute way of saying that $\omega$ is (equivalently) a $C^\infty(M)$-multilinear function</p>
+
+<p>\begin{equation}\notag
+\omega: \underbrace{\calx(M) \times \cdots \times \calx(M)}_{\text{$k$ factors}} \to F(M).
+\end{equation}</p>
+
+<p>Indeed, we know that multilinearity on a cartesian product is the same as linearity on a tensor product.</p>
+
+<div class="highlight-box">
+  <p><strong>Notation.</strong> Since iterated tensor products will appear so often in this section, it will be convenient to define</p>
+
+  <p>\begin{equation}\notag
+V^{\otimes_A k} = \underbrace{V \otimes_A \cdots \otimes_A V}_{\text{$k$ factors}}
+\end{equation}</p>
+
+  <p>for all integers $k\geq 1$ and all modules $V$ over a commutative ring $A$.</p>
+</div>
+
+<p>The main result in this section will be the equivalence of $k$-forms on a manifold with certain types of objects that we call $k$-fields. We define these latter objects below, using the definition of $k$-forms as a template. Notice, however, that we do <em>not</em> define smoothness of $k$-fields. We will address smoothness later.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. A <em>$k$-field</em> on $M$ is a collection $\sigma = \{\sigma_p\}_{p\in M}$ of $\bbr$-linear maps</p>
+
+  <p>\begin{equation}\notag
+\sigma_p : T_p(M)^{\otimes_\bbr k} \to \bbr,
+\end{equation}</p>
+
+  <p>one for each point $p\in M$.</p>
+
+  <ol>
+    <li>The $k$-field $\sigma$ is said to be <em>symmetric</em> if
+ \begin{equation}\notag
+ \sigma_p(v_1,\ldots,v_i,\ldots,v_j,\ldots,v_k) = \sigma_p(v_1,\ldots,v_j,\ldots,v_i,\ldots,v_k)
+ \end{equation}
+for all $v_1,\ldots,v_k\in T_p(M)$, all $p\in M$, and $1\leq i &lt; j \leq k$.</li>
+    <li>The $k$-field $\sigma$ is said to be <em>alternating</em> (or <em>anti-symmetric</em>) if
+ \begin{equation}\notag
+ \sigma_p(v_1,\ldots,v_i,\ldots,v_j,\ldots,v_k) = -\sigma_p(v_1,\ldots,v_j,\ldots,v_i,\ldots,v_k)
+ \end{equation}
+for all $v_1,\ldots,v_k\in T_p(M)$, all $p\in M$, and $1\leq i &lt; j \leq k$.</li>
+  </ol>
+
+  <p>Given two $k$-fields $\sigma,\tau$ and a scalar $c\in \bbr$, we define the <em>sum</em> $k$-field $\sigma + \tau$ and the <em>product</em> $k$-field $c\sigma$ via the following formulas:</p>
+
+  <p>\begin{equation}\notag
+\sigma + \tau = \{\sigma_p + \tau_p\}
+\end{equation}</p>
+
+  <p>and</p>
+
+  <p>\begin{equation}\notag
+c\sigma = \{c\sigma_p\},
+\end{equation}</p>
+
+  <p>where $\sigma_p+\tau_p$ and $c\sigma_p$ are the evident pointwise sum and product. Fields of certain types naturally form $\bbr$-vector spaces with respect to these operations:</p>
+
+  <ol>
+    <li>We will write $T^{\text{$k$-field}}_{\text{rough}}(M)$ for the $\bbr$-vector space of all $k$-fields on $M$.</li>
+    <li>We will write $S^{\text{$k$-field}}_\text{rough}(M)$ for the $\bbr$-vector space of all symmetric $k$-fields on $M$.</li>
+    <li>We will write $A^{\text{$k$-field}}_\text{rough}(M)$ for the $\bbr$-vector space of all alternating $k$-fields on $M$.</li>
+  </ol>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. Given a $k$-field $\sigma \in T^\text{$k$-field}_\text{rough}(M)$ and a function $f\in F(M)$, define their <em>product</em>, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+f\sigma = \{f\sigma_p\},
+\end{equation}</p>
+
+  <p>where</p>
+
+  <p>\begin{equation}\notag
+(f\sigma_p)(v_1,\ldots,v_k) \defeq f(p)\sigma(v_1,\ldots,v_k).
+\end{equation}</p>
+
+  <p>Prove that $T^\text{$k$-form}_{\text{rough}}(M)$ is an $F(M)$-module with respect to the above product, and that $S^\text{$k$-form}_{\text{rough}}(M)$ and $A^\text{$k$-form}_{\text{rough}}(M)$ are $F(M)$-submodules.</p>
+</div>
+
+<p>Fields have one distinct advantage over forms, in that the former have obvious restriction maps yielding a sheaf structure. Before we describe them, you should notice that, just as $C^\infty_M$ is a sheaf, so too is the assignment $U \mapsto F(U)$ which maps an open subset of $M$ to the collection of all real-valued functions on $U$. This latter sheaf is a sheaf of commutative $\bbr$-algebras on $M$, and it will be denoted $F_M$.</p>
+
+<p>Now, let $U$ and $V$ be two nonempty open subsets of $M$ with $U\subseteq V$ and define the $\bbr$-linear map</p>
+
+<p>\begin{equation}\notag
+\rho^V_U : T^\text{$k$-field}_\text{rough}(V) \to T^\text{$k$-field}_\text{rough}(U)
+\end{equation}</p>
+
+<p>by setting</p>
+
+<p>\begin{equation}\notag
+\rho^V_U(\sigma) = \{ \sigma_p\}_{p\in U}.
+\end{equation}</p>
+
+<p>This is called a <em>restriction map</em>.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be a manifold.</p>
+
+  <ol>
+    <li>Prove that the restriction map $\rho^V_U$ is $F(V)$-linear, where $T^\text{$k$-field}_\text{rough}(U)$ is given an $F(V)$-module structure by restriction of scalars along the evident restriction map $F(V)\to F(U)$.</li>
+    <li>If $U$ is an open set in $M$, prove that the restriction map $\rho^U_U$ is the identity map on $\calx(U)$.</li>
+    <li>If $U\subseteq V \subseteq W$ are open subsets of $M$, prove that
+ \begin{equation}\notag
+ \rho^W_U = \rho^{V}_U\circ \rho^W_V.
+ \end{equation}</li>
+    <li>Suppose $U$ is an open subset of $M$, and that $\{U_i\}_{i\in I}$ is an open cover of $U$. Prove that if $\sigma,\tau\in T^\text{$k$-field}_\text{rough}(U)$ and $\rho^U_{U_i}(\sigma) = \rho^U_{U_i}(\tau)$ for all $i\in I$, then $\sigma=\tau$ as $k$-fields.</li>
+    <li>Continuing with the open cover $\{U_i\}$ from the previous part, suppose that for each $i\in I$ we have a $k$-field $\sigma_i \in T^\text{$k$-field}_\text{rough}(U_i)$. Suppose further that the $\sigma_i$’s agree on overlaps, in the sense that
+ \begin{equation}\notag
+ \rho^{U_i}_{U_i\cap U_j}(X_i) = \rho^{U_j}_{U_i\cap U_j} (X_j)
+ \end{equation}
+for all $i,j\in I$. Prove that there is a (necessarily unique!) $k$-field $\sigma\in T^\text{$k$-field}_\text{rough}(U)$ such that $\rho^U_{U_i}(\sigma) = \sigma_i$ for all $i\in I$.</li>
+  </ol>
+</div>
+
+<p>The exercise thus shows that the assignment $U \mapsto T^\text{$k$-field}_\text{rough}(U)$ is a sheaf of $F_M$-modules.</p>
+
+<p>Thus, the basic situation at hand is the relationship between the following two sets:</p>
+
+<p>\begin{equation}\notag
+\left\{ \text{fields of $k$-multilinear forms on $M$} \right\} \quad \leftrightarrow \quad \left\{\text{$k$-forms on $M$}\right\}.
+\end{equation}</p>
+
+<p>As we just explained, it is easy to move from left to right, but the reverse mechanism that produces a field of $k$-multilinear forms from a $k$-form $\omega$ is not so obvious. Our goal in the rest of this section is to understand this mechanism. To give away the punchline, it will turn out that the key feature of a $k$-form that makes this process work is the purely algebraic property of $C^\infty(M)$-linearity.</p>
+
+<p>We thus begin with a definition where we <strong>only</strong> assume $\bbr$-linearity, and not $C^\infty(M)$-linearity.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. We shall say that an $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
+\end{equation}</p>
+
+  <p><em>induces a field</em> if</p>
+
+  <p>\begin{equation}\notag
+\left[\omega(X_1,\ldots,X_k)\right](p) = \left[\omega(Y_1,\ldots,Y_k)\right](p)
+\end{equation}</p>
+
+  <p>whenever the $X_i$’s and $Y_i$’s are vector fields such that $X_i|_p = Y_i|_p$ for each $i$.</p>
+</div>
+
+<p>The reason for the terminology “induces a field” is given here:</p>
+
+<div class="highlight-box" id="field-induced-thm">
+  <p><strong>Theorem.</strong> Let $M$ be a manifold. If an $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
+\end{equation}</p>
+
+  <p>induces a field, then $\omega$ determines a unique field $\{\omega_p\}_{p\in M}$ of $k$-multilinear forms</p>
+
+  <p>\begin{equation}\notag
+\omega_p : T_p(M)^{\otimes_\bbr k} \to \bbr,
+\end{equation}</p>
+
+  <p>by the formula</p>
+
+  <p>\begin{equation}\label{mirror-eqn}
+\omega_p(v_1,\ldots,v_k) = \left[\omega(X_1,\ldots,X_k)\right](p),
+\end{equation}</p>
+
+  <p>where the $X_i$’s are any vector fields such that $X_i|_p=v_i$ for each $i$.</p>
+</div>
+
+<p>If such a field $\{\omega_p\}_{p\in M}$ exists, then $\omega$ may be recovered through the equation</p>
+
+<p>\begin{equation}\label{tile-eqn}
+\left[\omega(X_1,\ldots,X_k)\right](p) = \omega_p(X_1|_p,\ldots,X_1|_p).
+\end{equation}</p>
+
+<p>Thus, the field $\{\omega_p\}_{p\in M}$, if it exists, is unique. But for existence, we recall that such vector fields $X_1,\ldots,X_k$ as in \eqref{mirror-eqn} always exists. It then follows immediately from the “induces a field” property that each $\omega_p$ is well-defined. Q.E.D.</p>
+
+<p>Now, the fascinating bit is that the “field inducing” property of an $\bbr$-linear map</p>
+
+<p>\begin{equation}\notag
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
+\end{equation}</p>
+
+<p>has an entirely algebraic characterization, encapsulated in the following result. The name of this result is borrowed from Besse’s book ([^Besse2008]), though it is present in some form or another in virtually all textbooks on differential geometry. It is stated here as a “first version”; a more general version will be given later when we talk about vector bundles.</p>
+
+<div class="highlight-box">
+  <p><strong>Fundamental Lemma of Differential Geometry (First version).</strong> Let $M$ be a manifold. An $\bbr$-linear map</p>
+
+  <p>\begin{equation}\notag
+\omega: \calx(M)^{\otimes_{C^\infty(M)} k} \to F(M)
+\end{equation}</p>
+
+  <p>induces a field if and only if it is $C^\infty(M)$-linear.</p>
+</div>
+
+<p>The “only if” portion of the proof is trivial, in view of the relationship \eqref{tile-eqn} between $\omega$ and the induced field $\{\omega_p\}$. The “if” portion of the proof is more interesting. I will leave it to you to show that it suffices to prove</p>
+
+<p>\begin{equation}\notag
+\left[\omega(X_1,\ldots,X_k)\right](p) = 0,
+\end{equation}</p>
+
+<p>if we have $X_j|_p=0$ for (at least) one index $j$. To prove this, fix such an index $j$ and choose local coordinates $x^1,\ldots,x^n$ on an open neighborhood $U$ near $p$, and let $\bd_1,\ldots,\bd_n$ be the corresponding local frame. Then, we may write</p>
+
+<p>\begin{equation}\notag
+X_j = X^i_j \bd_i,
+\end{equation}</p>
+
+<p>with summation over $i$ implied. By shrinking $U$ if needed, we may choose a bump function $h\in C^\infty(M)$ with support in $U$ and $h(p)=1$. But then each $hX^i_j$ may be considered a smooth function on all of $M$, and likewise each $h\bd_i$ is a smooth vector field on $M$. Then</p>
+
+<p>\begin{equation}\notag
+h^2 \omega(X_1,\ldots,X_k) = \omega(X_1,\ldots,h^2 X_j,\ldots,X_k) = hX^i_j \omega(X_1,\ldots, h \bd_i,\ldots,X_k).
+\end{equation}</p>
+
+<p>Hence</p>
+
+<p>\begin{align}
+\left[\omega(X_1,\ldots,X_k)\right](p) &amp;= h(p)^2 \left[\omega(X_1,\ldots,X_k)\right](p) \notag \\ &amp;= h(p)X^i_j(p) \left[\omega(X_1,\ldots,h \bd_i,\ldots,X_k)\right](p) \notag \\ &amp;= 0, \notag
+\end{align}</p>
+
+<p>since $X^i_j(p)=0$ for each $i$. Q.E.D.</p>
+
+<p>Let’s now summarize the situation in the following theorem:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Forms and fields are equivalent).</strong> Let $M$ be a manifold and $k\geq 1$ an integer. Then there is a bijective correspondence between the set of all $k$-forms $\omega$ on $M$ and the set of all fields $\{\omega_p\}_{p\in M}$ of $k$-multlinear forms</p>
+
+  <p>\begin{equation}\notag
+\omega_p: T_p(M)^{\otimes_\bbr k} \to \bbr.
+\end{equation}</p>
+
+  <p>Indeed:</p>
+
+  <ol>
+    <li>Given the $k$-form $\omega$, the field $\{\omega_p\}_{p\in M}$ is obtained by defining
+ \begin{equation}\notag
+ \omega_p(v_1,\ldots,v_k) = \left[\omega(X_1,\ldots,X_k)\right](p),
+ \end{equation}
+where the $X_i$’s are any vector fields such that $X_i|_p=v_i$ for each $i$.</li>
+    <li>Given field $\{\omega_p\}_{p\in M}$, the $k$-form $\omega$ is obtained by defining
+ \begin{equation}\notag
+ \left[\omega(X_1,\ldots,X_k)\right](p) = \omega_p(X_1|_p,\ldots,X_k|_p).
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>In view of this equivalence, we may define properties of a $k$-form in terms of properties of the associated field, and vice versa. We use this strategy in the following set of definitions:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold and $k\geq 1$ an integer. A field $\{\omega_p\}_{p\in M}$ of $k$-multlinear forms on $M$ is called <em>smooth</em>, or <em>symmetric</em>, or <em>alternating</em>, if the associated $k$-form $\omega$ is smooth, or symmetric, or alternating.</p>
+</div>
+
+<p>In the other direction, we can also give important definitions of forms in terms of their associated fields. In the following definition, we focus on properties of symmetric $2$-forms, which are central to riemannian geometry, and are traditionally denoted by $g$ rather than $\omega$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let</p>
+
+  <p>\begin{equation}\notag
+g: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M)
+\end{equation}</p>
+
+  <p>be a symmetric $2$-form on a manifold $M$ with associated field of symmetric bilinear forms</p>
+
+  <p>\begin{equation}\notag
+g_p: T_p(M) \otimes_\bbr T_p(M) \to \bbr.
+\end{equation}</p>
+
+  <ol>
+    <li>We shall say $g$ is a <em>scalar product</em> if each $g_p$ is non-degenerate.</li>
+    <li>We shall say $g$ is an <em>inner product</em> if each $g_p$ is positive definite.</li>
+  </ol>
+</div>
+
+<h2 id="pseudo-riemannian-manifolds">(Pseudo-)riemannian manifolds</h2>
+
+<div class="highlight-box">
+  <p><strong>Definition</strong>. A <em>pseudo-riemannian manifold</em> is a pair $(M,g)$ consisting of a manifold $M$ and a smooth scalar product</p>
+
+  <p>\begin{equation}\notag
+g: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to C^\infty(M).
+\end{equation}</p>
+
+  <p>If $g$ is an inner product, then $(M,g)$ will be called a <em>riemannian manifold</em>. In the pseudo-riemannian case, the scalar product $g$ is called the <em>pseudo-metric</em> (or <em>pseudo-metric tensor</em>) of the manifold, while it is called the <em>metric</em> (or <em>metric tensor</em>) in the riemannian case. When we do not need to mention the metric explicitly, we shall refer to just $M$ as a (pseudo-)riemannian manifold.</p>
+</div>
+
+<p>By virtue of the fact that our manifolds come embedded in euclidean space, they all have riemannian structures with particularly nice features. The existence of pseudo-riemannian structures on embedded submanifolds is a more delicate question, which we will address in the next section when we look at special examples of pseudo-riemannian manifolds called <em>lorentzian manifolds</em>.</p>
+
+<p>To obtain the riemannian structure, suppose that $M$ is a manifold embedded in $\bbr^s$. The standard euclidean inner product on $\bbr^s$ restricts to a field of inner products</p>
+
+<p>\begin{equation}\notag
+g_p: T_p(M) \otimes_\bbr T_p(M) \to \bbr.
+\end{equation}</p>
+
+<p>Thus, an inner product</p>
+
+<p>\begin{equation}\notag
+g: \calx(M) \otimes_{C^\infty(M)} \calx(M) \to F(M)
+\end{equation}</p>
+
+<p>on the manifold is obtained, but in order to show that we have a riemannian structure, we need to show that the field $\{g_p\}_{p\in M}$ is smooth, which amounts to showing that the image of $g$ lands in the subalgebra $C^\infty(M)$ of $F(M)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Embedded manifolds are riemannian).</strong> Let $M$ be a manifold. The field of positive definite inner products $g_p$ that $M$ inherits from the ambient euclidean space is smooth.</p>
+</div>
+
+<p>Given two vector fields $X,Y\in \calx(M)$, to prove the theorem it will suffice to show that the function</p>
+
+<p>\begin{equation}\notag
+p \mapsto g(X,Y)(p) \defeq g_p(X_p,Y_p)_p
+\end{equation}</p>
+
+<p>is smooth on every open parametrizable subset $U$. To do this, we first let $\bd_1,\ldots,\bd_n$ be a coordinate local frame over $U$ and write</p>
+
+<p>\begin{equation}\label{metric-coeff-eqn}
+g_{ij}(p) = g_p(\bd_i|_p,\bd_j|_p)
+\end{equation}</p>
+
+<p>for each $p\in U$. If the corresponding local parametrization on $U$ is $\phi:\bbr^n \to U$ with $\phi(x)=p$, then, in fact, we have</p>
+
+<p>\begin{equation}\notag
+g_{ij}(p) = \sum_{l=1}^n\frac{\bd \phi^l}{\bd x^i}(x)\frac{\bd \phi^l}{\bd x^j}(x),
+\end{equation}</p>
+
+<p>which shows that $p\mapsto g_{ij}(p)$ is a smooth function on $U$. But then, we have</p>
+
+<p>\begin{equation}\notag
+g(X,Y)(p)= X^i(p)Y^j(p)g_{ij}(p)
+\end{equation}</p>
+
+<p>for all $p\in U$, which shows that $p\mapsto g(X,Y)(p)$ is smooth on $U$. Q.E.D.</p>
+
+<p>The functions \eqref{metric-coeff-eqn} in the proof are important enough to have their own name:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $(M,g)$ be a riemannian manifold and let $U$ be an open parametrizable subset with coordinate local frame $\bd_1,\ldots,\bd_n$. For $1\leq i,j\leq n$, the smooth functions</p>
+
+  <p>\begin{equation}\notag
+g_{ij}: U \to \bbr, \quad g_{ij}(p) = g_p(\bd_i|_p,\bd_j|_p)
+\end{equation}</p>
+
+  <p>are called the <em>metric coefficients</em> (over $U$).</p>
+</div>
+
+<p>The notation $g_{ij}$ for the metric coefficients is ambiguous, since it does not specify the identity of the open parametrizable subset $U$.</p>
+
+<p>It is a common practice to write the metric coefficients in a matrix. For example, the metric coefficients of the standard euclidean product on $\bbr^3$ would be represented as</p>
+
+<p>\begin{equation}\notag
+g = \begin{bmatrix} g_{11} &amp; g_{12} &amp; g_{13} \\ g_{21} &amp; g_{22} &amp; g_{23} \\ g_{31} &amp; g_{32} &amp; g_{33} \end{bmatrix} = \begin{bmatrix}1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}.
+\end{equation}</p>
+
+<p>Of course, in this case, the metric coefficient functions $g_{ij}$ are defined on the whole of $\bbr^3$.</p>
+
+<div class="highlight-box2">
+  <p><strong>Riemannian, or no?</strong>
+As we have just seen, all of our (embedded) manifolds are riemannian, inheriting a metric from the ambient euclidean inner products. In fact, by utilizing a construction with partitions of unity, it may be shown that <em>all</em> smooth manifolds are riemannian, regardless of whether they are embedded (from the outset) as a submanifold of euclidean space.</p>
+
+  <p>Thus, in the rest of this post, when we write “Let $M$ be a riemannian manifold…” in the hypotheses of theorems and definitions, we could just as well have written “Let $M$ be a manifold…”. Hypothesizing the existence of a riemannian metric on a manifold is, in view of the results just cited, no extra condition on the manifold.</p>
+
+  <p>However, even though all of our manifolds inherit riemannian structures from the ambient euclidean spaces, it will be important for us to note which results below depend <em>only</em> on the abstract properties of the metric (e.g., that it induces inner products on tangent space), and not on the specific construction of the metric from the ambient inner products. To help identify these results, we will distinguish between two types of riemannian manifolds:</p>
+
+  <ol>
+    <li>When the embedded manifold $M$ inherits its riemannian structure from the ambient euclidean space, we will refer to $M$ as an <em>embedded riemannian manifold</em>.</li>
+    <li>Otherwise, a <em>riemannian manifold</em> remains defined as above, where we assume nothing about the provenance of the metric, and view it only as an abstract $C^\infty(M)$-linear map that induces a smooth field of inner products.</li>
+  </ol>
+
+  <p>The distinction at play is whether a riemannian manifold $M$ is embedded in euclidean space merely as a <em>smooth manifold</em>, or whether it is embedded as a <em>riemannian manifold</em>. Since we are still following the definition of manifold from Guillemin and Pollack’s book, <em>all</em> of our riemannian manifolds are embedded as smooth manifolds, but their metrics may not be inherited from the ambient euclidean space, which means they may <em>not</em> be embedded riemannian manifolds.</p>
+</div>
+
+<h2 id="gradients">Gradients</h2>
+
+<p>The presence of the metric on a riemannian manifold $M$ allows us to define the gradient vector fields of smooth functions, which are likely very familiar from your study of multivariable calculus. More generally, the metric allows us to identify vector fields with certain objects called <em>$1$-forms</em>, that we will study later.</p>
+
+<p>To prepare the way, we first recall the metric coefficient functions $p\mapsto g_{ij}(p)$ defined in the previous section, which are smooth functions defined on open parametrizable subsets $U$ of the manifold $M$. Fixing a point $p\in U$, the induced inner product</p>
+
+<p>\begin{equation}\notag
+\ang{-,-}_p : T_p(M)  \otimes_\bbr T_p(M) \to \bbr
+\end{equation}</p>
+
+<p>is nondegenerate, and hence induces a linear isomorphism</p>
+
+<p>\begin{equation}\label{iso-eqn}
+T_p(M) \xrightarrow{\cong} T_p^\ast(M) , \quad v\mapsto \ang{v,-},
+\end{equation}</p>
+
+<p>between the tangent and cotangent space at $p$. If $x^1,\ldots,x^n$ are local coordinates on $U$ and $\bd_1,\ldots,\bd_n$ is the associated coordinate local frame, then one may easily check that the matrix of the isomorphism \eqref{iso-eqn} with respect to the bases</p>
+
+<p>\begin{equation}\notag
+\bd_1|_p,\ldots,\bd_n|_p \in T_p(M) \quad \text{and} \quad dx^1_p,\ldots,dx^n_p\in T_p^\ast(M)
+\end{equation}</p>
+
+<p>is exactly $[g_{ij}(p)]_{ij}$. The matrix of the <em>inverse</em> of \eqref{iso-eqn} with respect to these same bases is conventionally denoted $[g^{ij}(p)]_{ij}$, with the subscripts simply moving upstairs to become superscripts. Since inversion of a matrix is a smooth process, the functions $p\mapsto g^{ij}(p)$ are smooth on $U$. The defining relationship between the $g_{ij}(p)$’s and the $g^{ij}(p)$’s is encapsulated in the equality</p>
+
+<p>\begin{equation}\notag
+g^{ik}(p) g_{kj}(p)  = \delta^i_j,
+\end{equation}</p>
+
+<p>where $\delta^{i}_j$ is the <em>Kronecker delta</em>, equal to $1$ if $i=j$, and $0$ otherwise. Furthermore, both the $g_{ij}(p)$’s and $g^{ij}(p)$’s are <em>symmetric</em>, meaning that</p>
+
+<p>\begin{equation}\notag
+g_{ij}(p) = g_{ji}(p) \quad \text{and} \quad g^{ij}(p) = g^{ji}(p)
+\end{equation}</p>
+
+<p>for all $i,j$.</p>
+
+<p>Now, recall that if $f\in C^\infty(M)$ is a smooth function, then at every point $p\in M$ we have the differential $df_p \in T_p^\ast(M)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (The riemannian gradient).</strong> Let $f$ be a smooth function on a riemannian manifold $M$. There is a unique smooth vector field $\nabla f$ on $M$ such that</p>
+
+  <p>\begin{equation}\label{form1-eqn}
+\ang{(\nabla f)_p, v}_p = df_p(v),
+\end{equation}</p>
+
+  <p>for all $p\in M$ and all $v\in T_p(M)$. In particular, if $x^1,\ldots,x^n$ are local coordinates near $p$ and $\bd_1,\ldots,\bd_n$ is the associated coordinate local frame, then</p>
+
+  <p>\begin{equation}\label{form2-eqn}
+(\nabla f)_p = g^{ij}(p) \frac{\bd f}{\bd x^j}(p) \bd_i|_p.
+\end{equation}</p>
+
+  <p>The vector field $\nabla f$ is called the <em>gradient vector field</em> of $f$.</p>
+</div>
+
+<p>If it exists, uniqueness of $\nabla f$ follows immediately from the nondegeneracy of the inner products $\ang{-,-}_p$. For existence, we simply show that with the formula \eqref{form2-eqn}, the equation \eqref{form1-eqn} holds:</p>
+
+<p>\begin{equation}\notag
+\left\langle g^{ij}(p) \frac{\bd f}{\bd x^j}(p) \bd_i|_p,v \right\rangle_p = g_{ki}(p)g^{ij}(p) \frac{\bd f}{\bd x^j}(p) v^k = \frac{\bd f}{\bd x^j}(p) v^j = df_p(v).
+\end{equation}</p>
+
+<p>Now, to see that $\nabla f$ is a smooth vector field, we simply appeal to the formula \eqref{form2-eqn} and note that the functions $g^{ij}$ and the partial derivatives are smooth. Q.E.D.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Inner products with gradients).</strong>
+Let $f$ be a smooth function on a riemannian manifold $M$. If we interpret a smooth vector field $X\in \calx(M)$ as a derivation on $C^\infty(M)$, then we have</p>
+
+  <p>\begin{equation}\notag
+X(f) = \ang{\nabla f, X}
+\end{equation}</p>
+
+  <p>as functions in $C^\infty(M)$.</p>
+</div>
+
+<p>For proof, simply note that</p>
+
+<p>\begin{equation}\notag
+\left[X(f)\right](p) = df_p(X_p) = \ang{(\nabla f)_p, X_p}_p = \ang{\nabla f, X}(p)
+\end{equation}</p>
+
+<p>for all $p\in M$. Thus $X(f) = \ang{\nabla f, X}$, as desired. Q.E.D.</p>
+
+<h2 id="levi-civita-connections">Levi-Civita connections</h2>
+
+<p>Given a riemannian manifold $M$, we already have a way to differentiate a smooth function $f$ “in the direction” of a vector field $X$. Indeed, such a derivative is simply the smooth function</p>
+
+<p>\begin{equation}\notag
+\nabla_X f \defeq \ang{\nabla f, X} \in C^\infty(M),
+\end{equation}</p>
+
+<p>where $\nabla f$ is the gradient vector field of $f$ constructed in the previous section. The goal in this section is to extend this derivative operator $\nabla_X$ to vector fields on $M$, in order to make sense of something like $\nabla_X Y$, where both $X,Y\in \calx(M)$.</p>
+
+<p>First, suppose that $M$ is an embedded riemannian manifold, inheriting its metric from the ambient euclidean space $\bbr^s$. In addition to giving us a riemannian structure on $M$, the ambient euclidean inner product also enables us to define the <em>orthogonal complement</em> of the tangent space $T_p(M)$ by setting</p>
+
+<p>\begin{equation}\notag
+\nu_p(M) = \left\{ w\in \bbr^s : \ang{v,w} =0, \ \forall v\in T_p(M)\right\}.
+\end{equation}</p>
+
+<p>We then have the fundamental direct sum decomposition</p>
+
+<p>\begin{equation}\notag
+\bbr^s = T_p(M) \oplus \nu_p(M),
+\end{equation}</p>
+
+<p>that yields a natural surjective linear map $\bbr^s \to T_p(M)$ which projects a vector $w\in \bbr^s$ to its (unique!) component in $T_p(M)$. We shall denote this latter projection by $w|_{T_p(M)}$.</p>
+
+<p>We will use these orthogonal projections to define the extension of $\nabla_X$ to an operator that acts on vector fields:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be an embedded riemannian manifold. The <em>Levi-Civita connection</em> on $M$ (or simply the <em>connection</em> on $M$) is the $\bbr$-linear function $\nabla$ which acts on both $\calx(M)$ and $C^\infty(M)$ as follows:</p>
+
+  <ol>
+    <li>
+      <p>Its action on vector fields yields a function
+ \begin{equation}\notag
+ \nabla: \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto \nabla_XY,
+ \end{equation}
+given by
+ \begin{equation}\notag
+ (\nabla_XY)_p = Y_{\ast,p}(X_p)|_{T_p(M)},
+ \end{equation}
+for $p\in M$.</p>
+    </li>
+    <li>
+      <p>Its action on functions yields a function
+ \begin{equation}\notag
+ \nabla: \calx(M) \otimes_\bbr C^\infty(M) \to C^\infty(M), \quad (X,f) \mapsto \nabla_Xf,
+ \end{equation}
+given by
+ \begin{equation}\notag
+ \nabla_Xf = \ang{\nabla f, X},
+ \end{equation}
+for $f\in C^\infty(M)$.</p>
+    </li>
+  </ol>
+
+  <p>The vector field $\nabla_X Y$ and the function $\nabla_X f$ are called the <em>covariant derivatives (in the direction of $X$)</em> of $Y$ and $f$, respectively.</p>
+</div>
+
+<p>The covariant derivative $\nabla_XY$ is computed at a point $p\in M$ by first computing the directional derivative of $Y$ in the direction of $X_p$; then, this directional derivative is “projected” to the manifold $M$, and thus $\nabla_XY$ is exactly the component of this directional derivative that the manifold $M$ “sees.”</p>
+
+<p>I mentioned that the Levi-Civita connection is $\bbr$-bilinear without proof. In fact, the connection has several other important properties which are listed in the next exercise.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$.</p>
+
+  <ol>
+    <li>Prove that the connection <em>is</em> actually $\bbr$-bilinear.</li>
+    <li>Prove that the connection is $C^\infty(M)$-linear in the first argument, i.e.,
+ \begin{equation}\notag
+ \nabla_{fX}Y = f\nabla_XY
+ \end{equation}
+and
+ \begin{equation}\notag
+ \nabla_{fX}g = f \nabla_Xg
+ \end{equation}
+for all $X,Y\in \calx(M)$ and all $f,g\in C^\infty(M)$.</li>
+    <li>Prove that the connection is a “derivation” in the second argument, i.e.,
+ \begin{equation}\notag
+ \nabla_X(fY) = (\nabla_Xf)Y + f \nabla_XY
+ \end{equation}
+and
+ \begin{equation}\notag
+ \nabla_X(fg) = (\nabla_Xf)g + f \nabla_Xg
+ \end{equation}
+for all $X,Y\in \calx(M)$ and all $f,g\in C^\infty(M)$.</li>
+  </ol>
+</div>
+
+<p>Since a Levi-Civita connection is $C^\infty(M)$-linear in the first argument, it induces a field! Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Connections are local objects in the first argument).</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$. Fixing a vector field $Y\in \calx(M)$, for each point $p\in M$ there is a unique $\bbr$-linear function</p>
+
+  <p>\begin{equation}\notag
+\nabla Y: T_p(M) \to \bbr, \quad v \mapsto \nabla_v Y,
+\end{equation}</p>
+
+  <p>such that</p>
+
+  <p>\begin{equation}\notag
+\nabla_vY = \nabla_XY,
+\end{equation}</p>
+
+  <p>where $X$ is a vector field in $\calx(M)$ with $X_p=v$.</p>
+</div>
+
+<p>It is convenient to introduce the so-called <em>Christoffel symbols</em> of the Levi-Civita connection $\nabla$ on an $n$-dimensional embedded riemannian manifold $M$. These are collections of numbers that completely determine the connection on an open parametrizable subset $U$. Given a coordinate local frame $\bd_1,\ldots,\bd_n$ on $U$, the <em>Christoffel symbols</em>, denoted $\Gamma^k_{ij}$, are defined via the equation</p>
+
+<p>\begin{equation}\notag
+\nabla_{\bd_i}\bd_j = \Gamma^k_{ij} \bd_k.
+\end{equation}</p>
+
+<p>As with many objects in differential geometry, notice that the Christoffel symbols depend on the choice of local coordinates, though this dependence is not visible in the notation $\Gamma^k_{ij}$.</p>
+
+<p>Now, suppose we are given two vector fields $X,Y\in \calx(M)$. On the open set $U$, we may write</p>
+
+<p>\begin{equation}\notag
+X = X^i\bd_i \quad \text{and} \quad Y = Y^j  \bd_j,
+\end{equation}</p>
+
+<p>where $X^i,Y^j \in C^\infty(U)$ are the (local) component functions of $X$ and $Y$. Hence, as you may easily check, we have</p>
+
+<p>\begin{equation}\notag
+\nabla_XY = \left( \left\langle \nabla Y^k,X \right\rangle + X^i Y^j \Gamma^k_{ij} \right) \bd_k.
+\end{equation}</p>
+
+<p>In particular, if $M=\bbr^n$, then we have</p>
+
+<p>\begin{equation}\notag
+\nabla_XY = \left\langle \nabla Y^k,X \right\rangle \bd_k,
+\end{equation}</p>
+
+<p>since $\Gamma^k_{ij}=0$ in this case. Therefore, the Christoffel symbols $\Gamma^k_{ij}$ may be thought of as “correction terms” that quantify the (local, coordinate-dependent) discrepancy between the Levi-Civita connection on an arbitrary manifold and the Levi-Civita connection on “flat” euclidean space.</p>
+
+<p>It is instructive to study the Levi-Civita connection for some simple manifolds. For example, let’s suppose that we want to understand the vanishing condition $\nabla_XY=0$ in the case that $X$ and $Y$ are vector fields on the unit circle $M=S^1$. We may parametrize an open neighborhood of a point $p\in S^1$ via the map</p>
+
+<p>\begin{equation}\notag
+\theta \mapsto (\cos{\theta},\sin{\theta}),
+\end{equation}</p>
+
+<p>suitably restricted to an open interval of $\theta$’s. In the local coordinate $\theta$, the vector fields $X$ and $Y$ take the form</p>
+
+<p>\begin{equation}\notag
+X_\theta = f(\theta)(-\sin{\theta},\cos{\theta}) \quad \text{and} \quad Y_\theta = g(\theta)(-\sin{\theta},\cos{\theta}),
+\end{equation}</p>
+
+<p>for some pair of smooth functions $f(\theta)$ and $g(\theta)$. With respect to the trivialization</p>
+
+<p>\begin{equation}\notag
+\alpha: S^1 \times \bbr \xrightarrow{\cong} T(S^1), \quad (x,y,r) \mapsto (x,y,-yr, xr),
+\end{equation}</p>
+
+<p>that we discovered in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">post</a> on tangent bundles, the functions $f(\theta)$ and $g(\theta)$ measure the height (above or below) of the vector fields $X$ and $Y$ above the zero section:</p>
+
+<p><img src="/assets/images/horizontal.png" alt="sum" style="margin: 40px auto; display: block; width: 45%;" /></p>
+
+<p>Now, we compute</p>
+
+<p>\begin{equation}\notag
+\frac{dY_\theta}{d\theta} = g’(\theta)(-\sin{\theta},\cos{\theta}) - g(\theta)(\cos{\theta},\sin{\theta}),
+\end{equation}</p>
+
+<p>so that if $p$ has local coordinate $\theta$, we get that</p>
+
+<p>\begin{equation}\notag
+(\nabla_XY)_p = f(\theta)g’(\theta)(-\sin{\theta},\cos{\theta}).
+\end{equation}</p>
+
+<p>In particular, if we take $f(\theta)=1$ for all $\theta$, so that $X$ is a “uniform” vector field of unit tangent vectors, then we have</p>
+
+<p>\begin{equation}\notag
+(\nabla_XY)_p = g’(\theta)(-\sin{\theta},\cos{\theta}).
+\end{equation}</p>
+
+<p>This shows that the covariant derivative $\nabla_XY$ measures the “vertical” rate of change of the vector field $Y$, when the tangent bundle $T(S^1)$ is identified with the cylinder $S^1\times \bbr$ as drawn above. In particular, if $\nabla_XY=0$, then $Y$ must be a “horizontal” section of the tangent bundle.</p>
+
+<p>Back to the general theory. An embedded riemannian manifold $M$ thus has two structures: it has its metric $\ang{-,-}$, inherited from the ambient euclidean space, and it has its Levi-Civita connection $\nabla$. These two structures fit together coherently, in the sense of the following theorem, which states that the covariant derivative of an inner product may computed via the familiar “product rule”.</p>
+
+<div class="highlight-box" id="compat">
+  <p><strong>Theorem (Compatibility with the metric).</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$, and let $X$, $Y$, and $Z$ be smooth vectors fields on $M$. Then the connection is <em>compatible</em> with the metric, in the sense that
+    \begin{equation}\label{compat-eqn}
+    \nabla_X \ang{Y,Z} = \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ}.
+    \end{equation}</p>
+</div>
+
+<p>In fact, equation \eqref{compat-eqn} is a consequence of the equation
+    \begin{equation}\notag
+    \ang{Y,Z}_{\ast,p}(v) = \ang{Y_{\ast,p}(v),Z_p} + \ang{Y_p, Z_{\ast,p}(v)}
+    \end{equation}
+for all points $p\in M$ and all tangent vectors $v\in T_p(M)$. Here, we recall that $\ang{Y,Z}$ is a vector field, interpreted as a smooth map from $M$ to the ambient euclidean space, and hence the pushforward $\ang{Y,Z}_{\ast,p}$ makes sense. On the right-hand side of the equation, however, the angle brackets $\ang{-,-}$ denote the euclidean inner product on the ambient space. For extra practice, I suggest that you establish this latter equation on your own, taking extra care to unwind the meaning of all the symbols.</p>
+
+<h2 id="abstract-connections-and-the-fundamental-theorem-of-riemannian-geometry">Abstract connections and the Fundamental Theorem of Riemannian Geometry</h2>
+
+<p>In order to state the important theorem in the name of this section, we need a specific enrichment of structure on the module $\calx(M)$ of smooth vector fields on a manifold $M$. This structure is a way to “multiply” vector fields:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold. The <em>Lie bracket</em> on $M$ is the $\bbr$-bilinear function</p>
+
+  <p>\begin{equation}\notag
+[-,-]: \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto [X,Y]
+\end{equation}</p>
+
+  <p>given by</p>
+
+  <p>\begin{equation}\notag
+[X,Y]_p = X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+  <p>for $p\in M$.</p>
+</div>
+
+<p>In this definition, we are considering smooth vector fields to be smooth maps to the ambient euclidean space in which $M$ is embedded. If we equip $M$ with its Levi-Civita connection $\nabla$, then the Lie bracket $[X,Y]$ appears to be the difference $\nabla_YX - \nabla_XY$, but the orthogonal projections onto the tangent spaces are missing. In fact, you may have wondered if I had forgotten these projections in the definition of the Lie bracket, because there is no reason to believe (at the outset) that the difference</p>
+
+<p>\begin{equation}\notag
+X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+<p>is actually a tangent vector in $T_p(M)$. However, it actually <em>is</em> in the tangent space! No orthogonal projections are needed!</p>
+
+<p>One way to prove this is to give local coordinate descriptions of the Lie bracket:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Lie brackets in coordinates).</strong> Let $X$ and $Y$ be two smooth vector fields on a manifold $M$. If $\bd_1,\ldots,\bd_n$ is the coordinate local frame on an open parametrizable subset $U$ with local coordinates $x^1,\ldots,x^n$, and if</p>
+
+  <p>\begin{equation}\notag
+X = X^i \bd_i \quad \text{and} \quad Y = Y^i \bd_i
+\end{equation}</p>
+
+  <p>on $U$, then</p>
+
+  <p>\begin{equation}\label{coord-der-eqn}
+[X,Y] = \left(Y^i \frac{\bd X^j}{\bd x^i} - X^i \frac{\bd Y^j}{\bd x^i} \right) \bd_j
+\end{equation}</p>
+
+  <p>on $U$. In particular, the Lie bracket $[X,Y]$ is a smooth vector field on $M$.</p>
+</div>
+
+<p>To prove the theorem, we suppose $M$ is embedded in $\bbr^s$. Then:</p>
+
+<ol>
+  <li>We let $\phi: \bbr^n \to U$ be the local parametrization corresponding to the local coordinates $x^1,\ldots,x^n$.</li>
+  <li>We let $t^1,\ldots,t^n$ be the standard global euclidean coordinates on $\bbr^n$.</li>
+  <li>We let $u_1,\ldots,u_n$ be the standard ordered basis of $\bbr^n$.</li>
+  <li>We let $v_1,\ldots,v_s$ be the standard ordered basis of $\bbr^s$.</li>
+</ol>
+
+<p>Now, as you may easily check, we have</p>
+
+<p>\begin{equation}\notag
+X\circ \phi = a^j \frac{ \bd \phi^k}{\bd t^j} v_k \quad \text{and} \quad Y\circ \phi = b^j \frac{ \bd \phi^k}{\bd t^j} v_k
+\end{equation}</p>
+
+<p>where $a^j = X^j \circ \phi$ and $b^j = Y^j \circ \phi$. Given $p\in U$ with $\phi(t)=p$, we have</p>
+
+<p>\begin{equation}\notag
+\phi_{\ast,t}(a^i(t)u_i) = X_p \quad \text{and} \quad \phi_{\ast,t}(b^i(t)u_i) = Y_p.
+\end{equation}</p>
+
+<p>Thus, by the Chain Rule, we get</p>
+
+<p>\begin{equation}\label{sput1-eqn}
+X_{\ast,p}(Y_p) = b^i(t) \frac{\bd a^j}{\bd t^i}(t) \frac{\bd \phi^k}{\bd t^j}(t)v_k + a^j(t)b^i(t) \frac{\bd ^2 \phi^k}{\bd t^i \bd t^j}(t) v_k
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\label{sput2-eqn}
+Y_{\ast,p}(X_p) = a^i(t) \frac{\bd b^j}{\bd t^i}(t) \frac{\bd \phi^k}{\bd t^j}(t)v_k + a^j(t)b^i(t) \frac{\bd^2 \phi^k}{\bd t^j \bd t^i}(t) v_k.
+\end{equation}</p>
+
+<p>But then</p>
+
+<p>\begin{align}
+X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p) &amp;= \left(b^i(t) \frac{\bd a^j}{\bd t^i}(t) - a^i(t) \frac{\bd b^j}{\bd t^i}(t) \right)\frac{\bd \phi^k}{\bd t^j}(t)v_k\notag \\ &amp;= \left(Y^i(p) \frac{\bd X^j}{\bd x^i}(p) - X^i(t) \frac{\bd Y^j}{\bd x^i}(p) \right)\bd_j|_p, \notag
+\end{align}</p>
+
+<p>where we used equality of the second-order mixed partial derivatives in \eqref{sput1-eqn} and \eqref{sput2-eqn} in the first equality. Q.E.D.</p>
+
+<p>The Lie bracket takes a particularly simple form when we identify the module $\calx(M)$ with the module</p>
+
+<p>\begin{equation}\label{der-eqn} 
+\Der_\bbr(C^\infty(M),C^\infty(M))
+\end{equation}</p>
+
+<p>of derivations on $C^\infty(M)$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Suppose that we identify the module of smooth vector fields $\calx(M)$ on a manifold $M$ with the module of derivations \eqref{der-eqn}. We then define the <em>algebraic Lie bracket</em> of two vector fields $X$ and $Y$ to be the derivation</p>
+
+  <p>\begin{equation}\notag
+[X,Y]_\text{alg} \defeq (Y\circ X) - (X\circ Y).
+\end{equation}</p>
+</div>
+
+<p>While the individual composites $Y\circ X$ and $X\circ Y$ are not (in general) derivations, I will leave it to you to show that their difference $[X,Y]_\text{alg}$ actually is.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Algebraic Lie brackets in coordinates).</strong> Let $X$ and $Y$ be two smooth vector fields on a manifold $M$, viewed as derivations of $C^\infty(M)$. If $\bd_1,\ldots,\bd_n$ is the coordinate local frame on an open parametrizable subset $U$ with local coordinates $x^1,\ldots,x^n$, and if</p>
+
+  <p>\begin{equation}\notag
+X = X^i\frac{\bd}{\bd x^i} \quad \text{and} \quad Y = Y^i \frac{\bd}{\bd x^i}
+\end{equation}</p>
+
+  <p>on $U$, then</p>
+
+  <p>\begin{equation}\label{coord-der2-eqn}
+[X,Y]_\text{alg} = \left(Y^i\frac{\bd X^j}{\bd x^i}  - X^i\frac{\bd Y^j}{\bd x^i}\right) \frac{\bd }{\bd x^j}
+\end{equation}</p>
+
+  <p>on $U$.</p>
+</div>
+
+<p>The crucial fact used in the proof of the theorem on local coordinate descriptions of $[-,-]$ was that certain second-order mixed partial derivatives were equal. This fact is also used in the current proof. Indeed, given $f\in C^\infty(U)$, we have</p>
+
+<p>\begin{align}
+Y(X(f)) &amp;= Y \left(X^j \frac{\bd f}{\bd x^j} \right) \notag \\ &amp;= Y(X^j) \frac{\bd f}{\bd x^j} + X^j Y\left(\frac{\bd f}{\bd x^j}\right) \notag \\ &amp;= Y^i\frac{\bd X^j}{\bd x^i} \frac{\bd f}{\bd x^j} + X^j Y^i \frac{\bd^2 f}{\bd x^i \bd x^j} \notag
+\end{align}</p>
+
+<p>and similarly</p>
+
+<p>\begin{equation}\notag
+X(Y(f)) = X^i\frac{\bd Y^j}{\bd x^i} \frac{\bd f}{\bd x^j} +  X^j Y^i \frac{\bd^2 f}{\bd x^j \bd x^i}.
+\end{equation}</p>
+
+<p>Thus, we have</p>
+
+<p>\begin{equation}\notag
+[X,Y]_\text{alg} = \left(Y^i\frac{\bd X^j}{\bd x^i}  - X^i\frac{\bd Y^j}{\bd x^i}\right) \frac{\bd }{\bd x^j}
+\end{equation}</p>
+
+<p>over $U$, as desired. Q.E.D.</p>
+
+<div class="highlight-box2">
+  <p><strong>Conclusion.</strong> By comparing equations \eqref{coord-der-eqn} and \eqref{coord-der2-eqn} in the theorems, we see that it does not matter whether we view vector fields as sections of tangent bundles or derivations, the Lie brackets are the same (up to isomorphism).</p>
+</div>
+
+<p>Now, since no orthogonal projection is involved in the definition of $[X,Y]$, we can give geometric interpretations of the Lie bracket relatively easily. To make it even easier, we will suppose that the manifold $M$ is an open submanifold of euclidean space $\bbr^n$, so that the pushforwards in the definition</p>
+
+<p>\begin{equation}\notag
+[X,Y]_p = X_{\ast,p}(Y_p) - Y_{\ast,p}(X_p)
+\end{equation}</p>
+
+<p>may be computed as directional derivatives. In particular, if a point $p\in M$ is fixed, then these pushforwards measure the first-order infinitesimal changes in the vector fields, in the sense that</p>
+
+<p>\begin{equation}\notag
+Y_{q} - Y_p = \dev Y_{\ast,p}(X_p) + O(\dev^2)
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+X_{r} - X_p = \dev X_{\ast,p}(Y_p) + O(\dev^2),
+\end{equation}</p>
+
+<p>where $q=p+\dev X_p$ and $r = p+\dev Y_p$. Now, the vectors on the left-hand sides of these equations (each scaled by $\dev$) may be placed into a figure of the form:</p>
+
+<p><img src="/assets/images/lie-bracket.png" alt="sum" style="margin: 40px auto; display: block; width: 65%;" /></p>
+
+<p>Thus, we see that the Lie bracket $[X,Y]$ at a point $p$ measures the second-order infinitesimal deviation from the evident parallelogram being “closed.” In other words, if $[X,Y]_p=0$, then the two blue dots in the upper right-hand corner of the figure coincide, at least up to second-order infinitesimals.</p>
+
+<p>We already noted <a href="#compat">above</a> one of the most important properties of the Levi-Civita connection on an embedded riemannian manifold. Another fundametal property follows almost from the very definition of the Lie bracket:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Levi-Civita connections have vanishing torsion).</strong> Let $M$ be an embedded riemannian manifold with Levi-Civita connection $\nabla$. Then $\nabla$ is <em>torsion free</em>, in the sense that</p>
+
+  <p>\begin{equation}\notag
+\nabla_YX - \nabla_XY = [X,Y]
+\end{equation}</p>
+
+  <p>for all $X,Y\in \calx(M)$.</p>
+</div>
+
+<p>From the compatibility and torsion-free properties of the Levi-Civita connection $\nabla$, a fundamental (local) relationship between $\nabla$ and the metric may be derived. First, given vector fields $X,Y,Z\in \calx(M)$, we have</p>
+
+<p>\begin{align}
+\nabla_X \ang{Y,Z} &amp;= \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ} \notag \\ \nabla_Y \ang{Z,X} &amp;= \ang{\nabla_YZ,X} + \ang{Z,\nabla_YZ} \notag \\ \nabla_Z \ang{X,Y} &amp;= \ang{\nabla_ZX,Y} + \ang{X,\nabla_ZY}. \notag
+\end{align}</p>
+
+<p>In view of the torsion-free condition, by adding the first two equations and subtracting the third, we get</p>
+
+<p>\begin{equation}\notag
+\nabla_X\ang{Y,Z} + \nabla_Y\ang{Z,X} - \nabla_Z\ang{X,Y} = \ang{[X,Z],Y} +\ang{[Y,Z],X} + \ang{[X,Y],Z} + 2\ang{ Z,\nabla_YX}.
+\end{equation}</p>
+
+<p>From this equation follows the important observation that the metric completely determines the connection $\nabla$:</p>
+
+<p>\begin{equation}\label{det-eqn}
+\ang{ Z,\nabla_YX} = \frac{1}{2} \left\{ \nabla_X\ang{Y,Z} + \nabla_Y\ang{Z,X} - \nabla_Z\ang{X,Y} - \ang{[X,Z],Y} -\ang{[Y,Z],X} - \ang{[X,Y],Z} \right\}.
+\end{equation}</p>
+
+<p>By restricting this equation over an open parametrizable subset $U$, and by choosing for $X$, $Y$, and $Z$ the coordinate local sections $\bd_i$, $\bd_j$, and $\bd_l$, we get:</p>
+
+<p>\begin{equation}\notag
+\Gamma_{ij}^k g_{lk} = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right).
+\end{equation}</p>
+
+<p>But the matrix $[g_{lk}]_{lk}$ is invertible, with inverse $[g^{lk}]_{lk}$, and hence we get</p>
+
+<p>\begin{equation}\notag
+\Gamma_{ij}^k  = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right)g^{lk}.
+\end{equation}</p>
+
+<p>Let us summarize the situation, in our version of a very important result:</p>
+
+<div class="highlight-box">
+  <p><strong>The Fundamental Theorem of Riemannian Geometry.</strong> Let $M$ be a riemannian manifold with metric $\ang{-,-}$. Then there is a unique $\bbr$-linear function</p>
+
+  <p>\begin{equation}\label{abstract-connection-eqn}
+\nabla : \calx(M) \otimes_\bbr \calx(M) \to \calx(M), \quad (X,Y) \mapsto \nabla_X Y,
+\end{equation}</p>
+
+  <p>that satisfies the following properties:</p>
+
+  <ol>
+    <li>The function $\nabla$ is $C^\infty(M)$-linear in the first argument $X$.</li>
+    <li>The function $\nabla$ is a “derivation” in the second argument $Y$, in the sense that
+ \begin{equation}\notag
+ \nabla_X(fY) = X(f) Y + f \nabla_XY
+ \end{equation}
+for all $X,Y\in \calx(M)$ and $f\in C^\infty(M)$.</li>
+    <li>The function $\nabla$ is <em>compatible</em> with the metric in the sense that
+ \begin{equation}\notag
+ X(\ang{Y,Z}) = \ang{\nabla_XY,Z} + \ang{Y,\nabla_XZ}
+ \end{equation}
+for all $X,Y,Z\in \calx(M)$.</li>
+    <li>The function $\nabla$ is <em>torsion free</em>, in the sense that
+ \begin{equation}\notag
+ \nabla_YX - \nabla_XY = [X,Y]
+ \end{equation}
+for all $X,Y\in \calx(M)$.</li>
+  </ol>
+
+  <p>In particular, the metric $\ang{-,-}$ uniquely determines the vector field $\nabla_XY$ via the equation \eqref{det-eqn}, and conversely, the vector field $\nabla_XY$ may be <em>defined</em> by this equation. Finally, the Christoffel symbols of the connection and the metric coefficients over an open parametrizable subset are related via the equation</p>
+
+  <p>\begin{equation}\label{chris-metric-eqn}
+\Gamma_{ij}^k  = \frac{1}{2} \left( \bd_i g_{jl} + \bd_jg_{li} -\bd_l g_{ij} \right)g^{lk}, \quad \forall i,j,k.
+\end{equation}</p>
+</div>
+
+<p>A function \eqref{abstract-connection-eqn} on <em>any</em> manifold that satisfies the first and second properties in the theorem is called an (abstract) <em>affine</em> or <em>Koszul connection</em>. The unique affine connection on a riemannian manifold that is both compatible with the metric and torsion free is called the <em>Levi-Civita connection</em> of the manifold. Thus, while the Fundamental Theorem guarantees that such a Levi-Civita connection exists for all riemannian manifolds via the somewhat opaque equation \eqref{det-eqn}, in the specific case of an <em>embedded</em> riemannian manifold where the metric is inherited from the ambient euclidean space, we have given a much more workable and concrete desciption of the connection.</p>
+
+<p>Using the local formulas \eqref{chris-metric-eqn}, let’s compute the Christoffel symbols of the unit sphere $S^2\subset \bbr^3$, with respect to the spherical local parametrization map</p>
+
+<p>\begin{equation}\notag
+(\theta,\varphi) \mapsto (\cos{\theta}\sin{\varphi},\sin{\theta}\sin{\varphi},\cos{\varphi}).
+\end{equation}</p>
+
+<p>Here, take care to notice that $\theta$ is the azimuthal angle, while $\varphi$ is the polar angle (these are often reversed in physics and engineering!). Then, on any open subset of $S^2$ where $\theta$ and $\varphi$ serve as local coordinates, we compute the coordinate local sections</p>
+
+<p>\begin{equation}\notag
+\bd_\theta = \begin{bmatrix} -\sin{\theta}\sin{\varphi} \\ \cos{\theta}\sin{\varphi} \\ 0 \end{bmatrix} \quad \text{and} \quad \bd_\varphi = \begin{bmatrix} \cos{\theta}\cos{\varphi} \\ \sin{\theta}\cos{\varphi} \\ -\sin{\varphi} \end{bmatrix}.
+\end{equation}</p>
+
+<p>Here, we are following the common practice of writing $\bd_\theta$ and $\bd_\varphi$ in place of $\bd_1$ and $\bd_2$, respectively. The metric coefficients (and the coefficients of its inverse) are given by</p>
+
+<p>\begin{equation}\notag
+\begin{bmatrix} g_{\theta\theta} &amp; g_{\theta\varphi} \\ g_{\varphi\theta} &amp; g_{\varphi\varphi} \end{bmatrix} = \begin{bmatrix} \sin^2{\varphi} &amp; 0 \\ 0 &amp; 1 \end{bmatrix} \quad \text{and} \quad \begin{bmatrix} g^{\theta\theta} &amp; g^{\theta\varphi} \\ g^{\varphi\theta} &amp; g^{\varphi\varphi} \end{bmatrix} = \begin{bmatrix} \csc^2{\varphi} &amp; 0 \\ 0 &amp; 1 \end{bmatrix}.
+\end{equation}</p>
+
+<p>The only nonzero partial derivative of the metric is</p>
+
+<p>\begin{equation}\notag
+\bd_\varphi g_{\theta\theta} = 2\sin{\varphi}\cos{\varphi},
+\end{equation}</p>
+
+<p>from which one concludes that there are only three (possibly) nonzero Christoffel symbols:</p>
+
+<p>\begin{equation}\notag
+\Gamma^\theta_{\varphi\theta} = \Gamma^\theta_{\theta\varphi} = \cot{\varphi} \quad \text{and} \quad \Gamma^\varphi_{\theta\theta} = -\sin{\varphi}\cos{\varphi}.
+\end{equation}</p>
+
+<h2 id="parallel-transport-and-geodesics">Parallel transport and geodesics</h2>
+
+<p>Let’s backtrack a bit, and explain why connections are called <em>connections</em>. What are they supposed to be connecting?</p>
+
+<p>The answer lies in the notion of <em>parallel transport</em>, which in turn relies on a second type of covariant differentiation. To define this concept, we first require the notions of <em>vector fields and functions along a curve</em>. Throughout this section, the letter $I$ will stand for an open interval of the real line $\bbr$, that contains $0$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\gamma:I \to M$ be a smooth curve in a manifold $M$.</p>
+
+  <ol>
+    <li>A <em>(smooth) vector field along $\gamma$</em> is a “lift” of $\gamma$ to the tangent bundle, i.e., a smooth map
+ \begin{equation}\notag
+ X: I \to T(M)
+ \end{equation}
+such that the diagram
+ \begin{equation}\notag
+ \begin{xy}
+ \xymatrix{  &amp; \color{white} T(M) \ar@[white][d]^{\color{white} \pi} \\ \color{white} I \ar@[white][ur]^{\color{white} X} \ar@[white][r]_{\color{white}\gamma} &amp; \color{white} M}
+ \end{xy}
+ \end{equation}
+commutes, where $\pi$ is the natural projection. We will write $\calx(\gamma)$ for the set of all smooth vector fields along $\gamma$.</li>
+    <li>A <em>(smooth) function along $\gamma$</em> is simply a smooth function in $C^\infty(I)$.</li>
+  </ol>
+</div>
+
+<p>There is a (perhaps) disappointing dissimilarity between the definitions of smooth vector fields and smooth functions along a curve $\gamma$. However, they can be brought together under the same scheme of “lifts” if we instead define a <em>smooth function along $\gamma$</em> to be a lift of $\gamma$ to the trivial (basic) vector bundle $M \times \bbr$. Precisely, we would define such a function to be a smooth map</p>
+
+<p>\begin{equation}\notag
+\widehat{f}: I \to M \times \bbr
+\end{equation}</p>
+
+<p>that “lifts” the curve $\gamma$ to the trivial bundle, in the sense that the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{  &amp; \color{white} M \times \bbr \ar@[white][d]^{\color{white} \pi_1} \\ \color{white} I \ar@[white][ur]^{\color{white} \widehat{f}} \ar@[white][r]_{\color{white}\gamma} &amp; \color{white} M}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes, where $\pi_1: M \times \bbr \to M$ is the natural projection onto the first cartesian factor. This means that $\widehat{f}$ is given by a formula of the form</p>
+
+<p>\begin{equation}\label{chair-eqn}
+\widehat{f}(t) = (\gamma(t),f(t)),
+\end{equation}</p>
+
+<p>where $f$ is a smooth function in $C^\infty(I)$. We conceptualize the formula \eqref{chair-eqn} as the scalar $f(t)$ “attached” to the point $\gamma(t)$ on the curve, so that in this sense, a function along $\gamma$ is viewed as a collection of scalars (i.e., a scalar field) along the curve. But the lift is obviously completely determined by the function $f\in C^\infty(I)$, which means that we may as well define smooth functions along $\gamma$ as functions in $C^\infty(I)$, which is what we did above.</p>
+
+<p>Note that if $M$ is embedded in $\bbr^s$, then a vector field along $\gamma$ may be uniquely specified by instead giving a smooth map</p>
+
+<p>\begin{equation}\notag
+X: I \to \bbr^s
+\end{equation}</p>
+
+<p>such that $X_t \in T_{\gamma(t)}(M)$ for all $t\in I$.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $\gamma:I \to M$ be a smooth curve in a manifold $M$. Prove that the set $\calx(\gamma)$ is a $C^\infty(I)$-module in a natural way.</p>
+</div>
+
+<p>Given a smooth function $f\in C^\infty(I)$ along the curve $\gamma$, we already have a notion of the derivative of $f$. Indeed, such a derivative is simply the smooth function</p>
+
+<p>\begin{equation}\notag
+\frac{Df}{dt} \defeq f’,
+\end{equation}</p>
+
+<p>where $f’\in C^\infty(I)$ is defined by</p>
+
+<p>\begin{equation}\notag
+f’(t) = f_{\ast,t}(1) \in \bbr.
+\end{equation}</p>
+
+<p>However, just as with Levi-Civita connections, our goal is to extend the operator $D/dt$ to act on vector fields along $\gamma$, producing a vector field $DX/dt$.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\gamma$ be a smooth curve in an embedded riemannian manifold $M$. The <em>covariant derivative along $\gamma$</em> is the $\bbr$-linear map $D/dt$ which acts on both $\calx(\gamma)$ and $C^\infty(I)$ as follows:</p>
+
+  <ol>
+    <li>Its action on vector fields along $\gamma$ yields a function
+ \begin{equation}\notag
+ D/dt: \calx(\gamma) \to \calx(\gamma), \quad X\mapsto DX/dt
+ \end{equation}
+given by
+ \begin{equation}\notag
+ (DX/dt)_t = X_{\ast,t}(1)|_{T_{\gamma(t)}(M)},
+ \end{equation}
+for $t\in I$.</li>
+    <li>Its action on functions along $\gamma$ yields a function
+ \begin{equation}\notag
+ D/dt: C^\infty(I) \to C^\infty(I), \quad f\mapsto Df/dt
+ \end{equation}
+given by
+ \begin{equation}\notag
+ Df/dt= f’,
+ \end{equation}
+for $f\in C^\infty(I)$.</li>
+  </ol>
+</div>
+
+<p>As with the Levi-Civita connection, it is not obvious that $DX/dt$ is actually a smooth vector field. However, we will take this for granted in this post.</p>
+
+<p>I suggest that you give a go at the following exercise, which lists some fundamental properties of the covariant derivative along curves.</p>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Let $\gamma$ be a smooth curve in an embedded riemannian manifold $M$ with Levi-Civita connection $\nabla$.</p>
+
+  <ol>
+    <li>Prove that $D/dt$ actually <em>is</em> $\bbr$-linear, for both its action on vector fields and functions along $\gamma$.</li>
+    <li>Prove that $D/dt$ is a “derivation” with respect to the $C^\infty(I)$-module structures, i.e., prove that
+ \begin{equation}\notag
+ D(fX)/dt= (Df/dt) X + f DX/dt.
+ \end{equation}
+and
+ \begin{equation}\notag
+ D(fg)/dt= (Df/dt) g + fDg/dt
+ \end{equation}
+for all $X\in \calx(\gamma)$ and $f,g\in C^\infty(I)$.</li>
+    <li>Suppose that a vector field $X\in \calx(\gamma)$ is induced by a global vector field $Y\in \calx(M)$, in the sense that $X_t = Y_{\gamma(t)}$ for all $t\in I$. Prove that
+ \begin{equation}\notag
+ (DX/dt)_t = \nabla_{\gamma’(t)} Y
+ \end{equation}
+for all $t\in I$, where $\gamma’(t) = \gamma_{\ast,t}(1)$.</li>
+  </ol>
+</div>
+
+<p>In the special case that $M=\bbr^n$, we have</p>
+
+<p>\begin{equation}\notag
+DX/dt = X’,
+\end{equation}</p>
+
+<p>where $X’(t) = X_{\ast,t}(1)$. It follows that if $DX/dt=0$, then the vectors $X_t$ are parallel to each other, as $t$ varies over $I$. In the case of a general manifold, we take the vanishing condition $DX/dt=0$ as the definition of <em>parallel</em>:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\gamma:I \to M$ be a smooth curve in an embedded Riemannian manifold $M$. We shall say a vector field $X$ along $\gamma$ is <em>parallel</em> if $DX/dt=0$.</p>
+</div>
+
+<p>There is a particularly popular example of a parallel vector field on the sphere $S^2$ that virtually every introductory reference on differential geometry covers. This post will be no exception. But first, let’s start out with a related parallel vector field on the unit circle $S^1$ in $\bbr^2$.</p>
+
+<p>Let $\gamma:\bbr \to S^1$ be the smooth path given by</p>
+
+<p>\begin{equation}\notag
+\gamma(t) = (\sin{t},\cos{t}).
+\end{equation}</p>
+
+<p>Define the vector field $X:\bbr \to \bbr^2$ along $\gamma$ by</p>
+
+<p>\begin{equation}\notag
+X_t = (\cos{t},-\sin{t}).
+\end{equation}</p>
+
+<p>One then easily computes $\nabla_\gamma X=0$, and hence $X$ is a parallel vector field on $S^1$.</p>
+
+<p>Now, if $\gamma:[0,\pi/2] \to \bbr^3$ is a similar path</p>
+
+<h2 id="spectra">Spectra</h2>
+
+<p>Manifolds appear in physical theory as geometric objects whose points correspond to states of the (classical) systems under consideration. For example, the states of a classical hamiltonian system are encoded in a manifold called the <em>momentum phase space</em>, which is an even-dimensional manifold with local coordinates that are divided in half: the first half describes the static (generalized) positions of the constituent objects of the system, while the second half describes the dynamic (generalized) momenta of those objects. The dynamical states of the system correspond to points of the phase space manifold.</p>
+
+<p>In this paradigm, an <em>observable</em> is any smooth real-valued function of position and momentum. Thus, if the phase space is $M$, then the set of observables is precisely the commutative $\bbr$-algebra $C^\infty(M)$. The following ontological principle holds that the algebra of observables <em>completely determines</em> the system:</p>
+
+<div class="highlight-box2">
+  <p><strong>The Observability Principle.</strong> What exists is only that which can be observed.</p>
+</div>
+
+<p>In other words, there should be no more information encoded in the phase space $M$ of a dynamical system that isn’t recoverable from the algebra $C^\infty(M)$. In the other direction, since $C^\infty(M)$ is uniquely obtainable from $M$, neither should there be more information in $C^\infty(M)$ that isn’t already in $M$. Therefore, a corollary to The Observability Principle is that $M$ and $C^\infty(M)$ are entirely equivalent objects.</p>
+
+<p>The Observability Principle is certainly a bold claim, and I suspect that the philosophically minded reader might be slightly shocked to see such an assertion put forth with no supporting argument or evidence. However, regardless of what you might think of its truth in our real world, as I will explain in this section, in the purely, idealized mathematical world, <em>it is true!</em></p>
+
+<p>The mechanism which mathematically actualizes the principle is the theory of spectra. This theory is just one instance of the broader observation by mathematicians of a frequently occurring <a href="https://ncatlab.org/nlab/show/duality+between+algebra+and+geometry">duality</a> between geometry and algebra.</p>
+
+<p>In fact, if you read the previous post in this series, you have already seen a hint of spectra. In that post, the main geometric category of interest was the <em>category of pointed manifolds</em>, which has as its objects all pairs $(M,p)$ consisting of a point $p$ on a manifold $M$. However, when we proved that the space of derivations on the local ring $C^\infty_{M,p}$ was isomorphic to the Zariski tangent space, we appealed to a purely algebraic result stated in the framework of the <em>category of pointed algebras</em>. This latter category has as its objects all pairs $(A,\dev)$, where $\dev:A \to \bbr$ is a homomorphism of $\bbr$-algebras. We observed that the two categories are linked by an evident functor given by</p>
+
+<p>\begin{equation}\notag
+(M,p) \mapsto (C^\infty_{M,p},\dev_p),
+\end{equation}</p>
+
+<p>where $\dev_p: C^\infty_{M,p} \to \bbr$ was the homomorphism that evaluates a germ at the point $p$. This was our first hint of the link between points of the manifold $M$ and $\bbr$-algebra homomorphisms.</p>
+
+<p>Now, the theory of spectra can be described simply as this identification of points and homomorphisms carried to its logical conclusion. Nothing more, nothing less.</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $A$ be a commutative $\bbr$-algebra. The <em>spectrum</em> of $A$, denoted $\Spec{A}$, is the set of all unital $\bbr$-algebra homomorphisms $A\to \bbr$.</p>
+</div>
+
+<p>First, I should mention that there are multiple definitions of spectra in the literature. For example, what I have written as $\Spec{A}$ is often interpreted in scheme-theoretic algebraic geometry as the <em>prime spectrum</em> of $A$, which is the set of all prime ideals of $A$. These latter types of spectra will make a brief appearance later.</p>
+
+<p>As I mentioned above, the jumping off point for the theory of spectra is the identification of geometric points with algebra homomorphisms. Thus, this theory demands that $\Spec{A}$ should be treated as a geometric object, and $A$ should be viewed as an algebra of real-valued functions on it. But, does this actually work?</p>
+
+<p>Not always.</p>
+
+<p>To see the problem, let’s suppose that we write $\Fun(\Spec{A})$ for the set of all real-valued functions $\Spec{A} \to \bbr$. Notice that $\Fun(\Spec{A})$ is a commutative $\bbr$-algebra, with respect to the evident pointwise operations. There is a natural map given by evaluation, namely</p>
+
+<p>\begin{equation}\label{func-eqn}
+\Theta: A \to \Fun(\Spec{A}), \quad \left[\Theta(f)\right](p) = p(f),
+\end{equation}</p>
+
+<p>for all $f\in A$ and all $p\in \Spec{A}$. You may easily check that $\Theta$ is a homomorphism of $\bbr$-algebras, and it is through this map that we are to view elements $f\in A$ as real-valued functions on $\Spec{A}$. However, $\Theta$ may not always provide a faithful representation of $A$ as a ring of functions, as it may not be injective.</p>
+
+<p>The algebras for which $\Theta$ <em>is</em> injective have a special name: they are called <em>geometric algebras</em>. These are algebras for which the intersection $\bigcap_{p\in \Spec{A}} \ker{p}$ is zero.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Geometric algebras have faithful representations as functions).</strong> Let $A$ be a commutative $\bbr$-algebra and suppose $\Theta$ is the natural map defined above \eqref{func-eqn}. Then $\ker{\Theta}$ is the intersection $\bigcap_{p\in \Spec{A}} \ker{p}$.</p>
+</div>
+
+<p>Since every $\ker{p}$ is a maximal ideal in $A$, it is thus easy to cook up examples of non-geometric algebras. For one special class of examples, just consider algebras that have only one maximal ideal, i.e., local algebras.</p>
+
+<p>The class of geometric algebras is closely related to the class of <a href="https://en.wikipedia.org/wiki/Semiprimitive_ring"><em>semiprimitive algebras</em></a>.</p>
+
+<h2 id="some-fundamental-natural-isomorphisms">Some fundamental natural isomorphisms</h2>
+
+<p>We are on our way to defining tensors on manifolds. However, as you may already know, a perusal of the literature shows that there seems to be as many ways to define tensors as there are textbook authors. Obviously, this makes it difficult for beginners to compare the treatments in different references. All the definitions are ultimately the “same,” but hardly any references (if any) explicitly explain <em>why</em> they are the “same.”</p>
+
+<p>The reason “same” is enclosed in quotation marks is that the various modules of tensors that you find in the literature are not <em>literally</em> equal to each other, but rather are <em>naturally isomorphic</em>. Intuitively, to say that two modules are <em>naturally</em> isomorphic means that they are connected by an isomorphism that does not depend on artificial choices. The prototypical example of a natural isomorphism is the one between a finite-dimensional vector space $V$ and its double dual $(V^\ast)^\ast$. In this case, the natural isomorphism is</p>
+
+<p>\begin{equation}\notag
+\Theta: V \to (V^\ast)^\ast, \quad v \mapsto \Theta_v,
+\end{equation}</p>
+
+<p>where $\Theta_v(\alpha) = \alpha(v)$. This isomorphism is <em>natural</em> (in the technical sense) because its definition is <em>natural</em> (in the colloquial sense). On the other hand, the typical method for showing that $V$ is isomorphic to the dual $V^\ast$ is <em>not</em> natural, because it depends on an artificial choice of basis. Philosophically, naturality is particularly important because it means that constructions on fibers globalize to constructions on an entire vector bundle.</p>
+
+<p>There are broadly two types of definitions of tensors on a manifold: The first are the <em>tensor definitions</em>, where a tensor is defined to be either a global section of a tensor product bundle, or an element in the tensor product of the modules of global sections; the second are the <em>Hom definitions</em>, where a tensor is defined to be either a global section of a Hom bundle, or an element in the Hom of the modules of global sections. So, in both types of definitions, either a tensor is a <em>field</em>, i.e., a section of a vector bundle, or else an element of a tensor product or Hom module.</p>
+
+<p>Before we explore tensors, my goal in this section is to equip you with the natural isomorphisms that you’ll need to move back and forth between these various definitions of tensors. That tensors can be defined and specified in so many ways can be incredibly confusing and frustrating at first. However, as you will see, tensors are <em>extremely</em> flexible and powerful objects, and so in this light it’s perhaps not surprising that they can be understood from so many different angles.</p>
+
+<p>Let’s begin.</p>
+
+<p>If $P$ is a module over a commutative ring $A$, then there is a natural $A$-bilinear pairing</p>
+
+<p>\begin{equation}\notag
+\ang{-,-} : P \otimes_A P^\ast \to A, \quad (v,\alpha) \mapsto \ang{v,\alpha} \defeq \alpha(v)
+\end{equation}</p>
+
+<p>which, in the context of tensor analysis, is often called the <em>contraction mapping</em>. Of course, there is a similar pairing with the tensor factors permuted:</p>
+
+<p>\begin{equation}\notag
+\ang{-,-} : P^\ast \otimes_A P \to A, \quad (\alpha,v) \mapsto \ang{\alpha,v} \defeq \alpha(v).
+\end{equation}</p>
+
+<p>If $P$ is a free $A$-module of finite rank, say with basis $e_1,\ldots,e_n$, then we may define functionals $\eta^1,\ldots,\eta^n\in P^\ast$ by setting</p>
+
+<p>\begin{equation}\notag
+\ang{\eta^i,e_j} = \delta^i_j \defeq \begin{cases} 1 &amp; : i=j, \\ 0 &amp; : i\neq j, \end{cases}
+\end{equation}</p>
+
+<p>and extending by linearity. In this case, we refer to $e_1,\ldots,e_n$ and $\eta^1,\ldots,\eta^n$ as <em>dually paired bases</em> of $P$ and its $A$-linear dual $P^\ast$.</p>
+
+<p>These contraction mappings may be used to define several fundamental homomorphisms involving a single tensor product:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Contraction Homomorphisms, Module Version.</strong> Let $P_1$ and $P_2$ be modules over a commutative ring $A$.</p>
+
+  <ol>
+    <li>There is a natural homomorphism
+ \begin{equation}\notag
+ \Delta: P_1 \otimes_A P_2^\ast \to \Hom_A{(P_1^\ast \otimes_A P_2, A)}
+ \end{equation}
+of $A$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[ \Delta(v_1 \otimes \alpha^2)\right](\alpha^1 \otimes v_2) = \ang{\alpha^1,v_1}\ang{\alpha^2,v_2}.
+ \end{equation}</li>
+    <li>There is a natural homomorphism
+ \begin{equation}\notag
+ \Theta: P_1 \otimes_A P_2^\ast \to \Hom_A{(P_2, P_1)}
+ \end{equation}
+of $A$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[\Theta(v_1 \otimes \alpha^2)\right](v_2) = \ang{\alpha^2,v_2}v_1.
+ \end{equation}</li>
+    <li>There is a natural homomorphism
+ \begin{equation}\notag
+ \Lambda: P_1 \otimes_A P_2^\ast \to \Hom_A{(P_1^\ast,P_2^\ast)}
+ \end{equation}
+of $A$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[\Lambda(v_1\otimes \alpha^2)\right](\alpha^1) = \ang{\alpha^1,v_1} \alpha^2.
+ \end{equation}</li>
+  </ol>
+
+  <p>If both $P_1$ and $P_2$ are finitely generated and projective (in particular, if they are finite-dimensional vector spaces over a field), then $\Delta$, $\Theta$, and $\Lambda$ are isomorphisms.</p>
+</div>
+
+<p>I would suggest that you try to prove this theorem on your own. If you’re not comfortable with projective modules, you may assume that all modules are finite-dimensional vector spaces over a field.</p>
+
+<p>Though these maps are all defined without mention of bases (they are natural!), it is still instructive to write them out in terms of components. To do so, we will assume that $P_1$ and $P_2$ are both equal to a module $P$ which is finitely-generated and free with dually paired bases $e_1,\ldots,e_n$ and $\eta^1,\ldots,\eta^n$. Then, we suppose that we have the following objects, each resolved in terms of the associated bases, with summation over repeated indices implied:</p>
+
+<ol>
+  <li>a tensor $T = T^i_j \ e_i \otimes \eta^j \in P \otimes_A P^\ast$,</li>
+  <li>a second tensor $S = S^k_l \ \eta^l \otimes e_k \in P^\ast \otimes_A P$,</li>
+  <li>a vector $v = v^k e_k \in P$, and</li>
+  <li>a covector $f = f_k \eta^k \in P^\ast$.</li>
+</ol>
+
+<p>Then, I will leave it to you to verify that:</p>
+
+<p>\begin{equation}\notag
+\left[\Delta(T)\right](S) = T^i_j S^k_l \ang{\eta^l, e_i}\ang{\eta^j,e_k} = T^i_j S_i^j,
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+\left[\Theta(T)\right](v) = T^i_j v^k \ang{\eta^j,e_k}e_i = T^i_j v^j e_i,
+\end{equation}</p>
+
+<p>and</p>
+
+<p>\begin{equation}\notag
+\left[\Lambda(T)\right](f) = T^i_j f_k \ang{\eta^k,e_i}\eta^j = T^i_j f_i \eta^j.
+\end{equation}</p>
+
+<p>Notice that the effect of these homomorphisms is to set pairs of upper and lower indices in the components equal, and then sum over them. This is the general flavor of these types of maps.</p>
+
+<p>There are many similar homomorphisms that involve more than two modules. For example, there is a natural homomorphism</p>
+
+<p>\begin{equation}\notag
+\Xi: P_1^\ast \otimes_A P_2 \otimes_A P_3^\ast \to \Hom_A(P_1, P_2 \otimes_A P_3^\ast)
+\end{equation}</p>
+
+<p>given on pure tensors by</p>
+
+<p>\begin{equation}\notag
+\left[\Xi(f^1 \otimes v_2 \otimes f^3)\right](v_1) = \ang{f^1,v_1} \  v_2 \otimes f^3.
+\end{equation}</p>
+
+<p>But there is also a natural homomorphism</p>
+
+<p>\begin{equation}\notag
+\Pi: P_1^\ast \otimes_A P_2 \otimes_A P_3^\ast \to \Hom_A(P_1 \otimes_A P_2^\ast, P_3^\ast)
+\end{equation}</p>
+
+<p>given on pure tensors by</p>
+
+<p>\begin{equation}\notag
+\left[\Pi(f^1 \otimes v_2 \otimes f^3)\right](v_1 \otimes f^2) = \ang{f^1,v_1}\ang{f^2,v_2} f^3.
+\end{equation}</p>
+
+<p>Both $\Xi$ and $\Pi$ are isomorphisms if the modules involved are finitely generated and projective.</p>
+
+<p>I will leave you to imagine even more versions of these homomorphisms. It would be extraordinarily cumbersome (and ultimately useless) for me to attempt to list them all, so you need to see a few examples of how they work, and then you can write down your own. By now, after having seen five examples, this should be no problem. The common feature they all share is that they identify (via contraction mappings) a Hom module of linear maps with certain tensor products. Generically, we will refer to these types of homomorphisms as <em>contraction-type homomorphisms</em>, or <em>contraction-type isomorphisms</em> if all modules in sight are finitely generated and projective.</p>
+
+<p>One final observation before we move onto the bundle versions of these maps: Notice that the domains of the maps $\Xi$ and $\Pi$ above coincide, and hence their codomains are naturally isomorphic (in the case that the modules are finitely generated and projective). But the difference between the codomains is that the module $P_2$ swapped slots in the Hom, while at the same time being dualized. This is an example of a general and useful heuristic:</p>
+
+<div class="highlight-box2">
+  <p>Suppose that all modules under consideration are finitely generated and projective.</p>
+  <ol>
+    <li>A module can swap slots in a Hom, while either adding a duality (if there wasn’t one already) or removing it.</li>
+    <li>If <em>all</em> modules are swapped out of a slot in a Hom, then the ring $A$ is written in the empty slot.</li>
+  </ol>
+</div>
+
+<p>For another example of the heuristic in (1.), note that there is a natural isomorphism</p>
+
+<p>\begin{equation}\notag
+\Hom_A(P_1 \otimes_A P_2^\ast\otimes_A P_3, P_4^\ast \otimes_A P_5 ) \cong \Hom_A(P_1 \otimes_A P_2^\ast \otimes_A P_4, P_3^\ast \otimes_A P_5 ).
+\end{equation}</p>
+
+<p>Notice that the $P_3$ and $P_4$ modules swapped slots, with $P_3$ gaining a duality and $P_4$ losing one. To prove that these Hom-modules are isomorphic, we note that they are both naturally isomorphic to the tensor product</p>
+
+<p>\begin{equation}\label{blinds-eqn}
+P_1^\ast \otimes_A P_2 \otimes_A P_3^\ast \otimes_A P_4^\ast \otimes_A P_5
+\end{equation}</p>
+
+<p>via a pair of contraction-type isomorphisms. Can you describe them? If we were to swap both $P_4$ and $P_5$ from the second slot of the first Hom, the heuristic in (2.) says that there is a natural isomorphism</p>
+
+<p>\begin{equation}\notag
+\Hom_A(P_1 \otimes_A P_2^\ast\otimes_A P_3, P_4^\ast \otimes_A P_5 )\cong \Hom_A(P_1 \otimes_A P_2^\ast\otimes_A P_3 \otimes_A P_4 \otimes_A P_5^\ast, A ).
+\end{equation}</p>
+
+<p>Again, this isomorphism results because both of these Hom-modules are naturally isomorphic to the tensor product \eqref{blinds-eqn}.</p>
+
+<p>Now, I mentioned at the beginning of this section that one important consequence of naturality is that such isomorphisms may be “bundled”  across fibers to yield corresponding isomorphisms of vector bundles. With slightly more precision, I state:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Contraction Isomorphisms, Bundle Version.</strong> There are isomorphisms of vector bundles whose restrictions to fibers are contraction-type isomorphisms. For example, if $E_1$ and $E_2$ are vector bundles over a manifold $M$, there is an isomorphism
+\begin{equation}\notag
+E_1 \otimes_M E_2^\ast \xrightarrow{\cong} \Hom_M(E_2, E_1)
+\end{equation}
+of vector bundles whose restrictions to fibers coincide with the isomorphism $\Theta$ from the module-level theorem. Like their module-level cousins, these vector bundle isomorphisms are generically called <em>contraction-type isomorphisms</em>.</p>
+</div>
+
+<p>It’s not only the contraction-type isomorphisms that will prove crucial to understanding tensors on manifolds. We also need the isomorphisms in:</p>
+
+<div class="highlight-box">
+  <p><strong>Fundamental Lemma on $\Gamma$, Hom and $\otimes$.</strong> Let $E$ and $F$ be vector bundles over a manifold $M$.</p>
+
+  <ol>
+    <li>There is a natural isomorphism
+ \begin{equation}\notag
+ \Psi: \Gamma\left(\Hom_M{(E,F)}\right) \xrightarrow{\cong} \Hom_{C^\infty(M)}\left(\Gamma(E),\Gamma(F) \right)
+ \end{equation}
+of $C^\infty(M)$-modules given by
+ \begin{equation}\notag
+ \left[\left(\Psi(\sigma)\right)(\tau)\right]_p = \sigma_p(\tau_p).
+ \end{equation}</li>
+    <li>There is a natural isomorphism
+ \begin{equation}\notag
+ \Sigma: \Gamma(E) \otimes_{C^\infty(M)} \Gamma(F) \xrightarrow{\cong} \Gamma(E\otimes_M F)
+ \end{equation}
+of $C^\infty(M)$-modules given on pure tensors by
+ \begin{equation}\notag
+ \left[\Sigma \left(\sigma \otimes \tau\right)\right]_p = \sigma_p \otimes \tau_p.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>By specializing $F$ to the trival bundle $M \times \bbr$ in part (1.) of the Fundamental Lemma, we get:</p>
+
+<div class="highlight-box">
+  <p><strong>Corollary on Global Sections of Duals.</strong> Let $E$ be a vector bundle over a manifold $M$. There is a natural isomorphism
+    \begin{equation}\notag
+    \Psi: \Gamma\left(E^\ast\right) \xrightarrow{\cong} \Gamma(E)^\ast
+    \end{equation}
+of $C^\infty(M)$-modules given by
+    \begin{equation}\notag
+    \left[\left(\Psi(\sigma)\right)(f)\right]_p = \sigma_p(f(p)),
+    \end{equation}
+for $\sigma \in \Gamma(E^\ast)$, $f\in C^\infty(M)$, and $p\in M$.</p>
+</div>
+
+<h2 id="tensor-fields">Tensor fields</h2>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $M$ be a manifold with tangent bundle $T(M)$ and cotangent bundle $T^\ast(M)$. Given integers $r,s\geq 0$, a <em>tensor of type $\binom{r}{s}$</em> is a global section of the vector bundle</p>
+
+  <p>\begin{equation}\notag
+\underbrace{T(M) \otimes_M \cdots \otimes_M T(M)}_{\text{$r$ factors}} \otimes_M \underbrace{T^\ast(M) \otimes_M \cdots \otimes_M T^\ast(M)}_{\text{$s$ factors}}.
+\end{equation}</p>
+
+  <p>If both $r=0$ and $s=0$, then a tensor of type $\binom{0}{0}$ is a global section of the trivial vector bundle $M \times \bbr$, i.e., a smooth function on $M$.</p>
+</div>
+
+<p>Blah!</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem on Alternate Definitions of Tensors.</strong> Let $M$ be a manifold with tangent bundle $T(M)$ and cotangent bundle $T^\ast(M)$, and let $r,s,\geq 0$ be integers. A unique tensor of type $\binom{r}{s}$ can be (naturally!) specified by giving one of the following objects:</p>
+
+  <ol>
+    <li>A global section of the vector bundle
+ \begin{equation}\notag
+ T(M)^{\otimes r} \otimes_M T^\ast(M)^{\otimes s}.
+ \end{equation}</li>
+    <li>A global section of the vector bundle
+ \begin{equation}\notag
+ \Hom_M\left( T^\ast(M)^{\otimes r} \otimes_M T(M)^{\otimes s}, M \times \bbr\right).
+ \end{equation}</li>
+    <li>A linear map in
+ \begin{equation}\notag
+ \Hom_{C^\infty(M)}\left( \calx^\ast(M)^{\otimes r} \otimes_{C^\infty(M)} \calx(M)^{\otimes s}, C^\infty(M)\right).
+ \end{equation}</li>
+    <li>A tensor in
+ \begin{equation}\notag
+ \calx(M)^{\otimes r} \otimes_{C^\infty(M)} \calx^\ast(M)^{\otimes s}.
+ \end{equation}</li>
+  </ol>
+</div>
+
+<p>For practice, I suggest that you use the natural isomorphisms above to link these various descriptions of tensors together. For example, let’s suppose that we consider $\binom{1}{1}$-tensors, which are in the module</p>
+
+<p>\begin{equation}\label{table-eqn}
+\Gamma(T(M) \otimes_M T^\ast(M))
+\end{equation}</p>
+
+<p>of global sections. But by the Fundamental Lemma, this module is naturally isomorphic to the module</p>
+
+<p>\begin{equation}\notag
+\calx(M) \otimes_{C^\infty(M)} \calx^\ast(M)
+\end{equation}</p>
+
+<p>which appears in part (4.) of the theorem. On the other hand, by applying the global section functor $\Gamma$ to an isomorphism in the Theorem on Natural Isomorphisms (bundle version), we see that \eqref{table-eqn} is also naturally isomorphic to the module</p>
+
+<p>\begin{equation}\notag
+\Gamma\left( \Hom_M \left(T^\ast(M) \otimes_M T(M),M \times \bbr  \right) \right)
+\end{equation}</p>
+
+<p>which appears in part (2.). What isomorphism would you use to show that \eqref{table-eqn} is isomorphic to the module</p>
+
+<p>\begin{equation}\notag
+\Hom_{C^\infty(M)}\left( \calx^\ast(M)\otimes_{C^\infty(M)} \calx(M), C^\infty(M)\right)
+\end{equation}</p>
+
+<p>in part (3.)?</p>
+
+<p>To obtain the equivalent descriptions in the theorem for tensors of type other than $\binom{1}{1}$, you’ll need to use the “variations” on the natural isomorphisms like \eqref{iterated2-eqn}. Again, I suggest that you explore various cases with small values of $r$ and $s$, just to practice with the isomorphisms.</p>
+
+<p>Now, I should also mention that the list of four equivalent descriptions of tensors given in the theorem is not exhaustive. For example, you will often see the so-called <em>Riemann curvature tensor</em> defined as a $C^\infty(M)$-linear map</p>
+
+<p>\begin{equation}\notag
+R: \calx(M) \otimes_{C^\infty(M)} \calx(M) \otimes_{C^\infty(M)} \calx(M) \to \calx(M),
+\end{equation}</p>
+
+<p>where it is claimed that $R$ is a $\binom{1}{3}$-tensor. But this description of $R$ doesn’t fit with any of our four descriptions of tensors! However, can you see how to use the isomorphism \eqref{book-eqn} to confirm that $R$ can, indeed, be identified with a $\binom{1}{3}$-tensor?</p>
+
+<p>Thus, you can see that there are very many ways to specify tensors. It would be quite difficult (and useless) for me to try to enumerate all these different ways; rather, it would be much more beneficial for you to spend time on your own getting used to the mechanics of these natural isomorphisms, so that you’ll know how to recognize tensors when you see them.</p>
+
+<h2 id="locally-trivial-vector-bundles-1">Locally trivial vector bundles</h2>
+
+<p>We defined in an <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier post</a> a <em>set-theoretic vector bundle</em> to be a surjective function</p>
+
+<p>\begin{equation}\notag
+\pi: E\to B
+\end{equation}</p>
+
+<p>of sets such that each <em>fiber</em></p>
+
+<p>\begin{equation}\notag
+E_b \defeq \pi^{-1}(b)
+\end{equation}</p>
+
+<p>is an $\bbr$-vector space. If</p>
+
+<p>\begin{equation}\notag
+\pi’:E’ \to B
+\end{equation}</p>
+
+<p>is a second set-theoretic vector bundle, then a <em>morphism of set-theoretic vector bundles</em> from $\pi$ to $\pi’$ is a function $\theta: E\to E’$ such that the diagram</p>
+
+<p>\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\color{white}E \ar@[white][rr]^{\color{white}\theta} \ar@[white][dr]_{\color{white}\pi} &amp; &amp; \color{white} E’ \ar@[white][dl]^{\color{white}\pi’} \\ &amp; \color{white}B}
+\end{xy}
+\end{equation}</p>
+
+<p>commutes. We say $\theta$ is an <em>isomorphism</em> if it is bijective, in which case its inverse $\theta^{-1}:E’ \to E$ is easily seen to be a morphism of set-theoretic vector bundles.</p>
+
+<p>Now, suppose that we are given a set-theoretic vector bundle $\pi:E \to B$. From the fibers of $\pi$ we may form the disjoint union</p>
+
+<p>\begin{equation}\notag
+E’ = \bigsqcup_{b\in B} E_b,
+\end{equation}</p>
+
+<p>and then let $\pi’: E’ \to B$ be the natural projection. Then there is an evident isomorphism of set-theoretic vector bundles $\theta: E \to E’$ which is given on fibers by</p>
+
+<p>\begin{equation}\notag
+\theta_b: E_b \to E’_b = \{b\} \times E_b, \quad e \mapsto (b,e).
+\end{equation}</p>
+
+<p>This shows that an equivalent way to conceptualize a set-theoretic vector bundle (up to isomorphism) is as an indexed (or parametrized) collection $\{E_b\}_{b\in B}$ of vector spaces.</p>
+
+<p>In this post, we shall consider set-theoretic vector bundles in the category of smooth manifolds:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>smooth vector bundle</em> is a set-theoretic vector bundle $\pi:E \to M$ where the sets $E$ and $M$ are both smooth manifolds, and with respect to these structures, $\pi$ is a smooth map. The spaces $E$ and $M$ are called the <em>total</em> and <em>base spaces</em> of the vector bundle.</p>
+
+  <p>A <em>morphism of smooth vector bundles</em>, denoted</p>
+
+  <p>\begin{equation}\notag
+\theta: (\pi:E\to M) \to (\pi’:E’\to M),
+\end{equation}</p>
+
+  <p>is a function $\theta:E\to E’$ which is both a morphism of the underlying set-theoretic vector bundles and is smooth. (Note that this a slight abuse of notation, by using the symbol $\theta$ twice.)</p>
+
+  <p>The <em>identity morphism</em></p>
+
+  <p>\begin{equation}\notag
+\id_\pi: (\pi:E\to M) \to (\pi:E\to M)
+\end{equation}</p>
+
+  <p>of the smooth vector bundle $\pi$ is defined to be the morphism $\id_\pi = \id_E : E\to E$.</p>
+
+  <p>If</p>
+
+  <p>\begin{equation}\notag
+\theta’: (\pi:E’\to M) \to (\pi'':E''\to M)
+\end{equation}</p>
+
+  <p>is a second morphism of smooth vector bundles, the <em>composition</em></p>
+
+  <p>\begin{equation}\notag
+\theta’ \circ \theta: (\pi:E\to M) \to (\pi'':E''\to M)
+\end{equation}</p>
+
+  <p>is defined to be the standard composition $\theta’ \circ \theta:E\to E’’$ of functions.</p>
+
+  <p>With these objects, morphisms, identity morphisms, and composition law, we obtain the <em>category of smooth vector bundles over $M$</em>, denoted $\Vect_M$.</p>
+</div>
+
+<p>As with set-theoretic vector bundles, we may conceptualize a smooth vector bundle $\pi:E \to M$ as an indexed collection $\{E_p\}_{p\in M}$ of vector spaces. This time, however, the indexing set is a smooth manifold, and thus we may conceptualize the collection $\{E_p\}_{p\in M}$ as a “smoothly parametrized” family of vector spaces. Here, “smoothness” of the parametrization is encoded in the smoothness of $E$, $M$ and $\pi$.</p>
+
+<p>For example, we might consider the collection $\{T_p(M)\}_{p\in M}$ of all tangent spaces over a smooth manifold $M$. Intuitively, the vector spaces in this collection should “vary smoothly” with $p$. But as we saw in a <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">previous post</a>, the tangent bundle</p>
+
+<p>\begin{equation}\notag
+T(M) \defeq \bigsqcup_{p\in M} T_p(M)
+\end{equation}</p>
+
+<p>has a smooth manifold structure with respect to which the natural projection $\pi:T(M) \to M$ is smooth. The fiber</p>
+
+<p>\begin{equation}\notag
+\pi^{-1}(p) = \{p\} \times T_p(M)
+\end{equation}</p>
+
+<p>may be naturally identified with $T_p(M)$, and thus the family of vector spaces $\{T_p(M)\}_{p\in M}$ may be naturally identified with the smooth vector bundle $\pi:T(M) \to M$. This identification makes precise our intuition that the tangent space $T_p(M)$ should “vary smoothly” with $p$.</p>
+
+<p>We may manufacture a smooth vector bundle over a smooth manifold $M$ by taking the natural projection</p>
+
+<p>\begin{equation}\notag
+\pi_1: M \times \bbr^k \to M
+\end{equation}</p>
+
+<p>onto the first cartesian factor. If $\pi:E \to M$ is a smooth vector bundle which is isomorphic to $\pi_1$ (in the category $\Vect_M$), then $\pi$ is called a <em>trivial smooth vector bundle of rank $k$.</em></p>
+
+<p>Not all smooth vector bundles are trivial; in fact, we saw in our <a href="/a%20geometric%20and%20topological%20toolkit/2023/01/18/geom-primer2.html">earlier post</a> on tangent bundles that the tangent bundle of the sphere $S^2$ is not trivial. However, if $M$ is <em>any</em> manifold, we also saw that there is an open covering $\{U_i\}_{i\in I}$ of $M$ for which the restricted smooth vector bundle</p>
+
+<p>\begin{equation}\notag
+\pi: \pi^{-1}(U_i) \to U_i
+\end{equation}</p>
+
+<p><em>is</em> trivial, as a smooth vector bundle over the open set $U_i$. Thus, while the tangent bundle $T(M)$ may not be globally trivial, it is always <em>locally trivial</em> in this sense.</p>
+
+<p>The category of locally trivial smooth vector bundles will be one of the main focuses of this post. Let’s formally define this category:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> A <em>locally trivial smooth vector bundle of rank $k$</em> is a smooth vector bundle $\pi:E\to M$ for which there exists an open cover $\{U_i\}_{i\in I}$ such that each restricted smooth vector bundle</p>
+
+  <p>\begin{equation}\notag
+\pi: \pi^{-1}(U_i) \to U_i
+\end{equation}</p>
+
+  <p>is isomorphic (in the category $\Vect_{U_i}$) to the trivial smooth vector bundle</p>
+
+  <p>\begin{equation}\notag
+\pi_1: U_i \times \bbr^k \to U_i.
+\end{equation}</p>
+
+  <p>In this case, the open cover $\{U_i\}_{i\in I}$ is called a <em>trivializing open cover</em> of the vector bundle, the vector bundle is said to <em>trivialize</em> over $\{U_i\}_{i\in I}$, and isomorphisms</p>
+
+  <p>\begin{equation}\notag
+\Phi_i: (U_i \times \bbr^k \to U_i) \to (\pi^{-1}(U_i) \to U_i)
+\end{equation}</p>
+
+  <p>of smooth vector bundles over $U_i$ are called <em>(local) trivializations</em>.</p>
+
+  <p>The <em>category of locally trivial smooth vector bundles</em> is the full subcategory of $\Vect_M$ whose objects are the locally trivial smooth vector bundles of rank $k$, for all $k$.</p>
+</div>
+
+<p>In many texts, locally trivial smooth vector bundles are the <em>only</em> types of vector bundles considered, and hence these objects are usually just called <em>vector bundles</em>. We shall follow the same practice:</p>
+
+<div class="highlight-box2">
+  <p><strong>Terminology and Notation.</strong> For the rest of this post, a <em>vector bundle</em> will be a locally trivial smooth vector bundle of rank $k$, for some $k$. A <em>morphism of vector bundles</em> will be a morphism of smooth vector bundles. In particular, the notation $\Vect_M$ will be re-defined to stand for the category of locally trivial smooth vector bundles over $M$.</p>
+
+  <p>Furthermore, when no confusion is likely to arise, we will reference a vector bundle $\pi:E \to M$ by its total space $E$ only. Accordingly, a morphism of vector bundles</p>
+
+  <p>\begin{equation}\notag
+\theta: (\pi:E \to M) \to (\pi’: E’\to M)
+\end{equation}</p>
+
+  <p>will be denoted only by the map $\theta:E \to E’$ on total spaces.</p>
+</div>
+
+<p>One of the most useful properties of morphisms of (locally trivial smooth!) vector bundles is that the isomorphism property may be tested locally on the fibers. Precisely:</p>
+
+<div class="highlight-box">
+  <p><strong>Fiberwise Criterion for Vector Bundle Isomorphisms.</strong> Let $\theta: E \to E’$ be a morphism of vector bundles over a common base space $M$. Then $\theta$ is an isomorphism of vector bundles if and only if each induced map $\alpha_p:E_p \to E’_p$ on the fibers is a linear isomorphism.</p>
+</div>
+
+<p>I suggest that you attempt to prove this theorem on your own. You will see that the local triviality of the vector bundles is used in a crucial way.</p>
+
+<h2 id="sections-of-vector-bundles">Sections of vector bundles</h2>
+
+<p>In this section we study smooth sections of (locally trivial) vector bundles. We have already seen examples of these gadgets in two places: (1) One guise of smooth vector fields on a manifold is as smooth (global) sections of the tangent bundle, and (2) smooth sections of the trivial vector bundle $M \times \bbr \to M$ are exactly smooth functions on $M$. Indeed, we covered (1) in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>, while to verify that claim (2) is true, we note that a smooth map $\sigma: M \to M \times \bbr$ of the form</p>
+
+<p>\begin{equation}\notag
+\sigma(p) = (p,f(p))
+\end{equation}</p>
+
+<p>is uniquely determined by the smooth function $f\in C^\infty(M)$. In general, the definition is as follows:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $\pi:E \to M$ be a vector bundle and $U\subseteq M$ a nonempty open set. A <em>local section</em> of the vector bundle over $U$ is a function $\sigma:U\to E$ such that $\pi\circ \sigma = \id_U$. We shall say $\sigma$ is a <em>smooth local section</em> if it is a smooth map between manifolds.</p>
+
+  <p>We write $\Gamma(U,E)$ for the set of smooth local sections over $U$. If the vector bundle $E$ is clear from context, we will write $\Gamma(U)$ in place of $\Gamma(U,E)$. Sections in $\Gamma(M)$ are called <em>smooth global sections</em>.</p>
+
+  <p>We will often write the functional value $\sigma(p) \in E_p$ of a section as $\sigma_p$. If the section happens to have an index, like $\sigma_i$, then we will write $\sigma_i|_p$ in place of $(\sigma_i)_p$.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Given two smooth local sections $\sigma,\tau\in \Gamma(U)$, we define their <em>sum</em>, denoted $\sigma+\tau$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(\sigma+\tau)_p = \sigma_p + \tau_p,
+\end{equation}</p>
+
+  <p>where the sum on the right-hand side occurs in the fiber $E_p$. If $f\in C^\infty(U)$ is a function, we define the <em>product</em> of $f$ and $\sigma$, denoted $f\sigma$, via the formula</p>
+
+  <p>\begin{equation}\notag
+(f\sigma)_p = f(p) \sigma_p,
+\end{equation}</p>
+
+  <p>where the product on the right-hand side occurs in the fiber $E_p$. Prove that with respect to these operations, the set $\Gamma(U)$ is a $C^\infty(U)$-module.</p>
+</div>
+
+<p>A smoothly varying collection of bases of the fibers of a vector bundle is called a <em>smooth local frame</em>, which is terminology that you should recognize from the <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">earlier post</a> on vector fields. Officially:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Then a collection of smooth local sections $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ is called a <em>smooth local frame</em> over $U$ if</p>
+
+  <p>\begin{equation}\notag
+\vartheta_1|_p,\ldots,\vartheta_k|_p \in E_p
+\end{equation}</p>
+
+  <p>is a basis for all $p\in U$.</p>
+</div>
+
+<p>One of the main uses of smooth local frames is to test for smoothness of general sections:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Componentwise criterion for smoothness).</strong> Let $\pi:E\to M$ be a vector bundle over a manifold $M$ and let $U\subseteq M$ be a nonempty open set. Given a function $\sigma:U\to E$ (not necessarily smooth, or even continuous) such that $\pi \circ \sigma = \id_U$ and a smooth local frame $\vartheta_1,\ldots,\vartheta_k\in \Gamma(U)$, we may write</p>
+
+  <p>\begin{equation}\notag
+\sigma_p = \sigma^i(p) \vartheta_i|_p
+\end{equation}</p>
+
+  <p>for each $p\in U$, where $\sigma^i: U \to \bbr$ are uniquely determined real-valued functions (not necessarily smooth, or even continuous). These functions are called the <em>component functions</em> of $\sigma$ with respect to the local frame.</p>
+
+  <p>Then $\sigma$ is smooth if and only if each component function $\sigma^i$ is smooth.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong> Prove that the local frame $\vartheta_1,\ldots,\vartheta_k \in \Gamma(U)$ forms a basis as a $C^\infty(U)$-module.</p>
+</div>
+
+<p>Given a manifold $M$, we recall that we proved the assignments $U \mapsto C^\infty(U)$ and $U \mapsto \calx(U)$ are examples of sheaves in <a href="/a%20geometric%20and%20topological%20toolkit/2023/02/20/geom-primer3.html">this post</a>. Had we known at the time that $\calx(U)$ could be viewed as smooth local sections of a certain vector bundle, then we could have applied the following general result:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Sections of vector bundles form sheaves).</strong> Let $E$ be a vector bundle over a manifold $M$. If for each open set $U\subseteq M$ we define $\cale(U) = \Gamma(U,E)$, then $\cale$ is a $C^\infty_M$-module, where $C^\infty_M$ is the sheaf of smooth functions on $M$. The sheaf $\cale$ is called the <em>sheaf of sections</em> of the vector bundle $E$.</p>
+</div>
+
+<p>We learned the general definition of a sheaf in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. When we say that $\cale$ is a sheaf of $C^\infty_M$-modules, we really mean that $\cale$ is a sheaf of modules over the sheaf of rings $C^\infty_M$. For the general definition of these latter types of objects, see <a href="https://en.wikipedia.org/wiki/Sheaf_of_modules">here</a>.</p>
+
+<p>You also learned the definition of <em>stalks</em> of structure sheaves of ringed spaces in the <a href="/a%20geometric%20and%20topological%20toolkit/2023/03/11/geom-primer4.html">previous post</a>. It turns out that such <em>stalks</em> may be defined for <em>any</em> sheaf and, in particular, they may be defined for sheaves of sections of vector bundles. You should have no trouble, therefore, in adapting the definition of <em>stalks</em> in the previous post to apply to our sheaves of sections. Otherwise, see <a href="https://en.wikipedia.org/wiki/Stalk_(sheaf)">here</a> for the official definition.</p>
+
+<p>Let’s set some notation for stalks:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. We will write $\cale_p$ for the stalk of $\cale$ at $p\in M$. Elements in $\cale_p$ will be called <em>germs</em> of sections.</p>
+</div>
+
+<div class="highlight-box2">
+  <p><strong>Exercise.</strong></p>
+
+  <ol>
+    <li>Prove that each stalk $\cale_p$ is a module over the local ring $C^\infty_{M,p}$ with respect the evident operations. (By now, I’m hoping that this proof is routine!)</li>
+    <li>For each $p\in M$, recall that there is a well-defined homomorphism
+ \begin{equation}\notag
+ \dev_p:C^\infty_{M,p} \to \bbr, \quad f \mapsto f(p),
+ \end{equation}
+of $\bbr$-algebras. By restricting scalars along this map, a fiber $E_p$ of the vector bundle may be given a $C^\infty_{M,p}$-module structure. With respect to this structure, prove that the map
+ \begin{equation}\notag
+ e_p: \cale_p \to E_p, \quad \sigma \mapsto \sigma_p,
+ \end{equation}
+is a well-defined homomorphism of $C^\infty_{M,p}$-modules.</li>
+  </ol>
+</div>
+
+<p>Remember that the germs in the stalk $\cale_p$ are actually equivalence classes of sections $\sigma$ defined on open neighborhoods of $p$, so my definition “$\sigma \mapsto \sigma_p$” of the evaluation map $e_p$ is technically an abuse of notation. However, as I’ve mentioned in the past, this is a typical abuse, and going forth I will use it without further comment.</p>
+
+<p>Take care to notice the difference between $\cale_p$ and $E_p$ for a vector bundle $E$ over a manifold $M$. The former is the stalk of the sheaf of sections at the point $p\in M$, while the latter is the fiber over $p$. While these are <strong>different</strong> objects, there is, nevertheless, a tight link between them:</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem.</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. For each $p\in M$, let $\mfm_p$ denote the maximal ideal of the local ring $C^\infty_{M,p}$. The sequence</p>
+
+  <p>\begin{equation}\notag
+0 \to \mfm_p \to \cale_p \xrightarrow{e_p} E_p \to 0
+\end{equation}</p>
+
+  <p>is exact, where the first map is the inclusion and the second is the evaluation map.</p>
+</div>
+
+<p>A proof is in contained in Jet’s book, Chapter 12.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Extension theorem for local sections).</strong> Let $E$ be a vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$ and each open neighbohrood $U$ of $p$, the natural localization map</p>
+
+  <p>\begin{equation}\notag
+\lambda_{U,p}: \cale(U) \to \cale_p
+\end{equation}</p>
+
+  <p>sending a section to the germ that it represents is surjective.</p>
+</div>
+
+<p>The proof uses bump functions, just like the same extension theorem for smooth functions.</p>
+
+<div class="highlight-box">
+  <p><strong>Theorem (Stalks of vector bundles are free).</strong> Let $E$ be a rank-$k$ vector bundle over a manifold $M$ with sheaf of sections $\cale$. Then for each $p\in M$, the stalk $\cale_p$ is a free $C^\infty_{M,p}$-module of rank $k$. In particular, if $U$ is an open neighborhood of $p$ over which $E$ trivializes, then the natural map</p>
+
+  <p>\begin{equation}\label{nat-eqn}
+C^\infty_{M,p} \otimes_{C^\infty(U)} \cale(U)   \to \cale_p, \quad f \otimes \sigma \mapsto f\lambda_{U,p}(\sigma),
+\end{equation}</p>
+
+  <p>is an isomorphism of $C^\infty_{M,p}$-modules, where $\lambda_{U,p}$ is the natural localization map from the previous theorem.</p>
+</div>
+
+<p>We have already observed that a choice of local frame</p>
+
+<p>\begin{equation}\notag
+\vartheta_1,\ldots,\vartheta_k \in \cale(U)
+\end{equation}</p>
+
+<p>forms a basis of $\cale(U)$ as a $C^\infty(U)$-module, and that the localization map $\lambda_{U,p}$ is surjective. Thus, we need only show that the map \eqref{nat-eqn} is injective. So, suppose that we have an element $f^i \otimes \vartheta_i$ in the domain of \eqref{nat-eqn}, with summation over repeated indices implied. Suppose that it is sent to zero in the stalk, so that we have $f^i \vartheta_i = 0$. (Be very careful to understand exactly what this equation means, as I am confusing sections with germs again, and have omitted the localization map.) By shrinking $U$ to a smaller neighborhood $V$ of $p$ if needed, we may suppose that this equation actually occurs in the module $\cale(V)$, where now $f^i \in C^\infty(V)$. But the sections $\vartheta_1,\ldots,\vartheta_k$ are linearly independent in $\cale(V)$ as well, and hence $f^i = 0$ on $V$ for each $i$. Hence $f^i=0$ in $C^\infty_{M,p}$, which is what we wanted to prove. Q.E.D.</p>
+
+    </div>
+
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
+    </script>
+  </body>
+</html>

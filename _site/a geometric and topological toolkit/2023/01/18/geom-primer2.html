@@ -44,38 +44,24 @@
 </script>
         <div class="post-title">
           <div>a geometric and topological toolkit</div>
-            2. tangent bundles<br>
-            <span class="post-name">
-              <span id="current-section">introduction</span>
+            <span>2. tangent bundles</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
               <div class="dropdown">
                 <ul>
-                  <li>
-                    <a href="#">2.0. introduction</a>
-                  </li>
+                  <li><a href="#">2.0. introduction</a></li>
                   
-                    <li>
-                      <a href="#prerequisites">2.1. prerequisites</a>
-                    </li>
+                    <li><a href="#prerequisites">2.1. prerequisites</a></li>
                   
-                    <li>
-                      <a href="#the-tangent-bundle">2.2. the tangent bundle</a>
-                    </li>
+                    <li><a href="#the-tangent-bundle">2.2. the tangent bundle</a></li>
                   
-                    <li>
-                      <a href="#the-tangent-bundle-of-the-circle">2.3. the tangent bundle of the circle</a>
-                    </li>
+                    <li><a href="#the-tangent-bundle-of-the-circle">2.3. the tangent bundle of the circle</a></li>
                   
-                    <li>
-                      <a href="#tangent-bundles-as-vector-bundles">2.4. tangent bundles as vector bundles</a>
-                    </li>
+                    <li><a href="#tangent-bundles-as-vector-bundles">2.4. tangent bundles as vector bundles</a></li>
                   
-                    <li>
-                      <a href="#tangent-bundles-as-locally-trivial-vector-bundles">2.5. tangent bundles as locally trivial vector bundles</a>
-                    </li>
+                    <li><a href="#tangent-bundles-as-locally-trivial-vector-bundles">2.5. tangent bundles as locally trivial vector bundles</a></li>
                   
-                    <li>
-                      <a href="#references-and-footnotes">2.6. references and footnotes</a>
-                    </li>
+                    <li><a href="#references-and-footnotes">2.6. references and footnotes</a></li>
                   
                 </ul>
               </div>
@@ -444,6 +430,9 @@ X: S^2 \to S^2 \times \bbr^2 \xrightarrow{\cong} T(S^2)
 
       window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
       window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
     </script>
   </body>
 </html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>electrodynamics I&#58 the basic theory</title>
+
+    <!-- font stuff -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- latex stuff -->
+    <script src="/assets/js/latex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
+
+    <!-- syntax highlighting stuff-->
+    <link href="/assets/themes/prism.css" rel="stylesheet" />
+    <script src="/assets/js/prism.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/assets/js/scripts.js"></script>
+
+    
+    <script>
+      const pageNum = "s";
+    </script>
+  </head>
+
+  <body>
+    <div class="header-container" id="header">
+      <nav>
+  <ul class="navbar">
+    <li><a href="/">root</a></li><li><a href="/about.html">about</a></li><li><a href="/projects.html" class="accent-color">projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+  </ul>
+</nav>
+
+<script>
+  hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
+  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
+  hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
+</script>
+        <div class="post-title">
+          <div>the mathematical structures of physics</div>
+            <span>s. electrodynamics I&#58 the basic theory</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
+              <div class="dropdown">
+                <ul>
+                  <li><a href="#">s.0. introduction</a></li>
+                  
+                </ul>
+              </div>
+            </span>
+        </div>
+    </div>
+
+    <div class="content-container post" id="content">
+      <div class="post-title">
+  <h1 class="accent-color">electrodynamics I: the basic theory</h1>
+</div>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ol>
+  <li><a href="#the-electromagnetic-field-tensor">The electromagnetic field tensor</a></li>
+  <li><a href="#maxwells-laws-----coordinate-dependent-form">Maxwell’s laws — coordinate-dependent form</a></li>
+  <li><a href="#maxwells-laws-----coordinate-independent-form">Maxwell’s laws — coordinate-independent form</a></li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<h2 id="the-electromagnetic-field-tensor">The electromagnetic field tensor</h2>
+
+<p>Consider a material charged particle moving through an electromagnetic field in euclidean $3$-space with electric and magnetic components $\vec{E}$ and $\vec{B}$. Let $\bp$ denote the <em>proper momentum</em> (or <em>relativistic momentum</em>) of the particle, i.e., the spatial part of the <em>momentum $4$-vector</em></p>
+
+<p>\begin{equation}\notag
+p^\mu = (p^0,\bp).
+\end{equation}</p>
+
+<p>If the particle has charge $q$, then the classical <em>Lorentz force law</em> still holds with $\bp$ in place of the usual momentum:</p>
+
+<p>\begin{equation}\label{lorentz-eqn}
+\frac{\d \bp}{\d t} = q ( \vec{E} + \vec{v} \times \vec{B}).
+\end{equation}</p>
+
+<p>Here, $t$ stands for the coordinate time and $\vec{v}$ is the ordinary velocity of the particle. The goal in this section is to transport the Lorentz force law to a covariant expression that lives on Minkowski spacetime $\bbm^4$. In particular, we want to produce an expression</p>
+
+<p>\begin{equation}\label{goal-eqn}
+\frac{\d p^\mu}{\d \tau} = (\text{something})
+\end{equation}</p>
+
+<p>that reduces to \eqref{lorentz-eqn} when equating spatial parts. Here, $\tau$ is the proper time of the particle and $p^\mu$ is its momentum $4$-vector defined above.</p>
+
+<p>Now, the spatial part of the left-hand side of \eqref{goal-eqn} is</p>
+
+<p>\begin{equation}\notag
+\frac{\d \bp}{\d \tau} = \gamma \frac{\d \bp}{\d t} = q\left( v^0 \frac{\vec{E}}{c} + \bv \times \vec{B} \right)
+\end{equation}</p>
+
+<p>where $\bv = \gamma \vec{v}$ is the <em>proper velocity</em> of the particle, which is the spatial part of the <em>velocity $4$-vector</em></p>
+
+<p>\begin{equation}\notag
+v^\mu = (\gamma c, \gamma \vec{v}).
+\end{equation}</p>
+
+<p>The number</p>
+
+<p>\begin{equation}\notag
+\gamma = \frac{1}{\sqrt{1 - v^2/c^2}}
+\end{equation}</p>
+
+<p>is the usual <em>Lorentz factor</em> (with $v^2 = \vec{v} \cdot \vec{v}$). On the other hand, the temporal component on the left-hand side of \eqref{goal-eqn} is</p>
+
+<p>\begin{equation}\notag
+\frac{\d p^0}{\d \tau} = \frac{\gamma}{c} \frac{\d E}{\d t} = \frac{\gamma}{c} \frac{\d \bp}{\d t} \cdot \vec{v} = \frac{\gamma}{c} q \vec{E} \cdot \vec{v} = q\frac{\vec{E}}{c} \cdot \bv,
+\end{equation}</p>
+
+<p>where $E=cp^0$ is the (total) relativistic energy of the particle. If we then define a $\binom{1}{1}$-tensor $F^\mu{}_\nu$ with standard components</p>
+
+<p>\begin{equation}\notag
+\begin{bmatrix} 0 &amp; E_x/c &amp; E_y/c &amp; E_z/c \\ E_x/c &amp; 0 &amp; B_z &amp; -B_y \\ E_y/c &amp; -B_z &amp; 0 &amp; B_x \\ E_z/c &amp; B_y &amp; -B_x &amp; 0 \end{bmatrix},
+\end{equation}</p>
+
+<p>then an easy check reveals that our desired expression \eqref{goal-eqn} can be given in the covariant form</p>
+
+<p>\begin{equation}\label{lorentz-mink-eqn}
+\frac{\d p^\mu}{\d \tau} = q F^{\mu}{}_\nu v^\nu.
+\end{equation}</p>
+
+<p>Using the Minkowski metric $\eta = \eta_{\mu\nu}$ with signature $(+,-,-,-)$, we may lower the first index to obtain the tensor $F_{\mu\nu}$ with components</p>
+
+<p>\begin{equation}\label{matrix-eqn}
+\begin{bmatrix} 0 &amp; E_x/c &amp; E_y/c &amp; E_z/c \\ -E_x/c &amp; 0 &amp; -B_z &amp; B_y \\ -E_y/c &amp; B_z &amp; 0 &amp; -B_x \\ -E_z/c &amp; -B_y &amp; B_x &amp; 0 \end{bmatrix}.
+\end{equation}</p>
+
+<p>Then:</p>
+
+<div class="highlight-box">
+  <p><strong>Definition.</strong> The antisymmetric rank-$2$ covariant tensor $F_{\mu\nu}$ on $\bbm^4$ with standard components \eqref{matrix-eqn} is called the <em>electromagnetic field tensor</em>. The equation \eqref{lorentz-mink-eqn} is called the <em>relativistic Lorentz force law</em>.</p>
+</div>
+
+<h2 id="maxwells-laws--coordinate-dependent-form">Maxwell’s laws — coordinate-dependent form</h2>
+
+<p>We categorize Maxwell’s classical equations of electrodynamics into the <em>magnetostatic</em> and <em>magnetodynamic</em> equations</p>
+
+<p>\begin{equation}\label{magnetic-eqn}
+\nabla \cdot \vec{B} = 0 \quad \text{and} \quad \nabla \times \vec{E} + \frac{\bd \vec{B}}{\bd t}  = 0,
+\end{equation}</p>
+
+<p>and the <em>electrostatic</em> and <em>electrodynamic</em> equations</p>
+
+<p>\begin{equation}\label{electric-eqn}
+\nabla \cdot \vec{E} = \rho/\dev_0 \quad \text{and} \quad \nabla \times \vec{B}-\mu_0\dev_0 \frac{\bd \vec{E}}{\bd t}  = \mu_0 \vec{J}.
+\end{equation}</p>
+
+<p>Here, $\rho$ and $\vec{J}$ are the <em>charge</em> and <em>current densities</em>, respectively, while $\dev_0$ and $\mu_0$ are (small) physical constants.</p>
+
+<h2 id="maxwells-laws--coordinate-independent-form">Maxwell’s laws — coordinate-independent form</h2>
+
+    </div>
+
+    <script>
+      // Make definition numbers.
+      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
+
+      // Resize content based on header height.
+      window.addEventListener("load", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      window.addEventListener("resize", () =>
+        adjustContentPadding("header", "content", 10)
+      );
+      
+      // Set scroll margins.
+      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
+      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
+
+      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
+    </script>
+  </body>
+</html>

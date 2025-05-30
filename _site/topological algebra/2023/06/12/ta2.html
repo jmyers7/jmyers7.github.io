@@ -44,42 +44,26 @@
 </script>
         <div class="post-title">
           <div>topological algebra</div>
-            2. operator theory I&#58 the finite-dimensional case<br>
-            <span class="post-name">
-              <span id="current-section">introduction</span>
+            <span>2. operator theory I&#58 the finite-dimensional case</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
               <div class="dropdown">
                 <ul>
-                  <li>
-                    <a href="#">2.0. introduction</a>
-                  </li>
+                  <li><a href="#">2.0. introduction</a></li>
                   
-                    <li>
-                      <a href="#prerequisites">2.1. prerequisites</a>
-                    </li>
+                    <li><a href="#prerequisites">2.1. prerequisites</a></li>
                   
-                    <li>
-                      <a href="#representation-theorems-and-linear-functionals">2.2. representation theorems and linear functionals</a>
-                    </li>
+                    <li><a href="#representation-theorems-and-linear-functionals">2.2. representation theorems and linear functionals</a></li>
                   
-                    <li>
-                      <a href="#classes-of-operators">2.3. classes of operators</a>
-                    </li>
+                    <li><a href="#classes-of-operators">2.3. classes of operators</a></li>
                   
-                    <li>
-                      <a href="#spectral-theory-of-normal-operators">2.4. spectral theory of normal operators</a>
-                    </li>
+                    <li><a href="#spectral-theory-of-normal-operators">2.4. spectral theory of normal operators</a></li>
                   
-                    <li>
-                      <a href="#a-first-look-at-c-algebras">2.5. a first look at C*-algebras</a>
-                    </li>
+                    <li><a href="#a-first-look-at-c-algebras">2.5. a first look at C*-algebras</a></li>
                   
-                    <li>
-                      <a href="#the-measure-theoretic-approach-to-the-spectral-theorem">2.6. the measure-theoretic approach to the Spectral Theorem</a>
-                    </li>
+                    <li><a href="#the-measure-theoretic-approach-to-the-spectral-theorem">2.6. the measure-theoretic approach to the Spectral Theorem</a></li>
                   
-                    <li>
-                      <a href="#references">2.7. references</a>
-                    </li>
+                    <li><a href="#references">2.7. references</a></li>
                   
                 </ul>
               </div>
@@ -1612,6 +1596,9 @@ f(T) = \int_{\sigma(T)} f(\lambda) \ \d E(\lambda), \quad f\in C(\sigma(T)).
 
       window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
       window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
     </script>
   </body>
 </html>

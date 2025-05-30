@@ -45,18 +45,15 @@ nav a { text-decoration: none; }
 .post-title { font-family: "IBM Plex Mono", monospace; font-weight: 400; color: #486afb; font-size: 1.2em; margin-top: 10px; width: 75%; text-align: left; margin-left: auto; margin-right: auto; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px 0; }
 
 /* section headings */
-.post h2 { font-family: "IBM Plex Mono", monospace; font-size: 1.5em; font-weight: 400; color: #486afb; position: sticky; font-size: 1.2em; }
+.post h2 { font-family: "IBM Plex Mono", monospace; font-size: 1.5em; font-weight: 400; color: #486afb; position: sticky; font-size: 1.2em; margin-left: 30px; }
 
 .toc { text-decoration: none; }
 
-.defn { background-color: #486afb30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
+.highlight-box { background-color: #486afb30; width: 85%; margin: 25px auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
 
-/* deprecated! */
-.highlight-box { background-color: #486afb30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
+.highlight-box2 { background-color: #fd46fc30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
 
-.highlight-box2 { background-color: #fd46fc30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
-
-.highlight-box3 { background-color: #ff000030; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; }
+.highlight-box3 { background-color: #ff000030; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
 
 .caption { font-size: 14px; text-align: center; margin-top: 10px; }
 
@@ -67,13 +64,13 @@ mjx-container[jax="SVG"] > svg a[href] { /*fill: #e0e0e0;*/ /*stroke: #e0e0e0;*/
 
 .post-name:hover { cursor: pointer; color: #fd46fc; }
 
-.post-name:hover .dropdown { display: block; background-color: white; position: absolute; padding: 0; margin: 0; font-size: 0.8em; border: 1px solid #ccc; border-radius: 5px; }
+.post-name:hover .dropdown { display: block; background-color: white; position: absolute; padding: 0; margin: 0; font-size: 0.8em; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
 
 .dropdown ul { padding: 0 10px; text-decoration: none; color: black; list-style-type: none; }
 
 .dropdown a { text-decoration: none; }
 
 /**************** code box styling ****************/
-.code-container { position: relative; width: 85%; margin: 0 auto; border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8; border-radius: 5px; }
+.code-container { position: relative; width: 85%; margin: 25px auto; border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
 
 .copy-button { position: absolute; font-family: "Geneva"; font-size: 0.8em; top: 10px; right: 10px; padding: 5px 10px; cursor: pointer; color: #808080; background-color: #f8f8f8; border: none; border-radius: 3px; }

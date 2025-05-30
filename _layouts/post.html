@@ -34,18 +34,14 @@
       {% include navigation-post.html %}
         <div class="post-title">
           <div>{{ page.category }}</div>
-            {{ post_num }}. {{ page.title }}<br>
-            <span class="post-name">
-              <span id="current-section">introduction</span>
+            <span>{{ post_num }}. {{ page.title }}</span><br>
+            <span id="test-name" class="post-name">
+              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
               <div class="dropdown">
                 <ul>
-                  <li>
-                    <a href="#">{{ post_num }}.0. introduction</a>
-                  </li>
+                  <li><a href="#">{{ post_num }}.0. introduction</a></li>
                   {% for section in page.sections %}
-                    <li>
-                      <a href="#{{ section | slugify }}">{{ post_num }}.{{ forloop.index }}. {{ section }}</a>
-                    </li>
+                    <li><a href="#{{ section | slugify }}">{{ post_num }}.{{ forloop.index }}. {{ section }}</a></li>
                   {% endfor %}
                 </ul>
               </div>
@@ -75,6 +71,9 @@
 
       window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
       window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
+
+      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
+      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
     </script>
   </body>
 </html>
