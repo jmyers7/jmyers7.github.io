@@ -1,85 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  
   <head>
+    
     <title>the algebraic theory III&#58 local geometry, vector bundles, and sheaves of modules</title>
 
     <!-- font stuff -->
-    <link rel="stylesheet" href="/assets/css/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- latex stuff -->
-    <script src="/assets/js/latex.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"></script>
-
-    <!-- syntax highlighting stuff-->
-    <link href="/assets/themes/prism.css" rel="stylesheet" />
-    <script src="/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,100;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- custom scripts -->
     <script src="/assets/js/scripts.js"></script>
-
-    
-    <script>
-      const pageNum = "5";
-    </script>
+  
   </head>
-
+  
   <body>
+
     <div class="header-container" id="header">
       <nav>
   <ul class="navbar">
-    <li><a href="/">root</a></li><li><a href="/about.html">about</a></li><li><a href="/projects.html" class="accent-color">projects + writings</a></li><li><a href="https://mml.johnmyersmath.com/stats-book/intro.html" target="_blank">probabilistic machine learning</a></li><li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li><li><a href="http://www.johnmyersmath.com" target="_blank"><img src="/assets/images/website-img.svg" style="vertical-align: middle; width: 20px;" id="website-img"></a></li><li><a href="mailto:jmmyers25@gmail.com"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
+    <li><a href="/" >root</a></li>
+    <li>\</li>
+    <li><a href="https://www.johnmyersmath.com/book/" target="_blank">probabilistic machine learning</a></li>
+    <li>\</li>
+    <li>
+      <a href="#">teaching</a>
+      <ul class="dropdown">
+        <li><a href="/teaching/calculus-ii-fa-25.html">-> calculus II</a></li>
+        <li><a href="/teaching/analysis-fa-25.html">-> analysis</a></li>
+      </ul>
+    </li>
+    <li>\</li>
+    <li><a href="https://github.com/jmyers7" target="_blank"><img src="/assets/images/github-mark.svg" style="vertical-align: middle; width: 20px;" id="github-img"></a></li>
+    <li>\</li>
+    <li><a href="mailto:john.myers@oswego.edu"><img src="/assets/images/email-img.svg" style="vertical-align: middle; width: 20px;" id="email-img"></a></li>
   </ul>
 </nav>
 
 <script>
   hoverImage("github-img", "/assets/images/github-mark.svg", "/assets/images/github-mark-magenta.svg");
-  hoverImage("website-img", "/assets/images/website-img.svg", "/assets/images/website-img-magenta.svg");
   hoverImage("email-img", "/assets/images/email-img.svg", "/assets/images/email-img-magenta.svg");
 </script>
-        <div class="post-title">
-          <div>a geometric and topological toolkit</div>
-            <span>5. the algebraic theory III&#58 local geometry, vector bundles, and sheaves of modules</span><br>
-            <span id="test-name" class="post-name">
-              <img id="menu" src="/assets/images/menu.svg" style="width: 20px; align-items: center; margin-right: 10px;"><span id="current-section">introduction</span>
-              <div class="dropdown">
-                <ul>
-                  <li><a href="#">5.0. introduction</a></li>
-                  
-                    <li><a href="#prerequisites">5.1. prerequisites</a></li>
-                  
-                    <li><a href="#sheaves-of-modules">5.2. sheaves of modules</a></li>
-                  
-                    <li><a href="#locally-free-modules">5.3. locally free modules</a></li>
-                  
-                    <li><a href="#vector-bundles">5.4. vector bundles</a></li>
-                  
-                    <li><a href="#locally-trivial-vector-bundles-and-reduction-of-structure-groups">5.5. locally trivial vector bundles and reduction of structure groups</a></li>
-                  
-                    <li><a href="#infinitesimal-geometric-structures-examples">5.6. infinitesimal geometric structures, examples</a></li>
-                  
-                    <li><a href="#locally-trivial-vector-bundles-to-locally-free-modules">5.7. locally trivial vector bundles to locally free modules</a></li>
-                  
-                    <li><a href="#locally-free-modules-to-locally-trivial-vector-bundles">5.8. locally free modules to locally trivial vector bundles</a></li>
-                  
-                    <li><a href="#the-main-equivalence">5.9. the main equivalence</a></li>
-                  
-                    <li><a href="#appendix-construction-lemmas">5.10. appendix, construction lemmas</a></li>
-                  
-                    <li><a href="#references">5.11. references</a></li>
-                  
-                </ul>
-              </div>
-            </span>
-        </div>
     </div>
-
-    <div class="content-container post" id="content">
+      
+    <div class="content-container" id="content">
       <p>One cannot overstate the importance of the notion of vector bundle in the local geometric theory of manifolds. Indeed, the local (or infinitesimal) geometry on a manifold $M$ takes place in its tangent spaces $T_p(M)$, and one wants these geometries to be glued together smoothly and coherently as one transitions from one tangent space to another. This notion is made precise by first observing that each of these geometries comes with its own group $G$ of linear transformations that preserve the features of the geometry; for example, the orthogonal groups $G = \O(n)$ for euclidean geometry, the indefinite orthogonal group $G = \O(1,3)$ for Minkowski geometry, the symplectic groups $G=\Sp(2n)$ for symplectic geometry, and the complex general linear groups $G=\GL(n,\bbc)$ for (almost) complex geometry. Then, this “smooth dependence” of the geometry in the tangent space $T_p(M)$ on the point $p$ is captured precisely by certain families of linear transformations in the appropriate $G$ that smoothly depend on $p$. I’m speaking here of so-called <em>$G$-reductions</em> of the tangent bundle $T(M)$, which are some of the main objects that we will study in this post. Thus, the vector bundle structure of $T(M)$ is intimately related—through group theory—to the various types of local geometries that may be placed on the manifold $M$.</p>
 
 <p>In certain situations, these local geometries are <em>integrable</em>, which means that a special $G$-reduction exists which is given by the derivatives of the transition maps on the base manifold $M$. Whether a given geometry is integrable or not is a <em>very</em> important one; for example, the difference between an integrable $\O(n)$-reduction and a non-integrable one is the difference between a flat and curved riemannian manifold. On the other hand, sometimes every $G$-reduction is integrable, as is the case for $\Sp(2n)$-reductions, which is essentially Darboux’s Theorem.</p>
@@ -1802,26 +1768,9 @@ f\circ \phi_i \in \sco_{Y_i}(\phi_i^{-1}(V)),
     </div>
 
     <script>
-      // Make definition numbers.
-      window.addEventListener("DOMContentLoaded", () => makeDefns(pageNum));
-
-      // Resize content based on header height.
-      window.addEventListener("load", () =>
-        adjustContentPadding("header", "content", 10)
-      );
-      window.addEventListener("resize", () =>
-        adjustContentPadding("header", "content", 10)
-      );
-      
-      // Set scroll margins.
-      window.addEventListener("load", () => setScrollMargin("header", "current-section"));
-      window.addEventListener("resize", () => setScrollMargin("header", "current-section"));
-
-      window.addEventListener("load", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
-      window.addEventListener("scroll", () => updateCurrentSectionOnScroll(pageNum, "current-section", "header"));
-
-      // hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg");
-      hoverImage("menu", "/assets/images/menu.svg", "/assets/images/menu-magenta.svg", "test-name");
+      window.addEventListener('load', () => adjustContentPadding("header", "content", 70));
+      window.addEventListener('resize', () => adjustContentPadding("header", "content", 70));
     </script>
+    
   </body>
 </html>

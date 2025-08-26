@@ -1,6 +1,6 @@
 /**************** global stuff ****************/
 @import url(syntax.css);
-body { color: black; font-family: "Lora", serif; font-size: 16px; }
+* { padding: 0; margin: 0; font-family: "IBM Plex Mono", monospace; }
 
 a { color: black; }
 
@@ -21,56 +21,30 @@ html { scroll-behavior: smooth; }
 .content-container { margin-left: auto; margin-right: auto; width: 75%; }
 
 /**************** navbar stuff ****************/
-nav { margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-weight: 400; font-size: 1em; }
-
-nav ul { list-style-type: none; }
-
-nav li { display: inline-block; }
-
-nav li + li::before { margin: 0 10px; content: "\\"; }
+nav { margin-top: 10px; font-weight: 400; font-size: 1em; }
 
 nav a { text-decoration: none; }
+
+nav ul li { display: inline-block; position: relative; }
+
+nav ul li ul.dropdown li { display: block; font-size: 1em; text-align: left; }
+
+nav ul li ul.dropdown { position: absolute; z-index: 999; display: none; }
+
+nav ul li:hover ul.dropdown { display: block; padding-left: 10px; white-space: nowrap; }
 
 /**************** about page ****************/
 #about-page { font-family: "IBM Plex Mono", monospace; width: 75%; margin: 10px auto; }
 
-/**************** projects page ****************/
-#projects-page { font-family: "IBM Plex Mono", monospace; }
+/**************** class page ****************/
+.class-info table { margin-top: 30px; border-collapse: collapse; width: 100%; }
 
-#projects-page h2 { font-weight: 400; }
+.class-info tr { border: 1px solid #ccc; text-align: left; }
 
-#projects-page a { text-decoration: none; /*font-size: 1.25em;*/ }
+.class-info td { border: none; text-align: left; }
 
-/**************** posts ****************/
-.post-title { font-family: "IBM Plex Mono", monospace; font-weight: 400; color: #486afb; font-size: 1.2em; margin-top: 10px; width: 75%; text-align: left; margin-left: auto; margin-right: auto; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px 0; }
+.schedule section { margin-top: 30px; }
 
-/* section headings */
-.post h2 { font-family: "IBM Plex Mono", monospace; font-size: 1.5em; font-weight: 400; color: #486afb; position: sticky; font-size: 1.2em; margin-left: 30px; }
+.schedule table { margin-top: 30px; width: 100%; border-collapse: collapse; margin-bottom: 20px; }
 
-.toc { text-decoration: none; }
-
-.highlight-box { background-color: #486afb30; width: 85%; margin: 25px auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
-
-.highlight-box2 { background-color: #fd46fc30; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
-
-.highlight-box3 { background-color: #ff000030; width: 85%; margin: 0 auto; padding: 1px 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
-
-.caption { font-size: 14px; text-align: center; margin-top: 10px; }
-
-/* this changes the color of \eqref links */
-mjx-container[jax="SVG"] > svg a[href] { /*fill: #e0e0e0;*/ /*stroke: #e0e0e0;*/ fill: black; stroke: black; }
-
-.dropdown { display: none; }
-
-.post-name:hover { cursor: pointer; color: #fd46fc; }
-
-.post-name:hover .dropdown { display: block; background-color: white; position: absolute; padding: 0; margin: 0; font-size: 0.8em; border: 1px solid #ccc; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
-
-.dropdown ul { padding: 0 10px; text-decoration: none; color: black; list-style-type: none; }
-
-.dropdown a { text-decoration: none; }
-
-/**************** code box styling ****************/
-.code-container { position: relative; width: 85%; margin: 25px auto; border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
-
-.copy-button { position: absolute; font-family: "Geneva"; font-size: 0.8em; top: 10px; right: 10px; padding: 5px 10px; cursor: pointer; color: #808080; background-color: #f8f8f8; border: none; border-radius: 3px; }
+.schedule th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
