@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>mat347 analysis, fall 2025 – john myers, ph.d.</title>
+<title>sandbox – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -79,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
 <body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -146,187 +181,29 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">mat347 analysis, fall 2025</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
-
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-instructor:
-</td>
-<td>
-john myers
-</td>
-</tr>
-<tr>
-<td>
-office:
-</td>
-<td>
-marano 175
-</td>
-</tr>
-<tr>
-<td>
-office hours:
-</td>
-<td>
-12-12:30 MWF
-</td>
-</tr>
-<tr>
-<td>
-syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1EHFZiLx6-pJ76BjbNA53SzFokGBwlYki/view?usp=drive_link" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 9%">
-<col style="width: 18%">
-<col style="width: 45%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>week</th>
-<th>date</th>
-<th>topics</th>
-<th>info + due dates</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>6</td>
-<td>10.03 fri</td>
-<td></td>
-<td><a href="https://drive.google.com/file/d/1pM7l3IQDRGq-rE6811EM4VLBP7fG9eoW/view?usp=drive_link" target="_blank">week 6 hw due</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>10.01 wed</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.29 mon</td>
-<td>2.3 the algebraic and order limit theorems, part 1 <a href="https://drive.google.com/file/d/1uozLx6-sZU2lgxACsGmdnLzVm9f2UpZB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1DxJAVoBmvQAh2--X5M5-aCqsit0cy6Vm/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1bB9mPlaN3ZP9nKAKHlzAfOgFMPYe_qSU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>5</td>
-<td>09.26 fri</td>
-<td>2.2 the limit of a sequence, part 2 <a href="https://drive.google.com/file/d/1kWeanrgHLDECBFJa5h5mrN5TkdU5Pm4q/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1FJB-kNkw0UfxO6Tg-9-slY2eWKZFXWwB/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1d0lp2zfZ7EagUCFR6H0Awu6KSD42Tqdu/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td><a href="https://drive.google.com/file/d/1Fu1J97THoJfijcx5wuNCjX4daSm62aYg/view?usp=drive_link" target="_blank">week 5 hw due</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.24 wed</td>
-<td>2.2 the limit of a sequence, part 1 <a href="https://drive.google.com/file/d/1f2CBHJSwEhDQD3GwAq0iYs47SvyMfP5w/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1r2gbJh6B-_10OwjJ83Y-Sh4RTtBSH7kK/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1yz9y1gASL-n1iGoFHWu4Bs1Br3ego0te/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.22 mon</td>
-<td>1.5 cardinality, part 2 <a href="https://drive.google.com/file/d/1HzwbyxwXNb-ntPXszUARtc6LEWdoBwr4/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1FUsS7CX7z77OIINNDSh8xtkz4pyEY4rU/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1T9QBTVTnBb3dPomDVvDM03t83Zp8MKDQ/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a><br>2.2 the limit of a sequence, part 1 <a href="https://drive.google.com/file/d/1f2CBHJSwEhDQD3GwAq0iYs47SvyMfP5w/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1r2gbJh6B-_10OwjJ83Y-Sh4RTtBSH7kK/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1yz9y1gASL-n1iGoFHWu4Bs1Br3ego0te/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>09.19 fri</td>
-<td>1.5 cardinality, part 2 <a href="https://drive.google.com/file/d/1HzwbyxwXNb-ntPXszUARtc6LEWdoBwr4/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1FUsS7CX7z77OIINNDSh8xtkz4pyEY4rU/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1T9QBTVTnBb3dPomDVvDM03t83Zp8MKDQ/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td><a href="https://drive.google.com/file/d/1YmF6DdcPsYONWgtTx6FAwpTgZyjfghZN/view?usp=drive_link" target="_blank">week 4 hw due</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.17 wed</td>
-<td>1.5 cardinality, part 1 <a href="https://drive.google.com/file/d/1S2GlPmaONK_tbus2D6hs1mfOKLJQvImT/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1QouFMzL07K8soWxiQwIMqAGSW6_gaHVG/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1kThpBG5obEhlG52NT-jzX-pEXzBUUDep/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.15 mon</td>
-<td>1.5 cardinality, part 1 <a href="https://drive.google.com/file/d/1S2GlPmaONK_tbus2D6hs1mfOKLJQvImT/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1QouFMzL07K8soWxiQwIMqAGSW6_gaHVG/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1kThpBG5obEhlG52NT-jzX-pEXzBUUDep/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>09.12 fri</td>
-<td>1.4 consequences of completeness <a href="https://drive.google.com/file/d/1iRSpIdTRIZgqSDXOC7en9Z3SFxKvwhk1/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1bHua9E-nwNRl-5NVZvopWap_OGLHm5x1/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1Z71KjqpB_I08p1Ehd-m9MXvd13FrNTCU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td><a href="https://drive.google.com/file/d/159a_cI4OpZY9p8If4nZZfAzqjlBCygO9/view?usp=drive_link" target="_blank">week 2 &amp; 3 homework due</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.10 wed</td>
-<td>1.4 consequences of completeness <a href="https://drive.google.com/file/d/1iRSpIdTRIZgqSDXOC7en9Z3SFxKvwhk1/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1bHua9E-nwNRl-5NVZvopWap_OGLHm5x1/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1Z71KjqpB_I08p1Ehd-m9MXvd13FrNTCU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.08 mon</td>
-<td>1.3 axiom of completeness <a href="https://drive.google.com/file/d/1PCvj2tu7NaMF48cIoS-OKOLje6euwTTP/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1-BgUQOZNCTbPDQ22UJjHorJ4u7asWkGq/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/12RXBIJMpSZ2qvSeQw3mfWwcPy3U-5mxi/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>09.05 fri</td>
-<td>1.2 some preliminaries<br>1.3 axiom of completeness <a href="https://drive.google.com/file/d/1PCvj2tu7NaMF48cIoS-OKOLje6euwTTP/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1-BgUQOZNCTbPDQ22UJjHorJ4u7asWkGq/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/12RXBIJMpSZ2qvSeQw3mfWwcPy3U-5mxi/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.03 wed</td>
-<td>1.2 some preliminaries <a href="https://drive.google.com/file/d/1v7wbFBsmiAoMhmN9xpk4ZRDDtlx7ujcB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1W8Aqf68OYG_9EU3mCe1vOs2u5gLqQgKo/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1q_gUuAO91jRYKuK-Z-f-Wo8CfA9vJrFu/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>08.29 fri</td>
-<td>no class</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>08.27 wed</td>
-<td>1.1 introduction <a href="https://drive.google.com/file/d/183FagTTzgeKfmpJPKaoA0BOx8kkVgHHz/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1uKWgl53_jtM6Y77f6OQUfpNVlzfwLNq8/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/18dcbTZfzEneXdpLzczOZAWZhR3vgx3D0/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a><br>1.2 some preliminaries <a href="https://drive.google.com/file/d/1v7wbFBsmiAoMhmN9xpk4ZRDDtlx7ujcB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1W8Aqf68OYG_9EU3mCe1vOs2u5gLqQgKo/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1q_gUuAO91jRYKuK-Z-f-Wo8CfA9vJrFu/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>08.25 mon</td>
-<td>1.1 introduction <a href="https://drive.google.com/file/d/183FagTTzgeKfmpJPKaoA0BOx8kkVgHHz/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1uKWgl53_jtM6Y77f6OQUfpNVlzfwLNq8/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/18dcbTZfzEneXdpLzczOZAWZhR3vgx3D0/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<div id="1c63065a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>blue <span class="op">=</span> <span class="st">"#3399FF"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pink <span class="op">=</span> <span class="st">"#FF3399"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>grey <span class="op">=</span> <span class="st">"#121212"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>white <span class="op">=</span> <span class="st">"#E5E5E5"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [yellow, blue, pink]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 
