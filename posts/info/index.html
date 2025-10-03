@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-30">
 
-<title>What is information theory? – john myers, ph.d.</title>
+<title>Entropy, surprise, and information – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -215,7 +215,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">What is information theory?</h1>
+      <h1 class="title">Entropy, surprise, and information</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Information theory</div>
                 <div class="quarto-category">Python</div>
@@ -251,8 +251,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#deterministic-and-stochastic-information-flows" id="toc-deterministic-and-stochastic-information-flows" class="nav-link" data-scroll-target="#deterministic-and-stochastic-information-flows">Deterministic and stochastic information flows</a></li>
-  <li><a href="#surprisal-entropy-and-mutual-information" id="toc-surprisal-entropy-and-mutual-information" class="nav-link" data-scroll-target="#surprisal-entropy-and-mutual-information">Surprisal, entropy, and mutual information</a></li>
+  <li><a href="#flows-of-information" id="toc-flows-of-information" class="nav-link" data-scroll-target="#flows-of-information">Flows of information</a></li>
+  <li><a href="#entropy-surprisal-and-mutual-information" id="toc-entropy-surprisal-and-mutual-information" class="nav-link" data-scroll-target="#entropy-surprisal-and-mutual-information">Entropy, surprisal, and mutual information</a></li>
   <li><a href="#mutual-information-of-jointly-discrete-random-variables" id="toc-mutual-information-of-jointly-discrete-random-variables" class="nav-link" data-scroll-target="#mutual-information-of-jointly-discrete-random-variables">Mutual information of jointly discrete random variables</a></li>
   <li><a href="#mutual-information-of-jointly-normal-random-variables" id="toc-mutual-information-of-jointly-normal-random-variables" class="nav-link" data-scroll-target="#mutual-information-of-jointly-normal-random-variables">Mutual information of jointly normal random variables</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -274,9 +274,9 @@ window.Quarto = {
 <p>This post will survey the most basic quantities of information theory: <em>surprisal</em>, <em>entropy</em>, and <em>mutual information</em>. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the <em>entropy</em>, which quantifies the overall uncertainty in a probability distribution. Finally, <em>mutual information</em> applies to two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with a joint distribution. It measures how much observing <span class="math inline">\(X\)</span> reduces the uncertainty (entropy) in <span class="math inline">\(Y\)</span> on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.</p>
 <p>While this post focuses on the foundational concepts, future posts will explore how these ideas apply to the probabilistic models used in machine learning.</p>
 </section>
-<section id="deterministic-and-stochastic-information-flows" class="level2">
-<h2 class="anchored" data-anchor-id="deterministic-and-stochastic-information-flows">Deterministic and stochastic information flows</h2>
-<p>We begin by building a mathematical gadget that models the “flow of information” between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (or random vectors, or random objects, or …). Such flows are exactly what information theory calls <em>communication channels</em>, and they include many of the predictive probabilistic models in machine learning where information flows from input <span class="math inline">\(X\)</span> to output <span class="math inline">\(Y\)</span>. Once these flows have been identified in this section, in the rest of the post we seek to understand how information obtained from <span class="math inline">\(X\)</span> shapes the distribution on <span class="math inline">\(Y\)</span>.</p>
+<section id="flows-of-information" class="level2">
+<h2 class="anchored" data-anchor-id="flows-of-information">Flows of information</h2>
+<p>We begin by building a mathematical gadget that models the “flow of information” between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (or random vectors, or random objects, or …). Such flows are exactly what information theory calls <em>communication channels</em>, and they include many of the predictive probabilistic models in machine learning where information flows from input <span class="math inline">\(X\)</span> to output <span class="math inline">\(Y\)</span>. Once these flows have been identified in this section, in the rest of the post we seek to understand how information flowing from <span class="math inline">\(X\)</span> influences and shapes the distribution on <span class="math inline">\(Y\)</span>.</p>
 <p>The simplest flow between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is a functional one, expressed as an equation <span id="eq-det-flow"><span class="math display">\[
 g(X)=Y,
 \tag{1}\]</span></span></p>
@@ -286,19 +286,37 @@ g(X)=Y,
 <p><img src="../../img/det-flow-2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
-<p>On the other hand, we might suppose that information flows from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a <em>stochastic</em> fashion, in which an observed input <span class="math inline">\(X=x\)</span> does not uniquely determine an output <span class="math inline">\(y\)</span>, but rather a distribution on <span class="math inline">\(Y\)</span>. This is precisely what a conditional distribution captures: given <span class="math inline">\(X=x\)</span>, we have a probability distribution on <span class="math inline">\(Y\)</span>. We can think of this as a <em>function</em> of the form</p>
+<p>Note that each value of <span class="math inline">\(x\)</span> along the input (left) axis determines a unique value of <span class="math inline">\(y\)</span> along the output (right) axis.</p>
+<p>On the other hand, we might suppose that information flows from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a <em>stochastic</em> fashion, in which an observed input <span class="math inline">\(X=x\)</span> does not uniquely determine an output <span class="math inline">\(y\)</span>, but rather a distribution on <span class="math inline">\(Y\)</span>. This is precisely what a conditional distribution <span class="math inline">\(P(Y= y\mid X=x)\)</span> captures: given an observed value <span class="math inline">\(X=x\)</span>, we have a probability distribution on <span class="math inline">\(y\)</span>’s. We can think of this as a <em>function</em> of the form</p>
 <p><span id="eq-stochastic-flow"><span class="math display">\[
-x \mapsto P(Y=y \mid X=x).
+x \mapsto P(Y= y \mid X=x),
 \tag{2}\]</span></span></p>
-<p>This function is rather special: its input is a value <span class="math inline">\(x\)</span>, while its output is an entire probability distribution. Mathematicians call such objects <a href="https://en.wikipedia.org/wiki/Markov_kernel" target="_blank">Markov kernels</a>.</p>
-<p>In our model of a stochastic flow, we therefore use conditional distributions, understood as functions on the conditioning variable. In contrast to the figure above of a deterministic flow, in the case that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> take values on the real line <span class="math inline">\(\mathbb{R}\)</span>, we visualize a stochastic flow as:</p>
+<p>where the <span class="math inline">\(y\)</span> is intended as a variable and not a fixed quantity, so that <span class="math inline">\(P(Y= y \mid X=x)\)</span> is a probability distribution and not just a single probability. So, this function is rather special: its input is a value <span class="math inline">\(x\)</span>, while its output is an entire probability distribution. Mathematicians call such objects <a href="https://en.wikipedia.org/wiki/Markov_kernel" target="_blank">Markov kernels</a>. A figure will make this more concrete: in contrast to the deterministic flows drawn above, in the case that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> take values on the real line <span class="math inline">\(\mathbb{R}\)</span>, we visualize a stochastic flow as follows, where each value of <span class="math inline">\(x\)</span> is mapped to a probability distribution on <span class="math inline">\(y\)</span>’s:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../img/stochastic-flow-2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
-<p>Let’s see this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with the full distribution on <span class="math inline">\(X\)</span> (i.e., its mass function <span class="math inline">\(f(x)\)</span>) given in the following plot:</p>
-<div id="06bc11a0" class="cell" data-execution_count="2">
+<p>In our model of a stochastic flow, we therefore use conditional distributions, understood as functions on the conditioning variable.</p>
+<p>In practive, very often we have a family <span class="math inline">\(P(Y=y; \theta)\)</span> of parameterized distributions over <span class="math inline">\(y\)</span>’s, where <span class="math inline">\(\theta\)</span> is a parameter vector. The stochastic flow from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> is then implemented as a function <span class="math inline">\(x\mapsto \theta(x)\)</span> from observations of <span class="math inline">\(X\)</span> to parameters <span class="math inline">\(\theta\)</span>, and the conditional distribution is then <em>defined</em> as</p>
+<p><span class="math display">\[
+P(Y=y \mid X=x) = P(Y=y ; \theta=\theta(x)).
+\]</span></p>
+<p>Familiar models like linear regression (with known variance <span class="math inline">\(\sigma^2\)</span>) fit this description, in which <span class="math inline">\(P(Y=y; \theta)\)</span> is given by the normal density</p>
+<p><span class="math display">\[
+f(y;\theta) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ - \frac{1}{2\sigma^2}(y-\theta)^2 \right],
+\]</span></p>
+<p>and with parameter mapping</p>
+<p><span class="math display">\[
+x\mapsto \theta(x) = \beta_0 + \beta_1x,
+\]</span></p>
+<p>for some model coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Concisely, the stochastic flow from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a linear regression model is completely described by specifying</p>
+<p><span class="math display">\[
+(Y\mid X=x) \sim \mathcal{N}(\beta_0+\beta_1x, \sigma^2).
+\]</span></p>
+<p>We will return to an information-theoretic treatment of linear regression (and other) models in a later post.</p>
+<p>For now, let’s see all this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with the full distribution on <span class="math inline">\(X\)</span> (i.e., its mass function <span class="math inline">\(f(x)\)</span>) given in the following plot:</p>
+<div id="4f9b119f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
@@ -325,7 +343,7 @@ x \mapsto P(Y=y \mid X=x).
 </div>
 </div>
 <p>We might reasonably believe that <span class="math inline">\(X\)</span> is predictive of <span class="math inline">\(Y\)</span>, the exam score of a randomly chosen student, taking continuous values in the interval <span class="math inline">\([0,1]\)</span>, understood as percentages. The plot of the density function <span class="math inline">\(f(y)\)</span> is given in:</p>
-<div id="6279da15" class="cell" data-execution_count="3">
+<div id="bc96e4eb" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy(y):</span>
@@ -351,8 +369,8 @@ x \mapsto P(Y=y \mid X=x).
 </div>
 </div>
 </div>
-<p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint distribution mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
-<div id="b5445e6e" class="cell" data-execution_count="4">
+<p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
+<div id="9888d572" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
@@ -378,7 +396,7 @@ x \mapsto P(Y=y \mid X=x).
 </div>
 </div>
 <p>Dividing the joint mass/density <span class="math inline">\(f(x,y)\)</span> by the marginal mass <span class="math inline">\(f(x)\)</span> yields the conditional densities <span class="math inline">\(f(x|y)\)</span>. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to <span class="math inline">\(1\)</span> over <span class="math inline">\([0,1]\)</span>. They are shown in:</p>
-<div id="4ea6e8d9" class="cell" data-execution_count="5">
+<div id="fef8e4b6" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
@@ -408,9 +426,11 @@ x \mapsto P(Y=y \mid X=x).
 x\mapsto f(y|x),
 \]</span></p>
 <p>thought of as a function of <span class="math inline">\(x\)</span>, models the stochastic flow of information from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>.</p>
-<p>Inspecting the plot of the marginal density <span class="math inline">\(f(y)\)</span> reveals a good amount of uncertainty: the distribution is peaked, but not strongly so. An exam score randomly drawn from <span class="math inline">\(Y\)</span> will be mildly uncertain, mildly surprising. The exact amount of uncertainty in <span class="math inline">\(Y\)</span> will be measured through its <em>entropy</em>, denoted <span class="math inline">\(H(Y)\)</span>, introduced in the next section.</p>
-<p>However, the conditional densities <span class="math inline">\(f(y|x)\)</span> exhibit less uncertainty compared to the marginal, especially for values of <span class="math inline">\(x\)</span> closer to <span class="math inline">\(x=6\)</span>. The exact amount of uncertainty of <span class="math inline">\(Y\)</span>, given an observed value <span class="math inline">\(X=x\)</span>, will be measured through the <em>conditional entropy</em>, denoted <span class="math inline">\(H(Y\mid X=x)\)</span>. Averaging this conditional entropy over <span class="math inline">\(X\)</span> yields a quantity <span class="math inline">\(H(Y\mid X)\)</span>, the average amount of uncertainty in <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X\)</span>.</p>
-<p>It is a general observation that</p>
+<p>Inspecting the plot of the marginal density <span class="math inline">\(f(y)\)</span> reveals a good amount of uncertainty: the distribution is peaked, but not strongly so. An exam score randomly drawn from <span class="math inline">\(Y\)</span> will be mildly uncertain, mildly surprising. The exact amount of uncertainty in <span class="math inline">\(Y\)</span> will be measured through its <em>entropy</em>, denoted <span class="math inline">\(H(Y)\)</span>, introduced in the next section. In contrast, the conditional densities <span class="math inline">\(f(y|x)\)</span> exhibit less uncertainty compared to the marginal, especially for values of <span class="math inline">\(x\)</span> closer to <span class="math inline">\(6\)</span>. The exact amount of uncertainty of <span class="math inline">\(Y\)</span>, given an observed value <span class="math inline">\(X=x\)</span>, will be measured through the <em>conditional entropy</em>, denoted <span class="math inline">\(H(Y\mid X=x)\)</span>. Averaging this conditional entropy over <span class="math inline">\(X\)</span> yields the quantity</p>
+<p><span class="math display">\[
+H(Y\mid X) \overset{\text{def}}{=}E_{x\sim f(x)}(H(Y\mid X=x)),
+\]</span></p>
+<p>the average amount of uncertainty in <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X\)</span>. Then, it is a general observation that</p>
 <p><span class="math display">\[
 H(Y) \geq H(Y\mid X)
 \]</span></p>
@@ -420,8 +440,8 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 \]</span></p>
 <p>is a nonnegative proxy for the amount of information transmitted from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>: if it is large, then the gap between <span class="math inline">\(H(Y)\)</span> and <span class="math inline">\(H(Y\mid X)\)</span> is wide, indicating that observations of <span class="math inline">\(X\)</span> greatly reduce the uncertainty in <span class="math inline">\(Y\)</span>. We understand this as a “large amount of information” is transmitted from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>. Conversely, if <span class="math inline">\(I(X,Y)\)</span> is small, then observations of <span class="math inline">\(X\)</span> do not tell us much about <span class="math inline">\(Y\)</span>; in fact, in the extreme case that <span class="math inline">\(I(X,Y)=0\)</span>, the variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent. The quantity <span class="math inline">\(I(X,Y)\)</span> is exactly the <em>mutual information</em> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, introduced in the next section.</p>
 </section>
-<section id="surprisal-entropy-and-mutual-information" class="level2">
-<h2 class="anchored" data-anchor-id="surprisal-entropy-and-mutual-information">Surprisal, entropy, and mutual information</h2>
+<section id="entropy-surprisal-and-mutual-information" class="level2">
+<h2 class="anchored" data-anchor-id="entropy-surprisal-and-mutual-information">Entropy, surprisal, and mutual information</h2>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -472,7 +492,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </section>
 <section id="mutual-information-of-jointly-discrete-random-variables" class="level2">
 <h2 class="anchored" data-anchor-id="mutual-information-of-jointly-discrete-random-variables">Mutual information of jointly discrete random variables</h2>
-<div id="084bff18" class="cell" data-execution_count="6">
+<div id="7a9ccdcb" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
@@ -517,7 +537,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="b1c89e93" class="cell" data-execution_count="7">
+<div id="7c987943" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, ncols<span class="op">=</span><span class="dv">3</span>, sharey<span class="op">=</span><span class="va">True</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
@@ -547,7 +567,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="49e8e4f7" class="cell" data-execution_count="8">
+<div id="146393e5" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>info <span class="op">=</span> entropy(fy) <span class="op">-</span> <span class="bu">sum</span>([entropy(f_y_given_x) <span class="op">*</span> fx[x] <span class="cf">for</span> x, f_y_given_x <span class="kw">in</span> <span class="bu">enumerate</span>(conditionals)])</span>
@@ -583,7 +603,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="c7ba9cbc" class="cell" data-execution_count="9">
+<div id="e70ee8d6" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels<span class="op">=</span><span class="va">False</span>):</span>
@@ -636,7 +656,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="a383f5e6" class="cell" data-execution_count="10">
+<div id="189f10e7" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
@@ -651,7 +671,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="8b7ab8fb" class="cell" data-execution_count="11">
+<div id="d63dc4bb" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
