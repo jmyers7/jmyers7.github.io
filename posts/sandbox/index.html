@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-09-30">
+
+<title>Sandbox – john myers, ph.d.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-94a14a726788178fbc029c83e171234c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../writings.html"> 
+<span class="menu-text">writings</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-teaching" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">teaching</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
+        <li>
+    <a class="dropdown-item" href="../../teaching/calculus-ii-fa-25.html">
+ <span class="dropdown-text">mat220 calculus II, fall 2025</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../teaching/analysis-fa-25.html">
+ <span class="dropdown-text">mat347 analysis, fall 2025</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.johnmyers-phd.com/book" target="_blank"> 
+<span class="menu-text">probabilistic machine learning</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jmyers7/" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/john-myers-phd" target="_blank"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jmmyers25@gmail.com"> <i class="bi bi-envelope-open-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Sandbox</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 30, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#stochastic-transition-kernels" id="toc-stochastic-transition-kernels" class="nav-link active" data-scroll-target="#stochastic-transition-kernels">Stochastic transition kernels</a></li>
+  <li><a href="#the-disintegration-theorems" id="toc-the-disintegration-theorems" class="nav-link" data-scroll-target="#the-disintegration-theorems">The Disintegration Theorems</a></li>
+  <li><a href="#conditional-distributions" id="toc-conditional-distributions" class="nav-link" data-scroll-target="#conditional-distributions">Conditional distributions</a></li>
+  <li><a href="#laws-of-total-probability" id="toc-laws-of-total-probability" class="nav-link" data-scroll-target="#laws-of-total-probability">Laws of Total Probability</a></li>
+  <li><a href="#conditional-expectations" id="toc-conditional-expectations" class="nav-link" data-scroll-target="#conditional-expectations">Conditional expectations</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="stochastic-transition-kernels" class="level2">
+<h2 class="anchored" data-anchor-id="stochastic-transition-kernels">Stochastic transition kernels</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-stoch-trans-ker" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\((\mathcal{X}, \mathfrak{M})\)</span> and <span class="math inline">\((\mathcal{Y},\mathfrak{N})\)</span> be two measurable spaces. A function</p>
+<p><span class="math display">\[
+K: \mathfrak{M}\times \mathcal{Y}\to [0,1], \quad (A,y) \mapsto K(A,y),
+\]</span></p>
+<p>is called a <em>stochastic transition kernel</em> if:</p>
+<ol type="1">
+<li>For each <span class="math inline">\(y\in \mathcal{Y}\)</span>, the function <span class="math inline">\(A\mapsto K(A,y)\)</span> is a probability measure on <span class="math inline">\(\mathfrak{M}\)</span>.</li>
+<li>For each <span class="math inline">\(A\in \mathfrak{M}\)</span>, the function <span class="math inline">\(y\mapsto K(A,y)\)</span> is measurable.</li>
+</ol>
+<p>If <span class="math inline">\(\mu\)</span> is a measure on <span class="math inline">\((\mathcal{X},\mathfrak{M})\)</span> and each measure <span class="math inline">\(K(-,y)\)</span> has a density with respect to <span class="math inline">\(\mu\)</span>, then we shall say <span class="math inline">\(K\)</span> has a density with respect to <span class="math inline">\(\mu\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-disintegration-theorems" class="level2">
+<h2 class="anchored" data-anchor-id="the-disintegration-theorems">The Disintegration Theorems</h2>
+<p>Before stating the first of the fundamental theorems in this post, we need to quickly introduce some terminology and notation. Given a subset <span class="math inline">\(E\)</span> of some cartesian product <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span> and a point <span class="math inline">\(y\in Y\)</span>, we define the <span class="math inline">\(y\)</span>-th section of <span class="math inline">\(E\)</span> to be the set</p>
+<p><span class="math display">\[
+E(y) = \left\{ x\in X \mid (x,y) \in E \right\}.
+\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-disint" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (The Measure Disintegration Theorem)</strong></span> Let <span class="math inline">\((\mathcal{X}, \mathfrak{M},\mu)\)</span> and <span class="math inline">\((\mathcal{Y},\mathfrak{N},\nu)\)</span> be two measure spaces, and let <span class="math inline">\(R\)</span> be a measure on <span class="math inline">\(\mathcal{Y}\)</span> with a density with respect to <span class="math inline">\(\nu\)</span>. Suppose that for each stochastic transition kernel</p>
+<p><span class="math display">\[
+K:\mathfrak{M}\times \mathcal{Y}\to [0,1], \quad (A,y) \mapsto K(A,y),
+\]</span></p>
+<p>with a density with respect to <span class="math inline">\(\mu\)</span>, we define a probability measure <span class="math inline">\(Q_K\)</span> on <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span> by setting</p>
+<p><span id="eq-goal-eqn"><span class="math display">\[
+Q_K(E) = \int_\mathcal{Y}K(E(y),y) \ R(dy)
+\tag{1}\]</span></span></p>
+<p>for all product-measurable sets <span class="math inline">\(E\)</span>. Then the measure <span class="math inline">\(Q_K\)</span> has the following pair of properties:</p>
+<ol type="1">
+<li><span class="math inline">\(Q_K\)</span> has a density with respect to the product measure <span class="math inline">\(\mu\times \nu\)</span>.</li>
+<li><span class="math inline">\(R\)</span> is the marginal distribution of <span class="math inline">\(Q_K\)</span> on <span class="math inline">\(\mathcal{Y}\)</span>.</li>
+</ol>
+<p>Furthermore, every measure <span class="math inline">\(Q\)</span> on <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span> with these properties is equal to <span class="math inline">\(Q_K\)</span> for some transition kernel <span class="math inline">\(K\)</span>, but the mapping <span class="math inline">\(K\mapsto Q_K\)</span> of kernels to measures is, in general, many-to-one.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Our first goal is to construct a density <span class="math inline">\(\varphi(x,y)\)</span> for the measure <span class="math inline">\(Q_K\)</span>, assuming that the kernel <span class="math inline">\(K\)</span> is given. We set</p>
+<p><span id="eq-prod-den"><span class="math display">\[
+\varphi(x,y) = f(x| y) \pi(y)
+\tag{2}\]</span></span></p>
+<p>for <span class="math inline">\(x\in \mathcal{X}\)</span> and <span class="math inline">\(y\in \mathcal{Y}\)</span>, where <span class="math inline">\(\pi(y)\)</span> is a density for <span class="math inline">\(R\)</span> with respect to <span class="math inline">\(\nu\)</span>, and for each <span class="math inline">\(y\in \mathcal{Y}\)</span> the function <span class="math inline">\(x\mapsto f(x|y)\)</span> is a density of <span class="math inline">\(K(-,y)\)</span> with respect to <span class="math inline">\(\mu\)</span>. Since for any product-measurable set <span class="math inline">\(E\)</span> we have the identity</p>
+<p><span class="math display">\[
+I_{E(y)}(x) = I_E(x,y)
+\]</span></p>
+<p>of indicator functions, we have</p>
+<p><span class="math display">\[
+\int_E \varphi(x,y) \ (\mu \times \nu)(d x, d y) = \int_{\mathcal{X}\times \mathcal{Y}} \varphi(x,y) I_{E(y)}(x) \ (\mu \times \nu)(d x , d y).
+\]</span></p>
+<p>But by using the definition (<a href="#eq-prod-den" class="quarto-xref">2</a>) and Fubini’s Theorem, we get that the integral on the right-hand side of this last equation is equal to</p>
+<p><span class="math display">\[
+\int_\mathcal{Y}\left\{ \int_{E(y)} f(x|y)\pi(y) \ \mu(dx) \right\} \ \nu(dy)
+\]</span></p>
+<p>which, in turn, is equal to</p>
+<p><span class="math display">\[
+\int_\mathcal{Y}K(E(y),y) \ R(d y).
+\]</span></p>
+<p>But this last integral is precisely <span class="math inline">\(Q_K(E)\)</span>, and hence <span class="math inline">\(Q_K\)</span> has density <span class="math inline">\(\varphi(x,y)\)</span>. That <span class="math inline">\(R\)</span> is the marginal distribution of <span class="math inline">\(Q_K\)</span> on <span class="math inline">\(\mathcal{Y}\)</span> is clear from the defining formula (<a href="#eq-goal-eqn" class="quarto-xref">1</a>), and so we have established the two claimed properties of <span class="math inline">\(Q_K\)</span> in the statement of the theorem.</p>
+<p>We now turn our attention toward the second claim in the theorem, letting <span class="math inline">\(Q\)</span> be any measure on <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span> with the two stated properties. Our goal is to construct a stochastic transition kernel <span class="math inline">\(K\)</span> and show that <span class="math inline">\(Q\)</span> is equal to <span class="math inline">\(Q_K\)</span>, the latter defined by (<a href="#eq-goal-eqn" class="quarto-xref">1</a>).</p>
+<p>Let <span class="math inline">\(\varphi(x,y)\)</span> be a density of <span class="math inline">\(Q\)</span> with respect to the product measure <span class="math inline">\(\mu \times \nu\)</span>. Then, by Fubini’s Theorem, for all <span class="math inline">\(B\in \mathfrak{N}\)</span> we have</p>
+<p><span class="math display">\[
+R(B) = Q(\mathcal{X}\times B) = \int_{\mathcal{X}\times B} \varphi(x,y) \ (\mu \times \nu)(dx,dy) = \int_B \left\{ \int_\mathcal{X}\varphi(x,y) \ \mu(dx) \right\} \ \nu(dy),
+\]</span></p>
+<p>which shows that <span class="math inline">\(R\)</span> has density</p>
+<p><span id="eq-marginal-eqn"><span class="math display">\[
+\pi(y) = \int_\mathcal{X}\varphi(x,y) \ \mu(dx)
+\tag{3}\]</span></span></p>
+<p>with respect to <span class="math inline">\(\nu\)</span>. For those <span class="math inline">\(y\in \mathcal{Y}\)</span> with <span class="math inline">\(\pi(y)\neq 0\)</span>, define a measurable function on <span class="math inline">\(\mathcal{X}\)</span> by</p>
+<p><span id="eq-cond-defn-eqn"><span class="math display">\[
+x\mapsto  f(x|y) \overset{\text{def}}{=}\frac{\varphi(x,y)}{\pi(y)}.
+\tag{4}\]</span></span></p>
+<p>It follows from (<a href="#eq-marginal-eqn" class="quarto-xref">3</a>) that <span class="math inline">\(\int_\mathcal{X}f(x|y) \ \mu(dx)=1\)</span>, and hence</p>
+<p><span id="eq-den-rule-eqn"><span class="math display">\[
+A\mapsto K(A,y) \overset{\text{def}}{=}\int_A f(x|y) \ \mu(d x)
+\tag{5}\]</span></span></p>
+<p>defines a measure on <span class="math inline">\(\mathcal{X}\)</span> for each <span class="math inline">\(y\in \mathcal{Y}\)</span> with <span class="math inline">\(\pi(y)\neq 0\)</span>. If <span class="math inline">\(\pi(y)=0\)</span>, then we let <span class="math inline">\(x\mapsto f(x|y)\)</span> be some fixed (but arbitrary) measurable function on <span class="math inline">\(\mathcal{X}\)</span> with <span class="math inline">\(\int_\mathcal{X}f(x|y) \ \mu(dx)=1\)</span>. We then define the measure <span class="math inline">\(K(-,y)\)</span> via the same rule (<a href="#eq-den-rule-eqn" class="quarto-xref">5</a>).</p>
+<p>I claim that</p>
+<p><span id="eq-plug-eqn"><span class="math display">\[
+\int_A f(x|y)\pi(y) \ \mu(dx) = \int_A \varphi(x,y) \ \mu(dx)
+\tag{6}\]</span></span></p>
+<p>for all <span class="math inline">\(y\in \mathcal{Y}\)</span> and all <span class="math inline">\(A\in \mathfrak{M}\)</span>. For proof, first note that if <span class="math inline">\(\pi(y)\neq 0\)</span>, then this equation follows from the definition (<a href="#eq-cond-defn-eqn" class="quarto-xref">4</a>) given above. Otherwise, note that</p>
+<p><span class="math display">\[
+0 \leq \int_A \varphi(x,y) \ \mu(dx) \leq \int_\mathcal{X}\varphi(x,y) \ \mu(dx) = \pi(y),
+\]</span></p>
+<p>so that the right-hand side of (<a href="#eq-plug-eqn" class="quarto-xref">6</a>) is <span class="math inline">\(0\)</span> if <span class="math inline">\(\pi(y)=0\)</span>. The desired equation (<a href="#eq-plug-eqn" class="quarto-xref">6</a>) follows.</p>
+<p>Now, given a product-measurable subset <span class="math inline">\(E\subseteq \mathcal{X}\times \mathcal{Y}\)</span>, we have</p>
+<p><span class="math display">\[
+\begin{align*}
+\int_\mathcal{Y}K(E(y),y) \ R(dy) &amp;= \int_\mathcal{Y}\left\{ \int_{E(y)} f(x|y) \ \mu(dx) \right\} \ R(dy) \\
+&amp;= \int_\mathcal{Y}\left\{ \int_{E(y)} f(x|y)\pi(y) \ \mu(dx) \right\} \ \nu(dy) \\
+&amp;= \int_\mathcal{Y}\left\{ \int_{E(y)} \varphi(x,y) \ \mu(dx) \right\} \ \nu(dy) \\
+&amp;= \int_{\mathcal{X}\times \mathcal{Y}} \varphi(x,y) I_{E(y)}(x) \ (\mu \times \nu)(dx, dy) \\
+&amp;= \int_E \varphi(x,y) \ (\mu \times \nu)(dx,dy) \\
+&amp;= Q(E),
+\end{align*}
+\]</span></p>
+<p>where the third equation follows from (<a href="#eq-plug-eqn" class="quarto-xref">6</a>). Equating the two ends of this sequence of equalities shows <span class="math inline">\(Q(E) = Q_K(E)\)</span>, and hence <span class="math inline">\(Q=Q_K\)</span>, which is what we set out to prove. Q.E.D.</p>
+</div>
+<p>It is worth noting that the measure <span class="math inline">\(Q_K\)</span> defined by (<a href="#eq-goal-eqn" class="quarto-xref">1</a>) has a particularly simple formula on cartesian products of measurable sets:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-simple" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> Assume the notation and hypotheses of the Measure Disintegration Theorem. If <span class="math inline">\(A\in \mathfrak{M}\)</span> and <span class="math inline">\(B\in \mathfrak{N}\)</span>, then</p>
+<p><span id="eq-goal2-eqn"><span class="math display">\[
+Q_K ( A\times B) = \int_B K(A,y) \ R(d y).
+\tag{7}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The desired formula (<a href="#eq-goal2-eqn" class="quarto-xref">7</a>) follows immediately from (<a href="#eq-goal-eqn" class="quarto-xref">1</a>) by taking <span class="math inline">\(E = A\times B\)</span> in the latter and noting that</p>
+<p><span class="math display">\[
+K((A\times B)(y),y) = K(A,y)I_B(y)
+\]</span></p>
+<p>for all <span class="math inline">\(y\in \mathcal{Y}\)</span>. Q.E.D.</p>
+</div>
+<p>It will be convenient to extract the formulas for the densities used in the proof of the Measure Disintegration Theorem and place them in their own theorem:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-density-disint" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (The Density Disintegration Theorem)</strong></span> Assume the notation and hypotheses of the Measure Disintegration Theorem. In particular, let <span class="math inline">\(Q\)</span> be a probability measure on <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span> with the two stated properties. If <span class="math inline">\(\varphi\)</span> is a density of <span class="math inline">\(Q\)</span> with respect to <span class="math inline">\(\mu\times \nu\)</span>, then <span class="math inline">\(R\)</span> has a density with respect to <span class="math inline">\(\nu\)</span> given by</p>
+<p><span class="math display">\[
+\pi(y) = \int_\mathcal{X}\varphi(x,y) \ \mu(d x),
+\]</span></p>
+<p>while the probability measure <span class="math inline">\(A\mapsto K(A,y)\)</span> has a density with respect to <span class="math inline">\(\mu\)</span> given by</p>
+<p><span class="math display">\[
+x\mapsto f(x|y) = \frac{\varphi(x,y)}{\pi(y)}
+\]</span></p>
+<p>for all those <span class="math inline">\(y\in \mathcal{Y}\)</span> with <span class="math inline">\(\pi(y)\neq 0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="conditional-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-distributions">Conditional distributions</h2>
+<p>We begin with a definition that should be familiar from your prior study of probability theory.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-cond-prob" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\((\mathcal{X},\mathfrak{M})\)</span> and <span class="math inline">\((\mathcal{Y},\mathfrak{N})\)</span> be two measurable spaces, let <span class="math inline">\(Q\)</span> be a probability measure on the product space <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span>, and let <span class="math inline">\(R\)</span> be the marginal distribution of <span class="math inline">\(Q\)</span> on <span class="math inline">\(\mathcal{Y}\)</span>. Given <span class="math inline">\(A\in \mathfrak{M}\)</span> and <span class="math inline">\(B\in \mathfrak{N}\)</span>, we define the <em>conditional probability of</em> <span class="math inline">\(A\)</span> given <span class="math inline">\(B\)</span> to be the quotient</p>
+<p><span id="eq-defn-eqn"><span class="math display">\[
+P(A | B) = \frac{Q(A\times B)}{R(B)},
+\tag{8}\]</span></span></p>
+<p>provided that <span class="math inline">\(R(B) &gt;0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Provided that <span class="math inline">\(R(B)&gt;0\)</span>, it is clear that the assignment <span class="math inline">\(A\mapsto P(A|B)\)</span> is a probability distribution on <span class="math inline">\((\mathcal{X},\mathfrak{M})\)</span>. If <span class="math inline">\(R(B)=0\)</span>, then we will define <span class="math inline">\(A\mapsto P(A|B)\)</span> to be a fixed (but arbitrary) probability distribution on <span class="math inline">\((\mathcal{X},\mathfrak{M})\)</span>. It doesn’t matter <em>which</em> probability distribution we choose, just as long as we make the same choice for all <span class="math inline">\(B\in \mathfrak{N}\)</span> with <span class="math inline">\(R(B)=0\)</span>.</p>
+<p>Let’s make a preliminary study of this definition in the special case that <span class="math inline">\(\mathcal{X}\)</span> and <span class="math inline">\(\mathcal{Y}\)</span> are finite. In this case, given subsets <span class="math inline">\(A\subseteq \mathcal{X}\)</span> and <span class="math inline">\(B\subseteq \mathcal{Y}\)</span>, we have</p>
+<p><span id="eq-begin-eqn"><span class="math display">\[
+Q(A \times B) = \sum_{y\in B} Q(A \times \{y\}).
+\tag{9}\]</span></span></p>
+<p>In view of the inequality</p>
+<p><span class="math display">\[
+Q(A \times \{y\}) \leq Q(\mathcal{X}\times \{y\}) = R(y)
+\]</span></p>
+<p>and the definition (<a href="#eq-defn-eqn" class="quarto-xref">8</a>), it follows that</p>
+<p><span id="eq-cat-eqn"><span class="math display">\[
+Q(A\times \{y\}) = P(A |y) R(y)
+\tag{10}\]</span></span></p>
+<p>for all <span class="math inline">\(y\in \mathcal{Y}\)</span>, no matter the value of <span class="math inline">\(R(y)\)</span>. Here, we are writing</p>
+<p><span class="math display">\[
+R(y) = R(\{y\}) \quad \text{and} \quad P(A|y) = P(A|\{y\}).
+\]</span></p>
+<p>Combined with (<a href="#eq-begin-eqn" class="quarto-xref">9</a>), the equations (<a href="#eq-cat-eqn" class="quarto-xref">10</a>) give us</p>
+<p><span class="math display">\[
+Q(A \times B) = \sum_{y\in B} P(A|y) R(y),
+\]</span></p>
+<p>which is the same as</p>
+<p><span class="math display">\[
+Q(A \times B) = \int_B P(A|y) \ R(dy).
+\]</span></p>
+<p>Thus, at least in the case of finite probability spaces, the probability measure <span class="math inline">\(Q\)</span> on the cartesian product disintegrates into the conditional probabilities on <span class="math inline">\(\mathcal{X}\)</span> and the marginal distribution on <span class="math inline">\(\mathcal{Y}\)</span>. In the general case, we <em>define</em> a conditional probability as a certain stochastic transition kernel:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-cond-prob-dist" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\((\mathcal{X},\mathfrak{M})\)</span> and <span class="math inline">\((\mathcal{Y},\mathfrak{N})\)</span> be two measurable spaces, let <span class="math inline">\(Q\)</span> be a probability measure on the product space <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span>, and let <span class="math inline">\(R\)</span> be the marginal distribution of <span class="math inline">\(Q\)</span> on <span class="math inline">\(\mathcal{Y}\)</span>. A stochastic transition kernel</p>
+<p><span class="math display">\[
+\mathfrak{M}\times \mathcal{Y}\to [0,1], \quad (A,y) \mapsto P(A|y),
+\]</span></p>
+<p>is called a <em>conditional probability distribution</em> if</p>
+<p><span class="math display">\[
+Q(A\times B) = \int_B P(A|y) \ R(dy)
+\]</span></p>
+<p>for all <span class="math inline">\(A\in \mathfrak{M}\)</span> and <span class="math inline">\(B\in \mathfrak{N}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Our Disintegration Theorems may be restated as an existence theorem for conditional distributions, provided that the measure <span class="math inline">\(Q\)</span> has a density:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-exist-cond" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Existence Theorem for Conditional Distributions)</strong></span> Let <span class="math inline">\((\mathcal{X},\mathfrak{M},\mu)\)</span> and <span class="math inline">\((\mathcal{Y},\mathfrak{N},\nu)\)</span> be two <span class="math inline">\(\sigma\)</span>-finite measure spaces, let <span class="math inline">\(Q\)</span> be a probability measure on <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span>, and let <span class="math inline">\(R\)</span> be the marginal distribution of <span class="math inline">\(Q\)</span> on <span class="math inline">\(\mathcal{Y}\)</span>. If <span class="math inline">\(Q\)</span> has a density <span class="math inline">\(\varphi(x,y)\)</span> with respect to <span class="math inline">\(\mu\times \nu\)</span>, then:</p>
+<ol type="1">
+<li><p>The marginal distribution <span class="math inline">\(R\)</span> has a density</p>
+<p><span class="math display">\[
+\pi(y) \overset{\text{def}}{=}\int_\mathcal{X}\varphi(x,y) \ \mu(dx)
+\]</span></p>
+<p>with respect to <span class="math inline">\(\nu\)</span>.</p></li>
+<li><p>A conditional probability <span class="math inline">\((A,y) \mapsto P(A|y)\)</span> exists, such that</p>
+<p><span class="math display">\[
+Q(A\times B) = \int_B P(A|y) \ R(dy)
+\]</span></p>
+<p>for all <span class="math inline">\(A\in \mathfrak{M}\)</span> and <span class="math inline">\(B\in \mathfrak{N}\)</span>.</p></li>
+<li><p>For all <span class="math inline">\(y\in \mathcal{Y}\)</span>, the distribution <span class="math inline">\(A\mapsto P(A|y)\)</span> on <span class="math inline">\((\mathcal{X},\mathfrak{M})\)</span> has a density function <span class="math inline">\(f(x|y)\)</span>. For those <span class="math inline">\(y\in \mathcal{Y}\)</span> such that <span class="math inline">\(\pi(y) \neq 0\)</span>, the density is given by the formula</p>
+<p><span class="math display">\[
+f(x|y) = \frac{\varphi(x,y)}{\pi(y)}.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Conditional distributions are only uniquely defined up to almost sure equality. A particular choice of a conditional distribution is called a <em>version</em> of the conditional distribution.</p>
+<p>Very often, the distribution <span class="math inline">\(Q\)</span> on <span class="math inline">\(\mathcal{X}\times \mathcal{Y}\)</span> will be obtained via the distributions of random vectors. In fact, there are two closely related conditional distributions obtained in this way. Let’s describe them.</p>
+<p>Suppose that <span class="math inline">\(X:\Omega \to \mathbb{R}^m\)</span> and <span class="math inline">\(Y:\Omega \to \mathbb{R}^n\)</span> are random vectors on a probability space <span class="math inline">\((\Omega,\mathfrak{M},P)\)</span>. Define the two maps</p>
+<p><span class="math display">\[
+(\text{id},Y): \Omega \to \Omega \times \mathbb{R}^n, \quad \omega \mapsto (\omega, Y(\omega))
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+X \times \text{id} : \Omega \times \mathbb{R}^n \to \mathbb{R}\times \mathbb{R}^n, \quad (\omega,y) \mapsto (X(\omega),y).
+\]</span></p>
+<p>Notice that</p>
+<p><span class="math display">\[
+(X,Y) = (X \times \text{id}) \circ (\text{id},Y),
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+(X,Y):\Omega \to \mathbb{R}\times \mathbb{R}^n, \quad \omega \mapsto (X(\omega),Y(\omega)).
+\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[
+P_{X,Y} = (X\times \text{id})_\ast Q,
+\]</span></p>
+<p>where <span class="math inline">\(P_{X,Y}\)</span> is the joint distribution of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and <span class="math inline">\(Q = (\text{id},Y)_\ast P\)</span>. Supposing that the distribution <span class="math inline">\(Q\)</span> disintegrates into a conditional distribution</p>
+<p><span class="math display">\[
+\mathfrak{M}\times \mathbb{R}^n \to \mathbb{R}, \quad (E,y) \mapsto P(E|y),
+\]</span></p>
+<p>and the marginal distribution <span class="math inline">\(P_Y\)</span>, we have</p>
+<p><span id="eq-curtain-eqn"><span class="math display">\[
+P_{X,Y}(A\times B) = Q\left( \{X\in A\} \times B \right) = \int_B P(\{X\in A\}| y) \ P_Y(dy)
+\tag{11}\]</span></span></p>
+<p>for all <span class="math inline">\(A\in \mathfrak{B}\)</span> and <span class="math inline">\(B\in \mathfrak{B}^n\)</span>. For convenient reference, let’s draw some important conclusions and summarize the situation in the following box:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="1">
+<li><p>Let <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span> be a random variable and <span class="math inline">\(Y:\Omega \to \mathbb{R}^n\)</span> a random vector on a probability space <span class="math inline">\((\Omega,\mathfrak{M},P)\)</span>.</p></li>
+<li><p>The joint distribution <span class="math inline">\(P_{X,Y}\)</span> on <span class="math inline">\(\mathbb{R}\times \mathbb{R}^n\)</span> is the pushforward along <span class="math inline">\(X\times\text{id}\)</span> of the distribution <span class="math inline">\(Q = (\text{id},Y)_\ast P\)</span> on <span class="math inline">\(\Omega \times \mathbb{R}^n\)</span>.</p></li>
+<li><p>We assume that <span class="math inline">\(Q\)</span> has a density with respect to the product measure <span class="math inline">\(P \times \lambda^n\)</span>, where <span class="math inline">\(\lambda^n\)</span> is the Lebesgue measure on <span class="math inline">\(\mathbb{R}^n\)</span>. This ensures that <span class="math inline">\(Q\)</span> disintegrates into a conditional distribution on <span class="math inline">\(\Omega\)</span> with respect to the marginal distribution <span class="math inline">\(P_Y\)</span>.</p></li>
+<li><p>There are <em>two</em> conditional distributions at hand, one on <span class="math inline">\(\Omega\)</span> and the other on <span class="math inline">\(\mathbb{R}\)</span>. For fixed <span class="math inline">\(y\in \mathbb{R}^n\)</span>, the first is</p>
+<p><span id="eq-whosit-eqn"><span class="math display">\[
+E \mapsto P(E|Y=y) \overset{\text{def}}{=}P(E|y), \quad E\in \mathfrak{M},
+  \tag{12}\]</span></span></p>
+<p>while the second is</p>
+<p><span id="eq-second-eqn"><span class="math display">\[
+A \mapsto P(X\in A|Y=y) \overset{\text{def}}{=}P(\{X\in A\} |y), \quad A\in \mathfrak{B}.
+  \tag{13}\]</span></span></p></li>
+<li><p>The second conditional distribution (<a href="#eq-second-eqn" class="quarto-xref">13</a>) is the pushforward of the first (<a href="#eq-whosit-eqn" class="quarto-xref">12</a>) along the random vector <span class="math inline">\(X\)</span>.</p></li>
+<li><p>The first measure (<a href="#eq-whosit-eqn" class="quarto-xref">12</a>) disintegrates <span class="math inline">\(Q\)</span> against the marginal distribution <span class="math inline">\(P_Y\)</span>, while the second (<a href="#eq-second-eqn" class="quarto-xref">13</a>) disintegrates the joint distribution <span class="math inline">\(P_{X,Y}\)</span> against the marginal distribution <span class="math inline">\(P_Y\)</span>. In particular, we have</p>
+<p><span id="eq-tot-ha-eqn"><span class="math display">\[
+P\left(X\in A, Y\in B\right) = \int_B P(X\in A|Y=y) \ P_Y(dy)
+  \tag{14}\]</span></span></p>
+<p>for all <span class="math inline">\(A\in \mathfrak{B}\)</span> and all <span class="math inline">\(B\in \mathfrak{B}^n\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<p>If we take <span class="math inline">\(B=\mathbb{R}^n\)</span>, then (<a href="#eq-tot-ha-eqn" class="quarto-xref">14</a>) turns into</p>
+<p><span class="math display">\[
+P(X\in A) = \int_{\mathbb{R}^n} P(X\in A| Y=y) \ P_Y(dy).
+\]</span></p>
+<p>But this is nothing but the familiar Law of Total Probability. In fact, a more general law holds, which we state below. It involves decomposing the random vector <span class="math inline">\(Y: \Omega \to \mathbb{R}^n\)</span> into a sequence <span class="math inline">\(Y_1,\ldots,Y_n\)</span> of random variables, in the usual way. Then, the conditional probability</p>
+<p><span class="math display">\[
+y \mapsto P(X\in A|Y=y)
+\]</span></p>
+<p>may instead be written as</p>
+<p><span class="math display">\[
+y \mapsto P(X\in A|Y_1=y_1,\ldots,Y_n=y_n),
+\]</span></p>
+<p>where <span class="math inline">\(y = (y_1,\ldots,y_n) \in \mathbb{R}^n\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Generalized Law of Total Probability)</strong></span> Let the notation be as in the box above. For all <span class="math inline">\(n\geq 2\)</span>, the conditional probability</p>
+<p><span class="math display">\[
+P(X\in A | Y_1=y_1, \ldots, Y_{n-1}=y_{n-1})
+\]</span></p>
+<p>is equal to the integral</p>
+<p><span id="eq-long-eqn"><span class="math display">\[
+\int_\mathbb{R}P(X\in A | Y_1=y_1,\ldots,Y_n=y_n) \ P( Y_{n} \in dy_{n} | Y_{n-1} = y_{n-1})
+\tag{15}\]</span></span></p>
+<p>for all <span class="math inline">\(A\in \mathfrak{B}\)</span> and almost all <span class="math inline">\(y_1,\ldots,y_n\in \mathbb{R}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>All the essential ideas in the proof are apparent in the case <span class="math inline">\(n=2\)</span>, so we shall only prove that</p>
+<p><span id="eq-goal-again"><span class="math display">\[
+P(X\in A | Y=y) = \int_\mathbb{R}P(X\in A |Y=y, Z=z) \ P(Z\in dz | Y=y)
+\tag{16}\]</span></span></p>
+<p>for all <span class="math inline">\(A\in \mathfrak{B}\)</span> and almost all <span class="math inline">\(y,z\in \mathbb{R}\)</span>. To do this, we begin by integrating the right-hand side over a Borel set <span class="math inline">\(B\in \mathfrak{B}\)</span> with respect to the marginal measure <span class="math inline">\(P_Y\)</span>; we get</p>
+<p><span class="math display">\[
+\int_B \left\{ \int_\mathbb{R}P(X\in A |Y=y, Z=z) \ P(Z\in dz  | Y=y)\right\} \ P_Y(dy)
+\]</span></p>
+<p>which is equal to</p>
+<p><span class="math display">\[
+\int_{B \times \mathbb{R}} P(X\in A |Y=y,Z=z) f(z|y) f(y) \ dydz
+\]</span></p>
+<p>where <span class="math inline">\(z\mapsto f(z|y)\)</span> is a density of the conditional distribution <span class="math inline">\(C\mapsto P(Z\in C |Y=y)\)</span> and <span class="math inline">\(f(y)\)</span> is a density of the marginal distribution <span class="math inline">\(P_Y\)</span>. But this last integral is the same as</p>
+<p><span class="math display">\[
+\int_{B\times \mathbb{R}} P(X\in A |Y=y,Z=z) \varphi(y,z) \ dydz
+\]</span></p>
+<p>where <span class="math inline">\(\varphi(y,z)\)</span> is a density of the joint distribution <span class="math inline">\(P_{Y,Z}\)</span>. Since this integral is equal to <span class="math inline">\(P(X\in A, \ Y\in B)\)</span>, the desired equation (<a href="#eq-goal-again" class="quarto-xref">16</a>) then follows, Q.E.D.</p>
+</div>
+<p>Notice that, if we hold the Borel set <span class="math inline">\(A\)</span> fixed and let <span class="math inline">\(y\)</span> vary, then we obtain a function</p>
+<p><span class="math display">\[
+\mathbb{R}^n \to \mathbb{R}, \quad y \mapsto P(X\in A |Y=y).
+\]</span></p>
+<p>We may precompose this function with <span class="math inline">\(Y\)</span> to obtain a random variable on the sample space <span class="math inline">\(\Omega\)</span>:</p>
+<p><span id="eq-paper-eqn"><span class="math display">\[
+P(X\in A | Y) : \Omega \xrightarrow{Y} \mathbb{R}^n \xrightarrow{ y \mapsto P(X\in A |Y=y)} \mathbb{R}, \quad \omega \mapsto P(X\in A|Y)(\omega).
+\tag{17}\]</span></span></p>
+<p>Then:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-prop-cond-dist" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (Properties of Conditional Distributions)</strong></span> Let the notation be as in the box on Random Vectors and Conditional Distributions. For a fixed Borel set <span class="math inline">\(A\in \mathfrak{B}^m\)</span>, the random variable <span class="math inline">\(P(X\in A |Y)\)</span> defined by (<a href="#eq-paper-eqn" class="quarto-xref">17</a>) has the following properties:</p>
+<ol type="1">
+<li><p>The function (<a href="#eq-paper-eqn" class="quarto-xref">17</a>) is a <span class="math inline">\(\sigma(Y)\)</span>-measurable function, where <span class="math inline">\(\sigma(Y)\)</span> is the <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(\Omega\)</span> generated by <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>For all <span class="math inline">\(F\in \sigma(Y)\)</span>, we have</p>
+<p><span id="eq-robe-eqn"><span class="math display">\[
+P(\{X\in A\} \cap F ) = \int_{F} P(X\in A | Y)(\omega) \ P(d\omega).
+\tag{18}\]</span></span></p></li>
+<li><p>The function (<a href="#eq-paper-eqn" class="quarto-xref">17</a>) is the almost surely unique function (relative to <span class="math inline">\(P\)</span>) for which the equation (<a href="#eq-robe-eqn" class="quarto-xref">18</a>) holds for all <span class="math inline">\(F\in \sigma(Y)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(Y': \Omega \to \mathbb{R}^n\)</span> is a second random vector such that <span class="math inline">\(\sigma(Y) = \sigma(Y')\)</span>, then we have</p>
+<p><span class="math display">\[
+P(X\in A |Y) = P(X\in A |Y')
+\]</span></p>
+<p>almost surely (relative to <span class="math inline">\(P\)</span>), for all Borel sets <span class="math inline">\(A\in \mathfrak{B}\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Properties (1.) and (3.) are clear, while the equation (<a href="#eq-robe-eqn" class="quarto-xref">18</a>) follows from (<a href="#eq-curtain-eqn" class="quarto-xref">11</a>) and the change-of-variables formula. Then, property (4.) follows from (2.) and the uniqueness statement (3.). Q.E.D.</p>
+</div>
+<p>Property (4.) shows that the conditional probability <span class="math inline">\(P(X\in A\|Y)\)</span> only depends (almost surely) on the sub-<span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(Y)\)</span> of <span class="math inline">\(\mathfrak{M}\)</span>. This suggests that it is possible to define more general conditional probabilities, where we condition on sub-<span class="math inline">\(\sigma\)</span>-algebras of <span class="math inline">\(\mathfrak{M}\)</span> instead of random vectors.</p>
+</section>
+<section id="laws-of-total-probability" class="level2">
+<h2 class="anchored" data-anchor-id="laws-of-total-probability">Laws of Total Probability</h2>
+</section>
+<section id="conditional-expectations" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-expectations">Conditional expectations</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-cond-exp" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Let the notation be as in the box on Random Vectors and Conditional Distributions. Given a value <span class="math inline">\(y\in \mathbb{R}^n\)</span>, we define the <em>conditional expectation of</em> <span class="math inline">\(X\)</span> given <span class="math inline">\(Y=y\)</span> to be the integral</p>
+<p><span id="eq-sofa-eqn"><span class="math display">\[
+E(X | Y=y) = \int_\Omega X(\omega) \ P(d\omega | Y=y),
+\tag{19}\]</span></span></p>
+<p>provided that the integral is finite. Here, the conditional distribution is the one given by (<a href="#eq-whosit-eqn" class="quarto-xref">12</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<p>The discussion preceding the definition and the change-of-variables formula yields a proof of:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-change-var-cond-exp" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7 (Change-of-Variables Formula for Conditional Expectations)</strong></span> Let the notation be as in the box on Random Vectors and Conditional Distributions. If the conditional expectation <span class="math inline">\(E(X|Y=y)\)</span> is finite, then</p>
+<p><span class="math display">\[
+E(X|Y=y) = \int_\mathbb{R}x \ P(X\in dx|Y=y).
+\]</span></p>
+<p>Here, the conditional distribution is the one given by (<a href="#eq-second-eqn" class="quarto-xref">13</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<p>The integral in (<a href="#eq-sofa-eqn" class="quarto-xref">19</a>) explicitly depends on the conditional probability distribution. My goal now is to “integrate out” this dependency and in the process obtain some key properties of conditional expectations. Let’s suppose that <span class="math inline">\(Q\)</span> has a density <span class="math inline">\(\varphi(\omega,y)\)</span> with respect to the product measure <span class="math inline">\(P\times \lambda^n\)</span>, where <span class="math inline">\(\lambda^n\)</span> is the Lebesgue measure on <span class="math inline">\(\mathbb{R}^n\)</span>. As we know, it is then possible to choose a density <span class="math inline">\(\pi(y)\)</span> of the marginal distribution <span class="math inline">\(P_Y\)</span> and a density <span class="math inline">\(\omega \mapsto f(\omega|y)\)</span> of the conditional distribution (<a href="#eq-whosit-eqn" class="quarto-xref">12</a>) such that</p>
+<p><span class="math display">\[
+\int_\Omega X(\omega) f(\omega |y) \pi(y) \ P(d\omega) = \int_\Omega X(\omega)\varphi(\omega,y) \ P(d\omega).
+\]</span></p>
+<p>Then, given a Borel set <span class="math inline">\(B\in \mathfrak{B}(\mathbb{R})\)</span>, we compute:</p>
+<p><span class="math display">\[
+\begin{align*}
+\int_B E(X | Y=y) \ P_Y(dy) &amp;= \int_B \left\{ \int_\Omega X(\omega) \ P(d\omega\|Y=y) \right\} \ P_Y(dy) \label{door-eqn} \\
+&amp;= \int_B \left\{ \int_\Omega X(\omega) f(\omega|y)\pi(y) \ P(d\omega) \right\} \ \lambda^n(dy) \\
+&amp;= \int_B \left\{ \int_\Omega X(\omega) \varphi(\omega,y) \ P(d\omega) \right\} \ \lambda^n(dy) \notag \\
+&amp;= \int_{\Omega \times \mathbb{R}^n} X(\omega)I_B(y)\varphi(\omega,y) \ (P \times \lambda^n)(d\omega,dy) \notag \\
+&amp;= \int_{\Omega \times \mathbb{R}^n} X(\omega)I_B(y) \ Q(dx,dy) \notag \\
+&amp;= \int_\Omega X(\omega)I_B(Y(\omega)) \ P(d\omega) \notag \\
+&amp;= \int_{\{Y\in B\}} X(\omega) \ P(d\omega).\label{door2-eqn}
+\end{align*}
+\]</span></p>
+<p>The integral <span class="math inline">\(\eqref{door2-eqn}\)</span> is over a subset of <span class="math inline">\(\Omega\)</span>, while the first integral in <span class="math inline">\(\eqref{door-eqn}\)</span> is over a Borel subset of <span class="math inline">\(\mathbb{R}^n\)</span>. It will be convenient to “pull back” the latter integral so that it is over <span class="math inline">\(\Omega\)</span>, too. To do this, we define the random variable</p>
+<p><span id="eq-bucket-eqn"><span class="math display">\[
+E(X|Y) : \Omega \xrightarrow{Y} \mathbb{R}^n \xrightarrow{y\mapsto E(X\|Y=y)} \mathbb{R}, \quad \omega \mapsto E(X\|Y)(\omega).
+\tag{20}\]</span></span></p>
+<p>Then, by the change-of-variables formula, the first integral in <span class="math inline">\(\eqref{door-eqn}\)</span> is the same as</p>
+<p><span id="eq-door3-eqn"><span class="math display">\[
+\int_{\{Y\in B\}} E(X|Y)(\omega) \ P(d\omega).
+\tag{21}\]</span></span></p>
+<p>Equating <span class="math inline">\(\eqref{door-eqn}\)</span> and (<a href="#eq-door3-eqn" class="quarto-xref">21</a>) then gives us property (1.) in:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-prop-cond-exp" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8 (Properties of Conditional Expectations)</strong></span> Let the notation be as in the box on Random Vectors and Conditional Distributions. The random variable <span class="math inline">\(E(X|Y)\)</span> defined by (<a href="#eq-bucket-eqn" class="quarto-xref">20</a>) has the following properties:</p>
+<ol type="1">
+<li><p>The function (<a href="#eq-bucket-eqn" class="quarto-xref">20</a>) is a <span class="math inline">\(\sigma(Y)\)</span>-measurable function, where <span class="math inline">\(\sigma(Y)\)</span> is the <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(\Omega\)</span> generated by <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>For all <span class="math inline">\(F\in \sigma(Y)\)</span>, we have</p>
+<p><span id="eq-pot2-eqn"><span class="math display">\[
+\int_{F} X(\omega) \ P(\text{d}\omega) = \int_{F} E(X|Y)(\omega) \ P(\text{d}\omega).
+  \tag{22}\]</span></span></p></li>
+<li><p>The function (<a href="#eq-bucket-eqn" class="quarto-xref">20</a>) is the almost surely unique function (relative to <span class="math inline">\(P\)</span>) for which the equation (<a href="#eq-pot2-eqn" class="quarto-xref">22</a>) holds for all <span class="math inline">\(F\in \sigma(Y)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(Y': \Omega \to \mathbb{R}^n\)</span> is a second random vector such that <span class="math inline">\(\sigma(Y) = \sigma(Y')\)</span>, then we have</p>
+<p><span class="math display">\[
+E(X|Y) = E(X|Y')
+\]</span></p>
+<p>almost surely (relative to <span class="math inline">\(P\)</span>).</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>By taking <span class="math inline">\(F=\Omega\)</span> in (<a href="#eq-pot2-eqn" class="quarto-xref">22</a>), we get</p>
+<p><span id="eq-tot-exp-eqn"><span class="math display">\[
+E(X) = E(E(X|Y)).
+\tag{23}\]</span></span></p>
+<p>This equation is variously called the <em>Law of Total Expectation</em>, the <em>Law of Iterated Expectation</em>, and <em>smoothing</em>.</p>
+<p>Notice the strong similarity between the properties of conditional expectations and the properties of conditional distributions. In fact, for a given Borel set <span class="math inline">\(A\in \mathfrak{B}\)</span>, we obtain</p>
+<p><span class="math display">\[
+P(\{X\in A\}\cap F) = \int_{F} I_{\{X\in A\}} \ P(d\omega) = \int_{F} E(I_{\{X\in A\}} |Y)(\omega) \ P(d\omega)
+\]</span></p>
+<p>from the fundamental equation (<a href="#eq-pot2-eqn" class="quarto-xref">22</a>). But by the uniqueness property of conditional distributions, we get:</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-cond-exp-cond-prob" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 9 (Conditional expectations versus conditional probabilities)</strong></span> Let the notation be as in the box on Random Vectors and Conditional Distributions. Given a Borel set <span class="math inline">\(A\in \mathfrak{B}\)</span>, the equation</p>
+<p><span class="math display">\[
+P(X\in A |Y) = E(I_{\{X\in A\}} |Y)
+\]</span></p>
+<p>holds almost surely. In particular, by the Law of Iterated Expectation (<a href="#eq-tot-exp-eqn" class="quarto-xref">23</a>), we have</p>
+<p><span class="math display">\[
+P(X\in A) = E\left( P(X\in A |Y) \right).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The logical flow so far has been</p>
+<p><span class="math display">\[
+(\text{conditional probabilities}) \quad \Rightarrow \quad (\text{conditional expectations}).
+\]</span></p>
+<p>However, since the properties (1.)-(3.) of conditional expectations are free of any reference to conditional probabilities, it is possible to <em>reverse</em> this logical flow, and instead <em>begin</em> with conditional expectations and <em>define</em> conditional probabilities in terms of them. Indeed, suppose that we have a random variable <span class="math inline">\(E(Y\|X)\)</span> on <span class="math inline">\(\Omega\)</span> that satisfies properties (1.)-(3.), and that we take</p>
+<p><span class="math display">\[
+P(E|X)(\omega) \overset{\text{def}}{=}E(I_E |X)(\omega)
+\]</span></p>
+<p>for all <span class="math inline">\(\omega \in \Omega\)</span> and <span class="math inline">\(E\in \mathfrak{M}\)</span>. Then the fundamental equation () follows from (<a href="#eq-pot2-eqn" class="quarto-xref">22</a>), and properties (2.) and (4.) of conditional probabilities follow from the corresponding properties of conditional expectations. The <em>only</em> property that does not necessarily follow is that <span class="math inline">\(E\mapsto P(E|X)(\omega)\)</span> is a probability measure on <span class="math inline">\(\Omega\)</span> for fixed <span class="math inline">\(\omega\)</span>.</p>
+<p>The Theorems on Conditional Probabilities and Expectations uniquely characterize these objects to within almost sure equality. This suggests that, if we are willing to define these objects only up to almost sure equality, we could take the properties in these theorems as the <em>definitions</em> of conditional probabilities and expectations. This is the route that we will take, when we move to the general not-necessarily-discrete setting.</p>
+<p>However, if we take the theorems as definitions of conditional probabilities and expectations, there is still the matter of proving that such objects actually <em>exist</em>. To see how we might prove existence, let’s proceed informally as follows. Everything we have done in this section stemmed from the equation <span class="math inline">\(\eqref{couch-eqn}\)</span>, which you can easily see presents a problem if <span class="math inline">\(X\)</span> is not discrete, for then we might have <span class="math inline">\(P(X=x)=0\)</span> for <em>all</em> <span class="math inline">\(x\)</span>. To get around this problem, let’s suppose that <span class="math inline">\([a,b]\)</span> is a closed interval in <span class="math inline">\(\mathbb{R}\)</span> and then define</p>
+<p><span class="math display">\[\begin{equation}\notag
+P(E | a \leq X \leq b ) = \frac{P(E, \ a \leq X \leq b)}{P(a \leq X \leq b)},
+\end{equation}\]</span></p>
+<p>in the same spirit as <span class="math inline">\(\eqref{couch-eqn}\)</span>, provided, of course, that the denominator is not <span class="math inline">\(0\)</span>. Now, in order to obtain something resembling <span class="math inline">\(P(E\|X=x)\)</span>, we might hope that the limit</p>
+<p><span class="math display">\[\begin{equation}\label{jumping-eqn}
+\lim_{\dev\to 0^+}  P(E | x \leq X \leq x + \dev ) = \lim_{\dev\to 0^+}\frac{P(E, \ x \leq X \leq x +\dev)}{P(x \leq X \leq x+\dev)}
+\end{equation}\]</span></p>
+<p>exists. If it does, then it should (intuitively) be a good candidate for the probability <span class="math inline">\(P(E\|X=x)\)</span>. Our strategy for studying this limit will be motivated by the observation that it looks an awful lot like some sort of derivative. This leads us to consider…</p>
+<!--
+
+## Derivatives of measures and the Radon-Nikodym theorem
+
+We consider two finite Borel measures $\nu$ and $\mu$ on the real line $\bbr$. For all $x\in \bbr$, we define
+
+\begin{equation}
+\label{derivative-eqn}
+\frac{\text{d}\nu}{\text{d}\mu}(x) = \lim_{\dev \to 0^+} \frac{\nu\left((x-\dev,x+\dev)\right)}{\mu\left((x-\dev,x+\dev)\right)},
+\end{equation}
+
+provided that the limit exists and is finite.
+
+::: highlight-box
+What use is the function $\text{d}\nu/\text{d}\mu$? And why have we chosen "derivative-like" notation to represent it?
+:::
+
+Preliminary answers to these questions may be obtained by turning to a much more familiar situation, by considering the derivative
+
+\begin{equation}\notag
+\frac{\text{d} y}{\text{d}x}(x) = f'(x)
+\end{equation}
+
+of a differentiable function $y=f(x)$. Provided that $f'$ is Riemann integrable, the Fundamental Theorem of Calculus states that
+
+\begin{equation}\notag
+f(b) -f(a) = \int_a^b \frac{\text{d} y}{\text{d}x}(x) \dx{x}
+\end{equation}
+
+for all closed intervals $[a,b]$. If $f$ is non-decreasing, the left-hand side of this equality is equal to $\lambda_f([a,b])$, where $\lambda_f$ is the so-called *Lebesgue-Stieltjes measure* associated with $f$. If we write $\lambda$ for the standard Lebesgue measure and compare the equation
+
+\begin{equation}\label{final-eqn}
+\lambda_f([a,b]) = \int_a^b \frac{\text{d} y}{\text{d}x}(x) \dx{x}
+\end{equation}
+
+to the formula
+
+\begin{equation}\notag
+\lambda([a,b]) = \int_a^b \text{d}x,
+\end{equation}
+
+we see that $\lambda_f$ is essentially a "weighted Lebesgue measure" where the derivative $\text{d}y/\text{d}x$ serves as the weight function. Or, if we prefer physics-inspired terminology and conceptualize integrals as "masses," then $\text{d}y/\text{d}x$ might be interpreted as a "density."
+
+Now, as we will see below, under certain conditions the function $\text{d}\nu/\text{d}\mu$ fits into an equation that is conceptually identical to \eqref{final-eqn}, namely
+
+\begin{equation}\label{rn-eqn}
+\nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu,
+\end{equation}
+
+where $A$ is a Borel set. The notation $\text{d}\nu/\text{d}\mu$ was chosen for the right-hand side of \eqref{derivative-eqn} with this last equation in mind.
+
+Other than measurability and nonnegativity, there is nothing particularly special about the ability of $\text{d}\nu/\text{d}\mu$ to define a measure through the formula \eqref{rn-eqn}. In fact, if $\mu$ is *any* measure whatsoever on an arbitrary measurable space $(\calx, \mfM)$ and $h: \calx\to [0,\infty]$ is a nonnegative, measurable function, the formula
+
+\begin{equation}\label{density-eqn}
+\nu(A) = \int_A h \dx{\mu}
+\end{equation}
+
+always yields a well-defined measure $\nu$ on $\mfM$, such that
+
+\begin{equation}\notag
+\int_\calx g \dx{\nu} = \int_\calx gh \dx{\mu}
+\end{equation}
+
+for all measurable functions $g$ on $\calx$. With $\nu$ and $\mu$ connected through \eqref{density-eqn}, notice that
+
+\begin{equation}
+\mu(A) =0 \quad \Rightarrow \quad \nu(A)=0
+\end{equation}
+
+for all $A \in \mfM$. This property is called *absolute continuity of* $\nu$ with respect to $\mu$, and is represented symbolically as $\nu \ll \mu$.
+
+Returning to our situation of two finite Borel measures $\nu$ and $\mu$ on $\bbr$, we see that absolute continuity $\nu \ll \mu$ is a *necessary* condition in order for the equation \eqref{rn-eqn} to hold. In fact, as the next fundamental theorem shows, absolute continuity is also sufficient:
+
+::: highlight-box
+**Theorem (Radon-Nikodym, constructive version).** Let $\mu$ and $\nu$ be two finite Borel measures on $\bbr$, and let $\text{d}\nu/\text{d}\mu$ be defined by \eqref{derivative-eqn}. Provided that $\nu$ is absolutely continuous with respect to $\mu$, we have that:
+
+1.  The function $\text{d}\nu/\text{d}\mu$ exists and is finite almost everywhere, with respect to $\mu$.
+2.  The function $\text{d}\nu/\text{d}\mu$ is $\mu$-measurable.
+3.  For all Borel sets $A$, we have \begin{equation}\label{radon-nik-eqn}
+    \nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu.
+    \end{equation}
+4.  If $h$ is any other nonnegative, $\mu$-measurable function that satisfies \eqref{radon-nik-eqn} with $h$ in place of $\text{d}\nu/\text{d}\mu$, then $h = \text{d}\nu/\text{d}\mu$ almost everywhere with respect to $\mu$.
+:::
+
+The function $\text{d}\nu/\text{d}\mu$ is called the *Radon-Nikodym derivative* or *Radon-Nikodym density* of $\nu$ with respect to $\mu$. Proofs of the theorem may be found in the \[references\] below.
+
+The reason this statement of the Radon-Nikodym theorem is called "constructive" is because it gives an explicit formula \eqref{derivative-eqn} for the Radon-Nikodym derivative for restricted classes of measures. However, the theorem actually holds in more general settings, at the expense of losing the explicit formula.
+
+::: highlight-box
+**Theorem (Radon-Nikodym, nonconstructive version).** Let $\mu$ and $\nu$ be two $\sigma$-finite measures on a measurable space $(\calx, \mfM)$. Provided that $\nu$ is absolutely continuous with respect to $\mu$, we have that:
+
+1.  There is a nonnegative, $\mu$-measurable function $\text{d}\nu/\text{d}\mu$ on $\calx$ such that \begin{equation}\label{radon-nik2-eqn}
+    \nu(A) = \int_A \frac{\text{d}\nu}{\text{d}\mu} \ \text{d}\mu
+    \end{equation} for all $A\in \mfM$.
+2.  If $h$ is any other nonnegative, $\mu$-measurable function that satisfies \eqref{radon-nik2-eqn} with $h$ in place of $\text{d}\nu/\text{d}\mu$, then $h = \text{d}\nu/\text{d}\mu$ almost everywhere with respect to $\mu$.
+:::
+
+## Conditional probabilities in the general case
+
+Let's now return to the considerations that led to the limit \eqref{jumping-eqn}. We define two new measures on the Borel algebra of $\bbr$, the first given by
+
+\begin{equation}\notag
+\mu(A) = P(X\in A),
+\end{equation}
+
+and the second given by
+
+\begin{equation}\notag
+\nu(A) = P(E, X\in A),
+\end{equation}
+
+where $A$ is a Borel set in $\bbr$ and $E$ is a fixed set in the $\sigma$-algebra $\mfM$ of $\Omega$. Notice that $\mu$ is nothing but the marginal distribution $P_X$ of $X$.
+
+Clearly $\nu$ is absolutely continuous with respect to $\mu$, and hence the Radon-Nikodym derivative $\text{d}\nu/ \text{d}\mu$ exists. In this setting, we write
+
+\begin{equation}\notag
+P(E \| X=x) = \frac{\text{d}\nu}{ \text{d}\mu}(x),
+\end{equation}
+
+so that we have the fundamental equation
+
+\begin{equation}\notag
+P(E, X\in A) = \int_A P(E\|X=x) \ P_X(\text{d}x),
+\end{equation}
+
+which is the general version of \eqref{tot-law-eqn}. -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/johnmyers-phd\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

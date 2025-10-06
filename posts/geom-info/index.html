@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-09-30">
+
+<title>Sigma-algebras and information – john myers, ph.d.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-94a14a726788178fbc029c83e171234c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../writings.html"> 
+<span class="menu-text">writings</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-teaching" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">teaching</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
+        <li>
+    <a class="dropdown-item" href="../../teaching/calculus-ii-fa-25.html">
+ <span class="dropdown-text">mat220 calculus II, fall 2025</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../teaching/analysis-fa-25.html">
+ <span class="dropdown-text">mat347 analysis, fall 2025</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.johnmyers-phd.com/book" target="_blank"> 
+<span class="menu-text">probabilistic machine learning</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jmyers7/" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/john-myers-phd" target="_blank"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jmmyers25@gmail.com"> <i class="bi bi-envelope-open-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Sigma-algebras and information</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Probability theory</div>
+                <div class="quarto-category">Measure theory</div>
+                <div class="quarto-category">Sigma-algebras</div>
+                <div class="quarto-category">Information</div>
+                <div class="quarto-category">Filtrations</div>
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 30, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#algebras-as-information-carriers" id="toc-algebras-as-information-carriers" class="nav-link" data-scroll-target="#algebras-as-information-carriers">Algebras as information carriers</a></li>
+  <li><a href="#example-coin-tosses" id="toc-example-coin-tosses" class="nav-link" data-scroll-target="#example-coin-tosses">Example: coin tosses</a></li>
+  <li><a href="#indistinguishability-and-partitions" id="toc-indistinguishability-and-partitions" class="nav-link" data-scroll-target="#indistinguishability-and-partitions">Indistinguishability and partitions</a></li>
+  <li><a href="#random-variables-as-information-carriers" id="toc-random-variables-as-information-carriers" class="nav-link" data-scroll-target="#random-variables-as-information-carriers">Random variables as information carriers</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<!-- To-do:
+
+1. Talk about largest and smallest $\sigma$-algebras.
+2. Insert an example.
+3. 
+-->
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+</section>
+<section id="algebras-as-information-carriers" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="algebras-as-information-carriers">Algebras as information carriers</h2>
+<p>An observer monitors the result of some random experiment. The set of all possible results is collected into a <em>sample space</em> <span class="math inline">\(\Omega\)</span>, whose elements <span class="math inline">\(\omega\)</span> are called <em>outcomes</em> or <em>sample points</em>. Suppose that the experiment is finished, so that a definite <span class="math inline">\(\omega_0\)</span> in <span class="math inline">\(\Omega\)</span> is produced, but that the exact identity of <span class="math inline">\(\omega_0\)</span> remains unknown to the observer. However, suppose that the observer has access to a set <span class="math inline">\(\mathcal{F}\)</span> of subsets of <span class="math inline">\(\Omega\)</span> with the following property:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>For each <span class="math inline">\(A\in \mathcal{F}\)</span>, the observer can <strong>decide</strong> whether <span class="math inline">\(\omega_0\in A\)</span> or not.</p>
+</div>
+</div>
+</div>
+<p>The observer’s decisions reflect the information they possess, so we can treat the class <span class="math inline">\(\mathcal{F}\)</span> as a proxy for that information. Sets in <span class="math inline">\(\mathcal{F}\)</span> are called (<em>decidable</em>) <em>events</em>. If the observer confirms that <span class="math inline">\(\omega_0\in A\)</span> for some <span class="math inline">\(A\in \mathcal{F}\)</span>, then we say that “the event <span class="math inline">\(A\)</span> has occurred”.</p>
+<p>It is never in question that <span class="math inline">\(\omega_0\in \Omega\)</span>, so it is natural to include <span class="math inline">\(\Omega\)</span> in the class <span class="math inline">\(\mathcal{F}\)</span> of decidable events. But what other properties must <span class="math inline">\(\mathcal{F}\)</span> have?</p>
+<ol type="1">
+<li><p>If the observer can determine whether an event <span class="math inline">\(A\)</span> has occurred, then they obviously can determine whether <span class="math inline">\(A\)</span> did <em>not</em> occur. This means that if <span class="math inline">\(A\in \mathcal{F}\)</span>, then <span class="math inline">\(A^c \in \mathcal{F}\)</span> too. (Here, <span class="math inline">\(A^c\)</span> is the <em>absolute complement</em> of <span class="math inline">\(A\)</span>, consisting of those <span class="math inline">\(\omega\in \Omega\)</span> that are not in <span class="math inline">\(A\)</span>.)</p></li>
+<li><p>If the observer can determine separately whether events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have occurred, then they can determine whether <span class="math inline">\(A\)</span> <em>or</em> <span class="math inline">\(B\)</span> has occurred. Since <span class="math inline">\(A\cup B\)</span> consists of those outcomes that are either in <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>, this means that <span class="math inline">\(A\cup B\)</span> must be in <span class="math inline">\(\mathcal{F}\)</span> when both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are.</p></li>
+<li><p>Similarly, if the observer can determine separately whether events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have occurred, then they can determine whether <span class="math inline">\(A\)</span> <em>and</em> <span class="math inline">\(B\)</span> has occurred. This implies that <span class="math inline">\(\mathcal{F}\)</span> must contain the intersection <span class="math inline">\(A\cap B\)</span> whenever it contains both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.</p></li>
+</ol>
+<p>These three properties capture what it means for our collection <span class="math inline">\(\mathcal{F}\)</span> of events to represent a logically coherent state of information. They lead us naturally to the formal definition of an <em>algebra</em> of sets.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Actually, we need not explicitly require that <span class="math inline">\(\mathcal{F}\)</span> contains all (binary) intersections of events, since this follows from properties (1) and (2).</p>
+</div></div><div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-algebra" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be a set of subsets of a set <span class="math inline">\(\Omega\)</span>. Then <span class="math inline">\(\mathcal{F}\)</span> is called an <em>algebra</em> of sets (in <span class="math inline">\(\Omega\)</span>) if it has the following properties:</p>
+<ol type="1">
+<li><p>It contains <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p>It is closed under (absolute) complementation:</p></li>
+</ol>
+<p><span class="math display">\[
+  A\in \mathcal{F}\quad \Rightarrow \quad A^c\in \mathcal{F}.
+  \]</span></p>
+<ol start="3" type="1">
+<li>It is closed under binary unions:</li>
+</ol>
+<p><span class="math display">\[
+  A_1, A_2\in \mathcal{F}\quad\Rightarrow \quad A_1 \cup A_2 \in \mathcal{F}.
+  \]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>We have thus argued that our class <span class="math inline">\(\mathcal{F}\)</span> of decidable events—encoding our observer’s information—must be an algebra of sets in the sample space <span class="math inline">\(\Omega\)</span>.</p>
+<p>As we indicated in the margin note above, algebras of sets are also closed under binary intersections. Moreover, an easy inductive proof shows that algebras are also closed under all finite unions and intersections, not just binary ones. In this post we’ll stick to finite sample spaces, but in the infinite case one usually strengthens these closure properties to include <em>countable</em> unions, yielding <em><span class="math inline">\(\sigma\)</span>-algebras</em> of sets.</p>
+</section>
+<section id="example-coin-tosses" class="level2">
+<h2 class="anchored" data-anchor-id="example-coin-tosses">Example: coin tosses</h2>
+<p>We consider the sample space <span class="math inline">\(\Omega\)</span> consisting of all binary sequences of length 3:</p>
+<p><span class="math display">\[
+\Omega = \{000, 001, 010, 011, 100, 101, 110, 111\}.
+\]</span></p>
+<p>We imagine that a binary sequence <span class="math inline">\(\omega\)</span> in <span class="math inline">\(\Omega\)</span> represents the result of flipping a coin three times in succession, with <span class="math inline">\(0\)</span> when a tail occurs, and <span class="math inline">\(1\)</span> when a head is shown. We let <span class="math inline">\(X_i(\omega)\)</span> denote the result of the <span class="math inline">\(i\)</span>-th flip in <span class="math inline">\(\omega\)</span> (so <span class="math inline">\(X_i(\omega)=0\)</span> or <span class="math inline">\(1\)</span>), and we write</p>
+<p><span class="math display">\[
+Y = X_1 + X_2 + X_3.
+\]</span></p>
+<p>The four functions <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y\)</span> are, of course, random variables on <span class="math inline">\(\Omega\)</span>. If the coin has probability <span class="math inline">\(\theta\)</span> of showing heads, then</p>
+<p><span class="math display">\[
+X_i \sim \mathcal{B}er(\theta) \quad \text{for each $i$, and} \quad Y\sim \mathcal{B}in(3,\theta).
+\]</span></p>
+<p>We will be carrying out some basic computations later, so let’s implement our scenario in the machine, by coding a data frame in which each row represents an outcome <span class="math inline">\(\omega\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">X1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">X2 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X3 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y =</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>sample space <span class="math inline">\(\Omega\)</span> and random variables <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Now, suppose that the coin was flipped three times, producing a definite outcome <span class="math inline">\(\omega_0\)</span> in <span class="math inline">\(\Omega\)</span>, but that its exact identity is unknown to our observer. Suppose that the only piece of information that the observer has is whether the first flip produced a tail or head, i.e., the observer can decide whether <span class="math inline">\(X_1(\omega_0) = 0\)</span> or <span class="math inline">\(1\)</span>. This information may be encoded in an algebra of sets <span class="math inline">\(\mathcal{F}_1\)</span>.</p>
+<p>Indeed, the observer can decide which of the two sets</p>
+<p><span class="math display">\[
+A_1 = \{000,001,010,011\} \quad \text{or} \quad A_2 = \{100,101,110,111\}
+\]</span></p>
+<p>contains <span class="math inline">\(\omega_0\)</span>, since the first set <span class="math inline">\(A_1\)</span> consists of those <span class="math inline">\(\omega\)</span> with <span class="math inline">\(X_1(\omega)=0\)</span>, while the second contains the outcomes with <span class="math inline">\(X_1(\omega)=1\)</span>. As you can easily check, the set</p>
+<p><span class="math display">\[
+\mathcal{F}_1 = \{\emptyset, A_1, A_2, \Omega\}
+\]</span></p>
+<p>is an algebra of sets in <span class="math inline">\(\Omega\)</span>. Let’s insert a column in our data frame tracking the membership of each outcome <span class="math inline">\(\omega\)</span> (i.e., row) in <span class="math inline">\(A_1\)</span> or <span class="math inline">\(A_2\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ai =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Ai records the index $i$ of $A_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>column Ai records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(A_i\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Suppose now, after having learned the outcome of the first flip in <span class="math inline">\(\omega_0\)</span>, that the observer is given the identity of the second flip as well. Then, the total information held by our observer (i.e., the outcomes of the first two flips) is encoded in a second algebra <span class="math inline">\(\mathcal{F}_2\)</span> that contains the first:</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2.
+\]</span></p>
+<p>Inclusions of algebras represent <em>refinements</em> of information.</p>
+<p>The new algebra <span class="math inline">\(\mathcal{F}_2\)</span> must contain the sets</p>
+<p><span class="math display">\[
+B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 = \{110,111\},
+\]</span></p>
+<p>since deciding whether <span class="math inline">\(\omega_0\in B_i\)</span> for each <span class="math inline">\(i\)</span> will identify the first two flips in <span class="math inline">\(\omega_0\)</span>. However, in order to be an algebra, <span class="math inline">\(\mathcal{F}_2\)</span> must contain more than just these sets since it must be closed under complements and unions. We compute:</p>
+<p><span class="math display">\[
+\mathcal{F}_2 = \{\emptyset, B_1, B_2, B_3, B_4, A_1, A_2, B_1\cup B_3, B_1\cup B_4, B_2\cup B_3, B_2\cup B_4, \Omega \}.
+\]</span></p>
+<p>Note that <span class="math inline">\(\mathcal{F}_2\)</span> does, in fact, contain <span class="math inline">\(\mathcal{F}_1\)</span>. Let’s insert our new algebra into the machine:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1, X2) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bi =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Bi records the index $i$ of $B_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>column Bi records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(B_i\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+<th style="text-align: right;">Bi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Finally, after having learned the outcomes of the first two flips in <span class="math inline">\(\omega_0\)</span>, our observer is given the outcome of the third and last flip, completely specifying <span class="math inline">\(\omega_0\)</span> and representing complete information. The sum total of our observer’s information is then encoded in a third algebra <span class="math inline">\(\mathcal{F}_3\)</span> that refines the information in <span class="math inline">\(\mathcal{F}_2\)</span> (and thus also <span class="math inline">\(\mathcal{F}_1\)</span>):</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3.
+\]</span></p>
+<p>The algebra <span class="math inline">\(\mathcal{F}_3\)</span> must contain the eight singletons</p>
+<p><span class="math display">\[
+\begin{gather*}
+C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
+C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
+\end{gather*}
+\]</span></p>
+<p>since deciding whether <span class="math inline">\(\omega_0\in C_i\)</span> for each <span class="math inline">\(i\)</span> means identifying <span class="math inline">\(\omega_0\)</span> exactly. But, as with <span class="math inline">\(\mathcal{F}_2\)</span>, the class <span class="math inline">\(\mathcal{F}_3\)</span> must contain more than just these eight sets if it is to be an algebra. In fact, <span class="math inline">\(\mathcal{F}_3\)</span> must be the <em>power set</em> on <span class="math inline">\(\Omega\)</span>, i.e., the class of <em>all</em> subsets of <span class="math inline">\(\Omega\)</span>. We insert one last column in our data frame for the <span class="math inline">\(C_i\)</span>’s:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1, X2, X3) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ci =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Ci records the index $i$ of $C_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>column Ci records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(C_i\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+<th style="text-align: right;">Bi</th>
+<th style="text-align: right;">Ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Note that the <span class="math inline">\(A_i\)</span> <em>partition</em> the sample space <span class="math inline">\(\Omega\)</span>, in the sense that <span class="math inline">\(\Omega = A_1 \cup A_2\)</span> and <span class="math inline">\(A_1\)</span> and <span class="math inline">\(A_2\)</span> are disjoint. Similarly, the <span class="math inline">\(B_i\)</span> and <span class="math inline">\(C_i\)</span> also partition <span class="math inline">\(\Omega\)</span>, and they represent progressively <em>finer</em> partitions, in the sense that each <span class="math inline">\(A_i\)</span> is a union of <span class="math inline">\(B_i\)</span>’s, and each <span class="math inline">\(B_i\)</span> is a union of <span class="math inline">\(C_i\)</span>’s. The <span class="math inline">\(A_i\)</span>, <span class="math inline">\(B_i\)</span>, and <span class="math inline">\(C_i\)</span> are also the <em>atoms</em> in their respective algebras, in the sense that no <span class="math inline">\(A_i\)</span> (respectively, <span class="math inline">\(B_i\)</span> or <span class="math inline">\(C_i\)</span>) properly contains a nonempty subset of <span class="math inline">\(\mathcal{F}_1\)</span> (respectively, <span class="math inline">\(\mathcal{F}_2\)</span> or <span class="math inline">\(\mathcal{F}_3\)</span>).</p>
+<p>Note also that two outcomes <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> in the same <span class="math inline">\(A_i\)</span> are <em>indistinguishable</em> using only the information in <span class="math inline">\(\mathcal{F}_1\)</span>. Indeed, the only information our observer has is whether <span class="math inline">\(\omega \in A_i\)</span> or not, and hence if <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> are in the same <span class="math inline">\(A_i\)</span>, then the observer cannot determine whether <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> are distinct outcomes. The same is true about two outcomes in the same <span class="math inline">\(B_i\)</span>, though the <span class="math inline">\(C_i\)</span> do <em>not</em> exhibit this ambiguity since <span class="math inline">\(\mathcal{F}_3\)</span> represents <em>complete</em> information.</p>
+<p>Each algebra in the chain of inclusions</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span></p>
+<p>captures a distinct level of information about the outcome <span class="math inline">\(\omega_0\)</span>. This nested structure can be viewed as a simple model of <em>learning over time</em>: as the experiment unfolds and the observer acquires new data, their algebra of decidable events expands. Sets of indistinguishable outcomes split apart into finer partitions—until, at last, the algebra <span class="math inline">\(\mathcal{F}_3\)</span> corresponds to complete knowledge of <span class="math inline">\(\omega_0\)</span>.</p>
+</section>
+<section id="indistinguishability-and-partitions" class="level2">
+<h2 class="anchored" data-anchor-id="indistinguishability-and-partitions">Indistinguishability and partitions</h2>
+<p>In this section, we formalize these observations regarding indistinguishability and partitions, and we state and prove a pair of useful theorems. Let <span class="math inline">\(\Omega\)</span> be any set (finite or not) and <span class="math inline">\(\mathcal{F}\)</span> an algebra of sets in <span class="math inline">\(\Omega\)</span>. Indistinguishability of two elements <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega_0\)</span> of <span class="math inline">\(\Omega\)</span> (relative to <span class="math inline">\(\mathcal{F}\)</span>) occurs exactly when we have</p>
+<p><span id="eq-equiv-rel"><span class="math display">\[
+\omega \in A \quad \Leftrightarrow \quad \omega' \in A, \quad \forall A\in \mathcal{F}.
+\tag{1}\]</span></span></p>
+<p>Elements <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega'\)</span> related in this way will be called <em><span class="math inline">\(\mathcal{F}\)</span>-equivalent</em>.</p>
+<p>This notion of equivalence is evidently an <a href="https://en.wikipedia.org/wiki/Equivalence_relation" target="_blank">equivalence relation</a> in the technical sense, and thus we obtain a partition of <span class="math inline">\(\Omega\)</span> into equivalence classes. The next theorem describes some properties of these equivalence classes.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-equiv-classes" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Properties of indistinguishability equivalence classes)</strong></span> Let the notation be as above, and write <span class="math inline">\([\omega]\)</span> for the equivalence class of <span class="math inline">\(\omega\)</span> under the equivalence relation (<a href="#eq-equiv-rel" class="quarto-xref">1</a>).</p>
+<ol type="1">
+<li><p>The equivalence class <span class="math inline">\([\omega]\)</span> is the intersection of all <span class="math inline">\(A\in \mathcal{F}\)</span> that contain <span class="math inline">\(\omega\)</span>: <span id="eq-target"><span class="math display">\[
+  [\omega] = \bigcap_{\omega \in A \in \mathcal{F}} A.
+   \tag{2}\]</span></span></p></li>
+<li><p>If <span class="math inline">\([\omega]\)</span> contains a nonempty subset <span class="math inline">\(A\)</span> which is also in <span class="math inline">\(\mathcal{F}\)</span>, then <span class="math inline">\(A = [\omega]\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>(1): The goal is to establish the equality (<a href="#eq-target" class="quarto-xref">2</a>) of sets. The subset containment “<span class="math inline">\(\subset\)</span>” is more or less trivial, so we focus on the opposite containment “<span class="math inline">\(\supset\)</span>”. For this, suppose that <span class="math inline">\(\omega'\)</span> is an element in the intersection in (<a href="#eq-target" class="quarto-xref">2</a>); we need to prove that (<a href="#eq-equiv-rel" class="quarto-xref">1</a>) holds for all <span class="math inline">\(A\in \mathcal{F}\)</span>. But if <span class="math inline">\(\omega \in A\)</span>, then <span class="math inline">\(\omega'\in A\)</span> as well since <span class="math inline">\(A\)</span> appears in the intersection in (<a href="#eq-target" class="quarto-xref">2</a>). Conversely, suppose that <span class="math inline">\(\omega'\in A\)</span>, but that <span class="math inline">\(\omega \in A^c\)</span>. Then, since <span class="math inline">\(A^c\in \mathcal{F}\)</span>, the complement <span class="math inline">\(A^c\)</span> appears in the intersection in (<a href="#eq-target" class="quarto-xref">2</a>), and hence <span class="math inline">\(\omega' \in A^c\)</span>. However, this contradicts the assumption that <span class="math inline">\(\omega'\in A\)</span>.</p>
+<p>(2): If <span class="math inline">\(A\)</span> contained <span class="math inline">\(\omega'\)</span>, then <span class="math inline">\(\omega' \in A \subset [\omega]\)</span>, and hence <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega'\)</span> are <span class="math inline">\(\mathcal{F}\)</span>-equivalent. But then <span class="math inline">\(\omega\in A\)</span> as well, which—in view of (1)—implies that <span class="math inline">\([\omega] \subset A\)</span>. Thus <span class="math inline">\(A =[\omega]\)</span>. Q.E.D.</p>
+</div>
+<p>In particular, part (2) of the theorem shows that if an equivalence class <span class="math inline">\([\omega]\)</span> is in <span class="math inline">\(\mathcal{F}\)</span> (which is the case if <span class="math inline">\(\Omega\)</span> is finite), then the only sets in <span class="math inline">\(\mathcal{F}\)</span> that are contained in <span class="math inline">\([\omega]\)</span> are itself and <span class="math inline">\(\emptyset\)</span>. In this sense, the equivalence classes <span class="math inline">\([\omega]\)</span> are the <em>atoms</em> of the algebra <span class="math inline">\(\mathcal{F}\)</span>, i.e., the “non-reducible” subsets of <span class="math inline">\(\mathcal{F}\)</span>. This notion is familiar to us from the <span class="math inline">\(A_i\)</span>, <span class="math inline">\(B_i\)</span> and <span class="math inline">\(C_i\)</span> in the previous section.</p>
+<p>So, every algebra <span class="math inline">\(\mathcal{F}\)</span> of sets in <span class="math inline">\(\Omega\)</span> determines a partition of <span class="math inline">\(\Omega\)</span>. Conversely, every partition <span class="math inline">\(\mathfrak{P}\)</span> of <span class="math inline">\(\Omega\)</span> determines an algebra as the <em>smallest</em> algebra containing each set in <span class="math inline">\(\mathfrak{P}\)</span>; this algebra is denoted <span class="math inline">\(\sigma(\mathfrak{P})\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-algebra-part" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Algebras <span class="math inline">\(\Leftrightarrow\)</span> Partitions)</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be an algebra of sets in <span class="math inline">\(\Omega\)</span>, and assume that each <span class="math inline">\(\mathcal{F}\)</span>-equivalence class <span class="math inline">\([\omega]\)</span> is in <span class="math inline">\(\mathcal{F}\)</span>. If <span class="math inline">\(\mathfrak{P}\)</span> is the partition induced by these equivalence classes, then <span class="math inline">\(\sigma(\mathfrak{P}) = \mathcal{F}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Since <span class="math inline">\(\mathcal{F}\)</span> is an algebra containing each set in <span class="math inline">\(\mathfrak{P}\)</span>, we must have <span class="math inline">\(\sigma(\mathfrak{P}) \subset \mathcal{F}\)</span>. On the other hand, if <span class="math inline">\(A\in \mathcal{F}\)</span> and <span class="math inline">\(P\in \mathfrak{P}\)</span>, then the intersection <span class="math inline">\(A\cap P\)</span> is both a subset of <span class="math inline">\(P\)</span> and a set in <span class="math inline">\(\mathcal{F}\)</span>. But since <span class="math inline">\(P\)</span> is atomic, we must have either <span class="math inline">\(A\cap P = \emptyset\)</span> or <span class="math inline">\(A\cap P = P\)</span>. The latter implies that <span class="math inline">\(P\subset A\)</span>. This should imply that <span class="math inline">\(A\)</span> is a union of <span class="math inline">\(P\)</span>’s and thus is in <span class="math inline">\(\sigma(\mathfrak{P})\)</span>. Q.E.D.</p>
+</div>
+<p>Finally, if <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathcal{G}\)</span> are two algebras of sets in <span class="math inline">\(\Omega\)</span>, then we say <span class="math inline">\(\mathcal{F}\)</span> <em>refines</em> <span class="math inline">\(\mathcal{G}\)</span> if <span class="math inline">\(\mathcal{G}\subset \mathcal{F}\)</span>. With two algebras, there are two partitions of <span class="math inline">\(\Omega\)</span> and two types of equivalence classes: we write <span class="math inline">\([\omega]_\mathcal{F}\)</span> and <span class="math inline">\([\omega]_\mathcal{G}\)</span> for the equivalence class of <span class="math inline">\(\omega\in \Omega\)</span> with respect to <span class="math inline">\(\mathcal{F}\)</span>- and <span class="math inline">\(\mathcal{G}\)</span>-equivalence, respectively.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-refinement" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Refinement Theorem)</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathcal{G}\)</span> be two algebras of sets in <span class="math inline">\(\Omega\)</span>. Then <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\mathcal{G}\)</span> if and only if every equivalence class <span class="math inline">\([\omega]_\mathcal{G}\)</span> is partitioned into a union of <span class="math inline">\(\mathcal{F}\)</span>-equivalence classes.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="random-variables-as-information-carriers" class="level2">
+<h2 class="anchored" data-anchor-id="random-variables-as-information-carriers">Random variables as information carriers</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/johnmyers-phd\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
