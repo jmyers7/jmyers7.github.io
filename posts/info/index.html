@@ -108,7 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
-<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -145,7 +144,7 @@ window.Quarto = {
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -217,12 +216,13 @@ window.Quarto = {
     <div class="quarto-title column-body">
       <h1 class="title">Entropy, surprise, and information</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Information</div>
-                <div class="quarto-category">Python</div>
-                <div class="quarto-category">SciPy</div>
+                <div class="quarto-category">Information theory</div>
                 <div class="quarto-category">Entropy</div>
                 <div class="quarto-category">Surprisal</div>
                 <div class="quarto-category">Mutual information</div>
+                <div class="quarto-category">Machine learning</div>
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">SciPy</div>
               </div>
                   </div>
   </div>
@@ -316,7 +316,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 \]</span></p>
 <p>We will return to an information-theoretic treatment of linear regression (and other) models in a later post.</p>
 <p>For now, let’s see all this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with the full distribution on <span class="math inline">\(X\)</span> (i.e., its mass function <span class="math inline">\(f(x)\)</span>) given in the following plot:</p>
-<div id="c93f3449" class="cell" data-execution_count="2">
+<div id="1ada8718" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
@@ -343,7 +343,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>We might reasonably believe that <span class="math inline">\(X\)</span> is predictive of <span class="math inline">\(Y\)</span>, the exam score of a randomly chosen student, taking continuous values in the interval <span class="math inline">\([0,1]\)</span>, understood as percentages. The plot of the density function <span class="math inline">\(f(y)\)</span> is given in:</p>
-<div id="2fb65940" class="cell" data-execution_count="3">
+<div id="e4e8ba8f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy(y):</span>
@@ -370,7 +370,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
-<div id="5c33a922" class="cell" data-execution_count="4">
+<div id="99000593" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
@@ -396,7 +396,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>Dividing the joint mass/density <span class="math inline">\(f(x,y)\)</span> by the marginal mass <span class="math inline">\(f(x)\)</span> yields the conditional densities <span class="math inline">\(f(x|y)\)</span>. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to <span class="math inline">\(1\)</span> over <span class="math inline">\([0,1]\)</span>. They are shown in:</p>
-<div id="51495261" class="cell" data-execution_count="5">
+<div id="8b592fbe" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
@@ -492,7 +492,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </section>
 <section id="mutual-information-of-jointly-discrete-random-variables" class="level2">
 <h2 class="anchored" data-anchor-id="mutual-information-of-jointly-discrete-random-variables">Mutual information of jointly discrete random variables</h2>
-<div id="881b27c3" class="cell" data-execution_count="6">
+<div id="3aff6896" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
@@ -537,7 +537,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="36a12dd2" class="cell" data-execution_count="7">
+<div id="bd56563e" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, ncols<span class="op">=</span><span class="dv">3</span>, sharey<span class="op">=</span><span class="va">True</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
@@ -567,7 +567,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="91106ed5" class="cell" data-execution_count="8">
+<div id="034aebf4" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>info <span class="op">=</span> entropy(fy) <span class="op">-</span> <span class="bu">sum</span>([entropy(f_y_given_x) <span class="op">*</span> fx[x] <span class="cf">for</span> x, f_y_given_x <span class="kw">in</span> <span class="bu">enumerate</span>(conditionals)])</span>
@@ -603,7 +603,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="82866732" class="cell" data-execution_count="9">
+<div id="4e0c7bb3" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels<span class="op">=</span><span class="va">False</span>):</span>
@@ -656,7 +656,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="bf14ca5b" class="cell" data-execution_count="10">
+<div id="017b19bc" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
@@ -671,7 +671,7 @@ H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
 </div>
 </div>
 </div>
-<div id="aceb0695" class="cell" data-execution_count="11">
+<div id="8ef63a0b" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
