@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-09-30">
+
+<title>Entropy, surprise, and information – john myers, ph.d.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-57753fab63a7befd05590e875e254f3f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../writings.html"> 
+<span class="menu-text">writings</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-teaching" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">teaching</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
+        <li>
+    <a class="dropdown-item" href="../../teaching/calculus-ii-fa-25.html">
+ <span class="dropdown-text">mat220 calculus II, fall 2025</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../teaching/analysis-fa-25.html">
+ <span class="dropdown-text">mat347 analysis, fall 2025</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.johnmyers-phd.com/book" target="_blank"> 
+<span class="menu-text">probabilistic machine learning</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jmyers7/" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/john-myers-phd" target="_blank"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jmmyers25@gmail.com"> <i class="bi bi-envelope-open-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Entropy, surprise, and information</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Information theory</div>
+                <div class="quarto-category">Entropy</div>
+                <div class="quarto-category">Surprisal</div>
+                <div class="quarto-category">Mutual information</div>
+                <div class="quarto-category">Machine learning</div>
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">SciPy</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 30, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#flows-of-information" id="toc-flows-of-information" class="nav-link" data-scroll-target="#flows-of-information">Flows of information</a></li>
+  <li><a href="#entropy-surprisal-and-mutual-information" id="toc-entropy-surprisal-and-mutual-information" class="nav-link" data-scroll-target="#entropy-surprisal-and-mutual-information">Entropy, surprisal, and mutual information</a></li>
+  <li><a href="#mutual-information-of-jointly-discrete-random-variables" id="toc-mutual-information-of-jointly-discrete-random-variables" class="nav-link" data-scroll-target="#mutual-information-of-jointly-discrete-random-variables">Mutual information of jointly discrete random variables</a></li>
+  <li><a href="#mutual-information-of-jointly-normal-random-variables" id="toc-mutual-information-of-jointly-normal-random-variables" class="nav-link" data-scroll-target="#mutual-information-of-jointly-normal-random-variables">Mutual information of jointly normal random variables</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Large language models (LLMs) like ChatGPT have brought <em>probabilistic models</em> into mainstream conversation. Unlike <em>deterministic models</em> that always produce the same output for a given input, these models generate a probability distribution over many possible outputs. <em>Information theory</em> provides the mathematical framework for understanding these distributions, and how sensitive they are to the inputs of the model.</p>
+<p>To understand this more concretely, consider what happens when you prompt an LLM. You might ask “What’s the capital of France?” and reliably get “Paris” as the answer. The model is highly confident: the output probability distribution is concentrated over the one-word output “Paris”. But if you ask “Write me a poem about autumn,” you’ll get a different response each time. Here, the probability distribution is spread across countless possible poems, each with some small probability of being generated. In the first case, the model is <em>certain</em>, reflected in the strongly peaked output distribution, while in the latter case it is <em>uncertain</em>, reflected in the highly dispersed output distribution. The input to the model (i.e., the prompt) thus has a strong effect on the certainty in the output distribution.</p>
+<p>The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field in 1948, he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.</p>
+<p>This post will survey the most basic quantities of information theory: <em>surprisal</em>, <em>entropy</em>, and <em>mutual information</em>. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the <em>entropy</em>, which quantifies the overall uncertainty in a probability distribution. Finally, <em>mutual information</em> applies to two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with a joint distribution. It measures how much observing <span class="math inline">\(X\)</span> reduces the uncertainty (entropy) in <span class="math inline">\(Y\)</span> on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.</p>
+<p>While this post focuses on the foundational concepts, future posts will explore how these ideas apply to the probabilistic models used in machine learning.</p>
+</section>
+<section id="flows-of-information" class="level2">
+<h2 class="anchored" data-anchor-id="flows-of-information">Flows of information</h2>
+<p>We begin by building a mathematical gadget that models the “flow of information” between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (or random vectors, or random objects, or …). Such flows are exactly what information theory calls <em>communication channels</em>, and they include many of the predictive probabilistic models in machine learning where information flows from input <span class="math inline">\(X\)</span> to output <span class="math inline">\(Y\)</span>. Once these flows have been identified in this section, in the rest of the post we seek to understand how information flowing from <span class="math inline">\(X\)</span> influences and shapes the distribution on <span class="math inline">\(Y\)</span>.</p>
+<p>The simplest flow between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is a functional one, expressed as an equation <span id="eq-det-flow"><span class="math display">\[
+g(X)=Y,
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(g\)</span> is a function. With <span class="math inline">\(X\)</span> as input and <span class="math inline">\(Y\)</span> as output, an observed input <span class="math inline">\(X=x\)</span> produces a <em>unique</em> output <span class="math inline">\(y = g(x)\)</span>. Such flows underlie <em>deterministic</em> models. In the case that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> take values on the real line <span class="math inline">\(\mathbb{R}\)</span>, we might visualize the situation like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/det-flow-2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>Note that each value of <span class="math inline">\(x\)</span> along the input (left) axis determines a unique value of <span class="math inline">\(y\)</span> along the output (right) axis.</p>
+<p>On the other hand, we might suppose that information flows from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a <em>stochastic</em> fashion, in which an observed input <span class="math inline">\(X=x\)</span> does not uniquely determine an output <span class="math inline">\(y\)</span>, but rather a distribution on <span class="math inline">\(Y\)</span>. This is precisely what a conditional distribution <span class="math inline">\(P(Y= y\mid X=x)\)</span> captures: given an observed value <span class="math inline">\(X=x\)</span>, we have a probability distribution on <span class="math inline">\(y\)</span>’s. We can think of this as a <em>function</em> of the form</p>
+<p><span id="eq-stochastic-flow"><span class="math display">\[
+x \mapsto P(Y= y \mid X=x),
+\tag{2}\]</span></span></p>
+<p>where the <span class="math inline">\(y\)</span> is intended as a variable and not a fixed quantity, so that <span class="math inline">\(P(Y= y \mid X=x)\)</span> is a probability distribution and not just a single probability. So, this function is rather special: its input is a value <span class="math inline">\(x\)</span>, while its output is an entire probability distribution. Mathematicians call such objects <a href="https://en.wikipedia.org/wiki/Markov_kernel" target="_blank">Markov kernels</a>. A figure will make this more concrete: in contrast to the deterministic flows drawn above, in the case that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> take values on the real line <span class="math inline">\(\mathbb{R}\)</span>, we visualize a stochastic flow as follows, where each value of <span class="math inline">\(x\)</span> is mapped to a probability distribution on <span class="math inline">\(y\)</span>’s:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/stochastic-flow-2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>In our model of a stochastic flow, we therefore use conditional distributions, understood as functions on the conditioning variable.</p>
+<p>In practive, very often we have a family <span class="math inline">\(P(Y=y; \theta)\)</span> of parameterized distributions over <span class="math inline">\(y\)</span>’s, where <span class="math inline">\(\theta\)</span> is a parameter vector. The stochastic flow from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> is then implemented as a function <span class="math inline">\(x\mapsto \theta(x)\)</span> from observations of <span class="math inline">\(X\)</span> to parameters <span class="math inline">\(\theta\)</span>, and the conditional distribution is then <em>defined</em> as</p>
+<p><span class="math display">\[
+P(Y=y \mid X=x) = P(Y=y ; \theta=\theta(x)).
+\]</span></p>
+<p>Familiar models like linear regression (with known variance <span class="math inline">\(\sigma^2\)</span>) fit this description, in which <span class="math inline">\(P(Y=y; \theta)\)</span> is given by the normal density</p>
+<p><span class="math display">\[
+f(y;\theta) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ - \frac{1}{2\sigma^2}(y-\theta)^2 \right],
+\]</span></p>
+<p>and with parameter mapping</p>
+<p><span class="math display">\[
+x\mapsto \theta(x) = \beta_0 + \beta_1x,
+\]</span></p>
+<p>for some model coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Concisely, the stochastic flow from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a linear regression model is completely described by specifying</p>
+<p><span class="math display">\[
+(Y\mid X=x) \sim \mathcal{N}(\beta_0+\beta_1x, \sigma^2).
+\]</span></p>
+<p>We will return to an information-theoretic treatment of linear regression (and other) models in a later post.</p>
+<p>For now, let’s see all this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with the full distribution on <span class="math inline">\(X\)</span> (i.e., its mass function <span class="math inline">\(f(x)\)</span>) given in the following plot:</p>
+<div id="72453e52" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, n<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>fxs <span class="op">=</span> poisson.pmf(xs, mu<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>fxs <span class="op">/=</span> fxs.<span class="bu">sum</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ax.bar(xs, fxs, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"probability"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"marginal mass </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="dv">1</span>, n<span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="385"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We might reasonably believe that <span class="math inline">\(X\)</span> is predictive of <span class="math inline">\(Y\)</span>, the exam score of a randomly chosen student, taking continuous values in the interval <span class="math inline">\([0,1]\)</span>, understood as percentages. The plot of the density function <span class="math inline">\(f(y)\)</span> is given in:</p>
+<div id="bde1b77e" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy(y):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">sum</span>([beta.pdf(y, a<span class="op">=</span>x, b<span class="op">=</span><span class="dv">3</span>) <span class="op">*</span> fx <span class="cf">for</span> x, fx <span class="kw">in</span> <span class="bu">zip</span>(xs, fxs)])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, num<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ax.plot(grid, fy(grid))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ax.fill_between(grid, fy(grid), zorder<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"marginal density </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"test score ($y$)"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"probability density"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="385"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
+<div id="03303c74" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>conditional_colors <span class="op">=</span> [conditional_cmap(i<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, fx <span class="kw">in</span> <span class="bu">zip</span>(xs, fxs):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    joint_vals <span class="op">=</span> <span class="fl">1.7</span> <span class="op">*</span> beta.pdf(x<span class="op">=</span>grid, a<span class="op">=</span>x, b<span class="op">=</span><span class="dv">3</span>) <span class="op">*</span> fx</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(grid, x, x <span class="op">+</span> joint_vals, color<span class="op">=</span>conditional_colors[x<span class="op">-</span><span class="dv">1</span>], zorder<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(grid, x <span class="op">+</span> joint_vals, color<span class="op">=</span>conditional_colors[x<span class="op">-</span><span class="dv">1</span>], zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"test score </span><span class="kw">(</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"joint mass/density </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x,y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="587" height="484"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dividing the joint mass/density <span class="math inline">\(f(x,y)\)</span> by the marginal mass <span class="math inline">\(f(x)\)</span> yields the conditional densities <span class="math inline">\(f(x|y)\)</span>. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to <span class="math inline">\(1\)</span> over <span class="math inline">\([0,1]\)</span>. They are shown in:</p>
+<div id="d78d1da3" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> xs:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  ax.plot(grid, beta.pdf(x<span class="op">=</span>grid, a<span class="op">=</span>x, b<span class="op">=</span><span class="dv">3</span>), color<span class="op">=</span>conditional_colors[x<span class="op">-</span><span class="dv">1</span>], label<span class="op">=</span>x)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ax.legend(title<span class="op">=</span><span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>, loc<span class="op">=</span><span class="st">"center left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">.5</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"conditional densities </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="cf">|</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"test score </span><span class="kw">(</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"probability density"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-6-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="587" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our information-theoretic terminology, the conditional density</p>
+<p><span class="math display">\[
+x\mapsto f(y|x),
+\]</span></p>
+<p>thought of as a function of <span class="math inline">\(x\)</span>, models the stochastic flow of information from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>.</p>
+<p>Inspecting the plot of the marginal density <span class="math inline">\(f(y)\)</span> reveals a good amount of uncertainty: the distribution is peaked, but not strongly so. An exam score randomly drawn from <span class="math inline">\(Y\)</span> will be mildly uncertain, mildly surprising. The exact amount of uncertainty in <span class="math inline">\(Y\)</span> will be measured through its <em>entropy</em>, denoted <span class="math inline">\(H(Y)\)</span>, introduced in the next section. In contrast, the conditional densities <span class="math inline">\(f(y|x)\)</span> exhibit less uncertainty compared to the marginal, especially for values of <span class="math inline">\(x\)</span> closer to <span class="math inline">\(6\)</span>. The exact amount of uncertainty of <span class="math inline">\(Y\)</span>, given an observed value <span class="math inline">\(X=x\)</span>, will be measured through the <em>conditional entropy</em>, denoted <span class="math inline">\(H(Y\mid X=x)\)</span>. Averaging this conditional entropy over <span class="math inline">\(X\)</span> yields the quantity</p>
+<p><span class="math display">\[
+H(Y\mid X) \overset{\text{def}}{=}E_{x\sim f(x)}(H(Y\mid X=x)),
+\]</span></p>
+<p>the average amount of uncertainty in <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X\)</span>. Then, it is a general observation that</p>
+<p><span class="math display">\[
+H(Y) \geq H(Y\mid X)
+\]</span></p>
+<p>for any pair of random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, reflecting the obvious fact that no additional information will ever <em>increase</em> the uncertainty in <span class="math inline">\(Y\)</span>. Thus, the quantity</p>
+<p><span class="math display">\[
+I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
+\]</span></p>
+<p>is a nonnegative proxy for the amount of information transmitted from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>: if it is large, then the gap between <span class="math inline">\(H(Y)\)</span> and <span class="math inline">\(H(Y\mid X)\)</span> is wide, indicating that observations of <span class="math inline">\(X\)</span> greatly reduce the uncertainty in <span class="math inline">\(Y\)</span>. We understand this as a “large amount of information” is transmitted from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>. Conversely, if <span class="math inline">\(I(X,Y)\)</span> is small, then observations of <span class="math inline">\(X\)</span> do not tell us much about <span class="math inline">\(Y\)</span>; in fact, in the extreme case that <span class="math inline">\(I(X,Y)=0\)</span>, the variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent. The quantity <span class="math inline">\(I(X,Y)\)</span> is exactly the <em>mutual information</em> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, introduced in the next section.</p>
+</section>
+<section id="entropy-surprisal-and-mutual-information" class="level2">
+<h2 class="anchored" data-anchor-id="entropy-surprisal-and-mutual-information">Entropy, surprisal, and mutual information</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-surprisal" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables with density functions <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span>, respectively.</p>
+<ol type="1">
+<li><p>The <em>surprisal of an observed value <span class="math inline">\(X=x\)</span></em> is the quantity <span class="math display">\[
+  I(x) = -\log{f(x)},
+  \]</span> where the logarithm is the natural one.</p></li>
+<li><p>The <em>conditional surprisal of an observed value <span class="math inline">\(Y=y\)</span>, given <span class="math inline">\(X=x\)</span></em>, is the quantity <span class="math display">\[
+  I(y|x) = -\log{f(y|x)}.
+  \]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-entropy" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables with density functions <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span>, respectively.</p>
+<ol type="1">
+<li><p>The <em>entropy of <span class="math inline">\(X\)</span></em> is the quantity <span class="math display">\[
+  H(X) = E_{x\sim f(x)}(I(x)).
+  \]</span></p></li>
+<li><p>The <em>conditional entropy of <span class="math inline">\(Y\)</span>, given an observed value <span class="math inline">\(X=x\)</span></em>, is the quantity</p></li>
+</ol>
+<p><span class="math display">\[
+H(Y\mid X=x) = E_{y\sim f(y|x)}(I(y\mid x)).
+\]</span></p>
+<ol start="3" type="1">
+<li>The <em>conditional entropy of <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X\)</span></em>, is the quantity</li>
+</ol>
+<p><span class="math display">\[
+H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="mutual-information-of-jointly-discrete-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="mutual-information-of-jointly-discrete-random-variables">Mutual information of jointly discrete random variables</h2>
+<div id="6df04dff" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fxy <span class="op">=</span> np.random.rand(n <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fxy <span class="op">/=</span> fxy.<span class="bu">sum</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fxy <span class="op">=</span> fxy.reshape(n, n)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>fx <span class="op">=</span> fxy.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>fy <span class="op">=</span> fxy.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">2</span>, height_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">1.5</span>])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ax1.bar(<span class="bu">range</span>(n), fx, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">"probability"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="vs">r"marginal distribution </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">1</span>], sharex<span class="op">=</span>ax1, sharey<span class="op">=</span>ax1)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>ax2.bar(<span class="bu">range</span>(n), fy, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"probability"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="vs">r"marginal distribution </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>ax3 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">1</span>,:])</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>sns.heatmap(fxy.T, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".3f"</span>, cmap<span class="op">=</span>heatmap_cmap, linewidth<span class="op">=</span><span class="dv">8</span>, linecolor<span class="op">=</span>grey, zorder<span class="op">=</span><span class="dv">2</span>, cbar_kws<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">'probability'</span>}, ax<span class="op">=</span>ax3)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>ax3.invert_yaxis()</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>ax3.set_ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>ax3.set_title(<span class="vs">r"joint distribution </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x,y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.4</span>, hspace<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="786" height="787"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="febd246f" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, ncols<span class="op">=</span><span class="dv">3</span>, sharey<span class="op">=</span><span class="va">True</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>conditionals <span class="op">=</span> []</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes.flatten()):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  f_y_given_x <span class="op">=</span> fxy[x, :] <span class="op">/</span> fxy[x, :].<span class="bu">sum</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  conditionals.append(f_y_given_x)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  ax.bar(<span class="bu">range</span>(n), f_y_given_x, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  ax.set_xticks(<span class="bu">range</span>(n))  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ax.set_xticklabels(<span class="bu">range</span>(n))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="vs">x=</span><span class="sc">{</span>x<span class="sc">}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>fig.supylabel(<span class="st">"probability"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="vs">r"conditional distributions </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="dv">\m</span><span class="vs">id x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-8-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="691" height="505"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="a2440d33" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>info <span class="op">=</span> entropy(fy) <span class="op">-</span> <span class="bu">sum</span>([entropy(f_y_given_x) <span class="op">*</span> fx[x] <span class="cf">for</span> x, f_y_given_x <span class="kw">in</span> <span class="bu">enumerate</span>(conditionals)])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The mutual information is I(X,Y) = </span><span class="sc">{</span>info<span class="sc">:.4f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>The mutual information is I(X,Y) = 0.2032.</code></pre>
+</div>
+</div>
+</section>
+<section id="mutual-information-of-jointly-normal-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="mutual-information-of-jointly-normal-random-variables">Mutual information of jointly normal random variables</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-cond-norm" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector with</p>
+<p><span class="math display">\[
+\boldsymbol{\mu}^\intercal = \begin{bmatrix} \mu_X &amp; \mu_Y \end{bmatrix} \quad \text{and} \quad \boldsymbol{\Sigma}= \begin{bmatrix}
+\sigma_X^2 &amp; \rho \sigma_X \sigma_Y \\
+\rho \sigma_X \sigma_Y &amp; \sigma_Y^2
+\end{bmatrix},
+\]</span></p>
+<p>where <span class="math inline">\(X \sim \mathcal{N}(\mu_X,\sigma_X^2)\)</span>, <span class="math inline">\(Y\sim \mathcal{N}(\mu_Y,\sigma_Y^2)\)</span>, and <span class="math inline">\(\rho\)</span> is the correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Then</p>
+<p><span class="math display">\[
+(Y \mid X=x) \sim \mathcal{N}\left(\mu_Y + (x-\mu_X) \frac{\rho \sigma_Y}{\sigma_X}, \ \sigma_Y^2(1-\rho^2) \right)
+\]</span></p>
+<p>for all <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="8977b320" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  Sigma <span class="op">=</span> np.array([[sigmaX <span class="op">**</span> <span class="dv">2</span>, rho <span class="op">*</span> sigmaX <span class="op">*</span> sigmaY], [rho <span class="op">*</span> sigmaX <span class="op">*</span> sigmaY, sigmaY <span class="op">**</span> <span class="dv">2</span>]])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  Mu <span class="op">=</span> np.array([muX, muY])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  U <span class="op">=</span> multivariate_normal(mean<span class="op">=</span>Mu, cov<span class="op">=</span>Sigma)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  grid <span class="op">=</span> np.dstack((x, y))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  z <span class="op">=</span> U.pdf(grid)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  contour <span class="op">=</span> ax.contour(x, y, z, colors<span class="op">=</span>yellow, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> labels:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    ax.clabel(contour, inline<span class="op">=</span><span class="va">True</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs):</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  mu <span class="op">=</span> muY <span class="op">+</span> (x_obs <span class="op">-</span> muX) <span class="op">*</span> rho <span class="op">*</span> sigmaY <span class="op">/</span> sigmaX</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  sigma <span class="op">=</span> sigmaY <span class="op">*</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> rho <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> norm(loc<span class="op">=</span>mu, scale<span class="op">=</span>sigma).pdf(y)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  ax.plot(<span class="op">-</span>x <span class="op">+</span> x_obs, y, color<span class="op">=</span>blue)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  ax.fill_betweenx(y, <span class="op">-</span>x <span class="op">+</span> x_obs, x_obs, color<span class="op">=</span>blue, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs, labels<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> np.linspace(np.<span class="bu">min</span>(y), np.<span class="bu">max</span>(y), num<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[<span class="dv">0</span>])</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[<span class="dv">1</span>])</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[<span class="dv">2</span>])</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="ch">\r</span><span class="vs">ho =</span><span class="sc">{</span>rho<span class="sc">}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  ax.set_ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  fig <span class="op">=</span> plt.gcf()  <span class="co"># Get current figure</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  fig.set_size_inches(<span class="dv">6</span>, <span class="dv">4</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  plt.tight_layout()</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  plt.show()</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> np.mgrid[<span class="op">-</span><span class="dv">1</span>:<span class="dv">3</span>:<span class="fl">0.01</span>, <span class="op">-</span><span class="dv">4</span>:<span class="dv">6</span>:<span class="fl">0.01</span>]</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>muX <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>muY <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>sigmaX <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>sigmaY <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>rho <span class="op">=</span> <span class="fl">0.15</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="387"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b7137e01" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>rho <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-11-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="387"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="7767faa5" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>rho <span class="op">=</span> <span class="fl">0.85</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="387"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/johnmyers-phd\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
