@@ -1,0 +1,63 @@
+---
+title: "Sigma-algebras & information II: martingales"
+date: "2025-09-30"
+toc: true
+categories: [Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Information theory, Mathematical finance, Gambling, Martingales, Binomial pricing model, Options pricing, R]
+image: "thumbnail.png"
+draft: true
+---
+
+<!-- To-do:
+
+1. Talk about largest and smallest $\sigma$-algebras.
+2. Insert an example.
+3. 
+-->
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+## Introduction
+
+## Random variables as information carriers
+
+We begin with the definition of these *level sets*:
+
+::: {#def-rv-part}
+Let $X:\Omega\to \bbr$ be a real-valued function on a set $\Omega$. For $x\in X$, sets of the form
+
+$$
+X^{-1}(x) \defeq \{ \omega \in \Omega : X(\omega)=x\}
+$$
+
+are called *level sets*.
+:::
+
+As you may easily check, the nonempty level sets of a function $X:\Omega \to \bbr$ partition its domain (assumed to be finite), and through this partition the function $X$ generates an algebra of sets in $\Omega$ denoted $\sigma(X)$. By @thm-atom-gen, the nonempty level sets are the atoms of this algebra.
+
+Thus, the function $X$ is a carrier of information. If $\Omega$ consists of the outcomes of an experiment, the information encoded in the algebra $\sigma(X)$ allows an observer to decide whether $\omega \in X^{-1}(x)$ for each $x\in \bbr$, and thus the observer can determine the value $X(\omega)$.
+
+::: {#thm-rv-refine}
+## Random variables and refinements
+Let $\calF$ be an algebra of sets in a finite set $\Omega$, and let $X:\Omega \to \bbr$ be a function.
+
+1. The algebra $\calF$ refines $\sigma(X)$ if and only if $X$ is constant on every atom in $\calF$.
+
+2. The algebra $\sigma(X)$ refines $\calF$ if and only if every atom in $\calF$ is a union of level sets of $X$.
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+By @thm-refinement, the algebra $\calF$ refines $\sigma(X)$ if and only if every nonempty level set is a union of atoms in $\calF$. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement. <span class="qed">Q.E.D.</span>
+:::
+
+It will be convenient to adopt some terminology from measure theory:
+
+::: {#def-measurable}
+Let $\calF$ be an algebra of sets in a finite set $\Omega$. A function $X:\Omega \to \bbr$ will be called *$\calF$-measurable* if $\calF$ refines the algebra $\sigma(X)$.
+:::
+
+## Returning to coin tosses

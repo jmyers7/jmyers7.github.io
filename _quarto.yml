@@ -1,0 +1,65 @@
+project:
+  type: website
+  resources: 
+    - "posts/shiny-clt/svg/**"
+website:
+  site-url: https://johnmyers-phd.com
+  title: "john myers, ph.d."
+  favicon: img/fav.png
+  draft-mode: unlinked
+  
+  navbar:
+    title: false
+    left:  
+      - text: "home"
+        href: index.qmd
+      - text: "about"
+        href: about.qmd
+      - text: "writings"
+        href: writings.qmd
+      - text: "teaching"
+        menu:
+          - teaching/calculus-ii-fa-25.qmd
+          - teaching/analysis-fa-25.qmd
+      - text: "probabilistic machine learning"
+        href: https://www.johnmyers-phd.com/book
+        target: _blank
+      - icon: github
+        href: https://github.com/jmyers7/
+        target: _blank
+      - icon: linkedin
+        href: https://www.linkedin.com/in/john-myers-phd
+        target: _blank
+      - icon: envelope-open-fill
+        href: mailto:jmmyers25@gmail.com
+  
+format:
+  html:
+    filters:
+    - callouty-theorem
+    theme: custom.scss
+    header-includes: |
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    code-copy: true
+
+callouty-theorem:
+  thm:
+    override-title: false
+    callout:
+      type: tip
+      appearance: minimal
+      collapse: false
+      icon: false
+  def:
+    override-title: false
+    callout:
+      type: tip
+      appearance: minimal
+      collapse: false
+      icon: false
+
+execute: 
+  warning: false
+  message: false

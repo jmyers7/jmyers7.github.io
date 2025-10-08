@@ -1,0 +1,16 @@
+---
+listing:
+    id: posts
+    contents: posts
+    type: default
+    sort: "date desc"
+    categories: true
+title-block-banner: false
+---
+
+The posts below (as they are written) will range from technical deep-dives in machine learning and pure mathematics, to practical applications in finance and risk, and anything else that catches my interests. Some posts will draw from my expertise as a mathematician, while others will reflect my journey as a beginner exploring and learning new fields.
+
+![](img/h-bar.svg){fig-align='center' width=30%}
+
+::: {#posts}
+:::

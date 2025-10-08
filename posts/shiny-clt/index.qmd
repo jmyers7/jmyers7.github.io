@@ -1,0 +1,275 @@
+---
+title: '"Shiny" Central Limit Theorem'
+date: "2025-09-25"
+toc: true
+categories: [R, Shiny, Python, SciPy, Reticulate, Interactive, Probability, Statistics, Central Limit Theorem]
+image: "thumbnail.png"
+draft: true
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec eros eget nisl posuere fermentum. Phasellus vitae augue nec justo commodo gravida.
+
+## Header 1
+
+Load `R` libraries:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| code-fold: false
+#| code-summary: "Code"
+
+library("ggplot2")
+library("latex2exp")
+library("reticulate") 
+condaenv.name <- "default-env"
+use_condaenv(condaenv.name, required = TRUE)
+
+```
+
+```{r}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+
+source("../../aux-files/custom-theme.R")
+set.seed(42)
+yellow <- custom_colors[["yellow"]]
+blue <- custom_colors[["blue"]]
+pink <- custom_colors[["pink"]]
+grey <- custom_colors[["grey"]]
+theme_set(custom_theme())
+
+```
+
+Load `Python` libraries:
+
+```{python}
+#| echo: true
+#| fig-align: center
+#| code-fold: false 
+#| code-summary: "Code"
+
+import scipy.stats as ss
+import matplotlib.pyplot as plt
+import numpy as np
+
+```
+
+```{python}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+
+np.random.seed(42)
+plt.style.use('../../aux-files/custom-theme.mplstyle')
+yellow = "#FFC300"
+blue = "#3399FF"
+pink = "#FF3399"
+
+```
+
+
+Construct the PDF for the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| code-fold: false
+#| code-summary: "Code"
+
+weights <- c(0.2, 0.3, 0.1, 0.4)
+means <- c(0, 3, 5, 10)
+sds <- c(1, 0.75, 0.5, 2)
+
+mixture.pdf <- function(x) {
+  rowSums(
+    sapply(
+      X = seq_along(weights),
+      FUN = function(i) weights[i] * dnorm(x, mean = means[i], sd = sds[i])
+    )
+  )
+}
+
+```
+
+Plot the PDF of the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| code-fold: true 
+#| code-summary: "Code"
+
+ggplot(data.frame(x = c(-4, 14)), aes(x)) +
+  stat_function(fun = mixture.pdf, color = yellow, linewidth = 1, n = 250) +
+  labs(y = "density", title = "mixture of gaussians")
+
+```
+
+Define an `R` function for plotting sampling distributions of the mean:
+
+```{r}
+#| echo: true
+#| code-fold: false
+#| fig-align: center
+
+plot.sampling.dist <- function(df.sample, n.sample, mu, sigma, bins = 50, alpha = 0.5) {
+  
+  ggplot(df.sample, aes(x = xbar)) +
+    geom_histogram(
+      aes(y = after_stat(density)),
+      color = grey,
+      bins = bins,
+      alpha = alpha,
+      fill = yellow
+    ) +
+    stat_density(
+      aes(color = "data"),
+      geom = "line",
+      linewidth = 1
+    ) +
+    stat_function(
+      aes(color = "normal"),
+      fun = function(x) dnorm(x, mean = mu, sd = sigma),
+      linewidth = 1   
+    ) + 
+    scale_color_manual(
+      name = NULL,
+      values = c("data" = yellow, "normal" = blue)
+    ) +
+    labs(
+      x = TeX("$\\bar{x}$"),
+      title = TeX(paste0("sampling distribution for $\\bar{X}_{", n.sample, "}$"))
+    )
+}
+
+```
+
+Define an `R` function for generating a sample for the sample mean of the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| code-fold: false 
+#| fig-align: center
+
+generate.mixture.sample <- function(n.sample, n.replicates, n.components, weights, means, sds) {
+  
+  components <- sample(
+    1:n.components,
+    size = n.replicates * n.sample,
+    replace = TRUE,
+    prob = weights
+  )
+
+  matrix.sample <- matrix(
+    rnorm(n.replicates * n.sample, mean = means[components], sd = sds[components]),
+    nrow = n.replicates,
+    ncol = n.sample
+  )
+
+  df.sample <- data.frame(xbar = rowMeans(matrix.sample))
+  
+  return(df.sample)
+}
+
+```
+
+Define an `R` function for computing the mean and standard deviation of the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| code-fold: false 
+#| fig-align: center
+
+generate.mixture.stats <- function(n.sample, weights, means, sds) {
+
+  second.moments <- means ** 2 + sds ** 2
+  mu <- as.numeric(weights %*% means)
+  sigma <- sqrt(as.numeric(weights %*% second.moments - (weights %*% means) ** 2) / n.sample)
+  
+  return(c(mu = mu, sigma = sigma))
+}
+
+```
+
+Plot the sample mean $\overline{X}_3$ of the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| code-fold: true
+#| code-summary: "Code"
+
+n.sample <- 3
+n.replicates <- 1000
+n.components <- 4
+
+df.sample <- generate.mixture.sample(n.sample, n.replicates, n.components, weights, means, sds)
+stats <- generate.mixture.stats(n.sample, weights, means, sds)
+
+plot.sampling.dist(df.sample, n.sample, stats["mu"], stats["sigma"])
+
+```
+
+Plot the sample mean $\overline{X}_{10}$ of the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| code-fold: true
+#| code-summary: "Code"
+
+n.sample <- 10
+
+df.sample <- generate.mixture.sample(n.sample, n.replicates, n.components, weights, means, sds)
+stats <- generate.mixture.stats(n.sample, weights, means, sds)
+
+plot.sampling.dist(df.sample, n.sample, stats["mu"], stats["sigma"])
+
+```
+
+Plot the sample mean $\overline{X}_{100}$ of the mixture of Gaussians:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| code-fold: true
+#| code-summary: "Code"
+
+n.sample <- 100
+
+df.sample <- generate.mixture.sample(n.sample, n.replicates, n.components, weights, means, sds)
+stats <- generate.mixture.stats(n.sample, weights, means, sds)
+
+plot.sampling.dist(df.sample, n.sample, stats["mu"], stats["sigma"])
+
+```
+
+Plot the PDF of a log-normal distribution in `Python`:
+
+```{python}
+#| echo: true
+#| fig-align: center
+#| code-fold: true
+#| code-summary: "Code"
+
+meanlog = 1
+sdlog = 0.75
+X = ss.lognorm(s=sdlog, scale=np.exp(meanlog))
+
+lognorm_mean = X.mean()
+
+x_grid = np.linspace(0, 13, num=250)
+
+_, ax = plt.subplots()
+ax.plot(x_grid, X.pdf(x_grid), color=yellow)
+ax.set_title('log-normal')
+ax.set_xlabel('x')
+ax.set_ylabel('density')
+plt.tight_layout()
+plt.show()
+
+```

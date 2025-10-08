@@ -1,0 +1,453 @@
+---
+title: "Entropy, surprise, and information"
+date: "2025-09-30"
+toc: true
+categories: [Information theory, Entropy, Surprisal, Mutual information, Machine learning, Python, SciPy]
+image: "thumbnail.svg"
+draft: true
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+
+```{python}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+
+from scipy.stats import norm, multivariate_normal, entropy, beta, poisson
+from scipy.integrate import quad
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import PercentFormatter
+import matplotlib.gridspec as gridspec
+
+np.random.seed(42)
+plt.style.use("../../aux-files/custom-theme.mplstyle")
+yellow = "#FFC300"
+blue = "#3399FF"
+pink = "#FF3399"
+purple = "#AA77CC"
+grey = "#121212"
+white = "#E5E5E5"
+colors = [yellow, blue, pink]
+
+heatmap_stops = [grey, yellow]
+heatmap_cmap = LinearSegmentedColormap.from_list("heatmap_cmap", heatmap_stops)
+
+conditional_stops = [blue, purple, yellow]
+conditional_cmap = LinearSegmentedColormap.from_list("conditional_cmap", conditional_stops)
+
+```
+
+## Introduction
+
+Large language models (LLMs) like ChatGPT have brought *probabilistic models* into mainstream conversation. Unlike *deterministic models* that always produce the same output for a given input, these models generate a probability distribution over many possible outputs. *Information theory* provides the mathematical framework for understanding these distributions, and how sensitive they are to the inputs of the model.
+
+To understand this more concretely, consider what happens when you prompt an LLM. You might ask "What's the capital of France?" and reliably get "Paris" as the answer. The model is highly confident: the output probability distribution is concentrated over the one-word output "Paris". But if you ask "Write me a poem about autumn," you'll get a different response each time. Here, the probability distribution is spread across countless possible poems, each with some small probability of being generated. In the first case, the model is *certain*, reflected in the strongly peaked output distribution, while in the latter case it is *uncertain*, reflected in the highly dispersed output distribution. The input to the model (i.e., the prompt) thus has a strong effect on the certainty in the output distribution.
+
+The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field in 1948, he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.
+
+This post will survey the most basic quantities of information theory: *surprisal*, *entropy*, and *mutual information*. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the *entropy*, which quantifies the overall uncertainty in a probability distribution. Finally, *mutual information* applies to two random variables $X$ and $Y$ with a joint distribution. It measures how much observing $X$ reduces the uncertainty (entropy) in $Y$ on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.
+
+While this post focuses on the foundational concepts, future posts will explore how these ideas apply to the probabilistic models used in machine learning.
+
+## Flows of information
+
+We begin by building a mathematical gadget that models the "flow of information" between two random variables $X$ and $Y$ (or random vectors, or random objects, or ...). Such flows are exactly what information theory calls *communication channels*, and they include many of the predictive probabilistic models in machine learning where information flows from input $X$ to output $Y$. Once these flows have been identified in this section, in the rest of the post we seek to understand how information flowing from $X$ influences and shapes the distribution on $Y$.
+
+The simplest flow between $X$ and $Y$ is a functional one, expressed as an equation
+$$
+g(X)=Y,
+$$ {#eq-det-flow}
+
+where $g$ is a function. With $X$ as input and $Y$ as output, an observed input $X=x$ produces a *unique* output $y = g(x)$. Such flows underlie *deterministic* models. In the case that $X$ and $Y$ take values on the real line $\mathbb{R}$, we might visualize the situation like this:
+
+![](../../img/det-flow-2.svg){fig-align='center' width=80%}
+
+Note that each value of $x$ along the input (left) axis determines a unique value of $y$ along the output (right) axis.
+
+On the other hand, we might suppose that information flows from $X$ to $Y$ in a *stochastic* fashion, in which an observed input $X=x$ does not uniquely determine an output $y$, but rather a distribution on $Y$. This is precisely what a conditional distribution $P(Y= y\mid X=x)$ captures: given an observed value $X=x$, we have a probability distribution on $y$'s. We can think of this as a *function* of the form
+
+$$
+x \mapsto P(Y= y \mid X=x),
+$$ {#eq-stochastic-flow}
+
+where the $y$ is intended as a variable and not a fixed quantity, so that $P(Y= y \mid X=x)$ is a probability distribution and not just a single probability. So, this function is rather special: its input is a value $x$, while its output is an entire probability distribution. Mathematicians call such objects [Markov kernels](https://en.wikipedia.org/wiki/Markov_kernel){target="_blank"}. A figure will make this more concrete: in contrast to the deterministic flows drawn above, in the case that $X$ and $Y$ take values on the real line $\mathbb{R}$, we visualize a stochastic flow as follows, where each value of $x$ is mapped to a probability distribution on $y$'s:
+
+![](../../img/stochastic-flow-2.svg){fig-align='center' width=80%}
+
+In our model of a stochastic flow, we therefore use conditional distributions, understood as functions on the conditioning variable.
+
+In practive, very often we have a family $P(Y=y; \theta)$ of parameterized distributions over $y$'s, where $\theta$ is a parameter vector. The stochastic flow from $X$ to $Y$ is then implemented as a function $x\mapsto \theta(x)$ from observations of $X$ to parameters $\theta$, and the conditional distribution is then *defined* as
+
+$$
+P(Y=y \mid X=x) = P(Y=y ; \theta=\theta(x)).
+$$
+
+Familiar models like linear regression (with known variance $\sigma^2$) fit this description, in which $P(Y=y; \theta)$ is given by the normal density
+
+$$
+f(y;\theta) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ - \frac{1}{2\sigma^2}(y-\theta)^2 \right],
+$$
+
+and with parameter mapping
+
+$$
+x\mapsto \theta(x) = \beta_0 + \beta_1x,
+$$
+
+for some model coefficients $\beta_0$ and $\beta_1$. Concisely, the stochastic flow from $X$ to $Y$ in a linear regression model is completely described by specifying
+
+$$
+(Y\mid X=x) \sim \mathcal{N}(\beta_0+\beta_1x, \sigma^2).
+$$
+
+We will return to an information-theoretic treatment of linear regression (and other) models in a later post.
+
+For now, let's see all this in action with real distributions in a real-world context. Suppose that $X$ is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values $X = 1,2,3,4,5,6$. Let's say that most students study only 2 or 3 hours, with the full distribution on $X$ (i.e., its mass function $f(x)$) given in the following plot:
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+n = 6
+xs = range(1, n+1)
+fxs = poisson.pmf(xs, mu=3)
+fxs /= fxs.sum()
+
+_, ax = plt.subplots(figsize=(6, 4))
+
+ax.bar(xs, fxs, width=0.4, zorder=2)
+ax.set_xlabel(r"hours studied ($x$)")
+ax.set_ylabel("probability")
+ax.set_title(r"marginal mass $f(x)$")
+ax.set_xticks(range(1, n+1))
+plt.tight_layout()
+plt.show()
+
+```
+
+We might reasonably believe that $X$ is predictive of $Y$, the exam score of a randomly chosen student, taking continuous values in the interval $[0,1]$, understood as percentages. The plot of the density function $f(y)$ is given in:
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+def fy(y):
+  return sum([beta.pdf(y, a=x, b=3) * fx for x, fx in zip(xs, fxs)])
+
+_, ax = plt.subplots(figsize=(6, 4))
+
+grid = np.linspace(0, 1, num=250)
+ax.plot(grid, fy(grid))
+ax.fill_between(grid, fy(grid), zorder=2, alpha=0.1)
+ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
+ax.set_title(r"marginal density $f(y)$")
+ax.set_xlabel("test score ($y$)")
+ax.set_ylabel("probability density")
+plt.tight_layout()
+plt.show()
+
+```
+
+Together, $X$ and $Y$ have a joint mass/density function $f(x,y)$, visualized in the following ridgeline plot, where each of the horizontal density curves shows $f(x,y)$ as a function of $y$, for *fixed* $x=1,2,3,4,5,6$.
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+_, ax = plt.subplots(figsize=(6, 5))
+
+conditional_colors = [conditional_cmap(i/(n-1)) for i in range(n)]
+for x, fx in zip(xs, fxs):
+    joint_vals = 1.7 * beta.pdf(x=grid, a=x, b=3) * fx
+    ax.fill_between(grid, x, x + joint_vals, color=conditional_colors[x-1], zorder=2, alpha=0.1)
+    ax.plot(grid, x + joint_vals, color=conditional_colors[x-1], zorder=2)
+ax.set_ylabel(r"hours studied ($x$)")
+ax.set_xlabel(r"test score ($y$)")
+ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
+ax.set_title(r"joint mass/density $f(x,y)$")
+plt.tight_layout()
+plt.show()
+
+```
+
+Dividing the joint mass/density $f(x,y)$ by the marginal mass $f(x)$ yields the conditional densities $f(x|y)$. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to $1$ over $[0,1]$. They are shown in:
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+_, ax = plt.subplots(figsize=(6, 4))
+
+for x in xs:
+  ax.plot(grid, beta.pdf(x=grid, a=x, b=3), color=conditional_colors[x-1], label=x)
+ax.legend(title=r"hours studied ($x$)", loc="center left", bbox_to_anchor=(1, .5))
+ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
+ax.set_title(r"conditional densities $f(y|x)$")
+
+ax.set_xlabel(r"test score ($y$)")
+ax.set_ylabel("probability density")
+
+plt.tight_layout()
+plt.show()
+
+```
+
+In our information-theoretic terminology, the conditional density
+
+$$
+x\mapsto f(y|x),
+$$
+
+thought of as a function of $x$, models the stochastic flow of information from $X$ to $Y$.
+
+Inspecting the plot of the marginal density $f(y)$ reveals a good amount of uncertainty: the distribution is peaked, but not strongly so. An exam score randomly drawn from $Y$ will be mildly uncertain, mildly surprising. The exact amount of uncertainty in $Y$ will be measured through its *entropy*, denoted $H(Y)$, introduced in the next section. In contrast, the conditional densities $f(y|x)$ exhibit less uncertainty compared to the marginal, especially for values of $x$ closer to $6$. The exact amount of uncertainty of $Y$, given an observed value $X=x$, will be measured through the *conditional entropy*, denoted $H(Y\mid X=x)$. Averaging this conditional entropy over $X$ yields the quantity
+
+$$
+H(Y\mid X) \defeq E_{x\sim f(x)}(H(Y\mid X=x)),
+$$
+
+the average amount of uncertainty in $Y$, given $X$. Then, it is a general observation that
+
+$$
+H(Y) \geq H(Y\mid X)
+$$
+
+for any pair of random variables $X$ and $Y$, reflecting the obvious fact that no additional information will ever *increase* the uncertainty in $Y$. Thus, the quantity
+
+$$
+I(X,Y) \defeq H(Y) - H(Y\mid X)
+$$
+
+is a nonnegative proxy for the amount of information transmitted from $X$ to $Y$: if it is large, then the gap between $H(Y)$ and $H(Y\mid X)$ is wide, indicating that observations of $X$ greatly reduce the uncertainty in $Y$. We understand this as a "large amount of information" is transmitted from $X$ to $Y$. Conversely, if $I(X,Y)$ is small, then observations of $X$ do not tell us much about $Y$; in fact, in the extreme case that $I(X,Y)=0$, the variables $X$ and $Y$ are independent. The quantity $I(X,Y)$ is exactly the *mutual information* between $X$ and $Y$, introduced in the next section.
+
+## Entropy, surprisal, and mutual information
+
+::: {#def-surprisal}
+Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$, respectively.
+
+1. The *surprisal of an observed value $X=x$* is the quantity
+  $$
+  I(x) = -\log{f(x)},
+  $$
+  where the logarithm is the natural one.
+
+2. The *conditional surprisal of an observed value $Y=y$, given $X=x$*, is the quantity
+  $$
+  I(y|x) = -\log{f(y|x)}.
+  $$
+:::
+
+::: {#def-entropy}
+Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$, respectively.
+
+1. The *entropy of $X$* is the quantity
+  $$
+  H(X) = E_{x\sim f(x)}(I(x)).
+  $$
+
+2. The *conditional entropy of $Y$, given an observed value $X=x$*, is the quantity
+
+$$
+H(Y\mid X=x) = E_{y\sim f(y|x)}(I(y\mid x)).
+$$
+
+3. The *conditional entropy of $Y$, given $X$*, is the quantity
+
+$$
+H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
+$$
+
+:::
+
+## Mutual information of jointly discrete random variables
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+n = 6
+fxy = np.random.rand(n ** 2)
+fxy /= fxy.sum()
+fxy = fxy.reshape(n, n)
+
+fx = fxy.sum(axis=1)
+fy = fxy.sum(axis=0)
+
+fig = plt.figure(figsize=(8, 8))
+gs = gridspec.GridSpec(2, 2, height_ratios=[1, 1.5])
+
+ax1 = fig.add_subplot(gs[0, 0])
+ax1.bar(range(n), fx, width=0.4, zorder=2)
+ax1.set_xlabel(r"$x$")
+ax1.set_ylabel("probability")
+ax1.set_title(r"marginal distribution $f(x)$")
+
+ax2 = fig.add_subplot(gs[0, 1], sharex=ax1, sharey=ax1)
+ax2.bar(range(n), fy, width=0.4, zorder=2)
+ax2.set_xlabel(r"$y$")
+ax2.set_ylabel("probability")
+ax2.set_title(r"marginal distribution $f(y)$")
+
+ax3 = fig.add_subplot(gs[1,:])
+sns.heatmap(fxy.T, annot=True, fmt=".3f", cmap=heatmap_cmap, linewidth=8, linecolor=grey, zorder=2, cbar_kws={'label': 'probability'}, ax=ax3)
+ax3.invert_yaxis()
+ax3.set_xlabel(r"$x$")
+ax3.set_ylabel(r"$y$")
+ax3.set_title(r"joint distribution $f(x,y)$")
+
+plt.tight_layout()
+plt.subplots_adjust(wspace=0.4, hspace=0.4)
+plt.show()
+
+```
+
+
+```{python}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+fig, axes = plt.subplots(nrows=2, ncols=3, sharey=True, sharex=True)
+conditionals = []
+
+for x, ax in enumerate(axes.flatten()):
+  f_y_given_x = fxy[x, :] / fxy[x, :].sum()
+  conditionals.append(f_y_given_x)
+  ax.bar(range(n), f_y_given_x, width=0.4, zorder=2)
+  ax.set_xticks(range(n))  
+  ax.set_xticklabels(range(n))
+  ax.set_title(rf"$x={x}$")
+  
+fig.supxlabel(r"$y$")
+fig.supylabel("probability")
+fig.suptitle(r"conditional distributions $f(y\mid x)$")
+
+plt.tight_layout()
+plt.subplots_adjust(hspace=0.8)
+plt.show()
+
+```
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+info = entropy(fy) - sum([entropy(f_y_given_x) * fx[x] for x, f_y_given_x in enumerate(conditionals)])
+print(f"The mutual information is I(X,Y) = {info:.4f}.")
+
+```
+
+
+## Mutual information of jointly normal random variables
+
+::: {#thm-cond-norm}
+Let $(X,Y) \sim \calN_2(\vecmu, \vecSigma)$ be a $2$-dimensional normal random vector with
+
+$$
+\vecmu^\intercal = \begin{bmatrix} \mu_X & \mu_Y \end{bmatrix} \quad \text{and} \quad \vecSigma = \begin{bmatrix}
+\sigma_X^2 & \rho \sigma_X \sigma_Y \\
+\rho \sigma_X \sigma_Y & \sigma_Y^2
+\end{bmatrix},
+$$
+
+where $X \sim \calN(\mu_X,\sigma_X^2)$, $Y\sim \calN(\mu_Y,\sigma_Y^2)$, and $\rho$ is the correlation between $X$ and $Y$. Then
+
+$$
+(Y \mid X=x) \sim \calN\left(\mu_Y + (x-\mu_X) \frac{\rho \sigma_Y}{\sigma_X}, \ \sigma_Y^2(1-\rho^2) \right)
+$$
+
+for all $x$.
+:::
+
+
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+def plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels=False):
+  Sigma = np.array([[sigmaX ** 2, rho * sigmaX * sigmaY], [rho * sigmaX * sigmaY, sigmaY ** 2]])
+  Mu = np.array([muX, muY])
+  U = multivariate_normal(mean=Mu, cov=Sigma)
+  grid = np.dstack((x, y))
+  z = U.pdf(grid)
+  contour = ax.contour(x, y, z, colors=yellow, alpha=0.5)
+  if labels:
+    ax.clabel(contour, inline=True, fontsize=8)
+  
+def plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs):
+  mu = muY + (x_obs - muX) * rho * sigmaY / sigmaX
+  sigma = sigmaY * np.sqrt(1 - rho ** 2)
+  x = norm(loc=mu, scale=sigma).pdf(y)
+  ax.plot(-x + x_obs, y, color=blue)
+  ax.fill_betweenx(y, -x + x_obs, x_obs, color=blue, alpha=0.4)
+
+def plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs, labels=False):
+  plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels)
+  y = np.linspace(np.min(y), np.max(y), num=250)
+  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[0])
+  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[1])
+  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[2])
+  ax.set_title(rf"$\rho ={rho}$")
+  ax.set_xlabel(r"$x$")
+  ax.set_ylabel(r"$y$")
+  fig = plt.gcf()  # Get current figure
+  fig.set_size_inches(6, 4)
+  plt.tight_layout()
+  plt.show()
+
+_, ax = plt.subplots()
+x, y = np.mgrid[-1:3:0.01, -4:6:0.01]
+
+muX = 1
+muY = 1
+sigmaX = 1
+sigmaY = 2
+rho = 0.15
+
+plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=True)
+
+```
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+_, ax = plt.subplots()
+rho = 0.5
+plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=True)
+
+```
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+_, ax = plt.subplots()
+rho = 0.85
+plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=True)
+
+```
+
+
+
+## Conclusion

@@ -1,0 +1,221 @@
+---
+title: "Bond valuation"
+date: "2025-09-30"
+toc: true
+categories: []
+image: "thumbnail.png"
+draft: true
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+## Introduction
+
+Blah blah blah.
+
+## Time value of money
+
+::: {#def-annuity}
+
+We call $v_j = (1+j)^{-1}$ the *discount factor* and we use the standard *annuity symbol*
+
+$$
+\annu{a}{n}{j} \defeq v_j + v_j^2 + \cdots + v_j^n = \frac{1-v_j^n}{j}.
+$$ {#eq-annu}
+
+:::
+
+## Language, notation, and basic formulas
+
+A bond has a *face value*, $F$, also called its *par value*. The amount $C$ of the coupons is determined via $F$ and a *nominal annual coupon rate* $\alpha$, convertible $m$ times per year, where $m$ is the *number of coupons per year*. If we set $r = \alpha/m$, then $r$ is the *effective coupon rate per coupon period*, and the coupon amount is $C = Fr$. The *redemption amount* of the bond is denoted $R$, and we write $j$ for the bond holder's *effective yield rate per coupon period*. If the *term* of the bond is $N$ years, and if $n$ is the *number of coupons in the term* (so that $n = Nm$), then the *price* $P$ of the bond is related to these quantities through the equation in:
+
+::: {#def-basic-price}
+
+The *basic price formula* for the bond is
+
+$$
+P = C \annu{a}{n}{j} + R v^n_j.
+$$ {#eq-basic-price}
+
+:::
+
+Another formula will be useful. For it, we introduce the *modified effective yield rate* as the quantity
+
+$$
+s = Fr / R.
+$$
+
+Then, from ([-@eq-annu]) we get
+
+$$
+v_j^n = 1 - j \annu{a}{n}{j}
+$$
+
+which, when combined with the equation $C=Fr$ and the basic price formula ([-@eq-basic-price]) gives the equation in:
+
+::: {#def-premium-discount}
+
+The *premium-discount formula* for the bond is
+
+$$
+P = R(s-j) \annu{a}{n}{j} + R.
+$$ {#eq-premium-discount}
+
+:::
+
+
+If the maturity date for the bond is fixed, then the bond is called *non-callable*. Otherwise, a *callable* bond allows the issuer to determine the redemption date; in the other direction, a *putable bond* allows the bond holder to choose the redemption date.
+
+## Book values and amortization
+
+```{r}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+library("ggplot2")
+library("knitr")
+library("latex2exp")
+library("dplyr")
+
+source("../../aux-files/custom-theme.R")
+set.seed(42)
+yellow <- custom_colors[["yellow"]]
+blue <- custom_colors[["blue"]]
+pink <- custom_colors[["pink"]]
+grey <- custom_colors[["grey"]]
+theme_set(custom_theme())
+
+line_colors <- c(
+  "#FFC300",
+  "#FF8800",
+  "#AA77CC",
+  "#66CCFF",
+  "#3399FF"
+)
+
+```
+
+The formula for the *$t$-th book value* of the bond is
+
+$$
+B_t = R(s-j) \annu{a}{n-t}{j} + R.
+$$ {#eq-book-value}
+
+Let's produce an *amortization schedule* for a bond with parameters
+
+$$
+N=6, \ F=2100, \ \alpha=0.08, \ m=2, \ R=2000, \ j=0.02.
+$$ {#eq-bond-params}
+
+```{R}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+# Annuity function
+a <- function(n, j) {
+  v <- 1 / (1 + j)
+  (1 - v ** n) / j
+}
+
+# Function to generate amortization schedules
+amortization <- function(term, face.value, coupon.rate, coupons.per.year, redemption.value, eff.yield) {
+  m <- coupons.per.year
+  n <- term * m
+  F <- face.value
+  r <- coupon.rate / m
+  R <- redemption.value
+  j <- eff.yield
+  s <- F * r / R
+  
+  a.vec <- sapply(
+    0:n,
+    function(t) {
+      a(n - t, j)
+    }
+  )
+
+  coupon <- c(0, rep(F * r, n))
+  interest <- numeric(n + 1)
+  principal <- numeric(n + 1)
+  book.value <- R * (s - j) * a.vec + R
+  interest[-1] <- j * book.value[-(n + 1)]
+  principal <- coupon - interest
+
+  return(data.frame(time = 0:n, coupon = coupon, interest = interest, principal = principal, book.value = book.value))
+}
+
+schedule <- amortization(
+  term = 6,
+  face.value = 2100,
+  coupon.rate = 0.08,
+  coupons.per.year = 2,
+  redemption.value = 2000,
+  eff.yield = 0.02
+)
+
+kable(schedule, digits = 2, caption = "amortization schedule for a bond purchased at a premium")
+
+```
+
+<br>
+
+Let's plot the book values (versus time) with variable effective rates:
+
+```{r}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+#| fig-height: 4
+
+# Define bond parameters, and a list of effective rates
+bond.params <- list(
+  term = 6,
+  face.value = 2100,
+  coupon.rate = 0.08,
+  coupons.per.year = 2,
+  redemption.value = 2000
+)
+eff.yields <- seq(0.02, 0.10, by = 0.02)
+
+# Generate schedules for each effective rate, then combine into big data frame
+all_schedules <- bind_rows(
+  lapply(
+    eff.yields,
+    function(j) {
+      schedule <- do.call(amortization, c(list(eff.yield = j), bond.params))
+      schedule$eff.yield <- paste0(j * 100, "%")
+      return(schedule)
+    }
+  )
+)
+
+# Name the custom line colors according to the effective yields
+names(line_colors) <- paste0(eff.yields * 100, "%")
+
+# Change the effecive yields to factors
+all_schedules$eff.yield <- factor(all_schedules$eff.yield, levels = names(line_colors))
+
+# Plot!
+ggplot(all_schedules, aes(x = time, y = book.value, color = eff.yield)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values = line_colors) +
+  scale_x_continuous(breaks = 0:12) +
+  scale_y_continuous(
+    limits = c(1200, 2600),
+    breaks = seq(1200, 2600, by = 200)
+  ) +
+  labs(
+    title = "book value versus time",
+    x = TeX("$t$"),
+    y = TeX("$B_t$"),
+    color = "effective yield"
+  )
+
+```

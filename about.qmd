@@ -1,0 +1,25 @@
+---
+title-block-banner: false
+---
+
+::: {.columns}
+
+::: {.column width="40%"}
+![](img/left-arrow-straight.svg){fig-align='center' width=55%}
+:::
+
+::: {.column width="60%"}
+![](img/headshot-blur-01.jpg){fig-align='center'}
+:::
+
+:::
+
+I'm a Ph.D. mathematician and university professor with a background that spans both theoretical and applied mathematics. My undergraduate education was in applied and computational mathematics with a minor in physics. In graduate school and through the first few years of my research career, I specialized in [homological algebra](https://en.wikipedia.org/wiki/Homological_algebra){target="_blank"} and [commutative ring theory](https://en.wikipedia.org/wiki/Commutative_algebra){target="_blank"}, focusing on the bridge between [modern algebra](https://en.wikipedia.org/wiki/Abstract_algebra){target="_blank"} and [geometry](https://en.wikipedia.org/wiki/Algebraic_geometry){target="_blank"} and [topology](https://en.wikipedia.org/wiki/Algebraic_topology){target="_blank"}. However, my interests have gradually shifted toward more practical domains, where I now work with machine learning, AI, statistics, and probability, with particular interest in applications to finance and risk.  You can find my early mathematical research on my [arXiv page](https://arxiv.org/a/myers_j_2.html){target="_blank"}.
+
+![](img/h-bar.svg){fig-align='center' width=30%}
+
+In addition to my role as a mathematician, I am also an educator who has taught 13 distinct college mathematics courses ranging from introductory calculus, to applied engineering mathematics, to upper-division theoretical courses, and have been recognized with teaching awards for my classroom work. Notable among these was a novel course in my dissertation research areas of commutative ring theory and algebraic geometry—topics not often taught at the undergraduate level—and a year-long course in probabilistic machine learning for which I wrote the textbook and developed the supporting infrastructure, all available in the navigation bar at the top.
+
+![](img/h-bar-2.svg){fig-align='center' width=30%}
+
+Mathematics has a unique duality: it's both deeply theoretical and remarkably practical. The abstract concepts that fascinate pure mathematicians frequently evolve into the foundations of the algorithms and technological systems that shape our daily lives. This website will explore that arc from theory to application, sharing writings on mathematics, probability, machine learning, and their real-world intersections. Writing helps me clarify my own understanding as I continue learning across these fields. Whether you're a student, researcher, or practitioner, I hope you'll find ideas and resources here that inform and inspire.
