@@ -1,8 +1,9 @@
 ---
-title: "Information theory I: entropy and surprise"
+title: "Information theory I: entropy & surprise"
 date: "2025-09-30"
+bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
-categories: [Information theory, Entropy, Surprisal, Mutual information, Machine learning, Python, SciPy]
+categories: [Information theory, Probability theory, Entropy, Surprisal, Mutual information, Machine learning, Python, SciPy]
 image: "thumbnail.svg"
 draft: true
 ---
@@ -20,7 +21,7 @@ $$
 #| warning: false
 #| message: false
 
-from scipy.stats import norm, multivariate_normal, entropy, beta, poisson
+from scipy.stats import norm, multivariate_normal, beta, poisson, binom
 from scipy.integrate import quad
 import numpy as np
 import seaborn as sns
@@ -53,7 +54,7 @@ Large language models (LLMs) like ChatGPT have brought *probabilistic models* in
 
 To understand this more concretely, consider what happens when you prompt an LLM. You might ask "What's the capital of France?" and reliably get "Paris" as the answer. The model is highly confident: the output probability distribution is concentrated over the one-word output "Paris". But if you ask "Write me a poem about autumn," you'll get a different response each time. Here, the probability distribution is spread across countless possible poems, each with some small probability of being generated. In the first case, the model is *certain*, reflected in the strongly peaked output distribution, while in the latter case it is *uncertain*, reflected in the highly dispersed output distribution. The input to the model (i.e., the prompt) thus has a strong effect on the certainty in the output distribution.
 
-The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field in 1948, he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.
+The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field [see @Shannon1948], he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.
 
 This post will survey the most basic quantities of information theory: *surprisal*, *entropy*, and *mutual information*. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the *entropy*, which quantifies the overall uncertainty in a probability distribution. Finally, *mutual information* applies to two random variables $X$ and $Y$ with a joint distribution. It measures how much observing $X$ reduces the uncertainty (entropy) in $Y$ on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.
 
@@ -234,36 +235,116 @@ $$
 
 is a nonnegative proxy for the amount of information transmitted from $X$ to $Y$: if it is large, then the gap between $H(Y)$ and $H(Y\mid X)$ is wide, indicating that observations of $X$ greatly reduce the uncertainty in $Y$. We understand this as a "large amount of information" is transmitted from $X$ to $Y$. Conversely, if $I(X,Y)$ is small, then observations of $X$ do not tell us much about $Y$; in fact, in the extreme case that $I(X,Y)=0$, the variables $X$ and $Y$ are independent. The quantity $I(X,Y)$ is exactly the *mutual information* between $X$ and $Y$, introduced in the next section.
 
-## Entropy, surprisal, and mutual information
+## Surprisal and entropy
+
+As I mentioned in the introduction to the post, *entropy* is a measure of the uncertainty in the outcome of a random variable; precisely, it is the average *surprisal* of an observation. The surprisal carries an inverse relationship to probability: a large probability corresponds to a small surprisal, and vice versa, a small probability corresponds to a large surprisal.
+
+This inverse relationship is given by the function $s = -\log{p}$, linking a probability $p\in [0,1]$ with a *surprisal* $s\in (0,\infty)$.[We write $\log$ for the base-$e$ logarithm.]{.aside} The graph of this relationship is shown in:
+
+```{python}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+mesh = np.linspace(0.01, 1, num=100)
+
+_, ax = plt.subplots(figsize=(4, 3))
+ax.plot(mesh, -np.log(mesh), color=yellow)
+ax.set_xlabel(r"probability ($p$)")
+ax.set_ylabel(r"surprisal ($s$)")
+plt.tight_layout()
+plt.show()
+
+```
+
+It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-$e$ logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of surprisal should possess, then you can prove all such surprisal functions must be proportional to negative logarithms [see, for example, the discussion in Section 9 in @Rioul2021]. The choice of base $e$ is then somewhat arbitrary, akin to choosing units. Another popular choice is base $2$, facilitating a smooth connection to bit strings in coding theory. In base $e$, information content is measured in so-called *natural units*, or *nats*; in base $2$, it is measured in *binary units*, or *bits*. [See Section 10 in the aforementioned reference @Rioul2021 for more on units.]
+
+This link between surprisals and probabilities may be extended to a link between surprisal and probability *densities* in the case that the probabilities are continuous. Since it is inconvenient to constantly distinguish between mass and density functions in all definitions and theorems, we will follow the convention in measure-theoretic probability theory, and refer to *all* probability mass and density functions as *densities* and denote them all by $f$. In this scheme, a probability mass function really is a *density* function relative to the counting measure.
+
+With this convention in mind, the following definition applies to both discrete and continuous random variables:
 
 ::: {#def-surprisal}
 Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$, respectively.
 
 1. The *surprisal of an observed value $X=x$* is the quantity
   $$
-  I(x) = -\log{f(x)},
+  s(x) = -\log{f(x)}.
   $$
-  where the logarithm is the natural one.
 
 2. The *conditional surprisal of an observed value $Y=y$, given $X=x$*, is the quantity
   $$
-  I(y|x) = -\log{f(y|x)}.
+  s(y|x) = -\log{f(y|x)},
   $$
+  where $f(y|x)$ is the conditional density of $Y$ given $X$.
+
 :::
+
+For a simple example of the relationship between discrete probabilities and surprisals, let's bring back our random variable $X$ from the previous section, which tallied the number of hours are randomly chosen student studied for the upcoming exam:
+
+```{python}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
+
+axes[0].bar(xs, fxs, width=0.4, zorder=2)
+axes[0].set_ylabel(r"probability mass")
+axes[0].set_title(r"marginal density $f(x)$")
+axes[0].set_xticks(range(1, n+1))
+
+axes[1].bar(xs, -np.log(fxs), width=0.4, zorder=2)
+axes[1].set_ylabel(r"surprisal mass")
+axes[1].set_title(r"marginal surprisal $s(x)$")
+axes[1].set_xticks(range(1, n+1))
+
+fig.supxlabel(r"hours studied ($x$)")
+plt.tight_layout()
+plt.show()
+
+```
+
+Because a probability density (mass) function of a discrete random variable must take values in $[0,1]$, its surprisal function is never negative. However, the probability density function of a continuous random variable *may* take on values larger than $1$, which means that the associated surprisal density function can be negative. We see that this is the case for the random variable $Y$ from the previous section, which gives the exam score of a randomly chosen student:
+
+```{python}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
+
+grid = np.linspace(0, 1, num=250)
+axes[0].plot(grid, fy(grid))
+axes[0].xaxis.set_major_formatter(PercentFormatter(xmax=1))
+axes[0].set_title(r"marginal density $f(y)$")
+axes[0].set_ylabel("probability density")
+
+axes[1].plot(grid, -np.log(fy(grid)))
+axes[1].xaxis.set_major_formatter(PercentFormatter(xmax=1))
+axes[1].set_title(r"marginal surprisal $s(y)$")
+axes[1].set_ylabel("surprisal density")
+
+fig.supxlabel("test score ($y$)")
+plt.tight_layout()
+plt.show()
+
+```
+
+With surprisal functions in hand, we now come to the second of the three main definitions of this post:
 
 ::: {#def-entropy}
 Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$, respectively.
 
 1. The *entropy of $X$* is the quantity
   $$
-  H(X) = E_{x\sim f(x)}(I(x)).
+  H(X) = E_{x\sim f(x)}(s(x)).
   $$
 
 2. The *conditional entropy of $Y$, given an observed value $X=x$*, is the quantity
-
-$$
-H(Y\mid X=x) = E_{y\sim f(y|x)}(I(y\mid x)).
-$$
+  $$
+  H(Y\mid X=x) = E_{y\sim f(y|x)}(s(y\mid x)),
+  $$
+  where $f(y|x)$ is the conditional density of $Y$ given $X$.
 
 3. The *conditional entropy of $Y$, given $X$*, is the quantity
 
@@ -273,48 +354,125 @@ $$
 
 :::
 
-## Mutual information of jointly discrete random variables
+In the case that $X$ is discrete, then the entropy $H(X)$ is a sum of either a finite or countably infinite number of terms:
+
+$$
+H(X) = \sum_{x\in \bbr} f(x)s(x) = - \sum_{x\in \bbr} f(x) \log{f(x)}.
+$$
+
+If $X$ is continuous, then the entropy is an integral:
+
+$$
+H(X) = \int f(x) s(x) \ dx = - \int f(x) \log{f(x)} \ dx,
+$$
+
+where we follow the usual convention in probability theory of writing $\int$ for $\int_\bbr$. In the literature, the entropy of a continuous random variable is often called *differential entropy*.
+
+The `stats` submodule of the `SciPy` library contains a convenient method called `entropy` for computing entropies of discrete random variables. We use it to compute the entropy $H(X)$, where $X$ is the "hours studied" random variable:
 
 ```{python}
 #| echo: true
-#| code-fold: true 
+#| code-fold: false
 #| fig-align: center
 
-n = 6
-fxy = np.random.rand(n ** 2)
-fxy /= fxy.sum()
-fxy = fxy.reshape(n, n)
+from scipy.stats import entropy
 
-fx = fxy.sum(axis=1)
-fy = fxy.sum(axis=0)
+# the values of the probability mass function of X are stored in a
+# NumPy array called `fxs`
 
-fig = plt.figure(figsize=(8, 8))
-gs = gridspec.GridSpec(2, 2, height_ratios=[1, 1.5])
+print(f"The probability mass function f(x) of X is:\n")
+for x, p in enumerate(fxs):
+  print(f"    f({x+1}) =", round(p, 3))
+print(f"\nThe entropy H(X) is {entropy(fxs):.3f}.")
+```
 
-ax1 = fig.add_subplot(gs[0, 0])
-ax1.bar(range(n), fx, width=0.4, zorder=2)
-ax1.set_xlabel(r"$x$")
-ax1.set_ylabel("probability")
-ax1.set_title(r"marginal distribution $f(x)$")
+We can use the `quad` method in the `integrate` submodule of `SciPy` to compute differential entropies. For the "exam score" random variable $Y$, we compute:
 
-ax2 = fig.add_subplot(gs[0, 1], sharex=ax1, sharey=ax1)
-ax2.bar(range(n), fy, width=0.4, zorder=2)
-ax2.set_xlabel(r"$y$")
-ax2.set_ylabel("probability")
-ax2.set_title(r"marginal distribution $f(y)$")
+```{python}
+#| echo: true
+#| code-fold: false
+#| fig-align: center
 
-ax3 = fig.add_subplot(gs[1,:])
-sns.heatmap(fxy.T, annot=True, fmt=".3f", cmap=heatmap_cmap, linewidth=8, linecolor=grey, zorder=2, cbar_kws={'label': 'probability'}, ax=ax3)
-ax3.invert_yaxis()
-ax3.set_xlabel(r"$x$")
-ax3.set_ylabel(r"$y$")
-ax3.set_title(r"joint distribution $f(x,y)$")
+from scipy.integrate import quad
 
+# the probability density function of Y is implemented as
+# the function `fy`
+
+diff_entropy, _ = quad(func=lambda y: -fy(y) * np.log(fy(y)), a=0, b=1)
+print(f"The differential entropy H(Y) is {diff_entropy:.3f}.")
+```
+
+Notice, in particular, that $H(Y)$ is negative!
+
+## Kullback Leibler divergence and mutual information
+
+Our aim in this section is to devise some sort of method for comparing the “distance” between two probability measures. The technique that we discover will have tight connections with the entropies studied in the previous section, but the first part of this section is largely independent of the previous. The link with entropy will come later.
+
+By way of motivation, we consider two probability measures on a single **finite** probability space $\Omega$, so that the two measures have mass functions $f(\omega)$ and $g(\omega)$. The basic metric that we use to compare them is the mean *logarithmic relative magnitude*. To define it, we first define the *absolute relative magnitude* of the probability $f(\omega)$ to the probability $g(\omega)$ as the ratio $f(\omega)/g(\omega)$. Then, _logarithmic relative magnitude_ refers to the base-$10$ logarithm of the absolute relative magnitude:
+
+$$
+\log_{10}\left( \frac{f(\omega)}{g(\omega)} \right).
+$$
+
+The intuition for this number is that it is the _order_ of the absolute relative magnitude; indeed, if we have $f(\omega) \approx 10^k$ and $g(\omega) \approx 10^l$, then the logarithmic relative magnitude is roughly the difference $k-l$.
+
+Perhaps the most obvious immediate benefit of introducing the logarithm is that it yields a workable number when $f(\omega)$ and $g(\omega)$ each have widely different magnitudes. For example, let's suppose that the mass functions $f(\omega)$ and $g(\omega)$ are given by
+
+$$
+f(\omega) = \binom{10}{\omega} (0.4)^\omega(0.6)^{10-\omega} \quad \text{and} \quad g(\omega) = \binom{10}{\omega} (0.9)^\omega(0.1)^{10-\omega}
+$$
+
+for $\omega\in \{0,1,\ldots,10\}$. These are the mass functions of a $\Bin(10,0.4)$ and $\Bin(10,0.9)$ random variable, respectively. We then plot histograms for these mass functions, along with histograms of the absolute and logarithmic relative magnitudes:
+
+```{python}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+omegas = np.arange(0, 11)
+p = binom(n=10, p=0.4).pmf(omegas)
+q = binom(n=10, p=0.9).pmf(omegas)
+titles = ['$f(\\omega)$', '$g(\\omega)$', '$\\frac{f(\\omega)}{g(\\omega)}$', '$\\log_{10}\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$']
+probs = [p, q, p / q, np.log10(p / q)]
+ylims = [(0, 0.4), (0, 0.4), (-50, 0.75e8), (-5, 10)]
+
+fig, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 5), sharex=True)
+
+for title, prob, ylim, axis in zip(titles, probs, ylims, axes.flatten()):
+    axis.bar(omegas, prob, width=0.4, zorder=2)
+    axis.set_xticks(ticks=omegas)
+    axis.set_ylim(ylim)
+    axis.set_title(title)
+    
+
+fig.supxlabel("$\\omega$")
 plt.tight_layout()
-plt.subplots_adjust(wspace=0.4, hspace=0.4)
+plt.subplots_adjust(hspace=0.5)
 plt.show()
 
 ```
+
+The second row in the figure drives home the point: the absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.
+
+We obtain a single-number summary of the logarithmic relative magnitudes by averaging with weights drawn from the mass function $f(\omega)$; this yields the number
+
+$$
+\sum_{\omega\in \Omega} f(\omega) \log_{10}\left( \frac{f(\omega)}{g(\omega)} \right).
+$$ {#eq-first-kl-eq}
+
+Observe that we could have drawn the averaging weights instead from the mass function $g(\omega)$ to obtain the single-number summary
+
+$$
+\sum_{\omega\in \Omega} g(\omega) \log_{10}\left( \frac{f(\omega)}{g(\omega)} \right).
+$$ {#eq-second-kl-eq}
+
+But notice that
+
+$$
+\sum_{\omega\in \Omega} g(\omega) \log_{10}\left( \frac{f(\omega)}{g(\omega)} \right) = - \sum_{\omega\in \Omega} g(\omega) \log_{10}\left( \frac{g(\omega))}{f(\omega)} \right),
+$$
+
+where the right-hand side is the negative of a number of the form ([-@eq-first-kl-eq]). So, at least up to sign, it doesn't really matter which of the two numbers ([-@eq-first-kl-eq]) or ([-@eq-second-kl-eq]) that we use to develop our theory. Our choice of ([-@eq-first-kl-eq]) has the benefit of making the KL divergence nonnegative when the distributions are discrete. Moreover, we can also alter the base of the logarithm in ([-@eq-first-kl-eq]) without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-$e$ natural logarithm to make the link with entropy, though the base-$2$ binary logarithm is another common choice.
 
 
 ```{python}
@@ -322,36 +480,43 @@ plt.show()
 #| code-fold: true
 #| fig-align: center
 
-fig, axes = plt.subplots(nrows=2, ncols=3, sharey=True, sharex=True)
-conditionals = []
+def f(y, x):
+  return beta.pdf(x=y, a=x, b=3)
 
-for x, ax in enumerate(axes.flatten()):
-  f_y_given_x = fxy[x, :] / fxy[x, :].sum()
-  conditionals.append(f_y_given_x)
-  ax.bar(range(n), f_y_given_x, width=0.4, zorder=2)
-  ax.set_xticks(range(n))  
-  ax.set_xticklabels(range(n))
-  ax.set_title(rf"$x={x}$")
+def integrand(y, x1, x2):
+  return f(y, x1) * np.log(f(y, x1) / f(y, x2))
+
+KL_div = np.empty(5)
+for x in range(5):
+  KL_div[x], _ = quad(func=integrand, args=(1, x+2), a=0, b=1)
+
+fig = plt.figure(figsize=(8, 5))
+gs = gridspec.GridSpec(2, 6, figure=fig)
+ax1 = fig.add_subplot(gs[0, 0:2])
+ax2 = fig.add_subplot(gs[0, 2:4])
+ax3 = fig.add_subplot(gs[0, 4:6])
+ax4 = fig.add_subplot(gs[1, 1:3])
+ax5 = fig.add_subplot(gs[1, 3:5])
+axes = [ax1, ax2, ax3, ax4, ax5]
+
+for x, ax in enumerate(axes):
+  ax.plot(grid, f(grid, 1), color=blue, zorder=2, label="x = 1")
+  ax.fill_between(grid, f(grid, 1), zorder=2, color=blue, alpha=0.1)
+  ax.plot(grid, f(grid, x+2), color=yellow, zorder=2, label=f"x = {x+2}")
+  ax.fill_between(grid, f(grid, x+2), zorder=2, color=yellow, alpha=0.1)
+  # kl_line = ax.plot([], [], " ", label=f"KL={KL_div[x]:.3f}")[0]
+  ax.set_title(f"KL = {KL_div[x]:.3f}")
+  ax.set_ylim(0, 4)
+  ax.legend(loc="upper right")
   
-fig.supxlabel(r"$y$")
-fig.supylabel("probability")
-fig.suptitle(r"conditional distributions $f(y\mid x)$")
-
+plt.suptitle(r"KL divergences from $f(y|x=1)$ to $f(y|x)$ for each of $x=2,3,4,5,6$")
 plt.tight_layout()
-plt.subplots_adjust(hspace=0.8)
+plt.subplots_adjust(hspace=0.5)
 plt.show()
 
 ```
 
-```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
 
-info = entropy(fy) - sum([entropy(f_y_given_x) * fx[x] for x, f_y_given_x in enumerate(conditionals)])
-print(f"The mutual information is I(X,Y) = {info:.4f}.")
-
-```
 
 
 ## Mutual information of jointly normal random variables
@@ -451,3 +616,7 @@ plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=T
 
 
 ## Conclusion
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vehicula, justo at laoreet tincidunt, odio nisl dapibus ligula, a tincidunt nisi lectus ut lorem. Sed ut purus vitae nibh tempor feugiat. Curabitur malesuada, erat sit amet tincidunt faucibus, erat ligula hendrerit nunc, ut pretium ligula magna vel justo. Integer nec semper sapien, ut tincidunt ex. Phasellus sit amet urna vitae urna mollis fermentum. Praesent non lectus ac augue posuere convallis.
+
+## Bibliography

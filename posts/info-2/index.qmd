@@ -1,18 +1,11 @@
 ---
-title: "Information theory II: sigma-algebras, gambling, and stock prices"
+title: "Information theory II: sigma-algebras"
 date: "2025-10-01"
 toc: true
-categories: [Probability theory, Measure theory, Sigma-algebras, Information theory, Mathematical finance, Gambling, Binomial pricing model, Options pricing, R]
+categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, R]
 image: "thumbnail.svg"
 draft: true
 ---
-
-<!-- To-do:
-
-1. Talk about largest and smallest $\sigma$-algebras.
-2. Insert an example.
-3. 
--->
 
 ::: {.content-hidden}
 $$

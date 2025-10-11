@@ -1,18 +1,11 @@
 ---
-title: "Information theory III: conditional quantities and martingales"
+title: "Information theory III: Conditional expectations & Hilbert space projections"
 date: "2025-10-02"
 toc: true
-categories: [Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Information theory, Mathematical finance, Gambling, Martingales, Binomial pricing model, Options pricing, R]
+categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Information theory, R]
 image: "thumbnail.svg"
 draft: true
 ---
-
-<!-- To-do:
-
-1. Talk about largest and smallest $\sigma$-algebras.
-2. Insert an example.
-3. 
--->
 
 ::: {.content-hidden}
 $$
