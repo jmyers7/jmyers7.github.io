@@ -1,0 +1,65 @@
+---
+title: "Gambling & martingales"
+date: "2025-10-02"
+toc: true
+categories: []
+image: "thumbnail.svg"
+draft: true
+---
+
+<!-- To-do:
+
+1. Talk about largest and smallest $\sigma$-algebras.
+2. Insert an example.
+3. 
+-->
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+## Introduction
+
+```{r}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+library(ggplot2)
+library(latex2exp)
+library(StochasticProcesses)
+source("../../aux-files/custom-theme.R")
+set.seed(42)
+
+yellow <- custom_colors[["yellow"]]
+blue <- custom_colors[["blue"]]
+pink <- custom_colors[["pink"]]
+grey <- custom_colors[["grey"]]
+theme_set(custom_theme())
+
+```
+
+```{r}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+#| fig-height: 4
+
+theta <- 0.45
+T <- 1000
+a <- 90
+n_traj <- 5
+
+process <- ThreeWinStreakSelection$new(theta, T, n_traj, a, random_state = 42)
+
+custom_colors <- colorRampPalette(c(yellow, pink, blue))(n_traj)
+
+ ggplot(data = process$trajectories, mapping = aes(x = t, y = X, group = traj_id, color = traj_id)) +
+  geom_line(show.legend = FALSE, ) +
+  geom_point(data = process$end_states, mapping = aes(x = t, y = X, color = traj_id), size = 2, show.legend = FALSE) +
+  scale_color_manual(values = custom_colors) +
+  labs(x = "t", y = "X", title = "5 simulated runs of 1000 games\nw/3-in-a-row selection strategy")
+
+```

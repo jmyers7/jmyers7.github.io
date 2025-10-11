@@ -1,9 +1,9 @@
 ---
-title: "Sigma-algebras & information I: gambling and stock prices"
-date: "2025-09-30"
+title: "Information theory II: sigma-algebras, gambling, and stock prices"
+date: "2025-10-01"
 toc: true
 categories: [Probability theory, Measure theory, Sigma-algebras, Information theory, Mathematical finance, Gambling, Binomial pricing model, Options pricing, R]
-image: "thumbnail.png"
+image: "thumbnail.svg"
 draft: true
 ---
 
@@ -256,6 +256,28 @@ $$
 $$
 	
 captures a distinct level of information about the outcome $\omega_0$. This nested structure provides a simple model of *learning over time*: as the experiment unfolds and the observer acquires new data, their algebra of decidable events expands, splitting sets of previously indistinguishable outcomes into finer partitions—until, at last, $\calF_3$ represents complete knowledge of $\omega_0$.
+
+## Entropy relative to a $\sigma$-algebra
+
+::: {#def-rel-entropy}
+Let $(\Omega,\calF,P)$ be a probability space, let $\calG$ be a sub-$\sigma$-algebra of $\calF$, and suppose the natural projection map $\pi: \Omega \to \Omega/\calG$ is measurable, where the quotient $\Omega/\calG$ is equipped with its power set $\sigma$-algebra. Then we define the *conditional entropy of $P$ given $\calG$* to be the quantity
+
+$$
+H(P\mid \calG) \defeq \int_{\Omega} (S_{\pi_\ast P} \circ \pi) \ dP,
+$$
+
+where $S_{\pi_\ast P}:\Omega/\calG \to [0,1]$ is the surprisal function of the pushforward probability measure $\pi_\ast P$ on the quotient $\Omega/\calG$.
+:::
+
+We define the mutual information
+
+$$
+I(P;\calF,\calG) = H(P\mid \calF) - H(P\mid \calG).
+$$
+
+
+
+
 
 ## Partitions and algebras
 

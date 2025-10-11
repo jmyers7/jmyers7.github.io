@@ -1,9 +1,9 @@
 ---
-title: "Sigma-algebras & information II: martingales"
-date: "2025-09-30"
+title: "Information theory III: conditional quantities and martingales"
+date: "2025-10-02"
 toc: true
 categories: [Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Information theory, Mathematical finance, Gambling, Martingales, Binomial pricing model, Options pricing, R]
-image: "thumbnail.png"
+image: "thumbnail.svg"
 draft: true
 ---
 

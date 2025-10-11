@@ -1,5 +1,5 @@
 ---
-title: "Entropy, surprise, and information"
+title: "Information theory I: entropy and surprise"
 date: "2025-09-30"
 toc: true
 categories: [Information theory, Entropy, Surprisal, Mutual information, Machine learning, Python, SciPy]

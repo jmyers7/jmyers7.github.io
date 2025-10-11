@@ -1,0 +1,402 @@
+---
+title: "Information theory II: sigma-algebras, gambling, and stock prices"
+date: "2025-10-01"
+toc: true
+categories: [Probability theory, Measure theory, Sigma-algebras, Information theory, Mathematical finance, Gambling, Binomial pricing model, Options pricing, R]
+image: "thumbnail.png"
+# draft: true
+---
+
+<!-- To-do:
+
+1. Talk about largest and smallest $\sigma$-algebras.
+2. Insert an example.
+3. 
+-->
+
+::: {.content-hidden}
+$$
+\newcommand{\annu}[3]{\require{enclose} #1_{\enclose{actuarial}{#2}\, #3}}
+\newcommand{\defeq}{\overset{\text{def}}{=}}
+
+\newcommand{\be}{\boldsymbol{E}}
+
+\newcommand{\Ber}{\mathcal{B}er}
+\newcommand{\Bin}{\mathcal{B}in}
+
+\newcommand{\bbr}{\mathbb{R}}
+
+\newcommand{\vecmu}{\boldsymbol{\mu}}
+\newcommand{\vecSigma}{\boldsymbol{\Sigma}}
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calx}{\mathcal{X}}
+\newcommand{\caly}{\mathcal{Y}}
+
+\newcommand{\mfb}{\mathfrak{B}}
+\newcommand{\mfM}{\mathfrak{M}}
+\newcommand{\mfN}{\mathfrak{N}}
+\newcommand{\mfP}{\mathfrak{P}}
+
+$$
+:::
+
+## Introduction
+
+## Algebras as information carriers
+
+An observer monitors the result of some experiment. The set of all possible results is collected into a *sample space* $\Omega$, whose elements $\omega$ are called *outcomes* or *sample points*. Suppose that the experiment is finished, so that a definite $\omega_0$ in $\Omega$ is produced, but that the exact identity of $\omega_0$ remains unknown to the observer. However, suppose that the observer has access to a set $\calF$ of subsets of $\Omega$ with the following property:
+
+::: {.callout-tip appearance="minimal"}
+For each $A\in \calF$, the observer can **decide** whether $\omega_0\in A$ or not.
+:::
+
+The observer’s decisions reflect the information they possess, so we can treat the class $\calF$ as a proxy for that information. Sets in $\calF$ are called (*decidable*) *events*. If the observer confirms that $\omega_0\in A$ for some $A\in \calF$, then we say that "the event $A$ has occurred".
+
+It is never in question that $\omega_0\in \Omega$, since the same space $\Omega$ contains all possible outcomes, so it is natural to include $\Omega$ in the class $\calF$ of decidable events. But what other properties must $\calF$ have?
+
+1. If the observer can determine whether an event $A$ has occurred, then they obviously can determine whether $A$ did *not* occur. This means that if $A\in \calF$, then $A^c \in \calF$ too. [Here, $A^c$ is the *absolute complement* of $A$, consisting of those $\omega\in \Omega$ that are not in $A$.]{.aside}
+
+2. If the observer can determine separately whether events $A$ and $B$ have occurred, then they can determine whether $A$ *or* $B$ has occurred. Since $A\cup B$ consists of those outcomes that are either in $A$ or $B$, this means that $A\cup B$ must be in $\calF$ when both $A$ and $B$ are.
+
+3. Similarly, if the observer can determine separately whether events $A$ and $B$ have occurred, then they can determine whether $A$ *and* $B$ has occurred. This implies that $\calF$ must contain the intersection $A\cap B$ whenever it contains both $A$ and $B$.
+
+These three properties capture what it means for the observer's collection of events $\calF$ to represent a logically coherent state of information. They lead us naturally to the formal definition of an *algebra* of sets. [Actually, we need not explicitly require that $\calF$ contains all (binary) intersections of events, since this follows from properties (1) and (2). Note also that $\calF$ must contain the empty set, since it contains $\Omega$ and is closed under complements.]{.aside}
+
+::: {#def-algebra}
+Let $\calF$ be a set of subsets of a set $\Omega$. Then $\calF$ is called an *algebra* of sets (in $\Omega$) if it has the following properties:
+
+1. It contains $\Omega$.
+
+2. It is closed under (absolute) complementation:
+
+  $$
+  A\in \calF \quad \Rightarrow \quad A^c\in \calF.
+  $$
+
+3. It is closed under binary unions: 
+
+  $$
+  A_1, A_2\in \calF \quad\Rightarrow \quad A_1 \cup A_2 \in \calF.
+  $$
+
+:::
+
+We have thus argued that our class $\calF$ of decidable events---encoding our observer's information---must be an algebra of sets in the sample space $\Omega$.
+
+As we indicated in the margin note above, algebras of sets are also closed under binary intersections. Moreover, an easy inductive proof shows that algebras are also closed under all finite unions and intersections, not just binary ones. In this post we’ll stick to finite sample spaces, but in the infinite case one usually strengthens these closure properties to include *countable* unions, yielding *$\sigma$-algebras* of sets.
+
+## Example: coin tosses
+
+In practice, the information encoded in $\calF$ is often most naturally described by a *partition* that generates it. A partition is a collection of sets
+
+$$
+\{A_1,A_2,\ldots,A_n\}
+$$
+
+where each $A_k \subset \Omega$, the sets $A_k$​ are mutually disjoint, and their union exhausts the sample space: $\Omega = \bigcup_{k=1}^n A_k$​.
+
+The intuition is simple: an observer's information typically comes from knowing the answer to some question. Each possible answer groups together certain outcomes, and these groups form a partition of $\Omega$. The algebra $\calF$ is then the smallest algebra containing all sets in this partition. We will study partitions in more detail in the next section, but for now we see how it works in a simple example.
+
+We consider the sample space $\Omega$ consisting of all binary sequences of length 3:
+
+$$
+\Omega = \{000, 001, 010, 011, 100, 101, 110, 111\}.
+$$
+
+We imagine that a binary sequence $\omega$ in $\Omega$ represents the result of flipping a coin three times in succession, with $0$ when a tail occurs, and $1$ when a head is shown. We let $X_i(\omega)$ denote the result of the $i$-th flip in $\omega$ (so $X_i(\omega)=0$ or $1$), and we write
+
+$$
+Y = X_1 + X_2 + X_3.
+$$
+
+The four functions $X_1$, $X_2$, $X_3$, and $Y$ are, of course, random variables on $\Omega$. If the coin has probability $\theta$ of showing heads, then $X_i \sim \Ber(\theta)$ for each $i$, and $Y\sim \Bin(3,\theta)$.
+
+We will be carrying out some basic computations later, so let's implement our scenario in the machine, by coding a data frame in which each row represents an outcome $\omega$:
+
+```{r}
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+library("ggplot2")
+library("knitr")
+library("dplyr")
+library("latex2exp")
+
+source("../../aux-files/custom-theme.R")
+set.seed(42)
+yellow <- custom_colors[["yellow"]]
+blue <- custom_colors[["blue"]]
+pink <- custom_colors[["pink"]]
+grey <- custom_colors[["grey"]]
+theme_set(custom_theme())
+
+```
+
+```{r}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+Omega <- data.frame(
+  X1 = c(0, 0, 0, 0, 1, 1, 1, 1),
+  X2 = c(0, 0, 1, 1, 0, 0, 1, 1),
+  X3 = c(0, 1, 0, 1, 0, 1, 0, 1)
+)
+
+Omega <- Omega %>% 
+  mutate(Y = X1 + X2 + X3)
+
+kable(Omega, caption = "sample space $\\Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$")
+
+```
+
+<br>
+
+Now, suppose that the coin was flipped three times, producing a definite outcome $\omega_0$ in $\Omega$, but that its exact identity is unknown to our observer. The only information available is the answer to the question: "*What is the outcome of the first flip?*". This information allows the observer to partition the sample space $\Omega$ and generate an algebra $\calF_1$, just as we described at the beginning of this section.
+
+This partition consists of the sets
+
+$$
+A_1 = \{000,001,010,011\} \quad \text{and} \quad A_2 = \{100,101,110,111\},
+$$
+
+where $A_1$ contains outcomes corresponding to the answer “tail” and $A_2$ those corresponding to “head.” As you can easily check, the set
+
+$$
+\calF_1 = \{\emptyset, A_1, A_2, \Omega\}
+$$
+
+is an algebra of sets in $\Omega$.
+
+Let's insert a column in our data frame tracking the membership of each outcome $\omega$ (i.e., row) in $A_1$ or $A_2$:
+
+```{r}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+Omega <- Omega %>% 
+  group_by(X1) %>% 
+  mutate(Ai = cur_group_id()) %>% 
+  ungroup() %>% 
+  as.data.frame()
+
+kable(Omega, caption = "column Ai records the index $i$ of $A_i$")
+
+```
+
+<br>
+
+Now, suppose the observer is also given the answer to the question: “*What is the outcome of the second flip?*” Combining this with the information from the first flip, the observer can now distinguish outcomes based on the results of the first two flips. This additional information generates a finer partition of $\Omega$ and produces a second algebra $\calF_2$, which contains the first:
+
+$$
+\calF_1 \subset \calF_2.
+$$
+
+Inclusions of algebras represent *refinements* of information.
+
+The new partition consists of the sets
+
+$$
+B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 = \{110,111\},
+$$
+
+where $B_1$ corresponds to the answer “*first and second flips are both tails*”, $B_2$ to “*first flip tail, second flip head*”, and so on. The algebra that is generated by this partition is
+
+$$
+\calF_2 = \{\emptyset, B_1, B_2, B_3, B_4, B_1 \cup B_2, B_3 \cup B_4, B_1\cup B_3, B_1\cup B_4, B_2\cup B_3, B_2\cup B_4, \Omega \}.
+$$ {#eq-gend-alg}
+
+As expected, $\calF_2$ contains $\calF_1$ since $B_1\cup B_2 = A_1$ and $B_3\cup B_4 = A_2$, reflecting that the observer’s information has been refined.
+
+Let's insert our new algebra into the machine:
+
+```{r}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+Omega <- Omega %>% 
+  group_by(X1, X2) %>% 
+  mutate(Bi = cur_group_id()) %>% 
+  ungroup() %>% 
+  as.data.frame()
+
+kable(Omega, caption = "column Bi records the index $i$ of $B_i$")
+
+```
+
+<br>
+
+Finally, suppose the observer is given the answer to the question: “*What is the outcome of the third flip?*” With this information, the observer can now distinguish outcomes based on all three flips, completely specifying $\omega_0$. This generates the finest partition of $\Omega$ and produces a third algebra $\calF_3$, which refines the information in $\calF_2$ (and thus also $\calF_1$):
+
+$$
+\calF_1 \subset \calF_2 \subset \calF_3.
+$$
+
+The new partition must contain the eight singletons
+
+$$
+\begin{gather*}
+C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
+C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
+\end{gather*}
+$$
+
+where each $C_i$ corresponds to the answer to the question, “*Which sequence of heads and tails occurred in all three flips?*”. Knowing which singleton contains $\omega_0$ completely identifies the outcome. To form an algebra, $\calF_3$ must include not only these singletons but also all possible unions of them; in other words, $\calF_3$ is the power set of $\Omega$, containing all subsets of the sample space.
+
+We insert one last column in our data frame for the $C_i$'s:
+
+```{r}
+#| echo: true
+#| code-fold: true 
+#| fig-align: center
+
+Omega <- Omega %>% 
+  group_by(X1, X2, X3) %>% 
+  mutate(Ci = cur_group_id()) %>% 
+  ungroup() %>% 
+  as.data.frame()
+
+kable(Omega, caption = "column Ci records the index $i$ of $C_i$")
+
+```
+
+<br>
+
+To recap, the sets $A_k$, $B_k$, and $C_k$ form partitions of $\Omega$, with each successive partition being finer than the last: each $A_k$ is a union of $B_k$'s, and each $B_k$ is a union of $C_k$'s. These sets are also the *atoms* of their respective algebras, meaning they do not properly contain any nonempty subset in the corresponding algebra.
+
+Two outcomes $\omega_1$ and $\omega_2$ in the same $A_k$ are *indistinguishable* using only the information in $\calF_1$. Likewise, outcomes in the same $B_k$ are indistinguishable with respect to $\calF_2$. The $C_k$, by contrast, correspond to *complete* information in $\calF_3$, so no ambiguity remains.
+
+Each algebra in the chain of inclusions
+
+$$
+\calF_1 \subset \calF_2 \subset \calF_3
+$$
+	
+captures a distinct level of information about the outcome $\omega_0$. This nested structure provides a simple model of *learning over time*: as the experiment unfolds and the observer acquires new data, their algebra of decidable events expands, splitting sets of previously indistinguishable outcomes into finer partitions—until, at last, $\calF_3$ represents complete knowledge of $\omega_0$.
+
+## Partitions and algebras
+
+In this section, we nail down the ideas from the previous section on partitions and algebras and highlight four useful theorems connecting them. Some proofs get a bit technical, so feel free to skim and focus on the statements. For simplicity, we stick to finite sets $\Omega$, though many results hold for infinite sets too.
+
+So, let $\Omega$ be a finite set and $\calF$ an algebra of sets in $\Omega$. Indistinguishability of two elements $\omega$ and $\omega'$ of $\Omega$ (relative to $\calF$) occurs exactly when we have
+
+$$
+\omega \in A \quad \Leftrightarrow \quad \omega' \in A, \quad \forall A\in \calF.
+$$ {#eq-equiv-rel}
+
+Elements $\omega$ and $\omega'$ related in this way will be called *$\calF$-equivalent*.
+
+This notion of equivalence is evidently an [equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation){target="_blank"} in the technical sense, and thus we obtain a partition of $\Omega$ into the distinct equivalence classes. These equivalence classes are actually themselves contained in $\calF$, since $\calF$ is closd under intersections. In fact, if $E$ is an equivalence class containing an outcome $\omega\in \Omega$, then $E$ is the intersection of all $A\in \calF$ that contain $\omega$:
+
+$$
+E = \bigcap_{\omega \in A \in \calF} A.
+$$
+
+(Verification of this equality is left to the reader.) But even more than being elements of $\calF$, these equivalence classes are *atomic* in the sense of the following definition.
+
+::: {#def-atom}
+Let $\calF$ be an algebra of sets in a finite set $\Omega$. A set $A\in \calF$ is called an *atom* if it is *non-reducible*, in the sense that $A$ contains no nonempty subset of $\calF$ other than itself.
+:::
+
+::: {#thm-atom}
+## Atomic theorm
+Let $\calF$ be an algebra of sets in a finite set $\Omega$.
+
+1. There exists a partition $\calA$ of $\Omega$ consisting entirely of atoms in $\calF$. In fact, $\calA$ may be chosen to consist of the distinct $\calF$-equivalence classes.
+
+2. If $\calA$ is a partition of $\Omega$ consisting of atoms in $\calF$, then every set in $\calF$ is a union of atoms in $\calA$.
+
+3. Let $\calA$ and $\calB$ be two partitions of $\Omega$ consisting of atoms in $\calF$. Then $\calA = \calB$.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+(1): Since the distinct $\calF$-equivalence classes partition $\Omega$, we just need to show that a given equivalence class is non-reducible. So, let $E$ be an $\calF$-equivalence class, and suppose that $A\in \calF$ is a nonempty subset of $E$. Choose $\omega'\in A$ and $\omega \in E$. Then $\omega'\in E$ as well, and so $\omega$ and $\omega'$ are $\calF$-equivalent. But then $\omega'\in A$ implies $\omega\in A$, and since $\omega$ was an arbitrarily chosen element of $E$, we must have $E\subset A$. But $A$ began as a subset of $E$, and so $E=A$.
+
+(2): Since the atoms in $\calA$ partition $\Omega$, it will suffice to show that every nonempty set $S\in \calF$ is either disjoint from a given atom in $A\in\calA$, or $S$ contains $A$ as a subset. But if $S\cap A$ is nonempty, then we must have $S\cap A = A$ since $S\cap A\in \calF$ and $A$ is non-reducible. But then $A\subset S$, as desired.
+
+(3): First, choose an atom $A\in \calA$. Since $\calB$ is a partition of $\Omega$, there must exist a $B\in \calB$ such that $A\cap B$ is nonempty. But then
+
+$$
+A = A\cap B =B,
+$$
+
+where the first equalities follow from the fact that $A\cap B$ is in $\calF$ and non-reducibility of $A$ and $B$. Thus $A\in \calB$, which proves $\calA \subset \calB$. A symmetric argument proves the opposite containment, and hence $\calA = \calB$. <span class="qed">Q.E.D.</span>
+:::
+
+So, every algebra of sets $\calF$ in a finite set $\Omega$ naturally gives rise to a unique partition $\calA$ of $\Omega$ consisting of atoms in $\calF$. Conversely, as we saw in the coin-flip example, a given partition $\calA$ of $\Omega$ can be used to generate an algebra, which we denote by $\sigma(\calA)$. By construction, $\sigma(\calA)$ is the *smallest* algebra in $\Omega$ that contains all sets in $\calA$, i.e., $\calA \subset \sigma(\calA)$.
+
+::: {#thm-atom-gen}
+## Generating algebras via atoms
+Let $\calA$ be a partition of a finite set $\Omega$.[To see this theorem in action, I encourage you to scroll back and look at the algebra $\calF_2$ in ([-@eq-gend-alg]) in the previous section, generated by the partition $\{B_1,B_2,B_3,B_4\}$. Notice that $\calF_2$ does indeed consist of all unions of the $B_k$'s.]{.aside}
+
+1. Every set in $\sigma(\calA)$ is a union of sets in $\calA$.
+
+2. The sets in $\calA$ are atoms in the algebra $\sigma(\calA)$.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+(1): Since $\sigma(\calA)$ is an algebra, it must contain the set $\calF$ of all unions of sets in $\calA$, so we have
+
+$$
+\calA \subset \calF \subset \sigma(\calA).
+$$
+
+The point is that $\calF$ is already an algebra, and hence $\calF = \sigma(\calA)$. To prove this, note that $\Omega \in \calF$ since the union of all sets in $\calA$ is $\Omega$. Clearly $\calF$ is closed under unions, so we need only show that it is closed under absolute complements. But because the sets in $\calA$ are pairwise disjoint and their union is $\Omega$, the complement of a union of sets in $\calA$ is another set of the same form, and hence $\calF$ is indeed closed under unions. This proves the claim $\calF= \sigma(\calA)$, and thereby establishes the first statement.
+
+(2): Let $A\in \calA$ and suppose $S\in \calF$ is a nonempty subset of $A$. But then $S$ is a union of sets in $\calA$, and since the sets in $\calA$ are pairwise disjoint, we must have $S=A$. <span class="qed">Q.E.D.</span>
+:::
+
+The mapping $\calA \mapsto \sigma(\calA)$ associating every partition $\calA$ of a finite set $\Omega$ with the algebra $\sigma(\calA)$ is injective. Indeed, if $\calA$ and $\calB$ are two partitions such that $\sigma(\calA) = \sigma(\calB)$, then @thm-atom-gen shows that $\calA$ and $\calB$ are both partitions of the same algebra and both consist of atoms; then @thm-atom shows $\calA = \calB$. On the other hand, if $\calF$ is an algebra of sets in $\Omega$, then a partition $\calA$ of $\Omega$ consisting of atoms in $\calF$ exists, by @thm-atom, and all sets in $\calF$ are unions of atoms. But then $\calF = \sigma(\calA)$ by @thm-atom-gen. We have thus proved:
+
+::: {#thm-alg-part-equiv}
+## Algebras $=$ Partitions
+Let $\Omega$ be a finite set. The mapping $\calA \mapsto \sigma(\calA)$ is a bijection from the class of all partitions of $\Omega$ onto the class of all algebras of sets in $\Omega$.
+:::
+
+Finally, if $\calF$ and $\calG$ are two algebras of sets in $\Omega$, we say $\calF$ *refines* $\calG$ if $\calG \subset \calF$. As we saw in the coin-flip example, refinements of algebras corresponds to refinement of information.
+
+::: {#thm-refinement}
+## Refinement Theorem
+Let $\calF$ and $\calG$ be two algebras of sets in a finite set $\Omega$ with associated partitions $\calA$ and $\calB$ consisting of atoms, respectively. Then $\calF$ refines $\calG$ if and only if every set $B\in \calB$ is a union of sets in $\calA$.
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+First, supposing that $\calF$ refines $\calG$, we have
+
+$$
+\calB \subset \sigma(\calB) = \calG \subset \calF = \sigma(\calA),
+$$
+
+where the two equalities follow from @thm-alg-part-equiv. The desired conclusion then follows from part (1) of @thm-atom-gen. Conversely, if every $B\in \calB$ is a union of sets in $\calA$, then we get the subset containment in
+
+$$
+\calB \subset \sigma(\calA) = \calF,
+$$
+
+while the equality again follows from @thm-alg-part-equiv. But then
+
+$$
+\calG = \sigma(\calB ) \subset \calF,
+$$
+
+where the equality follows (one more time) from @thm-alg-part-equiv and the subset containment from the fact $\calF$ is an algebra containing $\calB$. Thus $\calF$ refines $\calG$. <span class="qed">Q.E.D.</span>
+:::
+
+In summary, the concepts of partitions and algebras provide a precise and equivalent framework for encoding information about outcomes in a (finite) sample space $\Omega$. Each algebra corresponds to a partition of the sample space into equivalence classes of indistinguishable outcomes, and refinements of algebras correspond to finer partitions finer-grained information. This perspective immediately extends to random variables: any random variable induces a partition of $\Omega$ into *level sets* and thereby generates an algebra. In this sense, random variables can themselves be viewed as carriers of information.
+
+
