@@ -2,6 +2,7 @@
   {
     "listing": "/writings.html",
     "items": [
+      "/posts/info-1/index.html",
       "/posts/gmm-1/index.html"
     ]
   }
