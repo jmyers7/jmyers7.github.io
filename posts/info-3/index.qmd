@@ -1,6 +1,6 @@
 ---
-title: "Information theory III: Conditional expectations & Hilbert space projections"
-date: "2025-10-02"
+title: "Random variables & information"
+date: "2025-10-14"
 toc: true
 categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Information theory, R]
 image: "thumbnail.svg"

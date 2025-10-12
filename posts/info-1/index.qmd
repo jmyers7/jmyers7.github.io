@@ -1,9 +1,9 @@
 ---
-title: "Entropy, surprise & information"
+title: "Entropy & information"
 date: "2025-10-12"
 bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
-categories: [Information theory, Probability theory, Entropy, Surprisal, Mutual information, Machine learning, Python, SciPy]
+categories: [Information theory, Probability theory, Entropy, Surprisal, KL divergence, Mutual information, Python, SciPy]
 image: "thumbnail.svg"
 # draft: true
 ---
@@ -56,9 +56,15 @@ To understand this more concretely, consider what happens when you prompt an LLM
 
 The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field [see @Shannon1948], he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.
 
-This post will survey the most basic quantities of information theory: *surprisal*, *entropy*, and *mutual information*. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the *entropy*, which quantifies the overall uncertainty in a probability distribution. Finally, *mutual information* applies to two random variables $X$ and $Y$ with a joint distribution. It measures how much observing $X$ reduces the uncertainty (entropy) in $Y$ on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.
+Interestingly, Shannon’s notion of entropy has deep connections to the concept of entropy in statistical mechanics and thermodynamics. In 1957, E. T. Jaynes famously formalized this connection in his influential paper [@Jaynes1957], where he wrote:
 
-This post is the first in a series on *information*. Future posts will examine other ways the concept of information manifests, for example through $\sigma$-algebras, and how these ideas connect to the probabilistic models commonly used in machine learning. I have discussed information theory previously in a [chapter](https://johnmyers-phd.com/book/chapters/09-info-theory.html){target="_blank"} of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.
+> "The mere fact that the same mathematical expression $-\sum p_i \log{p_i}$ [for entropy] occurs both in statistical mechanics and in information theory does not in itself establish any connection between these fields. This can be done only by finding new viewpoints from which thermodynamic entropy and information-theory entropy appear as the *same* concept. In this paper we suggest a reinterpretation of statistical mechanics which accomplishes this, so that information theory can be applied to the problem of justification of statistical mechanics.""
+
+Even my undergraduate thermodynamics textbook devoted an entire chapter to Shannon's information theory, emphasizing how these mathematical ideas provide a unifying perspective across seemingly different domains.
+
+We will begin by surveying the most basic quantities of information theory: *surprisal*, *entropy*, *Kullback–Leibler (KL) divergence*, and *mutual information*. *Surprisal* is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the *entropy*, which quantifies the overall uncertainty in a probability distribution. The *KL divergence* measures how one probability distribution differs from another, capturing the “distance” between them. *Mutual information* can be viewed as a special kind of KL divergence applied to two random variables, $X$ and $Y$: it measures how much observing $X$ reduces the uncertainty (entropy) in $Y$ on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.
+
+This post is the first in a series on *information*. In future posts, we will explore other ways the concept of information appears—for example, through $\sigma$-algebras—and apply these ideas to a range of problems, from gambling strategies and games of chance (the historical origin of mathematical probability theory), to options pricing in mathematical finance, and to probabilistic models in machine learning. I have discussed information theory previously in a [chapter](https://johnmyers-phd.com/book/chapters/09-info-theory.html){target="_blank"} of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.
 
 ## Flows of information
 
