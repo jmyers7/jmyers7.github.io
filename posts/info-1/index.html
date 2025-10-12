@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-12">
 
-<title>Entropy, surprise &amp; information – john myers, ph.d.</title>
+<title>Entropy &amp; information – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -253,14 +253,14 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Entropy, surprise &amp; information</h1>
+<h1 class="title">Entropy &amp; information</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Information theory</div>
     <div class="quarto-category">Probability theory</div>
     <div class="quarto-category">Entropy</div>
     <div class="quarto-category">Surprisal</div>
+    <div class="quarto-category">KL divergence</div>
     <div class="quarto-category">Mutual information</div>
-    <div class="quarto-category">Machine learning</div>
     <div class="quarto-category">Python</div>
     <div class="quarto-category">SciPy</div>
   </div>
@@ -291,8 +291,13 @@ window.Quarto = {
 <p>Large language models (LLMs) like ChatGPT have brought <em>probabilistic models</em> into mainstream conversation. Unlike <em>deterministic models</em> that always produce the same output for a given input, these models generate a probability distribution over many possible outputs. <em>Information theory</em> provides the mathematical framework for understanding these distributions, and how sensitive they are to the inputs of the model.</p>
 <p>To understand this more concretely, consider what happens when you prompt an LLM. You might ask “What’s the capital of France?” and reliably get “Paris” as the answer. The model is highly confident: the output probability distribution is concentrated over the one-word output “Paris”. But if you ask “Write me a poem about autumn,” you’ll get a different response each time. Here, the probability distribution is spread across countless possible poems, each with some small probability of being generated. In the first case, the model is <em>certain</em>, reflected in the strongly peaked output distribution, while in the latter case it is <em>uncertain</em>, reflected in the highly dispersed output distribution. The input to the model (i.e., the prompt) thus has a strong effect on the certainty in the output distribution.</p>
 <p>The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field <span class="citation" data-cites="Shannon1948">(see <a href="#ref-Shannon1948" role="doc-biblioref">Shannon 1948</a>)</span>, he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.</p>
-<p>This post will survey the most basic quantities of information theory: <em>surprisal</em>, <em>entropy</em>, and <em>mutual information</em>. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the <em>entropy</em>, which quantifies the overall uncertainty in a probability distribution. Finally, <em>mutual information</em> applies to two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with a joint distribution. It measures how much observing <span class="math inline">\(X\)</span> reduces the uncertainty (entropy) in <span class="math inline">\(Y\)</span> on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.</p>
-<p>This post is the first in a series on <em>information</em>. Future posts will examine other ways the concept of information manifests, for example through <span class="math inline">\(\sigma\)</span>-algebras, and how these ideas connect to the probabilistic models commonly used in machine learning. I have discussed information theory previously in a <a href="https://johnmyers-phd.com/book/chapters/09-info-theory.html" target="_blank">chapter</a> of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.</p>
+<p>Interestingly, Shannon’s notion of entropy has deep connections to the concept of entropy in statistical mechanics and thermodynamics. In 1957, E. T. Jaynes famously formalized this connection in his influential paper <span class="citation" data-cites="Jaynes1957">(<a href="#ref-Jaynes1957" role="doc-biblioref">Jaynes 1957</a>)</span>, where he wrote:</p>
+<blockquote class="blockquote">
+<p>“The mere fact that the same mathematical expression <span class="math inline">\(-\sum p_i \log{p_i}\)</span> [for entropy] occurs both in statistical mechanics and in information theory does not in itself establish any connection between these fields. This can be done only by finding new viewpoints from which thermodynamic entropy and information-theory entropy appear as the <em>same</em> concept. In this paper we suggest a reinterpretation of statistical mechanics which accomplishes this, so that information theory can be applied to the problem of justification of statistical mechanics.””</p>
+</blockquote>
+<p>Even my undergraduate thermodynamics textbook devoted an entire chapter to Shannon’s information theory, emphasizing how these mathematical ideas provide a unifying perspective across seemingly different domains.</p>
+<p>We will begin by surveying the most basic quantities of information theory: <em>surprisal</em>, <em>entropy</em>, <em>Kullback–Leibler (KL) divergence</em>, and <em>mutual information</em>. <em>Surprisal</em> is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the <em>entropy</em>, which quantifies the overall uncertainty in a probability distribution. The <em>KL divergence</em> measures how one probability distribution differs from another, capturing the “distance” between them. <em>Mutual information</em> can be viewed as a special kind of KL divergence applied to two random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>: it measures how much observing <span class="math inline">\(X\)</span> reduces the uncertainty (entropy) in <span class="math inline">\(Y\)</span> on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.</p>
+<p>This post is the first in a series on <em>information</em>. In future posts, we will explore other ways the concept of information appears—for example, through <span class="math inline">\(\sigma\)</span>-algebras—and apply these ideas to a range of problems, from gambling strategies and games of chance (the historical origin of mathematical probability theory), to options pricing in mathematical finance, and to probabilistic models in machine learning. I have discussed information theory previously in a <a href="https://johnmyers-phd.com/book/chapters/09-info-theory.html" target="_blank">chapter</a> of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.</p>
 </section>
 <section id="flows-of-information" class="level2">
 <h2 class="anchored" data-anchor-id="flows-of-information">Flows of information</h2>
@@ -336,7 +341,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 \]</span></p>
 <p>We will return to an information-theoretic treatment of linear regression (and other) models in a later post.</p>
 <p>For now, let’s see all this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with its full distribution (mass function <span class="math inline">\(f(x)\)</span>) shown below:</p>
-<div id="3e2d6562" class="cell" data-execution_count="2">
+<div id="52bc5715" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
@@ -363,7 +368,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>We might reasonably believe that <span class="math inline">\(X\)</span> is predictive of <span class="math inline">\(Y\)</span>, the exam score of a randomly chosen student, taking continuous values in the interval <span class="math inline">\([0,1]\)</span>, understood as percentages. The corresponding marginal density <span class="math inline">\(f(y)\)</span> is shown below:</p>
-<div id="231a08da" class="cell" data-execution_count="3">
+<div id="35075d52" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy(y):</span>
@@ -390,7 +395,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
-<div id="a7f037cc" class="cell" data-execution_count="4">
+<div id="5d239d77" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
@@ -416,7 +421,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>Dividing the joint mass/density <span class="math inline">\(f(x,y)\)</span> by the marginal mass <span class="math inline">\(f(x)\)</span> yields the conditional densities <span class="math inline">\(f(y|x)\)</span>. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to <span class="math inline">\(1\)</span> over <span class="math inline">\([0,1]\)</span>. They are shown in:</p>
-<div id="4697815d" class="cell" data-execution_count="5">
+<div id="9c74229c" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
@@ -464,7 +469,7 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 <h2 class="anchored" data-anchor-id="surprisal-and-entropy">Surprisal and entropy</h2>
 <p>As mentioned in the introduction, <em>entropy</em> measures the uncertainty in the outcome of a random variable. More precisely, it is the average <em>surprisal</em> of an observation. Surprisal varies inversely with probability: large probabilities yield small surprisals, and small probabilities yield large ones.</p>
 <div class="page-columns page-full"><p>This inverse relationship is given by the function <span class="math inline">\(s = -\log{p}\)</span>, linking a probability <span class="math inline">\(p\in [0,1]\)</span> with a <em>surprisal</em> <span class="math inline">\(s\in [0,\infty)\)</span>. The graph of this relationship is shown in:</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We write <span class="math inline">\(\log\)</span> for the base-<span class="math inline">\(e\)</span> logarithm.</span></div></div>
-<div id="85a77c9d" class="cell" data-execution_count="6">
+<div id="44b5e6e0" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mesh <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">1</span>, num<span class="op">=</span><span class="dv">100</span>)</span>
@@ -508,7 +513,7 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 </div>
 </div>
 <p>For a simple example of the relationship between discrete probabilities and surprisals, let’s bring back our random variable <span class="math inline">\(X\)</span> from the previous section, which tallied the number of hours a randomly chosen student studied for the upcoming exam:</p>
-<div id="c4307b1b" class="cell" data-execution_count="7">
+<div id="2b747b44" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -536,7 +541,7 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 </div>
 </div>
 <p>Because a probability density (mass) function of a discrete random variable must take values in <span class="math inline">\([0,1]\)</span>, its surprisal function is never negative. However, the probability density function of a continuous random variable <em>may</em> take on values larger than <span class="math inline">\(1\)</span>, which means that the associated surprisal density function can be negative. This can be seen for the continuous random variable <span class="math inline">\(Y\)</span> from the previous section, whose density can exceed <span class="math inline">\(1\)</span> in regions of high concentration—hence its surprisal can dip below zero.</p>
-<div id="20585819" class="cell" data-execution_count="8">
+<div id="0e0542ae" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -599,7 +604,7 @@ H(X) = \int f(x) s(x) \ dx = - \int f(x) \log{f(x)} \ dx,
 \]</span></p>
 <p>where, by convention, <span class="math inline">\(\int\)</span> denotes integration over <span class="math inline">\(\mathbb{R}\)</span>. In the literature, the entropy of a continuous random variable is often called <em>differential entropy</em>.</p>
 <p>The <code>stats</code> submodule of the <code>SciPy</code> library contains a convenient method called <code>entropy</code> for computing entropies of discrete random variables. We use it to compute the entropy <span class="math inline">\(H(X)\)</span>, where <span class="math inline">\(X\)</span> is the “hours studied” random variable:</p>
-<div id="f8569a55" class="cell" data-execution_count="9">
+<div id="058c1c8f" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> entropy</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the values of the probability mass function of X are stored in a</span></span>
@@ -623,7 +628,7 @@ The entropy H(X) is 1.698.</code></pre>
 </div>
 </div>
 <p>We can use the <code>quad</code> method in the <code>integrate</code> submodule of <code>SciPy</code> to compute differential entropies. For the “exam score” random variable <span class="math inline">\(Y\)</span>, we compute:</p>
-<div id="3d7aaaa0" class="cell" data-execution_count="10">
+<div id="593cc1ea" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the marginal probability density function of Y is implemented as</span></span>
@@ -649,7 +654,7 @@ The entropy H(X) is 1.698.</code></pre>
 f(\omega) = \binom{10}{\omega} (0.4)^\omega(0.6)^{10-\omega} \quad \text{and} \quad g(\omega) = \binom{10}{\omega} (0.9)^\omega(0.1)^{10-\omega}
 \]</span></p>
 <p>for <span class="math inline">\(\omega\in \{0,1,\ldots,10\}\)</span>. These are the mass functions of a <span class="math inline">\(\mathcal{B}in(10,0.4)\)</span> and <span class="math inline">\(\mathcal{B}in(10,0.9)\)</span> random variable, respectively. We then plot histograms for these mass functions, along with histograms of the absolute and logarithmic relative magnitudes:</p>
-<div id="3d06438e" class="cell" data-execution_count="11">
+<div id="7a530c87" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>omegas <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>)</span>
@@ -716,7 +721,7 @@ D(X \parallel Y) = E_{x\sim f(x)} \left[ \log \left( \frac{f(x)}{g(x)}\right) \r
 D\left( (Y\mid X=1) \parallel (Y\mid X=x) \right)
 \]</span></p>
 <p>for <span class="math inline">\(x=2,3,4,5,6\)</span>.</p>
-<div id="9cedc61f" class="cell" data-execution_count="12">
+<div id="f4e370e4" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the conditional random variable Y|x=x is a</span></span>
@@ -791,7 +796,7 @@ I(X,Y) = E_{(x,y)\sim f(x,y)} \left[ \log \left( \frac{f(x,y)}{f(x)f(y)} \right)
 I(X,Y) = \sum_{x=1}^6 \int_0^1 f(x,y) \log\left(\frac{f(x,y)}{f(x)f(y)} \right) \ dy,
 \]</span></p>
 <p>where <span class="math inline">\(f(x,y)\)</span> is the true joint mass-density function and <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span> are the marginal mass and densities, respectively. We implement this formula directly in <code>Python</code>, using the <code>quad</code> method in the <code>stats</code> submodule of <code>SciPy</code> for integration:</p>
-<div id="bbd831f5" class="cell" data-execution_count="13">
+<div id="c661e240" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The conditional density of Y|X=x is implemented as the</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># function `cond(y, x)`, the marginal density of Y is</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the function `fy(y)`, and the marginal probability masses</span></span>
@@ -834,7 +839,7 @@ I(X,Y) = H(Y) - H(Y\mid X).
 </div>
 <p>Thus, the mutual information measures the amount of entropy in <span class="math inline">\(Y\)</span> that is “leftover” after having observed <span class="math inline">\(X\)</span>. In other words, it quantifies how much knowing <span class="math inline">\(X\)</span> reduces uncertainty about <span class="math inline">\(Y\)</span>.</p>
 <p>We end this section by using formula (<a href="#eq-info-entropy" class="quarto-xref">6</a>) to re-do our computation of the mutual information <span class="math inline">\(I(X,Y)\)</span> from above. We get the same answer:</p>
-<div id="19883720" class="cell" data-execution_count="14">
+<div id="769f8707" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the differential entropy H(Y) is stored in `diff_entropy`</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>funcs <span class="op">=</span> [<span class="kw">lambda</span> y, x<span class="op">=</span>x: <span class="op">-</span>cond(y, x) <span class="op">*</span> np.log(cond(y, x)) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
@@ -976,7 +981,7 @@ I(X,Y) &amp;= H(Y) - H(Y\mid X) \\
 \end{bmatrix},
 \]</span></p>
 <p>and <span class="math inline">\(\rho\)</span> is the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (hence the marginal standard deviations are <span class="math inline">\(\sigma_X = 1\)</span> and <span class="math inline">\(\sigma_Y=2\)</span>). In the second and third plots below, we have selected two correlations <span class="math inline">\(\rho=0.5,0.85\)</span> and computed the corresponding mutual information <span class="math inline">\(I(X,Y)\)</span>. The isoprobability contours of the joint normal density <span class="math inline">\(f(x,y)\)</span> are shown in yellow, while the conditional normal densities <span class="math inline">\(f(y|x)\)</span> are shown in blue for each of <span class="math inline">\(x=-1, 0, 1\)</span>. For comparison, the marginal density <span class="math inline">\(f(y)\)</span> has been shown in the first plot.</p>
-<div id="fb4bf316" class="cell" data-execution_count="15">
+<div id="ab19c320" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y, labels<span class="op">=</span><span class="va">False</span>):</span>
@@ -1050,6 +1055,9 @@ I(X,Y) &amp;= H(Y) - H(Y\mid X) \\
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Jaynes1957" class="csl-entry" role="listitem">
+Jaynes, E. T. 1957. <span>“Information Theory and Statistical Mechanics.”</span> <em>The Physical Review</em> 106 (4): 620–30.
+</div>
 <div id="ref-Rioul2021" class="csl-entry" role="listitem">
 Rioul, O. 2021. <span>“This Is IT: A Primer on Shannon’s Entropy and Information.”</span> In <em>Information Theory: Poincar<span>é</span> Seminar 2018</em>, 49–86. Springer.
 </div>
