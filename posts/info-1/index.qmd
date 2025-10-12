@@ -127,18 +127,37 @@ For now, let's see all this in action with real distributions in a real-world co
 # | code-fold: true
 # | fig-align: center
 
+# Set the number of possible study hours (1 through 6)
 n = 6
+
+# Create a sequence of possible values for X (hours studied)
 xs = range(1, n + 1)
+
+# Compute the probability mass function for X using a Poisson distribution with mean 3
 fxs = poisson.pmf(xs, mu=3)
+
+# Normalize the probabilities so they sum to 1 (ensures a valid probability distribution)
 fxs /= fxs.sum()
 
+# Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 4))
 
+# Plot a bar chart of the probability mass function for X
 ax.bar(xs, fxs, width=0.4, zorder=2)
+
+# Label the x-axis as "hours studied (x)"
 ax.set_xlabel(r"hours studied ($x$)")
+
+# Label the y-axis as "probability"
 ax.set_ylabel("probability")
+
+# Set the plot title to indicate this is the marginal mass function f(x)
 ax.set_title(r"marginal mass $f(x)$")
+
+# Set the x-axis ticks to match the possible values of X
 ax.set_xticks(range(1, n + 1))
+
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -151,20 +170,32 @@ We might reasonably believe that $X$ is predictive of $Y$, the exam score of a r
 # | code-fold: true
 # | fig-align: center
 
-
+# Define the marginal density function fy(y) for exam scores.
+# This is a mixture of Beta distributions, weighted by the probability mass fxs for each x.
 def fy(y):
     return sum([beta.pdf(y, a=x, b=3) * fx for x, fx in zip(xs, fxs)])
 
-
+# Create a new matplotlib figure and axis with a specified size.
 _, ax = plt.subplots(figsize=(6, 4))
 
+# Create a grid of y values between 0 and 1 for plotting the density.
 grid = np.linspace(0, 1, num=250)
+
+# Plot the marginal density fy(y) over the grid.
 ax.plot(grid, fy(grid))
+
+# Shade the area under the density curve for visual emphasis.
 ax.fill_between(grid, fy(grid), zorder=2, alpha=0.1)
+
+# Format the x-axis labels as percentages (since y is a proportion).
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
+
+# Set the plot title and axis labels.
 ax.set_title(r"marginal density $f(y)$")
 ax.set_xlabel("test score ($y$)")
 ax.set_ylabel("probability density")
+
+# Adjust layout for better appearance and display the plot.
 plt.tight_layout()
 plt.show()
 
@@ -177,19 +208,38 @@ Together, $X$ and $Y$ have a joint mass/density function $f(x,y)$, visualized in
 # | code-fold: true
 # | fig-align: center
 
+# Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 5))
 
+# Generate a list of colors for each value of x using the custom colormap
 conditional_colors = [conditional_cmap(i / (n - 1)) for i in range(n)]
+
+# Loop over each possible value of x and its probability fx
 for x, fx in zip(xs, fxs):
+    # Compute the joint density values for each y in the grid, scaled for visualization
     joint_vals = 1.7 * beta.pdf(x=grid, a=x, b=3) * fx
+
+    # Fill the area between the baseline (x) and the curve (x + joint_vals) for ridgeline effect
     ax.fill_between(
         grid, x, x + joint_vals, color=conditional_colors[x - 1], zorder=2, alpha=0.1
     )
+
+    # Plot the top edge of the density curve for each x
     ax.plot(grid, x + joint_vals, color=conditional_colors[x - 1], zorder=2)
+
+# Label the y-axis as "hours studied (x)"
 ax.set_ylabel(r"hours studied ($x$)")
+
+# Label the x-axis as "test score (y)"
 ax.set_xlabel(r"test score ($y$)")
+
+# Format the x-axis labels as percentages
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
+
+# Set the plot title to indicate this is the joint mass/density f(x, y)
 ax.set_title(r"joint mass/density $f(x,y)$")
+
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -202,17 +252,33 @@ Dividing the joint mass/density $f(x,y)$ by the marginal mass $f(x)$ yields the 
 # | code-fold: true
 # | fig-align: center
 
+# Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 4))
 
+# Loop over each possible value of x (hours studied)
 for x in xs:
-    ax.plot(grid, beta.pdf(x=grid, a=x, b=3), color=conditional_colors[x - 1], label=x)
+    # Plot the conditional density f(y|x) for each x as a Beta(x, 3) distribution
+    ax.plot(
+        grid,
+        beta.pdf(x=grid, a=x, b=3),
+        color=conditional_colors[x - 1],
+        label=x
+    )
+
+# Add a legend indicating the value of x for each curve
 ax.legend(title=r"hours studied ($x$)", loc="center left", bbox_to_anchor=(1, 0.5))
+
+# Format the x-axis labels as percentages (since y is a proportion)
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
+
+# Set the plot title to indicate these are conditional densities f(y|x)
 ax.set_title(r"conditional densities $f(y|x)$")
 
+# Label the axes
 ax.set_xlabel(r"test score ($y$)")
 ax.set_ylabel("probability density")
 
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -257,12 +323,22 @@ This inverse relationship is given by the function $s = -\log{p}$, linking a pro
 # | code-fold: true
 # | fig-align: center
 
+# Create a grid of probability values from 0.01 to 1 (avoiding 0 to prevent log(0))
 mesh = np.linspace(0.01, 1, num=100)
 
+# Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(4, 3))
+
+# Plot the surprisal function s = -log(p) as a function of probability p
 ax.plot(mesh, -np.log(mesh), color=yellow)
+
+# Label the x-axis as probability (p)
 ax.set_xlabel(r"probability ($p$)")
+
+# Label the y-axis as surprisal (s)
 ax.set_ylabel(r"surprisal ($s$)")
+
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -297,19 +373,25 @@ For a simple example of the relationship between discrete probabilities and surp
 # | code-fold: true
 # | fig-align: center
 
+# Create a figure with two subplots side by side
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
+# Plot the marginal probability mass function f(x) as a bar chart on the first subplot
 axes[0].bar(xs, fxs, width=0.4, zorder=2)
-axes[0].set_ylabel(r"probability mass")
-axes[0].set_title(r"marginal density $f(x)$")
-axes[0].set_xticks(range(1, n + 1))
+axes[0].set_ylabel(r"probability mass")  # Label y-axis
+axes[0].set_title(r"marginal density $f(x)$")  # Set subplot title
+axes[0].set_xticks(range(1, n + 1))  # Set x-ticks to match possible values of x
 
+# Plot the marginal surprisal s(x) = -log(f(x)) as a bar chart on the second subplot
 axes[1].bar(xs, -np.log(fxs), width=0.4, zorder=2)
-axes[1].set_ylabel(r"surprisal mass")
-axes[1].set_title(r"marginal surprisal $s(x)$")
-axes[1].set_xticks(range(1, n + 1))
+axes[1].set_ylabel(r"surprisal mass")  # Label y-axis
+axes[1].set_title(r"marginal surprisal $s(x)$")  # Set subplot title
+axes[1].set_xticks(range(1, n + 1))  # Set x-ticks to match possible values of x
 
+# Add a shared x-axis label for both subplots
 fig.supxlabel(r"hours studied ($x$)")
+
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -322,20 +404,32 @@ Because a probability density (mass) function of a discrete random variable must
 # | code-fold: true
 # | fig-align: center
 
+# Create a figure with two subplots side by side
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
+# Create a grid of y values between 0 and 1 for plotting
 grid = np.linspace(0, 1, num=250)
+
+# Plot the marginal probability density function f(y) on the first subplot
 axes[0].plot(grid, fy(grid))
-axes[0].xaxis.set_major_formatter(PercentFormatter(xmax=1))
-axes[0].set_title(r"marginal density $f(y)$")
-axes[0].set_ylabel("probability density")
+axes[0].xaxis.set_major_formatter(
+    PercentFormatter(xmax=1)
+)  # Format x-axis as percentages
+axes[0].set_title(r"marginal density $f(y)$")  # Set subplot title
+axes[0].set_ylabel("probability density")  # Label y-axis
 
+# Plot the marginal surprisal s(y) = -log(f(y)) on the second subplot
 axes[1].plot(grid, -np.log(fy(grid)))
-axes[1].xaxis.set_major_formatter(PercentFormatter(xmax=1))
-axes[1].set_title(r"marginal surprisal $s(y)$")
-axes[1].set_ylabel("surprisal density")
+axes[1].xaxis.set_major_formatter(
+    PercentFormatter(xmax=1)
+)  # Format x-axis as percentages
+axes[1].set_title(r"marginal surprisal $s(y)$")  # Set subplot title
+axes[1].set_ylabel("surprisal density")  # Label y-axis
 
+# Add a shared x-axis label for both subplots
 fig.supxlabel("test score ($y$)")
+
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -388,12 +482,15 @@ The `stats` submodule of the `SciPy` library contains a convenient method called
 
 from scipy.stats import entropy
 
-# the values of the probability mass function of X are stored in a
+# The values of the probability mass function of X are stored in a
 # NumPy array called `fxs`
 
 print(f"The probability mass function f(x) of X is:\n")
 for x, p in enumerate(fxs):
+    # Print the probability mass for each possible value of X (1 through n)
     print(f"    f({x + 1}) =", round(p, 3))
+
+# Compute and print the entropy H(X) using scipy's entropy function
 print(f"\nThe entropy H(X) is {entropy(fxs):.3f}.")
 ```
 
@@ -406,10 +503,13 @@ We can use the `quad` method in the `integrate` submodule of `SciPy` to compute 
 
 from scipy.integrate import quad
 
-# the marginal probability density function of Y is implemented as
+# The marginal probability density function of Y is implemented as
 # the function `fy`
 
+# Compute the differential entropy H(Y) by integrating -f(y) * log(f(y)) over [0, 1]
 diff_entropy, _ = quad(func=lambda y: -fy(y) * np.log(fy(y)), a=0, b=1)
+
+# Print the computed differential entropy value
 print(f"The differential entropy H(Y) is {diff_entropy:.3f}.")
 ```
 
@@ -438,27 +538,43 @@ for $\omega\in \{0,1,\ldots,10\}$. These are the mass functions of a $\Bin(10,0.
 # | code-fold: true
 # | fig-align: center
 
+# Define the possible values of omega (0 through 10)
 omegas = np.arange(0, 11)
+
+# Compute the probability mass functions for two Binomial distributions:
+# p: Binomial(n=10, p=0.4)
+# q: Binomial(n=10, p=0.9)
 p = binom(n=10, p=0.4).pmf(omegas)
 q = binom(n=10, p=0.9).pmf(omegas)
+
+# Titles for each subplot
 titles = [
-    "$f(\\omega)$",
-    "$g(\\omega)$",
-    "$\\frac{f(\\omega)}{g(\\omega)}$",
-    "$\\log\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$",
+    "$f(\\omega)$",  # PMF of first distribution
+    "$g(\\omega)$",  # PMF of second distribution
+    "$\\frac{f(\\omega)}{g(\\omega)}$",  # Ratio of PMFs
+    "$\\log\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$",  # Log-ratio of PMFs
 ]
+
+# Data to plot in each subplot
 probs = [p, q, p / q, np.log(p / q)]
+
+# Y-axis limits for each subplot for better visualization
 ylims = [(0, 0.4), (0, 0.4), (-50, 0.75e8), (-10, 20)]
 
+# Create a 2x2 grid of subplots
 fig, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 5), sharex=True)
 
+# Loop over each subplot, plotting the corresponding data
 for title, prob, ylim, axis in zip(titles, probs, ylims, axes.flatten()):
-    axis.bar(omegas, prob, width=0.4, zorder=2)
-    axis.set_xticks(ticks=omegas)
-    axis.set_ylim(ylim)
-    axis.set_title(title)
+    axis.bar(omegas, prob, width=0.4, zorder=2)  # Bar plot for each omega
+    axis.set_xticks(ticks=omegas)  # Set x-ticks to omega values
+    axis.set_ylim(ylim)  # Set y-axis limits
+    axis.set_title(title)  # Set subplot title
 
+# Add a shared x-axis label for all subplots
 fig.supxlabel("$\\omega$")
+
+# Adjust layout for better appearance and spacing
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.5)
 plt.show()
@@ -513,23 +629,24 @@ for $x=2,3,4,5,6$.
 # | code-fold: true
 # | fig-align: center
 
-# the conditional random variable Y|x=x is a
-# Beta(x, 3) random variable. We implement its
-# conditional density
 
-
+# Define the conditional density f(y|x) as the Beta(x, 3) PDF
 def cond(y, x):
     return beta.pdf(x=y, a=x, b=3)
 
 
+# Define the integrand for KL divergence between two Beta distributions:
+# cond(y, x1) * log(cond(y, x1) / cond(y, x2))
 def integrand(y, x1, x2):
     return cond(y, x1) * np.log(cond(y, x1) / cond(y, x2))
 
 
+# Compute KL divergence D((Y|X=1) || (Y|X=x+2)) for x = 0,1,2,3,4 (i.e., x2 = 2,3,4,5,6)
 KL_div = np.empty(5)
 for x in range(5):
     KL_div[x], _ = quad(func=integrand, args=(1, x + 2), a=0, b=1)
 
+# Set up a 2x6 grid for custom subplot arrangement
 fig = plt.figure(figsize=(8, 5))
 gs = gridspec.GridSpec(2, 6, figure=fig)
 ax1 = fig.add_subplot(gs[0, 0:2])
@@ -539,15 +656,22 @@ ax4 = fig.add_subplot(gs[1, 1:3])
 ax5 = fig.add_subplot(gs[1, 3:5])
 axes = [ax1, ax2, ax3, ax4, ax5]
 
+# For each subplot, plot the two conditional densities and annotate with KL divergence
 for x, ax in enumerate(axes):
+    # Plot f(y|x=1) in blue
     ax.plot(grid, cond(grid, 1), color=blue, zorder=2, label="x = 1")
     ax.fill_between(grid, cond(grid, 1), zorder=2, color=blue, alpha=0.1)
+    
+    # Plot f(y|x=x+2) in yellow
     ax.plot(grid, cond(grid, x + 2), color=yellow, zorder=2, label=f"x = {x + 2}")
     ax.fill_between(grid, cond(grid, x + 2), zorder=2, color=yellow, alpha=0.1)
+    
+    # Annotate with the computed KL divergence
     ax.set_title(f"KL div. = {KL_div[x]:.3f}")
     ax.set_ylim(0, 4)
     ax.legend(loc="upper right")
 
+# Adjust layout and spacing for better appearance
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.5)
 plt.show()
@@ -594,23 +718,26 @@ where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are
 # the function `fy(y)`, and the marginal probability masses
 # of X are contained in a NumPy array called `fxs`.
 
-# true joint density
+# Compute the true joint density f(x, y) = P(X=x) * f(y|x)
 def fxy(x, y):
     return fxs[x - 1] * cond(y, x)
 
-
-# product density
+# Compute the product of marginals: P(X=x) * f(y)
 def prod(x, y):
     return fxs[x - 1] * fy(y)
 
-
+# Define the integrand for mutual information:
+# f(x, y) * log(f(x, y) / (P(X=x) * f(y)))
 def integrand(x, y):
     return fxy(x, y) * np.log(fxy(x, y) / prod(x, y))
 
-
+# For each x, create a function of y for integration over y in [0, 1]
 funcs = [lambda y, x=x: integrand(x, y) for x in range(1, 7)]
+
+# Compute the mutual information by summing the integrals over y for each x
 mutual_info = sum([quad(func, a=0, b=1)[0] for func in funcs])
 
+# Print the computed mutual information I(X, Y)
 print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
 
 ```
@@ -638,10 +765,16 @@ We end this section by using formula ([-@eq-info-entropy]) to re-do our computat
 
 # the differential entropy H(Y) is stored in `diff_entropy`
 
+# For each x, define a function of y for the conditional entropy integrand: -f(y|x) * log(f(y|x))
 funcs = [lambda y, x=x: -cond(y, x) * np.log(cond(y, x)) for x in range(1, 7)]
+
+# Compute the conditional entropy H(Y|X=x) for each x by integrating over y in [0, 1]
 cond_entropies = [quad(func, a=0, b=1)[0] for func in funcs]
+
+# Compute H(Y) - sum_x P(X=x) * H(Y|X=x), which equals the mutual information I(X, Y)
 diff_entropy - sum([cond_entropy * fx for cond_entropy, fx in zip(cond_entropies, fxs)])
 
+# Print the previously computed mutual information for comparison
 print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
 
 ```
@@ -763,42 +896,51 @@ and $\rho$ is the correlation of $X$ and $Y$ (hence the marginal standard deviat
 # | fig-align: center
 
 
+# Define a function to plot contours of a bivariate normal distribution
 def plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y, labels=False):
+    # Construct the covariance matrix using the specified correlation rho
     Sigma = np.array(
         [[sigmaX**2, rho * sigmaX * sigmaY], [rho * sigmaX * sigmaY, sigmaY**2]]
     )
-    Mu = np.array([muX, muY])
-    U = multivariate_normal(mean=Mu, cov=Sigma)
-    grid = np.dstack((x, y))
-    z = U.pdf(grid)
-    contour = ax.contour(x, y, z, colors=yellow, alpha=0.3)
+    Mu = np.array([muX, muY])  # Mean vector
+    U = multivariate_normal(mean=Mu, cov=Sigma)  # Multivariate normal object
+    grid = np.dstack((x, y))  # Create a grid for evaluation
+    z = U.pdf(grid)  # Evaluate the PDF on the grid
+    contour = ax.contour(x, y, z, colors=yellow, alpha=0.3)  # Plot contours
     if labels:
-        ax.clabel(contour, inline=True, fontsize=8)
+        ax.clabel(contour, inline=True, fontsize=8)  # Optionally label contours
 
 
+# Define a function to plot the conditional density f(y|x) for a given x_obs
 def plot_conditional(
     ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs, magnification_factor=1
 ):
+    # Compute conditional mean and standard deviation for Y|X=x_obs
     mu = muY + (x_obs - muX) * rho * sigmaY / sigmaX
     sigma = sigmaY * np.sqrt(1 - rho**2)
+    # Compute and scale the conditional normal density
     x = magnification_factor * norm(loc=mu, scale=sigma).pdf(y_mesh)
+    # Plot the conditional density horizontally, shifted to align with x_obs
     ax.plot(-x + x_obs, y_mesh, color=blue)
     ax.fill_betweenx(y_mesh, -x + x_obs, x_obs, color=blue, alpha=0.4)
 
 
+# Set parameters for the bivariate normal distribution
 muX = 0
 muY = 0
 sigmaX = 1
 sigmaY = 2
-rhos = [0.5, 0.85]
-x_obs = [-1, 0, 1]
-x, y = np.mgrid[-2.1:2.1:0.01, -5:5:0.01]
-y_mesh = np.linspace(-5, 5, num=250)
+rhos = [0.5, 0.85]  # Correlation values to illustrate
+x_obs = [-1, 0, 1]  # Observed x values for conditional plots
+x, y = np.mgrid[-2.1:2.1:0.01, -5:5:0.01]  # Grid for contour plot
+y_mesh = np.linspace(-5, 5, num=250)  # Grid for conditional densities
 
+# Create a figure with three subplots: one for the marginal, two for different correlations
 fig, axes = plt.subplots(
     ncols=3, figsize=(8, 4), sharey=True, gridspec_kw={"width_ratios": [1, 4, 4]}
 )
 
+# Plot the marginal density of Y on the first subplot (as a horizontal density)
 magnification_factor = 2.5
 x_marginal = magnification_factor * norm(scale=sigmaY).pdf(y_mesh)
 axes[0].plot(-x_marginal, y_mesh, color=blue)
@@ -810,6 +952,7 @@ axes[0].spines["right"].set_visible(True)
 axes[0].spines["bottom"].set_visible(False)
 axes[0].set_xticks([])
 
+# For each correlation value, plot the joint contours and conditional densities
 for rho, ax in zip(rhos, axes[1:]):
     plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y)
     for x_ob in x_obs:
@@ -824,12 +967,14 @@ for rho, ax in zip(rhos, axes[1:]):
             x_obs=x_ob,
             magnification_factor=3,
         )
+    # Compute and display the mutual information for this correlation
     info = -(1 / 2) * np.log(1 - rho**2)
     ax.set_title(rf"$\rho ={rho}$, $I(X,Y)= {info:0.3f}$")
     ax.set_xlabel(r"$x$")
     ax.set_xlim(-2.2, 2.2)
     ax.set_xticks(range(-2, 3))
 
+# Label the y-axis on the first subplot
 axes[0].set_ylabel(r"$y$")
 plt.tight_layout()
 plt.show()
