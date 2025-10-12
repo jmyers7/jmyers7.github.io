@@ -9,7 +9,6 @@ website:
   draft-mode: unlinked
   google-analytics:
     tracking-id: "G-VWK3RHBGT2"
-    storage: none
   
   navbar:
     title: false
