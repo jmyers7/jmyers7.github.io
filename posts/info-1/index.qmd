@@ -602,6 +602,7 @@ print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
 Using the definitions of marginal and conditional entropies given in @def-entropy, one easily proves that the mutual information $I(X,Y)$ may be computed as described in:
 
 ::: {#thm-info-entropy}
+## Mututal information is entropy
 Let $X$ and $Y$ be two random variables. Then
 
 $$
@@ -635,6 +636,7 @@ print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
 Useful intuition for the mutual information $I(X,Y)$ arises from the simple case of jointly normal variables, where a closed-form expression can be obtained. As a first step toward this formula, we compute the differential entropy of a single normal random variable:
 
 ::: {#thm-norm-entropy}
+## Entropy of a normal random variable
 If $X\sim \calN(\mu,\sigma^2)$, then
 
 $$
@@ -664,6 +666,7 @@ where we've used $\int f(x) \ dx =1$ and $\int f(x)(x-\mu)^2 \ dx = \sigma^2$.
 It is well known that the conditional distributions of a normal random vector are themselves normal; we include here the result for a $2$-dimensional normal random vector. The proof follows directly from standard properties of multivariate normal distributions and is omitted for brevity.
 
 ::: {#thm-cond-norm}
+## Conditional distributions of normal vectors are normal
 Let $(X,Y) \sim \calN_2(\vecmu, \vecSigma)$ be a $2$-dimensional normal random vector with
 
 $$
@@ -685,6 +688,7 @@ for all $x$.
 The next result contains the formula for the mutual information of two jointly normal random variables; its proof is an easy application of our previous results. Notice the mutual information only depends on the correlation between the variables, as intuition might suggest.
 
 ::: {#thm-info-normal}
+## Mutual information of jointly normal variables
 Let $(X,Y) \sim \calN_2(\vecmu, \vecSigma)$ be a $2$-dimensional normal random vector. Then
 
 $$
