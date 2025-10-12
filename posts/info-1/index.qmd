@@ -1,11 +1,11 @@
 ---
-title: "Information theory I: entropy & surprise"
-date: "2025-09-30"
+title: "Entropy, surprise & information"
+date: "2025-10-12"
 bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
 categories: [Information theory, Probability theory, Entropy, Surprisal, Mutual information, Machine learning, Python, SciPy]
 image: "thumbnail.svg"
-draft: true
+# draft: true
 ---
 
 ::: {.content-hidden}
@@ -58,42 +58,42 @@ The gap between certainty and uncertainty lies at the heart of information theor
 
 This post will survey the most basic quantities of information theory: *surprisal*, *entropy*, and *mutual information*. Surprisal is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the *entropy*, which quantifies the overall uncertainty in a probability distribution. Finally, *mutual information* applies to two random variables $X$ and $Y$ with a joint distribution. It measures how much observing $X$ reduces the uncertainty (entropy) in $Y$ on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.
 
-While this post focuses on the foundational concepts, future posts will explore how these ideas apply to the probabilistic models used in machine learning.
+This post is the first in a series on *information*. Future posts will examine other ways the concept of information manifests, for example through $\sigma$-algebras, and how these ideas connect to the probabilistic models commonly used in machine learning. I have discussed information theory previously in a [chapter](https://johnmyers-phd.com/book/chapters/09-info-theory.html){target="_blank"} of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.
 
 ## Flows of information
 
-We begin by building a mathematical gadget that models the "flow of information" between two random variables $X$ and $Y$ (or random vectors, or random objects, or ...). Such flows are exactly what information theory calls *communication channels*, and they include many of the predictive probabilistic models in machine learning where information flows from input $X$ to output $Y$. Once these flows have been identified in this section, in the rest of the post we seek to understand how information flowing from $X$ influences and shapes the distribution on $Y$.
+We begin by building a mathematical gadget—a kind of probabilistic framework—that models the "flow of information" between two random variables $X$ and $Y$ (or random vectors, or random objects, or ...). Such flows are exactly what information theory calls *communication channels*, and they include many of the predictive probabilistic models in machine learning where information flows from input $X$ to output $Y$. Once these flows have been identified in this section, in the rest of the post we seek to understand how information flowing from $X$ influences and shapes the distribution of $Y$.
 
 The simplest flow between $X$ and $Y$ is a functional one, expressed as an equation
 $$
 g(X)=Y,
 $$ {#eq-det-flow}
 
-where $g$ is a function. With $X$ as input and $Y$ as output, an observed input $X=x$ produces a *unique* output $y = g(x)$. Such flows underlie *deterministic* models. In the case that $X$ and $Y$ take values on the real line $\mathbb{R}$, we might visualize the situation like this:
+where $g$ is a function. With $X$ as input and $Y$ as output, each $X=x$ produces a *unique* output $y = g(x)$. Such flows underlie *deterministic* models. In the case that $X$ and $Y$ take values on the real line $\mathbb{R}$, we might visualize the situation like this:
 
 ![](../../img/det-flow-2.svg){fig-align='center' width=80%}
 
 Note that each value of $x$ along the input (left) axis determines a unique value of $y$ along the output (right) axis.
 
-On the other hand, we might suppose that information flows from $X$ to $Y$ in a *stochastic* fashion, in which an observed input $X=x$ does not uniquely determine an output $y$, but rather a distribution on $Y$. This is precisely what a conditional distribution $P(Y= y\mid X=x)$ captures: given an observed value $X=x$, we have a probability distribution on $y$'s. We can think of this as a *function* of the form
+On the other hand, we might suppose that information flows from $X$ to $Y$ in a *stochastic* fashion, in which $X=x$ no longer determines a single $y$, but instead induces a *distribution* over possible $Y$ values. This is precisely what a conditional distribution $P(Y= y\mid X=x)$ captures: given an observed value $X=x$, we have a probability distribution on $y$'s. We can think of this as a *function* of the form
 
 $$
 x \mapsto P(Y= y \mid X=x),
 $$ {#eq-stochastic-flow}
 
-where the $y$ is intended as a variable and not a fixed quantity, so that $P(Y= y \mid X=x)$ is a probability distribution and not just a single probability. So, this function is rather special: its input is a value $x$, while its output is an entire probability distribution. Mathematicians call such objects [Markov kernels](https://en.wikipedia.org/wiki/Markov_kernel){target="_blank"}. A figure will make this more concrete: in contrast to the deterministic flows drawn above, in the case that $X$ and $Y$ take values on the real line $\mathbb{R}$, we visualize a stochastic flow as follows, where each value of $x$ is mapped to a probability distribution on $y$'s:
+where $y$ plays the role of a variable rather than a fixed quantity, so that $P(Y= y \mid X=x)$ is a probability distribution and not just a single probability. So this function is rather special: its input is a value $x$, while its output is an entire probability distribution. Mathematicians call such objects [Markov kernels](https://en.wikipedia.org/wiki/Markov_kernel){target="_blank"}. A figure will make this more concrete: in contrast to the deterministic flows drawn above, in the case that $X$ and $Y$ take values on the real line $\mathbb{R}$, we visualize a stochastic flow as follows, where each value of $x$ is mapped to a probability distribution on $y$'s:
 
 ![](../../img/stochastic-flow-2.svg){fig-align='center' width=80%}
 
 In our model of a stochastic flow, we therefore use conditional distributions, understood as functions on the conditioning variable.
 
-In practive, very often we have a family $P(Y=y; \theta)$ of parameterized distributions over $y$'s, where $\theta$ is a parameter vector. The stochastic flow from $X$ to $Y$ is then implemented as a function $x\mapsto \theta(x)$ from observations of $X$ to parameters $\theta$, and the conditional distribution is then *defined* as
+In practice, we often model such flows with a family $P(Y=y;\theta)$ of distributions parameterized by a vector $\theta$. The stochastic flow from $X$ to $Y$ is then implemented as a function $x\mapsto \theta(x)$ from observations of $X$ to parameters $\theta$, and the conditional distribution is then *defined* as
 
 $$
 P(Y=y \mid X=x) = P(Y=y ; \theta=\theta(x)).
 $$
 
-Familiar models like linear regression (with known variance $\sigma^2$) fit this description, in which $P(Y=y; \theta)$ is given by the normal density
+Linear regression (with known variance $\sigma^2$) is a familiar example: here $P(Y=y;\theta)$ has the normal density
 
 $$
 f(y;\theta) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ - \frac{1}{2\sigma^2}(y-\theta)^2 \right],
@@ -113,7 +113,7 @@ $$
 
 We will return to an information-theoretic treatment of linear regression (and other) models in a later post.
 
-For now, let's see all this in action with real distributions in a real-world context. Suppose that $X$ is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values $X = 1,2,3,4,5,6$. Let's say that most students study only 2 or 3 hours, with the full distribution on $X$ (i.e., its mass function $f(x)$) given in the following plot:
+For now, let's see all this in action with real distributions in a real-world context. Suppose that $X$ is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values $X = 1,2,3,4,5,6$. Let's say that most students study only 2 or 3 hours, with its full distribution (mass function $f(x)$) shown below:
 
 ```{python}
 #| echo: true
@@ -137,7 +137,7 @@ plt.show()
 
 ```
 
-We might reasonably believe that $X$ is predictive of $Y$, the exam score of a randomly chosen student, taking continuous values in the interval $[0,1]$, understood as percentages. The plot of the density function $f(y)$ is given in:
+We might reasonably believe that $X$ is predictive of $Y$, the exam score of a randomly chosen student, taking continuous values in the interval $[0,1]$, understood as percentages. The corresponding marginal density $f(y)$ is shown below:
 
 ```{python}
 #| echo: true
@@ -172,9 +172,9 @@ _, ax = plt.subplots(figsize=(6, 5))
 
 conditional_colors = [conditional_cmap(i/(n-1)) for i in range(n)]
 for x, fx in zip(xs, fxs):
-    joint_vals = 1.7 * beta.pdf(x=grid, a=x, b=3) * fx
-    ax.fill_between(grid, x, x + joint_vals, color=conditional_colors[x-1], zorder=2, alpha=0.1)
-    ax.plot(grid, x + joint_vals, color=conditional_colors[x-1], zorder=2)
+  joint_vals = 1.7 * beta.pdf(x=grid, a=x, b=3) * fx
+  ax.fill_between(grid, x, x + joint_vals, color=conditional_colors[x-1], zorder=2, alpha=0.1)
+  ax.plot(grid, x + joint_vals, color=conditional_colors[x-1], zorder=2)
 ax.set_ylabel(r"hours studied ($x$)")
 ax.set_xlabel(r"test score ($y$)")
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
@@ -184,7 +184,7 @@ plt.show()
 
 ```
 
-Dividing the joint mass/density $f(x,y)$ by the marginal mass $f(x)$ yields the conditional densities $f(x|y)$. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to $1$ over $[0,1]$. They are shown in:
+Dividing the joint mass/density $f(x,y)$ by the marginal mass $f(x)$ yields the conditional densities $f(y|x)$. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to $1$ over $[0,1]$. They are shown in:
 
 ```{python}
 #| echo: true
@@ -215,7 +215,7 @@ $$
 
 thought of as a function of $x$, models the stochastic flow of information from $X$ to $Y$.
 
-Inspecting the plot of the marginal density $f(y)$ reveals a good amount of uncertainty: the distribution is peaked, but not strongly so. An exam score randomly drawn from $Y$ will be mildly uncertain, mildly surprising. The exact amount of uncertainty in $Y$ will be measured through its *entropy*, denoted $H(Y)$, introduced in the next section. In contrast, the conditional densities $f(y|x)$ exhibit less uncertainty compared to the marginal, especially for values of $x$ closer to $6$. The exact amount of uncertainty of $Y$, given an observed value $X=x$, will be measured through the *conditional entropy*, denoted $H(Y\mid X=x)$. Averaging this conditional entropy over $X$ yields the quantity
+The marginal density $f(y)$ shows moderate uncertainty—it’s somewhat peaked, but not sharply. An exam score randomly drawn from $Y$ will be mildly uncertain, mildly surprising. The exact amount of uncertainty in $Y$ will be measured through its *entropy*, denoted $H(Y)$, introduced in the next section. In contrast, the conditional densities $f(y|x)$ exhibit less uncertainty compared to the marginal, especially for values of $x$ closer to $6$. The uncertainty remaining in $Y$ after observing $X=x$ is measured by the *conditional entropy*, denoted $H(Y\mid X=x)$. Averaging this conditional entropy over $X$ yields the quantity
 
 $$
 H(Y\mid X) \defeq E_{x\sim f(x)}(H(Y\mid X=x)),
@@ -233,13 +233,13 @@ $$
 I(X,Y) \defeq H(Y) - H(Y\mid X)
 $$
 
-is a nonnegative proxy for the amount of information transmitted from $X$ to $Y$: if it is large, then the gap between $H(Y)$ and $H(Y\mid X)$ is wide, indicating that observations of $X$ greatly reduce the uncertainty in $Y$. We understand this as a "large amount of information" is transmitted from $X$ to $Y$. Conversely, if $I(X,Y)$ is small, then observations of $X$ do not tell us much about $Y$; in fact, in the extreme case that $I(X,Y)=0$, the variables $X$ and $Y$ are independent. The quantity $I(X,Y)$ is exactly the *mutual information* between $X$ and $Y$, introduced in the next section.
+is a nonnegative proxy for the amount of information transmitted from $X$ to $Y$: if it is large, then the gap between $H(Y)$ and $H(Y\mid X)$ is wide, indicating that observations of $X$ greatly reduce the uncertainty in $Y$. We understand this as a "large amount of information" is transmitted from $X$ to $Y$. Conversely, when $I(X,Y)$ is small, observations of $X$ reveal little about $Y$; in the extreme case $I(X,Y)=0$, the two are independent. The quantity $I(X,Y)$ is exactly the *mutual information* between $X$ and $Y$, introduced in the next section.
 
 ## Surprisal and entropy
 
-As I mentioned in the introduction to the post, *entropy* is a measure of the uncertainty in the outcome of a random variable; precisely, it is the average *surprisal* of an observation. The surprisal carries an inverse relationship to probability: a large probability corresponds to a small surprisal, and vice versa, a small probability corresponds to a large surprisal.
+As mentioned in the introduction, *entropy* measures the uncertainty in the outcome of a random variable. More precisely, it is the average *surprisal* of an observation. Surprisal varies inversely with probability: large probabilities yield small surprisals, and small probabilities yield large ones.
 
-This inverse relationship is given by the function $s = -\log{p}$, linking a probability $p\in [0,1]$ with a *surprisal* $s\in (0,\infty)$.[We write $\log$ for the base-$e$ logarithm.]{.aside} The graph of this relationship is shown in:
+This inverse relationship is given by the function $s = -\log{p}$, linking a probability $p\in [0,1]$ with a *surprisal* $s\in [0,\infty)$.[We write $\log$ for the base-$e$ logarithm.]{.aside} The graph of this relationship is shown in:
 
 ```{python}
 #| echo: true
@@ -257,9 +257,9 @@ plt.show()
 
 ```
 
-It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-$e$ logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of surprisal should possess, then you can prove all such surprisal functions must be proportional to negative logarithms [see, for example, the discussion in Section 9 in @Rioul2021]. The choice of base $e$ is then somewhat arbitrary, akin to choosing units. Another popular choice is base $2$, facilitating a smooth connection to bit strings in coding theory. In base $e$, information content is measured in so-called *natural units*, or *nats*; in base $2$, it is measured in *binary units*, or *bits*. [See Section 10 in the aforementioned reference @Rioul2021 for more on units.]
+At first glance, many functions might seem equally capable of expressing this inverse relationship between probability and surprisal—so why the choice of base-$e$ logarithm? It turns out that if one starts from a few natural axioms that any reasonable notion of surprisal should satisfy, then you can prove all such surprisal functions must be proportional to negative logarithms [see, for example, the discussion in Section 9 in @Rioul2021]. The choice of base $e$ is then somewhat arbitrary, akin to choosing units. Another popular choice is base $2$, which aligns naturally with bit strings in coding theory. In base $e$, information content is measured in so-called *natural units*, or *nats*; in base $2$, it is measured in *binary units*, or *bits*. [See Section 10 in the aforementioned reference @Rioul2021 for more on units.]
 
-This link between surprisals and probabilities may be extended to a link between surprisal and probability *densities* in the case that the probabilities are continuous. Since it is inconvenient to constantly distinguish between mass and density functions in all definitions and theorems, we will follow the convention in measure-theoretic probability theory, and refer to *all* probability mass and density functions as *densities* and denote them all by $f$. In this scheme, a probability mass function really is a *density* function relative to the counting measure.
+This link between surprisals and probabilities may be extended to a link between surprisal and probability *densities* in the case that the probabilities are continuous. Since it is inconvenient to continually distinguish between mass and density functions in all definitions and theorems, we will follow the convention in measure-theoretic probability theory and refer to *all* probability mass and density functions as *densities* and denote them all by $f$. In this scheme, a probability mass function really is a *density* function relative to the counting measure.
 
 With this convention in mind, the following definition applies to both discrete and continuous random variables:
 
@@ -279,7 +279,7 @@ Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$
 
 :::
 
-For a simple example of the relationship between discrete probabilities and surprisals, let's bring back our random variable $X$ from the previous section, which tallied the number of hours are randomly chosen student studied for the upcoming exam:
+For a simple example of the relationship between discrete probabilities and surprisals, let's bring back our random variable $X$ from the previous section, which tallied the number of hours a randomly chosen student studied for the upcoming exam:
 
 ```{python}
 #| echo: true
@@ -304,7 +304,7 @@ plt.show()
 
 ```
 
-Because a probability density (mass) function of a discrete random variable must take values in $[0,1]$, its surprisal function is never negative. However, the probability density function of a continuous random variable *may* take on values larger than $1$, which means that the associated surprisal density function can be negative. We see that this is the case for the random variable $Y$ from the previous section, which gives the exam score of a randomly chosen student:
+Because a probability density (mass) function of a discrete random variable must take values in $[0,1]$, its surprisal function is never negative. However, the probability density function of a continuous random variable *may* take on values larger than $1$, which means that the associated surprisal density function can be negative. This can be seen for the continuous random variable $Y$ from the previous section, whose density can exceed $1$ in regions of high concentration—hence its surprisal can dip below zero.
 
 ```{python}
 #| echo: true
@@ -330,7 +330,7 @@ plt.show()
 
 ```
 
-With surprisal functions in hand, we now come to the second of the three main definitions of this post:
+Having defined surprisal for individual outcomes, entropy emerges naturally as its average—capturing the typical "surprise" we can expect.
 
 ::: {#def-entropy}
 Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$, respectively.
@@ -366,7 +366,7 @@ $$
 H(X) = \int f(x) s(x) \ dx = - \int f(x) \log{f(x)} \ dx,
 $$
 
-where we follow the usual convention in probability theory of writing $\int$ for $\int_\bbr$. In the literature, the entropy of a continuous random variable is often called *differential entropy*.
+where, by convention, $\int$ denotes integration over $\bbr$. In the literature, the entropy of a continuous random variable is often called *differential entropy*.
 
 The `stats` submodule of the `SciPy` library contains a convenient method called `entropy` for computing entropies of discrete random variables. We use it to compute the entropy $H(X)$, where $X$ is the "hours studied" random variable:
 
@@ -395,26 +395,24 @@ We can use the `quad` method in the `integrate` submodule of `SciPy` to compute 
 
 from scipy.integrate import quad
 
-# the probability density function of Y is implemented as
+# the marginal probability density function of Y is implemented as
 # the function `fy`
 
 diff_entropy, _ = quad(func=lambda y: -fy(y) * np.log(fy(y)), a=0, b=1)
 print(f"The differential entropy H(Y) is {diff_entropy:.3f}.")
 ```
 
-Notice, in particular, that $H(Y)$ is negative!
+Notice that $H(Y)$ turns out to be negative—a reminder that differential entropy behaves quite differently from its discrete cousin.
 
-## Kullback Leibler divergence and mutual information
+## Kullback–Leibler divergence and mutual information
 
-Our aim in this section is to devise some sort of method for comparing the “distance” between two probability measures. The technique that we discover will have tight connections with the entropies studied in the previous section, but the first part of this section is largely independent of the previous. The link with entropy will come later.
-
-By way of motivation, we consider two probability measures on a single **finite** probability space $\Omega$, so that the two measures have mass functions $f(\omega)$ and $g(\omega)$. The basic metric that we use to compare them is the mean *logarithmic relative magnitude*. To define it, we first define the *absolute relative magnitude* of the probability $f(\omega)$ to the probability $g(\omega)$ as the ratio $f(\omega)/g(\omega)$. Then, _logarithmic relative magnitude_ refers to the base-$10$ logarithm of the absolute relative magnitude:
+In this section, we develop an information-theoretic way to measure how “far apart” two probability distributions are. By way of motivation, we consider two probability measures on a single **finite** probability space $\Omega$, so that the two measures have mass functions $f(\omega)$ and $g(\omega)$. The metric we’ll use is the *mean logarithmic relative magnitude*, a measure that captures not the absolute difference between probabilities, but how one probability scales relative to another. To define it, we first define the *absolute relative magnitude* of the probability $f(\omega)$ to the probability $g(\omega)$ as the ratio $f(\omega)/g(\omega)$. Then, _logarithmic relative magnitude_ refers to the base-$e$ logarithm of the absolute relative magnitude:
 
 $$
-\log_{10}\left( \frac{f(\omega)}{g(\omega)} \right).
+\log\left( \frac{f(\omega)}{g(\omega)} \right).
 $$
 
-The intuition for this number is that it is the _order_ of the absolute relative magnitude; indeed, if we have $f(\omega) \approx 10^k$ and $g(\omega) \approx 10^l$, then the logarithmic relative magnitude is roughly the difference $k-l$.
+Intuitively, this logarithm tells us the “order of magnitude” difference between $f(\omega)$ and $g(\omega)$. If $f(\omega)\approx e^k$ and $g(\omega)\approx e^l$, then the log ratio is roughly $k-l$.
 
 Perhaps the most obvious immediate benefit of introducing the logarithm is that it yields a workable number when $f(\omega)$ and $g(\omega)$ each have widely different magnitudes. For example, let's suppose that the mass functions $f(\omega)$ and $g(\omega)$ are given by
 
@@ -432,19 +430,18 @@ for $\omega\in \{0,1,\ldots,10\}$. These are the mass functions of a $\Bin(10,0.
 omegas = np.arange(0, 11)
 p = binom(n=10, p=0.4).pmf(omegas)
 q = binom(n=10, p=0.9).pmf(omegas)
-titles = ['$f(\\omega)$', '$g(\\omega)$', '$\\frac{f(\\omega)}{g(\\omega)}$', '$\\log_{10}\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$']
-probs = [p, q, p / q, np.log10(p / q)]
-ylims = [(0, 0.4), (0, 0.4), (-50, 0.75e8), (-5, 10)]
+titles = ['$f(\\omega)$', '$g(\\omega)$', '$\\frac{f(\\omega)}{g(\\omega)}$', '$\\log\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$']
+probs = [p, q, p / q, np.log(p / q)]
+ylims = [(0, 0.4), (0, 0.4), (-50, 0.75e8), (-10, 20)]
 
 fig, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 5), sharex=True)
 
 for title, prob, ylim, axis in zip(titles, probs, ylims, axes.flatten()):
-    axis.bar(omegas, prob, width=0.4, zorder=2)
-    axis.set_xticks(ticks=omegas)
-    axis.set_ylim(ylim)
-    axis.set_title(title)
+  axis.bar(omegas, prob, width=0.4, zorder=2)
+  axis.set_xticks(ticks=omegas)
+  axis.set_ylim(ylim)
+  axis.set_title(title)
     
-
 fig.supxlabel("$\\omega$")
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.5)
@@ -452,39 +449,63 @@ plt.show()
 
 ```
 
-The second row in the figure drives home the point: the absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.
+The second row makes the point vividly: the absolute relative magnitudes span such wildly different scales that the plot is almost useless, and numerical computations would be unstable. The logarithmic version, by contrast, stays well-behaved and informative.
 
-We obtain a single-number summary of the logarithmic relative magnitudes by averaging with weights drawn from the mass function $f(\omega)$; this yields the number
+We obtain a single-number summary of the logarithmic relative magnitudes by taking their *mean* with respect to the mass function $f(\omega)$, giving us the number
 
 $$
-\sum_{\omega\in \Omega} f(\omega) \log_{10}\left( \frac{f(\omega)}{g(\omega)} \right).
+E_{\omega\sim f(\omega)} \left[\log\left( \frac{f(\omega)}{g(\omega)} \right)\right] = \sum_{\omega\in \Omega} f(\omega) \log\left( \frac{f(\omega)}{g(\omega)} \right).
 $$ {#eq-first-kl-eq}
 
-Observe that we could have drawn the averaging weights instead from the mass function $g(\omega)$ to obtain the single-number summary
+Observe that we could have instead computed the mean relative to $g(\omega)$, giving us the number
 
 $$
-\sum_{\omega\in \Omega} g(\omega) \log_{10}\left( \frac{f(\omega)}{g(\omega)} \right).
+E_{\omega\sim g(\omega)} \left[\log\left( \frac{f(\omega)}{g(\omega)} \right)\right] = \sum_{\omega\in \Omega} g(\omega) \log\left( \frac{f(\omega)}{g(\omega)} \right).
 $$ {#eq-second-kl-eq}
 
 But notice that
 
 $$
-\sum_{\omega\in \Omega} g(\omega) \log_{10}\left( \frac{f(\omega)}{g(\omega)} \right) = - \sum_{\omega\in \Omega} g(\omega) \log_{10}\left( \frac{g(\omega))}{f(\omega)} \right),
+E_{\omega\sim g(\omega)} \left[\log\left( \frac{f(\omega)}{g(\omega)} \right)\right] = - E_{\omega\sim g(\omega)} \left[\log\left( \frac{g(\omega)}{f(\omega)} \right)\right],
 $$
 
-where the right-hand side is the negative of a number of the form ([-@eq-first-kl-eq]). So, at least up to sign, it doesn't really matter which of the two numbers ([-@eq-first-kl-eq]) or ([-@eq-second-kl-eq]) that we use to develop our theory. Our choice of ([-@eq-first-kl-eq]) has the benefit of making the KL divergence nonnegative when the distributions are discrete. Moreover, we can also alter the base of the logarithm in ([-@eq-first-kl-eq]) without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-$e$ natural logarithm to make the link with entropy, though the base-$2$ binary logarithm is another common choice.
+where the right-hand side is the negative of a number of the form ([-@eq-first-kl-eq]). So, at least up to sign, it doesn't really matter which of the two numbers ([-@eq-first-kl-eq]) or ([-@eq-second-kl-eq]) that we use to develop our theory. Our choice of ([-@eq-first-kl-eq]) has the benefit of making the KL divergence nonnegative when the distributions are discrete.
 
+These considerations lead us to:
+
+::: {#def-kl}
+Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $g(x)$, respectively. The *Kullback–Leibler divergence* (or just *KL divergence*) from $X$ to $Y$, denoted $D(X \parallel Y)$, is the mean logarithmic relative magnitude:
+
+$$
+D(X \parallel Y) = E_{x\sim f(x)} \left[ \log \left( \frac{f(x)}{g(x)}\right) \right].
+$$
+
+:::
+
+Technically, $D(X\parallel Y)$ is defined only when $f(x)=0$ implies $g(x)=0$ for all $x$—a condition known as *absolute continuity* in measure theory. If $X$ and $Y$ are continuous, then $D(X\parallel Y)$ is often called the *differential KL divergence*.
+
+For some examples of differential KL divergences, let's consider the conditional random variables $Y\mid X=x$ from the previous section, which give the exam score $Y$ of a randomly chosen student if they had studied $X=x$ hours (for $x=1,2,\ldots,6$). In the figure below, we plot the densities $f(y\mid x)$ of the conditional distributions and compute the five differential KL divergences
+
+$$
+D\left( (Y\mid X=1) \parallel (Y\mid X=x) \right)
+$$
+
+for $x=2,3,4,5,6$.
 
 ```{python}
 #| echo: true
 #| code-fold: true
 #| fig-align: center
 
-def f(y, x):
+# the conditional random variable Y|x=x is a
+# Beta(x, 3) random variable. We implement its
+# conditional density
+
+def cond(y, x):
   return beta.pdf(x=y, a=x, b=3)
 
 def integrand(y, x1, x2):
-  return f(y, x1) * np.log(f(y, x1) / f(y, x2))
+  return cond(y, x1) * np.log(cond(y, x1) / cond(y, x2))
 
 KL_div = np.empty(5)
 for x in range(5):
@@ -500,38 +521,153 @@ ax5 = fig.add_subplot(gs[1, 3:5])
 axes = [ax1, ax2, ax3, ax4, ax5]
 
 for x, ax in enumerate(axes):
-  ax.plot(grid, f(grid, 1), color=blue, zorder=2, label="x = 1")
-  ax.fill_between(grid, f(grid, 1), zorder=2, color=blue, alpha=0.1)
-  ax.plot(grid, f(grid, x+2), color=yellow, zorder=2, label=f"x = {x+2}")
-  ax.fill_between(grid, f(grid, x+2), zorder=2, color=yellow, alpha=0.1)
-  # kl_line = ax.plot([], [], " ", label=f"KL={KL_div[x]:.3f}")[0]
-  ax.set_title(f"KL = {KL_div[x]:.3f}")
+  ax.plot(grid, cond(grid, 1), color=blue, zorder=2, label="x = 1")
+  ax.fill_between(grid, cond(grid, 1), zorder=2, color=blue, alpha=0.1)
+  ax.plot(grid, cond(grid, x+2), color=yellow, zorder=2, label=f"x = {x+2}")
+  ax.fill_between(grid, cond(grid, x+2), zorder=2, color=yellow, alpha=0.1)
+  ax.set_title(f"KL div. = {KL_div[x]:.3f}")
   ax.set_ylim(0, 4)
   ax.legend(loc="upper right")
   
-plt.suptitle(r"KL divergences from $f(y|x=1)$ to $f(y|x)$ for each of $x=2,3,4,5,6$")
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.5)
 plt.show()
 
 ```
 
+Each subplot contains the blue density curve $f(y\mid x=1)$, along with a yellow density curve $f(y\mid x)$ for $x=2,3,4,5,6$. As $x$ gets larger, we can see *visually* that the densities become more unalike; this increasing dissimilarity is reflected in larger KL divergences as $x$ gets larger.
 
+At the other end of the spectrum, we have $D(X \parallel Y) = 0$ when $X$ and $Y$ are identically distributed. And, at least when the variables are discrete, it is a basic but important fact that we always have $D(X \parallel Y)\geq 0$, with equality if and only if $X$ and $Y$ are identically distributed; this is referred to as Gibbs' inequality (see [here](https://johnmyers-phd.com/book/chapters/09-info-theory.html#kullback-leibler-divergence) for a proof). So, the KL divergence has several properties that make it a good measure for the "distance" between two probability distributions. However, note that this distance is not symmetric, in the sense that we have
+
+$$
+D(X\parallel Y) \neq D(Y \parallel X)
+$$
+
+in general.
+
+KL divergence measures how one distribution differs from another. To study *relationships* between random variables, we apply it to their joint and marginal distributions. If $X$ and $Y$ are independent, their joint density factors as the product of their marginals, $f(x,y)=f(x)f(y)$. Thus, a measure of the "information flow" between $X$ and $Y$ is the distance—in the sense of KL divergence—from the true joint density $f(x,y)$ to the product densities $f(x)f(y)$. This leads us to:
+
+::: {#def-mutual-info}
+Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$. The *mutual information* shared between $X$ and $Y$, denoted $I(X,Y)$, is the quantity
+
+$$
+I(X,Y) = E_{(x,y)\sim f(x,y)} \left[ \log \left( \frac{f(x,y)}{f(x)f(y)} \right) \right].
+$$ {#eq-mutual-info}
+:::
+
+The product $f(x)f(y)$ is the density of *some* probability distribution on $\bbr^2$, which would coincide with the true joint probability distribution (with density $f(x,y)$) if the variables were independent. So, the mutual information is the KL divergence between two probability distributions on $\bbr^2$, and we have $I(X,Y)=0$ when $X$ and $Y$ are independent.
+
+As an example, we return once more to our random variables $X$ and $Y$, the "hours studied" discrete variable and the "exam score" continuous variable. In this case, the joint distribution of $X$ and $Y$ is a mixed discrete-continuous one, so the formula ([-@eq-mutual-info]) gives
+
+$$
+I(X,Y) = \sum_{x=1}^6 \int_0^1 f(x,y) \log\left(\frac{f(x,y)}{f(x)f(y)} \right) \ dy,
+$$
+
+where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are the marginal mass and densities, respectively. We implement this formula directly in `Python`, using the `quad` method in the `stats` submodule of `SciPy` for integration:
+
+```{python}
+#| echo: true
+#| code-fold: false
+#| fig-align: center
+
+# The conditional density of Y|X=x is implemented as the
+# function `cond(y, x)`, the marginal density of Y is
+# the function `fy(y)`, and the marginal probability masses
+# of X are contained in a NumPy array called `fxs`.
+
+# true joint density
+def fxy(x, y):
+  return fxs[x-1] * cond(y, x)
+
+# product density
+def prod(x, y):
+  return fxs[x-1] * fy(y)
+
+def integrand(x, y):
+  return fxy(x, y) * np.log(fxy(x, y) / prod(x, y))
+
+funcs = [lambda y, x=x: integrand(x, y) for x in range(1, 7)]
+mutual_info = sum([quad(func, a=0, b=1)[0] for func in funcs])
+
+print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
+
+```
+
+Using the definitions of marginal and conditional entropies given in @def-entropy, one easily proves that the mutual information $I(X,Y)$ may be computed as described in:
+
+::: {#thm-info-entropy}
+Let $X$ and $Y$ be two random variables. Then
+
+$$
+I(X,Y) = H(Y) - H(Y\mid X).
+$$ {#eq-info-entropy}
+
+:::
+
+Thus, the mutual information measures the amount of entropy in $Y$ that is "leftover" after having observed $X$. In other words, it quantifies how much knowing $X$ reduces uncertainty about $Y$.
+
+We end this section by using formula ([-@eq-info-entropy]) to re-do our computation of the mutual information $I(X,Y)$ from above. We get the same answer:
+
+```{python}
+#| echo: true
+#| code-fold: false
+#| fig-align: center
+
+# the differential entropy H(Y) is stored in `diff_entropy`
+
+funcs = [lambda y, x=x: -cond(y, x) * np.log(cond(y, x)) for x in range(1, 7)]
+cond_entropies = [quad(func, a=0, b=1)[0] for func in funcs]
+diff_entropy - sum([cond_entropy * fx for cond_entropy, fx in zip(cond_entropies, fxs)])
+
+print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
+
+```
 
 
 ## Mutual information of jointly normal random variables
+
+Useful intuition for the mutual information $I(X,Y)$ arises from the simple case of jointly normal variables, where a closed-form expression can be obtained. As a first step toward this formula, we compute the differential entropy of a single normal random variable:
+
+::: {#thm-norm-entropy}
+If $X\sim \calN(\mu,\sigma^2)$, then
+
+$$
+H(X) = \frac{1}{2}\log(2\pi e \sigma^2),
+$$
+
+where $e$ is the base of the natural logarithm.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+Letting $f(x)$ be the density of $X$, we compute:
+
+$$
+\begin{align*}
+H(X) &= -\int f(x) \log{f(x)} \ dx \\
+&= - \int f(x) \log\left\{\frac{1}{\sqrt{2\pi\sigma^2}} \exp\left[ -\frac{1}{2\sigma^2}(x-\mu)^2 \right]\right\} \ dx \\
+&= - \log\left(\frac{1}{\sqrt{2\pi\sigma^2}}\right) \int f(x) \ dx + \frac{1}{2\sigma^2}\int f(x)(x-\mu)^2 \ dx \\
+&= \frac{1}{2}\log(2\pi \sigma^2) + \frac{1}{2} \\
+&= \frac{1}{2}\log(2\pi e \sigma^2)
+\end{align*}
+$$
+
+where we've used $\int f(x) \ dx =1$ and $\int f(x)(x-\mu)^2 \ dx = \sigma^2$.
+:::
+
+It is well known that the conditional distributions of a normal random vector are themselves normal; we include here the result for a $2$-dimensional normal random vector. The proof follows directly from standard properties of multivariate normal distributions and is omitted for brevity.
 
 ::: {#thm-cond-norm}
 Let $(X,Y) \sim \calN_2(\vecmu, \vecSigma)$ be a $2$-dimensional normal random vector with
 
 $$
-\vecmu^\intercal = \begin{bmatrix} \mu_X & \mu_Y \end{bmatrix} \quad \text{and} \quad \vecSigma = \begin{bmatrix}
+\vecmu = \begin{bmatrix} \mu_X \\ \mu_Y \end{bmatrix} \quad \text{and} \quad \vecSigma = \begin{bmatrix}
 \sigma_X^2 & \rho \sigma_X \sigma_Y \\
 \rho \sigma_X \sigma_Y & \sigma_Y^2
 \end{bmatrix},
 $$
 
-where $X \sim \calN(\mu_X,\sigma_X^2)$, $Y\sim \calN(\mu_Y,\sigma_Y^2)$, and $\rho$ is the correlation between $X$ and $Y$. Then
+where $X \sim \calN(\mu_X,\sigma_X^2)$, $Y\sim \calN(\mu_Y,\sigma_Y^2)$, and $\rho$ is the correlation of $X$ and $Y$. Then
 
 $$
 (Y \mid X=x) \sim \calN\left(\mu_Y + (x-\mu_X) \frac{\rho \sigma_Y}{\sigma_X}, \ \sigma_Y^2(1-\rho^2) \right)
@@ -540,83 +676,121 @@ $$
 for all $x$.
 :::
 
+The next result contains the formula for the mutual information of two jointly normal random variables; its proof is an easy application of our previous results. Notice the mutual information only depends on the correlation between the variables, as intuition might suggest.
 
+::: {#thm-info-normal}
+Let $(X,Y) \sim \calN_2(\vecmu, \vecSigma)$ be a $2$-dimensional normal random vector. Then
+
+$$
+I(X,Y) = -\frac{1}{2} \log \left(1-\rho^2 \right),
+$$
+
+where $\rho$ is the correlation of $X$ and $Y$.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+From @thm-norm-entropy and @thm-cond-norm, we get that
+
+$$
+H(Y\mid X=x) = \frac{1}{2}\log\left(2\pi e \sigma_Y^2(1-\rho^2)\right),
+$$
+
+where $\sigma_Y$ is the standard deviation of $Y$. Since this does not depend on $x$, we have
+
+$$
+H(Y\mid X) = E_{x\sim f(x)}\left(H(Y\mid X=x) \right) = \frac{1}{2}\log\left(2\pi e \sigma_Y^2(1-\rho^2)\right),
+$$
+
+where $f(x)$ is the marginal density of $X$. But another application of @thm-norm-entropy gives
+
+$$
+H(Y) = \frac{1}{2}\log(2\pi e \sigma_Y^2),
+$$
+
+and so by @thm-info-entropy we have
+
+$$
+\begin{align*}
+I(X,Y) &= H(Y) - H(Y\mid X) \\
+&= \frac{1}{2}\log(2\pi e \sigma_Y^2) - \frac{1}{2}\log\left(2\pi e \sigma_Y^2(1-\rho^2)\right) \\
+&= -\frac{1}{2} \log \left(1-\rho^2 \right).
+\end{align*}
+$$
+
+:::
+
+Hence, the larger the correlation between the marginal normals, the larger the mutual information. To see this in action with a concrete example, let's suppose that we have $(X,Y) \sim \calN_2(\vecmu, \vecSigma)$, where
+
+$$
+\vecmu = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \quad \text{and} \quad \vecSigma = \begin{bmatrix}
+1 & 2\rho  \\
+2\rho  & 4
+\end{bmatrix},
+$$
+
+and $\rho$ is the correlation of $X$ and $Y$ (hence the marginal standard deviations are $\sigma_X = 1$ and $\sigma_Y=2$). In the second and third plots below, we have selected two correlations $\rho=0.5,0.85$ and computed the corresponding mutual information $I(X,Y)$. The isoprobability contours of the joint normal density $f(x,y)$ are shown in yellow, while the conditional normal densities $f(y|x)$ are shown in blue for each of $x=-1, 0, 1$. For comparison, the marginal density $f(y)$ has been shown in the first plot.
 
 ```{python}
 #| echo: true
 #| code-fold: true 
 #| fig-align: center
 
-def plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels=False):
+def plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y, labels=False):
   Sigma = np.array([[sigmaX ** 2, rho * sigmaX * sigmaY], [rho * sigmaX * sigmaY, sigmaY ** 2]])
   Mu = np.array([muX, muY])
   U = multivariate_normal(mean=Mu, cov=Sigma)
   grid = np.dstack((x, y))
   z = U.pdf(grid)
-  contour = ax.contour(x, y, z, colors=yellow, alpha=0.5)
+  contour = ax.contour(x, y, z, colors=yellow, alpha=0.3)
   if labels:
     ax.clabel(contour, inline=True, fontsize=8)
   
-def plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs):
+def plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs, magnification_factor=1):
   mu = muY + (x_obs - muX) * rho * sigmaY / sigmaX
   sigma = sigmaY * np.sqrt(1 - rho ** 2)
-  x = norm(loc=mu, scale=sigma).pdf(y)
-  ax.plot(-x + x_obs, y, color=blue)
-  ax.fill_betweenx(y, -x + x_obs, x_obs, color=blue, alpha=0.4)
+  x = magnification_factor * norm(loc=mu, scale=sigma).pdf(y_mesh)
+  ax.plot(-x + x_obs, y_mesh, color=blue)
+  ax.fill_betweenx(y_mesh, -x + x_obs, x_obs, color=blue, alpha=0.4)
 
-def plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs, labels=False):
-  plot_multivar(ax, muX, muY, sigmaX, sigmaY, x, y, labels)
-  y = np.linspace(np.min(y), np.max(y), num=250)
-  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[0])
-  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[1])
-  plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y, x_obs[2])
-  ax.set_title(rf"$\rho ={rho}$")
-  ax.set_xlabel(r"$x$")
-  ax.set_ylabel(r"$y$")
-  fig = plt.gcf()  # Get current figure
-  fig.set_size_inches(6, 4)
-  plt.tight_layout()
-  plt.show()
-
-_, ax = plt.subplots()
-x, y = np.mgrid[-1:3:0.01, -4:6:0.01]
-
-muX = 1
-muY = 1
+muX = 0
+muY = 0
 sigmaX = 1
 sigmaY = 2
-rho = 0.15
+rhos = [0.5, 0.85]
+x_obs = [-1, 0, 1]
+x, y = np.mgrid[-2.1:2.1:0.01, -5:5:0.01]
+y_mesh = np.linspace(-5, 5, num=250)
 
-plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=True)
+fig, axes = plt.subplots(ncols=3, figsize=(8, 4), sharey=True, gridspec_kw={'width_ratios': [1, 4, 4]})
+
+magnification_factor = 2.5
+x_marginal = magnification_factor * norm(scale=sigmaY).pdf(y_mesh)
+axes[0].plot(-x_marginal, y_mesh, color=blue)
+axes[0].set_xlim(-1, 0)
+axes[0].fill_betweenx(y_mesh, -x_marginal, 0, color=blue, alpha=0.4)
+axes[0].yaxis.tick_right()
+axes[0].spines["left"].set_visible(False)
+axes[0].spines["right"].set_visible(True)
+axes[0].spines["bottom"].set_visible(False)
+axes[0].set_xticks([])
+
+for rho, ax in zip(rhos, axes[1:]):
+  plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y)
+  for x_ob in x_obs:
+    plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs=x_ob, magnification_factor=3)
+  info = -(1 / 2) * np.log(1 - rho ** 2)
+  ax.set_title(rf"$\rho ={rho}$, $I(X,Y)= {info:0.3f}$")
+  ax.set_xlabel(r"$x$")
+  ax.set_xlim(-2.2, 2.2)
+  ax.set_xticks(range(-2, 3))
+
+axes[0].set_ylabel(r"$y$")
+plt.tight_layout()
+plt.show()
 
 ```
 
-```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
-
-_, ax = plt.subplots()
-rho = 0.5
-plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=True)
-
-```
-
-```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
-
-_, ax = plt.subplots()
-rho = 0.85
-plot_combined(ax, muX, muY, sigmaX, sigmaY, rho, x, y, x_obs=[0, 1, 2], labels=True)
-
-```
-
-
-
-## Conclusion
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vehicula, justo at laoreet tincidunt, odio nisl dapibus ligula, a tincidunt nisi lectus ut lorem. Sed ut purus vitae nibh tempor feugiat. Curabitur malesuada, erat sit amet tincidunt faucibus, erat ligula hendrerit nunc, ut pretium ligula magna vel justo. Integer nec semper sapien, ut tincidunt ex. Phasellus sit amet urna vitae urna mollis fermentum. Praesent non lectus ac augue posuere convallis.
+Compared to the marginal distribution of $Y$, the conditional distributions become increasingly concentrated as $\rho$ increases. This stronger concentration reflects the reduced uncertainty in $Y$ when $X$ is observed. This example illustrates the intuition behind mutual information: greater correlation implies stronger dependence, smaller conditional entropy, and thus higher mutual information.
 
 ## Bibliography
