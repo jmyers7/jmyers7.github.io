@@ -633,7 +633,7 @@ print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
 
 ## Mutual information of jointly normal random variables
 
-Useful intuition for the mutual information $I(X,Y)$ arises from the simple case of jointly normal variables, where a closed-form expression can be obtained. As a first step toward this formula, we compute the differential entropy of a single normal random variable:
+Useful intuition for the mutual information $I(X,Y)$ arises from the simple case of jointly normal variables, where a closed-form expression can be obtained.[For background on normal random vectors, see [here](https://johnmyers-phd.com/book/chapters/07-more-prob.html#){target="_blank"}.]{.aside} As a first step toward this formula, we compute the differential entropy of a single normal random variable:
 
 ::: {#thm-norm-entropy}
 ## Entropy of a normal random variable
