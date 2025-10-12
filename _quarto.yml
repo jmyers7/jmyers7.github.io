@@ -63,3 +63,4 @@ callouty-theorem:
 execute: 
   warning: false
   message: false
+  freeze: auto
