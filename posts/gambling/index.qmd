@@ -43,7 +43,7 @@ theme_set(custom_theme())
 
 ```{r}
 #| echo: true
-#| code-fold: true 
+#| code-fold: true
 #| fig-align: center
 #| fig-height: 4
 
@@ -56,10 +56,22 @@ process <- ThreeWinStreakSelection$new(theta, T, n_traj, a, random_state = 42)
 
 custom_colors <- colorRampPalette(c(yellow, pink, blue))(n_traj)
 
- ggplot(data = process$trajectories, mapping = aes(x = t, y = X, group = traj_id, color = traj_id)) +
+ggplot(
+  data = process$trajectories,
+  mapping = aes(x = t, y = X, group = traj_id, color = traj_id)
+) +
   geom_line(show.legend = FALSE, ) +
-  geom_point(data = process$end_states, mapping = aes(x = t, y = X, color = traj_id), size = 2, show.legend = FALSE) +
+  geom_point(
+    data = process$end_states,
+    mapping = aes(x = t, y = X, color = traj_id),
+    size = 2,
+    show.legend = FALSE
+  ) +
   scale_color_manual(values = custom_colors) +
-  labs(x = "t", y = "X", title = "5 simulated runs of 1000 games\nw/3-in-a-row selection strategy")
+  labs(
+    x = "t",
+    y = "X",
+    title = "5 simulated runs of 1000 games\nw/3-in-a-row selection strategy"
+  )
 
 ```

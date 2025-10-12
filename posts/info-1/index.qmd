@@ -16,15 +16,14 @@ $$
 
 
 ```{python}
-#| echo: false
-#| include: false
-#| warning: false
-#| message: false
+# | echo: false
+# | include: false
+# | warning: false
+# | message: false
 
 from scipy.stats import norm, multivariate_normal, beta, poisson, binom
 from scipy.integrate import quad
 import numpy as np
-import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.ticker import PercentFormatter
@@ -44,7 +43,9 @@ heatmap_stops = [grey, yellow]
 heatmap_cmap = LinearSegmentedColormap.from_list("heatmap_cmap", heatmap_stops)
 
 conditional_stops = [blue, purple, yellow]
-conditional_cmap = LinearSegmentedColormap.from_list("conditional_cmap", conditional_stops)
+conditional_cmap = LinearSegmentedColormap.from_list(
+    "conditional_cmap", conditional_stops
+)
 
 ```
 
@@ -122,12 +123,12 @@ We will return to an information-theoretic treatment of linear regression (and o
 For now, let's see all this in action with real distributions in a real-world context. Suppose that $X$ is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values $X = 1,2,3,4,5,6$. Let's say that most students study only 2 or 3 hours, with its full distribution (mass function $f(x)$) shown below:
 
 ```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 n = 6
-xs = range(1, n+1)
+xs = range(1, n + 1)
 fxs = poisson.pmf(xs, mu=3)
 fxs /= fxs.sum()
 
@@ -137,7 +138,7 @@ ax.bar(xs, fxs, width=0.4, zorder=2)
 ax.set_xlabel(r"hours studied ($x$)")
 ax.set_ylabel("probability")
 ax.set_title(r"marginal mass $f(x)$")
-ax.set_xticks(range(1, n+1))
+ax.set_xticks(range(1, n + 1))
 plt.tight_layout()
 plt.show()
 
@@ -146,12 +147,14 @@ plt.show()
 We might reasonably believe that $X$ is predictive of $Y$, the exam score of a randomly chosen student, taking continuous values in the interval $[0,1]$, understood as percentages. The corresponding marginal density $f(y)$ is shown below:
 
 ```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
+
 
 def fy(y):
-  return sum([beta.pdf(y, a=x, b=3) * fx for x, fx in zip(xs, fxs)])
+    return sum([beta.pdf(y, a=x, b=3) * fx for x, fx in zip(xs, fxs)])
+
 
 _, ax = plt.subplots(figsize=(6, 4))
 
@@ -170,17 +173,19 @@ plt.show()
 Together, $X$ and $Y$ have a joint mass/density function $f(x,y)$, visualized in the following ridgeline plot, where each of the horizontal density curves shows $f(x,y)$ as a function of $y$, for *fixed* $x=1,2,3,4,5,6$.
 
 ```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 _, ax = plt.subplots(figsize=(6, 5))
 
-conditional_colors = [conditional_cmap(i/(n-1)) for i in range(n)]
+conditional_colors = [conditional_cmap(i / (n - 1)) for i in range(n)]
 for x, fx in zip(xs, fxs):
-  joint_vals = 1.7 * beta.pdf(x=grid, a=x, b=3) * fx
-  ax.fill_between(grid, x, x + joint_vals, color=conditional_colors[x-1], zorder=2, alpha=0.1)
-  ax.plot(grid, x + joint_vals, color=conditional_colors[x-1], zorder=2)
+    joint_vals = 1.7 * beta.pdf(x=grid, a=x, b=3) * fx
+    ax.fill_between(
+        grid, x, x + joint_vals, color=conditional_colors[x - 1], zorder=2, alpha=0.1
+    )
+    ax.plot(grid, x + joint_vals, color=conditional_colors[x - 1], zorder=2)
 ax.set_ylabel(r"hours studied ($x$)")
 ax.set_xlabel(r"test score ($y$)")
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
@@ -193,15 +198,15 @@ plt.show()
 Dividing the joint mass/density $f(x,y)$ by the marginal mass $f(x)$ yields the conditional densities $f(y|x)$. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to $1$ over $[0,1]$. They are shown in:
 
 ```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 _, ax = plt.subplots(figsize=(6, 4))
 
 for x in xs:
-  ax.plot(grid, beta.pdf(x=grid, a=x, b=3), color=conditional_colors[x-1], label=x)
-ax.legend(title=r"hours studied ($x$)", loc="center left", bbox_to_anchor=(1, .5))
+    ax.plot(grid, beta.pdf(x=grid, a=x, b=3), color=conditional_colors[x - 1], label=x)
+ax.legend(title=r"hours studied ($x$)", loc="center left", bbox_to_anchor=(1, 0.5))
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
 ax.set_title(r"conditional densities $f(y|x)$")
 
@@ -248,9 +253,9 @@ As mentioned in the introduction, *entropy* measures the uncertainty in the outc
 This inverse relationship is given by the function $s = -\log{p}$, linking a probability $p\in [0,1]$ with a *surprisal* $s\in [0,\infty)$.[We write $\log$ for the base-$e$ logarithm.]{.aside} The graph of this relationship is shown in:
 
 ```{python}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 mesh = np.linspace(0.01, 1, num=100)
 
@@ -288,21 +293,21 @@ Let $X$ and $Y$ be two random variables with density functions $f(x)$ and $f(y)$
 For a simple example of the relationship between discrete probabilities and surprisals, let's bring back our random variable $X$ from the previous section, which tallied the number of hours a randomly chosen student studied for the upcoming exam:
 
 ```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
 axes[0].bar(xs, fxs, width=0.4, zorder=2)
 axes[0].set_ylabel(r"probability mass")
 axes[0].set_title(r"marginal density $f(x)$")
-axes[0].set_xticks(range(1, n+1))
+axes[0].set_xticks(range(1, n + 1))
 
 axes[1].bar(xs, -np.log(fxs), width=0.4, zorder=2)
 axes[1].set_ylabel(r"surprisal mass")
 axes[1].set_title(r"marginal surprisal $s(x)$")
-axes[1].set_xticks(range(1, n+1))
+axes[1].set_xticks(range(1, n + 1))
 
 fig.supxlabel(r"hours studied ($x$)")
 plt.tight_layout()
@@ -313,9 +318,9 @@ plt.show()
 Because a probability density (mass) function of a discrete random variable must take values in $[0,1]$, its surprisal function is never negative. However, the probability density function of a continuous random variable *may* take on values larger than $1$, which means that the associated surprisal density function can be negative. This can be seen for the continuous random variable $Y$ from the previous section, whose density can exceed $1$ in regions of high concentration—hence its surprisal can dip below zero.
 
 ```{python}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
@@ -377,9 +382,9 @@ where, by convention, $\int$ denotes integration over $\bbr$. In the literature,
 The `stats` submodule of the `SciPy` library contains a convenient method called `entropy` for computing entropies of discrete random variables. We use it to compute the entropy $H(X)$, where $X$ is the "hours studied" random variable:
 
 ```{python}
-#| echo: true
-#| code-fold: false
-#| fig-align: center
+# | echo: true
+# | code-fold: false
+# | fig-align: center
 
 from scipy.stats import entropy
 
@@ -388,16 +393,16 @@ from scipy.stats import entropy
 
 print(f"The probability mass function f(x) of X is:\n")
 for x, p in enumerate(fxs):
-  print(f"    f({x+1}) =", round(p, 3))
+    print(f"    f({x + 1}) =", round(p, 3))
 print(f"\nThe entropy H(X) is {entropy(fxs):.3f}.")
 ```
 
 We can use the `quad` method in the `integrate` submodule of `SciPy` to compute differential entropies. For the "exam score" random variable $Y$, we compute:
 
 ```{python}
-#| echo: true
-#| code-fold: false
-#| fig-align: center
+# | echo: true
+# | code-fold: false
+# | fig-align: center
 
 from scipy.integrate import quad
 
@@ -429,25 +434,30 @@ $$
 for $\omega\in \{0,1,\ldots,10\}$. These are the mass functions of a $\Bin(10,0.4)$ and $\Bin(10,0.9)$ random variable, respectively. We then plot histograms for these mass functions, along with histograms of the absolute and logarithmic relative magnitudes:
 
 ```{python}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 omegas = np.arange(0, 11)
 p = binom(n=10, p=0.4).pmf(omegas)
 q = binom(n=10, p=0.9).pmf(omegas)
-titles = ['$f(\\omega)$', '$g(\\omega)$', '$\\frac{f(\\omega)}{g(\\omega)}$', '$\\log\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$']
+titles = [
+    "$f(\\omega)$",
+    "$g(\\omega)$",
+    "$\\frac{f(\\omega)}{g(\\omega)}$",
+    "$\\log\\left(\\frac{f(\\omega)}{g(\\omega)}\\right)$",
+]
 probs = [p, q, p / q, np.log(p / q)]
 ylims = [(0, 0.4), (0, 0.4), (-50, 0.75e8), (-10, 20)]
 
 fig, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 5), sharex=True)
 
 for title, prob, ylim, axis in zip(titles, probs, ylims, axes.flatten()):
-  axis.bar(omegas, prob, width=0.4, zorder=2)
-  axis.set_xticks(ticks=omegas)
-  axis.set_ylim(ylim)
-  axis.set_title(title)
-    
+    axis.bar(omegas, prob, width=0.4, zorder=2)
+    axis.set_xticks(ticks=omegas)
+    axis.set_ylim(ylim)
+    axis.set_title(title)
+
 fig.supxlabel("$\\omega$")
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.5)
@@ -499,23 +509,26 @@ $$
 for $x=2,3,4,5,6$.
 
 ```{python}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 # the conditional random variable Y|x=x is a
 # Beta(x, 3) random variable. We implement its
 # conditional density
 
+
 def cond(y, x):
-  return beta.pdf(x=y, a=x, b=3)
+    return beta.pdf(x=y, a=x, b=3)
+
 
 def integrand(y, x1, x2):
-  return cond(y, x1) * np.log(cond(y, x1) / cond(y, x2))
+    return cond(y, x1) * np.log(cond(y, x1) / cond(y, x2))
+
 
 KL_div = np.empty(5)
 for x in range(5):
-  KL_div[x], _ = quad(func=integrand, args=(1, x+2), a=0, b=1)
+    KL_div[x], _ = quad(func=integrand, args=(1, x + 2), a=0, b=1)
 
 fig = plt.figure(figsize=(8, 5))
 gs = gridspec.GridSpec(2, 6, figure=fig)
@@ -527,14 +540,14 @@ ax5 = fig.add_subplot(gs[1, 3:5])
 axes = [ax1, ax2, ax3, ax4, ax5]
 
 for x, ax in enumerate(axes):
-  ax.plot(grid, cond(grid, 1), color=blue, zorder=2, label="x = 1")
-  ax.fill_between(grid, cond(grid, 1), zorder=2, color=blue, alpha=0.1)
-  ax.plot(grid, cond(grid, x+2), color=yellow, zorder=2, label=f"x = {x+2}")
-  ax.fill_between(grid, cond(grid, x+2), zorder=2, color=yellow, alpha=0.1)
-  ax.set_title(f"KL div. = {KL_div[x]:.3f}")
-  ax.set_ylim(0, 4)
-  ax.legend(loc="upper right")
-  
+    ax.plot(grid, cond(grid, 1), color=blue, zorder=2, label="x = 1")
+    ax.fill_between(grid, cond(grid, 1), zorder=2, color=blue, alpha=0.1)
+    ax.plot(grid, cond(grid, x + 2), color=yellow, zorder=2, label=f"x = {x + 2}")
+    ax.fill_between(grid, cond(grid, x + 2), zorder=2, color=yellow, alpha=0.1)
+    ax.set_title(f"KL div. = {KL_div[x]:.3f}")
+    ax.set_ylim(0, 4)
+    ax.legend(loc="upper right")
+
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.5)
 plt.show()
@@ -572,9 +585,9 @@ $$
 where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are the marginal mass and densities, respectively. We implement this formula directly in `Python`, using the `quad` method in the `integrate` submodule of `SciPy` for integration:
 
 ```{python}
-#| echo: true
-#| code-fold: false
-#| fig-align: center
+# | echo: true
+# | code-fold: false
+# | fig-align: center
 
 # The conditional density of Y|X=x is implemented as the
 # function `cond(y, x)`, the marginal density of Y is
@@ -583,14 +596,17 @@ where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are
 
 # true joint density
 def fxy(x, y):
-  return fxs[x-1] * cond(y, x)
+    return fxs[x - 1] * cond(y, x)
+
 
 # product density
 def prod(x, y):
-  return fxs[x-1] * fy(y)
+    return fxs[x - 1] * fy(y)
+
 
 def integrand(x, y):
-  return fxy(x, y) * np.log(fxy(x, y) / prod(x, y))
+    return fxy(x, y) * np.log(fxy(x, y) / prod(x, y))
+
 
 funcs = [lambda y, x=x: integrand(x, y) for x in range(1, 7)]
 mutual_info = sum([quad(func, a=0, b=1)[0] for func in funcs])
@@ -616,9 +632,9 @@ Thus, the mutual information measures the amount of entropy in $Y$ that is "left
 We end this section by using formula ([-@eq-info-entropy]) to re-do our computation of the mutual information $I(X,Y)$ from above. We get the same answer:
 
 ```{python}
-#| echo: true
-#| code-fold: false
-#| fig-align: center
+# | echo: true
+# | code-fold: false
+# | fig-align: center
 
 # the differential entropy H(Y) is stored in `diff_entropy`
 
@@ -742,26 +758,33 @@ $$
 and $\rho$ is the correlation of $X$ and $Y$ (hence the marginal standard deviations are $\sigma_X = 1$ and $\sigma_Y=2$). In the second and third plots below, we have selected two correlations $\rho=0.5,0.85$ and computed the corresponding mutual information $I(X,Y)$. The isoprobability contours of the joint normal density $f(x,y)$ are shown in yellow, while the conditional normal densities $f(y|x)$ are shown in blue for each of $x=-1, 0, 1$. For comparison, the marginal density $f(y)$ has been shown in the first plot.
 
 ```{python}
-#| echo: true
-#| code-fold: true 
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
+
 
 def plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y, labels=False):
-  Sigma = np.array([[sigmaX ** 2, rho * sigmaX * sigmaY], [rho * sigmaX * sigmaY, sigmaY ** 2]])
-  Mu = np.array([muX, muY])
-  U = multivariate_normal(mean=Mu, cov=Sigma)
-  grid = np.dstack((x, y))
-  z = U.pdf(grid)
-  contour = ax.contour(x, y, z, colors=yellow, alpha=0.3)
-  if labels:
-    ax.clabel(contour, inline=True, fontsize=8)
-  
-def plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs, magnification_factor=1):
-  mu = muY + (x_obs - muX) * rho * sigmaY / sigmaX
-  sigma = sigmaY * np.sqrt(1 - rho ** 2)
-  x = magnification_factor * norm(loc=mu, scale=sigma).pdf(y_mesh)
-  ax.plot(-x + x_obs, y_mesh, color=blue)
-  ax.fill_betweenx(y_mesh, -x + x_obs, x_obs, color=blue, alpha=0.4)
+    Sigma = np.array(
+        [[sigmaX**2, rho * sigmaX * sigmaY], [rho * sigmaX * sigmaY, sigmaY**2]]
+    )
+    Mu = np.array([muX, muY])
+    U = multivariate_normal(mean=Mu, cov=Sigma)
+    grid = np.dstack((x, y))
+    z = U.pdf(grid)
+    contour = ax.contour(x, y, z, colors=yellow, alpha=0.3)
+    if labels:
+        ax.clabel(contour, inline=True, fontsize=8)
+
+
+def plot_conditional(
+    ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs, magnification_factor=1
+):
+    mu = muY + (x_obs - muX) * rho * sigmaY / sigmaX
+    sigma = sigmaY * np.sqrt(1 - rho**2)
+    x = magnification_factor * norm(loc=mu, scale=sigma).pdf(y_mesh)
+    ax.plot(-x + x_obs, y_mesh, color=blue)
+    ax.fill_betweenx(y_mesh, -x + x_obs, x_obs, color=blue, alpha=0.4)
+
 
 muX = 0
 muY = 0
@@ -772,7 +795,9 @@ x_obs = [-1, 0, 1]
 x, y = np.mgrid[-2.1:2.1:0.01, -5:5:0.01]
 y_mesh = np.linspace(-5, 5, num=250)
 
-fig, axes = plt.subplots(ncols=3, figsize=(8, 4), sharey=True, gridspec_kw={'width_ratios': [1, 4, 4]})
+fig, axes = plt.subplots(
+    ncols=3, figsize=(8, 4), sharey=True, gridspec_kw={"width_ratios": [1, 4, 4]}
+)
 
 magnification_factor = 2.5
 x_marginal = magnification_factor * norm(scale=sigmaY).pdf(y_mesh)
@@ -786,14 +811,24 @@ axes[0].spines["bottom"].set_visible(False)
 axes[0].set_xticks([])
 
 for rho, ax in zip(rhos, axes[1:]):
-  plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y)
-  for x_ob in x_obs:
-    plot_conditional(ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs=x_ob, magnification_factor=3)
-  info = -(1 / 2) * np.log(1 - rho ** 2)
-  ax.set_title(rf"$\rho ={rho}$, $I(X,Y)= {info:0.3f}$")
-  ax.set_xlabel(r"$x$")
-  ax.set_xlim(-2.2, 2.2)
-  ax.set_xticks(range(-2, 3))
+    plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y)
+    for x_ob in x_obs:
+        plot_conditional(
+            ax,
+            muX,
+            muY,
+            sigmaX,
+            sigmaY,
+            rho,
+            y_mesh,
+            x_obs=x_ob,
+            magnification_factor=3,
+        )
+    info = -(1 / 2) * np.log(1 - rho**2)
+    ax.set_title(rf"$\rho ={rho}$, $I(X,Y)= {info:0.3f}$")
+    ax.set_xlabel(r"$x$")
+    ax.set_xlim(-2.2, 2.2)
+    ax.set_xticks(range(-2, 3))
 
 axes[0].set_ylabel(r"$y$")
 plt.tight_layout()
