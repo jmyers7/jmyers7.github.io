@@ -569,7 +569,7 @@ $$
 I(X,Y) = \sum_{x=1}^6 \int_0^1 f(x,y) \log\left(\frac{f(x,y)}{f(x)f(y)} \right) \ dy,
 $$
 
-where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are the marginal mass and densities, respectively. We implement this formula directly in `Python`, using the `quad` method in the `stats` submodule of `SciPy` for integration:
+where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are the marginal mass and densities, respectively. We implement this formula directly in `Python`, using the `quad` method in the `integrate` submodule of `SciPy` for integration:
 
 ```{python}
 #| echo: true
