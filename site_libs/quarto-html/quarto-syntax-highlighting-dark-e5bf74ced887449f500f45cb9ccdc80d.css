@@ -5,29 +5,29 @@
   --quarto-hl-at-color: inherit;
   --quarto-hl-bn-color: #dca3a3;
   --quarto-hl-bu-color: inherit;
-  --quarto-hl-ch-color: #dca3a3;
-  --quarto-hl-co-color: #7f9f7f;
-  --quarto-hl-cv-color: #7f9f7f;
-  --quarto-hl-cn-color: #dca3a3;
-  --quarto-hl-cf-color: #f0dfaf;
+  --quarto-hl-ch-color: #D98657;
+  --quarto-hl-co-color: #4A7FAF;
+  --quarto-hl-cv-color: #4A7FAF;
+  --quarto-hl-cn-color: #D98657;
+  --quarto-hl-cf-color: #E0AA2B;
   --quarto-hl-dt-color: #dfdfbf;
   --quarto-hl-dv-color: #dcdccc;
-  --quarto-hl-do-color: #7f9f7f;
+  --quarto-hl-do-color: #4A7FAF;
   --quarto-hl-er-color: #c3bf9f;
   --quarto-hl-ex-color: inherit;
   --quarto-hl-fl-color: #c0bed1;
-  --quarto-hl-fu-color: #efef8f;
+  --quarto-hl-fu-color: #E0AA2B;
   --quarto-hl-im-color: inherit;
   --quarto-hl-in-color: #7f9f7f;
-  --quarto-hl-kw-color: #f0dfaf;
-  --quarto-hl-op-color: #f0efd0;
+  --quarto-hl-kw-color: #E0AA2B;
+  --quarto-hl-op-color: #E0AA2B;
   --quarto-hl-ot-color: #efef8f;
   --quarto-hl-pp-color: #ffcfaf;
-  --quarto-hl-sc-color: #dca3a3;
-  --quarto-hl-ss-color: #cc9393;
-  --quarto-hl-st-color: #cc9393;
+  --quarto-hl-sc-color: #E0AA2B;
+  --quarto-hl-ss-color: #E0AA2B;
+  --quarto-hl-st-color: #E0AA2B;
   --quarto-hl-va-color: inherit;
-  --quarto-hl-vs-color: #cc9393;
+  --quarto-hl-vs-color: #E0AA2B;
   --quarto-hl-wa-color: #7f9f7f;
 }
 
@@ -68,39 +68,39 @@ code span.bu {
 
 /* ControlFlow */
 code span.cf {
-  color: #f0dfaf;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
 /* Char */
 code span.ch {
-  color: #dca3a3;
+  color: #D98657;
   font-style: inherit;
 }
 
 /* Constant */
 code span.cn {
-  color: #dca3a3;
+  color: #D98657;
   font-weight: bold;
   font-style: inherit;
 }
 
 /* Comment */
 code span.co {
-  color: #7f9f7f;
+  color: #4A7FAF;
   font-style: inherit;
 }
 
 /* CommentVar */
 code span.cv {
-  color: #7f9f7f;
+  color: #4A7FAF;
   font-weight: bold;
   font-style: inherit;
 }
 
 /* Documentation */
 code span.do {
-  color: #7f9f7f;
+  color: #4A7FAF;
   font-style: inherit;
 }
 
@@ -135,7 +135,7 @@ code span.fl {
 
 /* Function */
 code span.fu {
-  color: #efef8f;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
@@ -153,13 +153,13 @@ code span.in {
 
 /* Keyword */
 code span.kw {
-  color: #f0dfaf;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
 /* Operator */
 code span.op {
-  color: #f0efd0;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
@@ -178,19 +178,19 @@ code span.pp {
 
 /* SpecialChar */
 code span.sc {
-  color: #dca3a3;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
 /* SpecialString */
 code span.ss {
-  color: #cc9393;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
 /* String */
 code span.st {
-  color: #cc9393;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
@@ -201,7 +201,7 @@ code span.va {
 
 /* VerbatimString */
 code span.vs {
-  color: #cc9393;
+  color: #E0AA2B;
   font-style: inherit;
 }
 
@@ -216,4 +216,4 @@ code span.wa {
   content: "</";
 }
 
-/*# sourceMappingURL=7b237c69e29b84c664be9e2685896814.css.map */
+/*# sourceMappingURL=c75763306b50a741c55dfcd37db1f31c.css.map */
