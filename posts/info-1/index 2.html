@@ -125,20 +125,6 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VWK3RHBGT2"></script>
-
-<script type="text/javascript">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
- 
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied'
-  });
-gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
@@ -355,7 +341,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 \]</span></p>
 <p>We will return to an information-theoretic treatment of linear regression (and other) models in a later post.</p>
 <p>For now, let’s see all this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with its full distribution (mass function <span class="math inline">\(f(x)\)</span>) shown below:</p>
-<div id="b8c9312a" class="cell" data-execution_count="2">
+<div id="41629e8c" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
@@ -382,7 +368,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>We might reasonably believe that <span class="math inline">\(X\)</span> is predictive of <span class="math inline">\(Y\)</span>, the exam score of a randomly chosen student, taking continuous values in the interval <span class="math inline">\([0,1]\)</span>, understood as percentages. The corresponding marginal density <span class="math inline">\(f(y)\)</span> is shown below:</p>
-<div id="496c76ee" class="cell" data-execution_count="3">
+<div id="8eda179f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy(y):</span>
@@ -409,7 +395,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
-<div id="d9109310" class="cell" data-execution_count="4">
+<div id="316ee2ab" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
@@ -435,7 +421,7 @@ x\mapsto \theta(x) = \beta_0 + \beta_1x,
 </div>
 </div>
 <p>Dividing the joint mass/density <span class="math inline">\(f(x,y)\)</span> by the marginal mass <span class="math inline">\(f(x)\)</span> yields the conditional densities <span class="math inline">\(f(y|x)\)</span>. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to <span class="math inline">\(1\)</span> over <span class="math inline">\([0,1]\)</span>. They are shown in:</p>
-<div id="6e1cd602" class="cell" data-execution_count="5">
+<div id="d07c8471" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
@@ -483,7 +469,7 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 <h2 class="anchored" data-anchor-id="surprisal-and-entropy">Surprisal and entropy</h2>
 <p>As mentioned in the introduction, <em>entropy</em> measures the uncertainty in the outcome of a random variable. More precisely, it is the average <em>surprisal</em> of an observation. Surprisal varies inversely with probability: large probabilities yield small surprisals, and small probabilities yield large ones.</p>
 <div class="page-columns page-full"><p>This inverse relationship is given by the function <span class="math inline">\(s = -\log{p}\)</span>, linking a probability <span class="math inline">\(p\in [0,1]\)</span> with a <em>surprisal</em> <span class="math inline">\(s\in [0,\infty)\)</span>. The graph of this relationship is shown in:</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We write <span class="math inline">\(\log\)</span> for the base-<span class="math inline">\(e\)</span> logarithm.</span></div></div>
-<div id="b17cc008" class="cell" data-execution_count="6">
+<div id="17e4aa99" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mesh <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">1</span>, num<span class="op">=</span><span class="dv">100</span>)</span>
@@ -527,7 +513,7 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 </div>
 </div>
 <p>For a simple example of the relationship between discrete probabilities and surprisals, let’s bring back our random variable <span class="math inline">\(X\)</span> from the previous section, which tallied the number of hours a randomly chosen student studied for the upcoming exam:</p>
-<div id="429e3873" class="cell" data-execution_count="7">
+<div id="5cd11446" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -555,7 +541,7 @@ I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
 </div>
 </div>
 <p>Because a probability density (mass) function of a discrete random variable must take values in <span class="math inline">\([0,1]\)</span>, its surprisal function is never negative. However, the probability density function of a continuous random variable <em>may</em> take on values larger than <span class="math inline">\(1\)</span>, which means that the associated surprisal density function can be negative. This can be seen for the continuous random variable <span class="math inline">\(Y\)</span> from the previous section, whose density can exceed <span class="math inline">\(1\)</span> in regions of high concentration—hence its surprisal can dip below zero.</p>
-<div id="9d36acf2" class="cell" data-execution_count="8">
+<div id="18b6989b" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -618,7 +604,7 @@ H(X) = \int f(x) s(x) \ dx = - \int f(x) \log{f(x)} \ dx,
 \]</span></p>
 <p>where, by convention, <span class="math inline">\(\int\)</span> denotes integration over <span class="math inline">\(\mathbb{R}\)</span>. In the literature, the entropy of a continuous random variable is often called <em>differential entropy</em>.</p>
 <p>The <code>stats</code> submodule of the <code>SciPy</code> library contains a convenient method called <code>entropy</code> for computing entropies of discrete random variables. We use it to compute the entropy <span class="math inline">\(H(X)\)</span>, where <span class="math inline">\(X\)</span> is the “hours studied” random variable:</p>
-<div id="cd03e89e" class="cell" data-execution_count="9">
+<div id="0b4f8b7a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> entropy</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the values of the probability mass function of X are stored in a</span></span>
@@ -642,7 +628,7 @@ The entropy H(X) is 1.698.</code></pre>
 </div>
 </div>
 <p>We can use the <code>quad</code> method in the <code>integrate</code> submodule of <code>SciPy</code> to compute differential entropies. For the “exam score” random variable <span class="math inline">\(Y\)</span>, we compute:</p>
-<div id="112fbbbe" class="cell" data-execution_count="10">
+<div id="fc625fc7" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the marginal probability density function of Y is implemented as</span></span>
@@ -668,7 +654,7 @@ The entropy H(X) is 1.698.</code></pre>
 f(\omega) = \binom{10}{\omega} (0.4)^\omega(0.6)^{10-\omega} \quad \text{and} \quad g(\omega) = \binom{10}{\omega} (0.9)^\omega(0.1)^{10-\omega}
 \]</span></p>
 <p>for <span class="math inline">\(\omega\in \{0,1,\ldots,10\}\)</span>. These are the mass functions of a <span class="math inline">\(\mathcal{B}in(10,0.4)\)</span> and <span class="math inline">\(\mathcal{B}in(10,0.9)\)</span> random variable, respectively. We then plot histograms for these mass functions, along with histograms of the absolute and logarithmic relative magnitudes:</p>
-<div id="a01f55ee" class="cell" data-execution_count="11">
+<div id="fb0f30df" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>omegas <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>)</span>
@@ -735,7 +721,7 @@ D(X \parallel Y) = E_{x\sim f(x)} \left[ \log \left( \frac{f(x)}{g(x)}\right) \r
 D\left( (Y\mid X=1) \parallel (Y\mid X=x) \right)
 \]</span></p>
 <p>for <span class="math inline">\(x=2,3,4,5,6\)</span>.</p>
-<div id="5b9bc463" class="cell" data-execution_count="12">
+<div id="1999772d" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the conditional random variable Y|x=x is a</span></span>
@@ -809,8 +795,8 @@ I(X,Y) = E_{(x,y)\sim f(x,y)} \left[ \log \left( \frac{f(x,y)}{f(x)f(y)} \right)
 <p><span class="math display">\[
 I(X,Y) = \sum_{x=1}^6 \int_0^1 f(x,y) \log\left(\frac{f(x,y)}{f(x)f(y)} \right) \ dy,
 \]</span></p>
-<p>where <span class="math inline">\(f(x,y)\)</span> is the true joint mass-density function and <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span> are the marginal mass and densities, respectively. We implement this formula directly in <code>Python</code>, using the <code>quad</code> method in the <code>integrate</code> submodule of <code>SciPy</code> for integration:</p>
-<div id="ee78f6d0" class="cell" data-execution_count="13">
+<p>where <span class="math inline">\(f(x,y)\)</span> is the true joint mass-density function and <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span> are the marginal mass and densities, respectively. We implement this formula directly in <code>Python</code>, using the <code>quad</code> method in the <code>stats</code> submodule of <code>SciPy</code> for integration:</p>
+<div id="3dfbdce0" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The conditional density of Y|X=x is implemented as the</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># function `cond(y, x)`, the marginal density of Y is</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the function `fy(y)`, and the marginal probability masses</span></span>
@@ -853,7 +839,7 @@ I(X,Y) = H(Y) - H(Y\mid X).
 </div>
 <p>Thus, the mutual information measures the amount of entropy in <span class="math inline">\(Y\)</span> that is “leftover” after having observed <span class="math inline">\(X\)</span>. In other words, it quantifies how much knowing <span class="math inline">\(X\)</span> reduces uncertainty about <span class="math inline">\(Y\)</span>.</p>
 <p>We end this section by using formula (<a href="#eq-info-entropy" class="quarto-xref">6</a>) to re-do our computation of the mutual information <span class="math inline">\(I(X,Y)\)</span> from above. We get the same answer:</p>
-<div id="fae718ed" class="cell" data-execution_count="14">
+<div id="623a49cd" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the differential entropy H(Y) is stored in `diff_entropy`</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>funcs <span class="op">=</span> [<span class="kw">lambda</span> y, x<span class="op">=</span>x: <span class="op">-</span>cond(y, x) <span class="op">*</span> np.log(cond(y, x)) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
@@ -866,9 +852,9 @@ I(X,Y) = H(Y) - H(Y\mid X).
 </div>
 </div>
 </section>
-<section id="mutual-information-of-jointly-normal-random-variables" class="level2 page-columns page-full">
+<section id="mutual-information-of-jointly-normal-random-variables" class="level2">
 <h2 class="anchored" data-anchor-id="mutual-information-of-jointly-normal-random-variables">Mutual information of jointly normal random variables</h2>
-<div class="page-columns page-full"><p>Useful intuition for the mutual information <span class="math inline">\(I(X,Y)\)</span> arises from the simple case of jointly normal variables, where a closed-form expression can be obtained. As a first step toward this formula, we compute the differential entropy of a single normal random variable:</p><div class="no-row-height column-margin column-container"><span class="margin-aside">For background on normal random vectors, see <a href="https://johnmyers-phd.com/book/chapters/07-more-prob.html#" target="_blank">here</a>.</span></div></div>
+<p>Useful intuition for the mutual information <span class="math inline">\(I(X,Y)\)</span> arises from the simple case of jointly normal variables, where a closed-form expression can be obtained. As a first step toward this formula, we compute the differential entropy of a single normal random variable:</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -876,7 +862,7 @@ I(X,Y) = H(Y) - H(Y\mid X).
 </div>
 <div class="callout-body-container">
 <div id="thm-norm-entropy" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (Entropy of a normal random variable)</strong></span> If <span class="math inline">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span>, then</p>
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> If <span class="math inline">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span>, then</p>
 <p><span class="math display">\[
 H(X) = \frac{1}{2}\log(2\pi e \sigma^2),
 \]</span></p>
@@ -919,7 +905,7 @@ H(X) &amp;= -\int f(x) \log{f(x)} \ dx \\
 </div>
 <div class="callout-body-container">
 <div id="thm-cond-norm" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3 (Conditional distributions of normal vectors are normal)</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector with</p>
+<p><span class="theorem-title"><strong>Theorem 3</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector with</p>
 <p><span class="math display">\[
 \boldsymbol{\mu}= \begin{bmatrix} \mu_X \\ \mu_Y \end{bmatrix} \quad \text{and} \quad \boldsymbol{\Sigma}= \begin{bmatrix}
 \sigma_X^2 &amp; \rho \sigma_X \sigma_Y \\
@@ -943,7 +929,7 @@ H(X) &amp;= -\int f(x) \log{f(x)} \ dx \\
 </div>
 <div class="callout-body-container">
 <div id="thm-info-normal" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 4 (Mutual information of jointly normal variables)</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector. Then</p>
+<p><span class="theorem-title"><strong>Theorem 4</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector. Then</p>
 <p><span class="math display">\[
 I(X,Y) = -\frac{1}{2} \log \left(1-\rho^2 \right),
 \]</span></p>
@@ -995,7 +981,7 @@ I(X,Y) &amp;= H(Y) - H(Y\mid X) \\
 \end{bmatrix},
 \]</span></p>
 <p>and <span class="math inline">\(\rho\)</span> is the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (hence the marginal standard deviations are <span class="math inline">\(\sigma_X = 1\)</span> and <span class="math inline">\(\sigma_Y=2\)</span>). In the second and third plots below, we have selected two correlations <span class="math inline">\(\rho=0.5,0.85\)</span> and computed the corresponding mutual information <span class="math inline">\(I(X,Y)\)</span>. The isoprobability contours of the joint normal density <span class="math inline">\(f(x,y)\)</span> are shown in yellow, while the conditional normal densities <span class="math inline">\(f(y|x)\)</span> are shown in blue for each of <span class="math inline">\(x=-1, 0, 1\)</span>. For comparison, the marginal density <span class="math inline">\(f(y)\)</span> has been shown in the first plot.</p>
-<div id="c043e347" class="cell" data-execution_count="15">
+<div id="18cd78ab" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y, labels<span class="op">=</span><span class="va">False</span>):</span>
