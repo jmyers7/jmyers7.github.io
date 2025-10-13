@@ -724,14 +724,12 @@ where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are
 def fxy(x, y):
     return fx(x) * fy_given_x(y, x)
 
-# Compute the product of marginals: f(x) * f(y)
-def prod(x, y):
-    return fx(x) * fy(y)
 
 # Define the integrand for mutual information:
 # f(x, y) * log(f(x, y) / (f(x) * f(y)))
 def integrand(x, y):
-    return fxy(x, y) * np.log(fxy(x, y) / prod(x, y))
+    return fxy(x, y) * np.log(fxy(x, y) / (fx(x) * fy(y)))
+
 
 # For each x, create a function of y for integration over y in [0, 1]
 funcs = [lambda y, x=x: integrand(x, y) for x in range(1, 7)]
