@@ -752,9 +752,7 @@ def integrand(y, x1, x2):
 
 
 # Compute KL divergence D((Y|X=1) || (Y|X=x)) for x = 2, 3, 4, 5, 6
-KL_div = np.empty(5)
-for x in range(2, 7):
-    KL_div[x - 2], _ = quad(func=integrand, args=(1, x), a=0, b=1)
+KL_div = {x: quad(func=integrand, args=(1, x), a=0, b=1)[0] for x in X.support[1:]}
 
 # Set up a 2x6 grid for custom subplot arrangement
 fig = plt.figure(figsize=(8, 5))
@@ -767,12 +765,10 @@ ax5 = fig.add_subplot(gs[1, 3:5])
 axes = [ax1, ax2, ax3, ax4, ax5]
 
 # For each subplot, plot the two conditional densities and annotate with KL divergence
-for x, ax in zip(range(2, 7), axes):
+for x, ax in zip(X.support[1:], axes):
     # Plot f(y|x=1) in blue
     ax.plot(Y.support, Y.cond_density_array(1), color=blue, zorder=2, label="x = 1")
-    ax.fill_between(
-        Y.support, Y.cond_density_array(1), zorder=2, color=blue, alpha=0.1
-    )
+    ax.fill_between(Y.support, Y.cond_density_array(1), zorder=2, color=blue, alpha=0.1)
 
     # Plot f(y|x) in yellow
     ax.plot(
@@ -783,7 +779,7 @@ for x, ax in zip(range(2, 7), axes):
     )
 
     # Annotate with the computed KL divergence
-    ax.set_title(f"KL div. = {KL_div[x - 2]:.3f}")
+    ax.set_title(f"KL div. = {KL_div[x]:.3f}")
     ax.set_ylim(0, 4)
     ax.legend(loc="upper right")
 
