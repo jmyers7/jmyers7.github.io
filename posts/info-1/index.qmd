@@ -156,16 +156,6 @@ class RV:
             raise ValueError("Conditional density function not set.")
         return self.cond_density(x, y)
 
-    def __repr__(self):
-        """
-        Return a string representation of the RV object.
-        """
-        return (
-            f"RV(support={self.support}, "
-            f"density={self.density}, "
-            f"conditional_density={self.cond_density})"
-        )
-
     def cond_density_array(self, y):
         """
         Get the conditional density array f(x|y) for a fixed y.
