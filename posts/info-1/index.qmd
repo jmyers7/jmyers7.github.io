@@ -34,7 +34,7 @@ We will begin by surveying the most basic quantities of information theory: *sur
 
 This post is the first in a series on *information*. In future posts, we will explore other ways the concept of information appears—for example, through $\sigma$-algebras—and apply these ideas to a range of problems, from gambling strategies and games of chance (the historical origin of mathematical probability theory), to options pricing in mathematical finance, and to probabilistic models in machine learning. I have discussed information theory previously in a [chapter](https://johnmyers-phd.com/book/chapters/09-info-theory.html){target="_blank"} of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.
 
-If you’d like to follow along with the code examples in this post, please see the code block below for the usual imports and setup.
+If you’d like to follow along with the code examples in this post, please see the dropdown code block below for the usual imports and setup.
 
 ```{python}
 # | echo: true
@@ -63,53 +63,71 @@ purple = "#AA77CC"
 grey = "#121212"
 white = "#E5E5E5"
 
-# Create a custom colormap for conditional distributions
-conditional_stops = [blue, purple, yellow]
-conditional_cmap = LinearSegmentedColormap.from_list(
-    "conditional_cmap", conditional_stops
-)
 
-# Define a class for random variables (discrete or continuous)
 class RV:
     """
     A class representing a random variable (discrete or continuous), with optional support for conditional densities.
 
-    Parameters
+    Attributes
     ----------
     support : array-like or None
         The support of the random variable (e.g., possible values for discrete, grid for continuous).
     density : callable
-        The marginal density or mass function. Should accept a value (or array of values) and return the density/mass.
-    conditional_density : callable, optional
-        The conditional density function f(y|x). Should accept (y, x) and return the density of y given x.
-
-    Attributes
-    ----------
-    support : array-like or None
-        The support of the random variable.
-    density : callable
         The marginal density or mass function.
-    conditional_density : callable or None
+    cond_density : callable or None
         The conditional density function, if provided.
-    pdf_array : np.ndarray or None
+    cond_support : array-like or None
+        The support for the conditional variable, if applicable.
+    density_array : np.ndarray or None
         The marginal density evaluated on the support, if support is array-like.
+    _cond_density_array : dict or None
+        Precomputed conditional densities, if available.
     """
 
     def __init__(
         self,
         support=None,
         density=None,
-        conditional_density=None,
+        cond_density=None,
+        cond_support=None,
     ):
+        """
+        Initialize an RV object.
+
+        Parameters
+        ----------
+        support : array-like or None
+            The support of the random variable (e.g., possible values for discrete, grid for continuous).
+        density : callable
+            The marginal density or mass function. Should accept a value (or array of values) and return the density/mass.
+        cond_density : callable, optional
+            The conditional density function f(x|y). Should accept (x, y) and return the density of x given y.
+        cond_support : array-like or None, optional
+            The support for the conditional variable, if applicable.
+        """
         self.support = support
         self.density = density
-        self.conditional_density = conditional_density
+        self.cond_density = cond_density
+        self.cond_support = cond_support
 
-        # Precompute density array if support is array-like and density is provided
+        # Precompute the marginal density array if possible
         if support is not None and density is not None:
-            self.pdf_array = np.array([density(x) for x in support])
+            self.density_array = np.array([density(x) for x in support])
         else:
-            self.pdf_array = None
+            self.density_array = None
+
+        # Precompute the conditional density array as a dictionary, if possible
+        if (
+            support is not None
+            and density is not None
+            and cond_density is not None
+            and cond_support is not None
+        ):
+            self._cond_density_array = {
+                y: cond_density(support, y) for y in cond_support
+            }
+        else:
+            self._cond_density_array = None
 
     def pdf(self, x):
         """
@@ -123,26 +141,39 @@ class RV:
         """
         return self.pdf(x)
 
-    def set_conditional_density(self, cond_density):
+    def set_cond_density(self, cond_density):
         """
-        Set the conditional density function f(y|x).
+        Set the conditional density function f(x|y).
         """
-        self.conditional_density = cond_density
+        self.cond_density = cond_density
 
-    def cond_pdf(self, y, x):
+    def cond_pdf(self, x, y):
         """
-        Evaluate the conditional density f(y|x).
+        Evaluate the conditional density f(x|y).
+        Raises a ValueError if the conditional density function is not set.
         """
-        if self.conditional_density is None:
+        if self.cond_density is None:
             raise ValueError("Conditional density function not set.")
-        return self.conditional_density(y, x)
+        return self.cond_density(x, y)
 
     def __repr__(self):
+        """
+        Return a string representation of the RV object.
+        """
         return (
             f"RV(support={self.support}, "
             f"density={self.density}, "
-            f"conditional_density={self.conditional_density})"
+            f"conditional_density={self.cond_density})"
         )
+
+    def cond_density_array(self, y):
+        """
+        Get the conditional density array f(x|y) for a fixed y.
+        Raises a ValueError if the conditional density array is not precomputed.
+        """
+        if self._cond_density_array is None:
+            raise ValueError("Conditional density array not precomputed.")
+        return self._cond_density_array[y]
 
 ```
 
@@ -207,16 +238,21 @@ For now, let's see all this in action with real distributions in a real-world co
 # | fig-align: center
 
 
+# Compute the probability mass function for X (hours studied) using a Poisson distribution with mean 3
 fx_array = poisson.pmf(range(1, 7), mu=3)
-fx_array /= fx_array.sum()
+fx_array /= fx_array.sum()  # Normalize so probabilities sum to 1
+
+# Define a function to look up the probability for a given value of X
 fx = lambda x: fx_array[x - 1]
+
+# Create an RV object for X, specifying its support and marginal mass function
 X = RV(support=range(1, 7), density=fx)
 
 # Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 4))
 
 # Plot a bar chart of the probability mass function for X
-ax.bar(X.support, X.pdf_array, width=0.4, zorder=2)
+ax.bar(X.support, X.density_array, width=0.4, zorder=2)
 
 # Label the x-axis as "hours studied (x)"
 ax.set_xlabel(r"hours studied ($x$)")
@@ -243,33 +279,38 @@ We might reasonably believe that $X$ is predictive of $Y$, the exam score of a r
 # | code-fold: true
 # | fig-align: center
 
+# Define the conditional density function fy_given_x(y, x) as a Beta(x, 3) distribution
 fy_given_x = lambda y, x: beta.pdf(y, a=x, b=3)
+
+# Define the marginal density function fy(y) as a mixture over x, weighted by fx(x)
 fy = lambda y: sum([fy_given_x(y, x) * fx(x) for x in range(1, 7)])
+
+# Create an RV object for Y, specifying its support, marginal density, and conditional density
 Y = RV(
-    support=np.linspace(0, 1, num=250),
-    density=fy,
-    conditional_density=fy_given_x,
+    support=np.linspace(0, 1, num=250),  # Grid of possible y values (test scores)
+    density=fy,  # Marginal density function for Y
+    cond_density=fy_given_x,  # Conditional density function fy_given_x(y, x)
+    cond_support=range(1, 7),  # Possible values of x (hours studied)
 )
 
-
-# Create a new matplotlib figure and axis for plotting the marginal density.
+# Create a new matplotlib figure and axis for plotting the marginal density of Y
 _, ax = plt.subplots(figsize=(6, 4))
 
-# Plot the marginal density fy(y) over the grid.
-ax.plot(Y.support, Y.pdf_array)
+# Plot the marginal density fy(y) over the grid of y values
+ax.plot(Y.support, Y.density_array)
 
-# Shade the area under the density curve for visual emphasis.
-ax.fill_between(Y.support, Y.pdf_array, zorder=2, alpha=0.1)
+# Shade the area under the density curve for visual emphasis
+ax.fill_between(Y.support, Y.density_array, zorder=2, alpha=0.1)
 
-# Format the x-axis labels as percentages (since y is a proportion).
+# Format the x-axis labels as percentages (since y is a proportion)
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
 
-# Set the plot title and axis labels.
+# Set the plot title and axis labels
 ax.set_title(r"marginal density $f(y)$")
 ax.set_xlabel("test score ($y$)")
 ax.set_ylabel("probability density")
 
-# Adjust layout for better appearance and display the plot.
+# Adjust layout for better appearance and display the plot
 plt.tight_layout()
 plt.show()
 
@@ -282,17 +323,23 @@ Together, $X$ and $Y$ have a joint mass/density function $f(x,y)$, visualized in
 # | code-fold: true
 # | fig-align: center
 
-
 # Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 5))
+
+# Create a custom colormap for conditional distributions
+conditional_stops = [blue, purple, yellow]
+conditional_cmap = LinearSegmentedColormap.from_list(
+    "conditional_cmap", conditional_stops
+)
 
 # Generate a list of colors for each value of x using the custom colormap
 conditional_colors = [conditional_cmap(i / 5) for i in range(6)]
 
-# Loop over each possible value of x and its probability fx
+# Loop over each possible value of x
 for x in X.support:
-    # Compute the joint density values for each y in the grid, scaled for visualization
-    joint_vals = 1.7 * Y.cond_pdf(Y.support, x) * X.pdf(x)
+    # Compute the joint density values for each x, scaled for visualization
+    # This is f(y|x) * f(x), scaled for the ridgeline effect
+    joint_vals = 1.7 * Y.cond_density_array(x) * X.pdf(x)
 
     # Fill the area between the baseline (x) and the curve (x + joint_vals) for ridgeline effect
     ax.fill_between(
@@ -340,7 +387,7 @@ for x in X.support:
     # Plot the conditional density f(y|x) for each x as a Beta(x, 3) distribution
     ax.plot(
         Y.support,
-        Y.cond_pdf(Y.support, x),
+        Y.cond_density_array(x),
         color=conditional_colors[x - 1],
         label=x
     )
@@ -457,13 +504,13 @@ For a simple example of the relationship between discrete probabilities and surp
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
 # Plot the marginal probability mass function f(x) as a bar chart on the first subplot
-axes[0].bar(X.support, X.pdf_array, width=0.4, zorder=2)
+axes[0].bar(X.support, X.density_array, width=0.4, zorder=2)
 axes[0].set_ylabel(r"probability mass")  # Label y-axis
 axes[0].set_title(r"marginal density $f(x)$")  # Set subplot title
 axes[0].set_xticks(X.support)  # Set x-ticks to match possible values of x
 
 # Plot the marginal surprisal s(x) = -log(f(x)) as a bar chart on the second subplot
-axes[1].bar(X.support, -np.log(X.pdf_array), width=0.4, zorder=2)
+axes[1].bar(X.support, -np.log(X.density_array), width=0.4, zorder=2)
 axes[1].set_ylabel(r"surprisal mass")  # Label y-axis
 axes[1].set_title(r"marginal surprisal $s(x)$")  # Set subplot title
 axes[1].set_xticks(X.support)  # Set x-ticks to match possible values of x
@@ -487,9 +534,8 @@ Because a probability density (mass) function of a discrete random variable must
 # Create a figure with two subplots side by side
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
-
 # Plot the marginal probability density function f(y) on the first subplot
-axes[0].plot(Y.support, Y.pdf_array)
+axes[0].plot(Y.support, Y.density_array)
 axes[0].xaxis.set_major_formatter(
     PercentFormatter(xmax=1)
 )  # Format x-axis as percentages
@@ -497,7 +543,7 @@ axes[0].set_title(r"marginal density $f(y)$")  # Set subplot title
 axes[0].set_ylabel("probability density")  # Label y-axis
 
 # Plot the marginal surprisal s(y) = -log(f(y)) on the second subplot
-axes[1].plot(Y.support[:-1], -np.log(Y.pdf_array[:-1]))
+axes[1].plot(Y.support[:-1], -np.log(Y.density_array[:-1]))
 axes[1].xaxis.set_major_formatter(
     PercentFormatter(xmax=1)
 )  # Format x-axis as percentages
@@ -565,7 +611,7 @@ for x in X.support:
     print(f"    f({x}) =", round(X.pdf(x), 3))
 
 # Compute and print the entropy H(X) using scipy's entropy function
-print(f"\nThe entropy H(X) is {entropy(X.pdf_array):.3f}.")
+print(f"\nThe entropy H(X) is {entropy(X.density_array):.3f}.")
 ```
 
 We can use the `quad` method in the `integrate` submodule of `SciPy` to compute differential entropies. For the "exam score" random variable $Y$, we compute:
@@ -723,17 +769,17 @@ axes = [ax1, ax2, ax3, ax4, ax5]
 # For each subplot, plot the two conditional densities and annotate with KL divergence
 for x, ax in zip(range(2, 7), axes):
     # Plot f(y|x=1) in blue
-    ax.plot(Y.support, Y.cond_pdf(Y.support, 1), color=blue, zorder=2, label="x = 1")
+    ax.plot(Y.support, Y.cond_density_array(1), color=blue, zorder=2, label="x = 1")
     ax.fill_between(
-        Y.support, Y.cond_pdf(Y.support, 1), zorder=2, color=blue, alpha=0.1
+        Y.support, Y.cond_density_array(1), zorder=2, color=blue, alpha=0.1
     )
 
     # Plot f(y|x) in yellow
     ax.plot(
-        Y.support, Y.cond_pdf(Y.support, x), color=yellow, zorder=2, label=f"x = {x}"
+        Y.support, Y.cond_density_array(x), color=yellow, zorder=2, label=f"x = {x}"
     )
     ax.fill_between(
-        Y.support, Y.cond_pdf(Y.support, x), zorder=2, color=yellow, alpha=0.1
+        Y.support, Y.cond_density_array(x), zorder=2, color=yellow, alpha=0.1
     )
 
     # Annotate with the computed KL divergence
