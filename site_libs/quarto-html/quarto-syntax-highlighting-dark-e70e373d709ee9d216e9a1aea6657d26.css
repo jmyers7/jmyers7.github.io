@@ -3,21 +3,21 @@
   --quarto-hl-al-color: #ffcfaf;
   --quarto-hl-an-color: #7f9f7f;
   --quarto-hl-at-color: inherit;
-  --quarto-hl-bn-color: #dca3a3;
-  --quarto-hl-bu-color: inherit;
+  --quarto-hl-bn-color: #C98FC9;
+  --quarto-hl-bu-color: #5AB6B6;
   --quarto-hl-ch-color: #D98657;
   --quarto-hl-co-color: #4A7FAF;
   --quarto-hl-cv-color: #4A7FAF;
-  --quarto-hl-cn-color: #D98657;
+  --quarto-hl-cn-color: #C98FC9;
   --quarto-hl-cf-color: #E0AA2B;
   --quarto-hl-dt-color: #dfdfbf;
-  --quarto-hl-dv-color: #dcdccc;
+  --quarto-hl-dv-color: #C98FC9;
   --quarto-hl-do-color: #4A7FAF;
   --quarto-hl-er-color: #c3bf9f;
   --quarto-hl-ex-color: inherit;
-  --quarto-hl-fl-color: #c0bed1;
+  --quarto-hl-fl-color: #C98FC9;
   --quarto-hl-fu-color: #E0AA2B;
-  --quarto-hl-im-color: inherit;
+  --quarto-hl-im-color: #5AB6B6;
   --quarto-hl-in-color: #7f9f7f;
   --quarto-hl-kw-color: #E0AA2B;
   --quarto-hl-op-color: #E0AA2B;
@@ -26,7 +26,7 @@
   --quarto-hl-sc-color: #E0AA2B;
   --quarto-hl-ss-color: #E0AA2B;
   --quarto-hl-st-color: #E0AA2B;
-  --quarto-hl-va-color: inherit;
+  --quarto-hl-va-color: #5AB6B6;
   --quarto-hl-vs-color: #E0AA2B;
   --quarto-hl-wa-color: #7f9f7f;
 }
@@ -57,12 +57,13 @@ code span.at {
 
 /* BaseN */
 code span.bn {
-  color: #dca3a3;
+  color: #C98FC9;
   font-style: inherit;
 }
 
 /* BuiltIn */
 code span.bu {
+  color: #5AB6B6;
   font-style: inherit;
 }
 
@@ -80,7 +81,7 @@ code span.ch {
 
 /* Constant */
 code span.cn {
-  color: #D98657;
+  color: #C98FC9;
   font-weight: bold;
   font-style: inherit;
 }
@@ -112,7 +113,7 @@ code span.dt {
 
 /* DecVal */
 code span.dv {
-  color: #dcdccc;
+  color: #C98FC9;
   font-style: inherit;
 }
 
@@ -129,7 +130,7 @@ code span.ex {
 
 /* Float */
 code span.fl {
-  color: #c0bed1;
+  color: #C98FC9;
   font-style: inherit;
 }
 
@@ -141,6 +142,7 @@ code span.fu {
 
 /* Import */
 code span.im {
+  color: #5AB6B6;
   font-style: inherit;
 }
 
@@ -196,6 +198,7 @@ code span.st {
 
 /* Variable */
 code span.va {
+  color: #5AB6B6;
   font-style: inherit;
 }
 
@@ -216,4 +219,4 @@ code span.wa {
   content: "</";
 }
 
-/*# sourceMappingURL=c75763306b50a741c55dfcd37db1f31c.css.map */
+/*# sourceMappingURL=62fe6e42750942b1eebc948ae0a8ea07.css.map */
