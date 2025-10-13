@@ -15,39 +15,6 @@ $$
 :::
 
 
-```{python}
-# | echo: false
-# | include: false
-# | warning: false
-# | message: false
-
-from scipy.stats import norm, multivariate_normal, beta, poisson, binom
-from scipy.integrate import quad
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.ticker import PercentFormatter
-import matplotlib.gridspec as gridspec
-
-np.random.seed(42)
-plt.style.use("../../aux-files/custom-theme.mplstyle")
-yellow = "#FFC300"
-blue = "#3399FF"
-pink = "#FF3399"
-purple = "#AA77CC"
-grey = "#121212"
-white = "#E5E5E5"
-colors = [yellow, blue, pink]
-
-heatmap_stops = [grey, yellow]
-heatmap_cmap = LinearSegmentedColormap.from_list("heatmap_cmap", heatmap_stops)
-
-conditional_stops = [blue, purple, yellow]
-conditional_cmap = LinearSegmentedColormap.from_list(
-    "conditional_cmap", conditional_stops
-)
-
-```
 
 ## Introduction
 
@@ -66,6 +33,118 @@ Even my undergraduate thermodynamics textbook devoted an entire chapter to Shann
 We will begin by surveying the most basic quantities of information theory: *surprisal*, *entropy*, *Kullback–Leibler (KL) divergence*, and *mutual information*. *Surprisal* is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the *entropy*, which quantifies the overall uncertainty in a probability distribution. The *KL divergence* measures how one probability distribution differs from another, capturing the “distance” between them. *Mutual information* can be viewed as a special kind of KL divergence applied to two random variables, $X$ and $Y$: it measures how much observing $X$ reduces the uncertainty (entropy) in $Y$ on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.
 
 This post is the first in a series on *information*. In future posts, we will explore other ways the concept of information appears—for example, through $\sigma$-algebras—and apply these ideas to a range of problems, from gambling strategies and games of chance (the historical origin of mathematical probability theory), to options pricing in mathematical finance, and to probabilistic models in machine learning. I have discussed information theory previously in a [chapter](https://johnmyers-phd.com/book/chapters/09-info-theory.html){target="_blank"} of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.
+
+If you’d like to follow along with the code examples in this post, please see the code block below for the usual imports and setup.
+
+```{python}
+# | echo: true
+# | code-fold: true
+
+# Import probability distributions, integration, and plotting libraries
+from scipy.stats import norm, multivariate_normal, beta, poisson, binom, entropy
+from scipy.integrate import quad
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import PercentFormatter
+import matplotlib.gridspec as gridspec
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Set custom matplotlib style (user must use their own style file)
+plt.style.use("../../aux-files/custom-theme.mplstyle")
+
+# Define color palette for plots
+yellow = "#FFC300"
+blue = "#3399FF"
+pink = "#FF3399"
+purple = "#AA77CC"
+grey = "#121212"
+white = "#E5E5E5"
+
+# Create a custom colormap for conditional distributions
+conditional_stops = [blue, purple, yellow]
+conditional_cmap = LinearSegmentedColormap.from_list(
+    "conditional_cmap", conditional_stops
+)
+
+# Define a class for random variables (discrete or continuous)
+class RV:
+    """
+    A class representing a random variable (discrete or continuous), with optional support for conditional densities.
+
+    Parameters
+    ----------
+    support : array-like or None
+        The support of the random variable (e.g., possible values for discrete, grid for continuous).
+    density : callable
+        The marginal density or mass function. Should accept a value (or array of values) and return the density/mass.
+    conditional_density : callable, optional
+        The conditional density function f(y|x). Should accept (y, x) and return the density of y given x.
+
+    Attributes
+    ----------
+    support : array-like or None
+        The support of the random variable.
+    density : callable
+        The marginal density or mass function.
+    conditional_density : callable or None
+        The conditional density function, if provided.
+    pdf_array : np.ndarray or None
+        The marginal density evaluated on the support, if support is array-like.
+    """
+
+    def __init__(
+        self,
+        support=None,
+        density=None,
+        conditional_density=None,
+    ):
+        self.support = support
+        self.density = density
+        self.conditional_density = conditional_density
+
+        # Precompute density array if support is array-like and density is provided
+        if support is not None and density is not None:
+            self.pdf_array = np.array([density(x) for x in support])
+        else:
+            self.pdf_array = None
+
+    def pdf(self, x):
+        """
+        Evaluate the marginal density or mass function at x.
+        """
+        return self.density(x)
+
+    def pmf(self, x):
+        """
+        Alias for pdf, for discrete random variables.
+        """
+        return self.pdf(x)
+
+    def set_conditional_density(self, cond_density):
+        """
+        Set the conditional density function f(y|x).
+        """
+        self.conditional_density = cond_density
+
+    def cond_pdf(self, y, x):
+        """
+        Evaluate the conditional density f(y|x).
+        """
+        if self.conditional_density is None:
+            raise ValueError("Conditional density function not set.")
+        return self.conditional_density(y, x)
+
+    def __repr__(self):
+        return (
+            f"RV(support={self.support}, "
+            f"density={self.density}, "
+            f"conditional_density={self.conditional_density})"
+        )
+
+```
 
 ## Flows of information
 
@@ -127,26 +206,17 @@ For now, let's see all this in action with real distributions in a real-world co
 # | code-fold: true
 # | fig-align: center
 
-# Set the number of possible study hours (1 through 6)
-n = 6
 
-# Compute the probability mass function for X using a Poisson distribution with mean 3
-fx_array = poisson.pmf(range(1, n + 1), mu=3)
-
-# Normalize the probabilities so they sum to 1 (ensures a valid probability distribution)
+fx_array = poisson.pmf(range(1, 7), mu=3)
 fx_array /= fx_array.sum()
-
-
-# Define the probability mass function f(x) of X
-def fx(x):
-    return fx_array[x - 1]
-
+fx = lambda x: fx_array[x - 1]
+X = RV(support=range(1, 7), density=fx)
 
 # Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 4))
 
 # Plot a bar chart of the probability mass function for X
-ax.bar(range(1, n + 1), fx_array, width=0.4, zorder=2)
+ax.bar(X.support, X.pdf_array, width=0.4, zorder=2)
 
 # Label the x-axis as "hours studied (x)"
 ax.set_xlabel(r"hours studied ($x$)")
@@ -158,7 +228,7 @@ ax.set_ylabel("probability")
 ax.set_title(r"marginal mass $f(x)$")
 
 # Set the x-axis ticks to match the possible values of X
-ax.set_xticks(range(1, n + 1))
+ax.set_xticks(X.support)
 
 # Adjust layout for better appearance and display the plot
 plt.tight_layout()
@@ -173,27 +243,23 @@ We might reasonably believe that $X$ is predictive of $Y$, the exam score of a r
 # | code-fold: true
 # | fig-align: center
 
-# Define the conditional density function f(y|x) for exam scores.
-# This returns the value of the Beta(x, 3) density at y, for a given x.
-def fy_given_x(y, x):
-    return beta.pdf(y, a=x, b=3)
+fy_given_x = lambda y, x: beta.pdf(y, a=x, b=3)
+fy = lambda y: sum([fy_given_x(y, x) * fx(x) for x in range(1, 7)])
+Y = RV(
+    support=np.linspace(0, 1, num=250),
+    density=fy,
+    conditional_density=fy_given_x,
+)
 
-# Define the marginal density function fy(y) for exam scores.
-# This is a mixture of Beta distributions, weighted by the probability mass fx(x) for each x.
-def fy(y):
-    return sum([fy_given_x(y, x) * fx(x) for x in range(1, 7)])
 
 # Create a new matplotlib figure and axis for plotting the marginal density.
 _, ax = plt.subplots(figsize=(6, 4))
 
-# Create a grid of y values between 0 and 1 for plotting the density.
-grid = np.linspace(0, 1, num=250)
-
 # Plot the marginal density fy(y) over the grid.
-ax.plot(grid, fy(grid))
+ax.plot(Y.support, Y.pdf_array)
 
 # Shade the area under the density curve for visual emphasis.
-ax.fill_between(grid, fy(grid), zorder=2, alpha=0.1)
+ax.fill_between(Y.support, Y.pdf_array, zorder=2, alpha=0.1)
 
 # Format the x-axis labels as percentages (since y is a proportion).
 ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
@@ -216,24 +282,30 @@ Together, $X$ and $Y$ have a joint mass/density function $f(x,y)$, visualized in
 # | code-fold: true
 # | fig-align: center
 
+
 # Create a new matplotlib figure and axis with a specified size
 _, ax = plt.subplots(figsize=(6, 5))
 
 # Generate a list of colors for each value of x using the custom colormap
-conditional_colors = [conditional_cmap(i / (n - 1)) for i in range(n)]
+conditional_colors = [conditional_cmap(i / 5) for i in range(6)]
 
 # Loop over each possible value of x and its probability fx
-for x in range(1, 7):
+for x in X.support:
     # Compute the joint density values for each y in the grid, scaled for visualization
-    joint_vals = 1.7 * fy_given_x(grid, x) * fx(x)
+    joint_vals = 1.7 * Y.cond_pdf(Y.support, x) * X.pdf(x)
 
     # Fill the area between the baseline (x) and the curve (x + joint_vals) for ridgeline effect
     ax.fill_between(
-        grid, x, x + joint_vals, color=conditional_colors[x - 1], zorder=2, alpha=0.1
+        Y.support,
+        x,
+        x + joint_vals,
+        color=conditional_colors[x - 1],
+        zorder=2,
+        alpha=0.1,
     )
 
     # Plot the top edge of the density curve for each x
-    ax.plot(grid, x + joint_vals, color=conditional_colors[x - 1], zorder=2)
+    ax.plot(Y.support, x + joint_vals, color=conditional_colors[x - 1], zorder=2)
 
 # Label the y-axis as "hours studied (x)"
 ax.set_ylabel(r"hours studied ($x$)")
@@ -264,11 +336,11 @@ Dividing the joint mass/density $f(x,y)$ by the marginal mass $f(x)$ yields the 
 _, ax = plt.subplots(figsize=(6, 4))
 
 # Loop over each possible value of x (hours studied)
-for x in range(1, 7):
+for x in X.support:
     # Plot the conditional density f(y|x) for each x as a Beta(x, 3) distribution
     ax.plot(
-        grid,
-        fy_given_x(grid, x),
+        Y.support,
+        Y.cond_pdf(Y.support, x),
         color=conditional_colors[x - 1],
         label=x
     )
@@ -385,16 +457,16 @@ For a simple example of the relationship between discrete probabilities and surp
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
 # Plot the marginal probability mass function f(x) as a bar chart on the first subplot
-axes[0].bar(range(1, 7), fx_array, width=0.4, zorder=2)
+axes[0].bar(X.support, X.pdf_array, width=0.4, zorder=2)
 axes[0].set_ylabel(r"probability mass")  # Label y-axis
 axes[0].set_title(r"marginal density $f(x)$")  # Set subplot title
-axes[0].set_xticks(range(1, 7))  # Set x-ticks to match possible values of x
+axes[0].set_xticks(X.support)  # Set x-ticks to match possible values of x
 
 # Plot the marginal surprisal s(x) = -log(f(x)) as a bar chart on the second subplot
-axes[1].bar(range(1, 7), -np.log(fx_array), width=0.4, zorder=2)
+axes[1].bar(X.support, -np.log(X.pdf_array), width=0.4, zorder=2)
 axes[1].set_ylabel(r"surprisal mass")  # Label y-axis
 axes[1].set_title(r"marginal surprisal $s(x)$")  # Set subplot title
-axes[1].set_xticks(range(1, 7))  # Set x-ticks to match possible values of x
+axes[1].set_xticks(X.support)  # Set x-ticks to match possible values of x
 
 # Add a shared x-axis label for both subplots
 fig.supxlabel(r"hours studied ($x$)")
@@ -415,11 +487,9 @@ Because a probability density (mass) function of a discrete random variable must
 # Create a figure with two subplots side by side
 fig, axes = plt.subplots(ncols=2, figsize=(6, 3))
 
-# Create a grid of y values between 0 and 1 for plotting
-grid = np.linspace(0, 1, num=250)
 
 # Plot the marginal probability density function f(y) on the first subplot
-axes[0].plot(grid, fy(grid))
+axes[0].plot(Y.support, Y.pdf_array)
 axes[0].xaxis.set_major_formatter(
     PercentFormatter(xmax=1)
 )  # Format x-axis as percentages
@@ -427,7 +497,7 @@ axes[0].set_title(r"marginal density $f(y)$")  # Set subplot title
 axes[0].set_ylabel("probability density")  # Label y-axis
 
 # Plot the marginal surprisal s(y) = -log(f(y)) on the second subplot
-axes[1].plot(grid, -np.log(fy(grid)))
+axes[1].plot(Y.support[:-1], -np.log(Y.pdf_array[:-1]))
 axes[1].xaxis.set_major_formatter(
     PercentFormatter(xmax=1)
 )  # Format x-axis as percentages
@@ -488,18 +558,14 @@ The `stats` submodule of the `SciPy` library contains a convenient method called
 # | code-fold: false
 # | fig-align: center
 
-from scipy.stats import entropy
-
-# The values of the probability mass function of X are stored in a
-# NumPy array called `fxs`
 
 print(f"The probability mass function f(x) of X is:\n")
-for x, p in enumerate(fx_array):
+for x in X.support:
     # Print the probability mass for each possible value of X (1 through n)
-    print(f"    f({x + 1}) =", round(p, 3))
+    print(f"    f({x}) =", round(X.pdf(x), 3))
 
 # Compute and print the entropy H(X) using scipy's entropy function
-print(f"\nThe entropy H(X) is {entropy(fx_array):.3f}.")
+print(f"\nThe entropy H(X) is {entropy(X.pdf_array):.3f}.")
 ```
 
 We can use the `quad` method in the `integrate` submodule of `SciPy` to compute differential entropies. For the "exam score" random variable $Y$, we compute:
@@ -509,13 +575,9 @@ We can use the `quad` method in the `integrate` submodule of `SciPy` to compute 
 # | code-fold: false
 # | fig-align: center
 
-from scipy.integrate import quad
-
-# The marginal probability density function of Y is implemented as
-# the function `fy`
 
 # Compute the differential entropy H(Y) by integrating -f(y) * log(f(y)) over [0, 1]
-diff_entropy, _ = quad(func=lambda y: -fy(y) * np.log(fy(y)), a=0, b=1)
+diff_entropy, _ = quad(func=lambda y: -Y.pdf(y) * np.log(Y.pdf(y)), a=0, b=1)
 
 # Print the computed differential entropy value
 print(f"The differential entropy H(Y) is {diff_entropy:.3f}.")
@@ -640,13 +702,13 @@ for $x=2,3,4,5,6$.
 
 # Define the integrand for KL divergence between two Beta distributions:
 def integrand(y, x1, x2):
-    return fy_given_x(y, x1) * np.log(fy_given_x(y, x1) / fy_given_x(y, x2))
+    return Y.cond_pdf(y, x1) * np.log(Y.cond_pdf(y, x1) / Y.cond_pdf(y, x2))
 
 
-# Compute KL divergence D((Y|X=1) || (Y|X=x+2)) for x = 0,1,2,3,4 (i.e., x2 = 2,3,4,5,6)
+# Compute KL divergence D((Y|X=1) || (Y|X=x)) for x = 2, 3, 4, 5, 6
 KL_div = np.empty(5)
-for x in range(5):
-    KL_div[x], _ = quad(func=integrand, args=(1, x + 2), a=0, b=1)
+for x in range(2, 7):
+    KL_div[x - 2], _ = quad(func=integrand, args=(1, x), a=0, b=1)
 
 # Set up a 2x6 grid for custom subplot arrangement
 fig = plt.figure(figsize=(8, 5))
@@ -659,17 +721,23 @@ ax5 = fig.add_subplot(gs[1, 3:5])
 axes = [ax1, ax2, ax3, ax4, ax5]
 
 # For each subplot, plot the two conditional densities and annotate with KL divergence
-for x, ax in enumerate(axes):
+for x, ax in zip(range(2, 7), axes):
     # Plot f(y|x=1) in blue
-    ax.plot(grid, fy_given_x(grid, 1), color=blue, zorder=2, label="x = 1")
-    ax.fill_between(grid, fy_given_x(grid, 1), zorder=2, color=blue, alpha=0.1)
+    ax.plot(Y.support, Y.cond_pdf(Y.support, 1), color=blue, zorder=2, label="x = 1")
+    ax.fill_between(
+        Y.support, Y.cond_pdf(Y.support, 1), zorder=2, color=blue, alpha=0.1
+    )
 
-    # Plot f(y|x=x+2) in yellow
-    ax.plot(grid, fy_given_x(grid, x + 2), color=yellow, zorder=2, label=f"x = {x + 2}")
-    ax.fill_between(grid, fy_given_x(grid, x + 2), zorder=2, color=yellow, alpha=0.1)
+    # Plot f(y|x) in yellow
+    ax.plot(
+        Y.support, Y.cond_pdf(Y.support, x), color=yellow, zorder=2, label=f"x = {x}"
+    )
+    ax.fill_between(
+        Y.support, Y.cond_pdf(Y.support, x), zorder=2, color=yellow, alpha=0.1
+    )
 
     # Annotate with the computed KL divergence
-    ax.set_title(f"KL div. = {KL_div[x]:.3f}")
+    ax.set_title(f"KL div. = {KL_div[x - 2]:.3f}")
     ax.set_ylim(0, 4)
     ax.legend(loc="upper right")
 
@@ -715,20 +783,16 @@ where $f(x,y)$ is the true joint mass-density function and $f(x)$ and $f(y)$ are
 # | code-fold: false
 # | fig-align: center
 
-# The conditional density of Y|X=x is implemented as the
-# function `fy_given_x(y, x)`, the marginal density of Y is
-# the function `fy(y)`, and the marginal mass of X
-# is the function `fx(x)`
 
 # Compute the true joint density f(x, y) = f(x) * f(y|x)
 def fxy(x, y):
-    return fx(x) * fy_given_x(y, x)
+    return X.pdf(x) * Y.cond_pdf(y, x)
 
 
 # Define the integrand for mutual information:
 # f(x, y) * log(f(x, y) / (f(x) * f(y)))
 def integrand(x, y):
-    return fxy(x, y) * np.log(fxy(x, y) / (fx(x) * fy(y)))
+    return fxy(x, y) * np.log(fxy(x, y) / (X.pdf(x) * Y.pdf(y)))
 
 
 # For each x, create a function of y for integration over y in [0, 1]
@@ -766,13 +830,13 @@ We end this section by using formula ([-@eq-info-entropy]) to re-do our computat
 # the differential entropy H(Y) is stored in `diff_entropy`
 
 # For each x, define a function of y for the conditional entropy integrand: -f(y|x) * log(f(y|x))
-funcs = [lambda y, x=x: -fy_given_x(y, x) * np.log(fy_given_x(y, x)) for x in range(1, 7)]
+funcs = [lambda y, x=x: -Y.cond_pdf(y, x) * np.log(Y.cond_pdf(y, x)) for x in X.support]
 
 # Compute the conditional entropy H(Y|X=x) for each x by integrating over y in [0, 1]
 cond_entropies = [quad(func, a=0, b=1)[0] for func in funcs]
 
-# Compute H(Y) - sum_x P(X=x) * H(Y|X=x), which equals the mutual information I(X, Y)
-diff_entropy - sum([cond_entropy * fx for cond_entropy, fx in zip(cond_entropies, fx_array)])
+# Compute H(Y) - sum_x f(x) * H(Y|X=x), which equals the mutual information I(X, Y)
+diff_entropy - sum([cond_entropies[x - 1] * X.pdf(x) for x in X.support])
 
 # Print the previously computed mutual information for comparison
 print(f"The mutual information I(X,Y) is {mutual_info:.3f}.")
