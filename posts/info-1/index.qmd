@@ -1079,4 +1079,17 @@ plt.show()
 
 Compared to the marginal distribution of $Y$, the conditional distributions become increasingly concentrated as $\rho$ increases. This stronger concentration reflects the reduced uncertainty in $Y$ when $X$ is observed. This example illustrates the intuition behind mutual information: greater correlation implies stronger dependence, smaller conditional entropy, and thus higher mutual information.
 
+## Conclusion
+
+We began by examining how information flows between random variables, distinguishing deterministic flows (where input uniquely determines output) from stochastic flows (where input induces a probability distribution over outputs). This distinction captures the fundamental difference between classical predictive models and modern probabilistic ones like large language models.
+
+To quantify information and uncertainty, we introduced the core concepts of information theory: *surprisal*, *entropy*, *KL divergence*, and *mutual information*. Surprisal measures how unexpected an outcome is, inversely related to its probability through the logarithm. Entropy emerges as the average surprisal—capturing the overall uncertainty in a probability distribution. For our exam score example, we computed $H(X) \approx 1.698$ for hours studied and $H(Y) \approx -0.131$ for exam scores, illustrating how differential entropy can be negative for continuous variables.
+
+The KL divergence $D(X \parallel Y)$ quantifies how one distribution differs from another by measuring the mean logarithmic relative magnitude between their densities. While not a true metric (it's asymmetric), it provides a principled way to measure distributional distance. This led naturally to mutual information $I(X,Y)$, which applies KL divergence to the joint and marginal distributions, measuring how much knowing one variable reduces uncertainty about the other.
+
+The relationship $I(X,Y) = H(Y) - H(Y \mid X)$ reveals mutual information as the reduction in entropy: the gap between uncertainty before and after observing additional information. For our student example, we found $I(X,Y) \approx 0.201$, indicating that knowing study hours provides modest but measurable information about exam performance. In the jointly normal case, we obtained the elegant formula $I(X,Y) = -\frac{1}{2}\log(1-\rho^2)$, showing mutual information depends only on correlation.
+
+These information-theoretic quantities provide a unified mathematical framework for understanding uncertainty, dependence, and information flow in probabilistic systems. In future posts, we'll extend these ideas through the lens of $\sigma$-algebras and apply them to gambling strategies, options pricing in mathematical finance, and the analysis of probabilistic models in machine learning. The concepts developed here—viewing information as reduction in entropy—will prove essential for understanding learning over time and decision-making under uncertainty.
+
+
 ## Bibliography
