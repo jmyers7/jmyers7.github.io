@@ -1,10 +1,10 @@
 ---
-title: "Sigma-algebras & information"
-date: "2025-10-13"
+title: "Algebras & information"
+date: "2025-10-14"
 toc: true
-categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, R]
-image: "thumbnail.svg"
-draft: true
+categories: [Information theory, Probability theory, Measure theory, Entropy, Mutual information, Sigma-algebras, R]
+image: "thumbnail.png"
+# draft: true
 ---
 
 ::: {.content-hidden}
@@ -14,6 +14,57 @@ $$
 :::
 
 ## Introduction
+
+How do we mathematically represent what someone *knows*? This question sits at the heart of probability theory, information theory, and decision-making under uncertainty. When an experiment produces an outcome but we don't observe it directly, our knowledge is partial: we might know some facts about the outcome while remaining uncertain about others. This partial knowledge needs a precise mathematical framework.
+
+Consider a simple scenario: three coin flips produce a binary sequence like $011$ or $101$, but you don't see the full result. If someone tells you only the outcome of the first flip, you've gained information, but how much? If they then reveal the second flip, you learn more, but again, how much? These questions about *information content* and *uncertainty reduction* require both a qualitative structure (what can you distinguish?) and a quantitative measure (how uncertain are you?).
+
+The qualitative structure is captured by *algebras of sets*, which formalize the collection of events an observer can decide about. If you know the first flip, you can decide whether the full sequence starts with $0$ or $1$, partitioning the eight possible outcomes into two groups. Knowing the first two flips refines this partition into four groups, and so on. Each partition represents a distinct "information state," and the nested structure
+
+$$
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+$$
+
+captures progressive learning over time.
+
+But algebras alone don't quantify uncertainty; they only describe logical structure. To measure *how much* information each partition contains, we need *entropy*, along with the related notions of *conditional entropy* and *mutual information*. As partitions refine, conditional entropy decreases (less residual uncertainty) while mutual information increases (more shared information between algebras).
+
+In a [previous post](../info-1/index.qmd), we introduced *entropy*, *conditional entropy*, and *mutual information* for probability distributions on finite sets. Here, we develop the same ideas from a measure-theoretic perspective, showing how information naturally emerges from the algebraic structure of events. This dual perspective (probabilistic and set-theoretic) provides both conceptual clarity and the foundation for extensions to infinite spaces, stochastic processes, and dynamical systems.
+
+We'll work primarily with a concrete example: three coin flips and the nested algebras they generate. Through explicit computations in `R`, we'll see how entropy quantifies information at each stage of learning. The mathematical machinery we develop (algebras, partitions, and their correspondence) forms the backbone of modern probability theory. These ideas have powerful applications in *gambling problems* and *games of chance*, where players accumulate information over time, and in *options pricing in mathematical finance*, where nested filtrations model traders' evolving information and determine fair prices for derivative securities. We will explore these latter themes in future posts.
+
+If you’d like to follow along with the code examples in this post, please see the dropdown code block below for the usual imports and setup.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Load required packages
+library("ggplot2") # For plotting
+library("knitr") # For table formatting (used with kable())
+library("dplyr") # For data manipulation
+library("latex2exp") # For LaTeX rendering in plots
+
+# Source custom theme file
+# Note: Replace this path with your own theme file location
+source("../../aux-files/custom-theme.R")
+
+# Set random seed for reproducibility
+set.seed(42)
+
+# Extract custom colors from theme
+# Note: These color definitions depend on your custom theme file
+yellow <- custom_colors[["yellow"]]
+blue <- custom_colors[["blue"]]
+
+# Apply custom ggplot2 theme
+theme_set(custom_theme())
+
+```
+
+
+
 
 ## Algebras as information carriers
 
@@ -86,41 +137,30 @@ The four functions $X_1$, $X_2$, $X_3$, and $Y$ are, of course, random variables
 
 We will be carrying out some basic computations later, so let's implement our scenario in the machine, by coding a data frame in which each row represents an outcome $\omega$:
 
-```{r}
-#| echo: false
-#| include: false
-#| warning: false
-#| message: false
-library("ggplot2")
-library("knitr")
-library("dplyr")
-library("latex2exp")
 
-source("../../aux-files/custom-theme.R")
-set.seed(42)
-yellow <- custom_colors[["yellow"]]
-blue <- custom_colors[["blue"]]
-pink <- custom_colors[["pink"]]
-grey <- custom_colors[["grey"]]
-theme_set(custom_theme())
-
-```
 
 ```{r}
 #| echo: true
-#| code-fold: true 
+#| code-fold: true
 #| fig-align: center
 
+# Create the sample space Omega as a data frame
+# Each row represents one of the 8 possible outcomes (binary sequences of length 3)
 Omega <- data.frame(
-  X1 = c(0, 0, 0, 0, 1, 1, 1, 1),
-  X2 = c(0, 0, 1, 1, 0, 0, 1, 1),
-  X3 = c(0, 1, 0, 1, 0, 1, 0, 1)
+  X1 = c(0, 0, 0, 0, 1, 1, 1, 1), # First coin flip: 0 = tail, 1 = head
+  X2 = c(0, 0, 1, 1, 0, 0, 1, 1), # Second coin flip
+  X3 = c(0, 1, 0, 1, 0, 1, 0, 1) # Third coin flip
 )
 
-Omega <- Omega %>% 
+# Add random variable Y: total number of heads across all three flips
+Omega <- Omega %>%
   mutate(Y = X1 + X2 + X3)
 
-kable(Omega, caption = "sample space $\\Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$")
+# Display the sample space as a formatted table
+kable(
+  Omega,
+  caption = "sample space $\\Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$"
+)
 
 ```
 
@@ -146,15 +186,18 @@ Let's insert a column in our data frame tracking the membership of each outcome 
 
 ```{r}
 #| echo: true
-#| code-fold: true 
+#| code-fold: true
 #| fig-align: center
 
-Omega <- Omega %>% 
-  group_by(X1) %>% 
-  mutate(Ai = cur_group_id()) %>% 
-  ungroup() %>% 
+# Group outcomes by the result of the first flip (X1)
+# and assign a group ID to track which partition set (A1 or A2) each outcome belongs to
+Omega <- Omega %>%
+  group_by(X1) %>%
+  mutate(Ai = cur_group_id()) %>% # Ai = 1 for A1 (X1=0), Ai = 2 for A2 (X1=1)
+  ungroup() %>%
   as.data.frame()
 
+# Display the updated sample space showing partition membership
 kable(Omega, caption = "column Ai records the index $i$ of $A_i$")
 
 ```
@@ -187,15 +230,18 @@ Let's insert our new algebra into the machine:
 
 ```{r}
 #| echo: true
-#| code-fold: true 
+#| code-fold: true
 #| fig-align: center
 
-Omega <- Omega %>% 
-  group_by(X1, X2) %>% 
-  mutate(Bi = cur_group_id()) %>% 
-  ungroup() %>% 
+# Group outcomes by the results of the first two flips (X1 and X2)
+# and assign a group ID to track which partition set (B1, B2, B3, or B4) each outcome belongs to
+Omega <- Omega %>%
+  group_by(X1, X2) %>%
+  mutate(Bi = cur_group_id()) %>% # Bi = 1 for B1, Bi = 2 for B2, etc.
+  ungroup() %>%
   as.data.frame()
 
+# Display the updated sample space showing partition membership for the refined algebra F2
 kable(Omega, caption = "column Bi records the index $i$ of $B_i$")
 
 ```
@@ -223,15 +269,19 @@ We insert one last column in our data frame for the $C_i$'s:
 
 ```{r}
 #| echo: true
-#| code-fold: true 
+#| code-fold: true
 #| fig-align: center
 
-Omega <- Omega %>% 
-  group_by(X1, X2, X3) %>% 
-  mutate(Ci = cur_group_id()) %>% 
-  ungroup() %>% 
+# Group outcomes by all three flips (X1, X2, and X3)
+# Each combination of (X1, X2, X3) uniquely identifies one outcome
+Omega <- Omega %>%
+  group_by(X1, X2, X3) %>%
+  mutate(Ci = cur_group_id()) %>% # Ci = 1 for C1, Ci = 2 for C2, etc.
+  ungroup() %>%
   as.data.frame()
 
+# Display the updated sample space showing the finest partition (singletons)
+# At this level, each outcome is completely distinguishable
 kable(Omega, caption = "column Ci records the index $i$ of $C_i$")
 
 ```
@@ -250,29 +300,7 @@ $$
 	
 captures a distinct level of information about the outcome $\omega_0$. This nested structure provides a simple model of *learning over time*: as the experiment unfolds and the observer acquires new data, their algebra of decidable events expands, splitting sets of previously indistinguishable outcomes into finer partitions—until, at last, $\calF_3$ represents complete knowledge of $\omega_0$.
 
-## Entropy relative to a $\sigma$-algebra
-
-::: {#def-rel-entropy}
-Let $(\Omega,\calF,P)$ be a probability space, let $\calG$ be a sub-$\sigma$-algebra of $\calF$, and suppose the natural projection map $\pi: \Omega \to \Omega/\calG$ is measurable, where the quotient $\Omega/\calG$ is equipped with its power set $\sigma$-algebra. Then we define the *conditional entropy of $P$ given $\calG$* to be the quantity
-
-$$
-H(P\mid \calG) \defeq \int_{\Omega} (S_{\pi_\ast P} \circ \pi) \ dP,
-$$
-
-where $S_{\pi_\ast P}:\Omega/\calG \to [0,1]$ is the surprisal function of the pushforward probability measure $\pi_\ast P$ on the quotient $\Omega/\calG$.
-:::
-
-We define the mutual information
-
-$$
-I(P;\calF,\calG) = H(P\mid \calF) - H(P\mid \calG).
-$$
-
-
-
-
-
-## Partitions and algebras
+## Algebras and partitions
 
 In this section, we nail down the ideas from the previous section on partitions and algebras and highlight four useful theorems connecting them. Some proofs get a bit technical, so feel free to skim and focus on the statements. For simplicity, we stick to finite sets $\Omega$, though many results hold for infinite sets too.
 
@@ -284,7 +312,7 @@ $$ {#eq-equiv-rel}
 
 Elements $\omega$ and $\omega'$ related in this way will be called *$\calF$-equivalent*.
 
-This notion of equivalence is evidently an [equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation){target="_blank"} in the technical sense, and thus we obtain a partition of $\Omega$ into the distinct equivalence classes. These equivalence classes are actually themselves contained in $\calF$, since $\calF$ is closd under intersections. In fact, if $E$ is an equivalence class containing an outcome $\omega\in \Omega$, then $E$ is the intersection of all $A\in \calF$ that contain $\omega$:
+This notion of equivalence is evidently an [equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation){target="_blank"} in the technical sense, and thus we obtain a partition of $\Omega$ into the distinct equivalence classes. These equivalence classes are actually themselves contained in $\calF$, since $\calF$ is closed under intersections. In fact, if $E$ is an equivalence class containing an outcome $\omega\in \Omega$, then $E$ is the intersection of all $A\in \calF$ that contain $\omega$:
 
 $$
 E = \bigcap_{\omega \in A \in \calF} A.
@@ -302,7 +330,7 @@ Let $\calF$ be an algebra of sets in a finite set $\Omega$.
 
 1. There exists a partition $\calA$ of $\Omega$ consisting entirely of atoms in $\calF$. In fact, $\calA$ may be chosen to consist of the distinct $\calF$-equivalence classes.
 
-2. If $\calA$ is a partition of $\Omega$ consisting of atoms in $\calF$, then every set in $\calF$ is a union of atoms in $\calA$.
+2. If $\calA$ is a partition of $\Omega$ consisting of atoms in $\calF$, then every nonempty set in $\calF$ is a union of atoms in $\calA$.
 
 3. Let $\calA$ and $\calB$ be two partitions of $\Omega$ consisting of atoms in $\calF$. Then $\calA = \calB$.
 :::
@@ -318,7 +346,7 @@ $$
 A = A\cap B =B,
 $$
 
-where the first equalities follow from the fact that $A\cap B$ is in $\calF$ and non-reducibility of $A$ and $B$. Thus $A\in \calB$, which proves $\calA \subset \calB$. A symmetric argument proves the opposite containment, and hence $\calA = \calB$. <span class="qed">Q.E.D.</span>
+where the first equalities follow from the fact that $A\cap B$ is in $\calF$ and non-reducibility of $A$ and $B$. Thus $A\in \calB$, which proves $\calA \subset \calB$. A symmetric argument proves the opposite containment, and hence $\calA = \calB$.
 :::
 
 So, every algebra of sets $\calF$ in a finite set $\Omega$ naturally gives rise to a unique partition $\calA$ of $\Omega$ consisting of atoms in $\calF$. Conversely, as we saw in the coin-flip example, a given partition $\calA$ of $\Omega$ can be used to generate an algebra, which we denote by $\sigma(\calA)$. By construction, $\sigma(\calA)$ is the *smallest* algebra in $\Omega$ that contains all sets in $\calA$, i.e., $\calA \subset \sigma(\calA)$.
@@ -341,7 +369,7 @@ $$
 
 The point is that $\calF$ is already an algebra, and hence $\calF = \sigma(\calA)$. To prove this, note that $\Omega \in \calF$ since the union of all sets in $\calA$ is $\Omega$. Clearly $\calF$ is closed under unions, so we need only show that it is closed under absolute complements. But because the sets in $\calA$ are pairwise disjoint and their union is $\Omega$, the complement of a union of sets in $\calA$ is another set of the same form, and hence $\calF$ is indeed closed under unions. This proves the claim $\calF= \sigma(\calA)$, and thereby establishes the first statement.
 
-(2): Let $A\in \calA$ and suppose $S\in \calF$ is a nonempty subset of $A$. But then $S$ is a union of sets in $\calA$, and since the sets in $\calA$ are pairwise disjoint, we must have $S=A$. <span class="qed">Q.E.D.</span>
+(2): Let $A\in \calA$ and suppose $S\in \calF$ is a nonempty subset of $A$. But then $S$ is a union of sets in $\calA$, and since the sets in $\calA$ are pairwise disjoint, we must have $S=A$.
 :::
 
 The mapping $\calA \mapsto \sigma(\calA)$ associating every partition $\calA$ of a finite set $\Omega$ with the algebra $\sigma(\calA)$ is injective. Indeed, if $\calA$ and $\calB$ are two partitions such that $\sigma(\calA) = \sigma(\calB)$, then @thm-atom-gen shows that $\calA$ and $\calB$ are both partitions of the same algebra and both consist of atoms; then @thm-atom shows $\calA = \calB$. On the other hand, if $\calF$ is an algebra of sets in $\Omega$, then a partition $\calA$ of $\Omega$ consisting of atoms in $\calF$ exists, by @thm-atom, and all sets in $\calF$ are unions of atoms. But then $\calF = \sigma(\calA)$ by @thm-atom-gen. We have thus proved:
@@ -378,8 +406,364 @@ $$
 \calG = \sigma(\calB ) \subset \calF,
 $$
 
-where the equality follows (one more time) from @thm-alg-part-equiv and the subset containment from the fact $\calF$ is an algebra containing $\calB$. Thus $\calF$ refines $\calG$. <span class="qed">Q.E.D.</span>
+where the equality follows (one more time) from @thm-alg-part-equiv and the subset containment from the fact $\calF$ is an algebra containing $\calB$. Thus $\calF$ refines $\calG$.
 :::
 
-In summary, the concepts of partitions and algebras provide a precise and equivalent framework for encoding information about outcomes in a (finite) sample space $\Omega$. Each algebra corresponds to a partition of the sample space into equivalence classes of indistinguishable outcomes, and refinements of algebras correspond to finer partitions finer-grained information. This perspective immediately extends to random variables: any random variable induces a partition of $\Omega$ into *level sets* and thereby generates an algebra. In this sense, random variables can themselves be viewed as carriers of information.
+The correspondence between algebras and partitions gives us two complementary perspectives on information. The algebraic view emphasizes *logical operations*: we can decide membership in events, take complements, form unions and intersections. The partition view emphasizes *distinguishability*: outcomes in the same partition set are indistinguishable, while outcomes in different sets can be told apart. @thm-alg-part-equiv shows these perspectives are equivalent—every algebra uniquely determines a partition of atoms, and every partition uniquely generates an algebra. Moreover, @thm-refinement shows that refinement of information has a natural interpretation in both frameworks: $\calF$ refines $\calG$ (as algebras) precisely when the atoms of $\calF$ subdivide the atoms of $\calG$ (as partitions). This duality between set-theoretic structure and equivalence classes will prove essential when we introduce entropy, where the partition view naturally connects to probability distributions over distinguishable outcomes.
 
+## Algebras and entropy
+
+Having established the correspondence between algebras and partitions, we now turn to *quantifying* the information content they represent. While the nested structure
+
+$$
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+$$
+
+that we explored in our coin-flip example shows that information is refined—that uncertainty decreases—we have not yet measured *how much* uncertainty remains at each stage, or how much uncertainty is removed by each refinement. To do this, we introduce the concept of *entropy* associated with an algebra of sets, which is a natural extension of the *Shannon entropy* of a random variable that we studied in a [previous post](../info-1/index.qmd).
+
+We continue to work with a finite sample space $\Omega$ and an algebra $\calF$ of sets in $\Omega$. To quantify uncertainty, we need a probability measure $P$ on $\Omega$, which assigns a probability $P(\{\omega\})$ to each outcome $\omega\in \Omega$. The probability of an event $A\in \calF$ is then given by
+
+$$
+P(A) = \sum_{\omega \in A} P(\{\omega\}).
+$$
+
+Together, the triple $(\Omega,\calF,P)$ is called a *finite probability space*. An algebra of sets $\calG$ in $\Omega$ is called a *sub-$\sigma$-algebra* of $\calF$ if $\calG \subset \calF$.
+
+In our coin-flip example, we can define a probability measure $P$ on $\Omega$ by assuming that the coin has probability $\theta$ of showing heads on any given flip, independently of previous flips. Then the probability of an outcome $\omega$ with $Y(\omega)$ heads is
+
+$$
+P(\{\omega\}) = \theta^{Y(\omega)} (1-\theta)^{3-Y(\omega)}.
+$$
+
+If we suppose that $\theta = 0.6$, then the probabilties on $\Omega$ are as follows:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+theta <- 0.6 # Probability of heads
+
+# Calculate the probabilities of each outcome in Omega
+Omega <- Omega %>%
+  mutate(
+    p = (theta^Y) * ((1 - theta)^(3 - Y)) # Probability of each outcome based on number of heads
+  )
+
+# Print the sample space with probabilities
+kable(
+  Omega,
+  caption = "sample space $\\Omega$ with probabilities $P(\\{\\omega\\})$ for each outcome $\\omega$"
+)
+
+```
+
+<br>
+
+With finite probability spaces defined, we can now introduce the *entropy* of an algebra of sets, which measures the uncertainty associated with the information it encodes. The definition is a straightforward extension of *Shannon entropy*, applied to the partition of $\Omega$ formed by the atoms of the algebra.
+
+::: {#def-rel-entropy}
+Let $(\Omega,\calF,P)$ be a finite probability space, let $\calG$ be a sub-$\sigma$-algebra of $\calF$, and let $\{B_1,B_2,\ldots,B_n\}$ be the partition of $\Omega$ by atoms of $\calG$. We then define the *entropy of $\calG$* to be the quantity
+
+$$
+H(\calG) = -\sum_{i=1}^n P(B_i) \log{P(B_i)}.
+$$ {#eq-def-entropy}
+
+:::
+
+For those readers who are familiar with abstract integration theory, we note that the formula ([-@eq-def-entropy]) can be expressed as a Lebesgue integral. Indeed, if we write $\pi: \Omega \to \Omega/\sim$ for the natural projection map onto the quotient of $\Omega$ by the $\calG$-equivalence relation ([-@eq-equiv-rel]), then the entropy of $\calG$ is given by the Lebesgue integral
+
+$$
+H(\calG) = \int_{\Omega/\sim} s(B) \ \pi_\ast P(dB),
+$$
+
+where $s:\Omega/{\sim}  \to \bbr$ is the surprisal function given by
+
+$$
+s(B) = -\log{P(B)},
+$$
+
+and $\pi_\ast P$ is the pushforward measure of $P$ under $\pi$ defined on the power set of the quotient $\Omega/\sim$. By the substitution rule, we also have
+
+$$
+H(\calG) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
+$$
+
+so the entropy is nothing but the expected value $E(s\circ \pi)$ of the random variable $s\circ \pi$ on $\Omega$. This abstraction becomes essential for infinite sample spaces, but we won't need it here.
+
+Returning to our coin-flip example, we can now compute the entropies of the three algebras $\calF_1$, $\calF_2$, and $\calF_3$ that we constructed. First, we summarize the probabilities of the atoms in each algebra:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Calculate probabilties on the atoms of F1
+F1_probs <- Omega %>%
+  group_by(Ai) %>%
+  summarise(p = sum(p))
+
+# Print the probabilities for the atoms of F1
+kable(
+  F1_probs,
+  caption = "probabilities $P(A_i)$ for the atoms $A_i$ of algebra $\\mathcal{F}_1$"
+)
+
+# Calculate probabilities on the atoms of F2
+F2_probs <- Omega %>%
+  group_by(Bi) %>%
+  summarise(p = sum(p))
+
+# Print the probabilities for the atoms of F2
+kable(
+  F2_probs,
+  caption = "probabilities $P(B_i)$ for the atoms $B_i$ of algebra $\\mathcal{F}_2$"
+)
+
+# Calculate probabilities on the atoms of F3
+F3_probs <- Omega %>%
+  group_by(Ci) %>%
+  summarise(p = sum(p))
+
+# Print the probabilities for the atoms of F3
+kable(
+  F3_probs,
+  caption = "probabilities $P(C_i)$ for the atoms $C_i$ of algebra $\\mathcal{F}_3$"
+)
+
+```
+
+<br>
+
+Since the algebra $\calF_3$ is the power set on $\Omega$, notice that the probabilties of the atoms in $\calF_3$ are just the probabilities of the individual outcomes in $\Omega$.
+
+We now compute the entropies of the three algebras:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Calculate entropy using H = -sum(p * log(p))
+
+# Calculate marginal entropy H(F1)
+H_F1 <- F1_probs %>%
+  mutate(surprisal = -log(p)) %>%
+  summarise(H = sum(p * surprisal)) %>%
+  pull(H)
+
+# Calculate marginal entropy H(F2)
+H_F2 <- F2_probs %>%
+  mutate(surprisal = -log(p)) %>%
+  summarise(H = sum(p * surprisal)) %>%
+  pull(H)
+
+# Calculate marginal entropy H(F3)
+H_F3 <- F3_probs %>%
+  mutate(surprisal = -log(p)) %>%
+  summarise(H = sum(p * surprisal)) %>%
+  pull(H)
+
+# Insert the entropies into a data frame
+marginal_entropies <- tibble(
+  entropy = c("H(F1)", "H(F2)", "H(F3)"),
+  value = c(H_F1, H_F2, H_F3)
+)
+
+# Print the three marginal entropies
+kable(
+  marginal_entropies,
+  caption = "marginal entropies for algebras $\\mathcal{F}_1$, $\\mathcal{F}_2$, and $\\mathcal{F}_3$"
+)
+
+```
+
+<br>
+
+Thus, we see that the entropy *increases* as we refine our information. This means that *uncertainty* increases as our information becomes more detailed, which may seem counterintuitive at first glance. However, this is a natural consequence of the way entropy is defined: it measures the *expected* uncertainty over all possible outcomes, and as we refine our information, we are effectively considering a larger number of possible outcomes (the atoms of the finer algebra), each with its own associated probability. The increased granularity leads to a higher overall uncertainty when averaged across all outcomes.
+
+We may visualize this increase in entropy as follows, where reading the plot from left to right corresponds to refining our information from $\calF_1$ to $\calF_2$ to $\calF_3$:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-width: 5
+#| fig-height: 3
+
+ggplot(marginal_entropies, aes(x = entropy, y = value)) +
+  geom_col(fill = yellow, width = 0.4) +
+  labs(
+    title = "entropy increases under refinement",
+    x = NULL,
+    y = "entropy"
+  )
+
+```
+
+Having defined the entropy of an algebra, we can now introduce two related concepts: *conditional entropy* and *mutual information*. These quantities measure, respectively, the uncertainty remaining in one algebra given knowledge of another, and the amount of information shared between two algebras.
+
+To define the conditional entropy, we need two sub-$\sigma$-algebras $\calG$ and $\calH$ of a finite probability space $(\Omega,\calF,P)$. If the decompositions of $\Omega$ into the atoms of $\calG$ and $\calH$ are
+
+$$
+\{B_1,B_2,\ldots,B_n\} \quad \text{and} \quad \{C_1,C_2,\ldots,C_m\},
+$$
+
+respectively, then the decomposition of $\Omega$ into the atoms of the algebra $\calG \vee \calH$, the smallest algebra containing both $\calG$ and $\calH$, is given by the nonempty sets among $B_i \cap C_j$ for each of $i=1,2,\ldots,n$ and $j=1,2,\ldots,m$. 
+
+::: {#def-cond-entropy}
+Let $(\Omega,\calF,P)$ be a finite probability space, and let $\calG$ and $\calH$ be two sub-$\sigma$-algebras of $\calF$. The *conditional entropy of $\calG$ given $\calH$* is the quantity
+
+$$
+H(\calG\mid \calH) = H(\calG \vee \calH) - H(\calH).
+$$
+
+:::
+
+The intuition for this definition is as follows. The entropy $H(\calH)$ measures the uncertainty in $\calH$, while $H(\calG \cup \calH)$ measures the uncertainty in the combined information of $\calG$ and $\calH$. The difference between these two quantities, $H(\calG \mid \calH)$, thus represents the uncertainty that remains in $\calG$ once we know everything in $\calH$.
+
+In our coin-flip example, three conditional entropies are of interest: $H(\calF_3\mid \calF_i)$, for each of $i=1,2,3$. Since we have the nested sequence
+
+$$
+\calF_1 \subset \calF_2 \subset \calF_3,
+$$
+
+note that
+
+$$
+H(\calF_3 \mid \calF_1) = H(\calF_1 \vee \calF_3) - H(\calF_1) = H(\calF_3) - H(\calF_1),
+$$ {#eq-cond-ent-coin}
+
+and similarly for $H(\calF_3 \mid \calF_2)$ and $H(\calF_3 \mid \calF_3)$. In particular, we have that $H(\calF_3 \mid \calF_3) =0$, which squares with our intuition that, given the information in $\calF_3$, the uncertainty remaining in $\calF_3$ is zero.
+
+We compute all three conditional entropies:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+conditional_entropies <- tibble(
+  entropy = c("H(F3 | F1)", "H(F3 | F2)", "H(F3 | F3)"),
+  value = c(H_F3 - H_F1, H_F3 - H_F2, H_F3 - H_F3)
+)
+
+# Print the three conditional entropies
+kable(
+  conditional_entropies,
+  caption = "conditional entropies for the filtration $\\mathcal{F}_1 \\subset \\mathcal{F}_2 \\subset \\mathcal{F}_3$"
+)
+
+```
+
+<br>
+
+These values show that as we compute $H(\calF_3 \mid \calF_i)$ along the sequence
+
+$$
+\calF_1 \subset \calF_2 \subset \calF_3,
+$$
+
+the conditional entropies *decrease*. This reflects the fact that as we refine our information (moving from $\calF_1$ to $\calF_2$ to $\calF_3$), the uncertainty remaining in $\calF_3$ given knowledge of the other algebras diminishes. This aligns perfectly with our intuition: more information leads to less uncertainty.
+
+Finally, we define the *mutual information* between two sub-$\sigma$-algebras $\calG$ and $\calH$ of a finite probability space $(\Omega,\calF,P)$. This quantity measures the amount of information shared between $\calG$ and $\calH$, quantifying how much knowing one reduces uncertainty about the other.
+
+::: {#def-mutual-info}
+Let $(\Omega,\calF,P)$ be a finite probability space, and let $\calG$ and $\calH$ be two sub-$\sigma$-algebras of $\calF$. The *mutual information between $\calG$ and $\calH$* is the quantity
+
+$$
+I(\calG,\calH) = H(\calG) -H(\calG \mid \calH).
+$$ {#eq-def-mutual-info}
+
+:::
+
+The intuition for this definition is as follows. The entropy $H(\calG)$ measures the uncertainty in $\calG$. The conditional entropy $H(\calG \mid \calH)$ measures the uncertainty remaining in $\calG$ once we know everything in $\calH$. The difference between these two quantities, $I(\calG,\calH)$, thus represents the reduction in uncertainty about $\calG$ due to knowledge of $\calH$—in other words, the information that $\calG$ and $\calH$ share.
+
+Returning once more to our coin-flip example, we compute the three mutual informations $I(\calF_3,\calF_i)$ for $i=1,2,3$. From ([-@eq-cond-ent-coin]), we have
+
+$$
+I(\calF_3, \calF_1) = H(\calF_3) - H(\calF_3 \mid \calF_1) = H(\calF_3) - (H(\calF_3) - H(\calF_1)) = H(\calF_1),
+$$
+
+and similarly for $I(\calF_3,\calF_2)$ and $I(\calF_3,\calF_3)$. We compute all three mutual informations:
+
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+mutual_infos <- tibble(
+  entropy = c("I(F3, F1)", "I(F3, F2)", "I(F3, F3)"),
+  value = c(H_F1, H_F2, H_F3)
+)
+
+# Print the three mutual informations
+kable(
+  mutual_infos,
+  caption = "mutual informations for the filtration $\\mathcal{F}_1 \\subset \\mathcal{F}_2 \\subset \\mathcal{F}_3$"
+)
+
+```
+
+<br>
+
+Thus, as we compute $I(\calF_3,\calF_i)$ along the sequence
+
+$$
+\calF_1 \subset \calF_2 \subset \calF_3,
+$$
+
+we see that the mutual informations *increase*. This reflects the fact that as we refine our information (moving from $\calF_1$ to $\calF_2$ to $\calF_3$), the amount of information shared between $\calF_3$ and the other algebras grows. This again aligns perfectly with our intuition: more information leads to greater shared knowledge.
+
+From ([-@eq-def-mutual-info]), we have
+
+$$
+H(\calF_3) = I(\calF_3,\calF_i) + H(\calF_3 \mid \calF_i),
+$$
+
+for each $i=1,2,3$, and so the total entropy in $\calF_3$ decomposes into the sum of mutual information and conditional entropy. We visualize this decomposition for each of the three algebras in our filtration:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-width: 6
+#| fig-height: 3
+
+decomposition <- tibble(
+  algebra = rep(c("i=1", "i=2", "i=3"), each = 2),
+  component = rep(c("mutual information", "conditional entropy"), 3),
+  value = c(H_F1, H_F3 - H_F1, H_F2, H_F3 - H_F2, H_F3, 0)
+)
+
+ggplot(decomposition, aes(x = algebra, y = value, fill = component)) +
+  geom_col(width = 0.4) +
+  scale_fill_manual(
+    name = NULL,
+    values = c("mutual information" = blue, "conditional entropy" = yellow)
+  ) +
+  labs(
+    title = TeX("entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"),
+    x = NULL
+  )
+
+```
+
+The decomposition $H(\mathcal{F}_3) = I(\mathcal{F}_3, \mathcal{F}_i) + H(\mathcal{F}_3 \mid \mathcal{F}_i)$ reveals a fundamental trade-off: as we refine our information from $\mathcal{F}_1$ to $\mathcal{F}_2$ to $\mathcal{F}_3$, mutual information increases (capturing more shared knowledge with the complete outcome) while conditional entropy decreases (leaving less residual uncertainty). The total entropy $H(\mathcal{F}_3)$ remains constant, but its composition shifts as information accumulates.
+
+## Conclusion
+
+We began this post by asking how to represent an observer's information mathematically. The answer emerged through two complementary perspectives: algebras of sets, which capture the logical operations available to the observer, and partitions, which describe which outcomes can be distinguished from one another. @thm-alg-part-equiv showed these views are equivalent—every algebra corresponds to a unique partition of atoms, and vice versa.
+
+To quantify information, we introduced entropy as a measure of uncertainty associated with an algebra. The entropy $H(\mathcal{G})$ tells us how much uncertainty remains when the observer's knowledge is captured by $\mathcal{G}$. Our coin-flip example illustrated how entropy increases as partitions refine: knowing the first flip yields $H(\mathcal{F}_1) \approx 0.67$, knowing the first two flips yields $H(\mathcal{F}_2) \approx 1.35$, and complete knowledge yields $H(\mathcal{F}_3) \approx 2.02$.
+
+We also introduced conditional entropy $H(\mathcal{G} \mid \mathcal{H})$, measuring residual uncertainty in $\mathcal{G}$ given knowledge of $\mathcal{H}$, and mutual information $I(\mathcal{G}, \mathcal{H})$, measuring information shared between algebras. These quantities satisfy the fundamental relationship
+
+$$
+H(\mathcal{G}) = I(\mathcal{G}, \mathcal{H}) + H(\mathcal{G} \mid \mathcal{H}),
+$$
+
+decomposing total uncertainty into shared information and residual uncertainty.
+
+The framework of nested algebras representing evolving information has powerful applications beyond theoretical probability. In future posts, we'll explore how these ideas illuminate *gambling strategies* and *games of chance*, where players accumulate information over time and make decisions under uncertainty. We'll also see how the same mathematical structure underpins *options pricing in mathematical finance*, where nested filtrations model the information available to traders at different times, and conditional expectations with respect to these algebras determine fair prices for derivative securities. The interplay between information, uncertainty, and value in these contexts provides a rich testing ground for the concepts developed here.
