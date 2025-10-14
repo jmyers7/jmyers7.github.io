@@ -53,9 +53,6 @@ library("latex2exp") # For LaTeX rendering in plots
 # Note: Replace this path with your own theme file location
 source("../../aux-files/custom-theme.R")
 
-# Set random seed for reproducibility
-set.seed(42)
-
 # Extract custom colors from theme
 # Note: These color definitions depend on your custom theme file
 yellow <- custom_colors[["yellow"]]

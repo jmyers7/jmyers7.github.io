@@ -49,8 +49,6 @@ from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.ticker import PercentFormatter
 import matplotlib.gridspec as gridspec
 
-# Set random seed for reproducibility
-np.random.seed(42)
 
 # Set custom matplotlib style (user must use their own style file)
 plt.style.use("../../aux-files/custom-theme.mplstyle")
@@ -58,10 +56,7 @@ plt.style.use("../../aux-files/custom-theme.mplstyle")
 # Define color palette for plots
 yellow = "#FFC300"
 blue = "#3399FF"
-pink = "#FF3399"
 purple = "#AA77CC"
-grey = "#121212"
-white = "#E5E5E5"
 
 
 class RV:
