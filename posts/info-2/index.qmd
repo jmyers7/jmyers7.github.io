@@ -623,7 +623,7 @@ $$
 
 :::
 
-The intuition for this definition is as follows. The entropy $H(\calH)$ measures the uncertainty in $\calH$, while $H(\calG \cup \calH)$ measures the uncertainty in the combined information of $\calG$ and $\calH$. The difference between these two quantities, $H(\calG \mid \calH)$, thus represents the uncertainty that remains in $\calG$ once we know everything in $\calH$.
+The intuition for this definition is as follows. The entropy $H(\calH)$ measures the uncertainty in $\calH$, while $H(\calG \vee \calH)$ measures the uncertainty in the combined information of $\calG$ and $\calH$. The difference between these two quantities, $H(\calG \mid \calH)$, thus represents the uncertainty that remains in $\calG$ once we know everything in $\calH$.
 
 In our coin-flip example, three conditional entropies are of interest: $H(\calF_3\mid \calF_i)$, for each of $i=1,2,3$. Since we have the nested sequence
 
