@@ -1,9 +1,10 @@
 ---
 title: "Algebras & information"
 date: "2025-10-14"
+bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
 categories: [Information theory, Probability theory, Measure theory, Entropy, Mutual information, Sigma-algebras, R]
-image: "thumbnail.png"
+image: "thumbnail.svg"
 # draft: true
 ---
 
@@ -32,6 +33,8 @@ But algebras alone don't quantify uncertainty; they only describe logical struct
 In a [previous post](../info-1/index.qmd), we introduced *entropy*, *conditional entropy*, and *mutual information* for probability distributions on finite sets. Here, we develop the same ideas from a measure-theoretic perspective, showing how information naturally emerges from the algebraic structure of events. This dual perspective (probabilistic and set-theoretic) provides both conceptual clarity and the foundation for extensions to infinite spaces, stochastic processes, and dynamical systems.
 
 We'll work primarily with a concrete example: three coin flips and the nested algebras they generate. Through explicit computations in `R`, we'll see how entropy quantifies information at each stage of learning. The mathematical machinery we develop (algebras, partitions, and their correspondence) forms the backbone of modern probability theory. These ideas have powerful applications in *gambling problems* and *games of chance*, where players accumulate information over time, and in *options pricing in mathematical finance*, where nested filtrations model traders' evolving information and determine fair prices for derivative securities. We will explore these latter themes in future posts.
+
+The idea that algebras (and their $\sigma$-algebra generalizations) can represent "information states" is familiar to probability theorists. For example, these ideas appear throughout [@Billingsley1995], which also discusses gambling strategies, while [@Bjork2020] provides a perspective from mathematical finance. Information-theoretic measures like entropy are applied to $\sigma$-algebras in ergodic theory and other areas; for an introduction, see [@Walters1982].
 
 If you’d like to follow along with the code examples in this post, please see the dropdown code block below for the usual imports and setup.
 
@@ -767,3 +770,5 @@ $$
 decomposing total uncertainty into shared information and residual uncertainty.
 
 The framework of nested algebras representing evolving information has powerful applications beyond theoretical probability. In future posts, we'll explore how these ideas illuminate *gambling strategies* and *games of chance*, where players accumulate information over time and make decisions under uncertainty. We'll also see how the same mathematical structure underpins *options pricing in mathematical finance*, where nested filtrations model the information available to traders at different times, and conditional expectations with respect to these algebras determine fair prices for derivative securities. The interplay between information, uncertainty, and value in these contexts provides a rich testing ground for the concepts developed here.
+
+## Bibliography
