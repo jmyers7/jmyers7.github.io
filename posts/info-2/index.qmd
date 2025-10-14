@@ -474,19 +474,19 @@ $$ {#eq-def-entropy}
 
 :::
 
-For those readers who are familiar with abstract integration theory, we note that the formula ([-@eq-def-entropy]) can be expressed as a Lebesgue integral. Indeed, if we write $\pi: \Omega \to \Omega/\sim$ for the natural projection map onto the quotient of $\Omega$ by the $\calG$-equivalence relation ([-@eq-equiv-rel]), then the entropy of $\calG$ is given by the Lebesgue integral
+For those readers who are familiar with abstract integration theory, we note that the formula ([-@eq-def-entropy]) can be expressed as a Lebesgue integral. Indeed, if we write $\pi: \Omega \to \Omega/\calG$ for the natural projection map onto the quotient space $\Omega/\calG$ whose points are the atoms of $\calG$, then the entropy of $\calG$ is given by the Lebesgue integral
 
 $$
-H(\calG) = \int_{\Omega/\sim} s(B) \ \pi_\ast P(dB),
+H(\calG) = \int_{\Omega/\calG} s(B) \ \pi_\ast P(dB),
 $$
 
-where $s:\Omega/{\sim}  \to \bbr$ is the surprisal function given by
+where $s:\Omega/\calG  \to \bbr$ is the surprisal function given by
 
 $$
 s(B) = -\log{P(B)},
 $$
 
-and $\pi_\ast P$ is the pushforward measure of $P$ under $\pi$ defined on the power set of the quotient $\Omega/\sim$. By the substitution rule, we also have
+and $\pi_\ast P$ is the pushforward measure of $P$ under $\pi$ defined on the power set of the quotient $\Omega/\calG$. By the substitution rule, we also have
 
 $$
 H(\calG) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
