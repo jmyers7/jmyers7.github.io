@@ -56,27 +56,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -254,7 +234,6 @@ window.Quarto = {
   <li><a href="#algebras-and-partitions" id="toc-algebras-and-partitions" class="nav-link" data-scroll-target="#algebras-and-partitions">Algebras and partitions</a></li>
   <li><a href="#algebras-and-entropy" id="toc-algebras-and-entropy" class="nav-link" data-scroll-target="#algebras-and-entropy">Algebras and entropy</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
     </div>
@@ -298,7 +277,7 @@ window.Quarto = {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>How do we mathematically represent what someone <em>knows</em>? This question sits at the heart of probability theory, information theory, and decision-making under uncertainty. When an experiment produces an outcome but we don’t observe it directly, our knowledge is partial: we might know some facts about the outcome while remaining uncertain about others. This partial knowledge needs a precise mathematical framework.</p>
-<p>Consider a simple scenario: three coin flips produce a binary sequence like <span class="math inline">\(011\)</span> or <span class="math inline">\(101\)</span> where a <span class="math inline">\(0\)</span> indicates that a tail was produced and <span class="math inline">\(1\)</span> a head, but you don’t see the full result. If someone tells you only the outcome of the first flip, you’ve gained information, but how much? If they then reveal the second flip, you learn more, but again, how much? These questions about <em>information content</em> and <em>uncertainty reduction</em> require both a qualitative structure (what can you distinguish?) and a quantitative measure (how uncertain are you?).</p>
+<p>Consider a simple scenario: three coin flips produce a binary sequence like <span class="math inline">\(011\)</span> or <span class="math inline">\(101\)</span>, but you don’t see the full result. If someone tells you only the outcome of the first flip, you’ve gained information, but how much? If they then reveal the second flip, you learn more, but again, how much? These questions about <em>information content</em> and <em>uncertainty reduction</em> require both a qualitative structure (what can you distinguish?) and a quantitative measure (how uncertain are you?).</p>
 <p>The qualitative structure is captured by <em>algebras of sets</em>, which formalize the collection of events an observer can decide about. If you know the first flip, you can decide whether the full sequence starts with <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, partitioning the eight possible outcomes into two groups. Knowing the first two flips refines this partition into four groups, and so on. Each partition represents a distinct “information state,” and the nested structure</p>
 <p><span class="math display">\[
 \mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
@@ -307,7 +286,6 @@ window.Quarto = {
 <p>But algebras alone don’t quantify uncertainty; they only describe logical structure. To measure <em>how much</em> information each partition contains, we need <em>entropy</em>, along with the related notions of <em>conditional entropy</em> and <em>mutual information</em>. As partitions refine, conditional entropy decreases (less residual uncertainty) while mutual information increases (more shared information between algebras).</p>
 <p>In a <a href="../../posts/info-1/index.html">previous post</a>, we introduced <em>entropy</em>, <em>conditional entropy</em>, and <em>mutual information</em> for probability distributions on finite sets. Here, we develop the same ideas from a measure-theoretic perspective, showing how information naturally emerges from the algebraic structure of events. This dual perspective (probabilistic and set-theoretic) provides both conceptual clarity and the foundation for extensions to infinite spaces, stochastic processes, and dynamical systems.</p>
 <p>We’ll work primarily with a concrete example: three coin flips and the nested algebras they generate. Through explicit computations in <code>R</code>, we’ll see how entropy quantifies information at each stage of learning. The mathematical machinery we develop (algebras, partitions, and their correspondence) forms the backbone of modern probability theory. These ideas have powerful applications in <em>gambling problems</em> and <em>games of chance</em>, where players accumulate information over time, and in <em>options pricing in mathematical finance</em>, where nested filtrations model traders’ evolving information and determine fair prices for derivative securities. We will explore these latter themes in future posts.</p>
-<p>The idea that algebras (and their <span class="math inline">\(\sigma\)</span>-algebra generalizations) can represent “information states” is familiar to probability theorists. For example, these ideas appear throughout <span class="citation" data-cites="Billingsley1995">(<a href="#ref-Billingsley1995" role="doc-biblioref">Billingsley 1995</a>)</span>, which also discusses gambling strategies, while <span class="citation" data-cites="Bjork2020">(<a href="#ref-Bjork2020" role="doc-biblioref">Björk 2020</a>)</span> provides a perspective from mathematical finance. Information-theoretic measures like entropy are applied to <span class="math inline">\(\sigma\)</span>-algebras in ergodic theory and other areas; for an introduction, see <span class="citation" data-cites="Walters1982">(<a href="#ref-Walters1982" role="doc-biblioref">Walters 1982</a>)</span>.</p>
 <p>If you’d like to follow along with the code examples in this post, please see the dropdown code block below for the usual imports and setup.</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
@@ -1563,25 +1541,11 @@ H(\mathcal{G}) = I(\mathcal{G}, \mathcal{H}) + H(\mathcal{G} \mid \mathcal{H}),
 \]</span></p>
 <p>decomposing total uncertainty into shared information and residual uncertainty.</p>
 <p>The framework of nested algebras representing evolving information has powerful applications beyond theoretical probability. In future posts, we’ll explore how these ideas illuminate <em>gambling strategies</em> and <em>games of chance</em>, where players accumulate information over time and make decisions under uncertainty. We’ll also see how the same mathematical structure underpins <em>options pricing in mathematical finance</em>, where nested filtrations model the information available to traders at different times, and conditional expectations with respect to these algebras determine fair prices for derivative securities. The interplay between information, uncertainty, and value in these contexts provides a rich testing ground for the concepts developed here.</p>
-</section>
-<section id="bibliography" class="level2">
-
-
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Billingsley1995" class="csl-entry" role="listitem">
-Billingsley, P. 1995. <em>Probability and Measure</em>. Third. John Wiley &amp; Sons, Inc.
-</div>
-<div id="ref-Bjork2020" class="csl-entry" role="listitem">
-Björk, T. 2020. <em>Arbitrage Theory in Continuous Time</em>. Fourth. Oxford Finance Series. Oxford University Press.
-</div>
-<div id="ref-Walters1982" class="csl-entry" role="listitem">
-Walters, P. 1982. <em>An Introduction to Ergodic Theory</em>. Graduate Texts in Mathematics. Springer.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
