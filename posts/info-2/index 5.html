@@ -1136,15 +1136,15 @@ H(\mathcal{G}) = -\sum_{i=1}^n P(B_i) \log{P(B_i)}.
 </div>
 </div>
 </div>
-<p>For those readers who are familiar with abstract integration theory, we note that the formula (<a href="#eq-def-entropy" class="quarto-xref">3</a>) can be expressed as a Lebesgue integral. Indeed, if we write <span class="math inline">\(\pi: \Omega \to \Omega/\mathcal{G}\)</span> for the natural projection map onto the quotient space <span class="math inline">\(\Omega/\mathcal{G}\)</span> whose points are the atoms of <span class="math inline">\(\mathcal{G}\)</span>, then the entropy of <span class="math inline">\(\mathcal{G}\)</span> is given by the Lebesgue integral</p>
+<p>For those readers who are familiar with abstract integration theory, we note that the formula (<a href="#eq-def-entropy" class="quarto-xref">3</a>) can be expressed as a Lebesgue integral. Indeed, if we write <span class="math inline">\(\pi: \Omega \to \Omega/\sim\)</span> for the natural projection map onto the quotient of <span class="math inline">\(\Omega\)</span> by the <span class="math inline">\(\mathcal{G}\)</span>-equivalence relation (<a href="#eq-equiv-rel" class="quarto-xref">2</a>), then the entropy of <span class="math inline">\(\mathcal{G}\)</span> is given by the Lebesgue integral</p>
 <p><span class="math display">\[
-H(\mathcal{G}) = \int_{\Omega/\mathcal{G}} s(B) \ \pi_\ast P(dB),
+H(\mathcal{G}) = \int_{\Omega/\sim} s(B) \ \pi_\ast P(dB),
 \]</span></p>
-<p>where <span class="math inline">\(s:\Omega/\mathcal{G}\to \mathbb{R}\)</span> is the surprisal function given by</p>
+<p>where <span class="math inline">\(s:\Omega/{\sim}  \to \mathbb{R}\)</span> is the surprisal function given by</p>
 <p><span class="math display">\[
 s(B) = -\log{P(B)},
 \]</span></p>
-<p>and <span class="math inline">\(\pi_\ast P\)</span> is the pushforward measure of <span class="math inline">\(P\)</span> under <span class="math inline">\(\pi\)</span> defined on the power set of the quotient <span class="math inline">\(\Omega/\mathcal{G}\)</span>. By the substitution rule, we also have</p>
+<p>and <span class="math inline">\(\pi_\ast P\)</span> is the pushforward measure of <span class="math inline">\(P\)</span> under <span class="math inline">\(\pi\)</span> defined on the power set of the quotient <span class="math inline">\(\Omega/\sim\)</span>. By the substitution rule, we also have</p>
 <p><span class="math display">\[
 H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 \]</span></p>
