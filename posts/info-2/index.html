@@ -1005,19 +1005,21 @@ P(\{\omega\}) = \theta^{Y(\omega)} (1-\theta)^{3-Y(\omega)}.
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># Probability of heads</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># Probability of heads (coin bias parameter)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probabilities of each outcome in Omega</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> (theta<span class="sc">^</span>Y) <span class="sc">*</span> ((<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="dv">3</span> <span class="sc">-</span> Y)) <span class="co"># Probability of each outcome based on number of heads</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the sample space with probabilities</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  Omega,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ with probabilities $P(</span><span class="sc">\\</span><span class="st">{</span><span class="sc">\\</span><span class="st">omega</span><span class="sc">\\</span><span class="st">})$ for each outcome $</span><span class="sc">\\</span><span class="st">omega$"</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Under independence, P({ω}) = θ^(# heads) × (1-θ)^(# tails)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> (theta<span class="sc">^</span>Y) <span class="sc">*</span> ((<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="dv">3</span> <span class="sc">-</span> Y)) <span class="co"># Probability based on binomial model</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space with probabilities as a formatted table</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Each row shows an outcome ω and its probability P({ω})</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  Omega,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ with probabilities $P(</span><span class="sc">\\</span><span class="st">{</span><span class="sc">\\</span><span class="st">omega</span><span class="sc">\\</span><span class="st">})$ for each outcome $</span><span class="sc">\\</span><span class="st">omega$"</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1153,16 +1155,17 @@ H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilties on the atoms of F1</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>F1_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ai) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p))</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the probabilities for the atoms of F1</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  F1_probs,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(A_i)$ for the atoms $A_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$"</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F1 with partition {A1, A2}, sum the probabilities of outcomes in each atom</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>F1_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ai) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Ai = 1 or 2)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities of all outcomes in each atom</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F1 as a formatted table</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  F1_probs,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(A_i)$ for the atoms $A_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1188,15 +1191,16 @@ H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F2</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>F2_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Bi) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the probabilities for the atoms of F2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  F2_probs,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(B_i)$ for the atoms $B_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$"</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F2 with partition {B1, B2, B3, B4}, sum probabilities for each atom</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>F2_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Bi) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Bi = 1, 2, 3, or 4)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities of all outcomes in each atom</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F2 as a formatted table</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  F2_probs,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(B_i)$ for the atoms $B_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1230,15 +1234,17 @@ H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F3</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>F3_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ci) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the probabilities for the atoms of F3</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  F3_probs,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(C_i)$ for the atoms $C_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F3 with partition {C1, ..., C8} (singletons), extract individual outcome probabilities</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>F3_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ci) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Ci = 1 through 8)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities (each atom contains exactly one outcome)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F3 as a formatted table</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Since F3 is the power set, each atom Ci corresponds to a single outcome ω</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  F3_probs,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(C_i)$ for the atoms $C_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1293,36 +1299,42 @@ H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate entropy using H = -sum(p * log(p))</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F1)</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>H_F1 <span class="ot">&lt;-</span> F1_probs <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F2)</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>H_F2 <span class="ot">&lt;-</span> F2_probs <span class="sc">%&gt;%</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F3)</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>H_F3 <span class="ot">&lt;-</span> F3_probs <span class="sc">%&gt;%</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert the entropies into a data frame</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>marginal_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F1)"</span>, <span class="st">"H(F2)"</span>, <span class="st">"H(F3)"</span>),</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the three marginal entropies</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  marginal_entropies,</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"marginal entropies for algebras $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$, $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$, and $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This formula computes Shannon entropy, measuring uncertainty in the distribution</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F1)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F1 with atoms {A1, A2}, compute entropy over the 2-element partition</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>H_F1 <span class="ot">&lt;-</span> F1_probs <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span> <span class="co"># Surprisal: -log(p) for each atom's probability</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span> <span class="co"># Entropy: expected surprisal</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H) <span class="co"># Extract the scalar value</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F2)</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F2 with atoms {B1, B2, B3, B4}, compute entropy over the 4-element partition</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>H_F2 <span class="ot">&lt;-</span> F2_probs <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F3)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F3 with atoms {C1, ..., C8}, compute entropy over the 8-element partition</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># F3 corresponds to complete information (the power set of Omega)</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>H_F3 <span class="ot">&lt;-</span> F3_probs <span class="sc">%&gt;%</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing the three entropy values</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how entropy increases as algebras refine: H(F1) &lt; H(F2) &lt; H(F3)</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>marginal_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F1)"</span>, <span class="st">"H(F2)"</span>, <span class="st">"H(F3)"</span>), <span class="co"># Labels for each algebra</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3) <span class="co"># Corresponding entropy values in nats</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the marginal entropies as a formatted table</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  marginal_entropies,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"marginal entropies for algebras $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$, $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$, and $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1356,13 +1368,15 @@ H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(marginal_entropies, <span class="fu">aes</span>(<span class="at">x =</span> entropy, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> yellow, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"entropy increases under refinement"</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"entropy"</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar chart visualizing how entropy increases across the filtration</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each bar represents the entropy H(Fi) for i = 1, 2, 3</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(marginal_entropies, <span class="fu">aes</span>(<span class="at">x =</span> entropy, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> yellow, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># Yellow bars with reduced width for clarity</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"entropy increases under refinement"</span>, <span class="co"># Title describes the key pattern</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="co"># Remove x-axis label (entropy names are self-explanatory)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"entropy"</span> <span class="co"># Label y-axis with the quantity being measured</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1407,16 +1421,20 @@ H(\mathcal{F}_3 \mid \mathcal{F}_1) = H(\mathcal{F}_1 \vee \mathcal{F}_3) - H(\m
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>conditional_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F3 | F1)"</span>, <span class="st">"H(F3 | F2)"</span>, <span class="st">"H(F3 | F3)"</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F3 <span class="sc">-</span> H_F1, H_F3 <span class="sc">-</span> H_F2, H_F3 <span class="sc">-</span> H_F3)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the three conditional entropies</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  conditional_entropies,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"conditional entropies for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing conditional entropy values for the filtration</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For nested algebras F1 ⊂ F2 ⊂ F3, conditional entropy H(F3 | Fi) = H(F3) - H(Fi)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This measures the residual uncertainty in F3 given knowledge of Fi</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>conditional_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F3 | F1)"</span>, <span class="st">"H(F3 | F2)"</span>, <span class="st">"H(F3 | F3)"</span>), <span class="co"># Labels for each conditional entropy</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F3 <span class="sc">-</span> H_F1, H_F3 <span class="sc">-</span> H_F2, H_F3 <span class="sc">-</span> H_F3) <span class="co"># Values: H(F3 | Fi) for each i</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the conditional entropies as a formatted table</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how residual uncertainty in F3 decreases as we refine from F1 to F2 to F3</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  conditional_entropies,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"conditional entropies for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1475,16 +1493,20 @@ I(\mathcal{F}_3, \mathcal{F}_1) = H(\mathcal{F}_3) - H(\mathcal{F}_3 \mid \mathc
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mutual_infos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"I(F3, F1)"</span>, <span class="st">"I(F3, F2)"</span>, <span class="st">"I(F3, F3)"</span>),</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the three mutual informations</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  mutual_infos,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"mutual informations for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing mutual information values for each algebra in the filtration</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For nested algebras F1 ⊂ F2 ⊂ F3, the mutual information I(F3, Fi) equals H(Fi)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># because Fi contains all the information about F3 that Fi itself possesses</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mutual_infos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"I(F3, F1)"</span>, <span class="st">"I(F3, F2)"</span>, <span class="st">"I(F3, F3)"</span>),  <span class="co"># Labels for each mutual information</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3)  <span class="co"># Values: I(F3, Fi) = H(Fi) for nested algebras</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the mutual informations as a formatted table</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how shared information between F3 and each Fi increases with refinement</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  mutual_infos,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"mutual informations for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1526,22 +1548,26 @@ H(\mathcal{F}_3) = I(\mathcal{F}_3,\mathcal{F}_i) + H(\mathcal{F}_3 \mid \mathca
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>decomposition <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">algebra =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"i=1"</span>, <span class="st">"i=2"</span>, <span class="st">"i=3"</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">component =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"mutual information"</span>, <span class="st">"conditional entropy"</span>), <span class="dv">3</span>),</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F3 <span class="sc">-</span> H_F1, H_F2, H_F3 <span class="sc">-</span> H_F2, H_F3, <span class="dv">0</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(decomposition, <span class="fu">aes</span>(<span class="at">x =</span> algebra, <span class="at">y =</span> value, <span class="at">fill =</span> component)) <span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"mutual information"</span> <span class="ot">=</span> blue, <span class="st">"conditional entropy"</span> <span class="ot">=</span> yellow)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">TeX</span>(<span class="st">"entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"</span>),</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame decomposing the entropy H(F3) into mutual information and conditional entropy</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For each algebra F_i (i=1,2,3), we have: H(F3) = I(F3, F_i) + H(F3 | F_i)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>decomposition <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">algebra =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"i=1"</span>, <span class="st">"i=2"</span>, <span class="st">"i=3"</span>), <span class="at">each =</span> <span class="dv">2</span>), <span class="co"># Three algebras, each with two components</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">component =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"mutual information"</span>, <span class="st">"conditional entropy"</span>), <span class="dv">3</span>), <span class="co"># Two components per algebra</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(H_F1, H_F3 <span class="sc">-</span> H_F1, H_F2, H_F3 <span class="sc">-</span> H_F2, H_F3, <span class="dv">0</span>) <span class="co"># Values for each component</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a stacked bar chart showing the decomposition</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Each bar represents H(F3) for a different conditioning algebra F_i</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(decomposition, <span class="fu">aes</span>(<span class="at">x =</span> algebra, <span class="at">y =</span> entropy, <span class="at">fill =</span> component)) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># Stacked column chart</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"mutual information"</span> <span class="ot">=</span> blue, <span class="st">"conditional entropy"</span> <span class="ot">=</span> yellow)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">TeX</span>(<span class="st">"entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"</span>),</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
