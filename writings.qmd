@@ -8,7 +8,7 @@ listing:
 title-block-banner: false
 ---
 
-The posts below will range from technical deep-dives in machine learning and pure mathematics, to practical applications in finance and risk, and anything else that catches my interests. Some posts will draw from my expertise as a mathematician, while others will reflect my journey as a beginner exploring and learning new fields.
+The posts below will range from technical deep-dives in machine learning and pure mathematics, to practical applications in finance and risk, and anything else that catches my interests. Some posts will draw from my expertise as a mathematician, while others will reflect my journey as a beginner exploring and learning new fields. These posts are written in three languages: `Python` and `R` for computation, and mathematics for precision.
 
 ![](img/h-bar.svg){fig-align='center' width=30%}
 
