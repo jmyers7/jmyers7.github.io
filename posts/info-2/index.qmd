@@ -445,15 +445,17 @@ If we suppose that $\theta = 0.6$, then the probabilties on $\Omega$ are as foll
 #| code-fold: true
 #| fig-align: center
 
-theta <- 0.6 # Probability of heads
+theta <- 0.6 # Probability of heads (coin bias parameter)
 
 # Calculate the probabilities of each outcome in Omega
+# Under independence, P({ω}) = θ^(# heads) × (1-θ)^(# tails)
 Omega <- Omega %>%
   mutate(
-    p = (theta^Y) * ((1 - theta)^(3 - Y)) # Probability of each outcome based on number of heads
+    p = (theta^Y) * ((1 - theta)^(3 - Y)) # Probability based on binomial model
   )
 
-# Print the sample space with probabilities
+# Display the sample space with probabilities as a formatted table
+# Each row shows an outcome ω and its probability P({ω})
 kable(
   Omega,
   caption = "sample space $\\Omega$ with probabilities $P(\\{\\omega\\})$ for each outcome $\\omega$"
@@ -501,34 +503,38 @@ Returning to our coin-flip example, we can now compute the entropies of the thre
 #| code-fold: true
 #| fig-align: center
 
-# Calculate probabilties on the atoms of F1
+# Calculate probabilities on the atoms of F1
+# For algebra F1 with partition {A1, A2}, sum the probabilities of outcomes in each atom
 F1_probs <- Omega %>%
-  group_by(Ai) %>%
-  summarise(p = sum(p))
+  group_by(Ai) %>% # Group by atom membership (Ai = 1 or 2)
+  summarise(p = sum(p)) # Sum probabilities of all outcomes in each atom
 
-# Print the probabilities for the atoms of F1
+# Display the probabilities for atoms of F1 as a formatted table
 kable(
   F1_probs,
   caption = "probabilities $P(A_i)$ for the atoms $A_i$ of algebra $\\mathcal{F}_1$"
 )
 
 # Calculate probabilities on the atoms of F2
+# For algebra F2 with partition {B1, B2, B3, B4}, sum probabilities for each atom
 F2_probs <- Omega %>%
-  group_by(Bi) %>%
-  summarise(p = sum(p))
+  group_by(Bi) %>% # Group by atom membership (Bi = 1, 2, 3, or 4)
+  summarise(p = sum(p)) # Sum probabilities of all outcomes in each atom
 
-# Print the probabilities for the atoms of F2
+# Display the probabilities for atoms of F2 as a formatted table
 kable(
   F2_probs,
   caption = "probabilities $P(B_i)$ for the atoms $B_i$ of algebra $\\mathcal{F}_2$"
 )
 
 # Calculate probabilities on the atoms of F3
+# For algebra F3 with partition {C1, ..., C8} (singletons), extract individual outcome probabilities
 F3_probs <- Omega %>%
-  group_by(Ci) %>%
-  summarise(p = sum(p))
+  group_by(Ci) %>% # Group by atom membership (Ci = 1 through 8)
+  summarise(p = sum(p)) # Sum probabilities (each atom contains exactly one outcome)
 
-# Print the probabilities for the atoms of F3
+# Display the probabilities for atoms of F3 as a formatted table
+# Since F3 is the power set, each atom Ci corresponds to a single outcome ω
 kable(
   F3_probs,
   caption = "probabilities $P(C_i)$ for the atoms $C_i$ of algebra $\\mathcal{F}_3$"
@@ -548,32 +554,38 @@ We now compute the entropies of the three algebras:
 #| fig-align: center
 
 # Calculate entropy using H = -sum(p * log(p))
+# This formula computes Shannon entropy, measuring uncertainty in the distribution
 
 # Calculate marginal entropy H(F1)
+# For algebra F1 with atoms {A1, A2}, compute entropy over the 2-element partition
 H_F1 <- F1_probs %>%
-  mutate(surprisal = -log(p)) %>%
-  summarise(H = sum(p * surprisal)) %>%
-  pull(H)
+  mutate(surprisal = -log(p)) %>% # Surprisal: -log(p) for each atom's probability
+  summarise(H = sum(p * surprisal)) %>% # Entropy: expected surprisal
+  pull(H) # Extract the scalar value
 
 # Calculate marginal entropy H(F2)
+# For algebra F2 with atoms {B1, B2, B3, B4}, compute entropy over the 4-element partition
 H_F2 <- F2_probs %>%
   mutate(surprisal = -log(p)) %>%
   summarise(H = sum(p * surprisal)) %>%
   pull(H)
 
 # Calculate marginal entropy H(F3)
+# For algebra F3 with atoms {C1, ..., C8}, compute entropy over the 8-element partition
+# F3 corresponds to complete information (the power set of Omega)
 H_F3 <- F3_probs %>%
   mutate(surprisal = -log(p)) %>%
   summarise(H = sum(p * surprisal)) %>%
   pull(H)
 
-# Insert the entropies into a data frame
+# Create a tibble containing the three entropy values
+# Shows how entropy increases as algebras refine: H(F1) < H(F2) < H(F3)
 marginal_entropies <- tibble(
-  entropy = c("H(F1)", "H(F2)", "H(F3)"),
-  value = c(H_F1, H_F2, H_F3)
+  entropy = c("H(F1)", "H(F2)", "H(F3)"), # Labels for each algebra
+  value = c(H_F1, H_F2, H_F3) # Corresponding entropy values in nats
 )
 
-# Print the three marginal entropies
+# Display the marginal entropies as a formatted table
 kable(
   marginal_entropies,
   caption = "marginal entropies for algebras $\\mathcal{F}_1$, $\\mathcal{F}_2$, and $\\mathcal{F}_3$"
@@ -594,12 +606,14 @@ We may visualize this increase in entropy as follows, where reading the plot fro
 #| fig-width: 5
 #| fig-height: 3
 
+# Create a bar chart visualizing how entropy increases across the filtration
+# Each bar represents the entropy H(Fi) for i = 1, 2, 3
 ggplot(marginal_entropies, aes(x = entropy, y = value)) +
-  geom_col(fill = yellow, width = 0.4) +
+  geom_col(fill = yellow, width = 0.4) + # Yellow bars with reduced width for clarity
   labs(
-    title = "entropy increases under refinement",
-    x = NULL,
-    y = "entropy"
+    title = "entropy increases under refinement", # Title describes the key pattern
+    x = NULL, # Remove x-axis label (entropy names are self-explanatory)
+    y = "entropy" # Label y-axis with the quantity being measured
   )
 
 ```
@@ -646,12 +660,16 @@ We compute all three conditional entropies:
 #| code-fold: true
 #| fig-align: center
 
+# Create a tibble containing conditional entropy values for the filtration
+# For nested algebras F1 ⊂ F2 ⊂ F3, conditional entropy H(F3 | Fi) = H(F3) - H(Fi)
+# This measures the residual uncertainty in F3 given knowledge of Fi
 conditional_entropies <- tibble(
-  entropy = c("H(F3 | F1)", "H(F3 | F2)", "H(F3 | F3)"),
-  value = c(H_F3 - H_F1, H_F3 - H_F2, H_F3 - H_F3)
+  entropy = c("H(F3 | F1)", "H(F3 | F2)", "H(F3 | F3)"), # Labels for each conditional entropy
+  value = c(H_F3 - H_F1, H_F3 - H_F2, H_F3 - H_F3) # Values: H(F3 | Fi) for each i
 )
 
-# Print the three conditional entropies
+# Display the conditional entropies as a formatted table
+# Shows how residual uncertainty in F3 decreases as we refine from F1 to F2 to F3
 kable(
   conditional_entropies,
   caption = "conditional entropies for the filtration $\\mathcal{F}_1 \\subset \\mathcal{F}_2 \\subset \\mathcal{F}_3$"
@@ -696,12 +714,16 @@ and similarly for $I(\calF_3,\calF_2)$ and $I(\calF_3,\calF_3)$. We compute all 
 #| code-fold: true
 #| fig-align: center
 
+# Create a tibble containing mutual information values for each algebra in the filtration
+# For nested algebras F1 ⊂ F2 ⊂ F3, the mutual information I(F3, Fi) equals H(Fi)
+# because Fi contains all the information about F3 that Fi itself possesses
 mutual_infos <- tibble(
-  entropy = c("I(F3, F1)", "I(F3, F2)", "I(F3, F3)"),
-  value = c(H_F1, H_F2, H_F3)
+  entropy = c("I(F3, F1)", "I(F3, F2)", "I(F3, F3)"),  # Labels for each mutual information
+  value = c(H_F1, H_F2, H_F3)  # Values: I(F3, Fi) = H(Fi) for nested algebras
 )
 
-# Print the three mutual informations
+# Display the mutual informations as a formatted table
+# Shows how shared information between F3 and each Fi increases with refinement
 kable(
   mutual_infos,
   caption = "mutual informations for the filtration $\\mathcal{F}_1 \\subset \\mathcal{F}_2 \\subset \\mathcal{F}_3$"
@@ -734,14 +756,18 @@ for each $i=1,2,3$, and so the total entropy in $\calF_3$ decomposes into the su
 #| fig-width: 6
 #| fig-height: 3
 
+# Create a data frame decomposing the entropy H(F3) into mutual information and conditional entropy
+# For each algebra F_i (i=1,2,3), we have: H(F3) = I(F3, F_i) + H(F3 | F_i)
 decomposition <- tibble(
-  algebra = rep(c("i=1", "i=2", "i=3"), each = 2),
-  component = rep(c("mutual information", "conditional entropy"), 3),
-  value = c(H_F1, H_F3 - H_F1, H_F2, H_F3 - H_F2, H_F3, 0)
+  algebra = rep(c("i=1", "i=2", "i=3"), each = 2), # Three algebras, each with two components
+  component = rep(c("mutual information", "conditional entropy"), 3), # Two components per algebra
+  entropy = c(H_F1, H_F3 - H_F1, H_F2, H_F3 - H_F2, H_F3, 0) # Values for each component
 )
 
-ggplot(decomposition, aes(x = algebra, y = value, fill = component)) +
-  geom_col(width = 0.4) +
+# Create a stacked bar chart showing the decomposition
+# Each bar represents H(F3) for a different conditioning algebra F_i
+ggplot(decomposition, aes(x = algebra, y = entropy, fill = component)) +
+  geom_col(width = 0.4) + # Stacked column chart
   scale_fill_manual(
     name = NULL,
     values = c("mutual information" = blue, "conditional entropy" = yellow)
@@ -750,6 +776,7 @@ ggplot(decomposition, aes(x = algebra, y = value, fill = component)) +
     title = TeX("entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"),
     x = NULL
   )
+
 
 ```
 
