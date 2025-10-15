@@ -393,6 +393,12 @@ window.Quarto = {
 <p><span class="math display">\[
 \Omega = \{000, 001, 010, 011, 100, 101, 110, 111\}.
 \]</span></p>
+<p>We would visualize this sample space as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/omega.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
 <p>We imagine that a binary sequence <span class="math inline">\(\omega\)</span> in <span class="math inline">\(\Omega\)</span> represents the result of flipping a coin three times in succession, with <span class="math inline">\(0\)</span> when a tail occurs, and <span class="math inline">\(1\)</span> when a head is shown. We let <span class="math inline">\(X_i(\omega)\)</span> denote the result of the <span class="math inline">\(i\)</span>-th flip in <span class="math inline">\(\omega\)</span> (so <span class="math inline">\(X_i(\omega)=0\)</span> or <span class="math inline">\(1\)</span>), and we write</p>
 <p><span class="math display">\[
 Y = X_1 + X_2 + X_3.
@@ -494,7 +500,12 @@ A_1 = \{000,001,010,011\} \quad \text{and} \quad A_2 = \{100,101,110,111\},
 <p><span class="math display">\[
 \mathcal{F}_1 = \{\emptyset, A_1, A_2, \Omega\}
 \]</span></p>
-<p>is an algebra of sets in <span class="math inline">\(\Omega\)</span>.</p>
+<p>is an algebra of sets in <span class="math inline">\(\Omega\)</span>. We would visualize this partition as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/F1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
 <p>Let’s insert a column in our data frame tracking the membership of each outcome <span class="math inline">\(\omega\)</span> (i.e., row) in <span class="math inline">\(A_1\)</span> or <span class="math inline">\(A_2\)</span>:</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
@@ -597,7 +608,12 @@ B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 =
 <p><span id="eq-gend-alg"><span class="math display">\[
 \mathcal{F}_2 = \{\emptyset, B_1, B_2, B_3, B_4, B_1 \cup B_2, B_3 \cup B_4, B_1\cup B_3, B_1\cup B_4, B_2\cup B_3, B_2\cup B_4, \Omega \}.
 \tag{1}\]</span></span></p>
-<p>As expected, <span class="math inline">\(\mathcal{F}_2\)</span> contains <span class="math inline">\(\mathcal{F}_1\)</span> since <span class="math inline">\(B_1\cup B_2 = A_1\)</span> and <span class="math inline">\(B_3\cup B_4 = A_2\)</span>, reflecting that the observer’s information has been refined.</p>
+<p>As expected, <span class="math inline">\(\mathcal{F}_2\)</span> contains <span class="math inline">\(\mathcal{F}_1\)</span> since <span class="math inline">\(B_1\cup B_2 = A_1\)</span> and <span class="math inline">\(B_3\cup B_4 = A_2\)</span>, reflecting that the observer’s information has been refined. Along with the first partition induced by <span class="math inline">\(\mathcal{F}_1\)</span>, we would visualize this finer partition as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/F1-F2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 <p>Let’s insert our new algebra into the machine:</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
@@ -707,7 +723,12 @@ C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
 C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
 \end{gather*}
 \]</span></p>
-<p>where each <span class="math inline">\(C_i\)</span> corresponds to the answer to the question, “<em>Which sequence of heads and tails occurred in all three flips?</em>”. Knowing which singleton contains <span class="math inline">\(\omega_0\)</span> completely identifies the outcome. To form an algebra, <span class="math inline">\(\mathcal{F}_3\)</span> must include not only these singletons but also all possible unions of them; in other words, <span class="math inline">\(\mathcal{F}_3\)</span> is the power set of <span class="math inline">\(\Omega\)</span>, containing all subsets of the sample space.</p>
+<p>where each <span class="math inline">\(C_i\)</span> corresponds to the answer to the question, “<em>Which sequence of heads and tails occurred in all three flips?</em>”. Knowing which singleton contains <span class="math inline">\(\omega_0\)</span> completely identifies the outcome. To form an algebra, <span class="math inline">\(\mathcal{F}_3\)</span> must include not only these singletons but also all possible unions of them; in other words, <span class="math inline">\(\mathcal{F}_3\)</span> is the power set of <span class="math inline">\(\Omega\)</span>, containing all subsets of the sample space. Along with the first two partitions induced by <span class="math inline">\(\mathcal{F}_1\)</span> and <span class="math inline">\(\mathcal{F}_2\)</span>, we would visualize this finest partition as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/filtration.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 <p>We insert one last column in our data frame for the <span class="math inline">\(C_i\)</span>’s:</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
