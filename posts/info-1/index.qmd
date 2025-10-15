@@ -26,7 +26,7 @@ The gap between certainty and uncertainty lies at the heart of information theor
 
 Interestingly, Shannon’s notion of entropy has deep connections to the concept of entropy in statistical mechanics and thermodynamics. In 1957, [E. T. Jaynes](https://en.wikipedia.org/wiki/Edwin_Thompson_Jaynes){target="_blank"} famously formalized this connection in his influential paper [@Jaynes1957], where he wrote:
 
-> "The mere fact that the same mathematical expression $-\sum p_i \log{p_i}$ [for entropy] occurs both in statistical mechanics and in information theory does not in itself establish any connection between these fields. This can be done only by finding new viewpoints from which thermodynamic entropy and information-theory entropy appear as the *same* concept. In this paper we suggest a reinterpretation of statistical mechanics which accomplishes this, so that information theory can be applied to the problem of justification of statistical mechanics.""
+> "The mere fact that the same mathematical expression $-\sum p_i \log{p_i}$ [for entropy] occurs both in statistical mechanics and in information theory does not in itself establish any connection between these fields. This can be done only by finding new viewpoints from which thermodynamic entropy and information-theory entropy appear as the *same* concept. In this paper we suggest a reinterpretation of statistical mechanics which accomplishes this, so that information theory can be applied to the problem of justification of statistical mechanics."
 
 Even my undergraduate thermodynamics textbook devoted an entire chapter to Shannon's information theory, emphasizing how these mathematical ideas provide a unifying perspective across seemingly different domains.
 
