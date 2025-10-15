@@ -127,6 +127,10 @@ $$
 \Omega = \{000, 001, 010, 011, 100, 101, 110, 111\}.
 $$
 
+We would visualize this sample space as follows:
+
+![](../../img/omega.svg){fig-align='center' width=30%}
+
 We imagine that a binary sequence $\omega$ in $\Omega$ represents the result of flipping a coin three times in succession, with $0$ when a tail occurs, and $1$ when a head is shown. We let $X_i(\omega)$ denote the result of the $i$-th flip in $\omega$ (so $X_i(\omega)=0$ or $1$), and we write
 
 $$
@@ -180,7 +184,9 @@ $$
 \calF_1 = \{\emptyset, A_1, A_2, \Omega\}
 $$
 
-is an algebra of sets in $\Omega$.
+is an algebra of sets in $\Omega$. We would visualize this partition as follows:
+
+![](../../img/F1.svg){fig-align='center' width=30%}
 
 Let's insert a column in our data frame tracking the membership of each outcome $\omega$ (i.e., row) in $A_1$ or $A_2$:
 
@@ -224,7 +230,9 @@ $$
 \calF_2 = \{\emptyset, B_1, B_2, B_3, B_4, B_1 \cup B_2, B_3 \cup B_4, B_1\cup B_3, B_1\cup B_4, B_2\cup B_3, B_2\cup B_4, \Omega \}.
 $$ {#eq-gend-alg}
 
-As expected, $\calF_2$ contains $\calF_1$ since $B_1\cup B_2 = A_1$ and $B_3\cup B_4 = A_2$, reflecting that the observer’s information has been refined.
+As expected, $\calF_2$ contains $\calF_1$ since $B_1\cup B_2 = A_1$ and $B_3\cup B_4 = A_2$, reflecting that the observer’s information has been refined. Along with the first partition induced by $\calF_1$, we would visualize this finer partition as follows:
+
+![](../../img/F1-F2.svg){fig-align='center' width=70%}
 
 Let's insert our new algebra into the machine:
 
@@ -245,7 +253,6 @@ Omega <- Omega %>%
 kable(Omega, caption = "column Bi records the index $i$ of $B_i$")
 
 ```
-
 <br>
 
 Finally, suppose the observer is given the answer to the question: “*What is the outcome of the third flip?*” With this information, the observer can now distinguish outcomes based on all three flips, completely specifying $\omega_0$. This generates the finest partition of $\Omega$ and produces a third algebra $\calF_3$, which refines the information in $\calF_2$ (and thus also $\calF_1$):
@@ -263,7 +270,9 @@ C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
 \end{gather*}
 $$
 
-where each $C_i$ corresponds to the answer to the question, “*Which sequence of heads and tails occurred in all three flips?*”. Knowing which singleton contains $\omega_0$ completely identifies the outcome. To form an algebra, $\calF_3$ must include not only these singletons but also all possible unions of them; in other words, $\calF_3$ is the power set of $\Omega$, containing all subsets of the sample space.
+where each $C_i$ corresponds to the answer to the question, “*Which sequence of heads and tails occurred in all three flips?*”. Knowing which singleton contains $\omega_0$ completely identifies the outcome. To form an algebra, $\calF_3$ must include not only these singletons but also all possible unions of them; in other words, $\calF_3$ is the power set of $\Omega$, containing all subsets of the sample space. Along with the first two partitions induced by $\calF_1$ and $\calF_2$, we would visualize this finest partition as follows:
+
+![](../../img/filtration.svg){fig-align='center' width=100%}
 
 We insert one last column in our data frame for the $C_i$'s:
 
