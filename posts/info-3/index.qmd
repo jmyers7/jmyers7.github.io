@@ -1,8 +1,9 @@
 ---
 title: "Random variables & information"
 date: "2025-10-14"
+bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
-categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Information theory, R]
+categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Linear algebra, R]
 image: "thumbnail.svg"
 draft: true
 ---
@@ -14,6 +15,14 @@ $$
 :::
 
 ## Introduction
+
+In our [previous post](../info-2/index.qmd), we explored how algebras of sets represent an observer's information about an uncertain outcome. We saw that algebras correspond to partitions of the sample space, and we quantified the information content of these structures using entropy, conditional entropy, and mutual information. But algebras alone don't capture all the richness of probabilistic reasoning. When we want to make predictions, compute averages, or measure quantities of interest, we need *random variables*.
+
+A random variable is fundamentally a function $X: \Omega \to \mathbb{R}$ that assigns a numerical value to each outcome. However, from an information-theoretic perspective, a random variable serves a dual role: it both *encodes information* (through the algebra $\sigma(X)$ it generates) and *represents measurable quantities* (as an element of the function space $L^2(\Omega)$). This post develops both perspectives and shows how they connect.
+
+We begin by showing how random variables generate algebras through their level sets, establishing a **functional characterization** of information containment: $X$ contains at least as much information as $Y$ if and only if $X = f \circ Y$ for some function $f$. We then introduce the geometric structure of $L^2(\Omega)$, where random variables are vectors and conditional expectation emerges as **orthogonal projection** onto subspaces determined by algebras. Throughout, we'll revisit our coin-flip example, computing conditional expectations explicitly and visualizing how predictions improve as information refines.
+
+These ideas form the foundation for modern probability theory. Conditional expectation provides the optimal predictor given partial information, martingales arise as processes where current values are the best forecasts of future values, and options pricing in mathematical finance reduces to computing conditional expectations under risk-neutral measures. By understanding random variables as both information carriers and geometric objects, we gain the tools to analyze learning, prediction, and decision-making under uncertainty.
 
 ## Random variables as information carriers
 
@@ -29,7 +38,7 @@ $$
 are called *level sets*.
 :::
 
-As you may easily check, the nonempty level sets of a function $X:\Omega \to \bbr$ partition its domain (assumed to be finite), and through this partition the function $X$ generates an algebra of sets in $\Omega$ denoted $\sigma(X)$. By @thm-atom-gen, the nonempty level sets are the atoms of this algebra.
+As you may easily check, the nonempty level sets of a function $X:\Omega \to \bbr$ partition its domain (assumed to be finite), and through this partition the function $X$ generates an algebra of sets in $\Omega$ denoted $\sigma(X)$. The level sets are the atoms of this algebra.
 
 Thus, the function $X$ is a carrier of information. If $\Omega$ consists of the outcomes of an experiment, the information encoded in the algebra $\sigma(X)$ allows an observer to decide whether $\omega \in X^{-1}(x)$ for each $x\in \bbr$, and thus the observer can determine the value $X(\omega)$.
 
@@ -44,7 +53,7 @@ Let $\calF$ be an algebra of sets in a finite set $\Omega$, and let $X:\Omega \t
 
 ::: {.callout-note collapse="true" icon="false"}
 ## Proof.
-By @thm-refinement, the algebra $\calF$ refines $\sigma(X)$ if and only if every nonempty level set is a union of atoms in $\calF$. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement. <span class="qed">Q.E.D.</span>
+The algebra $\calF$ refines $\sigma(X)$ if and only if every nonempty level set is a union of atoms in $\calF$. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement.
 :::
 
 It will be convenient to adopt some terminology from measure theory:
@@ -53,4 +62,126 @@ It will be convenient to adopt some terminology from measure theory:
 Let $\calF$ be an algebra of sets in a finite set $\Omega$. A function $X:\Omega \to \bbr$ will be called *$\calF$-measurable* if $\calF$ refines the algebra $\sigma(X)$.
 :::
 
-## Returning to coin tosses
+We have seen that every random variable $X$ generates an algebra $\sigma(X)$ through its level sets. When two random variables $X$ and $Y$ are related by $\sigma(X) \subset \sigma(Y)$, we say that $Y$ *refines* $X$ or, equivalently, that $Y$ contains at least as much information as $X$. But what does this mean concretely? The following theorem provides a functional characterization: $\sigma(X) \subset \sigma(Y)$ if and only if $X$ can be computed from $Y$ via a deterministic function. This makes the notion of "information containment" precise and operational.
+
+::: {#thm-functional-rep}
+## Functional representation
+Let $X$ and $Y$ be two functions on a finite set $\Omega$. The following statements are equivalent:
+
+1. The algebra $\sigma(Y)$ refines $\sigma(X)$, i.e., $\sigma(X) \subset \sigma(Y)$.
+2. There exists a function $f:\bbr \to \bbr$ such that $X = f \circ Y$.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+Suppose that $\sigma(Y)$ refines $\sigma(X)$ and write
+
+$$
+X = \sum_{i=1}^m x_i I_{A_i} \quad \text{and} \quad Y = \sum^n_{j=1} y_j I_{B_j}.
+$$
+
+Then every level set $B_j = Y^{-1}(y_j)$ is contained in a unique level set $A_i = X^{-1}(x_i)$, and we may define a function 
+
+$$
+h:\{y_1,\ldots,y_n\} \to \bbr
+$$
+
+by setting $h(y_j) = x_i$ if $B_j \subset A_i$. Then, define
+
+$$
+\pi: \bbr \to \bbr, \quad \pi(y) = \sum_{j=1}^n \delta_{y_j}(y),
+$$
+
+where $\delta_{y_j}$ is a Dirac delta function. If we then set $f = h \circ \pi$ and choose $\omega$ in an arbitrary $B_j$, we have
+
+$$
+f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
+$$
+
+Since $B_j$ and $\omega$ were chosen arbitrarily, this proves that (1) implies (2).
+
+To prove the converse, suppose that $X = f \circ Y$ for some function $f:\bbr \to \bbr$. To prove that $\sigma(Y)$ refines $\sigma(X)$, by @thm-rv-refine it will suffice to show that every level set of $Y$ is  contained in a level set of $X$. So, let $y \in \bbr$ and consider the level set $B = Y^{-1}(y)$. If $B$ is nonempty, then for every $\omega \in B$, we have $X(\omega) = f(Y(\omega)) = f(y)$. Thus, $B \subset X^{-1}(f(y))$, and the proof is complete.
+:::
+
+This theorem provides a precise characterization of when one random variable "contains at least as much information" as another. The condition $\sigma(X) \subset \sigma(Y)$ means that knowing $Y$ allows you to determine $X$, while the functional representation $X = f \circ Y$ makes this explicit: $X$ is literally computed from $Y$. Conversely, if $Y$ cannot determine $X$, then $\sigma(X) \not\subset \sigma(Y)$ and no such function $f$ exists.
+
+::: {.column-margin}
+The theorem is actually true in much more generality thatn we have stated it here, but the proof is more involved. See, for example, Lemma 1.14 in [@Kallenberg2021] for a complete treatment.
+:::
+
+## Hilbert spaces of random variables
+
+We've seen how random variables encode information through the algebras they generate. But random variables also have numerical values, which allows us to perform algebraic operations: we can add them, multiply them by scalars, and compute their expected values. This algebraic structure becomes particularly rich when we introduce an inner product, turning the space of random variables into a Hilbert space. This geometric perspective will prove essential for understanding conditional expectation, which emerges naturally as orthogonal projection onto subspaces determined by algebras.
+
+::: {#def-L2}
+Let $(\Omega,\calF,P)$ be a finite probability space. We write $L^2(\Omega,\calF,P)$ for the set of all $\calF$-measurable functions $X:\Omega \to \bbr$. When the set $\Omega$ and the measure $P$ are understood from context, we will abbreviate $L^2(\Omega,\calF,P)$ as $L^2(\calF)$.
+:::
+
+The $L^2$ notation is borrowed from the case that $\Omega$ is infinite and equipped with a probability measure $P$ on a $\sigma$-algebra $\calF$. In that case, $L^2(\Omega,\calF,P)$ consists of all (equivalence classes of) $\calF$-measurable functions $X:\Omega \to \bbr$ such that $E(X^2) < \infty$. In our finite setting, this condition on the expectation of $X^2$ is automatically satisfied.
+
+The probability measure $P$ does not factor into the definition of $L^2(\calF)$, but it does define an inner product on this space:
+
+::: {#thm-inner-prod}
+## $L^2(\calF)$ is a Hilbert space
+Let $(\Omega,\calF,P)$ be a finite probability space. The map
+$$
+\langle -, - \rangle : L^2(\calF) \times L^2(\calF) \to \bbr, \quad \langle X, Y \rangle = E(XY)
+$$
+defines an inner product on $L^2(\calF)$.
+:::
+
+Using the Lebesgue integral notation, the inner product can be written as
+
+$$
+\langle X, Y \rangle = \int_\Omega X(\omega) Y(\omega) \ P(d\omega).
+$$
+
+Of course, if $p_{X,Y}$ is the joint probability mass function of $X$ and $Y$, then we may also write the inner product as a discrete sum:
+
+$$
+\langle X, Y \rangle = \sum_{x,y\in \bbr} x y \,  p_{X,Y}(x,y).
+$$
+
+The inner product induces a norm
+
+$$
+\|X\| = \sqrt{\langle X, X \rangle} = \sqrt{E(X^2)},
+$$
+
+which measures the "magnitude" of a random variable. This is precisely the so-called *$L^2$ norm*, and the corresponding metric $d(X, Y) = \|X - Y\|$ measures the mean-squared distance between random variables. In statistics, this is the root mean squared error (RMSE) between $X$ and $Y$.
+
+When algebras are nested, their corresponding $L^2$ Hilbert spaces are nested as well:
+
+::: {#thm-nested-subspaces}
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space. If $\mathcal{G} \subset \mathcal{H}$ are two sub-algebras of $\mathcal{F}$, then
+$$
+L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
+$$
+
+Moreover, these subset inclusions are ones of vector subspaces.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+If $X \in L^2(\mathcal{G})$, then $X$ is $\mathcal{G}$-measurable. Since $\mathcal{G} \subset \mathcal{H}$, every set in $\mathcal{G}$ is also in $\mathcal{H}$, so $X$ is $\mathcal{H}$-measurable, hence $X \in L^2(\mathcal{H})$. The second inclusion follows identically.
+:::
+
+This geometric picture connects directly to information refinement: as algebras refine (capturing more information), their $L^2$ spaces expand (allowing more functions to be represented). The filtration
+$$
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+$$
+from our coin-flip example corresponds to a nested sequence of subspaces
+$$
+L^2(\mathcal{F}_1) \subset L^2(\mathcal{F}_2) \subset L^2(\mathcal{F}_3),
+$$
+where each larger subspace can represent more refined information about the outcomes.
+
+
+
+## Conditional expectations as projections
+
+## Coin flips revisited
+
+## Brief note on sufficient statistics
+
+## Conclusion
+
+## Bibliography
