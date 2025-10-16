@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -196,12 +216,17 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#random-variables-as-information-carriers" id="toc-random-variables-as-information-carriers" class="nav-link" data-scroll-target="#random-variables-as-information-carriers">Random variables as information carriers</a></li>
-  <li><a href="#returning-to-coin-tosses" id="toc-returning-to-coin-tosses" class="nav-link" data-scroll-target="#returning-to-coin-tosses">Returning to coin tosses</a></li>
+  <li><a href="#hilbert-spaces-of-random-variables" id="toc-hilbert-spaces-of-random-variables" class="nav-link" data-scroll-target="#hilbert-spaces-of-random-variables">Hilbert spaces of random variables</a></li>
+  <li><a href="#conditional-expectations-as-projections" id="toc-conditional-expectations-as-projections" class="nav-link" data-scroll-target="#conditional-expectations-as-projections">Conditional expectations as projections</a></li>
+  <li><a href="#coin-flips-revisited" id="toc-coin-flips-revisited" class="nav-link" data-scroll-target="#coin-flips-revisited">Coin flips revisited</a></li>
+  <li><a href="#brief-note-on-sufficient-statistics" id="toc-brief-note-on-sufficient-statistics" class="nav-link" data-scroll-target="#brief-note-on-sufficient-statistics">Brief note on sufficient statistics</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -213,6 +238,7 @@ window.Quarto = {
     <div class="quarto-category">Sigma-algebras</div>
     <div class="quarto-category">Conditional expectations</div>
     <div class="quarto-category">Hilbert spaces</div>
+    <div class="quarto-category">Linear algebra</div>
     <div class="quarto-category">R</div>
   </div>
   </div>
@@ -239,8 +265,12 @@ window.Quarto = {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In our <a href="../../posts/info-2/index.html">previous post</a>, we explored how algebras of sets represent an observer’s information about an uncertain outcome. We saw that algebras correspond to partitions of the sample space, and we quantified the information content of these structures using entropy, conditional entropy, and mutual information. But algebras alone don’t capture all the richness of probabilistic reasoning. When we want to make predictions, compute averages, or measure quantities of interest, we need <em>random variables</em>.</p>
+<p>A random variable is fundamentally a function <span class="math inline">\(X: \Omega \to \mathbb{R}\)</span> that assigns a numerical value to each outcome. However, from an information-theoretic perspective, a random variable serves a dual role: it both <em>encodes information</em> (through the algebra <span class="math inline">\(\sigma(X)\)</span> it generates) and <em>represents measurable quantities</em> (as an element of the function space <span class="math inline">\(L^2(\Omega)\)</span>). This post develops both perspectives and shows how they connect.</p>
+<p>We begin by showing how random variables generate algebras through their level sets, establishing a <strong>functional characterization</strong> of information containment: <span class="math inline">\(X\)</span> contains at least as much information as <span class="math inline">\(Y\)</span> if and only if <span class="math inline">\(X = f \circ Y\)</span> for some function <span class="math inline">\(f\)</span>. We then introduce the geometric structure of <span class="math inline">\(L^2(\Omega)\)</span>, where random variables are vectors and conditional expectation emerges as <strong>orthogonal projection</strong> onto subspaces determined by algebras. Throughout, we’ll revisit our coin-flip example, computing conditional expectations explicitly and visualizing how predictions improve as information refines.</p>
+<p>These ideas form the foundation for modern probability theory. Conditional expectation provides the optimal predictor given partial information, martingales arise as processes where current values are the best forecasts of future values, and options pricing in mathematical finance reduces to computing conditional expectations under risk-neutral measures. By understanding random variables as both information carriers and geometric objects, we gain the tools to analyze learning, prediction, and decision-making under uncertainty.</p>
 </section>
-<section id="random-variables-as-information-carriers" class="level2">
+<section id="random-variables-as-information-carriers" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="random-variables-as-information-carriers">Random variables as information carriers</h2>
 <p>We begin with the definition of these <em>level sets</em>:</p>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -259,7 +289,7 @@ X^{-1}(x) \overset{\text{def}}{=}\{ \omega \in \Omega : X(\omega)=x\}
 </div>
 </div>
 </div>
-<p>As you may easily check, the nonempty level sets of a function <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span> partition its domain (assumed to be finite), and through this partition the function <span class="math inline">\(X\)</span> generates an algebra of sets in <span class="math inline">\(\Omega\)</span> denoted <span class="math inline">\(\sigma(X)\)</span>. By <strong>?@thm-atom-gen</strong>, the nonempty level sets are the atoms of this algebra.</p>
+<p>As you may easily check, the nonempty level sets of a function <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span> partition its domain (assumed to be finite), and through this partition the function <span class="math inline">\(X\)</span> generates an algebra of sets in <span class="math inline">\(\Omega\)</span> denoted <span class="math inline">\(\sigma(X)\)</span>. The level sets are the atoms of this algebra.</p>
 <p>Thus, the function <span class="math inline">\(X\)</span> is a carrier of information. If <span class="math inline">\(\Omega\)</span> consists of the outcomes of an experiment, the information encoded in the algebra <span class="math inline">\(\sigma(X)\)</span> allows an observer to decide whether <span class="math inline">\(\omega \in X^{-1}(x)\)</span> for each <span class="math inline">\(x\in \mathbb{R}\)</span>, and thus the observer can determine the value <span class="math inline">\(X(\omega)\)</span>.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
@@ -289,7 +319,7 @@ X^{-1}(x) \overset{\text{def}}{=}\{ \omega \in \Omega : X(\omega)=x\}
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>By <strong>?@thm-refinement</strong>, the algebra <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\sigma(X)\)</span> if and only if every nonempty level set is a union of atoms in <span class="math inline">\(\mathcal{F}\)</span>. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement. <span class="qed">Q.E.D.</span></p>
+<p>The algebra <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\sigma(X)\)</span> if and only if every nonempty level set is a union of atoms in <span class="math inline">\(\mathcal{F}\)</span>. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement.</p>
 </div>
 </div>
 </div>
@@ -306,14 +336,167 @@ X^{-1}(x) \overset{\text{def}}{=}\{ \omega \in \Omega : X(\omega)=x\}
 </div>
 </div>
 </div>
+<p>We have seen that every random variable <span class="math inline">\(X\)</span> generates an algebra <span class="math inline">\(\sigma(X)\)</span> through its level sets. When two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are related by <span class="math inline">\(\sigma(X) \subset \sigma(Y)\)</span>, we say that <span class="math inline">\(Y\)</span> <em>refines</em> <span class="math inline">\(X\)</span> or, equivalently, that <span class="math inline">\(Y\)</span> contains at least as much information as <span class="math inline">\(X\)</span>. But what does this mean concretely? The following theorem provides a functional characterization: <span class="math inline">\(\sigma(X) \subset \sigma(Y)\)</span> if and only if <span class="math inline">\(X\)</span> can be computed from <span class="math inline">\(Y\)</span> via a deterministic function. This makes the notion of “information containment” precise and operational.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-functional-rep" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Functional representation)</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two functions on a finite set <span class="math inline">\(\Omega\)</span>. The following statements are equivalent:</p>
+<ol type="1">
+<li>The algebra <span class="math inline">\(\sigma(Y)\)</span> refines <span class="math inline">\(\sigma(X)\)</span>, i.e., <span class="math inline">\(\sigma(X) \subset \sigma(Y)\)</span>.</li>
+<li>There exists a function <span class="math inline">\(f:\mathbb{R}\to \mathbb{R}\)</span> such that <span class="math inline">\(X = f \circ Y\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose that <span class="math inline">\(\sigma(Y)\)</span> refines <span class="math inline">\(\sigma(X)\)</span> and write</p>
+<p><span class="math display">\[
+X = \sum_{i=1}^m x_i I_{A_i} \quad \text{and} \quad Y = \sum^n_{j=1} y_j I_{B_j}.
+\]</span></p>
+<p>Then every level set <span class="math inline">\(B_j = Y^{-1}(y_j)\)</span> is contained in a unique level set <span class="math inline">\(A_i = X^{-1}(x_i)\)</span>, and we may define a function</p>
+<p><span class="math display">\[
+h:\{y_1,\ldots,y_n\} \to \mathbb{R}
+\]</span></p>
+<p>by setting <span class="math inline">\(h(y_j) = x_i\)</span> if <span class="math inline">\(B_j \subset A_i\)</span>. Then, define</p>
+<p><span class="math display">\[
+\pi: \mathbb{R}\to \mathbb{R}, \quad \pi(y) = \sum_{j=1}^n \delta_{y_j}(y),
+\]</span></p>
+<p>where <span class="math inline">\(\delta_{y_j}\)</span> is a Dirac delta function. If we then set <span class="math inline">\(f = h \circ \pi\)</span> and choose <span class="math inline">\(\omega\)</span> in an arbitrary <span class="math inline">\(B_j\)</span>, we have</p>
+<p><span class="math display">\[
+f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
+\]</span></p>
+<p>Since <span class="math inline">\(B_j\)</span> and <span class="math inline">\(\omega\)</span> were chosen arbitrarily, this proves that (1) implies (2).</p>
+<p>To prove the converse, suppose that <span class="math inline">\(X = f \circ Y\)</span> for some function <span class="math inline">\(f:\mathbb{R}\to \mathbb{R}\)</span>. To prove that <span class="math inline">\(\sigma(Y)\)</span> refines <span class="math inline">\(\sigma(X)\)</span>, by <a href="#thm-rv-refine" class="quarto-xref">Theorem&nbsp;1</a> it will suffice to show that every level set of <span class="math inline">\(Y\)</span> is contained in a level set of <span class="math inline">\(X\)</span>. So, let <span class="math inline">\(y \in \mathbb{R}\)</span> and consider the level set <span class="math inline">\(B = Y^{-1}(y)\)</span>. If <span class="math inline">\(B\)</span> is nonempty, then for every <span class="math inline">\(\omega \in B\)</span>, we have <span class="math inline">\(X(\omega) = f(Y(\omega)) = f(y)\)</span>. Thus, <span class="math inline">\(B \subset X^{-1}(f(y))\)</span>, and the proof is complete.</p>
+</div>
+</div>
+</div>
+<p>This theorem provides a precise characterization of when one random variable “contains at least as much information” as another. The condition <span class="math inline">\(\sigma(X) \subset \sigma(Y)\)</span> means that knowing <span class="math inline">\(Y\)</span> allows you to determine <span class="math inline">\(X\)</span>, while the functional representation <span class="math inline">\(X = f \circ Y\)</span> makes this explicit: <span class="math inline">\(X\)</span> is literally computed from <span class="math inline">\(Y\)</span>. Conversely, if <span class="math inline">\(Y\)</span> cannot determine <span class="math inline">\(X\)</span>, then <span class="math inline">\(\sigma(X) \not\subset \sigma(Y)\)</span> and no such function <span class="math inline">\(f\)</span> exists.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The theorem is actually true in much more generality thatn we have stated it here, but the proof is more involved. See, for example, Lemma 1.14 in <span class="citation" data-cites="Kallenberg2021">(<a href="#ref-Kallenberg2021" role="doc-biblioref">Kallenberg 2021</a>)</span> for a complete treatment.</p>
+</div></div></section>
+<section id="hilbert-spaces-of-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="hilbert-spaces-of-random-variables">Hilbert spaces of random variables</h2>
+<p>We’ve seen how random variables encode information through the algebras they generate. But random variables also have numerical values, which allows us to perform algebraic operations: we can add them, multiply them by scalars, and compute their expected values. This algebraic structure becomes particularly rich when we introduce an inner product, turning the space of random variables into a Hilbert space. This geometric perspective will prove essential for understanding conditional expectation, which emerges naturally as orthogonal projection onto subspaces determined by algebras.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-L2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space. We write <span class="math inline">\(L^2(\Omega,\mathcal{F},P)\)</span> for the set of all <span class="math inline">\(\mathcal{F}\)</span>-measurable functions <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span>. When the set <span class="math inline">\(\Omega\)</span> and the measure <span class="math inline">\(P\)</span> are understood from context, we will abbreviate <span class="math inline">\(L^2(\Omega,\mathcal{F},P)\)</span> as <span class="math inline">\(L^2(\mathcal{F})\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The <span class="math inline">\(L^2\)</span> notation is borrowed from the case that <span class="math inline">\(\Omega\)</span> is infinite and equipped with a probability measure <span class="math inline">\(P\)</span> on a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>. In that case, <span class="math inline">\(L^2(\Omega,\mathcal{F},P)\)</span> consists of all (equivalence classes of) <span class="math inline">\(\mathcal{F}\)</span>-measurable functions <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span> such that <span class="math inline">\(E(X^2) &lt; \infty\)</span>. In our finite setting, this condition on the expectation of <span class="math inline">\(X^2\)</span> is automatically satisfied.</p>
+<p>The probability measure <span class="math inline">\(P\)</span> does not factor into the definition of <span class="math inline">\(L^2(\mathcal{F})\)</span>, but it does define an inner product on this space:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-inner-prod" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (<span class="math inline">\(L^2(\mathcal{F})\)</span> is a Hilbert space)</strong></span> Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space. The map <span class="math display">\[
+\langle -, - \rangle : L^2(\mathcal{F}) \times L^2(\mathcal{F}) \to \mathbb{R}, \quad \langle X, Y \rangle = E(XY)
+\]</span> defines an inner product on <span class="math inline">\(L^2(\mathcal{F})\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Using the Lebesgue integral notation, the inner product can be written as</p>
+<p><span class="math display">\[
+\langle X, Y \rangle = \int_\Omega X(\omega) Y(\omega) \ P(d\omega).
+\]</span></p>
+<p>Of course, if <span class="math inline">\(p_{X,Y}\)</span> is the joint probability mass function of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, then we may also write the inner product as a discrete sum:</p>
+<p><span class="math display">\[
+\langle X, Y \rangle = \sum_{x,y\in \mathbb{R}} x y \,  p_{X,Y}(x,y).
+\]</span></p>
+<p>The inner product induces a norm</p>
+<p><span class="math display">\[
+\|X\| = \sqrt{\langle X, X \rangle} = \sqrt{E(X^2)},
+\]</span></p>
+<p>which measures the “magnitude” of a random variable. This is precisely the so-called <em><span class="math inline">\(L^2\)</span> norm</em>, and the corresponding metric <span class="math inline">\(d(X, Y) = \|X - Y\|\)</span> measures the mean-squared distance between random variables. In statistics, this is the root mean squared error (RMSE) between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>When algebras are nested, their corresponding <span class="math inline">\(L^2\)</span> Hilbert spaces are nested as well:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-nested-subspaces" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space. If <span class="math inline">\(\mathcal{G} \subset \mathcal{H}\)</span> are two sub-algebras of <span class="math inline">\(\mathcal{F}\)</span>, then <span class="math display">\[
+L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
+\]</span></p>
+<p>Moreover, these subset inclusions are ones of vector subspaces.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(X \in L^2(\mathcal{G})\)</span>, then <span class="math inline">\(X\)</span> is <span class="math inline">\(\mathcal{G}\)</span>-measurable. Since <span class="math inline">\(\mathcal{G} \subset \mathcal{H}\)</span>, every set in <span class="math inline">\(\mathcal{G}\)</span> is also in <span class="math inline">\(\mathcal{H}\)</span>, so <span class="math inline">\(X\)</span> is <span class="math inline">\(\mathcal{H}\)</span>-measurable, hence <span class="math inline">\(X \in L^2(\mathcal{H})\)</span>. The second inclusion follows identically.</p>
+</div>
+</div>
+</div>
+<p>This geometric picture connects directly to information refinement: as algebras refine (capturing more information), their <span class="math inline">\(L^2\)</span> spaces expand (allowing more functions to be represented). The filtration <span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span> from our coin-flip example corresponds to a nested sequence of subspaces <span class="math display">\[
+L^2(\mathcal{F}_1) \subset L^2(\mathcal{F}_2) \subset L^2(\mathcal{F}_3),
+\]</span> where each larger subspace can represent more refined information about the outcomes.</p>
 </section>
-<section id="returning-to-coin-tosses" class="level2">
-<h2 class="anchored" data-anchor-id="returning-to-coin-tosses">Returning to coin tosses</h2>
+<section id="conditional-expectations-as-projections" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-expectations-as-projections">Conditional expectations as projections</h2>
+</section>
+<section id="coin-flips-revisited" class="level2">
+<h2 class="anchored" data-anchor-id="coin-flips-revisited">Coin flips revisited</h2>
+</section>
+<section id="brief-note-on-sufficient-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="brief-note-on-sufficient-statistics">Brief note on sufficient statistics</h2>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+</section>
+<section id="bibliography" class="level2">
+
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Kallenberg2021" class="csl-entry" role="listitem">
+Kallenberg, O. 2021. <em>Foundations of Modern Probability</em>. Third. Vol. 99. Probability Theory and Stochastic Modelling. Springer.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
