@@ -16,20 +16,39 @@ $$
 
 ## Introduction
 
-In our [previous post](../info-2/index.qmd), we explored how algebras of sets represent an observer's information about an uncertain outcome. We saw that algebras correspond to partitions of the sample space, and we quantified the information content of these structures using entropy, conditional entropy, and mutual information. But algebras alone don't capture all the richness of probabilistic reasoning. When we want to make predictions, compute averages, or measure quantities of interest, we need *random variables*.
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
 
-A random variable is fundamentally a function $X: \Omega \to \mathbb{R}$ that assigns a numerical value to each outcome. However, from an information-theoretic perspective, a random variable serves a dual role: it both *encodes information* (through the algebra $\sigma(X)$ it generates) and *represents measurable quantities* (as an element of the function space $L^2(\Omega)$). This post develops both perspectives and shows how they connect.
+# Load required packages
+library("ggplot2") # For plotting
+library("knitr") # For table formatting (used with kable())
+library("dplyr") # For data manipulation
+library("latex2exp") # For LaTeX rendering in plots
 
-We begin by showing how random variables generate algebras through their level sets, establishing a **functional characterization** of information containment: $X$ contains at least as much information as $Y$ if and only if $X = f \circ Y$ for some function $f$. We then introduce the geometric structure of $L^2(\Omega)$, where random variables are vectors and conditional expectation emerges as **orthogonal projection** onto subspaces determined by algebras. Throughout, we'll revisit our coin-flip example, computing conditional expectations explicitly and visualizing how predictions improve as information refines.
+# Source custom theme file
+# Note: Replace this path with your own theme file location
+source("../../aux-files/custom-theme.R")
 
-These ideas form the foundation for modern probability theory. Conditional expectation provides the optimal predictor given partial information, martingales arise as processes where current values are the best forecasts of future values, and options pricing in mathematical finance reduces to computing conditional expectations under risk-neutral measures. By understanding random variables as both information carriers and geometric objects, we gain the tools to analyze learning, prediction, and decision-making under uncertainty.
+# Extract custom colors from theme
+# Note: These color definitions depend on your custom theme file
+yellow <- custom_colors[["yellow"]]
+blue <- custom_colors[["blue"]]
+
+# Apply custom ggplot2 theme
+theme_set(custom_theme())
+
+```
 
 ## Random variables as information carriers
 
-We begin with the definition of these *level sets*:
+First, we set the scene and recall a few basic concepts from the previous post. We let $\Omega$ be a finite set, conceptualized as the set of outcomes of an experiment. An *algebra of sets* $\calF$ in $\Omega$ is a collection of subsets of $\Omega$ that contains $\Omega$ and is closed under complements and finite unions. Algebras capture information about which events can be observed in the experiment: if $A \in \calF$, then the event $A$ is observable, meaning that an observer can determine whether the outcome $\omega \in A$ or not. Algebras can be partially ordered by the refinement relation: an algebra $\calF$ *refines* another algebra $\calG$ if $\calG \subset \calF$. In this case, $\calF$ contains at least as much information as $\calG$, since every event observable in $\calG$ is also observable in $\calF$.
+
+As we will see in this section, functions on $\Omega$ also carry information. In particular, *random variables* are functions $X:\Omega \to \bbr$ that assign a real number to each outcome $\omega \in \Omega$. They induce algebras through their *level sets*, which are the preimages of singletons in $\bbr$. In what follows, it will be convenient to allow the codomain of $X$ to be an arbitrary finite-dimensional euclidean space $\bbr^n$, not just $\bbr$, in which case a function $X:\Omega \to \bbr^n$ is often called a *random vector*.
 
 ::: {#def-rv-part}
-Let $X:\Omega\to \bbr$ be a real-valued function on a set $\Omega$. For $x\in X$, sets of the form
+Let $X:\Omega\to \bbr^n$ be a function on a finite set $\Omega$. For $x\in \bbr^n$, sets of the form
 
 $$
 X^{-1}(x) \defeq \{ \omega \in \Omega : X(\omega)=x\}
@@ -38,17 +57,209 @@ $$
 are called *level sets*.
 :::
 
-As you may easily check, the nonempty level sets of a function $X:\Omega \to \bbr$ partition its domain (assumed to be finite), and through this partition the function $X$ generates an algebra of sets in $\Omega$ denoted $\sigma(X)$. The level sets are the atoms of this algebra.
+As you may easily check, the nonempty level sets of a function $X:\Omega \to \bbr^n$ partition its domain, and through this partition the function $X$ generates an algebra of sets in $\Omega$ denoted $\sigma(X)$. The level sets are the *atoms* of this algebra, i.e., they are the minimal nonempty sets in $\sigma(X)$. The algebra $\sigma(X)$ captures precisely the information an observer gains by learning the value of $X$. If the observer knows $X(\omega) = x$, they know that $\omega \in X^{-1}(x)$ but cannot distinguish between outcomes within this level set. Thus, $\sigma(X)$ represents the coarsest partition of $\Omega$ consistent with the information provided by $X$.
 
-Thus, the function $X$ is a carrier of information. If $\Omega$ consists of the outcomes of an experiment, the information encoded in the algebra $\sigma(X)$ allows an observer to decide whether $\omega \in X^{-1}(x)$ for each $x\in \bbr$, and thus the observer can determine the value $X(\omega)$.
+For an example, we consider the experiment of flipping a coin three times that we introduced in the [previous post](../info-2/). The sample space is
+
+$$
+\Omega = \{000, 001, 010, 011, 100, 101, 110, 111\},
+$$
+
+where a binary string represents the results of the three flips, with a $0$ representing tails and a $1$ representing heads. We define three random variables
+
+$$
+X_1, X_2, X_3:\Omega \to \{0,1\}
+$$
+
+that record the results of the first, second, and third flips, respectively. For instance, $X_1(010) = 0$ since the first flip in the sequence $010$ is tails. We introduce a fourth random variable
+
+$$
+Y:\Omega \to \{0,1,2,3\}
+$$
+
+that records the total number of heads across all three flips, i.e.,
+
+$$
+Y = X_1 + X_2 + X_3.
+$$
+
+The following table displays the sample space $\Omega$ along with the values of the four random variables.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Create the sample space Omega as a data frame
+# Each row represents one of the 8 possible outcomes (binary sequences of length 3)
+Omega <- data.frame(
+  X1 = c(0, 0, 0, 0, 1, 1, 1, 1), # First coin flip: 0 = tail, 1 = head
+  X2 = c(0, 0, 1, 1, 0, 0, 1, 1), # Second coin flip
+  X3 = c(0, 1, 0, 1, 0, 1, 0, 1) # Third coin flip
+)
+
+# Add random variable Y: total number of heads across all three flips
+Omega <- Omega %>%
+  mutate(Y = X1 + X2 + X3)
+
+# Display the sample space as a formatted table
+kable(
+  Omega,
+  caption = "sample space $\\Omega$ with random variables $X_1, X_2, X_3$, and $Y$"
+)
+```
+
+<br>
+
+Notice that the two level sets of $X_1$ are
+
+$$
+\begin{align*}
+A_1 &= X_1^{-1}(0) = \{000, 001, 010, 011\}, \\ 
+A_2 &= X_1^{-1}(1) = \{100, 101, 110, 111\}.
+\end{align*}
+$$
+
+The reader will note that these are exactly the atoms of the algebra $\calF_1$ we considered in the [previous post](../info-2/). Thus, $\sigma(X_1) = \calF_1$.
+
+Similarly, the level sets of $X_2$ and $X_3$ are
+
+$$
+\begin{align*}
+X_2^{-1}(0) &= \{000, 001, 100, 101\}, & X_2^{-1}(1) &= \{010, 011, 110, 111\}, \\ 
+X_3^{-1}(0) &= \{000, 010, 100, 110\}, & X_3^{-1}(1) &= \{001, 011, 101, 111\}.
+\end{align*}
+$$
+
+If we form all pairwise intersections of the level sets of $X_1$ and $X_2$, we obtain the sets
+
+$$
+B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 = \{110,111\},
+$$
+
+from the previous post, which were the atoms of the algebra $\calF_2$ from the [previous post](../info-2/). In the notation to be introduced below (see @def-algebra-gen-rv), this means that
+
+$$
+\sigma(X_1, X_2) = \calF_2,
+$$
+
+or that $\calF_2$ is the algebra generated by $X_1$ and $X_2$. If we form all $3$-fold intersections of the level sets of $X_1, X_2,$ and $X_3$, we obtain the singletons
+
+$$
+\begin{gather*}
+C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
+C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
+\end{gather*}
+$$
+
+which were the atoms of the algebra $\calF_3$ from the [previous post](../info-2/). Again, in the notation to be introduced below (see @def-algebra-gen-rv), this means that
+
+$$
+\sigma(X_1, X_2, X_3) = \calF_3,
+$$
+
+or that $\calF_3$ is the algebra generated by $X_1, X_2,$ and $X_3$. Thus, the nested sequence of algebras
+
+$$
+\calF_1 \subset \calF_2 \subset \calF_3
+$$
+
+may be rewritten as
+
+$$
+\sigma(X_1) \subset \sigma(X_1, X_2) \subset \sigma(X_1, X_2, X_3).
+$$
+
+Finally, the level sets of $Y$ are
+
+$$
+\begin{align*}
+D_1 &= Y^{-1}(0) = \{000\}, \\
+D_2 &= Y^{-1}(1) = \{001,010,100\}, \\
+D_3 &= Y^{-1}(2) = \{011,101,110\}, \\
+D_4 &= Y^{-1}(3) = \{111\}.
+\end{align*}
+$$
+
+In the previous post, we had columns in our data frame indicating which outcomes belonged to which atoms $A_i$, $B_i$, and $C_i$; let's add these columns here as well, along with columns for the $D_i$:
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Group outcomes by the result of the first flip (X1)
+# and assign a group ID to track which partition set (A1 or A2) each outcome belongs to
+Omega <- Omega %>%
+  group_by(X1) %>%
+  mutate(Ai = cur_group_id()) %>% # Ai = 1 for A1 (X1=0), Ai = 2 for A2 (X1=1)
+  ungroup() %>%
+  as.data.frame()
+
+# Group outcomes by the results of the first two flips (X1 and X2)
+# and assign a group ID to track which partition set (B1, B2, B3, or B4) each outcome belongs to
+Omega <- Omega %>%
+  group_by(X1, X2) %>%
+  mutate(Bi = cur_group_id()) %>% # Bi = 1 for B1, Bi = 2 for B2, etc.
+  ungroup() %>%
+  as.data.frame()
+
+# Group outcomes by all three flips (X1, X2, and X3)
+# Each combination of (X1, X2, X3) uniquely identifies one outcome
+Omega <- Omega %>%
+  group_by(X1, X2, X3) %>%
+  mutate(Ci = cur_group_id()) %>% # Ci = 1 for C1, Ci = 2 for C2, etc.
+  ungroup() %>%
+  as.data.frame()
+
+Omega <- Omega %>%
+  group_by(Y) %>%
+  mutate(Di = cur_group_id()) %>% # Di = 1 for D1, Di = 2 for D2, etc.
+  ungroup() %>%
+  as.data.frame()
+
+# Display a formatted table showing the sample space Omega with random variables X1, X2, X3, and Y, including atoms Ai, Bi, Ci, and Di.
+kable(
+  Omega,
+  caption = "sample space $\\Omega$ with random variables $X_1, X_2, X_3$, and $Y$, along with atoms $A_i$, $B_i$, $C_i$, and $D_i$"
+)
+
+```
+
+<br>
+
+We will return to this data frame momentarily, but first we introduce some notation for algebras generated by multiple random variables. Above, we've seen algebras generated by one, two, and three functions. In fact, we may form algebras generated by any finite number of random variables, as follows.
+
+::: {#def-algebra-gen-rv}
+Let $X_1,X_2,\ldots,X_n$ be real-valued functions on a finite set $\Omega$. The *algebra generated* by $X_1,X_2,\ldots,X_n$ is the algebra of sets in $\Omega$, denoted by $\sigma(X_1,X_2,\ldots,X_n)$, whose atoms are all nonempty intersections of the form 
+$$
+\bigcap_{i=1}^n X_i^{-1}(x_i),
+$$
+
+where $x_i$ is a value of $X_i$ for each $i=1,2,\ldots,n$.
+:::
+
+In fact, if we are given a finite set of functions $X_1,X_2,\ldots,X_n$ as in the theorem, then we may form the random vector
+
+$$
+X: \Omega \to \bbr^n, \quad X(\omega) = (X_1(\omega), X_2(\omega), \ldots, X_n(\omega)).
+$$
+
+Then, as you may easily check, the algebra generated by $X_1,X_2,\ldots,X_n$ is simply the algebra generated by the random vector $X$:
+
+$$
+\sigma(X_1,X_2,\ldots,X_n) = \sigma(X).
+$$
+
+Now, very often the set $\Omega$ comes equipped with a pre-existing algebra $\calF$ of observable events (perhaps as part of a probability space $(\Omega,\calF,P)$). In this case, it is natural to ask how the information encoded in $\sigma(X)$ relates to that in $\calF$. The first possiblity is that neither algebra refines the other, meaning that $\sigma(X)$ and $\calF$ contain different kinds of information. The other possibilities are that one algebra refines the other, meaning that one contains at least as much information as the other. The following theorem characterizes these refinement relations in terms of the behavior of $X$ on the atoms of $\calF$.
 
 ::: {#thm-rv-refine}
 ## Random variables and refinements
-Let $\calF$ be an algebra of sets in a finite set $\Omega$, and let $X:\Omega \to \bbr$ be a function.
+Let $\calF$ be an algebra of sets in a finite set $\Omega$, and let $X:\Omega \to \bbr^n$ be a function.
 
-1. The algebra $\calF$ refines $\sigma(X)$ if and only if $X$ is constant on every atom in $\calF$.
+1. The algebra $\calF$ refines $\sigma(X)$ (equivalently, $\sigma(X) \subset \mathcal{F}$) if and only if $X$ is constant on every atom in $\calF$.
 
-2. The algebra $\sigma(X)$ refines $\calF$ if and only if every atom in $\calF$ is a union of level sets of $X$.
+2. The algebra $\sigma(X)$ refines $\calF$ (equivalently, $\calF \subset \sigma(X)$) if and only if every atom in $\calF$ is a union of level sets of $X$.
 :::
 
 ::: {.callout-note collapse="true" icon="false"}
@@ -56,19 +267,23 @@ Let $\calF$ be an algebra of sets in a finite set $\Omega$, and let $X:\Omega \t
 The algebra $\calF$ refines $\sigma(X)$ if and only if every nonempty level set is a union of atoms in $\calF$. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement.
 :::
 
-It will be convenient to adopt some terminology from measure theory:
+Functions satisfying the first condition in @thm-rv-refine arise frequently enough to warrant their own terminology.
 
 ::: {#def-measurable}
-Let $\calF$ be an algebra of sets in a finite set $\Omega$. A function $X:\Omega \to \bbr$ will be called *$\calF$-measurable* if $\calF$ refines the algebra $\sigma(X)$.
+Let $\calF$ be an algebra of sets in a finite set $\Omega$. A function $X:\Omega \to \bbr^n$ will be called *$\calF$-measurable* if $\calF$ refines the algebra $\sigma(X)$.
 :::
 
-We have seen that every random variable $X$ generates an algebra $\sigma(X)$ through its level sets. When two random variables $X$ and $Y$ are related by $\sigma(X) \subset \sigma(Y)$, we say that $Y$ *refines* $X$ or, equivalently, that $Y$ contains at least as much information as $X$. But what does this mean concretely? The following theorem provides a functional characterization: $\sigma(X) \subset \sigma(Y)$ if and only if $X$ can be computed from $Y$ via a deterministic function. This makes the notion of "information containment" precise and operational.
+If $X$ and $Y$ are both $\bbr^n$-valued functions on $X$, then we may compare the information they encode by comparing their algebras $\sigma(X)$ and $\sigma(Y)$. Then @thm-rv-refine tells us *when* one algebra refines the other, but not *how* the functions relate. The next theorem provides this missing piece: refinement is equivalent to functional dependence.
 
 ::: {#thm-functional-rep}
 ## Functional representation
-Let $X$ and $Y$ be two functions on a finite set $\Omega$. The following statements are equivalent:
+Let $X$ and $Y$ be two $\bbr^n$-valued functions on a finite set $\Omega$. The following statements are equivalent:
 
-1. The algebra $\sigma(Y)$ refines $\sigma(X)$, i.e., $\sigma(X) \subset \sigma(Y)$.
+::: {.column-margin}
+@thm-functional-rep holds for general measurable spaces, not just finite sets. The proof requires the Doob-Dynkin lemma and properties of $\sigma$-algebras. See Lemma 1.14 in @Kallenberg2021 for the general statement and proof. Our finite setting allows a more elementary approach.
+:::
+
+1. The algebra $\sigma(Y)$ refines $\sigma(X)$.
 2. There exists a function $f:\bbr \to \bbr$ such that $X = f \circ Y$.
 :::
 ::: {.callout-note collapse="true" icon="false"}
@@ -102,15 +317,16 @@ Since $B_j$ and $\omega$ were chosen arbitrarily, this proves that (1) implies (
 To prove the converse, suppose that $X = f \circ Y$ for some function $f:\bbr \to \bbr$. To prove that $\sigma(Y)$ refines $\sigma(X)$, by @thm-rv-refine it will suffice to show that every level set of $Y$ is  contained in a level set of $X$. So, let $y \in \bbr$ and consider the level set $B = Y^{-1}(y)$. If $B$ is nonempty, then for every $\omega \in B$, we have $X(\omega) = f(Y(\omega)) = f(y)$. Thus, $B \subset X^{-1}(f(y))$, and the proof is complete.
 :::
 
-This theorem provides a precise characterization of when one random variable "contains at least as much information" as another. The condition $\sigma(X) \subset \sigma(Y)$ means that knowing $Y$ allows you to determine $X$, while the functional representation $X = f \circ Y$ makes this explicit: $X$ is literally computed from $Y$. Conversely, if $Y$ cannot determine $X$, then $\sigma(X) \not\subset \sigma(Y)$ and no such function $f$ exists.
+Returning to our coin-flip example...
 
-::: {.column-margin}
-The theorem is actually true in much more generality thatn we have stated it here, but the proof is more involved. See, for example, Lemma 1.14 in [@Kallenberg2021] for a complete treatment.
-:::
+
 
 ## Hilbert spaces of random variables
 
-We've seen how random variables encode information through the algebras they generate. But random variables also have numerical values, which allows us to perform algebraic operations: we can add them, multiply them by scalars, and compute their expected values. This algebraic structure becomes particularly rich when we introduce an inner product, turning the space of random variables into a Hilbert space. This geometric perspective will prove essential for understanding conditional expectation, which emerges naturally as orthogonal projection onto subspaces determined by algebras.
+We've seen how random variables encode information through the algebras they generate. But random variables also have numerical values, which allows us to perform algebraic operations: we can add them, multiply them by scalars, and compute their expected values. This algebraic structure becomes particularly rich when we introduce an inner product, turning the space of random variables into a Hilbert space. These latter structures provide a geometric perspective on random variables, where concepts like orthogonality, projection, and distance become meaningful. This perspect will prove essential for understanding conditional expectation, which emerges naturally as orthogonal projection onto subspaces determined by algebras.
+
+First, we set the scene. We let $(\Omega,\calF,P)$ be a finite probability space, where $\Omega$ is a finite set of outcomes, $\calF$ is an algebra of subsets of $\Omega$, and $P$ is a probability measure on $\calF$. A *random variable* is simply a function $X:\Omega \to \bbr$ that is $\calF$-measurable.
+
 
 ::: {#def-L2}
 Let $(\Omega,\calF,P)$ be a finite probability space. We write $L^2(\Omega,\calF,P)$ for the set of all $\calF$-measurable functions $X:\Omega \to \bbr$. When the set $\Omega$ and the measure $P$ are understood from context, we will abbreviate $L^2(\Omega,\calF,P)$ as $L^2(\calF)$.
@@ -174,13 +390,7 @@ L^2(\mathcal{F}_1) \subset L^2(\mathcal{F}_2) \subset L^2(\mathcal{F}_3),
 $$
 where each larger subspace can represent more refined information about the outcomes.
 
-
-
 ## Conditional expectations as projections
-
-## Coin flips revisited
-
-## Brief note on sufficient statistics
 
 ## Conclusion
 
