@@ -1,5 +1,5 @@
 ---
-title: "From coin flips to measure theory: a geometric introduction"
+title: "Measure theory"
 date: "2025-10-17"
 bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
@@ -15,8 +15,6 @@ $$
 :::
 
 ## Introduction
-
-This is the third post in the series on information theory.
 
 ```{r}
 #| echo: true
@@ -263,7 +261,6 @@ Let $\calF$ be an algebra of sets in a finite set $\Omega$, and let $X:\Omega \t
 
 2. The algebra $\sigma(X)$ refines $\calF$ (equivalently, $\calF \subset \sigma(X)$) if and only if every atom in $\calF$ is a union of level sets of $X$.
 :::
-
 ::: {.callout-note collapse="true" icon="false"}
 ## Proof.
 The algebra $\calF$ refines $\sigma(X)$ if and only if every nonempty level set is a union of atoms in $\calF$. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement.
@@ -417,7 +414,7 @@ One should check that $\langle -, -\rangle$ satisfies the properties of an inner
 The inner product induces a norm
 
 $$
-\|X\| = \sqrt{\langle X, X \rangle} = \sqrt{E(X^2)},
+\|X\|_2 = \sqrt{\langle X, X \rangle} = \sqrt{E(X^2)},
 $$
 
 which measures the "magnitude" of a random variable. This is precisely the so-called *$L^2$-norm*, and the corresponding metric $d(X, Y) = \|X - Y\|$ measures the mean-squared distance between random variables. In statistics, this is the *root mean squared error* (*RMSE*) between $X$ and $Y$.
@@ -455,34 +452,324 @@ Finally, we note that the $L^2$-spaces associated to algebras have particularly 
 
 ::: {#thm-basis-L2}
 ## Bases of $L^2$-spaces
-Let $(\Omega,\calF,P)$ be a finite probability space and $\calG$ a subalgebra of $\calF$. If $B_1, B_2, \ldots, B_m$ are the atoms of $\calG$ with positive probability, then the indicator functions $I_{B_1}, I_{B_2}, \ldots, I_{B_m}$ form an orthogonal basis of $L^2(\calG)$.
+Let $(\Omega,\calF,P)$ be a finite probability space, let $\calG$ be a subalgebra of $\calF$, and let $B_1, B_2, \ldots, B_m$ be the atoms of $\calG$ with positive probability.
+
+1. The indicator functions $I_{B_1}, I_{B_2}, \ldots, I_{B_m}$ form an orthogonal basis of $L^2(\calG)$.
+
+2. The $L^2$-norm of $I_{B_i}$ is $\sqrt{P(B_i)}$.
+
+3. The vector space dimension of $L^2(\calG)$ is equal to the number of atoms in $\calG$ with positive probability.
 :::
 ::: {.callout-note collapse="true" icon="false"}
 ## Proof.
-To see that the indicator functions are orthogonal, let $i \neq j$. Then,
+Suppose that we write
 
 $$
-\langle  I_{B_i}, I_{B_j} \rangle = E(I_{B_i} I_{B_j}) = E(0) = 0.
+B_1,B_2,\ldots,B_m, B_{m+1},B_{m+2},\ldots,B_n,
 $$
 
-To see that the indicator functions span $L^2(\calG)$, let $X \in L^2(\calG)$ and write
+where the sets $B_{m+1},B_{m+2},\ldots,B_n$ are the atoms of $\calG$ with zero probability (which may not exist). Let $X\in L^2(\calG)$ be a random variable. Since $X$ is $\calG$-measurable, it is constant on each atom in $\calG$. Thus, we may write
+
+$$
+X = \sum_{i=1}^n x_i I_{B_i},
+$$
+
+for some values $x_i \in \bbr$ (not necessarily distinct). However, since $P(B_i) = 0$ for $i = m+1, m+2, \ldots, n$, we have
+
+$$
+X = \sum_{i=1}^m x_i I_{B_i}
+$$
+
+almost surely. Thus, since elements in $L^2(\calG)$ are technically equivalence classes under almost sure equality, we have that $X$ is a linear combination of the indicator functions $I_{B_1}, I_{B_2}, \ldots, I_{B_m}$. Thus, these indicator functions span $L^2(\calG)$. To see that they are orthogonal, we suppose $i\neq j$. Then, $B_i \cap B_j =\emptyset$, and so
+
+$$
+\langle I_{B_i}, I_{B_j} \rangle = E(I_{B_i} I_{B_j}) = E(I_{B_i\cap B_j})= E(0) = 0.
+$$
+
+Orthogonality implies linear independence, so the proof is complete.
+:::
+
+
+
+## Conditional expectations as projections
+
+::: {#def-conditional-expectation}
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space, $\mathcal{G} \subset \mathcal{F}$ a subalgebra, and $X \in L^2(\mathcal{F})$ a random variable. A *conditional expectation* of $X$ given $\mathcal{G}$ is a random variable $E(X\mid \calG) \in L^2(\mathcal{G})$ such that
+
+$$
+\int_B X \ dP = \int_B E(X \mid \mathcal{G}) \ dP.
+$$ {#eq-averaging-property}
+
+for all $B \in \mathcal{G}$. This is called the *averaging property* of conditional expectation.
+:::
+
+Any two conditional expectations of $X$ given $\calG$ are almost surely equal, so the conditional expectation is unique up to almost sure equality. A particular choice of conditional expectation is called a *version*.
+
+The averaging property ([-@eq-averaging-property]) defines conditional expectation abstractly, but doesn't immediately suggest how to compute it. The key insight is that this property has a geometric interpretation. To uncover it, we rewrite the averaging property as
+
+$$
+\int_\Omega \left[X - E(X \mid \mathcal{G})\right] I_B \ dP = 0,
+$$
+
+which, using the inner product from @thm-inner-prod, becomes
+
+$$
+\langle X - E(X \mid \mathcal{G}), I_B \rangle = 0.
+$$
+
+Since the indicator functions $\{I_B : B \in \mathcal{G}\}$ span $L^2(\mathcal{G})$ (by @thm-basis-L2), the residual $X - E(X \mid \mathcal{G})$ is orthogonal to every element of $L^2(\mathcal{G})$. Thus, conditional expectation $E(X\mid \calG)$ is characterized as the orthogonal projection of $X$ onto the subspace $L^2(\mathcal{G})$.
+
+Computing this projection is straightforward. Let $B_1,B_2,\ldots,B_m$ be the atoms of $\calG$ with positive probability. By @thm-basis-L2, the normalized indicator functions
+
+$$
+\frac{I_{B_1}}{\sqrt{P(B_1)}}, \frac{I_{B_2}}{\sqrt{P(B_2)}}, \ldots, \frac{I_{B_m}}{\sqrt{P(B_m)}}
+$$
+
+form an orthonormal basis of $L^2(\calG)$. The conditional expectation of $X$ given $\calG$ is the orthogonal projection onto this basis:
+
+$$
+E(X\mid \calG) = \sum_{i=1}^m \left\langle X, \frac{I_{B_i}}{\sqrt{P(B_i)}} \right\rangle \frac{I_{B_i}}{\sqrt{P(B_i)}}.
+$$
+
+Simplifying using the definition of the inner product yields
+
+$$
+E(X\mid \calG) = \sum_{i=1}^m \frac{1}{P(B_i)}\left(\int_{B_i} X \ dP \right)I_{B_i}.
+$$ {#eq-cond-exp-compute}
+
+To evaluate the integrals in this formula, we write $X$ in terms of its level sets:
 
 $$
 X = \sum_{j=1}^n x_j I_{A_j},
 $$
 
-where $A_1, A_2, \ldots, A_n$ are the level sets of $X$. Since $X$ is $\calG$-measurable, each level set $A_j$ is a union of atoms in $\calG$. Since we have
+where $A_1,A_2,\ldots,A_n$ are the level sets of $X$. Then
 
 $$
-I_{U \cup V} = I_U + I_V
+\int_{B_i} X \ dP = \sum_{j=1}^n x_j P(A_j \cap B_i).
 $$
 
-for *any* disjoint sets $U$ and $V$, it follows that each indicator function $I_{A_j}$ may be expressed as a sum of indicator functions of atoms in $\calG$. Thus, $X$ may be expressed as a linear combination of the indicator functions $I_{B_1}, I_{B_2}, \ldots, I_{B_m}$.
+Substituting into ([-@eq-cond-exp-compute]) gives an explicit formula in terms of conditional probabilities:
+
+$$
+E(X\mid \calG) = \sum_{i=1}^m \left(\sum_{j=1}^n x_j P(A_j \mid B_i)\right)I_{B_i}
+$$ {#eq-cond-exp-compute-2}
+
+where $P(A_j \mid B_i) = P(A_j \cap B_i)/P(B_i)$ is the conditional probability of $A_j$ given $B_i$. This formula connects our geometric framework to the elementary definition of conditional probability.
+
+We summarize this projection interpretation in the following theorem:
+
+::: {#thm-cond-exp-proj}
+## Conditional expectation as orthogonal projection
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space, $\mathcal{G} \subset \mathcal{F}$ a subalgebra, and $X \in L^2(\mathcal{F})$ a random variable. Then, the orthogonal projection of $X$ onto the subspace $L^2(\mathcal{G})$ is a conditional expectation of $X$ given $\mathcal{G}$. This projection is given by @eq-cond-exp-compute-2.
 :::
 
-## Conditional expectations as projections
+So, given an $\calF$-measurable random variable $X$ and a coarser algebra $\mathcal{G}$, we may trivially write
 
-We now turn to the central geometric construction: conditional expectation. Given a finite sample space $\Omega$, a random variable $X \in L^2(\Omega, \mathcal{F}, P)$, and a coarser algebra $\mathcal{G} \subset \mathcal{F}$, the conditional expectation $E(X \mid \mathcal{G})$ will emerge as the orthogonal projection of $X$ onto the subspace $L^2(\mathcal{G})$. This projection gives the best $\mathcal{G}$-measurable approximation to $X$ in the $L^2$ sense, geometrically realizing the idea of "optimal prediction given partial information."
+$$
+X = E(X\mid \calG) + \left[X - E(X \mid \mathcal{G})\right].
+$$
+
+This decomposition gives us two components: a $\mathcal{G}$-measurable part $E(X\mid \calG)$ that captures all information in $X$ knowable from $\mathcal{G}$, and a residual $X - E(X \mid \mathcal{G})$ orthogonal to every $\calG$-measurable random variable, representing pure noise relative to $\calG$.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Set theta (probability of heads for each flip)
+theta <- 0.6
+
+# Add probability measure: p = theta^Y * (1-theta)^(3-Y)
+Omega <- Omega %>%
+  mutate(p = theta^Y * (1 - theta)^(3 - Y))
+
+# Compute E[Y | F1]
+E_Y_given_F1 <- Omega %>%
+  group_by(Ai) %>%
+  mutate(
+    pAi = sum(p),
+    p_cond = p / pAi
+  ) %>%
+  summarize(E_Y_given_F1 = sum(Y * p_cond))
+
+kable(E_Y_given_F1, caption = "$E(Y \\mid \\mathcal{F}_1)$")
+
+# Compute E[Y | F2]
+E_Y_given_F2 <- Omega %>%
+  group_by(Bi) %>%
+  mutate(
+    pBi = sum(p),
+    p_cond = p / pBi
+  ) %>%
+  summarize(E_Y_given_F2 = sum(Y * p_cond))
+
+kable(E_Y_given_F2, caption = "$E(Y \\mid \\mathcal{F}_2)$")
+
+# Compute E[Y | F3]
+# Note: Should equal Y since Y is F3-measurable
+E_Y_given_F3 <- Omega %>%
+  group_by(Ci) %>%
+  mutate(
+    pCi = sum(p),
+    p_cond = p / pCi
+  ) %>%
+  summarize(E_Y_given_F3 = sum(Y * p_cond))
+
+kable(E_Y_given_F3, caption = "$E(Y \\mid \\mathcal{F}_3)$")
+
+```
+
+<br>
+
+In the case that $\calG = \{\emptyset, \Omega\}$ is the trivial algebra, we have
+
+$$
+E(X \mid \calG) = E(X),
+$$
+
+the constant random variable (taking value $E(X)$ everywhere). The trivial algebra represents having no information at all, so the best prediction of $X$ without any information is simply its expectation.
+
+The fact that $E(X \mid \mathcal{G})$ is the "best" $\mathcal{G}$-measurable approximation to $X$ can be made numerically precise, as in the following theorem:
+
+::: {#thm-best-approx}
+## Best $L^2$-approximation
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space, $\mathcal{G} \subset \mathcal{F}$ a subalgebra, and $X \in L^2(\mathcal{F})$ a random variable. Then,
+
+$$
+E\left[(X - E(X \mid \mathcal{G}))^2\right] = \min_{Y \in L^2(\mathcal{G})} E\left[(X - Y)^2\right].
+$$
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+This follows directly from the fact that orthogonal projection minimizes distance in inner product spaces. See, for example, Proposition 6.36 in [@Axler1997].
+:::
+
+Beyond optimality, the projection interpretation of conditional expectation immediately yields several other important properties, which we now develop.
+
+::: {#thm-linearity}
+## Linearity of conditional expectation
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space, $\mathcal{G} \subset \mathcal{F}$ a subalgebra, and $X, Y \in L^2(\mathcal{F})$ random variables. For any scalars $a,b \in \bbr$, we have
+$$
+E(aX + bY \mid \mathcal{G}) = a E(X \mid \mathcal{G}) + b E(Y \mid \mathcal{G})
+$$
+
+almost surely.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+Choose the version of conditional expectation given by orthogonal projection onto $L^2(\calG)$ as in @thm-cond-exp-proj. Since orthogonal projection is linear, the desired result follows immediately.
+:::
+
+Linearity tells us that conditional expectation behaves well under linear combinations. But what happens when we condition on the product $XY$ of two random variables? If $Y$ is already $\mathcal{G}$-measurable, then $Y$ is "known" given the information in $\mathcal{G}$, so it should factor out of the conditional expectation. This intuition is formalized by the following property:
+
+::: {#thm-pull-out}
+## Pull-out property
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space, $\mathcal{G} \subset \mathcal{F}$ a subalgebra, and $X \in L^2(\mathcal{F})$ a random variable. If $Y$ is a $\calG$-measurable random variable, 
+
+$$
+E(XY \mid \mathcal{G}) = Y E(X \mid \mathcal{G}).
+$$
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+We will prove that the random variable $Y E(X \mid \mathcal{G})$ has the defining property of a conditional expectation of $XY$ given $\calG$. To this end, we let $B$ be a set in $\calG$. Then $YI_B$ is $\calG$-measurable, so that if we choose the version of $E(X\mid \calG)$ given by orthogonal projection onto $L^2(\calG)$  as in @thm-cond-exp-proj, we must have
+
+$$
+\langle X - E(X \mid \mathcal{G}), Y I_B \rangle = 0.
+$$
+
+However, this inner product is
+
+$$
+\langle X - E(X \mid \mathcal{G}), Y I_B \rangle = \int_B \left[XY - Y E(X \mid \mathcal{G})\right] \ dP,
+$$
+
+so we get
+
+$$
+\int_B XY \ dP = \int_B Y E(X \mid \mathcal{G}) \ dP.
+$$
+
+This completes the proof.
+:::
+
+The pull-out property shows that $\mathcal{G}$-measurable factors can be extracted from conditional expectations. But what happens when we have a nested sequence of algebras $\mathcal{G} \subset \mathcal{H} \subset \mathcal{F}$, representing increasingly refined information states? 
+
+Intuitively, if we first condition on the finer information $\mathcal{H}$ and then "forget" some information by conditioning on the coarser $\mathcal{G}$, we should get the same result as conditioning directly on $\mathcal{G}$. This is the content of the following property (also called the *law of iterated expectations*):
+
+::: {#thm-tower}
+## Tower property
+Let $(\Omega, \mathcal{F}, P)$ be a finite probability space, and let $\mathcal{G} \subset \mathcal{H} \subset \mathcal{F}$ be subalgebras. If $X \in L^2(\mathcal{F})$ is a random variable, then 
+
+$$
+E(E(X \mid \mathcal{H}) \mid \mathcal{G}) = E(X \mid \mathcal{G}).
+$$ {#eq-tower}
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+We have the inclusion of vector subspaces
+
+$$
+L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
+$$
+
+If we choose the versions of the conditional expectations given by orthogonal projection  as in @thm-cond-exp-proj, then the left-hand side of ([-@eq-tower]) is the orthogonal projection of $X$ onto $L^2(\mathcal{H})$ followed by the orthogonal projection onto $L^2(\mathcal{G})$. However, since the subspaces are nested, this composition is simply the orthogonal projection of $X$ onto $L^2(\mathcal{G})$, which is the right-hand side of the desired equation.
+:::
+
+We now apply these abstract results to our running example of three coin flips. This will make the geometric picture concrete and show how conditional expectations improve predictions as information refines.
+
+Recall our nested sequence of algebras:
+$$
+\mathcal{F}_1 = \sigma(X_1) \subset \mathcal{F}_2 = \sigma(X_1, X_2) \subset \mathcal{F}_3 = \sigma(X_1, X_2, X_3),
+$$
+where $\mathcal{F}_1$ has 2 atoms, $\mathcal{F}_2$ has 4 atoms, and $\mathcal{F}_3$ has 8 atoms. We'll compute conditional expectations of $Y = X_1 + X_2 + X_3$ (total number of heads) given each algebra.
+
+**Predicting with no information: $E(Y)$**
+
+With no information about any flips, the best prediction is the unconditional expectation:
+$$
+E(Y) = 0 \cdot P(Y=0) + 1 \cdot P(Y=1) + 2 \cdot P(Y=2) + 3 \cdot P(Y=3)
+$$
+
+This is a constant function on $\Omega$—the same prediction for all outcomes.
+
+**Predicting after the first flip: $E(Y \mid \mathcal{F}_1)$**
+
+By @thm-basis-L2, $E(Y \mid \mathcal{F}_1)$ must be constant on each atom of $\mathcal{F}_1$. The atoms are:
+- $A_1 = \{000, 001, 010, 011\}$ (first flip is 0)
+- $A_2 = \{100, 101, 110, 111\}$ (first flip is 1)
+
+By the averaging property, on $A_1$:
+$$
+E(Y \mid \mathcal{F}_1)|_{A_1} = \frac{\int_{A_1} Y \, dP}{P(A_1)} = E(Y \mid X_1 = 0) = 0 + E(X_2) + E(X_3) = 2\theta
+$$
+
+Similarly, on $A_2$:
+$$
+E(Y \mid \mathcal{F}_1)|_{A_2} = E(Y \mid X_1 = 1) = 1 + E(X_2) + E(X_3) = 1 + 2\theta
+$$
+
+Thus:
+$$
+E(Y \mid \mathcal{F}_1) = 2\theta \cdot I_{A_1} + (1 + 2\theta) \cdot I_{A_2}
+$$
+
+This shows how the prediction updates based on the first flip: if $X_1 = 0$, we predict $2\theta$ more heads; if $X_1 = 1$, we predict $1 + 2\theta$ total heads.
+
+**The tower property in action**
+
+We can verify the tower property by computing:
+$$
+E(E(Y \mid \mathcal{F}_2) \mid \mathcal{F}_1)
+$$
+
+By @thm-tower, this should equal $E(Y \mid \mathcal{F}_1)$. We'll verify this computationally in the code below.
+
+[Add R code computing these conditional expectations and showing the tower property]
+
 
 ## Conclusion
 
