@@ -16,6 +16,8 @@ $$
 
 ## Introduction
 
+In probability theory, σ-fields encode information. By mapping each σ-field to its corresponding Hilbert space $L^2(\calF)$, we translate information structure into linear algebra: conditioning becomes orthogonal projection, and independence becomes orthogonality. This post develops that dictionary concretely.
+
 ```{r}
 #| echo: true
 #| code-fold: true
@@ -410,6 +412,49 @@ $$
 $$
 
 One should check that $\langle -, -\rangle$ satisfies the properties of an inner product: linearity in the first argument, symmetry, and positive-definiteness. Again, we shall leave this task to the interested reader. We only note that the proof of positive-definiteness involves showing that $\langle X,X\rangle=0$ if and only if $X$ is almost surely equal to the zero random variable. Remember that elements in $L^2(\calF)$ are equivalence classes under almost sure equality!
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Define transition probabilities for a two-state Markov chain
+# alpha: probability of staying in state 1 given current state is 1
+# beta: probability of transitioning to state 1 given current state is 0
+# theta: initial probability of starting in state 1
+alpha <- 0.7
+beta <- 0.3
+theta <- 0.5
+
+# Compute transition probability P(Y | X) for the Markov chain
+# Y: next state (0 or 1)
+# X: current state (0 or 1)
+trans_prob <- function(Y, X) {
+  case_when(
+    Y == 0 & X == 0 ~ 1 - beta, # Stay in state 0 given state 0
+    Y == 0 & X == 1 ~ 1 - alpha, # Transition to state 0 given state 1
+    Y == 1 & X == 0 ~ beta, # Transition to state 1 given state 0
+    Y == 1 & X == 1 ~ alpha, # Stay in state 1 given state 1
+  )
+}
+
+# Compute initial probability distribution
+# P(X = 1) = theta, P(X = 0) = 1 - theta
+init_prob <- function(X) theta^X * (1 - theta)^(1 - X)
+
+# Compute joint probability P(X1, X2, X3) for a three-step Markov chain
+# Uses chain rule: P(X1, X2, X3) = P(X1) * P(X2 | X1) * P(X3 | X2)
+joint_prob <- function(X1, X2, X3) {
+  init_prob(X1) * trans_prob(X2, X1) * trans_prob(X3, X2)
+}
+
+# Add joint probability column to the sample space data frame
+# Each row gets its probability under the Markov chain model
+Omega %>%
+  mutate(p = joint_prob(X1, X2, X3))
+
+```
+
 
 The inner product induces a norm
 
