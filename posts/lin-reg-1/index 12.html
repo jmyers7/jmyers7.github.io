@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-09-26">
 
-<title>mat347 analysis, fall 2025 – john myers, ph.d.</title>
+<title>Linear regression – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +24,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../img/fav.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ccc6b90b4d1ed2bb7ba759a873171846.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ccc6b90b4d1ed2bb7ba759a873171846.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,18 +82,48 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -102,15 +133,15 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">about</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../writings.html"> 
+    <a class="nav-link" href="../../writings.html"> 
 <span class="menu-text">writings</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -119,11 +150,11 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
         <li>
-    <a class="dropdown-item" href="../teaching/calculus-ii-fa-25.html">
+    <a class="dropdown-item" href="../../teaching/calculus-ii-fa-25.html">
  <span class="dropdown-text">mat220 calculus II, fall 2025</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../teaching/analysis-fa-25.html">
+    <a class="dropdown-item" href="../../teaching/analysis-fa-25.html">
  <span class="dropdown-text">mat347 analysis, fall 2025</span></a>
   </li>  
     </ul>
@@ -155,243 +186,199 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">mat347 analysis, fall 2025</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#reference-on-information-theory" id="toc-reference-on-information-theory" class="nav-link" data-scroll-target="#reference-on-information-theory">Reference on information theory</a></li>
+  <li><a href="#linear-regression-as-a-pgm" id="toc-linear-regression-as-a-pgm" class="nav-link" data-scroll-target="#linear-regression-as-a-pgm">Linear regression as a PGM</a></li>
+  <li><a href="#entropy-of-a-gaussian-random-variable" id="toc-entropy-of-a-gaussian-random-variable" class="nav-link" data-scroll-target="#entropy-of-a-gaussian-random-variable">Entropy of a gaussian random variable</a></li>
+  <li><a href="#mutual-information-in-a-linear-regression-model" id="toc-mutual-information-in-a-linear-regression-model" class="nav-link" data-scroll-target="#mutual-information-in-a-linear-regression-model">Mutual information in a linear regression model</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#mathematical-appendix" id="toc-mathematical-appendix" class="nav-link" data-scroll-target="#mathematical-appendix">Mathematical appendix</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Linear regression</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 26, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-instructor:
-</td>
-<td>
-john myers
-</td>
-</tr>
-<tr>
-<td>
-office:
-</td>
-<td>
-marano 175
-</td>
-</tr>
-<tr>
-<td>
-office hours:
-</td>
-<td>
-12-12:30 MWF
-</td>
-</tr>
-<tr>
-<td>
-syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1ZRobCJaVhHIz632IiisAGDC3aBHDuyBA/view?usp=drive_link" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 9%">
-<col style="width: 18%">
-<col style="width: 45%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>week</th>
-<th>date</th>
-<th>topics</th>
-<th>info + due dates</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>9</td>
-<td>10.24 fri</td>
-<td></td>
-<td><a href="https://drive.google.com/file/d/1ps6bMQ7cQkQNtz3nx4FbIWYYc988F0Ec/view?usp=drive_link" target="_blank">week 9 hw due</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>10.22 wed</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>10.20 mon</td>
-<td>2.6 the Cauchy criterion <a href="https://drive.google.com/file/d/18F432vbzdT2MAQJZpY5_itkj-qxDv2ed/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1yOipyvS-l2LtGcATmjcXks7d610ITK70/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1A-Z_Vle4MiWwXVIAbXjK5XhKH_q1PVZJ/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a> <br> 3.2 open and closed sets <a href="https://drive.google.com/file/d/1KlpoyhV4dsMguhhlp-W247kIajpoyVPH/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1G6kpoRwrGDjZB5Fvnv4uh4B0evSsiwKX/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1U4vB9FGF78VVe9nhQjoMVxdcMeXajWgz/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>10.17 fri</td>
-<td><span style="color: #FFC300">exam 1 on sections 1.2-2.5</span></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>10.15 wed</td>
-<td>2.4-2.5 Monotone Conv. and B-W theorems, part 2 <a href="https://drive.google.com/file/d/1u6kxERbTBDxR1nM2f8oV_LapJMfzr9LY/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <br> 2.6 the Cauchy criterion <a href="https://drive.google.com/file/d/18F432vbzdT2MAQJZpY5_itkj-qxDv2ed/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1yOipyvS-l2LtGcATmjcXks7d610ITK70/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1A-Z_Vle4MiWwXVIAbXjK5XhKH_q1PVZJ/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>10.13 mon</td>
-<td>2.4-2.5 Monotone Conv. and B-W theorems, part 1 <a href="https://drive.google.com/file/d/1LFBKIlczFFvMHbUacShLkmjq8IyIgdW0/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1vay-S68pJRNxInWtQQ-470TZpNNdNvbl/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/121foPaDJficBVZLpjMuAH1XOF-rg2EZo/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a> <br> 2.4-2.5 Monotone Conv. and B-W theorems, part 2 <a href="https://drive.google.com/file/d/1u6kxERbTBDxR1nM2f8oV_LapJMfzr9LY/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>10.10 fri</td>
-<td>no class - fall break</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>10.08 wed</td>
-<td>2.4-2.5 Monotone Conv. and B-W theorems, part 1 <a href="https://drive.google.com/file/d/1LFBKIlczFFvMHbUacShLkmjq8IyIgdW0/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1vay-S68pJRNxInWtQQ-470TZpNNdNvbl/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/121foPaDJficBVZLpjMuAH1XOF-rg2EZo/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>10.06 mon</td>
-<td>2.3 the algebraic and order limit theorems, part 2 <a href="https://drive.google.com/file/d/1ujdNihAjU0g01OAT3cQoP8rnaUgfuz5G/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1b-qU7tVV70ytJbbk_11sDMqYCDSA4zPg/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1U4z60pz6wzxPzScCmBfhIQ5r581B9AgO/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>10.03 fri</td>
-<td>class cancelled</td>
-<td><a href="https://drive.google.com/file/d/1pM7l3IQDRGq-rE6811EM4VLBP7fG9eoW/view?usp=drive_link" target="_blank">week 6 hw due</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>10.01 wed</td>
-<td>2.3 the algebraic and order limit theorems, part 1 <a href="https://drive.google.com/file/d/1uozLx6-sZU2lgxACsGmdnLzVm9f2UpZB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1DxJAVoBmvQAh2--X5M5-aCqsit0cy6Vm/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1bB9mPlaN3ZP9nKAKHlzAfOgFMPYe_qSU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a> <br> 2.3 the algebraic and order limit theorems, part 2 <a href="https://drive.google.com/file/d/1ujdNihAjU0g01OAT3cQoP8rnaUgfuz5G/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1b-qU7tVV70ytJbbk_11sDMqYCDSA4zPg/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1U4z60pz6wzxPzScCmBfhIQ5r581B9AgO/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.29 mon</td>
-<td>2.3 the algebraic and order limit theorems, part 1 <a href="https://drive.google.com/file/d/1uozLx6-sZU2lgxACsGmdnLzVm9f2UpZB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1DxJAVoBmvQAh2--X5M5-aCqsit0cy6Vm/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1bB9mPlaN3ZP9nKAKHlzAfOgFMPYe_qSU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>09.26 fri</td>
-<td>2.2 the limit of a sequence, part 2 <a href="https://drive.google.com/file/d/1kWeanrgHLDECBFJa5h5mrN5TkdU5Pm4q/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1FJB-kNkw0UfxO6Tg-9-slY2eWKZFXWwB/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1d0lp2zfZ7EagUCFR6H0Awu6KSD42Tqdu/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td><a href="https://drive.google.com/file/d/1Fu1J97THoJfijcx5wuNCjX4daSm62aYg/view?usp=drive_link" target="_blank">week 5 hw due</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.24 wed</td>
-<td>2.2 the limit of a sequence, part 1 <a href="https://drive.google.com/file/d/1f2CBHJSwEhDQD3GwAq0iYs47SvyMfP5w/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1r2gbJh6B-_10OwjJ83Y-Sh4RTtBSH7kK/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1yz9y1gASL-n1iGoFHWu4Bs1Br3ego0te/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.22 mon</td>
-<td>1.5 cardinality, part 2 <a href="https://drive.google.com/file/d/1HzwbyxwXNb-ntPXszUARtc6LEWdoBwr4/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1FUsS7CX7z77OIINNDSh8xtkz4pyEY4rU/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1T9QBTVTnBb3dPomDVvDM03t83Zp8MKDQ/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a><br>2.2 the limit of a sequence, part 1 <a href="https://drive.google.com/file/d/1f2CBHJSwEhDQD3GwAq0iYs47SvyMfP5w/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1r2gbJh6B-_10OwjJ83Y-Sh4RTtBSH7kK/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1yz9y1gASL-n1iGoFHWu4Bs1Br3ego0te/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>09.19 fri</td>
-<td>1.5 cardinality, part 2 <a href="https://drive.google.com/file/d/1HzwbyxwXNb-ntPXszUARtc6LEWdoBwr4/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1FUsS7CX7z77OIINNDSh8xtkz4pyEY4rU/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1T9QBTVTnBb3dPomDVvDM03t83Zp8MKDQ/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td><a href="https://drive.google.com/file/d/1YmF6DdcPsYONWgtTx6FAwpTgZyjfghZN/view?usp=drive_link" target="_blank">week 4 hw due</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.17 wed</td>
-<td>1.5 cardinality, part 1 <a href="https://drive.google.com/file/d/1S2GlPmaONK_tbus2D6hs1mfOKLJQvImT/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1QouFMzL07K8soWxiQwIMqAGSW6_gaHVG/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1kThpBG5obEhlG52NT-jzX-pEXzBUUDep/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.15 mon</td>
-<td>1.5 cardinality, part 1 <a href="https://drive.google.com/file/d/1S2GlPmaONK_tbus2D6hs1mfOKLJQvImT/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1QouFMzL07K8soWxiQwIMqAGSW6_gaHVG/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1kThpBG5obEhlG52NT-jzX-pEXzBUUDep/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>09.12 fri</td>
-<td>1.4 consequences of completeness <a href="https://drive.google.com/file/d/1iRSpIdTRIZgqSDXOC7en9Z3SFxKvwhk1/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1bHua9E-nwNRl-5NVZvopWap_OGLHm5x1/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1Z71KjqpB_I08p1Ehd-m9MXvd13FrNTCU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td><a href="https://drive.google.com/file/d/159a_cI4OpZY9p8If4nZZfAzqjlBCygO9/view?usp=drive_link" target="_blank">week 2 &amp; 3 homework due</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09.10 wed</td>
-<td>1.4 consequences of completeness <a href="https://drive.google.com/file/d/1iRSpIdTRIZgqSDXOC7en9Z3SFxKvwhk1/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1bHua9E-nwNRl-5NVZvopWap_OGLHm5x1/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1Z71KjqpB_I08p1Ehd-m9MXvd13FrNTCU/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.08 mon</td>
-<td>1.3 axiom of completeness <a href="https://drive.google.com/file/d/1PCvj2tu7NaMF48cIoS-OKOLje6euwTTP/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1-BgUQOZNCTbPDQ22UJjHorJ4u7asWkGq/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/12RXBIJMpSZ2qvSeQw3mfWwcPy3U-5mxi/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>09.05 fri</td>
-<td>1.2 some preliminaries<br>1.3 axiom of completeness <a href="https://drive.google.com/file/d/1PCvj2tu7NaMF48cIoS-OKOLje6euwTTP/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1-BgUQOZNCTbPDQ22UJjHorJ4u7asWkGq/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/12RXBIJMpSZ2qvSeQw3mfWwcPy3U-5mxi/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09.03 wed</td>
-<td>1.2 some preliminaries <a href="https://drive.google.com/file/d/1v7wbFBsmiAoMhmN9xpk4ZRDDtlx7ujcB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1W8Aqf68OYG_9EU3mCe1vOs2u5gLqQgKo/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1q_gUuAO91jRYKuK-Z-f-Wo8CfA9vJrFu/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>08.29 fri</td>
-<td>no class</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>08.27 wed</td>
-<td>1.1 introduction <a href="https://drive.google.com/file/d/183FagTTzgeKfmpJPKaoA0BOx8kkVgHHz/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1uKWgl53_jtM6Y77f6OQUfpNVlzfwLNq8/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/18dcbTZfzEneXdpLzczOZAWZhR3vgx3D0/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a><br>1.2 some preliminaries <a href="https://drive.google.com/file/d/1v7wbFBsmiAoMhmN9xpk4ZRDDtlx7ujcB/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1W8Aqf68OYG_9EU3mCe1vOs2u5gLqQgKo/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/1q_gUuAO91jRYKuK-Z-f-Wo8CfA9vJrFu/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>08.25 mon</td>
-<td>1.1 introduction <a href="https://drive.google.com/file/d/183FagTTzgeKfmpJPKaoA0BOx8kkVgHHz/view?usp=drive_link" target="_blank"><i class="bi bi-book"></i></a> <a href="https://drive.google.com/file/d/1uKWgl53_jtM6Y77f6OQUfpNVlzfwLNq8/view?usp=drive_link" target="_blank"><i class="bi bi-journal"></i></a> <a href="https://drive.google.com/file/d/18dcbTZfzEneXdpLzczOZAWZhR3vgx3D0/view?usp=drive_link" target="_blank"><i class="bi bi-journal-check"></i></a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+</header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+</section>
+<section id="reference-on-information-theory" class="level2">
+<h2 class="anchored" data-anchor-id="reference-on-information-theory">Reference on information theory</h2>
+</section>
+<section id="linear-regression-as-a-pgm" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-as-a-pgm">Linear regression as a PGM</h2>
+</section>
+<section id="entropy-of-a-gaussian-random-variable" class="level2">
+<h2 class="anchored" data-anchor-id="entropy-of-a-gaussian-random-variable">Entropy of a gaussian random variable</h2>
+<p>Suppose that <span class="math inline">\(X \sim \mathcal{N}(\mu,\sigma^2)\)</span>. Then</p>
+<p><span class="math display">\[
+\begin{align*}
+H(X) &amp;= - \int f(x) \log{(f(x))} \ \text{d}x \\
+&amp;= - \int f(x)\left[ \log\left( \frac{1}{\sqrt{2\pi \sigma^2}}\right) - \frac{1}{2\sigma^2}(x-\mu^2) \right]  \ \text{d} x \\
+&amp;= \frac{1}{2}\log(2\pi \sigma^2) \int f(x) \ \text{d}x + \frac{1}{2\sigma^2}\int f(x)(x-\mu)^2 \ \text{d} x \\
+&amp;= \frac{1}{2}\log(2\pi \sigma^2) + \frac{1}{2} \\
+&amp;= \frac{1}{2}\log(2\pi e \sigma^2).
+\end{align*}
+\]</span></p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-test" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(X\)</span> be a gaussian random variable with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>. Then</p>
+<p><span class="math display">\[
+H(X) = \frac{1}{2} \log(2\pi e \sigma^2),
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> is the base of the natural logarithm.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="mutual-information-in-a-linear-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="mutual-information-in-a-linear-regression-model">Mutual information in a linear regression model</h2>
+<p>Let’s suppose that we have a linear regression model</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 X + \varepsilon,
+\]</span></p>
+<p>where <span class="math inline">\(X\)</span> and <span class="math inline">\(\varepsilon\)</span> are independent and</p>
+<p><span class="math display">\[
+X \sim \mathcal{N}(\mu_X,\sigma_X^2), \quad \varepsilon \sim \mathcal{N}(0,\sigma_\varepsilon^2).
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+Y\sim \mathcal{N}(\mu_X, \beta_1^2\sigma_X^2 + \sigma_\varepsilon^2).
+\]</span></p>
+<p>Using that</p>
+<p><span class="math display">\[
+(Y \mid X=x) \sim \mathcal{N}(\beta_0+\beta_1x, \sigma_\varepsilon^2),
+\]</span></p>
+<p>we get</p>
+<p><span class="math display">\[
+H(Y\mid X=x) = \frac{1}{2}\log(2\pi e \sigma_\varepsilon^2),
+\]</span></p>
+<p>So that</p>
+<p><span class="math display">\[
+H(Y\mid X) = \int H(Y\mid X=x) f(x) \ \text{d}x = \frac{1}{2}\log(2\pi e \sigma_\varepsilon^2).
+\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[
+\begin{align*}
+I(X,Y) &amp;= H(Y) - H(Y\mid X) \\
+&amp;= \frac{1}{2}\log\left[2\pi e(\beta_1^2\sigma_X^2+\sigma_\varepsilon^2)\right] - \frac{1}{2}\log(2\pi e \sigma_\varepsilon^2) \\
+&amp;= \frac{1}{2}\log \left( \frac{\beta_1^2\sigma_X^2}{\sigma_\varepsilon^2} + 1 \right).
+\end{align*}
+\]</span></p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+</section>
+<section id="mathematical-appendix" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-appendix">Mathematical appendix</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-lin-reg-equiv" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> Let <span class="math inline">\(U\)</span> and <span class="math inline">\(Y\)</span> be two random variables. The following relationships between <span class="math inline">\(U\)</span> and <span class="math inline">\(Y\)</span> are equivalent:</p>
+<ol type="1">
+<li>An equation <span class="math display">\[
+Y = U + \varepsilon,
+\]</span> where <span class="math inline">\(\varepsilon \sim \mathcal{N}(0,\sigma^2)\)</span> is a random variable (for some fixed parameter <span class="math inline">\(\sigma&gt;0\)</span>), and where <span class="math inline">\(U\)</span> and <span class="math inline">\(\varepsilon\)</span> are independent.</li>
+<li>A conditional distribution <span class="math display">\[
+(Y\mid U=u) \sim \mathcal{N}(u,\sigma^2)
+\]</span> for each <span class="math inline">\(u\)</span>, where <span class="math inline">\(\sigma&gt;0\)</span> is a fixed parameter.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>To prove this, we consider the functions</p>
+<p><span class="math display">\[
+r,s: \mathbb{R}^2 \to \mathbb{R}^2
+\]</span></p>
+<p>with</p>
+<p><span class="math display">\[
+r(u,y) = (u, y-u) \quad \text{and} \quad s(u,e) = (u, u + e).
+\]</span></p>
+<p>Notice that <span class="math inline">\(r\)</span> and <span class="math inline">\(s\)</span> are mututal inverses, and that</p>
+<p><span class="math display">\[
+|\det{\left(\nabla r(u,y)\right)}| = |\det{\left(\nabla s(u,e)\right)}| = 1.
+\]</span></p>
+<p>Now, suppose that we have the three random variables <span class="math inline">\(U\)</span>, <span class="math inline">\(Y\)</span>, and <span class="math inline">\(\varepsilon\)</span> as in the first set up. Then we have</p>
+<p><span class="math display">\[
+(U,Y) = s(U,\varepsilon)
+\]</span></p>
+<p>where <span class="math inline">\(s\)</span> is the function above. Applying a <a href="https://johnmyers-phd.com/book/chapters/07-more-prob.html#density-transformations">density transformation</a> reveals that</p>
+<p><span class="math display">\[
+f_{(U,Y)}(u,y) = f_{(U,\varepsilon)}(r(u,y)) = f_U(u)f_\varepsilon(y-u) ,
+\]</span></p>
+<p>where the second inequality follows from indpendence of <span class="math inline">\(U\)</span> and <span class="math inline">\(\varepsilon\)</span>. But</p>
+<p><span class="math display">\[
+f_\varepsilon(y-u) = \frac{1}{\sigma \sqrt{2\pi}}\exp \left[ - \frac{1}{2} \left( \frac{y-u}{\sigma}\right)^2\right],
+\]</span></p>
+<p>so that indeed</p>
+<p><span class="math display">\[
+(Y\mid U=u) \sim \mathcal{N}(u,\sigma^2),
+\]</span></p>
+<p>since <span class="math inline">\(f_{Y|U}(y|u) = f_\varepsilon(y-u)\)</span>.</p>
+<p>Conversely, suppose that we have a pair of random variables <span class="math inline">\(U\)</span> and <span class="math inline">\(Y\)</span> as in the second set up. Define the random variable <span class="math inline">\(\varepsilon\)</span> via the equation</p>
+<p><span class="math display">\[
+(U,\varepsilon) = r(U,Y).
+\]</span></p>
+<p>Then, we have</p>
+<p><span id="eq-factor"><span class="math display">\[
+f_{(U,\varepsilon)}(u,e) = f_{(U,Y)}(s(u,e)) = f_{(U,Y)}(u,u+e) = f_U(u)f_{Y|U}(u+e|u).
+\tag{1}\]</span></span></p>
+<p>But</p>
+<p><span class="math display">\[
+f_{Y|U}(u+e|u) = \frac{1}{\sigma\sqrt{2\pi}} \exp \left[ -\frac{1}{2} \left( \frac{e}{\sigma}\right)^2\right],
+\]</span></p>
+<p>and hence</p>
+<p><span class="math display">\[
+f_\varepsilon(e) = \int_\mathbb{R} f_{(U,\varepsilon)}(u,e) \ \text{d}u = \frac{1}{\sigma\sqrt{2\pi}} \exp \left[ -\frac{1}{2} \left( \frac{e}{\sigma}\right)^2\right] \int_\mathbb{R} f_U(u) \ \text{d}u.
+\]</span></p>
+<p>This shows <span class="math inline">\(\varepsilon \sim \mathcal{N}(0,\sigma^2)\)</span>. Also, the factorization in <a href="#eq-factor" class="quarto-xref">Equation&nbsp;1</a> shows that <span class="math inline">\(U\)</span> and <span class="math inline">\(\varepsilon\)</span> are independent.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
