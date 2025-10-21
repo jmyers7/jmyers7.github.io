@@ -16,7 +16,7 @@ $$
 
 ## Introduction
 
-In probability theory, σ-fields encode information. By mapping each σ-field to its corresponding Hilbert space $L^2(\calF)$, we translate information structure into linear algebra: conditioning becomes orthogonal projection, and independence becomes orthogonality. This post develops that dictionary concretely.
+In this post we explore the relationship between random variables, algebras of sets, and Hilbert spaces. We begin by showing how random variables induce algebras of observable events through their level sets, and we characterize the refinement relations between these algebras in terms of the behavior of the random variables on the atoms of pre-existing algebras. Next, we introduce the $L^2$-spaces associated to algebras of sets, demonstrating that these spaces are Hilbert spaces with inner products defined via expectation. Finally, we connect the refinement of algebras to the nesting of their corresponding $L^2$-spaces, providing a geometric perspective on information refinement.
 
 ```{r}
 #| echo: true
@@ -85,7 +85,7 @@ $$
 Y = X_1 + X_2 + X_3.
 $$
 
-The following data frame displays the sample space $\Omega$ along with the values of the four random variables.
+The following data frame displays the sample space $\Omega$ along with the values of the four random variables. 
 
 ```{r}
 #| echo: true
