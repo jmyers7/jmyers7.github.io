@@ -3,7 +3,7 @@ title: "Measure theory"
 date: "2025-10-17"
 bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
-categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Linear algebra, R]
+categories: [Information theory, Probability theory, Measure theory, Sigma-algebras, Conditional expectations, Hilbert spaces, Linear algebra, Python]
 image: "thumbnail.svg"
 draft: true
 ---
@@ -18,28 +18,25 @@ $$
 
 In this post we explore the relationship between random variables, algebras of sets, and Hilbert spaces. We begin by showing how random variables induce algebras of observable events through their level sets, and we characterize the refinement relations between these algebras in terms of the behavior of the random variables on the atoms of pre-existing algebras. Next, we introduce the $L^2$-spaces associated to algebras of sets, demonstrating that these spaces are Hilbert spaces with inner products defined via expectation. Finally, we connect the refinement of algebras to the nesting of their corresponding $L^2$-spaces, providing a geometric perspective on information refinement.
 
-```{r}
+```{python}
 #| echo: true
 #| code-fold: true
 #| fig-align: center
 
-# Load required packages
-library("ggplot2") # For plotting
-library("knitr") # For table formatting (used with kable())
-library("dplyr") # For data manipulation
-library("latex2exp") # For LaTeX rendering in plots
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import HTML
+from sigmahaus.StochasticProcesses import FirstOrderMarkovChain, conditional_exp, DiscreteIID
+from sigmahaus.Utilities import print_html_df
 
-# Source custom theme file
-# Note: Replace this path with your own theme file location
-source("../../aux-files/custom-theme.R")
-
-# Extract custom colors from theme
-# Note: These color definitions depend on your custom theme file
-yellow <- custom_colors[["yellow"]]
-blue <- custom_colors[["blue"]]
-
-# Apply custom ggplot2 theme
-theme_set(custom_theme())
+np.random.seed(42)
+plt.style.use(
+    "../../aux-files/custom-theme.mplstyle"
+)
+yellow = "#FFC300"
+blue = "#3399FF"
+pink = "#FF3399"
+colors = [yellow, pink, blue]
 
 ```
 
@@ -61,176 +58,7 @@ are called *level sets*.
 
 As you may easily check, the nonempty level sets of a random vector $X$ partition its domain, and through this partition the random vector generates an algebra of sets in $\Omega$ denoted $\sigma(X)$. The level sets are the *atoms* of this algebra, i.e., they are the minimal nonempty sets in $\sigma(X)$. The algebra $\sigma(X)$ captures precisely the information an observer gains by learning the value of $X$. If the observer knows $X(\omega) = x$, they know that $\omega \in X^{-1}(x)$ but cannot distinguish between outcomes within this level set. Thus, $\sigma(X)$ represents the coarsest partition of $\Omega$ consistent with the information provided by $X$.
 
-For an example, we consider the experiment of flipping a coin three times that we introduced in the [previous post](../info-2/). The sample space is
-
-$$
-\Omega = \{000, 001, 010, 011, 100, 101, 110, 111\},
-$$
-
-where a binary string represents the results of the three flips, with a $0$ representing tails and a $1$ representing heads. We define three random variables
-
-$$
-X_1, X_2, X_3:\Omega \to \{0,1\}
-$$
-
-that record the results of the first, second, and third flips, respectively. For instance, $X_1(010) = 0$ since the first flip in the sequence $010$ is tails. We introduce a fourth random variable
-
-$$
-Y:\Omega \to \{0,1,2,3\}
-$$
-
-that records the total number of heads across all three flips, i.e.,
-
-$$
-Y = X_1 + X_2 + X_3.
-$$
-
-The following data frame displays the sample space $\Omega$ along with the values of the four random variables. 
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
-
-# Create the sample space Omega as a data frame
-# Each row represents one of the 8 possible outcomes (binary sequences of length 3)
-Omega <- data.frame(
-  X1 = c(0, 0, 0, 0, 1, 1, 1, 1), # First coin flip: 0 = tail, 1 = head
-  X2 = c(0, 0, 1, 1, 0, 0, 1, 1), # Second coin flip
-  X3 = c(0, 1, 0, 1, 0, 1, 0, 1) # Third coin flip
-)
-
-# Add random variable Y: total number of heads across all three flips
-Omega <- Omega %>%
-  mutate(Y = X1 + X2 + X3)
-
-# Display the sample space as a formatted table
-kable(
-  Omega,
-  caption = "sample space $\\Omega$ with random variables $X_1, X_2, X_3$, and $Y$"
-)
-```
-
-<br>
-
-Notice that the two level sets of $X_1$ are
-
-$$
-\begin{align*}
-A_1 &= X_1^{-1}(0) = \{000, 001, 010, 011\}, \\ 
-A_2 &= X_1^{-1}(1) = \{100, 101, 110, 111\}.
-\end{align*}
-$$
-
-The reader will note that these are exactly the atoms of the algebra $\calF_1$ we considered in the [previous post](../info-2/). Thus, $\sigma(X_1) = \calF_1$.
-
-Similarly, the level sets of $X_2$ and $X_3$ are
-
-$$
-\begin{align*}
-X_2^{-1}(0) &= \{000, 001, 100, 101\}, & X_2^{-1}(1) &= \{010, 011, 110, 111\}, \\ 
-X_3^{-1}(0) &= \{000, 010, 100, 110\}, & X_3^{-1}(1) &= \{001, 011, 101, 111\}.
-\end{align*}
-$$
-
-If we form all pairwise intersections of the level sets of $X_1$ and $X_2$, we obtain the sets
-
-$$
-B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 = \{110,111\},
-$$
-
-which were the atoms of the algebra $\calF_2$ from the [previous post](../info-2/). In the notation to be introduced below (see @def-algebra-gen-rv), this means that
-
-$$
-\sigma(X_1, X_2) = \calF_2,
-$$
-
-or that $\calF_2$ is the algebra generated by $X_1$ and $X_2$. If we form all $3$-fold intersections of the level sets of $X_1$, $X_2$, and $X_3$, we obtain the singletons
-
-$$
-\begin{gather*}
-C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
-C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
-\end{gather*}
-$$
-
-which were the atoms of the algebra $\calF_3$ from the [previous post](../info-2/). Again, in the notation to be introduced below (see @def-algebra-gen-rv), this means that
-
-$$
-\sigma(X_1, X_2, X_3) = \calF_3,
-$$
-
-or that $\calF_3$ is the algebra generated by $X_1, X_2,$ and $X_3$. Thus, the nested sequence of algebras
-
-$$
-\calF_1 \subset \calF_2 \subset \calF_3
-$$
-
-may be rewritten as
-
-$$
-\sigma(X_1) \subset \sigma(X_1, X_2) \subset \sigma(X_1, X_2, X_3).
-$$
-
-Finally, the level sets of $Y$ are
-
-$$
-\begin{align*}
-D_1 &= Y^{-1}(0) = \{000\}, \\
-D_2 &= Y^{-1}(1) = \{001,010,100\}, \\
-D_3 &= Y^{-1}(2) = \{011,101,110\}, \\
-D_4 &= Y^{-1}(3) = \{111\}.
-\end{align*}
-$$
-
-In the [previous post](../info-2/), we had columns in our data frame indicating which outcomes belonged to which atoms $A_i$, $B_i$, and $C_i$; let's add these columns here as well, along with columns for the $D_i$:
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
-
-# Group outcomes by the result of the first flip (X1)
-# and assign a group ID to track which partition set (A1 or A2) each outcome belongs to
-Omega <- Omega %>%
-  group_by(X1) %>%
-  mutate(Ai = cur_group_id()) %>% # Ai = 1 for A1 (X1=0), Ai = 2 for A2 (X1=1)
-  ungroup() %>%
-  as.data.frame()
-
-# Group outcomes by the results of the first two flips (X1 and X2)
-# and assign a group ID to track which partition set (B1, B2, B3, or B4) each outcome belongs to
-Omega <- Omega %>%
-  group_by(X1, X2) %>%
-  mutate(Bi = cur_group_id()) %>% # Bi = 1 for B1, Bi = 2 for B2, etc.
-  ungroup() %>%
-  as.data.frame()
-
-# Group outcomes by all three flips (X1, X2, and X3)
-# Each combination of (X1, X2, X3) uniquely identifies one outcome
-Omega <- Omega %>%
-  group_by(X1, X2, X3) %>%
-  mutate(Ci = cur_group_id()) %>% # Ci = 1 for C1, Ci = 2 for C2, etc.
-  ungroup() %>%
-  as.data.frame()
-
-Omega <- Omega %>%
-  group_by(Y) %>%
-  mutate(Di = cur_group_id()) %>% # Di = 1 for D1, Di = 2 for D2, etc.
-  ungroup() %>%
-  as.data.frame()
-
-# Display a formatted table showing the sample space Omega with random variables X1, X2, X3, and Y, including atoms Ai, Bi, Ci, and Di.
-kable(
-  Omega,
-  caption = "sample space $\\Omega$ with random variables $X_1, X_2, X_3$, and $Y$, along with atoms $A_i$, $B_i$, $C_i$, and $D_i$"
-)
-
-```
-
-<br>
-
-We will return to this data frame momentarily, but first we introduce some notation for algebras generated by multiple random vectors. Above, we've seen algebras generated by one, two, and three random variables. In fact, we may form algebras generated by any finite number of random variables, as follows.
+Now we introduce some notation for algebras generated by multiple random vectors. Above, we've seen algebras generated by one random variables. In fact, we may form algebras generated by any finite number of random variables, as follows.
 
 ::: {#def-algebra-gen-rv}
 Let $X_1,X_2,\ldots,X_m$ be random vectors on a finite set $\Omega$. The *algebra generated* by $X_1,X_2,\ldots,X_m$ is the algebra of sets in $\Omega$, denoted by $\sigma(X_1,X_2,\ldots,X_m)$, whose atoms are all nonempty intersections of the form 
@@ -326,13 +154,124 @@ Since $B_j$ and $\omega$ were chosen arbitrarily, this proves that (1) implies (
 To prove the converse, suppose that $X = f \circ Y$ for some function $f:\bbr \to \bbr$. To prove that $\sigma(Y)$ refines $\sigma(X)$, by @thm-rv-refine it will suffice to show that every level set of $Y$ is  contained in a level set of $X$. So, let $y \in \bbr$ and consider the level set $B = Y^{-1}(y)$. If $B$ is nonempty, then for every $\omega \in B$, we have $X(\omega) = f(Y(\omega)) = f(y)$. Thus, $B \subset X^{-1}(f(y))$, and the proof is complete.
 :::
 
-Returning again to our coin-flipping example, we see that according to the theorem $Y$ is supposed to be a function of the random vector $(X_1, X_2,X_3)$, since we observed that $\calF_3 = \sigma(X_1, X_2, X_3)$ refines $\sigma(Y)$. Indeed, we *defined* $Y$ to be a function of this random vector via the equation
+## Example: a coin with momentum
+
+Let's explore these ideas with a concrete example. Consider a coin-flipping experiment where the outcome at each time step depends on the previous outcomes, introducing a "momentum" or "inertia" effect. Specifically, if the last flip was heads, the coin is more likely to land heads again, and vice versa for tails. This scenario can be modeled using a Markov chain.
+
+Suppose that we write $X_t$ for the result of the $t$-th coin flip, where $X_t = 1$ represents heads and $X_t = 0$ represents tails. The first coin is unbiased, so
 
 $$
-Y = X_1 + X_2 + X_3,
+P(X_1=1) = P(X_1 = 0) = 0.5
 $$
 
-so $Y = f \circ (X_1,X_2,X_3)$ where $f$ is summation.
+However, the conditional probabilities for subsequent flips are given by the transition matrix
+
+$$
+\begin{bmatrix}
+P(X_t=0 \mid X_{t-1}=0) & P(X_t=1 \mid X_{t-1}=0) \\
+P(X_t=0 \mid X_{t-1}=1) & P(X_t=1 \mid X_{t-1}=1)
+\end{bmatrix} = 
+\begin{bmatrix}
+0.7 & 0.3 \\
+0.2 & 0.8
+\end{bmatrix}.
+$$
+
+Suppose that we flip the coin four times, producing a Markov chain of length $4$. All $2^4 = 16$ possible outcomes $(X_1,X_2,X_3,X_4)$ form the sample space $\Omega$ of this experiment. The probability of each outcome may be computed using the initial probabilities and the transition matrix. We implement $\Omega$ and these probabilities as a data frame:
+
+```{python}
+# | echo: true
+# | code-fold: true
+# | fig-align: center
+
+# P(X_1 = 0) = 0.5, P(X_1 = 1) = 0.5
+init_prob = np.array([0.5, 0.5])
+
+# P(X_{n+1} = 0 | X_n = 0) = 0.7, P(X_{n+1} = 1 | X_n = 0) = 0.3
+# P(X_{n+1} = 0 | X_n = 1) = 0.2, P(X_{n+1} = 1 | X_n = 1) = 0.8
+transition_matrix = np.array([[0.7, 0.3], [0.2, 0.8]])
+
+# Instantiate Markov chain modeling coin flips with momentum
+mc = FirstOrderMarkovChain(
+    transition_matrix,
+    init_prob,
+)
+
+# Display the sample space
+mc.setup_sample_space(trajectory_length=4)
+print_html_df(df=mc.omega, title="probability space for coin flips with momentum")
+
+```
+
+<br>
+
+We can simulate longer chains of coin flips using this Markov chain model. Below, we simulate a single trajectory of length 50 and plot the individual coin flip outcomes as well as the cumulative number of heads over time.
+
+```{python}
+# | echo: true
+# | code-fold: true
+# | fig-align: center
+
+# Reset chain length to 50 and simulate a single chain
+mc.simulate(trajectory_length=50, num_trajectories=1)
+
+# Setup the figure and axes
+fig, axes = plt.subplots(ncols=2, figsize=(8, 4))
+
+# Plot individual coin flip outcomes
+mc.plot_simulations(
+    ax=axes[0],
+    simulation_kwargs={"shift": 1},
+    plot_kwargs={"marker": "o"},
+)
+axes[0].set_xlabel("number of flips")
+axes[0].set_ylabel("heads (1) or tails (0)")
+axes[0].set_title("individual coin flip outcomes")
+
+# Plot cumulative number of heads
+mc.plot_simulations(
+    ax=axes[1],
+    simulation_kwargs={"cumulative": True, "shift": 1},
+    plot_kwargs={"marker": "o"},
+)
+axes[1].set_xlabel("number of flips")
+axes[1].set_ylabel("number of heads")
+axes[1].set_title("cumulative number of heads")
+
+fig.suptitle("coin flip simulation with momentum")
+plt.tight_layout()
+plt.show()
+
+```
+
+We can also simulate multiple trajectories to see how the number of heads varies across different runs of the experiment. Below, we simulate 10 chains of length 250 and plot the cumulative number of heads for each simulation.
+
+```{python}
+# | echo: true
+# | code-fold: true
+# | fig-align: center
+
+# Reset the chain length and simulate 10 chains
+mc.simulate(trajectory_length=250, num_trajectories=10)
+
+# Plot the number of heads over time for each simulation
+_, ax = plt.subplots()
+mc.plot_simulations(
+    ax=ax,
+    colors=colors,
+    simulation_kwargs={"cumulative": True},
+)
+ax.set_title("10 coin flip simulations with momentum")
+ax.set_xlabel("number of flips")
+ax.set_ylabel("number of heads")
+plt.tight_layout()
+plt.show()
+
+```
+
+
+
+
 
 ## Hilbert spaces of random variables
 
@@ -412,48 +351,6 @@ $$
 $$
 
 One should check that $\langle -, -\rangle$ satisfies the properties of an inner product: linearity in the first argument, symmetry, and positive-definiteness. Again, we shall leave this task to the interested reader. We only note that the proof of positive-definiteness involves showing that $\langle X,X\rangle=0$ if and only if $X$ is almost surely equal to the zero random variable. Remember that elements in $L^2(\calF)$ are equivalence classes under almost sure equality!
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
-
-# Define transition probabilities for a two-state Markov chain
-# alpha: probability of staying in state 1 given current state is 1
-# beta: probability of transitioning to state 1 given current state is 0
-# theta: initial probability of starting in state 1
-alpha <- 0.7
-beta <- 0.3
-theta <- 0.5
-
-# Compute transition probability P(Y | X) for the Markov chain
-# Y: next state (0 or 1)
-# X: current state (0 or 1)
-trans_prob <- function(Y, X) {
-  case_when(
-    Y == 0 & X == 0 ~ 1 - beta, # Stay in state 0 given state 0
-    Y == 0 & X == 1 ~ 1 - alpha, # Transition to state 0 given state 1
-    Y == 1 & X == 0 ~ beta, # Transition to state 1 given state 0
-    Y == 1 & X == 1 ~ alpha, # Stay in state 1 given state 1
-  )
-}
-
-# Compute initial probability distribution
-# P(X = 1) = theta, P(X = 0) = 1 - theta
-init_prob <- function(X) theta^X * (1 - theta)^(1 - X)
-
-# Compute joint probability P(X1, X2, X3) for a three-step Markov chain
-# Uses chain rule: P(X1, X2, X3) = P(X1) * P(X2 | X1) * P(X3 | X2)
-joint_prob <- function(X1, X2, X3) {
-  init_prob(X1) * trans_prob(X2, X1) * trans_prob(X3, X2)
-}
-
-# Add joint probability column to the sample space data frame
-# Each row gets its probability under the Markov chain model
-Omega %>%
-  mutate(p = joint_prob(X1, X2, X3))
-
-```
 
 
 The inner product induces a norm
@@ -617,56 +514,6 @@ $$
 
 This decomposition gives us two components: a $\mathcal{G}$-measurable part $E(X\mid \calG)$ that captures all information in $X$ knowable from $\mathcal{G}$, and a residual $X - E(X \mid \mathcal{G})$ orthogonal to every $\calG$-measurable random variable, representing pure noise relative to $\calG$.
 
-```{r}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
-
-# Set theta (probability of heads for each flip)
-theta <- 0.6
-
-# Add probability measure: p = theta^Y * (1-theta)^(3-Y)
-Omega <- Omega %>%
-  mutate(p = theta^Y * (1 - theta)^(3 - Y))
-
-# Compute E[Y | F1]
-E_Y_given_F1 <- Omega %>%
-  group_by(Ai) %>%
-  mutate(
-    pAi = sum(p),
-    p_cond = p / pAi
-  ) %>%
-  summarize(E_Y_given_F1 = sum(Y * p_cond))
-
-kable(E_Y_given_F1, caption = "$E(Y \\mid \\mathcal{F}_1)$")
-
-# Compute E[Y | F2]
-E_Y_given_F2 <- Omega %>%
-  group_by(Bi) %>%
-  mutate(
-    pBi = sum(p),
-    p_cond = p / pBi
-  ) %>%
-  summarize(E_Y_given_F2 = sum(Y * p_cond))
-
-kable(E_Y_given_F2, caption = "$E(Y \\mid \\mathcal{F}_2)$")
-
-# Compute E[Y | F3]
-# Note: Should equal Y since Y is F3-measurable
-E_Y_given_F3 <- Omega %>%
-  group_by(Ci) %>%
-  mutate(
-    pCi = sum(p),
-    p_cond = p / pCi
-  ) %>%
-  summarize(E_Y_given_F3 = sum(Y * p_cond))
-
-kable(E_Y_given_F3, caption = "$E(Y \\mid \\mathcal{F}_3)$")
-
-```
-
-<br>
-
 In the case that $\calG = \{\emptyset, \Omega\}$ is the trivial algebra, we have
 
 $$
@@ -764,56 +611,90 @@ $$
 If we choose the versions of the conditional expectations given by orthogonal projection  as in @thm-cond-exp-proj, then the left-hand side of ([-@eq-tower]) is the orthogonal projection of $X$ onto $L^2(\mathcal{H})$ followed by the orthogonal projection onto $L^2(\mathcal{G})$. However, since the subspaces are nested, this composition is simply the orthogonal projection of $X$ onto $L^2(\mathcal{G})$, which is the right-hand side of the desired equation.
 :::
 
-We now apply these abstract results to our running example of three coin flips. This will make the geometric picture concrete and show how conditional expectations improve predictions as information refines.
 
-Recall our nested sequence of algebras:
-$$
-\mathcal{F}_1 = \sigma(X_1) \subset \mathcal{F}_2 = \sigma(X_1, X_2) \subset \mathcal{F}_3 = \sigma(X_1, X_2, X_3),
-$$
-where $\mathcal{F}_1$ has 2 atoms, $\mathcal{F}_2$ has 4 atoms, and $\mathcal{F}_3$ has 8 atoms. We'll compute conditional expectations of $Y = X_1 + X_2 + X_3$ (total number of heads) given each algebra.
 
-**Predicting with no information: $E(Y)$**
 
-With no information about any flips, the best prediction is the unconditional expectation:
-$$
-E(Y) = 0 \cdot P(Y=0) + 1 \cdot P(Y=1) + 2 \cdot P(Y=2) + 3 \cdot P(Y=3)
-$$
+## Return to the coin flip with momentum
 
-This is a constant function on $\Omega$—the same prediction for all outcomes.
 
-**Predicting after the first flip: $E(Y \mid \mathcal{F}_1)$**
+```{python}
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
-By @thm-basis-L2, $E(Y \mid \mathcal{F}_1)$ must be constant on each atom of $\mathcal{F}_1$. The atoms are:
-- $A_1 = \{000, 001, 010, 011\}$ (first flip is 0)
-- $A_2 = \{100, 101, 110, 111\}$ (first flip is 1)
+mc.setup_sample_space(trajectory_length=4)
+print_html_df(df=mc.omega, title="probability space for coin flips with momentum")
 
-By the averaging property, on $A_1$:
-$$
-E(Y \mid \mathcal{F}_1)|_{A_1} = \frac{\int_{A_1} Y \, dP}{P(A_1)} = E(Y \mid X_1 = 0) = 0 + E(X_2) + E(X_3) = 2\theta
-$$
+```
 
-Similarly, on $A_2$:
-$$
-E(Y \mid \mathcal{F}_1)|_{A_2} = E(Y \mid X_1 = 1) = 1 + E(X_2) + E(X_3) = 1 + 2\theta
-$$
 
-Thus:
-$$
-E(Y \mid \mathcal{F}_1) = 2\theta \cdot I_{A_1} + (1 + 2\theta) \cdot I_{A_2}
-$$
+```{python}
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
-This shows how the prediction updates based on the first flip: if $X_1 = 0$, we predict $2\theta$ more heads; if $X_1 = 1$, we predict $1 + 2\theta$ total heads.
+# Define the random variable S3 = X1 + X2 + X3
+def S3(omega):
+    return omega["X1"] + omega["X2"] + omega["X3"]
 
-**The tower property in action**
 
-We can verify the tower property by computing:
-$$
-E(E(Y \mid \mathcal{F}_2) \mid \mathcal{F}_1)
-$$
+# Compute the conditional expectation of S3 given X1 and X2
+cond_exp_S3_given_X1X2 = conditional_exp(
+    omega=mc.omega, RV=S3, sigma_algebra=["X1", "X2"], name="E(S3 | X1, X2)"
+)
 
-By @thm-tower, this should equal $E(Y \mid \mathcal{F}_1)$. We'll verify this computationally in the code below.
+# Print the conditional expectation
+print_html_df(
+    df=cond_exp_S3_given_X1X2,
+    title="conditional expectation E(S3 | X1, X2)",
+)
 
-[Add R code computing these conditional expectations and showing the tower property]
+```
+
+We have a submartingale!
+
+```{python}
+# | echo: true
+# | code-fold: true
+# | fig-align: center
+
+
+# Define the random variable S2 = X1 + X2
+def S2(omega):
+    return omega["X1"] + omega["X2"]
+
+
+# Make a copy of the sample space and compute S2
+omega = mc.omega.copy()
+omega["S2"] = omega.apply(S2, axis=1)
+
+# S2 is constant on the atoms of sigma(X1, X2), so we group
+# by X1 and X2 and get unique values of S2 by using first(). Then
+# we convert to a dataframe and turn the multi-index into columns.
+S2 = omega.groupby(["X1", "X2"])["S2"].first().to_frame().reset_index()
+
+# Print the comparison of E(S3 | X1,X2) to S2
+print_html_df(
+    df=cond_exp_S3_given_X1X2.merge(S2, on=["X1", "X2"]),
+    title="comparing E(S3 | X1,X2) to S2",
+)
+
+```
+
+
+```{python}
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+iid = DiscreteIID(prob=np.array([0.3, 0.4, 0.3]))
+
+_, ax = plt.subplots()
+iid.simulate(trajectory_length=50, num_trajectories=1).plot_simulations(ax=ax, colors=colors)
+plt.tight_layout()
+plt.show()
+
+```
 
 
 ## Conclusion

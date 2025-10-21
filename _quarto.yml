@@ -1,7 +1,6 @@
 project:
   type: website
-  resources: 
-    - "posts/shiny-clt/svg/**"
+  
 website:
   site-url: https://johnmyers-phd.com
   title: "john myers, ph.d."
