@@ -214,13 +214,6 @@ We can simulate longer chains of coin flips using this Markov chain model. Below
 # | code-fold: true
 # | fig-align: center
 
-
-# Define a transformation function that computes cumulative sums along columns
-# This will convert individual flip outcomes to running totals of heads
-def cum_sum_transform(omega):
-    return omega.cumsum(axis=1)
-
-
 # Simulate a single trajectory of 50 coin flips with the Markov chain model
 mc.simulate(trajectory_length=50, num_trajectories=1)
 
@@ -235,7 +228,7 @@ axes[0].set_title("individual coin flip outcomes")
 
 # Create a transformed process that shows cumulative heads count
 # This applies the cumsum transformation to the original Markov chain
-cum_process = transform_discrete_process(mc, cum_sum_transform)
+cum_process = transform_discrete_process(mc, lambda omega: omega.cumsum(axis=1))
 
 # Simulate must be called on the source process before calling on transformed process
 # Since mc.simulate() was already called above, this will transform those trajectories
