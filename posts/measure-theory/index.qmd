@@ -19,20 +19,22 @@ $$
 In this post we explore the relationship between random variables, algebras of sets, and Hilbert spaces. We begin by showing how random variables induce algebras of observable events through their level sets, and we characterize the refinement relations between these algebras in terms of the behavior of the random variables on the atoms of pre-existing algebras. Next, we introduce the $L^2$-spaces associated to algebras of sets, demonstrating that these spaces are Hilbert spaces with inner products defined via expectation. Finally, we connect the refinement of algebras to the nesting of their corresponding $L^2$-spaces, providing a geometric perspective on information refinement.
 
 ```{python}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
+# | echo: true
+# | code-fold: true
+# | fig-align: center
 
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython.display import HTML
-from sigmahaus.StochasticProcesses import FirstOrderMarkovChain, conditional_exp, DiscreteIID
-from sigmahaus.Utilities import print_html_df
+from sigalg.StochasticProcesses import (
+    FirstOrderMarkovChain,
+    transform_discrete_process,
+    conditional_exp,
+)
+from sigalg.Utilities import print_html_df
 
 np.random.seed(42)
-plt.style.use(
-    "../../aux-files/custom-theme.mplstyle"
-)
+plt.style.use("../../aux-files/custom-theme.mplstyle")
 yellow = "#FFC300"
 blue = "#3399FF"
 pink = "#FF3399"
@@ -198,7 +200,7 @@ mc = FirstOrderMarkovChain(
 )
 
 # Display the sample space
-mc.setup_sample_space(trajectory_length=4)
+mc.generate_sample_space(trajectory_length=4)
 print_html_df(df=mc.omega, title="probability space for coin flips with momentum")
 
 ```
@@ -212,32 +214,40 @@ We can simulate longer chains of coin flips using this Markov chain model. Below
 # | code-fold: true
 # | fig-align: center
 
-# Reset chain length to 50 and simulate a single chain
+
+# Define a transformation function that computes cumulative sums along columns
+# This will convert individual flip outcomes to running totals of heads
+def cum_sum_transform(omega):
+    return omega.cumsum(axis=1)
+
+
+# Simulate a single trajectory of 50 coin flips with the Markov chain model
 mc.simulate(trajectory_length=50, num_trajectories=1)
 
-# Setup the figure and axes
+# Create a figure with two side-by-side subplots
 fig, axes = plt.subplots(ncols=2, figsize=(8, 4))
 
-# Plot individual coin flip outcomes
-mc.plot_simulations(
-    ax=axes[0],
-    simulation_kwargs={"shift": 1},
-    plot_kwargs={"marker": "o"},
-)
+# Left subplot: Plot individual coin flip outcomes (0s and 1s) over time
+mc.plot_simulations(ax=axes[0], plot_kwargs={"marker": "o"})
 axes[0].set_xlabel("number of flips")
 axes[0].set_ylabel("heads (1) or tails (0)")
 axes[0].set_title("individual coin flip outcomes")
 
-# Plot cumulative number of heads
-mc.plot_simulations(
-    ax=axes[1],
-    simulation_kwargs={"cumulative": True, "shift": 1},
-    plot_kwargs={"marker": "o"},
-)
+# Create a transformed process that shows cumulative heads count
+# This applies the cumsum transformation to the original Markov chain
+cum_process = transform_discrete_process(mc, cum_sum_transform)
+
+# Simulate must be called on the source process before calling on transformed process
+# Since mc.simulate() was already called above, this will transform those trajectories
+cum_process.simulate()
+
+# Right subplot: Plot the cumulative number of heads over time
+cum_process.plot_simulations(ax=axes[1], plot_kwargs={"marker": "o"})
 axes[1].set_xlabel("number of flips")
 axes[1].set_ylabel("number of heads")
 axes[1].set_title("cumulative number of heads")
 
+# Add overall title and adjust layout to prevent overlap
 fig.suptitle("coin flip simulation with momentum")
 plt.tight_layout()
 plt.show()
@@ -254,13 +264,12 @@ We can also simulate multiple trajectories to see how the number of heads varies
 # Reset the chain length and simulate 10 chains
 mc.simulate(trajectory_length=250, num_trajectories=10)
 
+# Create a transformed process for cumulative heads count
+cum_process.simulate()
+
 # Plot the number of heads over time for each simulation
 _, ax = plt.subplots()
-mc.plot_simulations(
-    ax=ax,
-    colors=colors,
-    simulation_kwargs={"cumulative": True},
-)
+cum_process.plot_simulations(ax=ax, colors=colors)
 ax.set_title("10 coin flip simulations with momentum")
 ax.set_xlabel("number of flips")
 ax.set_ylabel("number of heads")
@@ -622,7 +631,7 @@ If we choose the versions of the conditional expectations given by orthogonal pr
 # | code-fold: true
 # | fig-align: center
 
-mc.setup_sample_space(trajectory_length=4)
+mc.generate_sample_space(trajectory_length=4)
 print_html_df(df=mc.omega, title="probability space for coin flips with momentum")
 
 ```
@@ -682,19 +691,7 @@ print_html_df(
 ```
 
 
-```{python}
-#| echo: true
-#| code-fold: true
-#| fig-align: center
 
-iid = DiscreteIID(prob=np.array([0.3, 0.4, 0.3]))
-
-_, ax = plt.subplots()
-iid.simulate(trajectory_length=50, num_trajectories=1).plot_simulations(ax=ax, colors=colors)
-plt.tight_layout()
-plt.show()
-
-```
 
 
 ## Conclusion
