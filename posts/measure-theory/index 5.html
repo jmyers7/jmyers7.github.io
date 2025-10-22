@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -79,7 +44,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -134,9 +99,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
@@ -254,10 +216,8 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#random-variables-as-information-carriers" id="toc-random-variables-as-information-carriers" class="nav-link" data-scroll-target="#random-variables-as-information-carriers">Random variables as information carriers</a></li>
-  <li><a href="#example-a-coin-with-momentum" id="toc-example-a-coin-with-momentum" class="nav-link" data-scroll-target="#example-a-coin-with-momentum">Example: a coin with momentum</a></li>
   <li><a href="#hilbert-spaces-of-random-variables" id="toc-hilbert-spaces-of-random-variables" class="nav-link" data-scroll-target="#hilbert-spaces-of-random-variables">Hilbert spaces of random variables</a></li>
   <li><a href="#conditional-expectations-as-projections" id="toc-conditional-expectations-as-projections" class="nav-link" data-scroll-target="#conditional-expectations-as-projections">Conditional expectations as projections</a></li>
-  <li><a href="#return-to-the-coin-flip-with-momentum" id="toc-return-to-the-coin-flip-with-momentum" class="nav-link" data-scroll-target="#return-to-the-coin-flip-with-momentum">Return to the coin flip with momentum</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
@@ -304,27 +264,6 @@ window.Quarto = {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In this post we explore the relationship between random variables, algebras of sets, and Hilbert spaces. We begin by showing how random variables induce algebras of observable events through their level sets, and we characterize the refinement relations between these algebras in terms of the behavior of the random variables on the atoms of pre-existing algebras. Next, we introduce the <span class="math inline">\(L^2\)</span>-spaces associated to algebras of sets, demonstrating that these spaces are Hilbert spaces with inner products defined via expectation. Finally, we connect the refinement of algebras to the nesting of their corresponding <span class="math inline">\(L^2\)</span>-spaces, providing a geometric perspective on information refinement.</p>
-<div id="129d74d9" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.StochasticProcesses <span class="im">import</span> (</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    FirstOrderMarkovChain,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    transform_discrete_process,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    conditional_exp,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.Utilities <span class="im">import</span> print_html_df</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>blue <span class="op">=</span> <span class="st">"#3399FF"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pink <span class="op">=</span> <span class="st">"#FF3399"</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [yellow, pink, blue]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
 </section>
 <section id="random-variables-as-information-carriers" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="random-variables-as-information-carriers">Random variables as information carriers</h2>
@@ -347,7 +286,76 @@ X^{-1}(x) \overset{\text{def}}{=}\{ \omega \in \Omega : X(\omega)=x\}
 </div>
 </div>
 <p>As you may easily check, the nonempty level sets of a random vector <span class="math inline">\(X\)</span> partition its domain, and through this partition the random vector generates an algebra of sets in <span class="math inline">\(\Omega\)</span> denoted <span class="math inline">\(\sigma(X)\)</span>. The level sets are the <em>atoms</em> of this algebra, i.e., they are the minimal nonempty sets in <span class="math inline">\(\sigma(X)\)</span>. The algebra <span class="math inline">\(\sigma(X)\)</span> captures precisely the information an observer gains by learning the value of <span class="math inline">\(X\)</span>. If the observer knows <span class="math inline">\(X(\omega) = x\)</span>, they know that <span class="math inline">\(\omega \in X^{-1}(x)\)</span> but cannot distinguish between outcomes within this level set. Thus, <span class="math inline">\(\sigma(X)\)</span> represents the coarsest partition of <span class="math inline">\(\Omega\)</span> consistent with the information provided by <span class="math inline">\(X\)</span>.</p>
-<p>Now we introduce some notation for algebras generated by multiple random vectors. Above, we’ve seen algebras generated by one random variables. In fact, we may form algebras generated by any finite number of random variables, as follows.</p>
+<p>For an example, we consider the experiment of flipping a coin three times that we introduced in the <a href="../info-2/">previous post</a>. The sample space is</p>
+<p><span class="math display">\[
+\Omega = \{000, 001, 010, 011, 100, 101, 110, 111\},
+\]</span></p>
+<p>where a binary string represents the results of the three flips, with a <span class="math inline">\(0\)</span> representing tails and a <span class="math inline">\(1\)</span> representing heads. We define three random variables</p>
+<p><span class="math display">\[
+X_1, X_2, X_3:\Omega \to \{0,1\}
+\]</span></p>
+<p>that record the results of the first, second, and third flips, respectively. For instance, <span class="math inline">\(X_1(010) = 0\)</span> since the first flip in the sequence <span class="math inline">\(010\)</span> is tails. We introduce a fourth random variable</p>
+<p><span class="math display">\[
+Y:\Omega \to \{0,1,2,3\}
+\]</span></p>
+<p>that records the total number of heads across all three flips, i.e.,</p>
+<p><span class="math display">\[
+Y = X_1 + X_2 + X_3.
+\]</span></p>
+<p>The following data frame displays the sample space <span class="math inline">\(\Omega\)</span> along with the values of the four random variables.</p>
+<p>Notice that the two level sets of <span class="math inline">\(X_1\)</span> are</p>
+<p><span class="math display">\[
+\begin{align*}
+A_1 &amp;= X_1^{-1}(0) = \{000, 001, 010, 011\}, \\
+A_2 &amp;= X_1^{-1}(1) = \{100, 101, 110, 111\}.
+\end{align*}
+\]</span></p>
+<p>The reader will note that these are exactly the atoms of the algebra <span class="math inline">\(\mathcal{F}_1\)</span> we considered in the <a href="../info-2/">previous post</a>. Thus, <span class="math inline">\(\sigma(X_1) = \mathcal{F}_1\)</span>.</p>
+<p>Similarly, the level sets of <span class="math inline">\(X_2\)</span> and <span class="math inline">\(X_3\)</span> are</p>
+<p><span class="math display">\[
+\begin{align*}
+X_2^{-1}(0) &amp;= \{000, 001, 100, 101\}, &amp; X_2^{-1}(1) &amp;= \{010, 011, 110, 111\}, \\
+X_3^{-1}(0) &amp;= \{000, 010, 100, 110\}, &amp; X_3^{-1}(1) &amp;= \{001, 011, 101, 111\}.
+\end{align*}
+\]</span></p>
+<p>If we form all pairwise intersections of the level sets of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, we obtain the sets</p>
+<p><span class="math display">\[
+B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 = \{110,111\},
+\]</span></p>
+<p>which were the atoms of the algebra <span class="math inline">\(\mathcal{F}_2\)</span> from the <a href="../info-2/">previous post</a>. In the notation to be introduced below (see <a href="#def-algebra-gen-rv" class="quarto-xref">Definition&nbsp;2</a>), this means that</p>
+<p><span class="math display">\[
+\sigma(X_1, X_2) = \mathcal{F}_2,
+\]</span></p>
+<p>or that <span class="math inline">\(\mathcal{F}_2\)</span> is the algebra generated by <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. If we form all <span class="math inline">\(3\)</span>-fold intersections of the level sets of <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span>, we obtain the singletons</p>
+<p><span class="math display">\[
+\begin{gather*}
+C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
+C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
+\end{gather*}
+\]</span></p>
+<p>which were the atoms of the algebra <span class="math inline">\(\mathcal{F}_3\)</span> from the <a href="../info-2/">previous post</a>. Again, in the notation to be introduced below (see <a href="#def-algebra-gen-rv" class="quarto-xref">Definition&nbsp;2</a>), this means that</p>
+<p><span class="math display">\[
+\sigma(X_1, X_2, X_3) = \mathcal{F}_3,
+\]</span></p>
+<p>or that <span class="math inline">\(\mathcal{F}_3\)</span> is the algebra generated by <span class="math inline">\(X_1, X_2,\)</span> and <span class="math inline">\(X_3\)</span>. Thus, the nested sequence of algebras</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span></p>
+<p>may be rewritten as</p>
+<p><span class="math display">\[
+\sigma(X_1) \subset \sigma(X_1, X_2) \subset \sigma(X_1, X_2, X_3).
+\]</span></p>
+<p>Finally, the level sets of <span class="math inline">\(Y\)</span> are</p>
+<p><span class="math display">\[
+\begin{align*}
+D_1 &amp;= Y^{-1}(0) = \{000\}, \\
+D_2 &amp;= Y^{-1}(1) = \{001,010,100\}, \\
+D_3 &amp;= Y^{-1}(2) = \{011,101,110\}, \\
+D_4 &amp;= Y^{-1}(3) = \{111\}.
+\end{align*}
+\]</span></p>
+<p>In the <a href="../info-2/">previous post</a>, we had columns in our data frame indicating which outcomes belonged to which atoms <span class="math inline">\(A_i\)</span>, <span class="math inline">\(B_i\)</span>, and <span class="math inline">\(C_i\)</span>; let’s add these columns here as well, along with columns for the <span class="math inline">\(D_i\)</span>:</p>
+<p>We will return to this data frame momentarily, but first we introduce some notation for algebras generated by multiple random vectors. Above, we’ve seen algebras generated by one, two, and three random variables. In fact, we may form algebras generated by any finite number of random variables, as follows.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -475,266 +483,11 @@ f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
 </div>
 </div>
 </div>
-</section>
-<section id="example-a-coin-with-momentum" class="level2">
-<h2 class="anchored" data-anchor-id="example-a-coin-with-momentum">Example: a coin with momentum</h2>
-<p>Let’s explore these ideas with a concrete example. Consider a coin-flipping experiment where the outcome at each time step depends on the previous outcomes, introducing a “momentum” or “inertia” effect. Specifically, if the last flip was heads, the coin is more likely to land heads again, and vice versa for tails. This scenario can be modeled using a Markov chain.</p>
-<p>Suppose that we write <span class="math inline">\(X_t\)</span> for the result of the <span class="math inline">\(t\)</span>-th coin flip, where <span class="math inline">\(X_t = 1\)</span> represents heads and <span class="math inline">\(X_t = 0\)</span> represents tails. The first coin is unbiased, so</p>
+<p>Returning again to our coin-flipping example, we see that according to the theorem <span class="math inline">\(Y\)</span> is supposed to be a function of the random vector <span class="math inline">\((X_1, X_2,X_3)\)</span>, since we observed that <span class="math inline">\(\mathcal{F}_3 = \sigma(X_1, X_2, X_3)\)</span> refines <span class="math inline">\(\sigma(Y)\)</span>. Indeed, we <em>defined</em> <span class="math inline">\(Y\)</span> to be a function of this random vector via the equation</p>
 <p><span class="math display">\[
-P(X_1=1) = P(X_1 = 0) = 0.5
+Y = X_1 + X_2 + X_3,
 \]</span></p>
-<p>However, the conditional probabilities for subsequent flips are given by the transition matrix</p>
-<p><span class="math display">\[
-\begin{bmatrix}
-P(X_t=0 \mid X_{t-1}=0) &amp; P(X_t=1 \mid X_{t-1}=0) \\
-P(X_t=0 \mid X_{t-1}=1) &amp; P(X_t=1 \mid X_{t-1}=1)
-\end{bmatrix} =
-\begin{bmatrix}
-0.7 &amp; 0.3 \\
-0.2 &amp; 0.8
-\end{bmatrix}.
-\]</span></p>
-<p>Suppose that we flip the coin four times, producing a Markov chain of length <span class="math inline">\(4\)</span>. All <span class="math inline">\(2^4 = 16\)</span> possible outcomes <span class="math inline">\((X_1,X_2,X_3,X_4)\)</span> form the sample space <span class="math inline">\(\Omega\)</span> of this experiment. The probability of each outcome may be computed using the initial probabilities and the transition matrix. We implement <span class="math inline">\(\Omega\)</span> and these probabilities as a data frame:</p>
-<div id="ef24f802" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X_1 = 0) = 0.5, P(X_1 = 1) = 0.5</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>init_prob <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.5</span>])</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X_{n+1} = 0 | X_n = 0) = 0.7, P(X_{n+1} = 1 | X_n = 0) = 0.3</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X_{n+1} = 0 | X_n = 1) = 0.2, P(X_{n+1} = 1 | X_n = 1) = 0.8</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>transition_matrix <span class="op">=</span> np.array([[<span class="fl">0.7</span>, <span class="fl">0.3</span>], [<span class="fl">0.2</span>, <span class="fl">0.8</span>]])</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate Markov chain modeling coin flips with momentum</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>mc <span class="op">=</span> FirstOrderMarkovChain(</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    transition_matrix,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    init_prob,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>mc.generate_sample_space(trajectory_length<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>print_html_df(df<span class="op">=</span>mc.omega, title<span class="op">=</span><span class="st">"probability space for coin flips with momentum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<style type="text/css">
-#T_68af3 th {
-  text-align: right;
-  width: 80px;
-}
-#T_68af3_row0_col0, #T_68af3_row0_col1, #T_68af3_row0_col2, #T_68af3_row0_col3, #T_68af3_row0_col4, #T_68af3_row1_col0, #T_68af3_row1_col1, #T_68af3_row1_col2, #T_68af3_row1_col3, #T_68af3_row1_col4, #T_68af3_row2_col0, #T_68af3_row2_col1, #T_68af3_row2_col2, #T_68af3_row2_col3, #T_68af3_row2_col4, #T_68af3_row3_col0, #T_68af3_row3_col1, #T_68af3_row3_col2, #T_68af3_row3_col3, #T_68af3_row3_col4, #T_68af3_row4_col0, #T_68af3_row4_col1, #T_68af3_row4_col2, #T_68af3_row4_col3, #T_68af3_row4_col4, #T_68af3_row5_col0, #T_68af3_row5_col1, #T_68af3_row5_col2, #T_68af3_row5_col3, #T_68af3_row5_col4, #T_68af3_row6_col0, #T_68af3_row6_col1, #T_68af3_row6_col2, #T_68af3_row6_col3, #T_68af3_row6_col4, #T_68af3_row7_col0, #T_68af3_row7_col1, #T_68af3_row7_col2, #T_68af3_row7_col3, #T_68af3_row7_col4, #T_68af3_row8_col0, #T_68af3_row8_col1, #T_68af3_row8_col2, #T_68af3_row8_col3, #T_68af3_row8_col4, #T_68af3_row9_col0, #T_68af3_row9_col1, #T_68af3_row9_col2, #T_68af3_row9_col3, #T_68af3_row9_col4, #T_68af3_row10_col0, #T_68af3_row10_col1, #T_68af3_row10_col2, #T_68af3_row10_col3, #T_68af3_row10_col4, #T_68af3_row11_col0, #T_68af3_row11_col1, #T_68af3_row11_col2, #T_68af3_row11_col3, #T_68af3_row11_col4, #T_68af3_row12_col0, #T_68af3_row12_col1, #T_68af3_row12_col2, #T_68af3_row12_col3, #T_68af3_row12_col4, #T_68af3_row13_col0, #T_68af3_row13_col1, #T_68af3_row13_col2, #T_68af3_row13_col3, #T_68af3_row13_col4, #T_68af3_row14_col0, #T_68af3_row14_col1, #T_68af3_row14_col2, #T_68af3_row14_col3, #T_68af3_row14_col4, #T_68af3_row15_col0, #T_68af3_row15_col1, #T_68af3_row15_col2, #T_68af3_row15_col3, #T_68af3_row15_col4 {
-  text-align: right;
-  font-family: monospace;
-  width: 80px;
-}
-</style>
-
-<div id="T_68af3" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_68af3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: probability space for coin flips with momentum
-</figcaption>
-<div aria-describedby="T_68af3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_68af3" class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th id="T_68af3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_68af3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_68af3_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">X3</th>
-<th id="T_68af3_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">X4</th>
-<th id="T_68af3_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td id="T_68af3_row0_col0" class="data row0 col0">0</td>
-<td id="T_68af3_row0_col1" class="data row0 col1">0</td>
-<td id="T_68af3_row0_col2" class="data row0 col2">0</td>
-<td id="T_68af3_row0_col3" class="data row0 col3">0</td>
-<td id="T_68af3_row0_col4" class="data row0 col4">0.171500</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row1_col0" class="data row1 col0">0</td>
-<td id="T_68af3_row1_col1" class="data row1 col1">0</td>
-<td id="T_68af3_row1_col2" class="data row1 col2">0</td>
-<td id="T_68af3_row1_col3" class="data row1 col3">1</td>
-<td id="T_68af3_row1_col4" class="data row1 col4">0.073500</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row2_col0" class="data row2 col0">0</td>
-<td id="T_68af3_row2_col1" class="data row2 col1">0</td>
-<td id="T_68af3_row2_col2" class="data row2 col2">1</td>
-<td id="T_68af3_row2_col3" class="data row2 col3">0</td>
-<td id="T_68af3_row2_col4" class="data row2 col4">0.021000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row3_col0" class="data row3 col0">0</td>
-<td id="T_68af3_row3_col1" class="data row3 col1">0</td>
-<td id="T_68af3_row3_col2" class="data row3 col2">1</td>
-<td id="T_68af3_row3_col3" class="data row3 col3">1</td>
-<td id="T_68af3_row3_col4" class="data row3 col4">0.084000</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row4_col0" class="data row4 col0">0</td>
-<td id="T_68af3_row4_col1" class="data row4 col1">1</td>
-<td id="T_68af3_row4_col2" class="data row4 col2">0</td>
-<td id="T_68af3_row4_col3" class="data row4 col3">0</td>
-<td id="T_68af3_row4_col4" class="data row4 col4">0.021000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row5_col0" class="data row5 col0">0</td>
-<td id="T_68af3_row5_col1" class="data row5 col1">1</td>
-<td id="T_68af3_row5_col2" class="data row5 col2">0</td>
-<td id="T_68af3_row5_col3" class="data row5 col3">1</td>
-<td id="T_68af3_row5_col4" class="data row5 col4">0.009000</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row6_col0" class="data row6 col0">0</td>
-<td id="T_68af3_row6_col1" class="data row6 col1">1</td>
-<td id="T_68af3_row6_col2" class="data row6 col2">1</td>
-<td id="T_68af3_row6_col3" class="data row6 col3">0</td>
-<td id="T_68af3_row6_col4" class="data row6 col4">0.024000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row7_col0" class="data row7 col0">0</td>
-<td id="T_68af3_row7_col1" class="data row7 col1">1</td>
-<td id="T_68af3_row7_col2" class="data row7 col2">1</td>
-<td id="T_68af3_row7_col3" class="data row7 col3">1</td>
-<td id="T_68af3_row7_col4" class="data row7 col4">0.096000</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row8_col0" class="data row8 col0">1</td>
-<td id="T_68af3_row8_col1" class="data row8 col1">0</td>
-<td id="T_68af3_row8_col2" class="data row8 col2">0</td>
-<td id="T_68af3_row8_col3" class="data row8 col3">0</td>
-<td id="T_68af3_row8_col4" class="data row8 col4">0.049000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row9_col0" class="data row9 col0">1</td>
-<td id="T_68af3_row9_col1" class="data row9 col1">0</td>
-<td id="T_68af3_row9_col2" class="data row9 col2">0</td>
-<td id="T_68af3_row9_col3" class="data row9 col3">1</td>
-<td id="T_68af3_row9_col4" class="data row9 col4">0.021000</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row10_col0" class="data row10 col0">1</td>
-<td id="T_68af3_row10_col1" class="data row10 col1">0</td>
-<td id="T_68af3_row10_col2" class="data row10 col2">1</td>
-<td id="T_68af3_row10_col3" class="data row10 col3">0</td>
-<td id="T_68af3_row10_col4" class="data row10 col4">0.006000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row11_col0" class="data row11 col0">1</td>
-<td id="T_68af3_row11_col1" class="data row11 col1">0</td>
-<td id="T_68af3_row11_col2" class="data row11 col2">1</td>
-<td id="T_68af3_row11_col3" class="data row11 col3">1</td>
-<td id="T_68af3_row11_col4" class="data row11 col4">0.024000</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row12_col0" class="data row12 col0">1</td>
-<td id="T_68af3_row12_col1" class="data row12 col1">1</td>
-<td id="T_68af3_row12_col2" class="data row12 col2">0</td>
-<td id="T_68af3_row12_col3" class="data row12 col3">0</td>
-<td id="T_68af3_row12_col4" class="data row12 col4">0.056000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row13_col0" class="data row13 col0">1</td>
-<td id="T_68af3_row13_col1" class="data row13 col1">1</td>
-<td id="T_68af3_row13_col2" class="data row13 col2">0</td>
-<td id="T_68af3_row13_col3" class="data row13 col3">1</td>
-<td id="T_68af3_row13_col4" class="data row13 col4">0.024000</td>
-</tr>
-<tr class="odd">
-<td id="T_68af3_row14_col0" class="data row14 col0">1</td>
-<td id="T_68af3_row14_col1" class="data row14 col1">1</td>
-<td id="T_68af3_row14_col2" class="data row14 col2">1</td>
-<td id="T_68af3_row14_col3" class="data row14 col3">0</td>
-<td id="T_68af3_row14_col4" class="data row14 col4">0.064000</td>
-</tr>
-<tr class="even">
-<td id="T_68af3_row15_col0" class="data row15 col0">1</td>
-<td id="T_68af3_row15_col1" class="data row15 col1">1</td>
-<td id="T_68af3_row15_col2" class="data row15 col2">1</td>
-<td id="T_68af3_row15_col3" class="data row15 col3">1</td>
-<td id="T_68af3_row15_col4" class="data row15 col4">0.256000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-</div>
-<p><br></p>
-<p>We can simulate longer chains of coin flips using this Markov chain model. Below, we simulate a single trajectory of length 50 and plot the individual coin flip outcomes as well as the cumulative number of heads over time.</p>
-<div id="354e5ec8" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate a single trajectory of 50 coin flips with the Markov chain model</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mc.simulate(trajectory_length<span class="op">=</span><span class="dv">50</span>, num_trajectories<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure with two side-by-side subplots</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Left subplot: Plot individual coin flip outcomes (0s and 1s) over time</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mc.plot_simulations(ax<span class="op">=</span>axes[<span class="dv">0</span>], plot_kwargs<span class="op">=</span>{<span class="st">"marker"</span>: <span class="st">"o"</span>})</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"number of flips"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"heads (1) or tails (0)"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"individual coin flip outcomes"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a transformed process that shows cumulative heads count</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># This applies the cumsum transformation to the original Markov chain</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>cum_process <span class="op">=</span> transform_discrete_process(mc, <span class="kw">lambda</span> omega: omega.cumsum(axis<span class="op">=</span><span class="dv">1</span>))</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate must be called on the source process before calling on transformed process</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Since mc.simulate() was already called above, this will transform those trajectories</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>cum_process.simulate()</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Right subplot: Plot the cumulative number of heads over time</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>cum_process.plot_simulations(ax<span class="op">=</span>axes[<span class="dv">1</span>], plot_kwargs<span class="op">=</span>{<span class="st">"marker"</span>: <span class="st">"o"</span>})</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"number of flips"</span>)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"number of heads"</span>)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"cumulative number of heads"</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Add overall title and adjust layout to prevent overlap</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"coin flip simulation with momentum"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="788" height="395"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We can also simulate multiple trajectories to see how the number of heads varies across different runs of the experiment. Below, we simulate 10 chains of length 250 and plot the cumulative number of heads for each simulation.</p>
-<div id="dba5ea0e" class="cell" data-execution_count="4">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset the chain length and simulate 10 chains</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mc.simulate(trajectory_length<span class="op">=</span><span class="dv">250</span>, num_trajectories<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a transformed process for cumulative heads count</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>cum_process.simulate()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the number of heads over time for each simulation</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>cum_process.plot_simulations(ax<span class="op">=</span>ax, colors<span class="op">=</span>colors)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"10 coin flip simulations with momentum"</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"number of flips"</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"number of heads"</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="688" height="488"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>so <span class="math inline">\(Y = f \circ (X_1,X_2,X_3)\)</span> where <span class="math inline">\(f\)</span> is summation.</p>
 </section>
 <section id="hilbert-spaces-of-random-variables" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="hilbert-spaces-of-random-variables">Hilbert spaces of random variables</h2>
@@ -1126,322 +879,33 @@ L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
 </div>
 </div>
 </div>
-</section>
-<section id="return-to-the-coin-flip-with-momentum" class="level2">
-<h2 class="anchored" data-anchor-id="return-to-the-coin-flip-with-momentum">Return to the coin flip with momentum</h2>
-<div id="f1b6c12c" class="cell" data-execution_count="5">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mc.generate_sample_space(trajectory_length<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>print_html_df(df<span class="op">=</span>mc.omega, title<span class="op">=</span><span class="st">"probability space for coin flips with momentum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="19">
-<style type="text/css">
-#T_fb4d5 th {
-  text-align: right;
-  width: 80px;
-}
-#T_fb4d5_row0_col0, #T_fb4d5_row0_col1, #T_fb4d5_row0_col2, #T_fb4d5_row0_col3, #T_fb4d5_row0_col4, #T_fb4d5_row1_col0, #T_fb4d5_row1_col1, #T_fb4d5_row1_col2, #T_fb4d5_row1_col3, #T_fb4d5_row1_col4, #T_fb4d5_row2_col0, #T_fb4d5_row2_col1, #T_fb4d5_row2_col2, #T_fb4d5_row2_col3, #T_fb4d5_row2_col4, #T_fb4d5_row3_col0, #T_fb4d5_row3_col1, #T_fb4d5_row3_col2, #T_fb4d5_row3_col3, #T_fb4d5_row3_col4, #T_fb4d5_row4_col0, #T_fb4d5_row4_col1, #T_fb4d5_row4_col2, #T_fb4d5_row4_col3, #T_fb4d5_row4_col4, #T_fb4d5_row5_col0, #T_fb4d5_row5_col1, #T_fb4d5_row5_col2, #T_fb4d5_row5_col3, #T_fb4d5_row5_col4, #T_fb4d5_row6_col0, #T_fb4d5_row6_col1, #T_fb4d5_row6_col2, #T_fb4d5_row6_col3, #T_fb4d5_row6_col4, #T_fb4d5_row7_col0, #T_fb4d5_row7_col1, #T_fb4d5_row7_col2, #T_fb4d5_row7_col3, #T_fb4d5_row7_col4, #T_fb4d5_row8_col0, #T_fb4d5_row8_col1, #T_fb4d5_row8_col2, #T_fb4d5_row8_col3, #T_fb4d5_row8_col4, #T_fb4d5_row9_col0, #T_fb4d5_row9_col1, #T_fb4d5_row9_col2, #T_fb4d5_row9_col3, #T_fb4d5_row9_col4, #T_fb4d5_row10_col0, #T_fb4d5_row10_col1, #T_fb4d5_row10_col2, #T_fb4d5_row10_col3, #T_fb4d5_row10_col4, #T_fb4d5_row11_col0, #T_fb4d5_row11_col1, #T_fb4d5_row11_col2, #T_fb4d5_row11_col3, #T_fb4d5_row11_col4, #T_fb4d5_row12_col0, #T_fb4d5_row12_col1, #T_fb4d5_row12_col2, #T_fb4d5_row12_col3, #T_fb4d5_row12_col4, #T_fb4d5_row13_col0, #T_fb4d5_row13_col1, #T_fb4d5_row13_col2, #T_fb4d5_row13_col3, #T_fb4d5_row13_col4, #T_fb4d5_row14_col0, #T_fb4d5_row14_col1, #T_fb4d5_row14_col2, #T_fb4d5_row14_col3, #T_fb4d5_row14_col4, #T_fb4d5_row15_col0, #T_fb4d5_row15_col1, #T_fb4d5_row15_col2, #T_fb4d5_row15_col3, #T_fb4d5_row15_col4 {
-  text-align: right;
-  font-family: monospace;
-  width: 80px;
-}
-</style>
-
-<div id="T_fb4d5" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_fb4d5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: probability space for coin flips with momentum
-</figcaption>
-<div aria-describedby="T_fb4d5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_fb4d5" class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th id="T_fb4d5_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_fb4d5_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_fb4d5_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">X3</th>
-<th id="T_fb4d5_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">X4</th>
-<th id="T_fb4d5_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td id="T_fb4d5_row0_col0" class="data row0 col0">0</td>
-<td id="T_fb4d5_row0_col1" class="data row0 col1">0</td>
-<td id="T_fb4d5_row0_col2" class="data row0 col2">0</td>
-<td id="T_fb4d5_row0_col3" class="data row0 col3">0</td>
-<td id="T_fb4d5_row0_col4" class="data row0 col4">0.171500</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row1_col0" class="data row1 col0">0</td>
-<td id="T_fb4d5_row1_col1" class="data row1 col1">0</td>
-<td id="T_fb4d5_row1_col2" class="data row1 col2">0</td>
-<td id="T_fb4d5_row1_col3" class="data row1 col3">1</td>
-<td id="T_fb4d5_row1_col4" class="data row1 col4">0.073500</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row2_col0" class="data row2 col0">0</td>
-<td id="T_fb4d5_row2_col1" class="data row2 col1">0</td>
-<td id="T_fb4d5_row2_col2" class="data row2 col2">1</td>
-<td id="T_fb4d5_row2_col3" class="data row2 col3">0</td>
-<td id="T_fb4d5_row2_col4" class="data row2 col4">0.021000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row3_col0" class="data row3 col0">0</td>
-<td id="T_fb4d5_row3_col1" class="data row3 col1">0</td>
-<td id="T_fb4d5_row3_col2" class="data row3 col2">1</td>
-<td id="T_fb4d5_row3_col3" class="data row3 col3">1</td>
-<td id="T_fb4d5_row3_col4" class="data row3 col4">0.084000</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row4_col0" class="data row4 col0">0</td>
-<td id="T_fb4d5_row4_col1" class="data row4 col1">1</td>
-<td id="T_fb4d5_row4_col2" class="data row4 col2">0</td>
-<td id="T_fb4d5_row4_col3" class="data row4 col3">0</td>
-<td id="T_fb4d5_row4_col4" class="data row4 col4">0.021000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row5_col0" class="data row5 col0">0</td>
-<td id="T_fb4d5_row5_col1" class="data row5 col1">1</td>
-<td id="T_fb4d5_row5_col2" class="data row5 col2">0</td>
-<td id="T_fb4d5_row5_col3" class="data row5 col3">1</td>
-<td id="T_fb4d5_row5_col4" class="data row5 col4">0.009000</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row6_col0" class="data row6 col0">0</td>
-<td id="T_fb4d5_row6_col1" class="data row6 col1">1</td>
-<td id="T_fb4d5_row6_col2" class="data row6 col2">1</td>
-<td id="T_fb4d5_row6_col3" class="data row6 col3">0</td>
-<td id="T_fb4d5_row6_col4" class="data row6 col4">0.024000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row7_col0" class="data row7 col0">0</td>
-<td id="T_fb4d5_row7_col1" class="data row7 col1">1</td>
-<td id="T_fb4d5_row7_col2" class="data row7 col2">1</td>
-<td id="T_fb4d5_row7_col3" class="data row7 col3">1</td>
-<td id="T_fb4d5_row7_col4" class="data row7 col4">0.096000</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row8_col0" class="data row8 col0">1</td>
-<td id="T_fb4d5_row8_col1" class="data row8 col1">0</td>
-<td id="T_fb4d5_row8_col2" class="data row8 col2">0</td>
-<td id="T_fb4d5_row8_col3" class="data row8 col3">0</td>
-<td id="T_fb4d5_row8_col4" class="data row8 col4">0.049000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row9_col0" class="data row9 col0">1</td>
-<td id="T_fb4d5_row9_col1" class="data row9 col1">0</td>
-<td id="T_fb4d5_row9_col2" class="data row9 col2">0</td>
-<td id="T_fb4d5_row9_col3" class="data row9 col3">1</td>
-<td id="T_fb4d5_row9_col4" class="data row9 col4">0.021000</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row10_col0" class="data row10 col0">1</td>
-<td id="T_fb4d5_row10_col1" class="data row10 col1">0</td>
-<td id="T_fb4d5_row10_col2" class="data row10 col2">1</td>
-<td id="T_fb4d5_row10_col3" class="data row10 col3">0</td>
-<td id="T_fb4d5_row10_col4" class="data row10 col4">0.006000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row11_col0" class="data row11 col0">1</td>
-<td id="T_fb4d5_row11_col1" class="data row11 col1">0</td>
-<td id="T_fb4d5_row11_col2" class="data row11 col2">1</td>
-<td id="T_fb4d5_row11_col3" class="data row11 col3">1</td>
-<td id="T_fb4d5_row11_col4" class="data row11 col4">0.024000</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row12_col0" class="data row12 col0">1</td>
-<td id="T_fb4d5_row12_col1" class="data row12 col1">1</td>
-<td id="T_fb4d5_row12_col2" class="data row12 col2">0</td>
-<td id="T_fb4d5_row12_col3" class="data row12 col3">0</td>
-<td id="T_fb4d5_row12_col4" class="data row12 col4">0.056000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row13_col0" class="data row13 col0">1</td>
-<td id="T_fb4d5_row13_col1" class="data row13 col1">1</td>
-<td id="T_fb4d5_row13_col2" class="data row13 col2">0</td>
-<td id="T_fb4d5_row13_col3" class="data row13 col3">1</td>
-<td id="T_fb4d5_row13_col4" class="data row13 col4">0.024000</td>
-</tr>
-<tr class="odd">
-<td id="T_fb4d5_row14_col0" class="data row14 col0">1</td>
-<td id="T_fb4d5_row14_col1" class="data row14 col1">1</td>
-<td id="T_fb4d5_row14_col2" class="data row14 col2">1</td>
-<td id="T_fb4d5_row14_col3" class="data row14 col3">0</td>
-<td id="T_fb4d5_row14_col4" class="data row14 col4">0.064000</td>
-</tr>
-<tr class="even">
-<td id="T_fb4d5_row15_col0" class="data row15 col0">1</td>
-<td id="T_fb4d5_row15_col1" class="data row15 col1">1</td>
-<td id="T_fb4d5_row15_col2" class="data row15 col2">1</td>
-<td id="T_fb4d5_row15_col3" class="data row15 col3">1</td>
-<td id="T_fb4d5_row15_col4" class="data row15 col4">0.256000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-</div>
-<div id="85bbe17a" class="cell" data-execution_count="6">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S3 = X1 + X2 + X3</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> S3(omega):</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> omega[<span class="st">"X1"</span>] <span class="op">+</span> omega[<span class="st">"X2"</span>] <span class="op">+</span> omega[<span class="st">"X3"</span>]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the conditional expectation of S3 given X1 and X2</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>cond_exp_S3_given_X1X2 <span class="op">=</span> conditional_exp(</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    omega<span class="op">=</span>mc.omega, RV<span class="op">=</span>S3, sigma_algebra<span class="op">=</span>[<span class="st">"X1"</span>, <span class="st">"X2"</span>], name<span class="op">=</span><span class="st">"E(S3 | X1, X2)"</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the conditional expectation</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>print_html_df(</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>cond_exp_S3_given_X1X2,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"conditional expectation E(S3 | X1, X2)"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<style type="text/css">
-#T_5b26e th {
-  text-align: right;
-  width: 80px;
-}
-#T_5b26e_row0_col0, #T_5b26e_row0_col1, #T_5b26e_row0_col2, #T_5b26e_row1_col0, #T_5b26e_row1_col1, #T_5b26e_row1_col2, #T_5b26e_row2_col0, #T_5b26e_row2_col1, #T_5b26e_row2_col2, #T_5b26e_row3_col0, #T_5b26e_row3_col1, #T_5b26e_row3_col2 {
-  text-align: right;
-  font-family: monospace;
-  width: 80px;
-}
-</style>
-
-<div id="T_5b26e" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_5b26e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: conditional expectation E(S3 | X1, X2)
-</figcaption>
-<div aria-describedby="T_5b26e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_5b26e" class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th id="T_5b26e_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_5b26e_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_5b26e_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">E(S3 | X1, X2)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td id="T_5b26e_row0_col0" class="data row0 col0">0</td>
-<td id="T_5b26e_row0_col1" class="data row0 col1">0</td>
-<td id="T_5b26e_row0_col2" class="data row0 col2">0.300000</td>
-</tr>
-<tr class="even">
-<td id="T_5b26e_row1_col0" class="data row1 col0">0</td>
-<td id="T_5b26e_row1_col1" class="data row1 col1">1</td>
-<td id="T_5b26e_row1_col2" class="data row1 col2">1.800000</td>
-</tr>
-<tr class="odd">
-<td id="T_5b26e_row2_col0" class="data row2 col0">1</td>
-<td id="T_5b26e_row2_col1" class="data row2 col1">0</td>
-<td id="T_5b26e_row2_col2" class="data row2 col2">1.300000</td>
-</tr>
-<tr class="even">
-<td id="T_5b26e_row3_col0" class="data row3 col0">1</td>
-<td id="T_5b26e_row3_col1" class="data row3 col1">1</td>
-<td id="T_5b26e_row3_col2" class="data row3 col2">2.800000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-</div>
-<p>We have a submartingale!</p>
-<div id="57c2ba95" class="cell" data-execution_count="7">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S2 = X1 + X2</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> S2(omega):</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> omega[<span class="st">"X1"</span>] <span class="op">+</span> omega[<span class="st">"X2"</span>]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a copy of the sample space and compute S2</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> mc.omega.copy()</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>omega[<span class="st">"S2"</span>] <span class="op">=</span> omega.<span class="bu">apply</span>(S2, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># S2 is constant on the atoms of sigma(X1, X2), so we group</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># by X1 and X2 and get unique values of S2 by using first(). Then</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># we convert to a dataframe and turn the multi-index into columns.</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>S2 <span class="op">=</span> omega.groupby([<span class="st">"X1"</span>, <span class="st">"X2"</span>])[<span class="st">"S2"</span>].first().to_frame().reset_index()</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the comparison of E(S3 | X1,X2) to S2</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>print_html_df(</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>cond_exp_S3_given_X1X2.merge(S2, on<span class="op">=</span>[<span class="st">"X1"</span>, <span class="st">"X2"</span>]),</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"comparing E(S3 | X1,X2) to S2"</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<style type="text/css">
-#T_06990 th {
-  text-align: right;
-  width: 80px;
-}
-#T_06990_row0_col0, #T_06990_row0_col1, #T_06990_row0_col2, #T_06990_row0_col3, #T_06990_row1_col0, #T_06990_row1_col1, #T_06990_row1_col2, #T_06990_row1_col3, #T_06990_row2_col0, #T_06990_row2_col1, #T_06990_row2_col2, #T_06990_row2_col3, #T_06990_row3_col0, #T_06990_row3_col1, #T_06990_row3_col2, #T_06990_row3_col3 {
-  text-align: right;
-  font-family: monospace;
-  width: 80px;
-}
-</style>
-
-<div id="T_06990" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_06990-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4: comparing E(S3 | X1,X2) to S2
-</figcaption>
-<div aria-describedby="T_06990-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_06990" class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th id="T_06990_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_06990_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_06990_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">E(S3 | X1, X2)</th>
-<th id="T_06990_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">S2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td id="T_06990_row0_col0" class="data row0 col0">0</td>
-<td id="T_06990_row0_col1" class="data row0 col1">0</td>
-<td id="T_06990_row0_col2" class="data row0 col2">0.300000</td>
-<td id="T_06990_row0_col3" class="data row0 col3">0.000000</td>
-</tr>
-<tr class="even">
-<td id="T_06990_row1_col0" class="data row1 col0">0</td>
-<td id="T_06990_row1_col1" class="data row1 col1">1</td>
-<td id="T_06990_row1_col2" class="data row1 col2">1.800000</td>
-<td id="T_06990_row1_col3" class="data row1 col3">1.000000</td>
-</tr>
-<tr class="odd">
-<td id="T_06990_row2_col0" class="data row2 col0">1</td>
-<td id="T_06990_row2_col1" class="data row2 col1">0</td>
-<td id="T_06990_row2_col2" class="data row2 col2">1.300000</td>
-<td id="T_06990_row2_col3" class="data row2 col3">1.000000</td>
-</tr>
-<tr class="even">
-<td id="T_06990_row3_col0" class="data row3 col0">1</td>
-<td id="T_06990_row3_col1" class="data row3 col1">1</td>
-<td id="T_06990_row3_col2" class="data row3 col2">2.800000</td>
-<td id="T_06990_row3_col3" class="data row3 col3">2.000000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-</div>
+<p>We now apply these abstract results to our running example of three coin flips. This will make the geometric picture concrete and show how conditional expectations improve predictions as information refines.</p>
+<p>Recall our nested sequence of algebras: <span class="math display">\[
+\mathcal{F}_1 = \sigma(X_1) \subset \mathcal{F}_2 = \sigma(X_1, X_2) \subset \mathcal{F}_3 = \sigma(X_1, X_2, X_3),
+\]</span> where <span class="math inline">\(\mathcal{F}_1\)</span> has 2 atoms, <span class="math inline">\(\mathcal{F}_2\)</span> has 4 atoms, and <span class="math inline">\(\mathcal{F}_3\)</span> has 8 atoms. We’ll compute conditional expectations of <span class="math inline">\(Y = X_1 + X_2 + X_3\)</span> (total number of heads) given each algebra.</p>
+<p><strong>Predicting with no information: <span class="math inline">\(E(Y)\)</span></strong></p>
+<p>With no information about any flips, the best prediction is the unconditional expectation: <span class="math display">\[
+E(Y) = 0 \cdot P(Y=0) + 1 \cdot P(Y=1) + 2 \cdot P(Y=2) + 3 \cdot P(Y=3)
+\]</span></p>
+<p>This is a constant function on <span class="math inline">\(\Omega\)</span>—the same prediction for all outcomes.</p>
+<p><strong>Predicting after the first flip: <span class="math inline">\(E(Y \mid \mathcal{F}_1)\)</span></strong></p>
+<p>By <a href="#thm-basis-L2" class="quarto-xref">Theorem&nbsp;5</a>, <span class="math inline">\(E(Y \mid \mathcal{F}_1)\)</span> must be constant on each atom of <span class="math inline">\(\mathcal{F}_1\)</span>. The atoms are: - <span class="math inline">\(A_1 = \{000, 001, 010, 011\}\)</span> (first flip is 0) - <span class="math inline">\(A_2 = \{100, 101, 110, 111\}\)</span> (first flip is 1)</p>
+<p>By the averaging property, on <span class="math inline">\(A_1\)</span>: <span class="math display">\[
+E(Y \mid \mathcal{F}_1)|_{A_1} = \frac{\int_{A_1} Y \, dP}{P(A_1)} = E(Y \mid X_1 = 0) = 0 + E(X_2) + E(X_3) = 2\theta
+\]</span></p>
+<p>Similarly, on <span class="math inline">\(A_2\)</span>: <span class="math display">\[
+E(Y \mid \mathcal{F}_1)|_{A_2} = E(Y \mid X_1 = 1) = 1 + E(X_2) + E(X_3) = 1 + 2\theta
+\]</span></p>
+<p>Thus: <span class="math display">\[
+E(Y \mid \mathcal{F}_1) = 2\theta \cdot I_{A_1} + (1 + 2\theta) \cdot I_{A_2}
+\]</span></p>
+<p>This shows how the prediction updates based on the first flip: if <span class="math inline">\(X_1 = 0\)</span>, we predict <span class="math inline">\(2\theta\)</span> more heads; if <span class="math inline">\(X_1 = 1\)</span>, we predict <span class="math inline">\(1 + 2\theta\)</span> total heads.</p>
+<p><strong>The tower property in action</strong></p>
+<p>We can verify the tower property by computing: <span class="math display">\[
+E(E(Y \mid \mathcal{F}_2) \mid \mathcal{F}_1)
+\]</span></p>
+<p>By <a href="#thm-tower" class="quarto-xref">Theorem&nbsp;10</a>, this should equal <span class="math inline">\(E(Y \mid \mathcal{F}_1)\)</span>. We’ll verify this computationally in the code below.</p>
+<p>[Add R code computing these conditional expectations and showing the tower property]</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>

@@ -304,25 +304,23 @@ window.Quarto = {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In this post we explore the relationship between random variables, algebras of sets, and Hilbert spaces. We begin by showing how random variables induce algebras of observable events through their level sets, and we characterize the refinement relations between these algebras in terms of the behavior of the random variables on the atoms of pre-existing algebras. Next, we introduce the <span class="math inline">\(L^2\)</span>-spaces associated to algebras of sets, demonstrating that these spaces are Hilbert spaces with inner products defined via expectation. Finally, we connect the refinement of algebras to the nesting of their corresponding <span class="math inline">\(L^2\)</span>-spaces, providing a geometric perspective on information refinement.</p>
-<div id="129d74d9" class="cell" data-execution_count="1">
+<div id="8dc5d561" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.StochasticProcesses <span class="im">import</span> (</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    FirstOrderMarkovChain,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    transform_discrete_process,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    conditional_exp,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.Utilities <span class="im">import</span> print_html_df</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>blue <span class="op">=</span> <span class="st">"#3399FF"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pink <span class="op">=</span> <span class="st">"#FF3399"</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [yellow, pink, blue]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigmahaus.StochasticProcesses <span class="im">import</span> FirstOrderMarkovChain, conditional_exp, DiscreteIID</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigmahaus.Utilities <span class="im">import</span> print_html_df</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.style.use(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../../aux-files/custom-theme.mplstyle"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>blue <span class="op">=</span> <span class="st">"#3399FF"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>pink <span class="op">=</span> <span class="st">"#FF3399"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [yellow, pink, blue]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -495,7 +493,7 @@ P(X_t=0 \mid X_{t-1}=1) &amp; P(X_t=1 \mid X_{t-1}=1)
 \end{bmatrix}.
 \]</span></p>
 <p>Suppose that we flip the coin four times, producing a Markov chain of length <span class="math inline">\(4\)</span>. All <span class="math inline">\(2^4 = 16\)</span> possible outcomes <span class="math inline">\((X_1,X_2,X_3,X_4)\)</span> form the sample space <span class="math inline">\(\Omega\)</span> of this experiment. The probability of each outcome may be computed using the initial probabilities and the transition matrix. We implement <span class="math inline">\(\Omega\)</span> and these probabilities as a data frame:</p>
-<div id="ef24f802" class="cell" data-execution_count="2">
+<div id="1414c59b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X_1 = 0) = 0.5, P(X_1 = 1) = 0.5</span></span>
@@ -512,150 +510,150 @@ P(X_t=0 \mid X_{t-1}=1) &amp; P(X_t=1 \mid X_{t-1}=1)
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>mc.generate_sample_space(trajectory_length<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>mc.setup_sample_space(trajectory_length<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>print_html_df(df<span class="op">=</span>mc.omega, title<span class="op">=</span><span class="st">"probability space for coin flips with momentum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <style type="text/css">
-#T_68af3 th {
+#T_b4b36 th {
   text-align: right;
   width: 80px;
 }
-#T_68af3_row0_col0, #T_68af3_row0_col1, #T_68af3_row0_col2, #T_68af3_row0_col3, #T_68af3_row0_col4, #T_68af3_row1_col0, #T_68af3_row1_col1, #T_68af3_row1_col2, #T_68af3_row1_col3, #T_68af3_row1_col4, #T_68af3_row2_col0, #T_68af3_row2_col1, #T_68af3_row2_col2, #T_68af3_row2_col3, #T_68af3_row2_col4, #T_68af3_row3_col0, #T_68af3_row3_col1, #T_68af3_row3_col2, #T_68af3_row3_col3, #T_68af3_row3_col4, #T_68af3_row4_col0, #T_68af3_row4_col1, #T_68af3_row4_col2, #T_68af3_row4_col3, #T_68af3_row4_col4, #T_68af3_row5_col0, #T_68af3_row5_col1, #T_68af3_row5_col2, #T_68af3_row5_col3, #T_68af3_row5_col4, #T_68af3_row6_col0, #T_68af3_row6_col1, #T_68af3_row6_col2, #T_68af3_row6_col3, #T_68af3_row6_col4, #T_68af3_row7_col0, #T_68af3_row7_col1, #T_68af3_row7_col2, #T_68af3_row7_col3, #T_68af3_row7_col4, #T_68af3_row8_col0, #T_68af3_row8_col1, #T_68af3_row8_col2, #T_68af3_row8_col3, #T_68af3_row8_col4, #T_68af3_row9_col0, #T_68af3_row9_col1, #T_68af3_row9_col2, #T_68af3_row9_col3, #T_68af3_row9_col4, #T_68af3_row10_col0, #T_68af3_row10_col1, #T_68af3_row10_col2, #T_68af3_row10_col3, #T_68af3_row10_col4, #T_68af3_row11_col0, #T_68af3_row11_col1, #T_68af3_row11_col2, #T_68af3_row11_col3, #T_68af3_row11_col4, #T_68af3_row12_col0, #T_68af3_row12_col1, #T_68af3_row12_col2, #T_68af3_row12_col3, #T_68af3_row12_col4, #T_68af3_row13_col0, #T_68af3_row13_col1, #T_68af3_row13_col2, #T_68af3_row13_col3, #T_68af3_row13_col4, #T_68af3_row14_col0, #T_68af3_row14_col1, #T_68af3_row14_col2, #T_68af3_row14_col3, #T_68af3_row14_col4, #T_68af3_row15_col0, #T_68af3_row15_col1, #T_68af3_row15_col2, #T_68af3_row15_col3, #T_68af3_row15_col4 {
+#T_b4b36_row0_col0, #T_b4b36_row0_col1, #T_b4b36_row0_col2, #T_b4b36_row0_col3, #T_b4b36_row0_col4, #T_b4b36_row1_col0, #T_b4b36_row1_col1, #T_b4b36_row1_col2, #T_b4b36_row1_col3, #T_b4b36_row1_col4, #T_b4b36_row2_col0, #T_b4b36_row2_col1, #T_b4b36_row2_col2, #T_b4b36_row2_col3, #T_b4b36_row2_col4, #T_b4b36_row3_col0, #T_b4b36_row3_col1, #T_b4b36_row3_col2, #T_b4b36_row3_col3, #T_b4b36_row3_col4, #T_b4b36_row4_col0, #T_b4b36_row4_col1, #T_b4b36_row4_col2, #T_b4b36_row4_col3, #T_b4b36_row4_col4, #T_b4b36_row5_col0, #T_b4b36_row5_col1, #T_b4b36_row5_col2, #T_b4b36_row5_col3, #T_b4b36_row5_col4, #T_b4b36_row6_col0, #T_b4b36_row6_col1, #T_b4b36_row6_col2, #T_b4b36_row6_col3, #T_b4b36_row6_col4, #T_b4b36_row7_col0, #T_b4b36_row7_col1, #T_b4b36_row7_col2, #T_b4b36_row7_col3, #T_b4b36_row7_col4, #T_b4b36_row8_col0, #T_b4b36_row8_col1, #T_b4b36_row8_col2, #T_b4b36_row8_col3, #T_b4b36_row8_col4, #T_b4b36_row9_col0, #T_b4b36_row9_col1, #T_b4b36_row9_col2, #T_b4b36_row9_col3, #T_b4b36_row9_col4, #T_b4b36_row10_col0, #T_b4b36_row10_col1, #T_b4b36_row10_col2, #T_b4b36_row10_col3, #T_b4b36_row10_col4, #T_b4b36_row11_col0, #T_b4b36_row11_col1, #T_b4b36_row11_col2, #T_b4b36_row11_col3, #T_b4b36_row11_col4, #T_b4b36_row12_col0, #T_b4b36_row12_col1, #T_b4b36_row12_col2, #T_b4b36_row12_col3, #T_b4b36_row12_col4, #T_b4b36_row13_col0, #T_b4b36_row13_col1, #T_b4b36_row13_col2, #T_b4b36_row13_col3, #T_b4b36_row13_col4, #T_b4b36_row14_col0, #T_b4b36_row14_col1, #T_b4b36_row14_col2, #T_b4b36_row14_col3, #T_b4b36_row14_col4, #T_b4b36_row15_col0, #T_b4b36_row15_col1, #T_b4b36_row15_col2, #T_b4b36_row15_col3, #T_b4b36_row15_col4 {
   text-align: right;
   font-family: monospace;
   width: 80px;
 }
 </style>
 
-<div id="T_68af3" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_b4b36" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_68af3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_b4b36-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: probability space for coin flips with momentum
 </figcaption>
-<div aria-describedby="T_68af3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_68af3" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_b4b36-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_b4b36" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_68af3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_68af3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_68af3_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">X3</th>
-<th id="T_68af3_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">X4</th>
-<th id="T_68af3_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">p</th>
+<th id="T_b4b36_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
+<th id="T_b4b36_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
+<th id="T_b4b36_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">X3</th>
+<th id="T_b4b36_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">X4</th>
+<th id="T_b4b36_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">p</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_68af3_row0_col0" class="data row0 col0">0</td>
-<td id="T_68af3_row0_col1" class="data row0 col1">0</td>
-<td id="T_68af3_row0_col2" class="data row0 col2">0</td>
-<td id="T_68af3_row0_col3" class="data row0 col3">0</td>
-<td id="T_68af3_row0_col4" class="data row0 col4">0.171500</td>
+<td id="T_b4b36_row0_col0" class="data row0 col0">0</td>
+<td id="T_b4b36_row0_col1" class="data row0 col1">0</td>
+<td id="T_b4b36_row0_col2" class="data row0 col2">0</td>
+<td id="T_b4b36_row0_col3" class="data row0 col3">0</td>
+<td id="T_b4b36_row0_col4" class="data row0 col4">0.171500</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row1_col0" class="data row1 col0">0</td>
-<td id="T_68af3_row1_col1" class="data row1 col1">0</td>
-<td id="T_68af3_row1_col2" class="data row1 col2">0</td>
-<td id="T_68af3_row1_col3" class="data row1 col3">1</td>
-<td id="T_68af3_row1_col4" class="data row1 col4">0.073500</td>
+<td id="T_b4b36_row1_col0" class="data row1 col0">0</td>
+<td id="T_b4b36_row1_col1" class="data row1 col1">0</td>
+<td id="T_b4b36_row1_col2" class="data row1 col2">0</td>
+<td id="T_b4b36_row1_col3" class="data row1 col3">1</td>
+<td id="T_b4b36_row1_col4" class="data row1 col4">0.073500</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row2_col0" class="data row2 col0">0</td>
-<td id="T_68af3_row2_col1" class="data row2 col1">0</td>
-<td id="T_68af3_row2_col2" class="data row2 col2">1</td>
-<td id="T_68af3_row2_col3" class="data row2 col3">0</td>
-<td id="T_68af3_row2_col4" class="data row2 col4">0.021000</td>
+<td id="T_b4b36_row2_col0" class="data row2 col0">0</td>
+<td id="T_b4b36_row2_col1" class="data row2 col1">0</td>
+<td id="T_b4b36_row2_col2" class="data row2 col2">1</td>
+<td id="T_b4b36_row2_col3" class="data row2 col3">0</td>
+<td id="T_b4b36_row2_col4" class="data row2 col4">0.021000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row3_col0" class="data row3 col0">0</td>
-<td id="T_68af3_row3_col1" class="data row3 col1">0</td>
-<td id="T_68af3_row3_col2" class="data row3 col2">1</td>
-<td id="T_68af3_row3_col3" class="data row3 col3">1</td>
-<td id="T_68af3_row3_col4" class="data row3 col4">0.084000</td>
+<td id="T_b4b36_row3_col0" class="data row3 col0">0</td>
+<td id="T_b4b36_row3_col1" class="data row3 col1">0</td>
+<td id="T_b4b36_row3_col2" class="data row3 col2">1</td>
+<td id="T_b4b36_row3_col3" class="data row3 col3">1</td>
+<td id="T_b4b36_row3_col4" class="data row3 col4">0.084000</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row4_col0" class="data row4 col0">0</td>
-<td id="T_68af3_row4_col1" class="data row4 col1">1</td>
-<td id="T_68af3_row4_col2" class="data row4 col2">0</td>
-<td id="T_68af3_row4_col3" class="data row4 col3">0</td>
-<td id="T_68af3_row4_col4" class="data row4 col4">0.021000</td>
+<td id="T_b4b36_row4_col0" class="data row4 col0">0</td>
+<td id="T_b4b36_row4_col1" class="data row4 col1">1</td>
+<td id="T_b4b36_row4_col2" class="data row4 col2">0</td>
+<td id="T_b4b36_row4_col3" class="data row4 col3">0</td>
+<td id="T_b4b36_row4_col4" class="data row4 col4">0.021000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row5_col0" class="data row5 col0">0</td>
-<td id="T_68af3_row5_col1" class="data row5 col1">1</td>
-<td id="T_68af3_row5_col2" class="data row5 col2">0</td>
-<td id="T_68af3_row5_col3" class="data row5 col3">1</td>
-<td id="T_68af3_row5_col4" class="data row5 col4">0.009000</td>
+<td id="T_b4b36_row5_col0" class="data row5 col0">0</td>
+<td id="T_b4b36_row5_col1" class="data row5 col1">1</td>
+<td id="T_b4b36_row5_col2" class="data row5 col2">0</td>
+<td id="T_b4b36_row5_col3" class="data row5 col3">1</td>
+<td id="T_b4b36_row5_col4" class="data row5 col4">0.009000</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row6_col0" class="data row6 col0">0</td>
-<td id="T_68af3_row6_col1" class="data row6 col1">1</td>
-<td id="T_68af3_row6_col2" class="data row6 col2">1</td>
-<td id="T_68af3_row6_col3" class="data row6 col3">0</td>
-<td id="T_68af3_row6_col4" class="data row6 col4">0.024000</td>
+<td id="T_b4b36_row6_col0" class="data row6 col0">0</td>
+<td id="T_b4b36_row6_col1" class="data row6 col1">1</td>
+<td id="T_b4b36_row6_col2" class="data row6 col2">1</td>
+<td id="T_b4b36_row6_col3" class="data row6 col3">0</td>
+<td id="T_b4b36_row6_col4" class="data row6 col4">0.024000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row7_col0" class="data row7 col0">0</td>
-<td id="T_68af3_row7_col1" class="data row7 col1">1</td>
-<td id="T_68af3_row7_col2" class="data row7 col2">1</td>
-<td id="T_68af3_row7_col3" class="data row7 col3">1</td>
-<td id="T_68af3_row7_col4" class="data row7 col4">0.096000</td>
+<td id="T_b4b36_row7_col0" class="data row7 col0">0</td>
+<td id="T_b4b36_row7_col1" class="data row7 col1">1</td>
+<td id="T_b4b36_row7_col2" class="data row7 col2">1</td>
+<td id="T_b4b36_row7_col3" class="data row7 col3">1</td>
+<td id="T_b4b36_row7_col4" class="data row7 col4">0.096000</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row8_col0" class="data row8 col0">1</td>
-<td id="T_68af3_row8_col1" class="data row8 col1">0</td>
-<td id="T_68af3_row8_col2" class="data row8 col2">0</td>
-<td id="T_68af3_row8_col3" class="data row8 col3">0</td>
-<td id="T_68af3_row8_col4" class="data row8 col4">0.049000</td>
+<td id="T_b4b36_row8_col0" class="data row8 col0">1</td>
+<td id="T_b4b36_row8_col1" class="data row8 col1">0</td>
+<td id="T_b4b36_row8_col2" class="data row8 col2">0</td>
+<td id="T_b4b36_row8_col3" class="data row8 col3">0</td>
+<td id="T_b4b36_row8_col4" class="data row8 col4">0.049000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row9_col0" class="data row9 col0">1</td>
-<td id="T_68af3_row9_col1" class="data row9 col1">0</td>
-<td id="T_68af3_row9_col2" class="data row9 col2">0</td>
-<td id="T_68af3_row9_col3" class="data row9 col3">1</td>
-<td id="T_68af3_row9_col4" class="data row9 col4">0.021000</td>
+<td id="T_b4b36_row9_col0" class="data row9 col0">1</td>
+<td id="T_b4b36_row9_col1" class="data row9 col1">0</td>
+<td id="T_b4b36_row9_col2" class="data row9 col2">0</td>
+<td id="T_b4b36_row9_col3" class="data row9 col3">1</td>
+<td id="T_b4b36_row9_col4" class="data row9 col4">0.021000</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row10_col0" class="data row10 col0">1</td>
-<td id="T_68af3_row10_col1" class="data row10 col1">0</td>
-<td id="T_68af3_row10_col2" class="data row10 col2">1</td>
-<td id="T_68af3_row10_col3" class="data row10 col3">0</td>
-<td id="T_68af3_row10_col4" class="data row10 col4">0.006000</td>
+<td id="T_b4b36_row10_col0" class="data row10 col0">1</td>
+<td id="T_b4b36_row10_col1" class="data row10 col1">0</td>
+<td id="T_b4b36_row10_col2" class="data row10 col2">1</td>
+<td id="T_b4b36_row10_col3" class="data row10 col3">0</td>
+<td id="T_b4b36_row10_col4" class="data row10 col4">0.006000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row11_col0" class="data row11 col0">1</td>
-<td id="T_68af3_row11_col1" class="data row11 col1">0</td>
-<td id="T_68af3_row11_col2" class="data row11 col2">1</td>
-<td id="T_68af3_row11_col3" class="data row11 col3">1</td>
-<td id="T_68af3_row11_col4" class="data row11 col4">0.024000</td>
+<td id="T_b4b36_row11_col0" class="data row11 col0">1</td>
+<td id="T_b4b36_row11_col1" class="data row11 col1">0</td>
+<td id="T_b4b36_row11_col2" class="data row11 col2">1</td>
+<td id="T_b4b36_row11_col3" class="data row11 col3">1</td>
+<td id="T_b4b36_row11_col4" class="data row11 col4">0.024000</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row12_col0" class="data row12 col0">1</td>
-<td id="T_68af3_row12_col1" class="data row12 col1">1</td>
-<td id="T_68af3_row12_col2" class="data row12 col2">0</td>
-<td id="T_68af3_row12_col3" class="data row12 col3">0</td>
-<td id="T_68af3_row12_col4" class="data row12 col4">0.056000</td>
+<td id="T_b4b36_row12_col0" class="data row12 col0">1</td>
+<td id="T_b4b36_row12_col1" class="data row12 col1">1</td>
+<td id="T_b4b36_row12_col2" class="data row12 col2">0</td>
+<td id="T_b4b36_row12_col3" class="data row12 col3">0</td>
+<td id="T_b4b36_row12_col4" class="data row12 col4">0.056000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row13_col0" class="data row13 col0">1</td>
-<td id="T_68af3_row13_col1" class="data row13 col1">1</td>
-<td id="T_68af3_row13_col2" class="data row13 col2">0</td>
-<td id="T_68af3_row13_col3" class="data row13 col3">1</td>
-<td id="T_68af3_row13_col4" class="data row13 col4">0.024000</td>
+<td id="T_b4b36_row13_col0" class="data row13 col0">1</td>
+<td id="T_b4b36_row13_col1" class="data row13 col1">1</td>
+<td id="T_b4b36_row13_col2" class="data row13 col2">0</td>
+<td id="T_b4b36_row13_col3" class="data row13 col3">1</td>
+<td id="T_b4b36_row13_col4" class="data row13 col4">0.024000</td>
 </tr>
 <tr class="odd">
-<td id="T_68af3_row14_col0" class="data row14 col0">1</td>
-<td id="T_68af3_row14_col1" class="data row14 col1">1</td>
-<td id="T_68af3_row14_col2" class="data row14 col2">1</td>
-<td id="T_68af3_row14_col3" class="data row14 col3">0</td>
-<td id="T_68af3_row14_col4" class="data row14 col4">0.064000</td>
+<td id="T_b4b36_row14_col0" class="data row14 col0">1</td>
+<td id="T_b4b36_row14_col1" class="data row14 col1">1</td>
+<td id="T_b4b36_row14_col2" class="data row14 col2">1</td>
+<td id="T_b4b36_row14_col3" class="data row14 col3">0</td>
+<td id="T_b4b36_row14_col4" class="data row14 col4">0.064000</td>
 </tr>
 <tr class="even">
-<td id="T_68af3_row15_col0" class="data row15 col0">1</td>
-<td id="T_68af3_row15_col1" class="data row15 col1">1</td>
-<td id="T_68af3_row15_col2" class="data row15 col2">1</td>
-<td id="T_68af3_row15_col3" class="data row15 col3">1</td>
-<td id="T_68af3_row15_col4" class="data row15 col4">0.256000</td>
+<td id="T_b4b36_row15_col0" class="data row15 col0">1</td>
+<td id="T_b4b36_row15_col1" class="data row15 col1">1</td>
+<td id="T_b4b36_row15_col2" class="data row15 col2">1</td>
+<td id="T_b4b36_row15_col3" class="data row15 col3">1</td>
+<td id="T_b4b36_row15_col4" class="data row15 col4">0.256000</td>
 </tr>
 </tbody>
 </table>
@@ -666,39 +664,38 @@ Table&nbsp;1: probability space for coin flips with momentum
 </div>
 <p><br></p>
 <p>We can simulate longer chains of coin flips using this Markov chain model. Below, we simulate a single trajectory of length 50 and plot the individual coin flip outcomes as well as the cumulative number of heads over time.</p>
-<div id="354e5ec8" class="cell" data-execution_count="3">
+<div id="1fcf7b25" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate a single trajectory of 50 coin flips with the Markov chain model</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset chain length to 50 and simulate a single chain</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mc.simulate(trajectory_length<span class="op">=</span><span class="dv">50</span>, num_trajectories<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure with two side-by-side subplots</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup the figure and axes</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Left subplot: Plot individual coin flip outcomes (0s and 1s) over time</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mc.plot_simulations(ax<span class="op">=</span>axes[<span class="dv">0</span>], plot_kwargs<span class="op">=</span>{<span class="st">"marker"</span>: <span class="st">"o"</span>})</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"number of flips"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"heads (1) or tails (0)"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"individual coin flip outcomes"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a transformed process that shows cumulative heads count</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># This applies the cumsum transformation to the original Markov chain</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>cum_process <span class="op">=</span> transform_discrete_process(mc, <span class="kw">lambda</span> omega: omega.cumsum(axis<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot individual coin flip outcomes</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mc.plot_simulations(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">0</span>],</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    simulation_kwargs<span class="op">=</span>{<span class="st">"shift"</span>: <span class="dv">1</span>},</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"marker"</span>: <span class="st">"o"</span>},</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"number of flips"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"heads (1) or tails (0)"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"individual coin flip outcomes"</span>)</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate must be called on the source process before calling on transformed process</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Since mc.simulate() was already called above, this will transform those trajectories</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>cum_process.simulate()</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Right subplot: Plot the cumulative number of heads over time</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>cum_process.plot_simulations(ax<span class="op">=</span>axes[<span class="dv">1</span>], plot_kwargs<span class="op">=</span>{<span class="st">"marker"</span>: <span class="st">"o"</span>})</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cumulative number of heads</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>mc.plot_simulations(</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">1</span>],</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    simulation_kwargs<span class="op">=</span>{<span class="st">"cumulative"</span>: <span class="va">True</span>, <span class="st">"shift"</span>: <span class="dv">1</span>},</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"marker"</span>: <span class="st">"o"</span>},</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"number of flips"</span>)</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"number of heads"</span>)</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"cumulative number of heads"</span>)</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Add overall title and adjust layout to prevent overlap</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"coin flip simulation with momentum"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"coin flip simulation with momentum"</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -709,23 +706,24 @@ Table&nbsp;1: probability space for coin flips with momentum
 </div>
 </div>
 <p>We can also simulate multiple trajectories to see how the number of heads varies across different runs of the experiment. Below, we simulate 10 chains of length 250 and plot the cumulative number of heads for each simulation.</p>
-<div id="dba5ea0e" class="cell" data-execution_count="4">
+<div id="ce5b0e02" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset the chain length and simulate 10 chains</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mc.simulate(trajectory_length<span class="op">=</span><span class="dv">250</span>, num_trajectories<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a transformed process for cumulative heads count</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>cum_process.simulate()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the number of heads over time for each simulation</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>cum_process.plot_simulations(ax<span class="op">=</span>ax, colors<span class="op">=</span>colors)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"10 coin flip simulations with momentum"</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"number of flips"</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"number of heads"</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the number of heads over time for each simulation</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>mc.plot_simulations(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>colors,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    simulation_kwargs<span class="op">=</span>{<span class="st">"cumulative"</span>: <span class="va">True</span>},</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"10 coin flip simulations with momentum"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"number of flips"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"number of heads"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1129,153 +1127,153 @@ L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
 </section>
 <section id="return-to-the-coin-flip-with-momentum" class="level2">
 <h2 class="anchored" data-anchor-id="return-to-the-coin-flip-with-momentum">Return to the coin flip with momentum</h2>
-<div id="f1b6c12c" class="cell" data-execution_count="5">
+<div id="364ac606" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mc.generate_sample_space(trajectory_length<span class="op">=</span><span class="dv">4</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mc.setup_sample_space(trajectory_length<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>print_html_df(df<span class="op">=</span>mc.omega, title<span class="op">=</span><span class="st">"probability space for coin flips with momentum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <style type="text/css">
-#T_fb4d5 th {
+#T_134ed th {
   text-align: right;
   width: 80px;
 }
-#T_fb4d5_row0_col0, #T_fb4d5_row0_col1, #T_fb4d5_row0_col2, #T_fb4d5_row0_col3, #T_fb4d5_row0_col4, #T_fb4d5_row1_col0, #T_fb4d5_row1_col1, #T_fb4d5_row1_col2, #T_fb4d5_row1_col3, #T_fb4d5_row1_col4, #T_fb4d5_row2_col0, #T_fb4d5_row2_col1, #T_fb4d5_row2_col2, #T_fb4d5_row2_col3, #T_fb4d5_row2_col4, #T_fb4d5_row3_col0, #T_fb4d5_row3_col1, #T_fb4d5_row3_col2, #T_fb4d5_row3_col3, #T_fb4d5_row3_col4, #T_fb4d5_row4_col0, #T_fb4d5_row4_col1, #T_fb4d5_row4_col2, #T_fb4d5_row4_col3, #T_fb4d5_row4_col4, #T_fb4d5_row5_col0, #T_fb4d5_row5_col1, #T_fb4d5_row5_col2, #T_fb4d5_row5_col3, #T_fb4d5_row5_col4, #T_fb4d5_row6_col0, #T_fb4d5_row6_col1, #T_fb4d5_row6_col2, #T_fb4d5_row6_col3, #T_fb4d5_row6_col4, #T_fb4d5_row7_col0, #T_fb4d5_row7_col1, #T_fb4d5_row7_col2, #T_fb4d5_row7_col3, #T_fb4d5_row7_col4, #T_fb4d5_row8_col0, #T_fb4d5_row8_col1, #T_fb4d5_row8_col2, #T_fb4d5_row8_col3, #T_fb4d5_row8_col4, #T_fb4d5_row9_col0, #T_fb4d5_row9_col1, #T_fb4d5_row9_col2, #T_fb4d5_row9_col3, #T_fb4d5_row9_col4, #T_fb4d5_row10_col0, #T_fb4d5_row10_col1, #T_fb4d5_row10_col2, #T_fb4d5_row10_col3, #T_fb4d5_row10_col4, #T_fb4d5_row11_col0, #T_fb4d5_row11_col1, #T_fb4d5_row11_col2, #T_fb4d5_row11_col3, #T_fb4d5_row11_col4, #T_fb4d5_row12_col0, #T_fb4d5_row12_col1, #T_fb4d5_row12_col2, #T_fb4d5_row12_col3, #T_fb4d5_row12_col4, #T_fb4d5_row13_col0, #T_fb4d5_row13_col1, #T_fb4d5_row13_col2, #T_fb4d5_row13_col3, #T_fb4d5_row13_col4, #T_fb4d5_row14_col0, #T_fb4d5_row14_col1, #T_fb4d5_row14_col2, #T_fb4d5_row14_col3, #T_fb4d5_row14_col4, #T_fb4d5_row15_col0, #T_fb4d5_row15_col1, #T_fb4d5_row15_col2, #T_fb4d5_row15_col3, #T_fb4d5_row15_col4 {
+#T_134ed_row0_col0, #T_134ed_row0_col1, #T_134ed_row0_col2, #T_134ed_row0_col3, #T_134ed_row0_col4, #T_134ed_row1_col0, #T_134ed_row1_col1, #T_134ed_row1_col2, #T_134ed_row1_col3, #T_134ed_row1_col4, #T_134ed_row2_col0, #T_134ed_row2_col1, #T_134ed_row2_col2, #T_134ed_row2_col3, #T_134ed_row2_col4, #T_134ed_row3_col0, #T_134ed_row3_col1, #T_134ed_row3_col2, #T_134ed_row3_col3, #T_134ed_row3_col4, #T_134ed_row4_col0, #T_134ed_row4_col1, #T_134ed_row4_col2, #T_134ed_row4_col3, #T_134ed_row4_col4, #T_134ed_row5_col0, #T_134ed_row5_col1, #T_134ed_row5_col2, #T_134ed_row5_col3, #T_134ed_row5_col4, #T_134ed_row6_col0, #T_134ed_row6_col1, #T_134ed_row6_col2, #T_134ed_row6_col3, #T_134ed_row6_col4, #T_134ed_row7_col0, #T_134ed_row7_col1, #T_134ed_row7_col2, #T_134ed_row7_col3, #T_134ed_row7_col4, #T_134ed_row8_col0, #T_134ed_row8_col1, #T_134ed_row8_col2, #T_134ed_row8_col3, #T_134ed_row8_col4, #T_134ed_row9_col0, #T_134ed_row9_col1, #T_134ed_row9_col2, #T_134ed_row9_col3, #T_134ed_row9_col4, #T_134ed_row10_col0, #T_134ed_row10_col1, #T_134ed_row10_col2, #T_134ed_row10_col3, #T_134ed_row10_col4, #T_134ed_row11_col0, #T_134ed_row11_col1, #T_134ed_row11_col2, #T_134ed_row11_col3, #T_134ed_row11_col4, #T_134ed_row12_col0, #T_134ed_row12_col1, #T_134ed_row12_col2, #T_134ed_row12_col3, #T_134ed_row12_col4, #T_134ed_row13_col0, #T_134ed_row13_col1, #T_134ed_row13_col2, #T_134ed_row13_col3, #T_134ed_row13_col4, #T_134ed_row14_col0, #T_134ed_row14_col1, #T_134ed_row14_col2, #T_134ed_row14_col3, #T_134ed_row14_col4, #T_134ed_row15_col0, #T_134ed_row15_col1, #T_134ed_row15_col2, #T_134ed_row15_col3, #T_134ed_row15_col4 {
   text-align: right;
   font-family: monospace;
   width: 80px;
 }
 </style>
 
-<div id="T_fb4d5" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_134ed" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_fb4d5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_134ed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: probability space for coin flips with momentum
 </figcaption>
-<div aria-describedby="T_fb4d5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_fb4d5" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_134ed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_134ed" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_fb4d5_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_fb4d5_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_fb4d5_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">X3</th>
-<th id="T_fb4d5_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">X4</th>
-<th id="T_fb4d5_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">p</th>
+<th id="T_134ed_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
+<th id="T_134ed_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
+<th id="T_134ed_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">X3</th>
+<th id="T_134ed_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">X4</th>
+<th id="T_134ed_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">p</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_fb4d5_row0_col0" class="data row0 col0">0</td>
-<td id="T_fb4d5_row0_col1" class="data row0 col1">0</td>
-<td id="T_fb4d5_row0_col2" class="data row0 col2">0</td>
-<td id="T_fb4d5_row0_col3" class="data row0 col3">0</td>
-<td id="T_fb4d5_row0_col4" class="data row0 col4">0.171500</td>
+<td id="T_134ed_row0_col0" class="data row0 col0">0</td>
+<td id="T_134ed_row0_col1" class="data row0 col1">0</td>
+<td id="T_134ed_row0_col2" class="data row0 col2">0</td>
+<td id="T_134ed_row0_col3" class="data row0 col3">0</td>
+<td id="T_134ed_row0_col4" class="data row0 col4">0.171500</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row1_col0" class="data row1 col0">0</td>
-<td id="T_fb4d5_row1_col1" class="data row1 col1">0</td>
-<td id="T_fb4d5_row1_col2" class="data row1 col2">0</td>
-<td id="T_fb4d5_row1_col3" class="data row1 col3">1</td>
-<td id="T_fb4d5_row1_col4" class="data row1 col4">0.073500</td>
+<td id="T_134ed_row1_col0" class="data row1 col0">0</td>
+<td id="T_134ed_row1_col1" class="data row1 col1">0</td>
+<td id="T_134ed_row1_col2" class="data row1 col2">0</td>
+<td id="T_134ed_row1_col3" class="data row1 col3">1</td>
+<td id="T_134ed_row1_col4" class="data row1 col4">0.073500</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row2_col0" class="data row2 col0">0</td>
-<td id="T_fb4d5_row2_col1" class="data row2 col1">0</td>
-<td id="T_fb4d5_row2_col2" class="data row2 col2">1</td>
-<td id="T_fb4d5_row2_col3" class="data row2 col3">0</td>
-<td id="T_fb4d5_row2_col4" class="data row2 col4">0.021000</td>
+<td id="T_134ed_row2_col0" class="data row2 col0">0</td>
+<td id="T_134ed_row2_col1" class="data row2 col1">0</td>
+<td id="T_134ed_row2_col2" class="data row2 col2">1</td>
+<td id="T_134ed_row2_col3" class="data row2 col3">0</td>
+<td id="T_134ed_row2_col4" class="data row2 col4">0.021000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row3_col0" class="data row3 col0">0</td>
-<td id="T_fb4d5_row3_col1" class="data row3 col1">0</td>
-<td id="T_fb4d5_row3_col2" class="data row3 col2">1</td>
-<td id="T_fb4d5_row3_col3" class="data row3 col3">1</td>
-<td id="T_fb4d5_row3_col4" class="data row3 col4">0.084000</td>
+<td id="T_134ed_row3_col0" class="data row3 col0">0</td>
+<td id="T_134ed_row3_col1" class="data row3 col1">0</td>
+<td id="T_134ed_row3_col2" class="data row3 col2">1</td>
+<td id="T_134ed_row3_col3" class="data row3 col3">1</td>
+<td id="T_134ed_row3_col4" class="data row3 col4">0.084000</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row4_col0" class="data row4 col0">0</td>
-<td id="T_fb4d5_row4_col1" class="data row4 col1">1</td>
-<td id="T_fb4d5_row4_col2" class="data row4 col2">0</td>
-<td id="T_fb4d5_row4_col3" class="data row4 col3">0</td>
-<td id="T_fb4d5_row4_col4" class="data row4 col4">0.021000</td>
+<td id="T_134ed_row4_col0" class="data row4 col0">0</td>
+<td id="T_134ed_row4_col1" class="data row4 col1">1</td>
+<td id="T_134ed_row4_col2" class="data row4 col2">0</td>
+<td id="T_134ed_row4_col3" class="data row4 col3">0</td>
+<td id="T_134ed_row4_col4" class="data row4 col4">0.021000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row5_col0" class="data row5 col0">0</td>
-<td id="T_fb4d5_row5_col1" class="data row5 col1">1</td>
-<td id="T_fb4d5_row5_col2" class="data row5 col2">0</td>
-<td id="T_fb4d5_row5_col3" class="data row5 col3">1</td>
-<td id="T_fb4d5_row5_col4" class="data row5 col4">0.009000</td>
+<td id="T_134ed_row5_col0" class="data row5 col0">0</td>
+<td id="T_134ed_row5_col1" class="data row5 col1">1</td>
+<td id="T_134ed_row5_col2" class="data row5 col2">0</td>
+<td id="T_134ed_row5_col3" class="data row5 col3">1</td>
+<td id="T_134ed_row5_col4" class="data row5 col4">0.009000</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row6_col0" class="data row6 col0">0</td>
-<td id="T_fb4d5_row6_col1" class="data row6 col1">1</td>
-<td id="T_fb4d5_row6_col2" class="data row6 col2">1</td>
-<td id="T_fb4d5_row6_col3" class="data row6 col3">0</td>
-<td id="T_fb4d5_row6_col4" class="data row6 col4">0.024000</td>
+<td id="T_134ed_row6_col0" class="data row6 col0">0</td>
+<td id="T_134ed_row6_col1" class="data row6 col1">1</td>
+<td id="T_134ed_row6_col2" class="data row6 col2">1</td>
+<td id="T_134ed_row6_col3" class="data row6 col3">0</td>
+<td id="T_134ed_row6_col4" class="data row6 col4">0.024000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row7_col0" class="data row7 col0">0</td>
-<td id="T_fb4d5_row7_col1" class="data row7 col1">1</td>
-<td id="T_fb4d5_row7_col2" class="data row7 col2">1</td>
-<td id="T_fb4d5_row7_col3" class="data row7 col3">1</td>
-<td id="T_fb4d5_row7_col4" class="data row7 col4">0.096000</td>
+<td id="T_134ed_row7_col0" class="data row7 col0">0</td>
+<td id="T_134ed_row7_col1" class="data row7 col1">1</td>
+<td id="T_134ed_row7_col2" class="data row7 col2">1</td>
+<td id="T_134ed_row7_col3" class="data row7 col3">1</td>
+<td id="T_134ed_row7_col4" class="data row7 col4">0.096000</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row8_col0" class="data row8 col0">1</td>
-<td id="T_fb4d5_row8_col1" class="data row8 col1">0</td>
-<td id="T_fb4d5_row8_col2" class="data row8 col2">0</td>
-<td id="T_fb4d5_row8_col3" class="data row8 col3">0</td>
-<td id="T_fb4d5_row8_col4" class="data row8 col4">0.049000</td>
+<td id="T_134ed_row8_col0" class="data row8 col0">1</td>
+<td id="T_134ed_row8_col1" class="data row8 col1">0</td>
+<td id="T_134ed_row8_col2" class="data row8 col2">0</td>
+<td id="T_134ed_row8_col3" class="data row8 col3">0</td>
+<td id="T_134ed_row8_col4" class="data row8 col4">0.049000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row9_col0" class="data row9 col0">1</td>
-<td id="T_fb4d5_row9_col1" class="data row9 col1">0</td>
-<td id="T_fb4d5_row9_col2" class="data row9 col2">0</td>
-<td id="T_fb4d5_row9_col3" class="data row9 col3">1</td>
-<td id="T_fb4d5_row9_col4" class="data row9 col4">0.021000</td>
+<td id="T_134ed_row9_col0" class="data row9 col0">1</td>
+<td id="T_134ed_row9_col1" class="data row9 col1">0</td>
+<td id="T_134ed_row9_col2" class="data row9 col2">0</td>
+<td id="T_134ed_row9_col3" class="data row9 col3">1</td>
+<td id="T_134ed_row9_col4" class="data row9 col4">0.021000</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row10_col0" class="data row10 col0">1</td>
-<td id="T_fb4d5_row10_col1" class="data row10 col1">0</td>
-<td id="T_fb4d5_row10_col2" class="data row10 col2">1</td>
-<td id="T_fb4d5_row10_col3" class="data row10 col3">0</td>
-<td id="T_fb4d5_row10_col4" class="data row10 col4">0.006000</td>
+<td id="T_134ed_row10_col0" class="data row10 col0">1</td>
+<td id="T_134ed_row10_col1" class="data row10 col1">0</td>
+<td id="T_134ed_row10_col2" class="data row10 col2">1</td>
+<td id="T_134ed_row10_col3" class="data row10 col3">0</td>
+<td id="T_134ed_row10_col4" class="data row10 col4">0.006000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row11_col0" class="data row11 col0">1</td>
-<td id="T_fb4d5_row11_col1" class="data row11 col1">0</td>
-<td id="T_fb4d5_row11_col2" class="data row11 col2">1</td>
-<td id="T_fb4d5_row11_col3" class="data row11 col3">1</td>
-<td id="T_fb4d5_row11_col4" class="data row11 col4">0.024000</td>
+<td id="T_134ed_row11_col0" class="data row11 col0">1</td>
+<td id="T_134ed_row11_col1" class="data row11 col1">0</td>
+<td id="T_134ed_row11_col2" class="data row11 col2">1</td>
+<td id="T_134ed_row11_col3" class="data row11 col3">1</td>
+<td id="T_134ed_row11_col4" class="data row11 col4">0.024000</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row12_col0" class="data row12 col0">1</td>
-<td id="T_fb4d5_row12_col1" class="data row12 col1">1</td>
-<td id="T_fb4d5_row12_col2" class="data row12 col2">0</td>
-<td id="T_fb4d5_row12_col3" class="data row12 col3">0</td>
-<td id="T_fb4d5_row12_col4" class="data row12 col4">0.056000</td>
+<td id="T_134ed_row12_col0" class="data row12 col0">1</td>
+<td id="T_134ed_row12_col1" class="data row12 col1">1</td>
+<td id="T_134ed_row12_col2" class="data row12 col2">0</td>
+<td id="T_134ed_row12_col3" class="data row12 col3">0</td>
+<td id="T_134ed_row12_col4" class="data row12 col4">0.056000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row13_col0" class="data row13 col0">1</td>
-<td id="T_fb4d5_row13_col1" class="data row13 col1">1</td>
-<td id="T_fb4d5_row13_col2" class="data row13 col2">0</td>
-<td id="T_fb4d5_row13_col3" class="data row13 col3">1</td>
-<td id="T_fb4d5_row13_col4" class="data row13 col4">0.024000</td>
+<td id="T_134ed_row13_col0" class="data row13 col0">1</td>
+<td id="T_134ed_row13_col1" class="data row13 col1">1</td>
+<td id="T_134ed_row13_col2" class="data row13 col2">0</td>
+<td id="T_134ed_row13_col3" class="data row13 col3">1</td>
+<td id="T_134ed_row13_col4" class="data row13 col4">0.024000</td>
 </tr>
 <tr class="odd">
-<td id="T_fb4d5_row14_col0" class="data row14 col0">1</td>
-<td id="T_fb4d5_row14_col1" class="data row14 col1">1</td>
-<td id="T_fb4d5_row14_col2" class="data row14 col2">1</td>
-<td id="T_fb4d5_row14_col3" class="data row14 col3">0</td>
-<td id="T_fb4d5_row14_col4" class="data row14 col4">0.064000</td>
+<td id="T_134ed_row14_col0" class="data row14 col0">1</td>
+<td id="T_134ed_row14_col1" class="data row14 col1">1</td>
+<td id="T_134ed_row14_col2" class="data row14 col2">1</td>
+<td id="T_134ed_row14_col3" class="data row14 col3">0</td>
+<td id="T_134ed_row14_col4" class="data row14 col4">0.064000</td>
 </tr>
 <tr class="even">
-<td id="T_fb4d5_row15_col0" class="data row15 col0">1</td>
-<td id="T_fb4d5_row15_col1" class="data row15 col1">1</td>
-<td id="T_fb4d5_row15_col2" class="data row15 col2">1</td>
-<td id="T_fb4d5_row15_col3" class="data row15 col3">1</td>
-<td id="T_fb4d5_row15_col4" class="data row15 col4">0.256000</td>
+<td id="T_134ed_row15_col0" class="data row15 col0">1</td>
+<td id="T_134ed_row15_col1" class="data row15 col1">1</td>
+<td id="T_134ed_row15_col2" class="data row15 col2">1</td>
+<td id="T_134ed_row15_col3" class="data row15 col3">1</td>
+<td id="T_134ed_row15_col4" class="data row15 col4">0.256000</td>
 </tr>
 </tbody>
 </table>
@@ -1284,7 +1282,7 @@ Table&nbsp;2: probability space for coin flips with momentum
 </div>
 </div>
 </div>
-<div id="85bbe17a" class="cell" data-execution_count="6">
+<div id="85b8cbb7" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S3 = X1 + X2 + X3</span></span>
@@ -1303,53 +1301,53 @@ Table&nbsp;2: probability space for coin flips with momentum
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"conditional expectation E(S3 | X1, X2)"</span>,</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <style type="text/css">
-#T_5b26e th {
+#T_a6c41 th {
   text-align: right;
   width: 80px;
 }
-#T_5b26e_row0_col0, #T_5b26e_row0_col1, #T_5b26e_row0_col2, #T_5b26e_row1_col0, #T_5b26e_row1_col1, #T_5b26e_row1_col2, #T_5b26e_row2_col0, #T_5b26e_row2_col1, #T_5b26e_row2_col2, #T_5b26e_row3_col0, #T_5b26e_row3_col1, #T_5b26e_row3_col2 {
+#T_a6c41_row0_col0, #T_a6c41_row0_col1, #T_a6c41_row0_col2, #T_a6c41_row1_col0, #T_a6c41_row1_col1, #T_a6c41_row1_col2, #T_a6c41_row2_col0, #T_a6c41_row2_col1, #T_a6c41_row2_col2, #T_a6c41_row3_col0, #T_a6c41_row3_col1, #T_a6c41_row3_col2 {
   text-align: right;
   font-family: monospace;
   width: 80px;
 }
 </style>
 
-<div id="T_5b26e" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_a6c41" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_5b26e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_a6c41-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: conditional expectation E(S3 | X1, X2)
 </figcaption>
-<div aria-describedby="T_5b26e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_5b26e" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_a6c41-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_a6c41" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_5b26e_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_5b26e_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_5b26e_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">E(S3 | X1, X2)</th>
+<th id="T_a6c41_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
+<th id="T_a6c41_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
+<th id="T_a6c41_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">E(S3 | X1, X2)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_5b26e_row0_col0" class="data row0 col0">0</td>
-<td id="T_5b26e_row0_col1" class="data row0 col1">0</td>
-<td id="T_5b26e_row0_col2" class="data row0 col2">0.300000</td>
+<td id="T_a6c41_row0_col0" class="data row0 col0">0</td>
+<td id="T_a6c41_row0_col1" class="data row0 col1">0</td>
+<td id="T_a6c41_row0_col2" class="data row0 col2">0.300000</td>
 </tr>
 <tr class="even">
-<td id="T_5b26e_row1_col0" class="data row1 col0">0</td>
-<td id="T_5b26e_row1_col1" class="data row1 col1">1</td>
-<td id="T_5b26e_row1_col2" class="data row1 col2">1.800000</td>
+<td id="T_a6c41_row1_col0" class="data row1 col0">0</td>
+<td id="T_a6c41_row1_col1" class="data row1 col1">1</td>
+<td id="T_a6c41_row1_col2" class="data row1 col2">1.800000</td>
 </tr>
 <tr class="odd">
-<td id="T_5b26e_row2_col0" class="data row2 col0">1</td>
-<td id="T_5b26e_row2_col1" class="data row2 col1">0</td>
-<td id="T_5b26e_row2_col2" class="data row2 col2">1.300000</td>
+<td id="T_a6c41_row2_col0" class="data row2 col0">1</td>
+<td id="T_a6c41_row2_col1" class="data row2 col1">0</td>
+<td id="T_a6c41_row2_col2" class="data row2 col2">1.300000</td>
 </tr>
 <tr class="even">
-<td id="T_5b26e_row3_col0" class="data row3 col0">1</td>
-<td id="T_5b26e_row3_col1" class="data row3 col1">1</td>
-<td id="T_5b26e_row3_col2" class="data row3 col2">2.800000</td>
+<td id="T_a6c41_row3_col0" class="data row3 col0">1</td>
+<td id="T_a6c41_row3_col1" class="data row3 col1">1</td>
+<td id="T_a6c41_row3_col2" class="data row3 col2">2.800000</td>
 </tr>
 </tbody>
 </table>
@@ -1359,7 +1357,7 @@ Table&nbsp;3: conditional expectation E(S3 | X1, X2)
 </div>
 </div>
 <p>We have a submartingale!</p>
-<div id="57c2ba95" class="cell" data-execution_count="7">
+<div id="ed8b0487" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S2 = X1 + X2</span></span>
@@ -1382,62 +1380,80 @@ Table&nbsp;3: conditional expectation E(S3 | X1, X2)
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"comparing E(S3 | X1,X2) to S2"</span>,</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <style type="text/css">
-#T_06990 th {
+#T_4d1e3 th {
   text-align: right;
   width: 80px;
 }
-#T_06990_row0_col0, #T_06990_row0_col1, #T_06990_row0_col2, #T_06990_row0_col3, #T_06990_row1_col0, #T_06990_row1_col1, #T_06990_row1_col2, #T_06990_row1_col3, #T_06990_row2_col0, #T_06990_row2_col1, #T_06990_row2_col2, #T_06990_row2_col3, #T_06990_row3_col0, #T_06990_row3_col1, #T_06990_row3_col2, #T_06990_row3_col3 {
+#T_4d1e3_row0_col0, #T_4d1e3_row0_col1, #T_4d1e3_row0_col2, #T_4d1e3_row0_col3, #T_4d1e3_row1_col0, #T_4d1e3_row1_col1, #T_4d1e3_row1_col2, #T_4d1e3_row1_col3, #T_4d1e3_row2_col0, #T_4d1e3_row2_col1, #T_4d1e3_row2_col2, #T_4d1e3_row2_col3, #T_4d1e3_row3_col0, #T_4d1e3_row3_col1, #T_4d1e3_row3_col2, #T_4d1e3_row3_col3 {
   text-align: right;
   font-family: monospace;
   width: 80px;
 }
 </style>
 
-<div id="T_06990" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_4d1e3" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_06990-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_4d1e3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: comparing E(S3 | X1,X2) to S2
 </figcaption>
-<div aria-describedby="T_06990-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_06990" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_4d1e3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_4d1e3" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_06990_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
-<th id="T_06990_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
-<th id="T_06990_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">E(S3 | X1, X2)</th>
-<th id="T_06990_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">S2</th>
+<th id="T_4d1e3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">X1</th>
+<th id="T_4d1e3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">X2</th>
+<th id="T_4d1e3_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">E(S3 | X1, X2)</th>
+<th id="T_4d1e3_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">S2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_06990_row0_col0" class="data row0 col0">0</td>
-<td id="T_06990_row0_col1" class="data row0 col1">0</td>
-<td id="T_06990_row0_col2" class="data row0 col2">0.300000</td>
-<td id="T_06990_row0_col3" class="data row0 col3">0.000000</td>
+<td id="T_4d1e3_row0_col0" class="data row0 col0">0</td>
+<td id="T_4d1e3_row0_col1" class="data row0 col1">0</td>
+<td id="T_4d1e3_row0_col2" class="data row0 col2">0.300000</td>
+<td id="T_4d1e3_row0_col3" class="data row0 col3">0.000000</td>
 </tr>
 <tr class="even">
-<td id="T_06990_row1_col0" class="data row1 col0">0</td>
-<td id="T_06990_row1_col1" class="data row1 col1">1</td>
-<td id="T_06990_row1_col2" class="data row1 col2">1.800000</td>
-<td id="T_06990_row1_col3" class="data row1 col3">1.000000</td>
+<td id="T_4d1e3_row1_col0" class="data row1 col0">0</td>
+<td id="T_4d1e3_row1_col1" class="data row1 col1">1</td>
+<td id="T_4d1e3_row1_col2" class="data row1 col2">1.800000</td>
+<td id="T_4d1e3_row1_col3" class="data row1 col3">1.000000</td>
 </tr>
 <tr class="odd">
-<td id="T_06990_row2_col0" class="data row2 col0">1</td>
-<td id="T_06990_row2_col1" class="data row2 col1">0</td>
-<td id="T_06990_row2_col2" class="data row2 col2">1.300000</td>
-<td id="T_06990_row2_col3" class="data row2 col3">1.000000</td>
+<td id="T_4d1e3_row2_col0" class="data row2 col0">1</td>
+<td id="T_4d1e3_row2_col1" class="data row2 col1">0</td>
+<td id="T_4d1e3_row2_col2" class="data row2 col2">1.300000</td>
+<td id="T_4d1e3_row2_col3" class="data row2 col3">1.000000</td>
 </tr>
 <tr class="even">
-<td id="T_06990_row3_col0" class="data row3 col0">1</td>
-<td id="T_06990_row3_col1" class="data row3 col1">1</td>
-<td id="T_06990_row3_col2" class="data row3 col2">2.800000</td>
-<td id="T_06990_row3_col3" class="data row3 col3">2.000000</td>
+<td id="T_4d1e3_row3_col0" class="data row3 col0">1</td>
+<td id="T_4d1e3_row3_col1" class="data row3 col1">1</td>
+<td id="T_4d1e3_row3_col2" class="data row3 col2">2.800000</td>
+<td id="T_4d1e3_row3_col3" class="data row3 col3">2.000000</td>
 </tr>
 </tbody>
 </table>
 </div>
+</figure>
+</div>
+</div>
+</div>
+<div id="25561b63" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iid <span class="op">=</span> DiscreteIID(prob<span class="op">=</span>np.array([<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>]))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>iid.simulate(trajectory_length<span class="op">=</span><span class="dv">50</span>, num_trajectories<span class="op">=</span><span class="dv">1</span>).plot_simulations(ax<span class="op">=</span>ax, colors<span class="op">=</span>colors)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="688" height="488"></p>
 </figure>
 </div>
 </div>
