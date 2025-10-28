@@ -5,6 +5,9 @@ bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references
 toc: true
 categories: [Information theory, Probability theory, Entropy, Surprisal, KL divergence, Mutual information, Python, SciPy]
 image: "thumbnail.svg"
+open-graph:
+    title: "Entropy & information"
+    image: "thumbnail.png"
 # draft: true
 ---
 
