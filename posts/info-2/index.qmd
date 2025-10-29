@@ -6,7 +6,7 @@ toc: true
 categories: [Information theory, Probability theory, Measure theory, Entropy, Mutual information, Sigma-algebras, R]
 image: "thumbnail.png"
 open-graph:
-    title: Sigma-algebras & information
+    title: Algebras & information
     image: "thumbnail.png"
 # draft: true
 ---
