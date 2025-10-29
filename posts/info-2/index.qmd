@@ -4,10 +4,10 @@ date: "2025-10-14"
 bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
 toc: true
 categories: [Information theory, Probability theory, Measure theory, Entropy, Mutual information, Sigma-algebras, R]
-image: "thumbnail.png"
+image: "thumbnail-01.png"
 open-graph:
-    title: Algebras & information
-    image: "thumbnail.png"
+    title: "Algebras & information"
+    image: "https://johnmyers-phd.com/posts/info-2/thumbnail-01.png"
 # draft: true
 ---
 
