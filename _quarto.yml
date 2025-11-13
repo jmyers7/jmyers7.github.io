@@ -1,5 +1,9 @@
 project:
   type: website
+  render:
+    - "posts/"
+    - "!posts_ignored/"
+    - "!scripts/"
   
 website:
   site-url: https://johnmyers-phd.com
