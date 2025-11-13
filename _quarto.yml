@@ -1,6 +1,10 @@
 project:
   type: website
   render:
+    - "index.qmd"
+    - "about.qmd"
+    - "writings.qmd"
+    - "teaching/*.qmd"
     - "posts/"
     - "!posts_ignored/"
     - "!scripts/"
