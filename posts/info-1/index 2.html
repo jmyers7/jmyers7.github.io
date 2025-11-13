@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-10-12">
+
+<title>Entropy &amp; information – john myers, ph.d.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ccc6b90b4d1ed2bb7ba759a873171846.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VWK3RHBGT2"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../writings.html"> 
+<span class="menu-text">writings</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-teaching" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">teaching</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
+        <li>
+    <a class="dropdown-item" href="../../teaching/calculus-ii-fa-25.html">
+ <span class="dropdown-text">mat220 calculus II, fall 2025</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../teaching/analysis-fa-25.html">
+ <span class="dropdown-text">mat347 analysis, fall 2025</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.johnmyers-phd.com/book" target="_blank"> 
+<span class="menu-text">probabilistic machine learning</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jmyers7/" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/john-myers-phd" target="_blank"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jmmyers25@gmail.com"> <i class="bi bi-envelope-open-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#flows-of-information" id="toc-flows-of-information" class="nav-link" data-scroll-target="#flows-of-information">Flows of information</a></li>
+  <li><a href="#surprisal-and-entropy" id="toc-surprisal-and-entropy" class="nav-link" data-scroll-target="#surprisal-and-entropy">Surprisal and entropy</a></li>
+  <li><a href="#kullbackleibler-divergence-and-mutual-information" id="toc-kullbackleibler-divergence-and-mutual-information" class="nav-link" data-scroll-target="#kullbackleibler-divergence-and-mutual-information">Kullback–Leibler divergence and mutual information</a></li>
+  <li><a href="#mutual-information-of-jointly-normal-random-variables" id="toc-mutual-information-of-jointly-normal-random-variables" class="nav-link" data-scroll-target="#mutual-information-of-jointly-normal-random-variables">Mutual information of jointly normal random variables</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Entropy &amp; information</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Information theory</div>
+    <div class="quarto-category">Probability theory</div>
+    <div class="quarto-category">Entropy</div>
+    <div class="quarto-category">Surprisal</div>
+    <div class="quarto-category">KL divergence</div>
+    <div class="quarto-category">Mutual information</div>
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">SciPy</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 12, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Large language models (LLMs) like ChatGPT have brought <em>probabilistic models</em> into mainstream conversation. Unlike <em>deterministic models</em> that always produce the same output for a given input, these models generate a probability distribution over many possible outputs. <em>Information theory</em> provides the mathematical framework for understanding these distributions, and how sensitive they are to the inputs of the model.</p>
+<p>To understand this more concretely, consider what happens when you prompt an LLM. You might ask “What’s the capital of France?” and reliably get “Paris” as the answer. The model is highly confident: the output probability distribution is concentrated over the one-word output “Paris”. But if you ask “Write me a poem about autumn,” you’ll get a different response each time. Here, the probability distribution is spread across countless possible poems, each with some small probability of being generated. In the first case, the model is <em>certain</em>, reflected in the strongly peaked output distribution, while in the latter case it is <em>uncertain</em>, reflected in the highly dispersed output distribution. The input to the model (i.e., the prompt) thus has a strong effect on the certainty in the output distribution.</p>
+<p>The gap between certainty and uncertainty lies at the heart of information theory. When Claude Shannon founded the field <span class="citation" data-cites="Shannon1948">(see <a href="#ref-Shannon1948" role="doc-biblioref">Shannon 1948</a>)</span>, he was grappling with a fundamental question in telecommunications: how much data can you reliably transmit through a noisy communication channel? Telephone wires introduce random distortions like static and interference, scrambling the signal in unpredictable ways. Shannon realized he could model this mathematically using probability theory, and what began as a framework for analyzing communication over literal telephone wires evolved into an abstract mathematical theory with remarkably broad applications. Indeed, Shannon has been credited with laying the foundations for our modern information-based society.</p>
+<p>Interestingly, Shannon’s notion of entropy has deep connections to the concept of entropy in statistical mechanics and thermodynamics. In 1957, E. T. Jaynes famously formalized this connection in his influential paper <span class="citation" data-cites="Jaynes1957">(<a href="#ref-Jaynes1957" role="doc-biblioref">Jaynes 1957</a>)</span>, where he wrote:</p>
+<blockquote class="blockquote">
+<p>“The mere fact that the same mathematical expression <span class="math inline">\(-\sum p_i \log{p_i}\)</span> [for entropy] occurs both in statistical mechanics and in information theory does not in itself establish any connection between these fields. This can be done only by finding new viewpoints from which thermodynamic entropy and information-theory entropy appear as the <em>same</em> concept. In this paper we suggest a reinterpretation of statistical mechanics which accomplishes this, so that information theory can be applied to the problem of justification of statistical mechanics.””</p>
+</blockquote>
+<p>Even my undergraduate thermodynamics textbook devoted an entire chapter to Shannon’s information theory, emphasizing how these mathematical ideas provide a unifying perspective across seemingly different domains.</p>
+<p>We will begin by surveying the most basic quantities of information theory: <em>surprisal</em>, <em>entropy</em>, <em>Kullback–Leibler (KL) divergence</em>, and <em>mutual information</em>. <em>Surprisal</em> is a quantity attached to a random outcome that is inversely linked to its probability: a likely outcome is not surprising, while an unlikely one is highly surprising. When we average surprisal over all possible random outcomes, we obtain the <em>entropy</em>, which quantifies the overall uncertainty in a probability distribution. The <em>KL divergence</em> measures how one probability distribution differs from another, capturing the “distance” between them. <em>Mutual information</em> can be viewed as a special kind of KL divergence applied to two random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>: it measures how much observing <span class="math inline">\(X\)</span> reduces the uncertainty (entropy) in <span class="math inline">\(Y\)</span> on average. This last quantity connects directly to our discussion of LLMs: it captures precisely how much the input prompt narrows down the output distribution.</p>
+<p>This post is the first in a series on <em>information</em>. In future posts, we will explore other ways the concept of information appears—for example, through <span class="math inline">\(\sigma\)</span>-algebras—and apply these ideas to a range of problems, from gambling strategies and games of chance (the historical origin of mathematical probability theory), to options pricing in mathematical finance, and to probabilistic models in machine learning. I have discussed information theory previously in a <a href="https://johnmyers-phd.com/book/chapters/09-info-theory.html" target="_blank">chapter</a> of my book; while some material overlaps with that chapter, this series also introduces many new perspectives and examples.</p>
+</section>
+<section id="flows-of-information" class="level2">
+<h2 class="anchored" data-anchor-id="flows-of-information">Flows of information</h2>
+<p>We begin by building a mathematical gadget—a kind of probabilistic framework—that models the “flow of information” between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (or random vectors, or random objects, or …). Such flows are exactly what information theory calls <em>communication channels</em>, and they include many of the predictive probabilistic models in machine learning where information flows from input <span class="math inline">\(X\)</span> to output <span class="math inline">\(Y\)</span>. Once these flows have been identified in this section, in the rest of the post we seek to understand how information flowing from <span class="math inline">\(X\)</span> influences and shapes the distribution of <span class="math inline">\(Y\)</span>.</p>
+<p>The simplest flow between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is a functional one, expressed as an equation <span id="eq-det-flow"><span class="math display">\[
+g(X)=Y,
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(g\)</span> is a function. With <span class="math inline">\(X\)</span> as input and <span class="math inline">\(Y\)</span> as output, each <span class="math inline">\(X=x\)</span> produces a <em>unique</em> output <span class="math inline">\(y = g(x)\)</span>. Such flows underlie <em>deterministic</em> models. In the case that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> take values on the real line <span class="math inline">\(\mathbb{R}\)</span>, we might visualize the situation like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/det-flow-2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>Note that each value of <span class="math inline">\(x\)</span> along the input (left) axis determines a unique value of <span class="math inline">\(y\)</span> along the output (right) axis.</p>
+<p>On the other hand, we might suppose that information flows from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a <em>stochastic</em> fashion, in which <span class="math inline">\(X=x\)</span> no longer determines a single <span class="math inline">\(y\)</span>, but instead induces a <em>distribution</em> over possible <span class="math inline">\(Y\)</span> values. This is precisely what a conditional distribution <span class="math inline">\(P(Y= y\mid X=x)\)</span> captures: given an observed value <span class="math inline">\(X=x\)</span>, we have a probability distribution on <span class="math inline">\(y\)</span>’s. We can think of this as a <em>function</em> of the form</p>
+<p><span id="eq-stochastic-flow"><span class="math display">\[
+x \mapsto P(Y= y \mid X=x),
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(y\)</span> plays the role of a variable rather than a fixed quantity, so that <span class="math inline">\(P(Y= y \mid X=x)\)</span> is a probability distribution and not just a single probability. So this function is rather special: its input is a value <span class="math inline">\(x\)</span>, while its output is an entire probability distribution. Mathematicians call such objects <a href="https://en.wikipedia.org/wiki/Markov_kernel" target="_blank">Markov kernels</a>. A figure will make this more concrete: in contrast to the deterministic flows drawn above, in the case that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> take values on the real line <span class="math inline">\(\mathbb{R}\)</span>, we visualize a stochastic flow as follows, where each value of <span class="math inline">\(x\)</span> is mapped to a probability distribution on <span class="math inline">\(y\)</span>’s:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/stochastic-flow-2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>In our model of a stochastic flow, we therefore use conditional distributions, understood as functions on the conditioning variable.</p>
+<p>In practice, we often model such flows with a family <span class="math inline">\(P(Y=y;\theta)\)</span> of distributions parameterized by a vector <span class="math inline">\(\theta\)</span>. The stochastic flow from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> is then implemented as a function <span class="math inline">\(x\mapsto \theta(x)\)</span> from observations of <span class="math inline">\(X\)</span> to parameters <span class="math inline">\(\theta\)</span>, and the conditional distribution is then <em>defined</em> as</p>
+<p><span class="math display">\[
+P(Y=y \mid X=x) = P(Y=y ; \theta=\theta(x)).
+\]</span></p>
+<p>Linear regression (with known variance <span class="math inline">\(\sigma^2\)</span>) is a familiar example: here <span class="math inline">\(P(Y=y;\theta)\)</span> has the normal density</p>
+<p><span class="math display">\[
+f(y;\theta) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ - \frac{1}{2\sigma^2}(y-\theta)^2 \right],
+\]</span></p>
+<p>and with parameter mapping</p>
+<p><span class="math display">\[
+x\mapsto \theta(x) = \beta_0 + \beta_1x,
+\]</span></p>
+<p>for some model coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Concisely, the stochastic flow from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> in a linear regression model is completely described by specifying</p>
+<p><span class="math display">\[
+(Y\mid X=x) \sim \mathcal{N}(\beta_0+\beta_1x, \sigma^2).
+\]</span></p>
+<p>We will return to an information-theoretic treatment of linear regression (and other) models in a later post.</p>
+<p>For now, let’s see all this in action with real distributions in a real-world context. Suppose that <span class="math inline">\(X\)</span> is the number of hours that a randomly chosen student studies for an upcoming exam, restricted to discrete values <span class="math inline">\(X = 1,2,3,4,5,6\)</span>. Let’s say that most students study only 2 or 3 hours, with its full distribution (mass function <span class="math inline">\(f(x)\)</span>) shown below:</p>
+<div id="83003c51" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the number of possible study hours (1 through 6)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the probability mass function for X using a Poisson distribution with mean 3</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>fx_array <span class="op">=</span> poisson.pmf(<span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>), mu<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the probabilities so they sum to 1 (ensures a valid probability distribution)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>fx_array <span class="op">/=</span> fx_array.<span class="bu">sum</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the probability mass function f(x) of X</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fx(x):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fx_array[x <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new matplotlib figure and axis with a specified size</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a bar chart of the probability mass function for X</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ax.bar(<span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>), fx_array, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the x-axis as "hours studied (x)"</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the y-axis as "probability"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"probability"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot title to indicate this is the marginal mass function f(x)</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"marginal mass </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the x-axis ticks to match the possible values of X</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="385"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We might reasonably believe that <span class="math inline">\(X\)</span> is predictive of <span class="math inline">\(Y\)</span>, the exam score of a randomly chosen student, taking continuous values in the interval <span class="math inline">\([0,1]\)</span>, understood as percentages. The corresponding marginal density <span class="math inline">\(f(y)\)</span> is shown below:</p>
+<div id="996a58cc" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the conditional density function f(y|x) for exam scores.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This returns the value of the Beta(x, 3) density at y, for a given x.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy_given_x(y, x):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> beta.pdf(y, a<span class="op">=</span>x, b<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the marginal density function fy(y) for exam scores.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a mixture of Beta distributions, weighted by the probability mass fx(x) for each x.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fy(y):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>([fy_given_x(y, x) <span class="op">*</span> fx(x) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new matplotlib figure and axis for plotting the marginal density.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a grid of y values between 0 and 1 for plotting the density.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, num<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the marginal density fy(y) over the grid.</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>ax.plot(grid, fy(grid))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Shade the area under the density curve for visual emphasis.</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ax.fill_between(grid, fy(grid), zorder<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the x-axis labels as percentages (since y is a proportion).</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot title and axis labels.</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"marginal density </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"test score ($y$)"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"probability density"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot.</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="385"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Together, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint mass/density function <span class="math inline">\(f(x,y)\)</span>, visualized in the following ridgeline plot, where each of the horizontal density curves shows <span class="math inline">\(f(x,y)\)</span> as a function of <span class="math inline">\(y\)</span>, for <em>fixed</em> <span class="math inline">\(x=1,2,3,4,5,6\)</span>.</p>
+<div id="59c1b4e4" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new matplotlib figure and axis with a specified size</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a list of colors for each value of x using the custom colormap</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>conditional_colors <span class="op">=</span> [conditional_cmap(i <span class="op">/</span> (n <span class="op">-</span> <span class="dv">1</span>)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each possible value of x and its probability fx</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the joint density values for each y in the grid, scaled for visualization</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    joint_vals <span class="op">=</span> <span class="fl">1.7</span> <span class="op">*</span> fy_given_x(grid, x) <span class="op">*</span> fx(x)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fill the area between the baseline (x) and the curve (x + joint_vals) for ridgeline effect</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        grid, x, x <span class="op">+</span> joint_vals, color<span class="op">=</span>conditional_colors[x <span class="op">-</span> <span class="dv">1</span>], zorder<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the top edge of the density curve for each x</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    ax.plot(grid, x <span class="op">+</span> joint_vals, color<span class="op">=</span>conditional_colors[x <span class="op">-</span> <span class="dv">1</span>], zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the y-axis as "hours studied (x)"</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the x-axis as "test score (y)"</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"test score </span><span class="kw">(</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the x-axis labels as percentages</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot title to indicate this is the joint mass/density f(x, y)</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"joint mass/density </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x,y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="587" height="484"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dividing the joint mass/density <span class="math inline">\(f(x,y)\)</span> by the marginal mass <span class="math inline">\(f(x)\)</span> yields the conditional densities <span class="math inline">\(f(y|x)\)</span>. These are just the same density curves in the ridgeline plot above, normalized so that they integrate to <span class="math inline">\(1\)</span> over <span class="math inline">\([0,1]\)</span>. They are shown in:</p>
+<div id="eb0954e2" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new matplotlib figure and axis with a specified size</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each possible value of x (hours studied)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the conditional density f(y|x) for each x as a Beta(x, 3) distribution</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        grid,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        fy_given_x(grid, x),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span>conditional_colors[x <span class="op">-</span> <span class="dv">1</span>],</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>x</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a legend indicating the value of x for each curve</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>ax.legend(title<span class="op">=</span><span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>, loc<span class="op">=</span><span class="st">"center left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the x-axis labels as percentages (since y is a proportion)</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot title to indicate these are conditional densities f(y|x)</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="vs">r"conditional densities </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="cf">|</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the axes</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"test score </span><span class="kw">(</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"probability density"</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-6-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="587" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our information-theoretic terminology, the conditional density</p>
+<p><span class="math display">\[
+x\mapsto f(y|x),
+\]</span></p>
+<p>thought of as a function of <span class="math inline">\(x\)</span>, models the stochastic flow of information from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>.</p>
+<p>The marginal density <span class="math inline">\(f(y)\)</span> shows moderate uncertainty—it’s somewhat peaked, but not sharply. An exam score randomly drawn from <span class="math inline">\(Y\)</span> will be mildly uncertain, mildly surprising. The exact amount of uncertainty in <span class="math inline">\(Y\)</span> will be measured through its <em>entropy</em>, denoted <span class="math inline">\(H(Y)\)</span>, introduced in the next section. In contrast, the conditional densities <span class="math inline">\(f(y|x)\)</span> exhibit less uncertainty compared to the marginal, especially for values of <span class="math inline">\(x\)</span> closer to <span class="math inline">\(6\)</span>. The uncertainty remaining in <span class="math inline">\(Y\)</span> after observing <span class="math inline">\(X=x\)</span> is measured by the <em>conditional entropy</em>, denoted <span class="math inline">\(H(Y\mid X=x)\)</span>. Averaging this conditional entropy over <span class="math inline">\(X\)</span> yields the quantity</p>
+<p><span class="math display">\[
+H(Y\mid X) \overset{\text{def}}{=}E_{x\sim f(x)}(H(Y\mid X=x)),
+\]</span></p>
+<p>the average amount of uncertainty in <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X\)</span>. Then, it is a general observation that</p>
+<p><span class="math display">\[
+H(Y) \geq H(Y\mid X)
+\]</span></p>
+<p>for any pair of random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, reflecting the obvious fact that no additional information will ever <em>increase</em> the uncertainty in <span class="math inline">\(Y\)</span>. Thus, the quantity</p>
+<p><span class="math display">\[
+I(X,Y) \overset{\text{def}}{=}H(Y) - H(Y\mid X)
+\]</span></p>
+<p>is a nonnegative proxy for the amount of information transmitted from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>: if it is large, then the gap between <span class="math inline">\(H(Y)\)</span> and <span class="math inline">\(H(Y\mid X)\)</span> is wide, indicating that observations of <span class="math inline">\(X\)</span> greatly reduce the uncertainty in <span class="math inline">\(Y\)</span>. We understand this as a “large amount of information” is transmitted from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>. Conversely, when <span class="math inline">\(I(X,Y)\)</span> is small, observations of <span class="math inline">\(X\)</span> reveal little about <span class="math inline">\(Y\)</span>; in the extreme case <span class="math inline">\(I(X,Y)=0\)</span>, the two are independent. The quantity <span class="math inline">\(I(X,Y)\)</span> is exactly the <em>mutual information</em> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, introduced in the next section.</p>
+</section>
+<section id="surprisal-and-entropy" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="surprisal-and-entropy">Surprisal and entropy</h2>
+<p>As mentioned in the introduction, <em>entropy</em> measures the uncertainty in the outcome of a random variable. More precisely, it is the average <em>surprisal</em> of an observation. Surprisal varies inversely with probability: large probabilities yield small surprisals, and small probabilities yield large ones.</p>
+<div class="page-columns page-full"><p>This inverse relationship is given by the function <span class="math inline">\(s = -\log{p}\)</span>, linking a probability <span class="math inline">\(p\in [0,1]\)</span> with a <em>surprisal</em> <span class="math inline">\(s\in [0,\infty)\)</span>. The graph of this relationship is shown in:</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We write <span class="math inline">\(\log\)</span> for the base-<span class="math inline">\(e\)</span> logarithm.</span></div></div>
+<div id="b9364c14" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a grid of probability values from 0.01 to 1 (avoiding 0 to prevent log(0))</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mesh <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">1</span>, num<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new matplotlib figure and axis with a specified size</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the surprisal function s = -log(p) as a function of probability p</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ax.plot(mesh, <span class="op">-</span>np.log(mesh), color<span class="op">=</span>yellow)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the x-axis as probability (p)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="vs">r"probability </span><span class="kw">(</span><span class="dv">$</span><span class="vs">p</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the y-axis as surprisal (s)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="vs">r"surprisal </span><span class="kw">(</span><span class="dv">$</span><span class="vs">s</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="386" height="286"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>At first glance, many functions might seem equally capable of expressing this inverse relationship between probability and surprisal—so why the choice of base-<span class="math inline">\(e\)</span> logarithm? It turns out that if one starts from a few natural axioms that any reasonable notion of surprisal should satisfy, then you can prove all such surprisal functions must be proportional to negative logarithms <span class="citation" data-cites="Rioul2021">(see, for example, the discussion in Section 9 in <a href="#ref-Rioul2021" role="doc-biblioref">Rioul 2021</a>)</span>. The choice of base <span class="math inline">\(e\)</span> is then somewhat arbitrary, akin to choosing units. Another popular choice is base <span class="math inline">\(2\)</span>, which aligns naturally with bit strings in coding theory. In base <span class="math inline">\(e\)</span>, information content is measured in so-called <em>natural units</em>, or <em>nats</em>; in base <span class="math inline">\(2\)</span>, it is measured in <em>binary units</em>, or <em>bits</em>. <span class="citation" data-cites="Rioul2021">(See Section 10 in the aforementioned reference <a href="#ref-Rioul2021" role="doc-biblioref">Rioul 2021</a> for more on units.)</span></p>
+<p>This link between surprisals and probabilities may be extended to a link between surprisal and probability <em>densities</em> in the case that the probabilities are continuous. Since it is inconvenient to continually distinguish between mass and density functions in all definitions and theorems, we will follow the convention in measure-theoretic probability theory and refer to <em>all</em> probability mass and density functions as <em>densities</em> and denote them all by <span class="math inline">\(f\)</span>. In this scheme, a probability mass function really is a <em>density</em> function relative to the counting measure.</p>
+<p>With this convention in mind, the following definition applies to both discrete and continuous random variables:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-surprisal" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables with density functions <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span>, respectively.</p>
+<ol type="1">
+<li><p>The <em>surprisal of an observed value <span class="math inline">\(X=x\)</span></em> is the quantity <span class="math display">\[
+  s(x) = -\log{f(x)}.
+  \]</span></p></li>
+<li><p>The <em>conditional surprisal of an observed value <span class="math inline">\(Y=y\)</span>, given <span class="math inline">\(X=x\)</span></em>, is the quantity <span class="math display">\[
+  s(y|x) = -\log{f(y|x)},
+  \]</span> where <span class="math inline">\(f(y|x)\)</span> is the conditional density of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>For a simple example of the relationship between discrete probabilities and surprisals, let’s bring back our random variable <span class="math inline">\(X\)</span> from the previous section, which tallied the number of hours a randomly chosen student studied for the upcoming exam:</p>
+<div id="10b5bc96" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure with two subplots side by side</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the marginal probability mass function f(x) as a bar chart on the first subplot</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), fx_array, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="vs">r"probability mass"</span>)  <span class="co"># Label y-axis</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="vs">r"marginal density </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)  <span class="co"># Set subplot title</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>))  <span class="co"># Set x-ticks to match possible values of x</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the marginal surprisal s(x) = -log(f(x)) as a bar chart on the second subplot</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), <span class="op">-</span>np.log(fx_array), width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="vs">r"surprisal mass"</span>)  <span class="co"># Label y-axis</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="vs">r"marginal surprisal </span><span class="dv">$</span><span class="vs">s</span><span class="kw">(</span><span class="vs">x</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)  <span class="co"># Set subplot title</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticks(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>))  <span class="co"># Set x-ticks to match possible values of x</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a shared x-axis label for both subplots</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(<span class="vs">r"hours studied </span><span class="kw">(</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-8-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="606" height="300"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Because a probability density (mass) function of a discrete random variable must take values in <span class="math inline">\([0,1]\)</span>, its surprisal function is never negative. However, the probability density function of a continuous random variable <em>may</em> take on values larger than <span class="math inline">\(1\)</span>, which means that the associated surprisal density function can be negative. This can be seen for the continuous random variable <span class="math inline">\(Y\)</span> from the previous section, whose density can exceed <span class="math inline">\(1\)</span> in regions of high concentration—hence its surprisal can dip below zero.</p>
+<div id="bb6ab3e3" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure with two subplots side by side</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a grid of y values between 0 and 1 for plotting</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, num<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the marginal probability density function f(y) on the first subplot</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(grid, fy(grid))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].xaxis.set_major_formatter(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)  <span class="co"># Format x-axis as percentages</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="vs">r"marginal density </span><span class="dv">$</span><span class="vs">f</span><span class="kw">(</span><span class="vs">y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)  <span class="co"># Set subplot title</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"probability density"</span>)  <span class="co"># Label y-axis</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the marginal surprisal s(y) = -log(f(y)) on the second subplot</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(grid, <span class="op">-</span>np.log(fy(grid)))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].xaxis.set_major_formatter(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    PercentFormatter(xmax<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)  <span class="co"># Format x-axis as percentages</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="vs">r"marginal surprisal </span><span class="dv">$</span><span class="vs">s</span><span class="kw">(</span><span class="vs">y</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)  <span class="co"># Set subplot title</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"surprisal density"</span>)  <span class="co"># Label y-axis</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a shared x-axis label for both subplots</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(<span class="st">"test score ($y$)"</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and display the plot</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="589" height="300"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Having defined surprisal for individual outcomes, entropy emerges naturally as its average—capturing the typical “surprise” we can expect.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-entropy" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables with density functions <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span>, respectively.</p>
+<ol type="1">
+<li><p>The <em>entropy of <span class="math inline">\(X\)</span></em> is the quantity <span class="math display">\[
+  H(X) = E_{x\sim f(x)}(s(x)).
+  \]</span></p></li>
+<li><p>The <em>conditional entropy of <span class="math inline">\(Y\)</span>, given an observed value <span class="math inline">\(X=x\)</span></em>, is the quantity <span class="math display">\[
+  H(Y\mid X=x) = E_{y\sim f(y|x)}(s(y\mid x)),
+  \]</span> where <span class="math inline">\(f(y|x)\)</span> is the conditional density of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span>.</p></li>
+<li><p>The <em>conditional entropy of <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X\)</span></em>, is the quantity</p></li>
+</ol>
+<p><span class="math display">\[
+H(Y\mid X) = E_{x\sim f(x)}(H(Y\mid X=x)).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>In the case that <span class="math inline">\(X\)</span> is discrete, then the entropy <span class="math inline">\(H(X)\)</span> is a sum of either a finite or countably infinite number of terms:</p>
+<p><span class="math display">\[
+H(X) = \sum_{x\in \mathbb{R}} f(x)s(x) = - \sum_{x\in \mathbb{R}} f(x) \log{f(x)}.
+\]</span></p>
+<p>If <span class="math inline">\(X\)</span> is continuous, then the entropy is an integral:</p>
+<p><span class="math display">\[
+H(X) = \int f(x) s(x) \ dx = - \int f(x) \log{f(x)} \ dx,
+\]</span></p>
+<p>where, by convention, <span class="math inline">\(\int\)</span> denotes integration over <span class="math inline">\(\mathbb{R}\)</span>. In the literature, the entropy of a continuous random variable is often called <em>differential entropy</em>.</p>
+<p>The <code>stats</code> submodule of the <code>SciPy</code> library contains a convenient method called <code>entropy</code> for computing entropies of discrete random variables. We use it to compute the entropy <span class="math inline">\(H(X)\)</span>, where <span class="math inline">\(X\)</span> is the “hours studied” random variable:</p>
+<div id="8cce27a4" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> entropy</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The values of the probability mass function of X are stored in a</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy array called `fxs`</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The probability mass function f(x) of X is:</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, p <span class="kw">in</span> <span class="bu">enumerate</span>(fx_array):</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print the probability mass for each possible value of X (1 through n)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"    f(</span><span class="sc">{</span>x <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">) ="</span>, <span class="bu">round</span>(p, <span class="dv">3</span>))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute and print the entropy H(X) using scipy's entropy function</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">The entropy H(X) is </span><span class="sc">{</span>entropy(fx_array)<span class="sc">:.3f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The probability mass function f(x) of X is:
+
+    f(1) = 0.163
+    f(2) = 0.244
+    f(3) = 0.244
+    f(4) = 0.183
+    f(5) = 0.11
+    f(6) = 0.055
+
+The entropy H(X) is 1.698.</code></pre>
+</div>
+</div>
+<p>We can use the <code>quad</code> method in the <code>integrate</code> submodule of <code>SciPy</code> to compute differential entropies. For the “exam score” random variable <span class="math inline">\(Y\)</span>, we compute:</p>
+<div id="842c7660" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> quad</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The marginal probability density function of Y is implemented as</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the function `fy`</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the differential entropy H(Y) by integrating -f(y) * log(f(y)) over [0, 1]</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>diff_entropy, _ <span class="op">=</span> quad(func<span class="op">=</span><span class="kw">lambda</span> y: <span class="op">-</span>fy(y) <span class="op">*</span> np.log(fy(y)), a<span class="op">=</span><span class="dv">0</span>, b<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the computed differential entropy value</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The differential entropy H(Y) is </span><span class="sc">{</span>diff_entropy<span class="sc">:.3f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The differential entropy H(Y) is -0.131.</code></pre>
+</div>
+</div>
+<p>Notice that <span class="math inline">\(H(Y)\)</span> turns out to be negative—a reminder that differential entropy behaves quite differently from its discrete cousin.</p>
+</section>
+<section id="kullbackleibler-divergence-and-mutual-information" class="level2">
+<h2 class="anchored" data-anchor-id="kullbackleibler-divergence-and-mutual-information">Kullback–Leibler divergence and mutual information</h2>
+<p>In this section, we develop an information-theoretic way to measure how “far apart” two probability distributions are. By way of motivation, we consider two probability measures on a single <strong>finite</strong> probability space <span class="math inline">\(\Omega\)</span>, so that the two measures have mass functions <span class="math inline">\(f(\omega)\)</span> and <span class="math inline">\(g(\omega)\)</span>. The metric we’ll use is the <em>mean logarithmic relative magnitude</em>, a measure that captures not the absolute difference between probabilities, but how one probability scales relative to another. To define it, we first define the <em>absolute relative magnitude</em> of the probability <span class="math inline">\(f(\omega)\)</span> to the probability <span class="math inline">\(g(\omega)\)</span> as the ratio <span class="math inline">\(f(\omega)/g(\omega)\)</span>. Then, <em>logarithmic relative magnitude</em> refers to the base-<span class="math inline">\(e\)</span> logarithm of the absolute relative magnitude:</p>
+<p><span class="math display">\[
+\log\left( \frac{f(\omega)}{g(\omega)} \right).
+\]</span></p>
+<p>Intuitively, this logarithm tells us the “order of magnitude” difference between <span class="math inline">\(f(\omega)\)</span> and <span class="math inline">\(g(\omega)\)</span>. If <span class="math inline">\(f(\omega)\approx e^k\)</span> and <span class="math inline">\(g(\omega)\approx e^l\)</span>, then the log ratio is roughly <span class="math inline">\(k-l\)</span>.</p>
+<p>Perhaps the most obvious immediate benefit of introducing the logarithm is that it yields a workable number when <span class="math inline">\(f(\omega)\)</span> and <span class="math inline">\(g(\omega)\)</span> each have widely different magnitudes. For example, let’s suppose that the mass functions <span class="math inline">\(f(\omega)\)</span> and <span class="math inline">\(g(\omega)\)</span> are given by</p>
+<p><span class="math display">\[
+f(\omega) = \binom{10}{\omega} (0.4)^\omega(0.6)^{10-\omega} \quad \text{and} \quad g(\omega) = \binom{10}{\omega} (0.9)^\omega(0.1)^{10-\omega}
+\]</span></p>
+<p>for <span class="math inline">\(\omega\in \{0,1,\ldots,10\}\)</span>. These are the mass functions of a <span class="math inline">\(\mathcal{B}in(10,0.4)\)</span> and <span class="math inline">\(\mathcal{B}in(10,0.9)\)</span> random variable, respectively. We then plot histograms for these mass functions, along with histograms of the absolute and logarithmic relative magnitudes:</p>
+<div id="3b7cd95e" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the possible values of omega (0 through 10)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>omegas <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the probability mass functions for two Binomial distributions:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># p: Binomial(n=10, p=0.4)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># q: Binomial(n=10, p=0.9)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> binom(n<span class="op">=</span><span class="dv">10</span>, p<span class="op">=</span><span class="fl">0.4</span>).pmf(omegas)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> binom(n<span class="op">=</span><span class="dv">10</span>, p<span class="op">=</span><span class="fl">0.9</span>).pmf(omegas)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles for each subplot</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> [</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"$f(</span><span class="ch">\\</span><span class="st">omega)$"</span>,  <span class="co"># PMF of first distribution</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"$g(</span><span class="ch">\\</span><span class="st">omega)$"</span>,  <span class="co"># PMF of second distribution</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"$</span><span class="ch">\\</span><span class="st">frac{f(</span><span class="ch">\\</span><span class="st">omega)}{g(</span><span class="ch">\\</span><span class="st">omega)}$"</span>,  <span class="co"># Ratio of PMFs</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"$</span><span class="ch">\\</span><span class="st">log</span><span class="ch">\\</span><span class="st">left(</span><span class="ch">\\</span><span class="st">frac{f(</span><span class="ch">\\</span><span class="st">omega)}{g(</span><span class="ch">\\</span><span class="st">omega)}</span><span class="ch">\\</span><span class="st">right)$"</span>,  <span class="co"># Log-ratio of PMFs</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Data to plot in each subplot</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> [p, q, p <span class="op">/</span> q, np.log(p <span class="op">/</span> q)]</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Y-axis limits for each subplot for better visualization</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>ylims <span class="op">=</span> [(<span class="dv">0</span>, <span class="fl">0.4</span>), (<span class="dv">0</span>, <span class="fl">0.4</span>), (<span class="op">-</span><span class="dv">50</span>, <span class="fl">0.75e8</span>), (<span class="op">-</span><span class="dv">10</span>, <span class="dv">20</span>)]</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 2x2 grid of subplots</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, nrows<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each subplot, plotting the corresponding data</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> title, prob, ylim, axis <span class="kw">in</span> <span class="bu">zip</span>(titles, probs, ylims, axes.flatten()):</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    axis.bar(omegas, prob, width<span class="op">=</span><span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)  <span class="co"># Bar plot for each omega</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    axis.set_xticks(ticks<span class="op">=</span>omegas)  <span class="co"># Set x-ticks to omega values</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    axis.set_ylim(ylim)  <span class="co"># Set y-axis limits</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    axis.set_title(title)  <span class="co"># Set subplot title</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a shared x-axis label for all subplots</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(<span class="st">"$</span><span class="ch">\\</span><span class="st">omega$"</span>)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout for better appearance and spacing</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="790" height="498"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The second row makes the point vividly: the absolute relative magnitudes span such wildly different scales that the plot is almost useless, and numerical computations would be unstable. The logarithmic version, by contrast, stays well-behaved and informative.</p>
+<p>We obtain a single-number summary of the logarithmic relative magnitudes by taking their <em>mean</em> with respect to the mass function <span class="math inline">\(f(\omega)\)</span>, giving us the number</p>
+<p><span id="eq-first-kl-eq"><span class="math display">\[
+E_{\omega\sim f(\omega)} \left[\log\left( \frac{f(\omega)}{g(\omega)} \right)\right] = \sum_{\omega\in \Omega} f(\omega) \log\left( \frac{f(\omega)}{g(\omega)} \right).
+\tag{3}\]</span></span></p>
+<p>Observe that we could have instead computed the mean relative to <span class="math inline">\(g(\omega)\)</span>, giving us the number</p>
+<p><span id="eq-second-kl-eq"><span class="math display">\[
+E_{\omega\sim g(\omega)} \left[\log\left( \frac{f(\omega)}{g(\omega)} \right)\right] = \sum_{\omega\in \Omega} g(\omega) \log\left( \frac{f(\omega)}{g(\omega)} \right).
+\tag{4}\]</span></span></p>
+<p>But notice that</p>
+<p><span class="math display">\[
+E_{\omega\sim g(\omega)} \left[\log\left( \frac{f(\omega)}{g(\omega)} \right)\right] = - E_{\omega\sim g(\omega)} \left[\log\left( \frac{g(\omega)}{f(\omega)} \right)\right],
+\]</span></p>
+<p>where the right-hand side is the negative of a number of the form (<a href="#eq-first-kl-eq" class="quarto-xref">3</a>). So, at least up to sign, it doesn’t really matter which of the two numbers (<a href="#eq-first-kl-eq" class="quarto-xref">3</a>) or (<a href="#eq-second-kl-eq" class="quarto-xref">4</a>) that we use to develop our theory. Our choice of (<a href="#eq-first-kl-eq" class="quarto-xref">3</a>) has the benefit of making the KL divergence nonnegative when the distributions are discrete.</p>
+<p>These considerations lead us to:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-kl" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables with density functions <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(g(x)\)</span>, respectively. The <em>Kullback–Leibler divergence</em> (or just <em>KL divergence</em>) from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>, denoted <span class="math inline">\(D(X \parallel Y)\)</span>, is the mean logarithmic relative magnitude:</p>
+<p><span class="math display">\[
+D(X \parallel Y) = E_{x\sim f(x)} \left[ \log \left( \frac{f(x)}{g(x)}\right) \right].
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Technically, <span class="math inline">\(D(X\parallel Y)\)</span> is defined only when <span class="math inline">\(f(x)=0\)</span> implies <span class="math inline">\(g(x)=0\)</span> for all <span class="math inline">\(x\)</span>—a condition known as <em>absolute continuity</em> in measure theory. If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are continuous, then <span class="math inline">\(D(X\parallel Y)\)</span> is often called the <em>differential KL divergence</em>.</p>
+<p>For some examples of differential KL divergences, let’s consider the conditional random variables <span class="math inline">\(Y\mid X=x\)</span> from the previous section, which give the exam score <span class="math inline">\(Y\)</span> of a randomly chosen student if they had studied <span class="math inline">\(X=x\)</span> hours (for <span class="math inline">\(x=1,2,\ldots,6\)</span>). In the figure below, we plot the densities <span class="math inline">\(f(y\mid x)\)</span> of the conditional distributions and compute the five differential KL divergences</p>
+<p><span class="math display">\[
+D\left( (Y\mid X=1) \parallel (Y\mid X=x) \right)
+\]</span></p>
+<p>for <span class="math inline">\(x=2,3,4,5,6\)</span>.</p>
+<div id="2bee0b0a" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the integrand for KL divergence between two Beta distributions:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> integrand(y, x1, x2):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fy_given_x(y, x1) <span class="op">*</span> np.log(fy_given_x(y, x1) <span class="op">/</span> fy_given_x(y, x2))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute KL divergence D((Y|X=1) || (Y|X=x+2)) for x = 0,1,2,3,4 (i.e., x2 = 2,3,4,5,6)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>KL_div <span class="op">=</span> np.empty(<span class="dv">5</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    KL_div[x], _ <span class="op">=</span> quad(func<span class="op">=</span>integrand, args<span class="op">=</span>(<span class="dv">1</span>, x <span class="op">+</span> <span class="dv">2</span>), a<span class="op">=</span><span class="dv">0</span>, b<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a 2x6 grid for custom subplot arrangement</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">6</span>, figure<span class="op">=</span>fig)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">0</span>:<span class="dv">2</span>])</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">2</span>:<span class="dv">4</span>])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ax3 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">0</span>, <span class="dv">4</span>:<span class="dv">6</span>])</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>ax4 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">1</span>, <span class="dv">1</span>:<span class="dv">3</span>])</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>ax5 <span class="op">=</span> fig.add_subplot(gs[<span class="dv">1</span>, <span class="dv">3</span>:<span class="dv">5</span>])</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> [ax1, ax2, ax3, ax4, ax5]</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># For each subplot, plot the two conditional densities and annotate with KL divergence</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axes):</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot f(y|x=1) in blue</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    ax.plot(grid, fy_given_x(grid, <span class="dv">1</span>), color<span class="op">=</span>blue, zorder<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"x = 1"</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(grid, fy_given_x(grid, <span class="dv">1</span>), zorder<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>blue, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot f(y|x=x+2) in yellow</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    ax.plot(grid, fy_given_x(grid, x <span class="op">+</span> <span class="dv">2</span>), color<span class="op">=</span>yellow, zorder<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"x = </span><span class="sc">{</span>x <span class="op">+</span> <span class="dv">2</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(grid, fy_given_x(grid, x <span class="op">+</span> <span class="dv">2</span>), zorder<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>yellow, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Annotate with the computed KL divergence</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"KL div. = </span><span class="sc">{</span>KL_div[x]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout and spacing for better appearance</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="792" height="489"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each subplot contains the blue density curve <span class="math inline">\(f(y\mid x=1)\)</span>, along with a yellow density curve <span class="math inline">\(f(y\mid x)\)</span> for <span class="math inline">\(x=2,3,4,5,6\)</span>. As <span class="math inline">\(x\)</span> gets larger, we can see <em>visually</em> that the densities become more unalike; this increasing dissimilarity is reflected in larger KL divergences as <span class="math inline">\(x\)</span> gets larger.</p>
+<p>At the other end of the spectrum, we have <span class="math inline">\(D(X \parallel Y) = 0\)</span> when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are identically distributed. And, at least when the variables are discrete, it is a basic but important fact that we always have <span class="math inline">\(D(X \parallel Y)\geq 0\)</span>, with equality if and only if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are identically distributed; this is referred to as Gibbs’ inequality (see <a href="https://johnmyers-phd.com/book/chapters/09-info-theory.html#kullback-leibler-divergence">here</a> for a proof). So, the KL divergence has several properties that make it a good measure for the “distance” between two probability distributions. However, note that this distance is not symmetric, in the sense that we have</p>
+<p><span class="math display">\[
+D(X\parallel Y) \neq D(Y \parallel X)
+\]</span></p>
+<p>in general.</p>
+<p>KL divergence measures how one distribution differs from another. To study <em>relationships</em> between random variables, we apply it to their joint and marginal distributions. If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, their joint density factors as the product of their marginals, <span class="math inline">\(f(x,y)=f(x)f(y)\)</span>. Thus, a measure of the “information flow” between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is the distance—in the sense of KL divergence—from the true joint density <span class="math inline">\(f(x,y)\)</span> to the product densities <span class="math inline">\(f(x)f(y)\)</span>. This leads us to:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-mutual-info" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables with density functions <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span>. The <em>mutual information</em> shared between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, denoted <span class="math inline">\(I(X,Y)\)</span>, is the quantity</p>
+<p><span id="eq-mutual-info"><span class="math display">\[
+I(X,Y) = E_{(x,y)\sim f(x,y)} \left[ \log \left( \frac{f(x,y)}{f(x)f(y)} \right) \right].
+\tag{5}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The product <span class="math inline">\(f(x)f(y)\)</span> is the density of <em>some</em> probability distribution on <span class="math inline">\(\mathbb{R}^2\)</span>, which would coincide with the true joint probability distribution (with density <span class="math inline">\(f(x,y)\)</span>) if the variables were independent. So, the mutual information is the KL divergence between two probability distributions on <span class="math inline">\(\mathbb{R}^2\)</span>, and we have <span class="math inline">\(I(X,Y)=0\)</span> when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent.</p>
+<p>As an example, we return once more to our random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the “hours studied” discrete variable and the “exam score” continuous variable. In this case, the joint distribution of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is a mixed discrete-continuous one, so the formula (<a href="#eq-mutual-info" class="quarto-xref">5</a>) gives</p>
+<p><span class="math display">\[
+I(X,Y) = \sum_{x=1}^6 \int_0^1 f(x,y) \log\left(\frac{f(x,y)}{f(x)f(y)} \right) \ dy,
+\]</span></p>
+<p>where <span class="math inline">\(f(x,y)\)</span> is the true joint mass-density function and <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(y)\)</span> are the marginal mass and densities, respectively. We implement this formula directly in <code>Python</code>, using the <code>quad</code> method in the <code>integrate</code> submodule of <code>SciPy</code> for integration:</p>
+<div id="80acdcb4" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The conditional density of Y|X=x is implemented as the</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># function `fy_given_x(y, x)`, the marginal density of Y is</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the function `fy(y)`, and the marginal mass of X</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># is the function `fx(x)`</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the true joint density f(x, y) = f(x) * f(y|x)</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fxy(x, y):</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fx(x) <span class="op">*</span> fy_given_x(y, x)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the product of marginals: f(x) * f(y)</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prod(x, y):</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fx(x) <span class="op">*</span> fy(y)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the integrand for mutual information:</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># f(x, y) * log(f(x, y) / (f(x) * f(y)))</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> integrand(x, y):</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fxy(x, y) <span class="op">*</span> np.log(fxy(x, y) <span class="op">/</span> prod(x, y))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># For each x, create a function of y for integration over y in [0, 1]</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>funcs <span class="op">=</span> [<span class="kw">lambda</span> y, x<span class="op">=</span>x: integrand(x, y) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mutual information by summing the integrals over y for each x</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>mutual_info <span class="op">=</span> <span class="bu">sum</span>([quad(func, a<span class="op">=</span><span class="dv">0</span>, b<span class="op">=</span><span class="dv">1</span>)[<span class="dv">0</span>] <span class="cf">for</span> func <span class="kw">in</span> funcs])</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the computed mutual information I(X, Y)</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The mutual information I(X,Y) is </span><span class="sc">{</span>mutual_info<span class="sc">:.3f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The mutual information I(X,Y) is 0.201.</code></pre>
+</div>
+</div>
+<p>Using the definitions of marginal and conditional entropies given in <a href="#def-entropy" class="quarto-xref">Definition&nbsp;2</a>, one easily proves that the mutual information <span class="math inline">\(I(X,Y)\)</span> may be computed as described in:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-info-entropy" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Mututal information is entropy)</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables. Then</p>
+<p><span id="eq-info-entropy"><span class="math display">\[
+I(X,Y) = H(Y) - H(Y\mid X).
+\tag{6}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Thus, the mutual information measures the amount of entropy in <span class="math inline">\(Y\)</span> that is “leftover” after having observed <span class="math inline">\(X\)</span>. In other words, it quantifies how much knowing <span class="math inline">\(X\)</span> reduces uncertainty about <span class="math inline">\(Y\)</span>.</p>
+<p>We end this section by using formula (<a href="#eq-info-entropy" class="quarto-xref">6</a>) to re-do our computation of the mutual information <span class="math inline">\(I(X,Y)\)</span> from above. We get the same answer:</p>
+<div id="cf7124ac" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the differential entropy H(Y) is stored in `diff_entropy`</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For each x, define a function of y for the conditional entropy integrand: -f(y|x) * log(f(y|x))</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>funcs <span class="op">=</span> [<span class="kw">lambda</span> y, x<span class="op">=</span>x: <span class="op">-</span>fy_given_x(y, x) <span class="op">*</span> np.log(fy_given_x(y, x)) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the conditional entropy H(Y|X=x) for each x by integrating over y in [0, 1]</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>cond_entropies <span class="op">=</span> [quad(func, a<span class="op">=</span><span class="dv">0</span>, b<span class="op">=</span><span class="dv">1</span>)[<span class="dv">0</span>] <span class="cf">for</span> func <span class="kw">in</span> funcs]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute H(Y) - sum_x P(X=x) * H(Y|X=x), which equals the mutual information I(X, Y)</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>diff_entropy <span class="op">-</span> <span class="bu">sum</span>([cond_entropy <span class="op">*</span> fx <span class="cf">for</span> cond_entropy, fx <span class="kw">in</span> <span class="bu">zip</span>(cond_entropies, fx_array)])</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the previously computed mutual information for comparison</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The mutual information I(X,Y) is </span><span class="sc">{</span>mutual_info<span class="sc">:.3f}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The mutual information I(X,Y) is 0.201.</code></pre>
+</div>
+</div>
+</section>
+<section id="mutual-information-of-jointly-normal-random-variables" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="mutual-information-of-jointly-normal-random-variables">Mutual information of jointly normal random variables</h2>
+<div class="page-columns page-full"><p>Useful intuition for the mutual information <span class="math inline">\(I(X,Y)\)</span> arises from the simple case of jointly normal variables, where a closed-form expression can be obtained. As a first step toward this formula, we compute the differential entropy of a single normal random variable:</p><div class="no-row-height column-margin column-container"><span class="margin-aside">For background on normal random vectors, see <a href="https://johnmyers-phd.com/book/chapters/07-more-prob.html#" target="_blank">here</a>.</span></div></div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-norm-entropy" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Entropy of a normal random variable)</strong></span> If <span class="math inline">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span>, then</p>
+<p><span class="math display">\[
+H(X) = \frac{1}{2}\log(2\pi e \sigma^2),
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> is the base of the natural logarithm.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Letting <span class="math inline">\(f(x)\)</span> be the density of <span class="math inline">\(X\)</span>, we compute:</p>
+<p><span class="math display">\[
+\begin{align*}
+H(X) &amp;= -\int f(x) \log{f(x)} \ dx \\
+&amp;= - \int f(x) \log\left\{\frac{1}{\sqrt{2\pi\sigma^2}} \exp\left[ -\frac{1}{2\sigma^2}(x-\mu)^2 \right]\right\} \ dx \\
+&amp;= - \log\left(\frac{1}{\sqrt{2\pi\sigma^2}}\right) \int f(x) \ dx + \frac{1}{2\sigma^2}\int f(x)(x-\mu)^2 \ dx \\
+&amp;= \frac{1}{2}\log(2\pi \sigma^2) + \frac{1}{2} \\
+&amp;= \frac{1}{2}\log(2\pi e \sigma^2)
+\end{align*}
+\]</span></p>
+<p>where we’ve used <span class="math inline">\(\int f(x) \ dx =1\)</span> and <span class="math inline">\(\int f(x)(x-\mu)^2 \ dx = \sigma^2\)</span>.</p>
+</div>
+</div>
+</div>
+<p>It is well known that the conditional distributions of a normal random vector are themselves normal; we include here the result for a <span class="math inline">\(2\)</span>-dimensional normal random vector. The proof follows directly from standard properties of multivariate normal distributions and is omitted for brevity.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-cond-norm" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Conditional distributions of normal vectors are normal)</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector with</p>
+<p><span class="math display">\[
+\boldsymbol{\mu}= \begin{bmatrix} \mu_X \\ \mu_Y \end{bmatrix} \quad \text{and} \quad \boldsymbol{\Sigma}= \begin{bmatrix}
+\sigma_X^2 &amp; \rho \sigma_X \sigma_Y \\
+\rho \sigma_X \sigma_Y &amp; \sigma_Y^2
+\end{bmatrix},
+\]</span></p>
+<p>where <span class="math inline">\(X \sim \mathcal{N}(\mu_X,\sigma_X^2)\)</span>, <span class="math inline">\(Y\sim \mathcal{N}(\mu_Y,\sigma_Y^2)\)</span>, and <span class="math inline">\(\rho\)</span> is the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Then</p>
+<p><span class="math display">\[
+(Y \mid X=x) \sim \mathcal{N}\left(\mu_Y + (x-\mu_X) \frac{\rho \sigma_Y}{\sigma_X}, \ \sigma_Y^2(1-\rho^2) \right)
+\]</span></p>
+<p>for all <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The next result contains the formula for the mutual information of two jointly normal random variables; its proof is an easy application of our previous results. Notice the mutual information only depends on the correlation between the variables, as intuition might suggest.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-info-normal" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Mutual information of jointly normal variables)</strong></span> Let <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> be a <span class="math inline">\(2\)</span>-dimensional normal random vector. Then</p>
+<p><span class="math display">\[
+I(X,Y) = -\frac{1}{2} \log \left(1-\rho^2 \right),
+\]</span></p>
+<p>where <span class="math inline">\(\rho\)</span> is the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>From <a href="#thm-norm-entropy" class="quarto-xref">Theorem&nbsp;2</a> and <a href="#thm-cond-norm" class="quarto-xref">Theorem&nbsp;3</a>, we get that</p>
+<p><span class="math display">\[
+H(Y\mid X=x) = \frac{1}{2}\log\left(2\pi e \sigma_Y^2(1-\rho^2)\right),
+\]</span></p>
+<p>where <span class="math inline">\(\sigma_Y\)</span> is the standard deviation of <span class="math inline">\(Y\)</span>. Since this does not depend on <span class="math inline">\(x\)</span>, we have</p>
+<p><span class="math display">\[
+H(Y\mid X) = E_{x\sim f(x)}\left(H(Y\mid X=x) \right) = \frac{1}{2}\log\left(2\pi e \sigma_Y^2(1-\rho^2)\right),
+\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> is the marginal density of <span class="math inline">\(X\)</span>. But another application of <a href="#thm-norm-entropy" class="quarto-xref">Theorem&nbsp;2</a> gives</p>
+<p><span class="math display">\[
+H(Y) = \frac{1}{2}\log(2\pi e \sigma_Y^2),
+\]</span></p>
+<p>and so by <a href="#thm-info-entropy" class="quarto-xref">Theorem&nbsp;1</a> we have</p>
+<p><span class="math display">\[
+\begin{align*}
+I(X,Y) &amp;= H(Y) - H(Y\mid X) \\
+&amp;= \frac{1}{2}\log(2\pi e \sigma_Y^2) - \frac{1}{2}\log\left(2\pi e \sigma_Y^2(1-\rho^2)\right) \\
+&amp;= -\frac{1}{2} \log \left(1-\rho^2 \right).
+\end{align*}
+\]</span></p>
+</div>
+</div>
+</div>
+<p>Hence, the larger the correlation between the marginal normals, the larger the mutual information. To see this in action with a concrete example, let’s suppose that we have <span class="math inline">\((X,Y) \sim \mathcal{N}_2(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>, where</p>
+<p><span class="math display">\[
+\boldsymbol{\mu}= \begin{bmatrix} 0 \\ 0 \end{bmatrix} \quad \text{and} \quad \boldsymbol{\Sigma}= \begin{bmatrix}
+1 &amp; 2\rho  \\
+2\rho  &amp; 4
+\end{bmatrix},
+\]</span></p>
+<p>and <span class="math inline">\(\rho\)</span> is the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (hence the marginal standard deviations are <span class="math inline">\(\sigma_X = 1\)</span> and <span class="math inline">\(\sigma_Y=2\)</span>). In the second and third plots below, we have selected two correlations <span class="math inline">\(\rho=0.5,0.85\)</span> and computed the corresponding mutual information <span class="math inline">\(I(X,Y)\)</span>. The isoprobability contours of the joint normal density <span class="math inline">\(f(x,y)\)</span> are shown in yellow, while the conditional normal densities <span class="math inline">\(f(y|x)\)</span> are shown in blue for each of <span class="math inline">\(x=-1, 0, 1\)</span>. For comparison, the marginal density <span class="math inline">\(f(y)\)</span> has been shown in the first plot.</p>
+<div id="9a589e73" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to plot contours of a bivariate normal distribution</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y, labels<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the covariance matrix using the specified correlation rho</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    Sigma <span class="op">=</span> np.array(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        [[sigmaX<span class="op">**</span><span class="dv">2</span>, rho <span class="op">*</span> sigmaX <span class="op">*</span> sigmaY], [rho <span class="op">*</span> sigmaX <span class="op">*</span> sigmaY, sigmaY<span class="op">**</span><span class="dv">2</span>]]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    Mu <span class="op">=</span> np.array([muX, muY])  <span class="co"># Mean vector</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> multivariate_normal(mean<span class="op">=</span>Mu, cov<span class="op">=</span>Sigma)  <span class="co"># Multivariate normal object</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> np.dstack((x, y))  <span class="co"># Create a grid for evaluation</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> U.pdf(grid)  <span class="co"># Evaluate the PDF on the grid</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    contour <span class="op">=</span> ax.contour(x, y, z, colors<span class="op">=</span>yellow, alpha<span class="op">=</span><span class="fl">0.3</span>)  <span class="co"># Plot contours</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> labels:</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        ax.clabel(contour, inline<span class="op">=</span><span class="va">True</span>, fontsize<span class="op">=</span><span class="dv">8</span>)  <span class="co"># Optionally label contours</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to plot the conditional density f(y|x) for a given x_obs</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_conditional(</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    ax, muX, muY, sigmaX, sigmaY, rho, y_mesh, x_obs, magnification_factor<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute conditional mean and standard deviation for Y|X=x_obs</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> muY <span class="op">+</span> (x_obs <span class="op">-</span> muX) <span class="op">*</span> rho <span class="op">*</span> sigmaY <span class="op">/</span> sigmaX</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> sigmaY <span class="op">*</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> rho<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute and scale the conditional normal density</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> magnification_factor <span class="op">*</span> norm(loc<span class="op">=</span>mu, scale<span class="op">=</span>sigma).pdf(y_mesh)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the conditional density horizontally, shifted to align with x_obs</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    ax.plot(<span class="op">-</span>x <span class="op">+</span> x_obs, y_mesh, color<span class="op">=</span>blue)</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    ax.fill_betweenx(y_mesh, <span class="op">-</span>x <span class="op">+</span> x_obs, x_obs, color<span class="op">=</span>blue, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Set parameters for the bivariate normal distribution</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>muX <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>muY <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>sigmaX <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>sigmaY <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>rhos <span class="op">=</span> [<span class="fl">0.5</span>, <span class="fl">0.85</span>]  <span class="co"># Correlation values to illustrate</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>x_obs <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]  <span class="co"># Observed x values for conditional plots</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> np.mgrid[<span class="op">-</span><span class="fl">2.1</span>:<span class="fl">2.1</span>:<span class="fl">0.01</span>, <span class="op">-</span><span class="dv">5</span>:<span class="dv">5</span>:<span class="fl">0.01</span>]  <span class="co"># Grid for contour plot</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>y_mesh <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, num<span class="op">=</span><span class="dv">250</span>)  <span class="co"># Grid for conditional densities</span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure with three subplots: one for the marginal, two for different correlations</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span><span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>, gridspec_kw<span class="op">=</span>{<span class="st">"width_ratios"</span>: [<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>]}</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the marginal density of Y on the first subplot (as a horizontal density)</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>magnification_factor <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>x_marginal <span class="op">=</span> magnification_factor <span class="op">*</span> norm(scale<span class="op">=</span>sigmaY).pdf(y_mesh)</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(<span class="op">-</span>x_marginal, y_mesh, color<span class="op">=</span>blue)</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].fill_betweenx(y_mesh, <span class="op">-</span>x_marginal, <span class="dv">0</span>, color<span class="op">=</span>blue, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].yaxis.tick_right()</span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].spines[<span class="st">"right"</span>].set_visible(<span class="va">True</span>)</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks([])</span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="co"># For each correlation value, plot the joint contours and conditional densities</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rho, ax <span class="kw">in</span> <span class="bu">zip</span>(rhos, axes[<span class="dv">1</span>:]):</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>    plot_multivar_norm(ax, muX, muY, sigmaX, sigmaY, x, y)</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x_ob <span class="kw">in</span> x_obs:</span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>        plot_conditional(</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>            ax,</span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>            muX,</span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>            muY,</span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>            sigmaX,</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>            sigmaY,</span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>            rho,</span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>            y_mesh,</span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>            x_obs<span class="op">=</span>x_ob,</span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>            magnification_factor<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute and display the mutual information for this correlation</span></span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>    info <span class="op">=</span> <span class="op">-</span>(<span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> rho<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="ch">\r</span><span class="vs">ho =</span><span class="sc">{</span>rho<span class="sc">}</span><span class="dv">$</span><span class="vs">, </span><span class="dv">$</span><span class="vs">I</span><span class="kw">(</span><span class="vs">X,Y</span><span class="kw">)</span><span class="vs">= </span><span class="sc">{</span>info<span class="sc">:0.3f}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">2.2</span>)</span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(<span class="bu">range</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the y-axis on the first subplot</span></span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-16-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="788" height="387"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Compared to the marginal distribution of <span class="math inline">\(Y\)</span>, the conditional distributions become increasingly concentrated as <span class="math inline">\(\rho\)</span> increases. This stronger concentration reflects the reduced uncertainty in <span class="math inline">\(Y\)</span> when <span class="math inline">\(X\)</span> is observed. This example illustrates the intuition behind mutual information: greater correlation implies stronger dependence, smaller conditional entropy, and thus higher mutual information.</p>
+</section>
+<section id="bibliography" class="level2">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Jaynes1957" class="csl-entry" role="listitem">
+Jaynes, E. T. 1957. <span>“Information Theory and Statistical Mechanics.”</span> <em>The Physical Review</em> 106 (4): 620–30.
+</div>
+<div id="ref-Rioul2021" class="csl-entry" role="listitem">
+Rioul, O. 2021. <span>“This Is IT: A Primer on Shannon’s Entropy and Information.”</span> In <em>Information Theory: Poincar<span>é</span> Seminar 2018</em>, 49–86. Springer.
+</div>
+<div id="ref-Shannon1948" class="csl-entry" role="listitem">
+Shannon, C. E. 1948. <span>“A Mathematical Theory of Communication.”</span> <em>The Bell System Technical Journal</em> 27 (3): 379–423.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/johnmyers-phd\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
