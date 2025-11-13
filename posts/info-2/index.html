@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-10-14">
+
+<title>Algebras &amp; information – john myers, ph.d.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ccc6b90b4d1ed2bb7ba759a873171846.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VWK3RHBGT2"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Algebras &amp; information">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://johnmyers-phd.com/posts/info-2/thumbnail.png">
+<meta property="og:site_name" content="john myers, ph.d.">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.qmd"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.qmd"> 
+<span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../writings.qmd"> 
+<span class="menu-text">writings</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-teaching" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">teaching</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
+        <li>
+    <a class="dropdown-item" href="../../teaching/calculus-ii-fa-25.qmd">
+ <span class="dropdown-text"></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../teaching/analysis-fa-25.qmd">
+ <span class="dropdown-text"></span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.johnmyers-phd.com/book" target="_blank"> 
+<span class="menu-text">probabilistic machine learning</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jmyers7/" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/john-myers-phd" target="_blank"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jmmyers25@gmail.com"> <i class="bi bi-envelope-open-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#algebras-as-information-carriers" id="toc-algebras-as-information-carriers" class="nav-link" data-scroll-target="#algebras-as-information-carriers">Algebras as information carriers</a></li>
+  <li><a href="#example-coin-tosses" id="toc-example-coin-tosses" class="nav-link" data-scroll-target="#example-coin-tosses">Example: coin tosses</a></li>
+  <li><a href="#algebras-and-partitions" id="toc-algebras-and-partitions" class="nav-link" data-scroll-target="#algebras-and-partitions">Algebras and partitions</a></li>
+  <li><a href="#algebras-and-entropy" id="toc-algebras-and-entropy" class="nav-link" data-scroll-target="#algebras-and-entropy">Algebras and entropy</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Algebras &amp; information</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Information theory</div>
+    <div class="quarto-category">Probability theory</div>
+    <div class="quarto-category">Measure theory</div>
+    <div class="quarto-category">Entropy</div>
+    <div class="quarto-category">Mutual information</div>
+    <div class="quarto-category">Sigma-algebras</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>How do we mathematically represent what someone <em>knows</em>? This question sits at the heart of probability theory, information theory, and decision-making under uncertainty. When an experiment produces an outcome but we don’t observe it directly, our knowledge is partial: we might know some facts about the outcome while remaining uncertain about others. This partial knowledge needs a precise mathematical framework.</p>
+<p>Consider a simple scenario: three coin flips produce a binary sequence like <span class="math inline">\(011\)</span> or <span class="math inline">\(101\)</span> where a <span class="math inline">\(0\)</span> indicates that a tail was produced and <span class="math inline">\(1\)</span> a head, but you don’t see the full result. If someone tells you only the outcome of the first flip, you’ve gained information, but how much? If they then reveal the second flip, you learn more, but again, how much? These questions about <em>information content</em> and <em>uncertainty reduction</em> require both a qualitative structure (what can you distinguish?) and a quantitative measure (how uncertain are you?).</p>
+<p>The qualitative structure is captured by <em>algebras of sets</em>, which formalize the collection of events an observer can decide about. If you know the first flip, you can decide whether the full sequence starts with <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, partitioning the eight possible outcomes into two groups. Knowing the first two flips refines this partition into four groups, and so on. Each partition represents a distinct “information state,” and the nested structure</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span></p>
+<p>captures progressive learning over time.</p>
+<p>But algebras alone don’t quantify uncertainty; they only describe logical structure. To measure <em>how much</em> information each partition contains, we need <em>entropy</em>, along with the related notions of <em>conditional entropy</em> and <em>mutual information</em>. As partitions refine, conditional entropy decreases (less residual uncertainty) while mutual information increases (more shared information between algebras).</p>
+<p>In a <a href="../../posts/info-1/index.html">previous post</a>, we introduced <em>entropy</em>, <em>conditional entropy</em>, and <em>mutual information</em> for probability distributions on finite sets. Here, we develop the same ideas from a measure-theoretic perspective, showing how information naturally emerges from the algebraic structure of events. This dual perspective (probabilistic and set-theoretic) provides both conceptual clarity and the foundation for extensions to infinite spaces, stochastic processes, and dynamical systems.</p>
+<p>We’ll work primarily with a concrete example: three coin flips and the nested algebras they generate. Through explicit computations in <code>R</code>, we’ll see how entropy quantifies information at each stage of learning. The mathematical machinery we develop (algebras, partitions, and their correspondence) forms the backbone of modern probability theory. These ideas have powerful applications in <em>gambling problems</em> and <em>games of chance</em>, where players accumulate information over time, and in <em>options pricing in mathematical finance</em>, where nested filtrations model traders’ evolving information and determine fair prices for derivative securities. We will explore these latter themes in future posts.</p>
+<p>The idea that algebras (and their <span class="math inline">\(\sigma\)</span>-algebra generalizations) can represent “information states” is familiar to probability theorists. For example, these ideas appear throughout <span class="citation" data-cites="Billingsley1995">(<a href="#ref-Billingsley1995" role="doc-biblioref">Billingsley 1995</a>)</span>, which also discusses gambling strategies, while <span class="citation" data-cites="Bjork2020">(<a href="#ref-Bjork2020" role="doc-biblioref">Björk 2020</a>)</span> provides a perspective from mathematical finance. Information-theoretic measures like entropy are applied to <span class="math inline">\(\sigma\)</span>-algebras in ergodic theory and other areas; for an introduction, see <span class="citation" data-cites="Walters1982">(<a href="#ref-Walters1982" role="doc-biblioref">Walters 1982</a>)</span>.</p>
+<p>If you’d like to follow along with the code examples in this post, please see the dropdown code block below for the usual imports and setup.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>) <span class="co"># For plotting</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"knitr"</span>) <span class="co"># For table formatting (used with kable())</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>) <span class="co"># For data manipulation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"latex2exp"</span>) <span class="co"># For LaTeX rendering in plots</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Source custom theme file</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: Replace this path with your own theme file location</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../../aux-files/custom-theme.R"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract custom colors from theme</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: These color definitions depend on your custom theme file</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>yellow <span class="ot">&lt;-</span> custom_colors[[<span class="st">"yellow"</span>]]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">&lt;-</span> custom_colors[[<span class="st">"blue"</span>]]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply custom ggplot2 theme</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">custom_theme</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="algebras-as-information-carriers" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="algebras-as-information-carriers">Algebras as information carriers</h2>
+<p>An observer monitors the result of some experiment. The set of all possible results is collected into a <em>sample space</em> <span class="math inline">\(\Omega\)</span>, whose elements <span class="math inline">\(\omega\)</span> are called <em>outcomes</em> or <em>sample points</em>. Suppose that the experiment is finished, so that a definite <span class="math inline">\(\omega_0\)</span> in <span class="math inline">\(\Omega\)</span> is produced, but that the exact identity of <span class="math inline">\(\omega_0\)</span> remains unknown to the observer. However, suppose that the observer has access to a set <span class="math inline">\(\mathcal{F}\)</span> of subsets of <span class="math inline">\(\Omega\)</span> with the following property:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>For each <span class="math inline">\(A\in \mathcal{F}\)</span>, the observer can <strong>decide</strong> whether <span class="math inline">\(\omega_0\in A\)</span> or not.</p>
+</div>
+</div>
+</div>
+<p>The observer’s decisions reflect the information they possess, so we can treat the class <span class="math inline">\(\mathcal{F}\)</span> as a proxy for that information. Sets in <span class="math inline">\(\mathcal{F}\)</span> are called (<em>decidable</em>) <em>events</em>. If the observer confirms that <span class="math inline">\(\omega_0\in A\)</span> for some <span class="math inline">\(A\in \mathcal{F}\)</span>, then we say that “the event <span class="math inline">\(A\)</span> has occurred”.</p>
+<p>It is never in question that <span class="math inline">\(\omega_0\in \Omega\)</span>, since the same space <span class="math inline">\(\Omega\)</span> contains all possible outcomes, so it is natural to include <span class="math inline">\(\Omega\)</span> in the class <span class="math inline">\(\mathcal{F}\)</span> of decidable events. But what other properties must <span class="math inline">\(\mathcal{F}\)</span> have?</p>
+<ol type="1">
+<li><p>If the observer can determine whether an event <span class="math inline">\(A\)</span> has occurred, then they obviously can determine whether <span class="math inline">\(A\)</span> did <em>not</em> occur. This means that if <span class="math inline">\(A\in \mathcal{F}\)</span>, then <span class="math inline">\(A^c \in \mathcal{F}\)</span> too. </p></li>
+<li><p>If the observer can determine separately whether events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have occurred, then they can determine whether <span class="math inline">\(A\)</span> <em>or</em> <span class="math inline">\(B\)</span> has occurred. Since <span class="math inline">\(A\cup B\)</span> consists of those outcomes that are either in <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>, this means that <span class="math inline">\(A\cup B\)</span> must be in <span class="math inline">\(\mathcal{F}\)</span> when both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are.</p></li>
+<li><p>Similarly, if the observer can determine separately whether events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have occurred, then they can determine whether <span class="math inline">\(A\)</span> <em>and</em> <span class="math inline">\(B\)</span> has occurred. This implies that <span class="math inline">\(\mathcal{F}\)</span> must contain the intersection <span class="math inline">\(A\cap B\)</span> whenever it contains both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.</p></li>
+</ol>
+<div class="no-row-height column-margin column-container"><span class="margin-aside">Here, <span class="math inline">\(A^c\)</span> is the <em>absolute complement</em> of <span class="math inline">\(A\)</span>, consisting of those <span class="math inline">\(\omega\in \Omega\)</span> that are not in <span class="math inline">\(A\)</span>.</span></div><div class="page-columns page-full"><p>These three properties capture what it means for the observer’s collection of events <span class="math inline">\(\mathcal{F}\)</span> to represent a logically coherent state of information. They lead us naturally to the formal definition of an <em>algebra</em> of sets. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Actually, we need not explicitly require that <span class="math inline">\(\mathcal{F}\)</span> contains all (binary) intersections of events, since this follows from properties (1) and (2). Note also that <span class="math inline">\(\mathcal{F}\)</span> must contain the empty set, since it contains <span class="math inline">\(\Omega\)</span> and is closed under complements.</span></div></div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-algebra" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be a set of subsets of a set <span class="math inline">\(\Omega\)</span>. Then <span class="math inline">\(\mathcal{F}\)</span> is called an <em>algebra</em> of sets (in <span class="math inline">\(\Omega\)</span>) if it has the following properties:</p>
+<ol type="1">
+<li><p>It contains <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p>It is closed under (absolute) complementation:</p></li>
+</ol>
+<p><span class="math display">\[
+  A\in \mathcal{F}\quad \Rightarrow \quad A^c\in \mathcal{F}.
+  \]</span></p>
+<ol start="3" type="1">
+<li>It is closed under binary unions:</li>
+</ol>
+<p><span class="math display">\[
+  A_1, A_2\in \mathcal{F}\quad\Rightarrow \quad A_1 \cup A_2 \in \mathcal{F}.
+  \]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>We have thus argued that our class <span class="math inline">\(\mathcal{F}\)</span> of decidable events—encoding our observer’s information—must be an algebra of sets in the sample space <span class="math inline">\(\Omega\)</span>.</p>
+<p>As we indicated in the margin note above, algebras of sets are also closed under binary intersections. Moreover, an easy inductive proof shows that algebras are also closed under all finite unions and intersections, not just binary ones. In this post we’ll stick to finite sample spaces, but in the infinite case one usually strengthens these closure properties to include <em>countable</em> unions, yielding <em><span class="math inline">\(\sigma\)</span>-algebras</em> of sets.</p>
+</section>
+<section id="example-coin-tosses" class="level2">
+<h2 class="anchored" data-anchor-id="example-coin-tosses">Example: coin tosses</h2>
+<p>In practice, the information encoded in <span class="math inline">\(\mathcal{F}\)</span> is often most naturally described by a <em>partition</em> that generates it. A partition is a collection of sets</p>
+<p><span class="math display">\[
+\{A_1,A_2,\ldots,A_n\}
+\]</span></p>
+<p>where each <span class="math inline">\(A_k \subset \Omega\)</span>, the sets <span class="math inline">\(A_k\)</span>​ are mutually disjoint, and their union exhausts the sample space: <span class="math inline">\(\Omega = \bigcup_{k=1}^n A_k\)</span>​.</p>
+<p>The intuition is simple: an observer’s information typically comes from knowing the answer to some question. Each possible answer groups together certain outcomes, and these groups form a partition of <span class="math inline">\(\Omega\)</span>. The algebra <span class="math inline">\(\mathcal{F}\)</span> is then the smallest algebra containing all sets in this partition. We will study partitions in more detail in the next section, but for now we see how it works in a simple example.</p>
+<p>We consider the sample space <span class="math inline">\(\Omega\)</span> consisting of all binary sequences of length 3:</p>
+<p><span class="math display">\[
+\Omega = \{000, 001, 010, 011, 100, 101, 110, 111\}.
+\]</span></p>
+<p>We would visualize this sample space as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/omega.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+<p>We imagine that a binary sequence <span class="math inline">\(\omega\)</span> in <span class="math inline">\(\Omega\)</span> represents the result of flipping a coin three times in succession, with <span class="math inline">\(0\)</span> when a tail occurs, and <span class="math inline">\(1\)</span> when a head is shown. We let <span class="math inline">\(X_i(\omega)\)</span> denote the result of the <span class="math inline">\(i\)</span>-th flip in <span class="math inline">\(\omega\)</span> (so <span class="math inline">\(X_i(\omega)=0\)</span> or <span class="math inline">\(1\)</span>), and we write</p>
+<p><span class="math display">\[
+Y = X_1 + X_2 + X_3.
+\]</span></p>
+<p>The four functions <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y\)</span> are, of course, random variables on <span class="math inline">\(\Omega\)</span>. If the coin has probability <span class="math inline">\(\theta\)</span> of showing heads, then <span class="math inline">\(X_i \sim \mathcal{B}er(\theta)\)</span> for each <span class="math inline">\(i\)</span>, and <span class="math inline">\(Y\sim \mathcal{B}in(3,\theta)\)</span>.</p>
+<p>We will be carrying out some basic computations later, so let’s implement our scenario in the machine, by coding a data frame in which each row represents an outcome <span class="math inline">\(\omega\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the sample space Omega as a data frame</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each row represents one of the 8 possible outcomes (binary sequences of length 3)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="co"># First coin flip: 0 = tail, 1 = head</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">X2 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="co"># Second coin flip</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">X3 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># Third coin flip</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add random variable Y: total number of heads across all three flips</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y =</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space as a formatted table</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  Omega,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>sample space <span class="math inline">\(\Omega\)</span> and random variables <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Now, suppose that the coin was flipped three times, producing a definite outcome <span class="math inline">\(\omega_0\)</span> in <span class="math inline">\(\Omega\)</span>, but that its exact identity is unknown to our observer. The only information available is the answer to the question: “<em>What is the outcome of the first flip?</em>”. This information allows the observer to partition the sample space <span class="math inline">\(\Omega\)</span> and generate an algebra <span class="math inline">\(\mathcal{F}_1\)</span>, just as we described at the beginning of this section.</p>
+<p>This partition consists of the sets</p>
+<p><span class="math display">\[
+A_1 = \{000,001,010,011\} \quad \text{and} \quad A_2 = \{100,101,110,111\},
+\]</span></p>
+<p>where <span class="math inline">\(A_1\)</span> contains outcomes corresponding to the answer “tail” and <span class="math inline">\(A_2\)</span> those corresponding to “head.” As you can easily check, the set</p>
+<p><span class="math display">\[
+\mathcal{F}_1 = \{\emptyset, A_1, A_2, \Omega\}
+\]</span></p>
+<p>is an algebra of sets in <span class="math inline">\(\Omega\)</span>. We would visualize this partition as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/F1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+<p>Let’s insert a column in our data frame tracking the membership of each outcome <span class="math inline">\(\omega\)</span> (i.e., row) in <span class="math inline">\(A_1\)</span> or <span class="math inline">\(A_2\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group outcomes by the result of the first flip (X1)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and assign a group ID to track which partition set (A1 or A2) each outcome belongs to</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ai =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> <span class="co"># Ai = 1 for A1 (X1=0), Ai = 2 for A2 (X1=1)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated sample space showing partition membership</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Ai records the index $i$ of $A_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>column Ai records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(A_i\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Now, suppose the observer is also given the answer to the question: “<em>What is the outcome of the second flip?</em>” Combining this with the information from the first flip, the observer can now distinguish outcomes based on the results of the first two flips. This additional information generates a finer partition of <span class="math inline">\(\Omega\)</span> and produces a second algebra <span class="math inline">\(\mathcal{F}_2\)</span>, which contains the first:</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2.
+\]</span></p>
+<p>Inclusions of algebras represent <em>refinements</em> of information.</p>
+<p>The new partition consists of the sets</p>
+<p><span class="math display">\[
+B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 = \{110,111\},
+\]</span></p>
+<p>where <span class="math inline">\(B_1\)</span> corresponds to the answer “<em>first and second flips are both tails</em>”, <span class="math inline">\(B_2\)</span> to “<em>first flip tail, second flip head</em>”, and so on. The algebra that is generated by this partition is</p>
+<p><span id="eq-gend-alg"><span class="math display">\[
+\mathcal{F}_2 = \{\emptyset, B_1, B_2, B_3, B_4, B_1 \cup B_2, B_3 \cup B_4, B_1\cup B_3, B_1\cup B_4, B_2\cup B_3, B_2\cup B_4, \Omega \}.
+\tag{1}\]</span></span></p>
+<p>As expected, <span class="math inline">\(\mathcal{F}_2\)</span> contains <span class="math inline">\(\mathcal{F}_1\)</span> since <span class="math inline">\(B_1\cup B_2 = A_1\)</span> and <span class="math inline">\(B_3\cup B_4 = A_2\)</span>, reflecting that the observer’s information has been refined. Along with the first partition induced by <span class="math inline">\(\mathcal{F}_1\)</span>, we would visualize this finer partition as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/F1-F2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>Let’s insert our new algebra into the machine:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group outcomes by the results of the first two flips (X1 and X2)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and assign a group ID to track which partition set (B1, B2, B3, or B4) each outcome belongs to</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1, X2) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bi =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> <span class="co"># Bi = 1 for B1, Bi = 2 for B2, etc.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated sample space showing partition membership for the refined algebra F2</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Bi records the index $i$ of $B_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>column Bi records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(B_i\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+<th style="text-align: right;">Bi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Finally, suppose the observer is given the answer to the question: “<em>What is the outcome of the third flip?</em>” With this information, the observer can now distinguish outcomes based on all three flips, completely specifying <span class="math inline">\(\omega_0\)</span>. This generates the finest partition of <span class="math inline">\(\Omega\)</span> and produces a third algebra <span class="math inline">\(\mathcal{F}_3\)</span>, which refines the information in <span class="math inline">\(\mathcal{F}_2\)</span> (and thus also <span class="math inline">\(\mathcal{F}_1\)</span>):</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3.
+\]</span></p>
+<p>The new partition must contain the eight singletons</p>
+<p><span class="math display">\[
+\begin{gather*}
+C_1 = \{000\}, \ C_2 = \{001\}, \ C_3 = \{010\}, \ C_4 = \{011\}, \\
+C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
+\end{gather*}
+\]</span></p>
+<p>where each <span class="math inline">\(C_i\)</span> corresponds to the answer to the question, “<em>Which sequence of heads and tails occurred in all three flips?</em>”. Knowing which singleton contains <span class="math inline">\(\omega_0\)</span> completely identifies the outcome. To form an algebra, <span class="math inline">\(\mathcal{F}_3\)</span> must include not only these singletons but also all possible unions of them; in other words, <span class="math inline">\(\mathcal{F}_3\)</span> is the power set of <span class="math inline">\(\Omega\)</span>, containing all subsets of the sample space. Along with the first two partitions induced by <span class="math inline">\(\mathcal{F}_1\)</span> and <span class="math inline">\(\mathcal{F}_2\)</span>, we would visualize this finest partition as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/filtration.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+<p>We insert one last column in our data frame for the <span class="math inline">\(C_i\)</span>’s:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group outcomes by all three flips (X1, X2, and X3)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each combination of (X1, X2, X3) uniquely identifies one outcome</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1, X2, X3) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ci =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> <span class="co"># Ci = 1 for C1, Ci = 2 for C2, etc.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated sample space showing the finest partition (singletons)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># At this level, each outcome is completely distinguishable</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Ci records the index $i$ of $C_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>column Ci records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(C_i\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+<th style="text-align: right;">Bi</th>
+<th style="text-align: right;">Ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>To recap, the sets <span class="math inline">\(A_k\)</span>, <span class="math inline">\(B_k\)</span>, and <span class="math inline">\(C_k\)</span> form partitions of <span class="math inline">\(\Omega\)</span>, with each successive partition being finer than the last: each <span class="math inline">\(A_k\)</span> is a union of <span class="math inline">\(B_k\)</span>’s, and each <span class="math inline">\(B_k\)</span> is a union of <span class="math inline">\(C_k\)</span>’s. These sets are also the <em>atoms</em> of their respective algebras, meaning they do not properly contain any nonempty subset in the corresponding algebra.</p>
+<p>Two outcomes <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> in the same <span class="math inline">\(A_k\)</span> are <em>indistinguishable</em> using only the information in <span class="math inline">\(\mathcal{F}_1\)</span>. Likewise, outcomes in the same <span class="math inline">\(B_k\)</span> are indistinguishable with respect to <span class="math inline">\(\mathcal{F}_2\)</span>. The <span class="math inline">\(C_k\)</span>, by contrast, correspond to <em>complete</em> information in <span class="math inline">\(\mathcal{F}_3\)</span>, so no ambiguity remains.</p>
+<p>Each algebra in the chain of inclusions</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span></p>
+<p>captures a distinct level of information about the outcome <span class="math inline">\(\omega_0\)</span>. This nested structure provides a simple model of <em>learning over time</em>: as the experiment unfolds and the observer acquires new data, their algebra of decidable events expands, splitting sets of previously indistinguishable outcomes into finer partitions—until, at last, <span class="math inline">\(\mathcal{F}_3\)</span> represents complete knowledge of <span class="math inline">\(\omega_0\)</span>.</p>
+</section>
+<section id="algebras-and-partitions" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="algebras-and-partitions">Algebras and partitions</h2>
+<p>In this section, we nail down the ideas from the previous section on partitions and algebras and highlight four useful theorems connecting them. Some proofs get a bit technical, so feel free to skim and focus on the statements. For simplicity, we stick to finite sets <span class="math inline">\(\Omega\)</span>, though many results hold for infinite sets too.</p>
+<p>So, let <span class="math inline">\(\Omega\)</span> be a finite set and <span class="math inline">\(\mathcal{F}\)</span> an algebra of sets in <span class="math inline">\(\Omega\)</span>. Indistinguishability of two elements <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega'\)</span> of <span class="math inline">\(\Omega\)</span> (relative to <span class="math inline">\(\mathcal{F}\)</span>) occurs exactly when we have</p>
+<p><span id="eq-equiv-rel"><span class="math display">\[
+\omega \in A \quad \Leftrightarrow \quad \omega' \in A, \quad \forall A\in \mathcal{F}.
+\tag{2}\]</span></span></p>
+<p>Elements <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega'\)</span> related in this way will be called <em><span class="math inline">\(\mathcal{F}\)</span>-equivalent</em>.</p>
+<p>This notion of equivalence is evidently an <a href="https://en.wikipedia.org/wiki/Equivalence_relation" target="_blank">equivalence relation</a> in the technical sense, and thus we obtain a partition of <span class="math inline">\(\Omega\)</span> into the distinct equivalence classes. These equivalence classes are actually themselves contained in <span class="math inline">\(\mathcal{F}\)</span>, since <span class="math inline">\(\mathcal{F}\)</span> is closed under intersections. In fact, if <span class="math inline">\(E\)</span> is an equivalence class containing an outcome <span class="math inline">\(\omega\in \Omega\)</span>, then <span class="math inline">\(E\)</span> is the intersection of all <span class="math inline">\(A\in \mathcal{F}\)</span> that contain <span class="math inline">\(\omega\)</span>:</p>
+<p><span class="math display">\[
+E = \bigcap_{\omega \in A \in \mathcal{F}} A.
+\]</span></p>
+<p>(Verification of this equality is left to the reader.) But even more than being elements of <span class="math inline">\(\mathcal{F}\)</span>, these equivalence classes are <em>atomic</em> in the sense of the following definition.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-atom" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be an algebra of sets in a finite set <span class="math inline">\(\Omega\)</span>. A set <span class="math inline">\(A\in \mathcal{F}\)</span> is called an <em>atom</em> if it is <em>non-reducible</em>, in the sense that <span class="math inline">\(A\)</span> contains no nonempty subset of <span class="math inline">\(\mathcal{F}\)</span> other than itself.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-atom" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Atomic theorm)</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be an algebra of sets in a finite set <span class="math inline">\(\Omega\)</span>.</p>
+<ol type="1">
+<li><p>There exists a partition <span class="math inline">\(\mathcal{A}\)</span> of <span class="math inline">\(\Omega\)</span> consisting entirely of atoms in <span class="math inline">\(\mathcal{F}\)</span>. In fact, <span class="math inline">\(\mathcal{A}\)</span> may be chosen to consist of the distinct <span class="math inline">\(\mathcal{F}\)</span>-equivalence classes.</p></li>
+<li><p>If <span class="math inline">\(\mathcal{A}\)</span> is a partition of <span class="math inline">\(\Omega\)</span> consisting of atoms in <span class="math inline">\(\mathcal{F}\)</span>, then every nonempty set in <span class="math inline">\(\mathcal{F}\)</span> is a union of atoms in <span class="math inline">\(\mathcal{A}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\mathcal{A}\)</span> and <span class="math inline">\(\mathcal{B}\)</span> be two partitions of <span class="math inline">\(\Omega\)</span> consisting of atoms in <span class="math inline">\(\mathcal{F}\)</span>. Then <span class="math inline">\(\mathcal{A}= \mathcal{B}\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(1): Since the distinct <span class="math inline">\(\mathcal{F}\)</span>-equivalence classes partition <span class="math inline">\(\Omega\)</span>, we just need to show that a given equivalence class is non-reducible. So, let <span class="math inline">\(E\)</span> be an <span class="math inline">\(\mathcal{F}\)</span>-equivalence class, and suppose that <span class="math inline">\(A\in \mathcal{F}\)</span> is a nonempty subset of <span class="math inline">\(E\)</span>. Choose <span class="math inline">\(\omega'\in A\)</span> and <span class="math inline">\(\omega \in E\)</span>. Then <span class="math inline">\(\omega'\in E\)</span> as well, and so <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega'\)</span> are <span class="math inline">\(\mathcal{F}\)</span>-equivalent. But then <span class="math inline">\(\omega'\in A\)</span> implies <span class="math inline">\(\omega\in A\)</span>, and since <span class="math inline">\(\omega\)</span> was an arbitrarily chosen element of <span class="math inline">\(E\)</span>, we must have <span class="math inline">\(E\subset A\)</span>. But <span class="math inline">\(A\)</span> began as a subset of <span class="math inline">\(E\)</span>, and so <span class="math inline">\(E=A\)</span>.</p>
+<p>(2): Since the atoms in <span class="math inline">\(\mathcal{A}\)</span> partition <span class="math inline">\(\Omega\)</span>, it will suffice to show that every nonempty set <span class="math inline">\(S\in \mathcal{F}\)</span> is either disjoint from a given atom in <span class="math inline">\(A\in\mathcal{A}\)</span>, or <span class="math inline">\(S\)</span> contains <span class="math inline">\(A\)</span> as a subset. But if <span class="math inline">\(S\cap A\)</span> is nonempty, then we must have <span class="math inline">\(S\cap A = A\)</span> since <span class="math inline">\(S\cap A\in \mathcal{F}\)</span> and <span class="math inline">\(A\)</span> is non-reducible. But then <span class="math inline">\(A\subset S\)</span>, as desired.</p>
+<p>(3): First, choose an atom <span class="math inline">\(A\in \mathcal{A}\)</span>. Since <span class="math inline">\(\mathcal{B}\)</span> is a partition of <span class="math inline">\(\Omega\)</span>, there must exist a <span class="math inline">\(B\in \mathcal{B}\)</span> such that <span class="math inline">\(A\cap B\)</span> is nonempty. But then</p>
+<p><span class="math display">\[
+A = A\cap B =B,
+\]</span></p>
+<p>where the first equalities follow from the fact that <span class="math inline">\(A\cap B\)</span> is in <span class="math inline">\(\mathcal{F}\)</span> and non-reducibility of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Thus <span class="math inline">\(A\in \mathcal{B}\)</span>, which proves <span class="math inline">\(\mathcal{A}\subset \mathcal{B}\)</span>. A symmetric argument proves the opposite containment, and hence <span class="math inline">\(\mathcal{A}= \mathcal{B}\)</span>.</p>
+</div>
+</div>
+</div>
+<p>So, every algebra of sets <span class="math inline">\(\mathcal{F}\)</span> in a finite set <span class="math inline">\(\Omega\)</span> naturally gives rise to a unique partition <span class="math inline">\(\mathcal{A}\)</span> of <span class="math inline">\(\Omega\)</span> consisting of atoms in <span class="math inline">\(\mathcal{F}\)</span>. Conversely, as we saw in the coin-flip example, a given partition <span class="math inline">\(\mathcal{A}\)</span> of <span class="math inline">\(\Omega\)</span> can be used to generate an algebra, which we denote by <span class="math inline">\(\sigma(\mathcal{A})\)</span>. By construction, <span class="math inline">\(\sigma(\mathcal{A})\)</span> is the <em>smallest</em> algebra in <span class="math inline">\(\Omega\)</span> that contains all sets in <span class="math inline">\(\mathcal{A}\)</span>, i.e., <span class="math inline">\(\mathcal{A}\subset \sigma(\mathcal{A})\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-atom-gen" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Generating algebras via atoms)</strong></span> Let <span class="math inline">\(\mathcal{A}\)</span> be a partition of a finite set <span class="math inline">\(\Omega\)</span>.</p>
+<ol type="1">
+<li><p>Every set in <span class="math inline">\(\sigma(\mathcal{A})\)</span> is a union of sets in <span class="math inline">\(\mathcal{A}\)</span>.</p></li>
+<li><p>The sets in <span class="math inline">\(\mathcal{A}\)</span> are atoms in the algebra <span class="math inline">\(\sigma(\mathcal{A})\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><span class="margin-aside callout-margin-content callout-margin-content-simple">To see this theorem in action, I encourage you to scroll back and look at the algebra <span class="math inline">\(\mathcal{F}_2\)</span> in (<a href="#eq-gend-alg" class="quarto-xref">1</a>) in the previous section, generated by the partition <span class="math inline">\(\{B_1,B_2,B_3,B_4\}\)</span>. Notice that <span class="math inline">\(\mathcal{F}_2\)</span> does indeed consist of all unions of the <span class="math inline">\(B_k\)</span>’s.</span></div><div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(1): Since <span class="math inline">\(\sigma(\mathcal{A})\)</span> is an algebra, it must contain the set <span class="math inline">\(\mathcal{F}\)</span> of all unions of sets in <span class="math inline">\(\mathcal{A}\)</span>, so we have</p>
+<p><span class="math display">\[
+\mathcal{A}\subset \mathcal{F}\subset \sigma(\mathcal{A}).
+\]</span></p>
+<p>The point is that <span class="math inline">\(\mathcal{F}\)</span> is already an algebra, and hence <span class="math inline">\(\mathcal{F}= \sigma(\mathcal{A})\)</span>. To prove this, note that <span class="math inline">\(\Omega \in \mathcal{F}\)</span> since the union of all sets in <span class="math inline">\(\mathcal{A}\)</span> is <span class="math inline">\(\Omega\)</span>. Clearly <span class="math inline">\(\mathcal{F}\)</span> is closed under unions, so we need only show that it is closed under absolute complements. But because the sets in <span class="math inline">\(\mathcal{A}\)</span> are pairwise disjoint and their union is <span class="math inline">\(\Omega\)</span>, the complement of a union of sets in <span class="math inline">\(\mathcal{A}\)</span> is another set of the same form, and hence <span class="math inline">\(\mathcal{F}\)</span> is indeed closed under unions. This proves the claim <span class="math inline">\(\mathcal{F}= \sigma(\mathcal{A})\)</span>, and thereby establishes the first statement.</p>
+<p>(2): Let <span class="math inline">\(A\in \mathcal{A}\)</span> and suppose <span class="math inline">\(S\in \mathcal{F}\)</span> is a nonempty subset of <span class="math inline">\(A\)</span>. But then <span class="math inline">\(S\)</span> is a union of sets in <span class="math inline">\(\mathcal{A}\)</span>, and since the sets in <span class="math inline">\(\mathcal{A}\)</span> are pairwise disjoint, we must have <span class="math inline">\(S=A\)</span>.</p>
+</div>
+</div>
+</div>
+<p>The mapping <span class="math inline">\(\mathcal{A}\mapsto \sigma(\mathcal{A})\)</span> associating every partition <span class="math inline">\(\mathcal{A}\)</span> of a finite set <span class="math inline">\(\Omega\)</span> with the algebra <span class="math inline">\(\sigma(\mathcal{A})\)</span> is injective. Indeed, if <span class="math inline">\(\mathcal{A}\)</span> and <span class="math inline">\(\mathcal{B}\)</span> are two partitions such that <span class="math inline">\(\sigma(\mathcal{A}) = \sigma(\mathcal{B})\)</span>, then <a href="#thm-atom-gen" class="quarto-xref">Theorem&nbsp;2</a> shows that <span class="math inline">\(\mathcal{A}\)</span> and <span class="math inline">\(\mathcal{B}\)</span> are both partitions of the same algebra and both consist of atoms; then <a href="#thm-atom" class="quarto-xref">Theorem&nbsp;1</a> shows <span class="math inline">\(\mathcal{A}= \mathcal{B}\)</span>. On the other hand, if <span class="math inline">\(\mathcal{F}\)</span> is an algebra of sets in <span class="math inline">\(\Omega\)</span>, then a partition <span class="math inline">\(\mathcal{A}\)</span> of <span class="math inline">\(\Omega\)</span> consisting of atoms in <span class="math inline">\(\mathcal{F}\)</span> exists, by <a href="#thm-atom" class="quarto-xref">Theorem&nbsp;1</a>, and all sets in <span class="math inline">\(\mathcal{F}\)</span> are unions of atoms. But then <span class="math inline">\(\mathcal{F}= \sigma(\mathcal{A})\)</span> by <a href="#thm-atom-gen" class="quarto-xref">Theorem&nbsp;2</a>. We have thus proved:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-alg-part-equiv" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Algebras <span class="math inline">\(=\)</span> Partitions)</strong></span> Let <span class="math inline">\(\Omega\)</span> be a finite set. The mapping <span class="math inline">\(\mathcal{A}\mapsto \sigma(\mathcal{A})\)</span> is a bijection from the class of all partitions of <span class="math inline">\(\Omega\)</span> onto the class of all algebras of sets in <span class="math inline">\(\Omega\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Finally, if <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathcal{G}\)</span> are two algebras of sets in <span class="math inline">\(\Omega\)</span>, we say <span class="math inline">\(\mathcal{F}\)</span> <em>refines</em> <span class="math inline">\(\mathcal{G}\)</span> if <span class="math inline">\(\mathcal{G}\subset \mathcal{F}\)</span>. As we saw in the coin-flip example, refinements of algebras corresponds to refinement of information.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-refinement" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Refinement Theorem)</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathcal{G}\)</span> be two algebras of sets in a finite set <span class="math inline">\(\Omega\)</span> with associated partitions <span class="math inline">\(\mathcal{A}\)</span> and <span class="math inline">\(\mathcal{B}\)</span> consisting of atoms, respectively. Then <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\mathcal{G}\)</span> if and only if every set <span class="math inline">\(B\in \mathcal{B}\)</span> is a union of sets in <span class="math inline">\(\mathcal{A}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>First, supposing that <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\mathcal{G}\)</span>, we have</p>
+<p><span class="math display">\[
+\mathcal{B}\subset \sigma(\mathcal{B}) = \mathcal{G}\subset \mathcal{F}= \sigma(\mathcal{A}),
+\]</span></p>
+<p>where the two equalities follow from <a href="#thm-alg-part-equiv" class="quarto-xref">Theorem&nbsp;3</a>. The desired conclusion then follows from part (1) of <a href="#thm-atom-gen" class="quarto-xref">Theorem&nbsp;2</a>. Conversely, if every <span class="math inline">\(B\in \mathcal{B}\)</span> is a union of sets in <span class="math inline">\(\mathcal{A}\)</span>, then we get the subset containment in</p>
+<p><span class="math display">\[
+\mathcal{B}\subset \sigma(\mathcal{A}) = \mathcal{F},
+\]</span></p>
+<p>while the equality again follows from <a href="#thm-alg-part-equiv" class="quarto-xref">Theorem&nbsp;3</a>. But then</p>
+<p><span class="math display">\[
+\mathcal{G}= \sigma(\mathcal{B}) \subset \mathcal{F},
+\]</span></p>
+<p>where the equality follows (one more time) from <a href="#thm-alg-part-equiv" class="quarto-xref">Theorem&nbsp;3</a> and the subset containment from the fact <span class="math inline">\(\mathcal{F}\)</span> is an algebra containing <span class="math inline">\(\mathcal{B}\)</span>. Thus <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\mathcal{G}\)</span>.</p>
+</div>
+</div>
+</div>
+<p>The correspondence between algebras and partitions gives us two complementary perspectives on information. The algebraic view emphasizes <em>logical operations</em>: we can decide membership in events, take complements, form unions and intersections. The partition view emphasizes <em>distinguishability</em>: outcomes in the same partition set are indistinguishable, while outcomes in different sets can be told apart. <a href="#thm-alg-part-equiv" class="quarto-xref">Theorem&nbsp;3</a> shows these perspectives are equivalent—every algebra uniquely determines a partition of atoms, and every partition uniquely generates an algebra. Moreover, <a href="#thm-refinement" class="quarto-xref">Theorem&nbsp;4</a> shows that refinement of information has a natural interpretation in both frameworks: <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\mathcal{G}\)</span> (as algebras) precisely when the atoms of <span class="math inline">\(\mathcal{F}\)</span> subdivide the atoms of <span class="math inline">\(\mathcal{G}\)</span> (as partitions). This duality between set-theoretic structure and equivalence classes will prove essential when we introduce entropy, where the partition view naturally connects to probability distributions over distinguishable outcomes.</p>
+</section>
+<section id="algebras-and-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="algebras-and-entropy">Algebras and entropy</h2>
+<p>Having established the correspondence between algebras and partitions, we now turn to <em>quantifying</em> the information content they represent. While the nested structure</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span></p>
+<p>that we explored in our coin-flip example shows that information is refined—that uncertainty decreases—we have not yet measured <em>how much</em> uncertainty remains at each stage, or how much uncertainty is removed by each refinement. To do this, we introduce the concept of <em>entropy</em> associated with an algebra of sets, which is a natural extension of the <em>Shannon entropy</em> of a random variable that we studied in a <a href="../../posts/info-1/index.html">previous post</a>.</p>
+<p>We continue to work with a finite sample space <span class="math inline">\(\Omega\)</span> and an algebra <span class="math inline">\(\mathcal{F}\)</span> of sets in <span class="math inline">\(\Omega\)</span>. To quantify uncertainty, we need a probability measure <span class="math inline">\(P\)</span> on <span class="math inline">\(\Omega\)</span>, which assigns a probability <span class="math inline">\(P(\{\omega\})\)</span> to each outcome <span class="math inline">\(\omega\in \Omega\)</span>. The probability of an event <span class="math inline">\(A\in \mathcal{F}\)</span> is then given by</p>
+<p><span class="math display">\[
+P(A) = \sum_{\omega \in A} P(\{\omega\}).
+\]</span></p>
+<p>Together, the triple <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> is called a <em>finite probability space</em>. An algebra of sets <span class="math inline">\(\mathcal{G}\)</span> in <span class="math inline">\(\Omega\)</span> is called a <em>sub-<span class="math inline">\(\sigma\)</span>-algebra</em> of <span class="math inline">\(\mathcal{F}\)</span> if <span class="math inline">\(\mathcal{G}\subset \mathcal{F}\)</span>.</p>
+<p>In our coin-flip example, we can define a probability measure <span class="math inline">\(P\)</span> on <span class="math inline">\(\Omega\)</span> by assuming that the coin has probability <span class="math inline">\(\theta\)</span> of showing heads on any given flip, independently of previous flips. Then the probability of an outcome <span class="math inline">\(\omega\)</span> with <span class="math inline">\(Y(\omega)\)</span> heads is</p>
+<p><span class="math display">\[
+P(\{\omega\}) = \theta^{Y(\omega)} (1-\theta)^{3-Y(\omega)}.
+\]</span></p>
+<p>If we suppose that <span class="math inline">\(\theta = 0.6\)</span>, then the probabilties on <span class="math inline">\(\Omega\)</span> are as follows:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># Probability of heads (coin bias parameter)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probabilities of each outcome in Omega</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Under independence, P({ω}) = θ^(# heads) × (1-θ)^(# tails)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> (theta<span class="sc">^</span>Y) <span class="sc">*</span> ((<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="dv">3</span> <span class="sc">-</span> Y)) <span class="co"># Probability based on binomial model</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space with probabilities as a formatted table</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Each row shows an outcome ω and its probability P({ω})</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  Omega,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ with probabilities $P(</span><span class="sc">\\</span><span class="st">{</span><span class="sc">\\</span><span class="st">omega</span><span class="sc">\\</span><span class="st">})$ for each outcome $</span><span class="sc">\\</span><span class="st">omega$"</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>sample space <span class="math inline">\(\Omega\)</span> with probabilities <span class="math inline">\(P(\{\omega\})\)</span> for each outcome <span class="math inline">\(\omega\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X1</th>
+<th style="text-align: right;">X2</th>
+<th style="text-align: right;">X3</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">Ai</th>
+<th style="text-align: right;">Bi</th>
+<th style="text-align: right;">Ci</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.064</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.096</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.096</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.144</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.096</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.144</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.144</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.216</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>With finite probability spaces defined, we can now introduce the <em>entropy</em> of an algebra of sets, which measures the uncertainty associated with the information it encodes. The definition is a straightforward extension of <em>Shannon entropy</em>, applied to the partition of <span class="math inline">\(\Omega\)</span> formed by the atoms of the algebra.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-rel-entropy" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space, let <span class="math inline">\(\mathcal{G}\)</span> be a sub-<span class="math inline">\(\sigma\)</span>-algebra of <span class="math inline">\(\mathcal{F}\)</span>, and let <span class="math inline">\(\{B_1,B_2,\ldots,B_n\}\)</span> be the partition of <span class="math inline">\(\Omega\)</span> by atoms of <span class="math inline">\(\mathcal{G}\)</span>. We then define the <em>entropy of <span class="math inline">\(\mathcal{G}\)</span></em> to be the quantity</p>
+<p><span id="eq-def-entropy"><span class="math display">\[
+H(\mathcal{G}) = -\sum_{i=1}^n P(B_i) \log{P(B_i)}.
+\tag{3}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<p>For those readers who are familiar with abstract integration theory, we note that the formula (<a href="#eq-def-entropy" class="quarto-xref">3</a>) can be expressed as a Lebesgue integral. Indeed, if we write <span class="math inline">\(\pi: \Omega \to \Omega/\mathcal{G}\)</span> for the natural projection map onto the quotient space <span class="math inline">\(\Omega/\mathcal{G}\)</span> whose points are the atoms of <span class="math inline">\(\mathcal{G}\)</span>, then the entropy of <span class="math inline">\(\mathcal{G}\)</span> is given by the Lebesgue integral</p>
+<p><span class="math display">\[
+H(\mathcal{G}) = \int_{\Omega/\mathcal{G}} s(B) \ \pi_\ast P(dB),
+\]</span></p>
+<p>where <span class="math inline">\(s:\Omega/\mathcal{G}\to \mathbb{R}\)</span> is the surprisal function given by</p>
+<p><span class="math display">\[
+s(B) = -\log{P(B)},
+\]</span></p>
+<p>and <span class="math inline">\(\pi_\ast P\)</span> is the pushforward measure of <span class="math inline">\(P\)</span> under <span class="math inline">\(\pi\)</span> defined on the power set of the quotient <span class="math inline">\(\Omega/\mathcal{G}\)</span>. By the substitution rule, we also have</p>
+<p><span class="math display">\[
+H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
+\]</span></p>
+<p>so the entropy is nothing but the expected value <span class="math inline">\(E(s\circ \pi)\)</span> of the random variable <span class="math inline">\(s\circ \pi\)</span> on <span class="math inline">\(\Omega\)</span>. This abstraction becomes essential for infinite sample spaces, but we won’t need it here.</p>
+<p>Returning to our coin-flip example, we can now compute the entropies of the three algebras <span class="math inline">\(\mathcal{F}_1\)</span>, <span class="math inline">\(\mathcal{F}_2\)</span>, and <span class="math inline">\(\mathcal{F}_3\)</span> that we constructed. First, we summarize the probabilities of the atoms in each algebra:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F1 with partition {A1, A2}, sum the probabilities of outcomes in each atom</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>F1_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ai) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Ai = 1 or 2)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities of all outcomes in each atom</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F1 as a formatted table</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  F1_probs,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(A_i)$ for the atoms $A_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>probabilities <span class="math inline">\(P(A_i)\)</span> for the atoms <span class="math inline">\(A_i\)</span> of algebra <span class="math inline">\(\mathcal{F}_1\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Ai</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F2</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F2 with partition {B1, B2, B3, B4}, sum probabilities for each atom</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>F2_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Bi) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Bi = 1, 2, 3, or 4)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities of all outcomes in each atom</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F2 as a formatted table</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  F2_probs,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(B_i)$ for the atoms $B_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>probabilities <span class="math inline">\(P(B_i)\)</span> for the atoms <span class="math inline">\(B_i\)</span> of algebra <span class="math inline">\(\mathcal{F}_2\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Bi</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.36</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F3</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F3 with partition {C1, ..., C8} (singletons), extract individual outcome probabilities</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>F3_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ci) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Ci = 1 through 8)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities (each atom contains exactly one outcome)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F3 as a formatted table</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Since F3 is the power set, each atom Ci corresponds to a single outcome ω</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  F3_probs,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(C_i)$ for the atoms $C_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>probabilities <span class="math inline">\(P(C_i)\)</span> for the atoms <span class="math inline">\(C_i\)</span> of algebra <span class="math inline">\(\mathcal{F}_3\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Ci</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.064</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.096</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.096</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.144</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.096</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.144</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.144</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.216</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Since the algebra <span class="math inline">\(\mathcal{F}_3\)</span> is the power set on <span class="math inline">\(\Omega\)</span>, notice that the probabilties of the atoms in <span class="math inline">\(\mathcal{F}_3\)</span> are just the probabilities of the individual outcomes in <span class="math inline">\(\Omega\)</span>.</p>
+<p>We now compute the entropies of the three algebras:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate entropy using H = -sum(p * log(p))</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This formula computes Shannon entropy, measuring uncertainty in the distribution</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F1)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F1 with atoms {A1, A2}, compute entropy over the 2-element partition</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>H_F1 <span class="ot">&lt;-</span> F1_probs <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span> <span class="co"># Surprisal: -log(p) for each atom's probability</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span> <span class="co"># Entropy: expected surprisal</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H) <span class="co"># Extract the scalar value</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F2)</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F2 with atoms {B1, B2, B3, B4}, compute entropy over the 4-element partition</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>H_F2 <span class="ot">&lt;-</span> F2_probs <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F3)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F3 with atoms {C1, ..., C8}, compute entropy over the 8-element partition</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># F3 corresponds to complete information (the power set of Omega)</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>H_F3 <span class="ot">&lt;-</span> F3_probs <span class="sc">%&gt;%</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing the three entropy values</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how entropy increases as algebras refine: H(F1) &lt; H(F2) &lt; H(F3)</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>marginal_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F1)"</span>, <span class="st">"H(F2)"</span>, <span class="st">"H(F3)"</span>), <span class="co"># Labels for each algebra</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3) <span class="co"># Corresponding entropy values in nats</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the marginal entropies as a formatted table</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  marginal_entropies,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"marginal entropies for algebras $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$, $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$, and $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>marginal entropies for algebras <span class="math inline">\(\mathcal{F}_1\)</span>, <span class="math inline">\(\mathcal{F}_2\)</span>, and <span class="math inline">\(\mathcal{F}_3\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">entropy</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">H(F1)</td>
+<td style="text-align: right;">0.6730117</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H(F2)</td>
+<td style="text-align: right;">1.3460233</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">H(F3)</td>
+<td style="text-align: right;">2.0190350</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Thus, we see that the entropy <em>increases</em> as we refine our information. This means that <em>uncertainty</em> increases as our information becomes more detailed, which may seem counterintuitive at first glance. However, this is a natural consequence of the way entropy is defined: it measures the <em>expected</em> uncertainty over all possible outcomes, and as we refine our information, we are effectively considering a larger number of possible outcomes (the atoms of the finer algebra), each with its own associated probability. The increased granularity leads to a higher overall uncertainty when averaged across all outcomes.</p>
+<p>We may visualize this increase in entropy as follows, where reading the plot from left to right corresponds to refining our information from <span class="math inline">\(\mathcal{F}_1\)</span> to <span class="math inline">\(\mathcal{F}_2\)</span> to <span class="math inline">\(\mathcal{F}_3\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar chart visualizing how entropy increases across the filtration</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each bar represents the entropy H(Fi) for i = 1, 2, 3</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(marginal_entropies, <span class="fu">aes</span>(<span class="at">x =</span> entropy, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> yellow, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># Yellow bars with reduced width for clarity</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"entropy increases under refinement"</span>, <span class="co"># Title describes the key pattern</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="co"># Remove x-axis label (entropy names are self-explanatory)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"entropy"</span> <span class="co"># Label y-axis with the quantity being measured</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Having defined the entropy of an algebra, we can now introduce two related concepts: <em>conditional entropy</em> and <em>mutual information</em>. These quantities measure, respectively, the uncertainty remaining in one algebra given knowledge of another, and the amount of information shared between two algebras.</p>
+<p>To define the conditional entropy, we need two sub-<span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> of a finite probability space <span class="math inline">\((\Omega,\mathcal{F},P)\)</span>. If the decompositions of <span class="math inline">\(\Omega\)</span> into the atoms of <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> are</p>
+<p><span class="math display">\[
+\{B_1,B_2,\ldots,B_n\} \quad \text{and} \quad \{C_1,C_2,\ldots,C_m\},
+\]</span></p>
+<p>respectively, then the decomposition of <span class="math inline">\(\Omega\)</span> into the atoms of the algebra <span class="math inline">\(\mathcal{G}\vee \mathcal{H}\)</span>, the smallest algebra containing both <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span>, is given by the nonempty sets among <span class="math inline">\(B_i \cap C_j\)</span> for each of <span class="math inline">\(i=1,2,\ldots,n\)</span> and <span class="math inline">\(j=1,2,\ldots,m\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-cond-entropy" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space, and let <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> be two sub-<span class="math inline">\(\sigma\)</span>-algebras of <span class="math inline">\(\mathcal{F}\)</span>. The <em>conditional entropy of <span class="math inline">\(\mathcal{G}\)</span> given <span class="math inline">\(\mathcal{H}\)</span></em> is the quantity</p>
+<p><span class="math display">\[
+H(\mathcal{G}\mid \mathcal{H}) = H(\mathcal{G}\vee \mathcal{H}) - H(\mathcal{H}).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The intuition for this definition is as follows. The entropy <span class="math inline">\(H(\mathcal{H})\)</span> measures the uncertainty in <span class="math inline">\(\mathcal{H}\)</span>, while <span class="math inline">\(H(\mathcal{G}\vee \mathcal{H})\)</span> measures the uncertainty in the combined information of <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span>. The difference between these two quantities, <span class="math inline">\(H(\mathcal{G}\mid \mathcal{H})\)</span>, thus represents the uncertainty that remains in <span class="math inline">\(\mathcal{G}\)</span> once we know everything in <span class="math inline">\(\mathcal{H}\)</span>.</p>
+<p>In our coin-flip example, three conditional entropies are of interest: <span class="math inline">\(H(\mathcal{F}_3\mid \mathcal{F}_i)\)</span>, for each of <span class="math inline">\(i=1,2,3\)</span>. Since we have the nested sequence</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3,
+\]</span></p>
+<p>note that</p>
+<p><span id="eq-cond-ent-coin"><span class="math display">\[
+H(\mathcal{F}_3 \mid \mathcal{F}_1) = H(\mathcal{F}_1 \vee \mathcal{F}_3) - H(\mathcal{F}_1) = H(\mathcal{F}_3) - H(\mathcal{F}_1),
+\tag{4}\]</span></span></p>
+<p>and similarly for <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_2)\)</span> and <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_3)\)</span>. In particular, we have that <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_3) =0\)</span>, which squares with our intuition that, given the information in <span class="math inline">\(\mathcal{F}_3\)</span>, the uncertainty remaining in <span class="math inline">\(\mathcal{F}_3\)</span> is zero.</p>
+<p>We compute all three conditional entropies:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing conditional entropy values for the filtration</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For nested algebras F1 ⊂ F2 ⊂ F3, conditional entropy H(F3 | Fi) = H(F3) - H(Fi)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This measures the residual uncertainty in F3 given knowledge of Fi</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>conditional_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F3 | F1)"</span>, <span class="st">"H(F3 | F2)"</span>, <span class="st">"H(F3 | F3)"</span>), <span class="co"># Labels for each conditional entropy</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F3 <span class="sc">-</span> H_F1, H_F3 <span class="sc">-</span> H_F2, H_F3 <span class="sc">-</span> H_F3) <span class="co"># Values: H(F3 | Fi) for each i</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the conditional entropies as a formatted table</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how residual uncertainty in F3 decreases as we refine from F1 to F2 to F3</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  conditional_entropies,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"conditional entropies for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>conditional entropies for the filtration <span class="math inline">\(\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">entropy</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">H(F3 | F1)</td>
+<td style="text-align: right;">1.3460233</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H(F3 | F2)</td>
+<td style="text-align: right;">0.6730117</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">H(F3 | F3)</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>These values show that as we compute <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_i)\)</span> along the sequence</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3,
+\]</span></p>
+<p>the conditional entropies <em>decrease</em>. This reflects the fact that as we refine our information (moving from <span class="math inline">\(\mathcal{F}_1\)</span> to <span class="math inline">\(\mathcal{F}_2\)</span> to <span class="math inline">\(\mathcal{F}_3\)</span>), the uncertainty remaining in <span class="math inline">\(\mathcal{F}_3\)</span> given knowledge of the other algebras diminishes. This aligns perfectly with our intuition: more information leads to less uncertainty.</p>
+<p>Finally, we define the <em>mutual information</em> between two sub-<span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> of a finite probability space <span class="math inline">\((\Omega,\mathcal{F},P)\)</span>. This quantity measures the amount of information shared between <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span>, quantifying how much knowing one reduces uncertainty about the other.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-mutual-info" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5</strong></span> Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space, and let <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> be two sub-<span class="math inline">\(\sigma\)</span>-algebras of <span class="math inline">\(\mathcal{F}\)</span>. The <em>mutual information between <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span></em> is the quantity</p>
+<p><span id="eq-def-mutual-info"><span class="math display">\[
+I(\mathcal{G},\mathcal{H}) = H(\mathcal{G}) -H(\mathcal{G}\mid \mathcal{H}).
+\tag{5}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The intuition for this definition is as follows. The entropy <span class="math inline">\(H(\mathcal{G})\)</span> measures the uncertainty in <span class="math inline">\(\mathcal{G}\)</span>. The conditional entropy <span class="math inline">\(H(\mathcal{G}\mid \mathcal{H})\)</span> measures the uncertainty remaining in <span class="math inline">\(\mathcal{G}\)</span> once we know everything in <span class="math inline">\(\mathcal{H}\)</span>. The difference between these two quantities, <span class="math inline">\(I(\mathcal{G},\mathcal{H})\)</span>, thus represents the reduction in uncertainty about <span class="math inline">\(\mathcal{G}\)</span> due to knowledge of <span class="math inline">\(\mathcal{H}\)</span>—in other words, the information that <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> share.</p>
+<p>Returning once more to our coin-flip example, we compute the three mutual informations <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_i)\)</span> for <span class="math inline">\(i=1,2,3\)</span>. From (<a href="#eq-cond-ent-coin" class="quarto-xref">4</a>), we have</p>
+<p><span class="math display">\[
+I(\mathcal{F}_3, \mathcal{F}_1) = H(\mathcal{F}_3) - H(\mathcal{F}_3 \mid \mathcal{F}_1) = H(\mathcal{F}_3) - (H(\mathcal{F}_3) - H(\mathcal{F}_1)) = H(\mathcal{F}_1),
+\]</span></p>
+<p>and similarly for <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_2)\)</span> and <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_3)\)</span>. We compute all three mutual informations:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing mutual information values for each algebra in the filtration</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For nested algebras F1 ⊂ F2 ⊂ F3, the mutual information I(F3, Fi) equals H(Fi)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># because Fi contains all the information about F3 that Fi itself possesses</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mutual_infos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"I(F3, F1)"</span>, <span class="st">"I(F3, F2)"</span>, <span class="st">"I(F3, F3)"</span>),  <span class="co"># Labels for each mutual information</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3)  <span class="co"># Values: I(F3, Fi) = H(Fi) for nested algebras</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the mutual informations as a formatted table</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how shared information between F3 and each Fi increases with refinement</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  mutual_infos,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"mutual informations for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>mutual informations for the filtration <span class="math inline">\(\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3\)</span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">entropy</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">I(F3, F1)</td>
+<td style="text-align: right;">0.6730117</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I(F3, F2)</td>
+<td style="text-align: right;">1.3460233</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I(F3, F3)</td>
+<td style="text-align: right;">2.0190350</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Thus, as we compute <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_i)\)</span> along the sequence</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3,
+\]</span></p>
+<p>we see that the mutual informations <em>increase</em>. This reflects the fact that as we refine our information (moving from <span class="math inline">\(\mathcal{F}_1\)</span> to <span class="math inline">\(\mathcal{F}_2\)</span> to <span class="math inline">\(\mathcal{F}_3\)</span>), the amount of information shared between <span class="math inline">\(\mathcal{F}_3\)</span> and the other algebras grows. This again aligns perfectly with our intuition: more information leads to greater shared knowledge.</p>
+<p>From (<a href="#eq-def-mutual-info" class="quarto-xref">5</a>), we have</p>
+<p><span class="math display">\[
+H(\mathcal{F}_3) = I(\mathcal{F}_3,\mathcal{F}_i) + H(\mathcal{F}_3 \mid \mathcal{F}_i),
+\]</span></p>
+<p>for each <span class="math inline">\(i=1,2,3\)</span>, and so the total entropy in <span class="math inline">\(\mathcal{F}_3\)</span> decomposes into the sum of mutual information and conditional entropy. We visualize this decomposition for each of the three algebras in our filtration:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame decomposing the entropy H(F3) into mutual information and conditional entropy</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For each algebra F_i (i=1,2,3), we have: H(F3) = I(F3, F_i) + H(F3 | F_i)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>decomposition <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">algebra =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"i=1"</span>, <span class="st">"i=2"</span>, <span class="st">"i=3"</span>), <span class="at">each =</span> <span class="dv">2</span>), <span class="co"># Three algebras, each with two components</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">component =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"mutual information"</span>, <span class="st">"conditional entropy"</span>), <span class="dv">3</span>), <span class="co"># Two components per algebra</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(H_F1, H_F3 <span class="sc">-</span> H_F1, H_F2, H_F3 <span class="sc">-</span> H_F2, H_F3, <span class="dv">0</span>) <span class="co"># Values for each component</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a stacked bar chart showing the decomposition</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Each bar represents H(F3) for a different conditioning algebra F_i</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(decomposition, <span class="fu">aes</span>(<span class="at">x =</span> algebra, <span class="at">y =</span> entropy, <span class="at">fill =</span> component)) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># Stacked column chart</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"mutual information"</span> <span class="ot">=</span> blue, <span class="st">"conditional entropy"</span> <span class="ot">=</span> yellow)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">TeX</span>(<span class="st">"entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"</span>),</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The decomposition <span class="math inline">\(H(\mathcal{F}_3) = I(\mathcal{F}_3, \mathcal{F}_i) + H(\mathcal{F}_3 \mid \mathcal{F}_i)\)</span> reveals a fundamental trade-off: as we refine our information from <span class="math inline">\(\mathcal{F}_1\)</span> to <span class="math inline">\(\mathcal{F}_2\)</span> to <span class="math inline">\(\mathcal{F}_3\)</span>, mutual information increases (capturing more shared knowledge with the complete outcome) while conditional entropy decreases (leaving less residual uncertainty). The total entropy <span class="math inline">\(H(\mathcal{F}_3)\)</span> remains constant, but its composition shifts as information accumulates.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>We began this post by asking how to represent an observer’s information mathematically. The answer emerged through two complementary perspectives: algebras of sets, which capture the logical operations available to the observer, and partitions, which describe which outcomes can be distinguished from one another. <a href="#thm-alg-part-equiv" class="quarto-xref">Theorem&nbsp;3</a> showed these views are equivalent—every algebra corresponds to a unique partition of atoms, and vice versa.</p>
+<p>To quantify information, we introduced entropy as a measure of uncertainty associated with an algebra. The entropy <span class="math inline">\(H(\mathcal{G})\)</span> tells us how much uncertainty remains when the observer’s knowledge is captured by <span class="math inline">\(\mathcal{G}\)</span>. Our coin-flip example illustrated how entropy increases as partitions refine: knowing the first flip yields <span class="math inline">\(H(\mathcal{F}_1) \approx 0.67\)</span>, knowing the first two flips yields <span class="math inline">\(H(\mathcal{F}_2) \approx 1.35\)</span>, and complete knowledge yields <span class="math inline">\(H(\mathcal{F}_3) \approx 2.02\)</span>.</p>
+<p>We also introduced conditional entropy <span class="math inline">\(H(\mathcal{G} \mid \mathcal{H})\)</span>, measuring residual uncertainty in <span class="math inline">\(\mathcal{G}\)</span> given knowledge of <span class="math inline">\(\mathcal{H}\)</span>, and mutual information <span class="math inline">\(I(\mathcal{G}, \mathcal{H})\)</span>, measuring information shared between algebras. These quantities satisfy the fundamental relationship</p>
+<p><span class="math display">\[
+H(\mathcal{G}) = I(\mathcal{G}, \mathcal{H}) + H(\mathcal{G} \mid \mathcal{H}),
+\]</span></p>
+<p>decomposing total uncertainty into shared information and residual uncertainty.</p>
+<p>The framework of nested algebras representing evolving information has powerful applications beyond theoretical probability. In future posts, we’ll explore how these ideas illuminate <em>gambling strategies</em> and <em>games of chance</em>, where players accumulate information over time and make decisions under uncertainty. We’ll also see how the same mathematical structure underpins <em>options pricing in mathematical finance</em>, where nested filtrations model the information available to traders at different times, and conditional expectations with respect to these algebras determine fair prices for derivative securities. The interplay between information, uncertainty, and value in these contexts provides a rich testing ground for the concepts developed here.</p>
+</section>
+<section id="bibliography" class="level2">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Billingsley1995" class="csl-entry" role="listitem">
+Billingsley, P. 1995. <em>Probability and Measure</em>. Third. John Wiley &amp; Sons, Inc.
+</div>
+<div id="ref-Bjork2020" class="csl-entry" role="listitem">
+Björk, T. 2020. <em>Arbitrage Theory in Continuous Time</em>. Fourth. Oxford Finance Series. Oxford University Press.
+</div>
+<div id="ref-Walters1982" class="csl-entry" role="listitem">
+Walters, P. 1982. <em>An Introduction to Ergodic Theory</em>. Graduate Texts in Mathematics. Springer.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/johnmyers-phd\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
