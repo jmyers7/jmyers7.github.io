@@ -1,7 +1,7 @@
 ---
 title: "Algebras & information"
 date: "2025-10-14"
-bibliography: /Users/johnmyers/Documents/work/johnmyers-phd/aux-files/references.bib
+bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
 toc: true
 categories: [Information theory, Probability theory, Measure theory, Entropy, Mutual information, Sigma-algebras, R]
 image: "thumbnail.png"
