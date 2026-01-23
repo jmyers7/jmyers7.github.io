@@ -1,0 +1,1445 @@
+---
+title: "Operator theory I: the finite-dimensional case"
+date: "2026-01-22"
+toc: true
+categories: [Operator theory, Functional analysis, C*-algebras, Spectral theorem, Hilbert spaces]
+include-in-header: 
+  - file: /Users/johnmyers/dev/johnmyers-phd/posts/fd-operator/commands.tex
+---
+
+Perhaps in no other mathematical theory is the fusion of algebraic, analytic and topological techniques more distinctive than *operator theory*. In its concrete form, this is the theory of linear transformations on Hilbert spaces, which are called *(linear) operators*. But what sets operator theory apart from elementary linear algebra is that the base Hilbert spaces are infinite-dimensional in many of the most interesting cases, which accounts for the presence of topology and analysis in the theory.
+
+The theory studies not only *single* operators, one at a time, but it also analyzes the collections of *all* such operators on a fixed Hilbert space, called *operator algebras*. These broader considerations lead to a more abstract form of the theory, in which concrete algebras of operators on a Hilbert space are replaced with abstract operator algebras that *a priori* have no connection with *any* Hilbert space whatsoever. The reader should recall that the same generalization from concrete to abstract occurs in the theory of groups, in which a group was originally understood as a concrete group of permutations (or symmetries) of some set or object, these later being generalized to *abstract groups* defined via the familiar set of axioms and having no *a priori* connection to symmetries or permutations. Likewise, the theory of manifolds saw a similar generalization, going from geometric objects embedded in cartesian spaces, but eventually being freed to live on their own as *abstract manifolds*, independent of any embedding.
+
+The algebra of all operators $A$ on a fixed Hilbert space has a norm inherited from the underlying Hilbert space, called the *operator norm*, which endows $A$ with the structure of a Banach algebra (a type of algebra mentioned in the previous post). But $A$ also has a *$\ast$-operation* or *adjoint operation*, a special involutive unary operation which is conceptually analogous to conjugation on $\bbc$. This latter operation endows $A$ with the structure of a so-called *$\ast$-algebra*. As we will see throughout this series of posts, it turns out that the subalgebras of $A$ that are (topologically) closed in the metric topology induced by the operator norm, and which are (algebraically) closed under the $\ast$-operation, admit an abstract characterization via a beautifully short and concise list of axioms. The abstract operator algebras defined by these axioms are called *$C^\ast$-algebras*, where the "$C$" stands for "closed." We will sample the theory of $C^\ast$-algebras in this post.
+
+Having generalized away from concrete algebras of operators to obtain abstract $C^\ast$-algebras, everything is brought back full circle via the <a href="https://en.wikipedia.org/wiki/Gelfand%E2%80%93Naimark_theorem">Gelfand-Naimark Theorem</a>, which states that every abstract $C^\ast$-algebra is isometrically $\ast$-isomorphic to one of the special subalgebras of concrete operators mentioned above. In this way, the Gelfand-Naimark Theorem plays an analogous role in $C^\ast$-theory compared to <a href="https://en.wikipedia.org/wiki/Cayley%27s_theorem">Cayley's Theorem</a> in group theory and <a href="https://en.wikipedia.org/wiki/Whitney_embedding_theorem">Whitney's Theorem</a> in manifold theory, which link the abstract definitions of groups and manifolds with their concrete origins.
+
+The Gelfand-Naimark Theorem will have to wait till a future post, however, as my goals in this first post are much more limited. In fact, having stated above that many of the most interesting cases occur when the Hilbert spaces are infinite-dimensional, in this post we restrict ourselves to the finite-dimensional setting. The main motivation for this restriction comes from the fact that many results in the general theory are *direct* generalizations of theorems in the finite-dimensional case, but they are often dressed up in fancy functional-analytic and measure-theoretic language. Thus, I believe it is worth the time and effort to tour the simpler finite-dimensional theory first, before moving on to the general stuff.
+
+The main result of this post will be the Spectral Theorem for normal operators on a finite-dimensional Hilbert space. By fixing bases and considering matrices instead of linear operators, this theorem includes as a special case the result that all hermitian matrices may be (unitarily) diagonalized, a fact that may be familiar to some readers from their first course in basic linear algebra. But the proof of the Spectral Theorem given here is operator-theoretic, not matrix-theoretic. 
+
+Fascinatingly, the hypothesis of finite dimensions is *not* necessary for the Spectral Theorem, though, as I indicated above, even the *statement* of this general Spectral Theorem is difficult to understand if you're not fluent in measure theory. So, after proving our finite-dimensional version of the Spectral Theorem, we will then begin to explore the tools and techniques needed to establish the general version (namely, measure-theoretic tools like *spectral measures* and *spectral integrals*). I will prove a version of the Spectral Theorem for self-adjoint operators on Hilbert spaces using these new measure-theoretic tools---still in finitely many dimensions---that is independent of our first proof. This latter proof will follow the same arc as the one in arbitrary dimensions; in particular, we will meet $C^\ast$-algebras for the first time, along with the <a href="https://en.wikipedia.org/wiki/Gelfand_representation">Gelfand Representation Theorem</a> and the <a href="https://en.wikipedia.org/wiki/Functional_calculus">continuous functional calculus</a>, the latter being the crucial ingredient for the measure-theoretic proof.
+
+From a broader point of view, my ultimate goal is to take the mathematical theory developed in these posts and learn how it is applied in quantum theory. As the reader trained in quantum mechanics knows, the observables of a quantum system are modeled as self-adjoint operators on a Hilbert space, (pure) states of the system are modeled as unit vectors in the Hilbert space, and the possible measurements of an observable are its eigenvalues. Thus, the Hilbert-space formalism of quantum mechanics relies crucially on the Spectral Theorem for (not necessarily bounded) self-adjoint operators. But perhaps not as well known is a mathematical formalism of quantum mechanics based on abstract $C^\ast$-algebras. This is a formalism that, as of now, I know very little about, and preparing for its future study is really my main motivation for writing these preliminary posts on operator theory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Prerequisites
+
+I will assume that readers have a working knowledge of Hilbert spaces and their linear operators. This is treated in every textbook on functional analysis ever written, and in many (advanced) texts on real analysis. For example, one could learn this theory from: 
+
+* the first two chapters of Conway's *A Course in Functional Analysis*;
+
+* the sixth and fifteenth chapters in Lax's *Functional Analysis*;
+
+* the fourth and eighteenth chapters in Rudin's *Real & Complex Analysis* or the tenth and twelfth chapters in his *Functional Analysis*;
+
+* the fifth chapter in Folland's *Real Analysis*;
+
+* the fourth and sixth chapters in Kolmogorov and Fomin's *Introductory Real Analysis*;
+
+* or the first appendix in Landsman's *Foundations of Quantum Theory*.
+
+(For a precise bibliography, see the references at the end of this post.)
+
+Each of the references above treats general Hilbert spaces of (possibly) infinite dimension, which the reader who wants to go deep into theory will eventually have to learn. But since we focus on the finite-dimensional case in this post, the reader can get by (for now) with just a nodding acquaintance with Hilbert spaces and their operators in finitely many dimensions. Since completeness is automatic in this case, these latter gadgets are just finite-dimensional complex vector spaces equipped with a hermitian inner product. For the finite-dimensional theory, I don't think one can do better than the first two chapters in Han, Kornelson, Larson, and Weber's *Frames for Undergraduates*. In fact, the second chapter is called "Finite-Dimensional Operator Theory" and serves as a very good reference for many parts of this post. This might seem like a rather obscure reference, not likely to be on many of our bookshelves, but I have a particularly close attachment to this textbook, as I attended (as an undergraduate, a long time ago) the REU on which this textbook was based. I have very fond memories of working through this book!
+
+One could also learn about operators on Hilbert spaces from Hansen's *Functional Analysis, Entering Hilbert Space*. Though this last text doesn't get very far, it serves as a good, short introduction to functional analysis free of measure theory.
+
+Speaking of measure theory, readers of this post must know the definition of <a href="https://en.wikipedia.org/wiki/Complex_measure">complex measures</a> and their very basic properties. Though the last section of this post is measure-theoretic, it's not *difficult* measure theory.
+
+Though we don't get into the heavy infinite-dimensional theory in this post, it might be interesting to have a copy of Murphy's *C$^\ast$-algebras and Operator Theory* at hand. Indeed, when we begin working with measure-theoretic tools like *spectral measures* and *spectral integrals* in the latter part of this post, you will notice that my treatment follows Murphy's text almost *exactly* ---specifically, see Section 2.5 in his text---but with finite-dimensional hypotheses thrown in everywhere. It would be instructive to compare how Murphy states the definitions and theorems in the general case of arbitrary dimension with how *I* state the same definitions and theorems in finitely many dimensions.
+
+
+
+
+
+
+
+
+
+
+
+
+## Representation Theorems and Linear Functionals
+
+We begin the theory with a pair of fundamental theorems that allow us to "represent" linear functionals defined on Hilbert spaces and spaces of continuous functions. The first representation theorem will be used to construct adjoint operators, while the second representation theorem will be used in the latter measure-theoretic part of this post.
+
+
+::: {#thm-riesz}
+## Riesz Representation Theorem (Finite-Dimensional Version)
+
+Let $\varphi$ be a linear functional on a finite-dimensional Hilbert space $\calh$. Then there is a unique vector $w_\varphi\in \calh$ such that
+
+$$
+\varphi(v) = \ang{v,w_\varphi}, \quad \forall v\in \calh.
+$$
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+
+Suppose first that such a vector $w_\varphi$ exists, and let $\{e_k\}_{k=1}^n$ be an orthonormal basis of $\calh$. Then for each $e_k$ we have
+
+$$
+\varphi(e_k) = \ang{e_k,w_\varphi}
+$$ {#eq-first-eqn}
+
+and thus the inner products of $w_\varphi$ with the orthonormal basis are determined by $\varphi$, and hence $w_\varphi$ is unique, if it exists. For existence, we essentially *define* $w_\varphi$ using ([-@eq-first-eqn]) by setting
+
+$$
+w_\varphi = \sum_{k=1}^n \overline{\varphi(e_k)} e_k.
+$$
+
+Then, given any $v\in \calh$, we have
+
+$$
+\varphi(v) = \varphi\left( \sum_{k=1}^n\ang{v,e_k}e_k \right) = \sum_{k=1}^n \varphi(e_k) \ang{v,e_k} = \ang{v,w_\varphi},
+$$
+
+which is what we wanted to prove.
+:::
+
+For the next representation theorem, we need to set up some notation and terminology. Let $\calx$ be a nonempty finite set.
+
+1. We write $C(\calx)$ for the set of all $\bbc$-valued functions on $\calx$. The motivation for this notation comes from the observation that if $\calx$ is equipped with the discrete topology, then $C(\calx)$ coincides with the set of all *continuous* $\bbc$-valued functions on $\calx$. Notice that $C(\calx)$ is a finite-dimensional unital $\bbc$-algebra (it's even a $C^\ast$-algebra, but we'll come to this later).
+
+2. We write $P(\calx)$ for the power set of $\calx$. Notice that $P(\calx)$ coincides with the Borel algebra of $\calx$, if the latter is equipped with the discrete topology.
+
+2. A linear functional $\varphi: C(\calx) \to \bbc$ is called *positive* if $\varphi(f) \geq 0$ whenever $f\in C(\calx)$ is a function with its image in $[0,\infty)$. It is called *normalized* if $\varphi(\id)=1$, where $\id: \calx \to \bbc$ is the constant function that sends all of $\calx$ to $1\in \bbc$.
+
+The following fundamental theorem has multiple names; sometimes it is called the Riesz Representation Theorem---and thus is easily confused with the theorem above---while other times it is called the Riesz-Markov Theorem or the Riesz-Kakutani Theorem. I've decided to follow the convention of the Wikipedia <a href="https://en.wikipedia.org/wiki/Riesz%E2%80%93Markov%E2%80%93Kakutani_representation_theorem">article</a> and combine all three mathematicians' names.
+
+::: {#thm-riesz-markov-kakutani}
+## Riesz-Markov-Kakutani Representation Theorem (Finite-Dimensional Version)
+
+Let $\calx$ be a nonempty finite set. Then there is a bijective correspondence between all complex measures $\mu$ on $P(\calx)$ and all $\bbc$-linear functionals $\varphi$ on $C(\calx)$:
+
+1. Given a complex measure $\mu$ on $P(\calx)$, the corresponding functional $\varphi$ is defined by the formula
+    $$
+    \varphi(f) = \int_\calx f \ \d \mu, \quad f\in C(\calx).
+    $$ {#eq-int-eqn}
+
+2. Given a linear functional $\varphi$ on $C(\calx)$, the corresponding complex measure is defined by
+    $$
+    \mu(A) = \varphi(\chi_{A}), \quad A\in P(\calx),
+    $$ {#eq-int2-eqn}
+where $\chi_A$ is the characteristic ($=$ indicator) function of $A$.
+
+Furthermore, the measure $\mu$ is a positive measure if and only if the functional $\varphi$ is positive, and $\mu$ is a probability measure if and only if $\varphi$ is positive and normalized.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+Given a complex measure $\mu$, define $\varphi$ by the formula ([-@eq-int-eqn]). Then, for all $A\in P(\calx)$ we have
+
+$$
+\mu(A) = \int_A \d \mu = \int_\calx \chi_A \ \d \mu =  \varphi(\chi_A).
+$$
+
+On the other hand, given a linear functional $\varphi$, define $\mu$ by ([-@eq-int2-eqn]). Then, for all $f\in C(\calx)$ we have
+
+$$
+\varphi(f) = \sum_{\lambda \in \bbc} \lambda \varphi(\chi_{f^{-1}(\lambda)}) = \sum_{\lambda \in \bbc} \lambda \mu(f^{-1}(\lambda)) = \int_\calx f \ \d\mu.
+$$
+
+Taken together, these two sequences of equations shows that the correspondence $\mu \leftrightarrow \varphi$ is indeed bijective.
+:::
+
+
+
+
+
+
+
+
+
+
+## Classes of Operators
+
+Our first goal is to use the Riesz Representation Theorem to construct the *adjoint* of an operator.
+
+
+::: {#thm-adjoint}
+
+For every operator $T$ on a finite-dimensional Hilbert space $\calh$, there is a *unique* operator $T^\ast$ on $\calh$ for which
+
+$$
+\ang{Tv,w} = \ang{v, T^\ast w}, \quad \forall v,w\in \calh.
+$$
+
+The operator $T^\ast$ is called the *adjoint* of $T$, and $T$ is called *self-adjoint* if $T=T^\ast$.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+If we fix a vector $w\in \calh$, then the mapping
+
+$$
+\varphi_w : \calh \to \bbc, \quad v\mapsto \ang{Tv,w},
+$$
+
+is a linear functional. By the Riesz Representation Theorem, there is a unique vector $T^\ast w\in \calh$ such that
+
+$$
+\ang{Tv,w} = \varphi_w(v) = \ang{v, T^\ast w}.
+$$
+
+The association $w\mapsto T^\ast w$ then defines the desired operator $T^\ast$. To see that it is $\bbc$-linear, we compute:
+
+$$
+\ang{v,T^\ast(w+\lambda w')} = \ang{Tv,w} + \bar{\lambda} \ang{Tv,w'} = \ang{v,T^\ast w} + \ang{v,\lambda T^\ast w'} = \ang{v,T^\ast w + \lambda T^\ast w'},
+$$
+
+where $v,w,w'\in \calh$ and $\lambda \in \bbc$. This proves $T^\ast(w+\lambda w') = T^\ast w + \lambda T^\ast w'$, and hence the mapping $w\mapsto T^\ast w$ is indeed linear.
+:::
+
+If an orthonormal basis $\{e_k\}_{k=1}^n$ of a Hilbert space $\calh$ is fixed, then the matrix representations of an operator $T$ and its adjoint $T^\ast$ are conjugate transposes of each other. Indeed, if $T$ is represented by the matrix $[T_{ij}]$, then
+
+$$
+T_{ij} = \ang{Te_j,e_i} = \ang{e_j,T^\ast e_i} = \overline{\ang{T^\ast e_i,e_j}},
+$$
+
+which shows $T^\ast$ is represented by the conjugate transpose $[\overline{T}_{ji}]$. This observation can be used to give a quick proof of the next theorem:
+
+::: {#thm-adjoint-props}
+
+Let $\calh$ be a finite-dimensional Hilbert space. The association $T\mapsto T^\ast$ is conjugate-linear, involutive, and anti-multiplicative. That is:
+
+1. For all operators $S,T$ and $\lambda \in \bbc$, we have
+    $$
+    (S + \lambda T)^\ast = S^\ast + \bar{\lambda} T^\ast.
+    $$
+
+2. For all operators $T$, we have
+    $$
+    (T^\ast)^\ast = T.
+    $$
+
+3. For all operators $S$ and $T$, we have
+    $$
+    (ST)^\ast = T^\ast S^\ast.
+    $$
+:::
+
+Another application of the Riesz Theorem allows us to represent the following types of forms with an operator; this will prove important later when we discuss spectral integrals.
+
+::: {#def-sesquilinear}
+
+Let $\calv$ be a vector space. A function
+
+$$
+\beta: \calv \times \calv \to \bbc
+$$
+
+is called a *sesquilinear form* if is linear in the first argument and conjugate-linear in the second. Precisely:
+
+1. We have
+    $$
+    \beta(v+\lambda v', w) = \beta(v,w) + \lambda \beta(v',w), \quad \forall v,v',w\in \calv, \ \lambda \in \bbc.
+    $$
+
+2. We have
+    $$
+    \beta(v,w+\mu w') = \beta(v,w) + \bar{\mu} \beta(v,w'), \quad \forall v,w,w' \in \calv, \ \mu \in \bbc.
+    $$
+
+:::
+
+For example, the hermitian inner product on a Hilbert space $\calh$ is a particular type of sesquilinear form; it, however, has the additional properties of positive-definiteness and conjugate-symmetry that distinguish it from more general sesquilinear forms.
+
+::: {#thm-riesz-sesquilinear}
+
+Let $\beta: \calh \times \calh \to \bbc$ be a sesquilinear form on a finite-dimensional Hilbert space $\calh$. Then there is a unique operator $B$ on $\calh$ such that
+
+$$
+\beta(v,w) = \ang{Bv, w}, \quad \forall v,w\in \calh.
+$$
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+
+For each fixed $w\in \calh$, the mapping
+
+$$
+v \mapsto \beta(v,w) = \ang{v,w}
+$$
+
+is a linear functional on $\calh$, and hence, by the Riesz Representation Theorem, there is a unique vector $Tw \in \calh$ such that
+
+$$
+\beta(v,w) = \ang{v,Tw}, \quad \forall v\in \calh.
+$$
+
+As you may easily prove, the mapping $w\mapsto Tw$ is linear, so that we may take $B = T^\ast$ to prove the theorem. I will leave the details to you.
+:::
+
+The self-adjoint operators will prove to be a very important class of operators. We now give the definitions of four more important classes:
+
+::: {#def-operator-classes}
+
+Let $\calh$ be a finite-dimensional Hilbert space.
+
+1. An operator $T$ on $\calh$ is called *normal* if it commutes with its adjoint, i.e.,
+    $$
+    TT^\ast = T^\ast T.
+    $$
+
+2. An operator $T$ on $\calh$ is called *positive* if it is self-adjoint and
+    $$
+    \ang{Tv,v} \geq 0, \quad \forall v\in \calh.
+    $$
+
+3. An operator $U$ on $\calh$ is called *unitary* if it is invertible and
+    $$
+    U^{-1} = U^\ast.
+    $$
+
+4. An operator $P$ on $\calh$ is called an *(orthogonal) projection* if it is self-adjoint and
+    $$
+    P^2 = P.
+    $$
+
+:::
+
+We now have *five* classes of operators to keep straight. Notice that the class of normal operators includes the classes of self-adjoint operators, positive operators, and unitary operators; to help organize the relationships between these four classes, the following analogy will be extremely useful:
+
+::: {.callout-tip appearance="minimal"}
+## The Fundamental Analogy
+
+If we conceptualize the normal operators as analogous to the complex numbers $\bbc$, then:
+
+1. The self-adjoint operators are analogous to the real numbers $\bbr\subset \bbc$.
+
+2. The positive operators are analogous to the nonnegative numbers $[0,\infty)\subset \bbc$
+
+3. The unitary operators are analogous to the modulus-$1$ complex numbers on the unit circle in $\bbc$.
+:::
+
+In fact, this is more than just a mere analogy and can be made mathematically precise in a very satisfying manner. But, we'll have to wait till we have the Spectral Theorem to explain further.
+
+Notice that the class of normal operators also includes all projections, since projections are (by definition!) self-adjoint; in fact, we can say more:
+
+::: {#thm-proj-positive}
+
+Every projection $P$ on a finite-dimensional Hilbert space $\calh$ is a positive operator.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+
+Given $v\in \calh$, we compute:
+
+$$
+\ang{Pv,v} = \ang{P^2v,v} = \ang{Pv,P^\ast v} = \ang{Pv,Pv} = \norm{Pv}^2 \geq 0.
+$$
+
+Thus, $P$ is positive. 
+:::
+
+By the way, the name "projection" comes from the following useful theorem:
+
+::: {#thm-proj-subspace}
+
+Let $\calh$ be a finite-dimensional Hilbert space. There is a bijective correspondence between the set of all nonzero vector subspaces $\calm$ of $\calh$ and all nonzero projection operators $P$ given as follows:
+
+1. Given a nonzero subspace $\calm$, there is a unique nonzero projection operator $P$ whose image is $\calm$ and whose kernel is the orthogonal complement $\calm^\perp$.
+
+2. Conversely, given a nonzero projection operator $P$, the image $\calm$ of $P$ is a nonzero linear subspace of $\calh.
+
+Moreover, if the projection $P$ and subspace $\calm$ correspond to each other, then
+
+$$
+\norm{v-Pv} \leq \norm{v-w}, \quad \forall v\in \calh, \ w\in \calm,
+$$
+
+and hence $Pv$ is the closest vector in $\calm$ to the vector $v$.
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Spectral Theory of Normal Operators
+
+With all preliminary definitions and basic results established, we begin working toward the main theorem in this post. We start with a familiar definition from our first course in linear algebra:
+
+<div class="highlight-box">
+**Definition.** Let $T$ be an operator on a finite-dimensional Hilbert space $\calh$. A constant $\lambda \in \bbc$ is called an *eigenvalue* of $T$ if there exists a nonzero vector $v\in \calh$, called an *eigenvector*, such that
+
+\begin{equation}\notag
+Tv = \lambda v.
+\end{equation}
+
+The *spectrum* of $T$, denoted $\sigma(T)$, is the set of all eigenvalues of $T$.
+</div>
+
+The first theorem in this section presents the first step toward making the <a href="#analogy">Fundamental Analogy</a> mathematically precise.
+
+<div class="highlight-box" id="first-analogy">
+**Theorem.** Let $\calh$ be a finite-dimensional Hilbert space.
+
+1. If $T$ is a self-adjoint operator on $\calh$, its eigenvalues are real numbers, i.e., $\sigma(T) \subset \bbr$.
+
+2. If $T$ is a positive operator on $\calh$, its eigenvalues are nonnegative real numbers, i.e., $\sigma(T) \subset [0,\infty)$.
+
+3. If $U$ is a unitary operator on $\calh$, its eigenvalues all have modulus $1$.
+
+4. If $P$ is a projection operator on $\calh$, then $\sigma(P) \subseteq \\{0,1\\}$.
+</div>
+
+(1.): Let $\lambda$ be an eigenvalue of $T$ with eigenvector $v$. If $T$ is self-adjoint, then
+
+\begin{equation}\notag
+\lambda \norm{v}^2 = \ang{Tv,v} = \ang{v,Tv} = \bar{\lambda} \norm{v}^2.
+\end{equation}
+
+But $v\neq 0$ and hence $\norm{v}^2\neq 0$, which implies $\lambda = \bar{\lambda}$. Hence, $\lambda$ is real.
+
+(2.): Let $\lambda$ be an eigenvalue of $T$ with eigenvector $v$. Since $T$ is self-adjoint, by (1.) we see that $\lambda$ is real. But also 
+
+\begin{equation}\notag
+\lambda \norm{v}^2 = \ang{Tv,v} \geq 0,
+\end{equation}
+
+which implies $\lambda \geq 0$.
+
+(3.): Let $\lambda$ be an eigenvalue of $U$ with eigenvector $v$. Then
+
+\begin{equation}\notag
+\|\lambda\|^2 \norm{v}^2 =  \norm{Uv}^2 = \ang{Uv,Uv} = \ang{U^\ast Uv,v} = \ang{v,v} = \norm{v}^2,
+\end{equation}
+
+and so $\|\lambda\|=1$.
+
+(4.): Let $\lambda$ be an eigenvalue of $P$ with eigenvector $v$. We then compute:
+
+\begin{equation}\notag
+\lambda(\lambda-1)v = (P^2 - P)v = 0.
+\end{equation}
+
+But since $v\neq 0$, we must have either $\lambda=0$ or $\lambda =1$. Q.E.D.
+
+Of course, one might wonder if the conditions on the eigenvalues in the previous theorem are actually *sufficient* for the operators to be self-adjoint, positive, or unitary. It turns out that they *are* sufficient, the proof of which will follow essentially from the Spectral Theorem for normal operators. Before stating this fundamental theorem, however, we need a few facts regarding the eigenvalues and eigenvectors of normal operators:
+
+<div class="highlight-box">
+**Theorem.** Let $T$ be a normal operator on a finite-dimensional Hilbert space $\calh$.
+
+1. We have $\norm{Tv} = \norm{T^\ast v}$, for all $v\in \calh$.
+
+2. A vector $v\in \calh$ is an eigenvector of $T$ with eigenvalue $\lambda$ if and only if $v$ is an eigenvector of $T^\ast$ with eigenvalue $\bar{\lambda}$.
+
+3. If $v$ and $w$ are two eigenvectors of $T$ corresponding to *distinct* eigenvalues $\lambda$ and $\mu$, then $v$ and $w$ are orthogonal.
+</div>
+
+(1.): We compute:
+
+\begin{equation}\notag
+\norm{Tv}^2 = \ang{Tv, Tv} = \ang{T^\ast Tv, v} = \ang{T T^\ast v,v} = \ang{T^\ast v, T^\ast V} = \norm{T^\ast V}^2.
+\end{equation}
+
+Taking square roots at both ends yields the desired result.
+
+(2.): Let $v\in \calh$ be a nonzero vector and $\lambda \in \bbc$. Since $T$ is normal, so is the operator $T-\lambda = T-\lambda \id$, and its adjoint is $T^\ast - \bar{\lambda}$. Then, from (1.), we get
+
+\begin{equation}\notag
+\norm{Tv - \lambda v} = \norm{T^\ast v - \bar{\lambda}v}.
+\end{equation}
+
+Thus, we have $Tv =\lambda v$ if and only if $T^\ast v = \bar{\lambda}v$.
+
+(3.): By (2.), note that $w$ is an eigenvector of $T^\ast$ with eigenvalue $\bar{\mu}$. Then, using this, we compute:
+
+\begin{equation}\notag
+\lambda \ang{v,w} = \ang{Tv,w} = \ang{v,T^\ast w} = \mu \ang{v,w}.
+\end{equation}
+
+But since $\lambda\neq \mu$, we must have $\ang{v,w}=0$. Q.E.D.
+
+The Spectral Theorem will involve projections onto special subspaces spanned by eigenvectors; let's give these spaces a name:
+
+<div class="highlight-box">
+**Definition.** Let $\lambda$ be an eigenvalue of a an operator $T$ on a finite-dimensional Hilbert space $\calh$. The *eigenspace* of $\lambda$, denoted $\cals_\lambda$, is the span of the set
+
+\begin{equation}\notag
+\left\\{ v\in \calh : Tv = \lambda v\right\\}.
+\end{equation}
+
+The dimension of the eigenspace $\cals_\lambda$ is called the *geometric multiplicity* of $\lambda$.
+</div>
+
+Now, the main theorem:
+
+<div class="highlight-box">
+**Spectral Theorem for Normal Operators (Finite-Dimensional Version).** Let $T$ be a normal operator on a finite-dimensional Hilbert space $\calh$. For each $\lambda$ in the spectrum $\sigma(T)$, let $P_\lambda$ denote the orthogonal projection of $\calh$ onto the eigenspace $\cals_\lambda$. Then:
+
+1. For all $\lambda, \mu \in \sigma(T)$, we have
+    \begin{equation}\notag
+    P_\lambda P_\mu = \delta_{\lambda \mu} P_\lambda,
+    \end{equation}
+where $\delta_{\lambda \mu}$ is the Kronecker delta.
+
+2. We have
+    \begin{equation}\label{spec-res-A-eqn}
+    T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
+    \end{equation}
+
+3. We have
+    \begin{equation}\notag
+    I = \sum_{\lambda \in \sigma(T)} P_\lambda.
+    \end{equation}
+
+The equation \eqref{spec-res-A-eqn} is called the *spectral decomposition* of the operator $T$.
+</div>
+
+The desired results essentially all flow from the single equation
+
+\begin{equation}\label{dir-sum-eqn}
+\calh = \bigoplus_{\lambda \in \sigma(T)} S_\lambda.
+\end{equation}
+
+Note that the sum on the right-hand side really is an orthogonal direct sum, since we proved above that eigenvectors of $T$ corresponding to *distinct* eigenvalues are orthogonal to each other. To establish the equality, we will let $\calk$ denote the direct sum on the right-hand side and prove that $\calk^\perp=0$.
+
+Note, first, that $\calk$ is invariant under $T^\ast$ (and also $T$, but we don't need this), in the sense that
+
+\begin{equation}\label{yup-eqn}
+w\in \calk \quad \Rightarrow \quad T^\ast w \in \calk.
+\end{equation}
+
+Indeed, since $w$ is a linear combination of eigenvectors of $T$, it is also a linear combination of eigenvectors of $T^\ast$ (since $T$ is normal), and then \eqref{yup-eqn} follows immediately from the definition of an eigenvector. From this, we get that the orthogonal complement $\calk^\perp$ is invariant under $T$ in the same sense; for if $v\in \calk^\perp$ and $w\in \calk$, we have
+
+\begin{equation}\notag
+\ang{Tv,w} = \ang{v,T^\ast w} = 0
+\end{equation}
+
+since $T^\ast w\in \calk$. Thus, $Tv\in \calk^\perp$ provided that $v\in \calk^\perp$.
+
+It follows that the restricted linear operator
+
+\begin{equation}\notag
+T\|\_{\calk^\perp} : \calk^\perp \to \calk^\perp
+\end{equation}
+
+is well-defined. If we assume to the contrary that the orthogonal complement $\calk^\perp$ is *not* zero, then the linear operator $T\|\_{\calk^\perp}$ has an eigenvector $u\in \calk^\perp$, say
+
+\begin{equation}\notag
+T\|\_{\calk^\perp} u = \mu u
+\end{equation}
+
+for some $\mu \in \bbc$. But the left-hand side of this equation is equal to $Tu$, and hence $u$ is an eigenvector of $T$ that lives in $\calk^\perp$. But this contradicts the definition of $\calk$, and hence we must have $\calk^\perp=0$. Q.E.D.
+
+<div class="highlight-box2">
+**Exercise.** Fill in the missing details in the proof, showing how all statements in the theorem follow from \eqref{dir-sum-eqn}.
+</div>
+
+For our first corollary of the Spectral Theorem, we prove the converses of the first three statements in the theorem <a href="#first-analogy">above</a>, thereby making the <a href="#analogy">Fundamental Analogy</a> mathematically precise.
+
+<div class="highlight-box">
+**Theorem.** Let $T$ and $U$ be normal operators on a finite-dimensional Hilbert space $\calh$.
+
+1. The operator $T$ is self-adjoint if and only if $\sigma(T) \subset \bbr$.
+
+2. The operator $T$ is positive if and only if $\sigma(T) \subset [0,\infty)$.
+
+3. The operator $U$ is unitary if and only if all its eigenvalues have modulus $1$.
+</div>
+
+We need only show that the conditions on the eigenvalues are sufficient. To do this, consider the spectral decompositions
+
+\begin{equation}\notag
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda \quad \text{and} \quad U = \sum_{\mu \in \sigma(U)} \mu P_\mu.
+\end{equation}
+
+Since the adjoint operation is conjugate-linear and projection operators are self-adjoint, we have
+
+\begin{equation}\notag
+T^\ast = \sum_{\lambda \in \sigma(T)}\bar{\lambda} P_\lambda.
+\end{equation}
+
+But if each $\lambda$ is real, then $\lambda = \bar{\lambda}$, which proves (1.). To prove (2.), we let $v\in \calh$ and compute:
+
+\begin{equation}\notag
+\ang{Tv,v} = \sum_{\lambda \in \sigma(T)} \lambda \ang{P_\lambda v,v}.
+\end{equation}
+
+But projection operators are positive, so that if $\lambda\geq 0$ for each $\lambda\in \sigma(T)$, we necessarily have $\ang{Tv,v} \geq 0$. Finally, to prove (3.), suppose that each $\mu\in \sigma(U)$ has $\bar{\mu} \mu = \|\mu\|^2=1$. But then
+
+\begin{equation}\notag
+U^\ast U = \Big( \sum_{\mu \in \sigma(U)} \bar{\mu} P_\mu \Big)\Big( \sum_{\mu \in \sigma(U)} \mu P_\mu \Big) = \sum_{\mu_1\in \sigma(U)} \sum_{\mu_2 \in \sigma(U)} \bar{\mu}\_1 \mu_2 P_{\mu_1} P_{\mu_2} = \sum_{\mu\in \sigma(U)} \bar{\mu}\mu P_\mu = \sum_{\mu \in \sigma(U)} P_\mu = I,
+\end{equation}
+
+and similarly, $UU^\ast = I$. Thus, $U$ is unitary. Q.E.D.
+
+Our second corollary of the Spectral Theorem is a formula for the operator norm of a normal operator. But first, a definition:
+
+<div class="highlight-box">
+**Definition.** Let $T$ be an opeartor on a finite-dimensional Hilbert space $\calh$. The *spectral radius* of $T$, denoted $r(T)$, is the real number
+
+\begin{equation}\notag
+r(T) = \max \\{ \|\lambda \| : \lambda \in \sigma(T) \\}.
+\end{equation}
+</div>
+
+Then:
+
+<div class="highlight-box">
+**Theorem.** Let $T$ be an operator on a finite-dimensional Hilbert space $\calh$. Then
+
+\begin{equation}\label{main-eqn}
+r(T) \leq \norm{T},
+\end{equation}
+
+with equality if $T$ is normal.
+</div>
+
+To prove the inequality, let $v$ be a normalized eigenvector of $\lambda \in \sigma(T)$. Then
+
+\begin{equation}\notag
+\|\lambda \| = \|\lambda\| \norm{v} = \norm{Tv} \leq \norm{T} \norm{v} = \norm{T},
+\end{equation}
+
+which proves $r(T) \leq \norm{T}$. Now, assume that $T$ is normal and consider the spectral decomposition
+
+\begin{equation}\label{spec-ag-eqn}
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
+\end{equation}
+
+Given a vector $v\in \calh$, we have
+
+\begin{equation}\label{spec-ag2-eqn}
+v = \sum_{\lambda \in \sigma(T)} P_\lambda v.
+\end{equation}
+
+Then
+
+\begin{equation}\notag
+\norm{Tv}^2 = \sum_{\lambda \in \sigma(T)} \|\lambda\|^2 \norm{P_\lambda v}^2 \leq r(T)^2 \sum_{\lambda \in \sigma(T)} \norm{P_\lambda v}^2 = r(T)^2 \norm{v}^2,
+\end{equation}
+
+where the first equality follows from \eqref{spec-ag-eqn} and the Pythagorean relation (which holds in *any* Hilbert space), and the second equality follows from \eqref{spec-ag2-eqn} and a second application of the Pythagorean relation. It follows that $\norm{Tv} \leq r(T) \norm{v}$ and hence $\norm{T} \leq r(T)$; combined with the inequality \eqref{main-eqn}, we get $\norm{T} = r(T)$. Q.E.D.
+</section>
+
+
+
+
+
+
+
+
+
+
+## A First Look at $C^\ast$-Algebras
+
+The operators on a finite-dimensional Hilbert space $\calh$ have been our main focus so far. Together, these operators constitute the operator algebra $\calb(\calh)$ of (necessarily bounded) operators on $\calh$. The algebra $\calb(\calh)$ is a Banach algebra, when equipped with the operator norm.
+
+But $\calb(\calh)$ is also equipped with the fundamental adjoint operation
+
+\begin{equation}\notag
+(-)^\ast: \calb(\calh) \to \calb(\calh)
+\end{equation}
+
+mapping an operator $T$ to its adjoint $T^\ast$, and we <a href="#adjoint-prop">noted</a> that this operation has the three important algebraic properties of conjugate-linearity, involutativity, and anti-multiplicativity. But the adjoint operation also has an important topological property:
+
+<div class="highlight-box">
+**Theorem.** Let $\calb(\calh)$ be the algebra of linear operators on a finite-dimensional Hilbert space $\calh$. Then the adjoint operation $T \mapsto T^\ast$ is an *isometry*, in the sense that
+
+\begin{equation}\label{iso1-eqn}
+\norm{T^\ast} = \norm{T}, \quad \forall T\in \calb(\calh).
+\end{equation}
+</div>
+
+For the proof, suppose we are given $v\in \calh$. Then we compute
+
+\begin{equation}\label{string-eqn}
+\norm{T^\ast v}^2 = \ang{TT^\ast v, v} \leq \norm{TT^\ast v} \norm{v} \leq \norm{T} \norm{T^\ast v} \norm{v},
+\end{equation}
+
+where the first inequality is the Cauchy-Schwarz one. If $T^\ast v=0$, then we clearly have
+
+\begin{equation}\label{paper-eqn}
+\norm{T^\ast v} \leq \norm{T} \norm{v};
+\end{equation}
+
+otherwise, if $T^\ast v \neq 0$, then we may divide \eqref{string-eqn} through by $\norm{T^\ast v}$ to obtain the same inequality \eqref{paper-eqn}. Thus $\norm{T^\ast} \leq \norm{T}$. But the same argument beginning with $\norm{Tv}^2$ instead of $\norm{T^\ast v}^2$ will produce the opposite inequality $\norm{T^\ast} \geq \norm{T}$, and hence $\norm{T^\ast} = \norm{T}$. Q.E.D.
+
+So, the adjoint operation $T\mapsto T^\ast$ interacts coherently with both the algebraic structure of $\calb(\calh)$, and also its topological structure induced by the operator norm. But even more, all three structures come together (the product, the adjoint operation, and the norm) into a single fundamental identity:
+
+<div class="highlight-box">
+**Theorem.** Let $\calb(\calh)$ be the algebra of linear operators on a finite-dimensional Hilbert space $\calh$. Then
+
+\begin{equation}\label{cstar1-eqn}
+\norm{T^\ast T} = \norm{T}^2, \quad \forall T\in \calb(\calh).
+\end{equation}
+</div>
+
+Using submultiplicativity of the operator norm and the fact that $T\mapsto T^\ast$ is an isometry, we get
+
+\begin{equation}\notag
+\norm{T^\ast T} \leq \norm{T^\ast} \norm{T} = \norm{T}^2.
+\end{equation}
+
+On the other hand, we also have
+
+\begin{equation}\notag
+\norm{Tv}^2 = \ang{T^\ast Tv,v} \leq \norm{T^\ast Tv} \norm{v} \leq \norm{T^\ast T} \norm{v}^2
+\end{equation}
+
+for any $v\in \calh$. Thus, $\norm{T}^2 \leq  \norm{T^\ast T}$, and so we must have equality $\norm{T^\ast T} = \norm{T}^2$. Q.E.D.
+
+Now, the logical transition in this section is one of *abstraction*: We take the *concrete* operator algebra $\calb(\calh)$ as the *model* of a certain type of *abstract* operator algebra called a *$C^\ast$-algebra*; in fact, we will define a two-step hierarchy of *abstract* operator algebras:
+
+\begin{equation}\notag
+\\{\text{$C^\ast$-algebras}\\} \subset \\{\text{Banach $\ast$-algebras}\\} \subset \\{\text{$\ast$-algebras}\\}.
+\end{equation}
+
+Here are their definitions, in one big highlighted box. It begins with the definition of an *abstract* adjoint operation, naturally called an *involution*.
+
+<div class="highlight-box">
+**Definition.** Let $\cala$ be a (possibly non-unital) algebra. An *involution* on $\cala$ is a function
+
+\begin{equation}\notag
+(-)^\ast :\cala \to \cala, \quad a \mapsto a^\ast,
+\end{equation}
+
+with the following properties:
+
+1. *Conjugate-linearity*: For all $a,b\in \cala$ and $\lambda \in \bbc$, we have
+    \begin{equation}\notag
+    (a+\lambda b)^\ast = a^\ast + \bar{\lambda} b^\ast.
+    \end{equation}
+
+2. *Involutativity*: For all $a\in \cala$, we have
+    \begin{equation}\notag
+    (a^\ast)^\ast = a.
+    \end{equation}
+
+3. *Anti-multiplicativity*: For all $a,b\in \cala$, we have
+    \begin{equation}\notag
+    (ab)^\ast = b^\ast a^\ast.
+    \end{equation}
+
+With the definition of an involution in hand, we now make several more definitions:
+
+* An algebra $\cala$ equipped with an involution $\ast$ is called a *$\ast$-algebra*. (Pronunciation: "star algebra.")
+
+* If an algebra $\cala$ is simultaneously a Banach algebra and a $\ast$-algebra, it will be called a *Banach $\ast$-algebra* if the involution is *isometric*, in the sense that
+    \begin{equation}\label{iso2-eqn}
+    \norm{a} = \norm{a^\ast}, \quad \forall a\in \cala.
+    \end{equation}
+
+* A Banach $\ast$-algebra $\cala$ is called a *$C^\ast$-algebra* if
+    \begin{equation}\label{cstar2-eqn}
+    \norm{a^\ast a} = \norm{a}^2, \quad \forall a\in \cala.
+    \end{equation}
+
+We now define the morphisms in the category of $\ast$-algebras:
+
+* Let $\alpha: \cala \to \calb$ be a function from one $\ast$-algebra to another. Then $\alpha$ is called a *$\ast$-homomorphism* if it is an algebra homomorphism such that $\alpha(a^\ast) = \alpha(a)^\ast$ for all $a\in \cala$.
+
+* The function $\alpha:\cala \to \calb$ is called a *$\ast$-isomorphism* if it is a $\ast$-homomorphism which is invertible as a set-theoretic function.
+
+Finally:
+
+* A subalgebra $\calb$ of a $\ast$-algebra $\cala$ is called a *$\ast$-subalgebra* if the involution on $\cala$ restricts to an involution on $\calb$.
+</div>
+
+<div class="highlight-box2">
+**Exercise.**
+
+1. Prove that the involution on a *unital* $\ast$-algebra preserves the multiplicative identity $\id$, in the sense that $\id^\ast = \id$.
+
+2. If $a\in \cala$ is an invertible element in a $\ast$-algebra $\cala$, prove that $(a^{-1})^\ast = (a^\ast)^{-1}$.
+
+3. Prove that a $\ast$-homomorphism $\alpha:\cala\to \calb$ is a $\ast$-isomorphism if and only if it is invertible as a set-theoretic function and its inverse is a $\ast$-homomorphism. (Of course, one direction of the implication follows straight from the definition.)
+
+2. Let $\cals$ be a subset of a $\ast$-algebra $\cala$ and define
+    \begin{equation}\notag
+    \cals^\ast = \\{ a^\ast : a\in \cals\\}.
+    \end{equation}
+We shall say $\cals$ is *self-adjoint* if $\cals = \cals^\ast$. Prove that a subalgebra $\calb$ of $\cala$ is a $\ast$-subalgebra if and only if it is self-adjoint.
+</div>
+
+Of course, you'll notice that the isometry identity \eqref{iso2-eqn} and the $C^\ast$-identity \eqref{cstar2-eqn} in the definition are nothing but abstractions of the same identities \eqref{iso1-eqn} and \eqref{cstar1-eqn} established for the concrete operator algebra $\calb(\calh)$. Thus, we conclude that $\calb(\calh)$ is an example of a $C^\ast$-algebra.
+
+In fact, as we will see in a later post, operator algebras of the form $\calb(\calh)$, along with their topologically closed $\ast$-subalgebras, are in a sense the *only* examples of $C^\ast$-algebras. This is made precise via a general result called the <a href="https://en.wikipedia.org/wiki/Gelfand%E2%80%93Naimark_theorem">Gelfand-Naimark Theorem</a>, which says that every abstract $C^\ast$-algebra is $\ast$-isomorphic to a topologically closed $\ast$-subalgebra of some $\calb(\calh)$ (and $\calh$ need not be finite-dimensional). Among other things, this theorem provides the key link between the $C^\ast$-formalism in quantum mechanics and the more familiar one in terms of operators on Hilbert spaces. We will explore this topic further in a future post dedicated to quantum theory.
+
+For now, we will content ourselves with exploring some of the most basic properties of $C^\ast$-algebras. We begin with an abstraction of the spectrum of a linear operator, which actually applies to elements in *any* unital algebra.
+
+<div class="highlight-box">
+**Definition.** Let $a$ be an element in a unital algebra $\cala$.
+
+1. The *spectrum* of $a$, denoted $\sigma(a)$, is the set of all numbers $\lambda \in \bbc$ such that $a - \lambda = a-\lambda \id$ is *not* invertible, i.e., such that $a-\lambda$ does *not* have a two-sided multiplicative inverse.
+
+2. The *spectral radius* of $a$, denoted $r(a)$, is the number
+    \begin{equation}\notag
+    r(a) = \sup \\{ \|\lambda\| : \lambda \in \sigma(a)\\},
+    \end{equation}
+provided $\sigma(a) \neq \emptyset$.
+</div>
+
+Of course, as you may easily check, when $\cala$ is an algebra of the form $\calb(\calh)$ for a finite-dimensional Hilbert space $\calh$, the abstract spectra just defined coincide with the usual spectra of eigenvalues of operators.
+
+Our focus in this post is on finite-dimensional algebras; all elements in such algebras have an important property called *algebraicity*. To define this property, we first note that, given any element $a$ in a unital algebra $\cala$, there is a unique algebra homomorphism
+
+\begin{equation}\notag
+\theta_a: \bbc[z] \to \cala
+\end{equation}
+
+from the formal power series ring $\bbc[z]$ to $\cala$, with
+
+\begin{equation}\notag
+\bbc[z] \ni \lambda_n z^n + \cdots + \lambda_1 z + \lambda_0 \mapsto \lambda_n a^n + \cdots + \lambda_1 a + \lambda_0 \in \cala.
+\end{equation}
+
+Indeed, $\theta_a$ is uniquely determined by the equality $\theta_a(z) = a$ and the fact that it is an algebra homomorphism.
+
+<div class="highlight-box">
+**Definition.** An element $a$ in a unital algebra $\cala$ is called *algebraic* if there exists a nonzero formal polynomial $p(z) \in \bbc[z]$ with $p(a) = 0$. (Here, the notation "$p(a)$" is shorthand for "$\theta_a(p(z))$.")
+</div>
+
+The special polynomial identified in the next theorem is the key device to computing spectra of algebraic elements:
+
+<div class="highlight-box">
+**Theorem/Definition.** Let $a$ be an algebraic element in a unital algebra $\cala$. Then there is a *unique* monic formal polynomial $p_a(z)\in \bbc[z]$ such that:
+
+1. We have $p_a(z)=0$.
+2. If $f(z) \in \bbc[z]$ is any other polynomial such that $f(a)=0$, then $f(z)$ is divisible (in the formal polynomial algebra) by $p_a(z)$.
+
+The formal polynomial $p_a(z)$ is called the *minimal polynomial* of $a$.
+</div>
+
+Indeed, we consider the kernel of the algebra homomorphism $\theta_a:\bbc[z] \to \cala$ described above with $z\mapsto a$. Since $\bbc[z]$ is a principal ideal domain, we may choose $p_a(z)$ to be the unique monic generator of this ideal.
+
+<div class="highlight-box">
+**Spectral Mapping Theorem.** Let $a$ be an element of a unital algebra $\cala$.
+
+1. If $\sigma(a)$ is nonempty and $f(z) \in \bbc[z]$, then
+    \begin{equation}\label{short-eqn}
+    \sigma(f(a)) = f(\sigma(a)).
+    \end{equation}
+
+2. Suppose $a$ is an algebraic element and let $p_a(z) \in \bbc[z]$ be its minimal polynomial. Then $\lambda \in \sigma(a)$ if and only if $p_a(\lambda)=0$.
+</div>
+
+To be clear, the equation \eqref{short-eqn} is one of sets, with $\sigma(f(a))$ being the spectrum of the element $f(a) \in \cala$. The expression on the right-hand side, however, is shorthand notation for
+
+\begin{equation}\notag
+f(\sigma(a)) = \\{ f(\lambda) : \lambda \in \sigma(a)\\}.
+\end{equation}
+
+With notation clarified, here's the proof of the theorem:
+
+(1.): The equation holds trivially if $f(z)$ is constant, so let's assume that $f(z)$ is not constant. Given any $\lambda\in \bbc$, since $\bbc$ is algebraically closed, we may factor:
+
+\begin{equation}\notag
+f(z) - \lambda = \mu_0 \prod_{k=1}^n (z-\mu_i),
+\end{equation}
+
+where $\mu_0,\mu_1,\ldots,\mu_n\in \bbc$ and $\mu_0\neq 0$. Then $f(a) - \lambda$ is invertible if and only if each $a-\mu_k$ is invertible, and thus $\lambda \in \sigma(f(a))$ if and only if there is a $k$ such that $\mu_k \in \sigma(a)$, in which case we have $\lambda = f(\mu_k)$. The desired equation follows.
+
+(2.): First, suppose that $\lambda$ is a root of the minimal polynomial $p_a(z)$, so that
+
+\begin{equation}\notag
+p_a(z) = q(z) (z-\lambda),
+\end{equation}
+
+for some $q(z) \in \bbc[z]$. Then
+
+\begin{equation}\notag
+q(a) (a-\lambda) =0,
+\end{equation}
+
+which proves $\lambda \in \sigma(a)$, for otherwise $a-\lambda$ is invertible, which would imply $q(a)=0$. But the degree of $q(z)$ is less than the degree of $p_a(z)$, which is the *minimal* polynomial of $a$. This proves one half of the desired equivalence; the remaining implication follows immediately from part (1.). Q.E.D.
+
+<div class="highlight-box">
+**Corollary.** Let $a$ be an algebraic element in a unital algebra $\cala$.
+
+1. The spectrum $\sigma(a)$ is nonempty and finite.
+
+2. We have $a=0$ if and only if $\sigma(a) = \\{0\\}$.
+</div>
+
+The first claim is immediate from the theorem, while for the second, suppose $\sigma(a) =\\{0\\}$. Since $a$ is algebraic, from the theorem we conclude that the minimal polynomial $p_a(z)$ has only $\lambda=0$ as a root. Thus, we must have $p_a(z) = z$, from which it follows that $a = p_a(a) = 0$. The other implication is trivial. Q.E.D.
+
+That the spectrum of an algebraic element in a unital algebra $\cala$ is nonempty emerged from elementary and purely algebraic considerations. However, the spectrum of *any* element in a unital algebra $\cala$ is nonempty, provided that the algebra is a Banach algebra. This is the result of a theorem attributed to Gelfand, which Murphy calls the "fundamental theorem of Banach algebras." The typical proof of Gelfand's theorem that one finds in a textbook (in particular, in Murphy's textbook) is a paradigmatic example of the confluence of algebra, analysis, and topology that is so typical of the theory of operator algebras.
+
+A similar diversity of algebraic and analytic techniques will establish the following fundamental formula:
+
+<div class="highlight-box">
+**Theorem.** Let $a$ be an element in a unital Banach algebra $\cala$. Then $r(a)$ is well-defined and finite, and
+
+\begin{equation}\label{sp-rad-eqn}
+r(a) = \lim_{n\to \infty} \norm{a^n}^{1/n},
+\end{equation}
+
+where the existence of the limit is part of the claim.
+</div>
+
+The experienced reader will no doubt notice that this is precisely <a href="https://en.wikipedia.org/wiki/Spectral_radius#Gelfand's_formula">Gelfand's formula</a>, a familiar result from matrix analysis. So, this theorem shows that this same formula holds in (possibly infinite-dimensional) unital Banach algebras, not just matrix algebras. This formula is also sometimes attributed to Beurling (as it is in Murphy's textbook).
+
+We will not prove the spectral radius formula \eqref{sp-rad-eqn}, perhaps saving the proof for later when we generalize everything to arbitrary (possibly infinite-dimensional) algebras. Instead, let me show you how it combines with the $C^\ast$-identity \eqref{cstar2-eqn} to yield a formula for the norm of self-adjoint elements:
+
+<div class="highlight-box">
+**Theorem.** Let $a$ be an element in a $C^\ast$-algebra $\cala$. If $a$ is *self-adjoint*, i.e., if $a=a^\ast$, then $r(a)= \norm{a}$.
+</div>
+
+By the $C^\ast$-identity \eqref{cstar2-eqn} and self-adjointness, we have
+
+\begin{equation}\notag
+\norm{a^2} = \norm{a^\ast a} = \norm{a}^2.
+\end{equation}
+
+Generalizing via induction, we get
+
+\begin{equation}\notag
+\norm{a^{2^n}} = \norm{a}^{2^n}, \quad \forall n\geq 1.
+\end{equation}
+
+But then, from the spectral radius formula \eqref{sp-rad-eqn}, we get
+
+\begin{equation}\notag
+r(a) = \lim_{n\to \infty} \norm{a^{2^n}}^{1/2^n} = \norm{a},
+\end{equation}
+
+which is what we wanted to prove. Q.E.D.
+
+Before continuing, let's extract the definition of *self-adjoint* given in the previous theorem and place it into its own box, along with the generalizations of all the other classes of Hilbert space operators we studied in the previous sections.
+
+<div class="highlight-box">
+**Definition.** Let $a$ be an element in a unital $\ast$-algebra $\cala$. The element $a$ is called...
+
+1. ...*self-adjoint* if $a=a^\ast$.
+
+2. ...*normal* if $aa^\ast = a^\ast a$.
+
+3. ...*positive* if it is self-adjoint and $\sigma(a)\subset [0,\infty)$.
+
+4. ...*unitary* if it is invertible and $a^{-1} = a^\ast$.
+    
+5. ...a *projection* if it is self-adjoint and $a^2 = a$.
+</div>
+
+Notice that these definitions are the exact transcriptions from the concrete case of $\calb(\calh)$ to the general, abstract case of $\ast$-algebras; all, that is, except for positivity. The definition of positivity in $\calb(\calh)$ does not transfer directly to $\ast$-algebras because we do not have a Hilbert space at hand with an inner product. Rather, we must generalize the equivalent characterization of positive Hilbert space operators in terms of their spectra.
+
+One profitable method for studying general noncommutative $C^\ast$-algebras is through their commutative subalgebras; in the context of the $C^\ast$-formalism in quantum mechanics, this method is called *Bohrification* by Landsman. The next result shows how to generate many commutative subalgebras:
+
+<div class="highlight-box">
+**Theorem.** Let $\cala$ be a finite-dimensional unital $C^\ast$-algebra.
+
+1. Let $a\in A$ be a normal element. Then the subset
+    \begin{equation}\notag
+    C^\ast(a) = \left\\{ f(a,a^\ast)\in \cala : f(z,w) \in \bbc[z,w]\right\\}
+    \end{equation}
+is a commutative unital $C^\ast$-subalgebra of $\cala$ (i.e., a closed $\ast$-subalgebra). In fact, it is the smallest (in terms of inclusion) unital $C^\ast$-subalgebra of $\cala$ that contains $a$.
+
+2. Let $a\in \cala$ be a self-adjoint element. Then the subset
+    \begin{equation}\notag
+    C^\ast(a) = \left\\{ f(a)\in \cala : f(z) \in \bbc[z]\right\\}
+    \end{equation}
+is a commutative unital $C^\ast$-subalgebra of $\cala$. Just like in (1.), it is, in fact, the smallest unital $C^\ast$-subalgebra of $\cala$ that contains $a$.
+</div>
+
+<div class="highlight-box2">
+**Exercise.** Prove the theorem. (*Hint*: Note that the finite-dimensional hypothesis implies topologically closed. Why?)
+</div>
+
+Just as closed $\ast$-subalgebras of bounded linear operators on Hilbert spaces provide the "models" for noncommutative $C^\ast$-algebras, algebras of continuous $\bbc$-valued functions (vanishing at infinity) on locally compact Hausdorff spaces provide the "models" for commutative $C^\ast$-algebras. I mentioned above that the first claim is a result of the Gelfand-Naimark theorem, which we will cover later; the second claim is a result of the Gelfand Representation Theorem, and is one of the protoypical examples in mathematics of the <a href="https://ncatlab.org/nlab/show/duality+between+algebra+and+geometry">duality</a> between algebra and geometry. 
+
+My remaining goal in this section is to prove the finite-dimensional version of the Gelfand Representation Theorem, and then to use it to develop the "continuous functional calculus" which we will use in our upcoming rewrite of the Spectral Theorem in the language of spectral measures.
+
+First, however, let's talk about $C^\ast$-algebras of functions:
+
+<div class="highlight-box">
+**Theorem/Definition.** Let $\calx$ be a topological space and $C_b(\calx)$ the $\bbc$-algebra of all bounded continuous functions $f: \calx \to \bbc$. Then $C_b(\calx)$ is a Banach algebra when equipped with the $\infty$-norm
+
+\begin{equation}\notag
+\norm{f}_\infty \defeq \sup \\{ \|f(x)\| : x\in \calx\\},
+\end{equation}
+
+and it is a $C^\ast$-algebra when equipped with the involution defined pointwise by
+
+\begin{equation}\notag
+(f^\ast)(x) = \overline{f(x)}, \quad \forall x\in \calx.
+\end{equation}
+
+Here, the overline denotes complex conjugation.
+</div>
+
+Note that if $\calx$ is compact, then $C_b(\calx)$ coincides with the algebra $C(\calx)$ of *all* continuous $\bbc$-valued functions.
+
+<div class="highlight-box2">
+**Exercise.**
+
+1. Prove the theorem.
+
+2. If $\calx$ is compact and $f\in C(\calx)$, prove that the spectrum $\sigma(f)$ is equal to the range of $f$.
+
+3. If $\calx$ is compact and $f\in C(\calx)$, prove that $r(f) = \norm{f}_\infty$.
+</div>
+
+We now have everything that we need to state and prove the main result of this section. It is a special case of a more general result that applies to (unital) $C^\ast$-algebras of arbitrary dimension, and also to normal elements, instead of just self-adjoint ones. I've chosen to focus here on self-adjoint elements in finite-dimensional algebras because then I can use the theory of minimal polynomials, which makes the proof fairly easy (except for the part about norm-preserving, which uses the spectral radius formula \eqref{sp-rad-eqn}).
+
+<div class="highlight-box">
+**Gelfand Representation Theorem (Finite-Dimensional Version).** Let $a$ be a self-adjoint element in a finite-dimensional unital $C^\ast$-algebra $\cala$, and let its (finite) spectrum $\sigma(a)$ be equipped with the discrete topology. Then the algebra homomorphism
+
+\begin{equation}\label{yuppers-eqn}
+\vartheta: \bbc[z] \to C(\sigma(a)), \quad f(z) \mapsto (f: \sigma(a) \to \bbc),
+\end{equation}
+
+obtained by viewing a formal polynomial $f(z)$ as a $\bbc$-valued function on the spectrum $\sigma(a)$, descends to an isometric $\ast$-isomorphism
+
+\begin{equation}\label{yuppers2-eqn}
+\phi: C^\ast(a) \xrightarrow{\cong} C(\sigma(a)).
+\end{equation}
+</div>
+
+First, let me explain what I mean by "descending." There is a surjective algebra homomorphism
+
+\begin{equation}\label{yuppers3-eqn}
+\gamma: \bbc[z] \to C^\ast(a), \quad f(z) \mapsto f(a),
+\end{equation}
+
+whose kernel is the principal ideal $(p_a(z))$, where $p_a(z)$ is the minimal polynomial of $a$. (Why is $a$ algebraic?) Then, to say that $\vartheta$ descends to $C^\ast(a)$ means that there exists a unique algebra homomorphism $\phi$ making the diagram
+
+\begin{equation}\notag
+\begin{xy}
+\xymatrix{
+\bbc[z] \ar[r]^-{\vartheta} \ar[d]\_{\gamma} &  C(\sigma(a)) \\\  C^\ast(a) \ar[ur]\_{\phi}}
+\end{xy}
+\end{equation}
+
+commute. But not only does $\phi$ exist, the claim is that it is an isometric $\ast$-isomorphism.
+
+Now, to the proof: To show that $\phi$ exists, since $\gamma$ is surjective, it suffice to show that $\vartheta$ kills the minimal polynomial $p_a(z)$. But this is true essentially by definition of $p_a(z)$. Thus, $\phi$ exists. To prove $\phi$ is surjective, it will suffice to show $\vartheta$ is surjective. Suppose that $\sigma(a) = \\{\lambda_1,\ldots,\lambda_n\\}$. Given a function $g\in C(\sigma(a))$, it is <a href="https://en.wikipedia.org/wiki/Polynomial_interpolation">well-known</a> that there is a polynomial $f(z) \in \bbc[z]$ that interpolates the points
+
+\begin{equation}\notag
+(\lambda_1,g(\lambda_1)),\ldots,(\lambda_n,g(\lambda_n))
+\end{equation}
+
+in the sense that $f(\lambda_k) = g(\lambda_k)$, for each $k=1,\ldots,n$. Thus, $\vartheta$ is surjective, and then so too is $\phi$. To show $\phi$ is injective, it will suffice to show that the kernel of $\vartheta$ is contained in the principal ideal $(p_a(z))$. So, suppose that $f(z) \in \bbc[z]$ is mapped to the zero function on $\sigma(a)$ by $\vartheta$. Then, by the Spectral Mapping Theorem, we have
+
+\begin{equation}\notag
+\sigma(f(a)) = f(\sigma(a)) = \\{0\\}.
+\end{equation}
+
+But this implies $f(a)=0$, and hence $f(z) \in (p_a(z))$. Thus, $\phi$ is an isomorphism of algebras; that it is a $\ast$-isomorphism follows easily from the fact $a$ is self-adjoint and all elements in its spectrum are real.
+
+All that is left is to prove $\phi$ preserves norms. To prove this, we use the fact that the norm of a self-adjoint element in a unital $C^\ast$-algebra coincides with its spectral radius, along with the Spectral Mapping Theorem:
+
+\begin{align}
+\norm{\phi(f(a))} &= r(f) \notag \\\ &= \max \\{ \|f(\lambda)\| : \lambda \in \sigma(a)\\} \notag \\\ &= \max\\{ \|\mu\| : \mu \in f(\sigma(a))\\} \notag \\\ &= \max\\{ \|\mu\| : \mu \in \sigma(f(a))\\} \notag \\\ &= r(f(a)) \notag \\\ &= \norm{f(a)}. \notag
+\end{align}
+
+This completes the proof. Q.E.D.
+
+<div class="highlight-box">
+**Continuous Functional Calculus (Finite-Dimensional Version).** Let $a$ be a self-adjoint element in a finite-dimensional unital $C^\ast$-algebra $\cala$, let its (finite) spectrum $\sigma(a)$ be equipped with the discrete topology, and let
+
+\begin{equation}\notag
+z:\sigma(a) \to \bbc
+\end{equation}
+
+be the inclusion map. Then there is a unique unital $\ast$-homomorphism
+
+\begin{equation}\label{who-eqn}
+\alpha_a: C(\sigma(a)) \to \cala
+\end{equation}
+
+such that $\alpha_a(z) = a$, called the *(continuous) functional calculus at $a$.* Moreover, $\alpha_a$ is norm-preserving and its image is $C^\ast(a)$.
+</div>
+
+The existence of such a map $\alpha_a$ is an immediate corollary of the Gelfand Representation Theorem, since we may take $\alpha_a$ to be the inverse isomorphism $\phi^{-1}$ in that theorem (see \eqref{yuppers2-eqn}) composed with the inclusion map
+
+\begin{equation}\notag
+\iota: C^\ast(a) \to \cala.
+\end{equation}
+
+For uniqueness, first let
+
+\begin{equation}\notag
+\gamma: \bbc[z] \to C^\ast(a), \quad f(z) \mapsto f(a),
+\end{equation}
+
+be the canonical map \eqref{yuppers3-eqn} discussed in the proof of the Gelfand Representation Theorem. (Note that we are using $z$ to denote the inclusion of $\sigma(a)$ into $\bbc$ and for the formal variable in the polynomial algebra $\bbc[z]$.) If $\alpha_a$ is a map \eqref{who-eqn} with $\alpha_a(z) = a$, then
+
+\begin{equation}\notag
+(\alpha_a \circ \vartheta)(z) =a = (\iota \circ \gamma)(z)
+\end{equation}
+
+where $\vartheta$ is the canonical map \eqref{yuppers-eqn}. But both composites $\alpha_a\circ \vartheta$ and $\iota \circ \gamma$ are algebra maps defined on the polynomial algebra $\bbc[z]$, and thus they are uniquely determined by their action on $z$. It then follows that $\alpha_a \circ \vartheta = \iota \circ \gamma$, and hence $\alpha_a \circ \varphi \circ \gamma = \iota \circ \gamma$ as well. But $\gamma$ is a surjection, which implies $\alpha_a \circ \varphi = \iota$, so that $\alpha_a = \iota \circ \varphi^{-1}$. Q.E.D.
+
+The name "functional calculus" comes about because the theorem allows us to make sense of an expression like $f(a)$, where $a$ is a self-adjoint element in a finite-dimensional unital $C^\ast$-algebra and $f:\sigma(a) \to \bbc$ is a function. Indeed, we *define*
+
+\begin{equation}\notag
+f(a) = \alpha_a(f),
+\end{equation}
+
+where $\alpha_a:C(\sigma(a)) \to \cala$ is the functional calculus at $a$. For example, if $a$ is *positive*, so that $\sigma(a) \subset [0, \infty)$, then the square root $\sqrt{a}$ of $a$ is well-defined via the functional calculus, and it has the property that $\left( \sqrt{a}\right)^2 = a$.
+
+Before finishing this section, it might be worth describing the continuous functional calculus in the special case that the $C^\ast$-algebra is of the form $\calb(\calh)$ for some finite-dimensional Hilbert space $\calh$. It is described here only for self-adjoint operators in order to link it with the results above, but it actually holds more generally for normal operators.
+
+<div class="highlight-box" id="huh">
+**Continuous Functional Calculus for Self-Adjoint Operators (Finite-Dimensional Version).** Let $T$ be a self-adjoint linear operator on a finite-dimensional Hilbert space $\calh$, and let
+
+\begin{equation}\notag
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda
+\end{equation}
+
+be its spectral decomposition. Then, given a function $f\in C(\sigma(T))$, the continuous functional calculus at $T$ is given by
+
+\begin{equation}\notag
+f(T) = \alpha_T(f) = \sum_{\lambda \in \sigma(T)} f(\lambda) P_\lambda.
+\end{equation}
+</div>
+
+<div class="highlight-box2">
+**Exercise.** Prove the theorem. (*Hint*: Use the *uniqueness* part of the preceding theorem.)
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## The Measure-Theoretic Approach to the Spectral Theorem
+
+The goal now is to obtain a version of the Spectral Theorem for self-adjoint operators (on a finite-dimensional Hilbert space) whose proof uses measure-theoretic techniques and which is completely independent of our earlier proof of the theorem for normal operators.
+
+Not only does this new proof use measure theory, it also uses the continuous functional calculus developed in the previous section on $C^\ast$-theory. As we are therefore pivoting away from abstract $C^\ast$-algebras back toward concrete algebras of linear operators, the skeptical reader may well wonder why we went through the trouble of establishing the functional calculus for general $C^\ast$-algebras. The reason I would give to the skeptical reader is the same that I would give to anyone who questions the motivation for abstraction in mathematics: Abstracting a mathematical object is a process of *insight building*, in the sense that it requires us to identify and strip away all but the most important and essential pieces of its structure. If a certain theorem generalizes from the concrete object to its abstraction, then one has gained insight into the structure of the concrete object. Indeed, we can then point our finger at the object and say that it is precisely *this* and *that* part of its structure that allows the theorem to go through, and all the rest of its structure is purely extraneous. In our case, through abstraction, we obtain a deeper understanding of algebras of operators by generalizing to $C^\ast$-algebras and, at least in some respects, we see that the latter are perhaps more *fundamental* objects.
+
+In any case, as I mentioned in the section on prerequisites, the sequence of results and theorems in this section is taken almost *exactly* from Murphy's textbook on $C^\ast$-algebras and operator theory, but with finite-dimensional hypotheses applied. If you can follow and understand the general arc of the arguments given in this section, you should then have no problem at least understanding the *statements* of the theorems in Murphy's book leading up to the general Spectral Theorem in arbitrary dimensions for normal operators.
+
+So, let's begin!
+
+The motivation for the measure-theoretic approach is to notice that the spectral decomposition
+
+\begin{equation}\notag
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda
+\end{equation}
+
+of a normal operator (on a finite-dimensional Hilbert space) looks a lot like an integral. But integrals are numbers in $\bbc$, whereas the spectral decomposition---if it could be written as an "integral"---would have to be some sort of operator-valued integral. As we will see, a theory of such integrals does, in fact, exist!
+
+The starting point is the definition of a new type of measure:
+
+<div class="highlight-box">
+**Definition.** Let $\calx$ be a nonempty finite set, $P(\calx)$ its power set, and let $\calh$ be a finite-dimensional Hilbert space. A *spectral measure* relative to the pair $(\calx,\calh)$ is a function
+
+\begin{equation}\notag
+E: P(\calx) \to \calb(\calh)
+\end{equation}
+
+satisfying the following properties:
+
+1. The image of $E$ is contained in the subset of $\calb(\calh)$ consisting of all orthogonal projections.
+
+2. $E(\emptyset)=\zero$ and $E(\calx) = I$, the zero and identity operators, respectively.
+
+3. For any two subsets $A,B\in P(\calx)$, we have
+    \begin{equation}\notag
+    E(A \cap B) = E(A)E(B).
+    \end{equation}
+
+4. For all $v,w\in \calh$, the function
+    \begin{equation}\notag
+    E_{v,w}: P(X) \to \bbc, \quad A \mapsto \ang{E(A)v,w},
+    \end{equation}
+is a complex measure on $\calx$.
+</div>
+
+The definition of a spectral measure is cooked up in such a way to generalize the (finite) collection of orthogonal projections onto eigenspaces identified in the finite-dimensional version of the Spectral Theorem. The next theorem explains the precise details; note that it will *not* be used in the rest of this section, so our arguments will indeed be independent of that first version of the Spectral Theorem.
+
+<div class="highlight-box">
+**Theorem.** Let $T$ be a normal linear operator on a finite-dimensional Hilbert space $\calh$ with spectral decomposition
+
+\begin{equation}\notag
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
+\end{equation}
+
+If for each subset $A\subseteq\sigma(T)$ we define
+
+\begin{equation}\label{cool-eqn}
+E(A) =  \sum_{\lambda \in \sigma(T) \cap A} P_\lambda,
+\end{equation}
+
+then the function $E: P(\sigma(T)) \to \calb(\calh)$ is a spectral measure. (If $A=\emptyset$, we take $E(A)$ to be the zero operator.)
+</div>
+
+I'll show you the proof in a moment, but first: Note that if $T$ is self-adjoint, so that we may use its <a href="#huh">continuous functional calculus</a>, then it's easy to see that the formula \eqref{cool-eqn} may be expressed concisely as
+
+\begin{equation}\label{cool1-eqn}
+E(A) = \chi_A(T),
+\end{equation}
+
+where $\chi_A$ is the characteristic ($=$ indicator) function of $A$. (Remember that the functional calculus actually applies more broadly to *normal* elements in a $C^\ast$-algebra, so \eqref{cool1-eqn} actually applies in general. We only proved the existence of the functional calculus in the case of self-adjoint elements, however.)
+
+To prove the theorem, we must check all the defining axioms of a spectral measure:
+
+(1.): Since the adjoint operation is additive and each $P_\lambda$ is self-adjoint, so too is each operator $E(A)$, for each $A\in P(\sigma(T))$. That each $E(A)$ is idempotent is a simple computation:
+
+\begin{equation}\notag
+E(A) E(A) = \sum_{\lambda,\mu \in \sigma(T) \cap A} P_\lambda P_\mu = \sum_{\lambda,\mu \in \sigma(T) \cap A} \delta_{\lambda\mu}P_\lambda = E(A).
+\end{equation}
+
+Thus, each operator $E(A)$ (including $E(\emptyset)=\zero$) is an orthogonal projection.
+
+(2.): We have $E(\emptyset)=\zero$ by definition, while the equality $E(\sigma(T)) = \id$ follows from the Spectral Theorem.
+
+(3.): We compute:
+
+\begin{equation}\notag
+E(A) E(B) = \sum_{\lambda \in \sigma(T) \cap A} \sum_{\mu \in \sigma(T) \cap B} P_\lambda P_\mu = \sum_{\lambda \in \sigma(T) \cap A} \sum_{\mu \in \sigma(T) \cap B} \delta_{\mu\lambda}P_\lambda = \sum_{\lambda \in \sigma(T) \cap A \cap B} P_\lambda = E(A\cap B).
+\end{equation}
+
+(4.): We need only show that each function $E_{v,w}: A \mapsto \ang{E(A)v,w}$ is additive. So, let $\\{A_1,\ldots,A_n\\}$ be a collection of pairwise disjoint subsets of the spectrum $\sigma(T)$, and set $A = \bigcup_{k=1}^n A_k$. We then compute
+
+\begin{equation}\notag
+\ang{E(A)v,w} = \sum_{\lambda \in \sigma(T) \cap A} \ang{P_\lambda v, w} = \sum_{k=1}^n \left\langle \sum_{\lambda \in \sigma(T) \cap A_k} P_\lambda v,w \right\rangle = \sum_{k=1}^n \ang{ E(A_k)v,w},
+\end{equation}
+
+which completes the proof. Q.E.D.
+
+Now, having defined spectral measures, the next step is to move toward *spectral integrals*. The first step is given in:
+
+<div class="highlight-box">
+**Theorem.** Let $\calx$ be a nonempty finite set (equipped with the discrete topology), $\calh$ a finite-dimensional Hilbert space, and $E$ a spectral measure relative to the pair $(\calx,\calh)$. Then for each function $f\in C(\calx)$, the function
+
+\begin{equation}\notag
+\beta_f: \calh \times \calh \to \bbc, \quad \beta_f(v,w) = \int_{\calx} f \ \d E_{v,w},
+\end{equation}
+
+is a sesquilinear form on $\calh$.
+</div>
+
+To prove the theorem, first note that the function $f$ is necessarily simple, and so the integral is just a finite sum:
+
+\begin{equation}\notag
+\beta_f(v,w) = \sum_{\lambda \in \bbc} \lambda E_{v,w}\left( f^{-1}(\lambda) \right) = \sum_{\lambda \in \bbc} \lambda \left\langle E\left( f^{-1}(\lambda)\right)v,w \right\rangle.
+\end{equation}
+
+The proof follows easily from this expression for $\beta_f(v,w)$; I will leave the details to you!
+
+Here comes the integral:
+
+<div class="highlight-box">
+**Corollary/Definition.** Let $\calx$ be a nonempty finite set (equipped with the discrete topology), $\calh$ a finite-dimensional Hilbert space, and $E$ a spectral measure relative to the pair $(\calx,\calh)$. Then for each function $f\in C(\calx)$, there is a unique operator $I_{f,E}$ on $\calh$ such that
+
+\begin{equation}\notag
+\ang{I_{f,E}(v),w} = \int_{\calx} f \ \d E_{v,w}, \quad \forall v,w\in \calh.
+\end{equation}
+
+The operator $I_{f,e}$ is called the *spectral integral* of $f$ relative to the spectral measure $E$, and is denoted
+
+\begin{equation}\notag
+I_{f,E} = \int_\calx f \ \d E.
+\end{equation}
+</div>
+
+Since $\beta_f$ is sesquilinear, the existence and uniqueness of the operator $I_{f,E}$ follows from the <a href="#Riesz-cor">Riesz Theorem</a>.
+
+The spectral integral was obtained in a rather abstract, indirect fashion by appealing to the Riesz Representation Theorem. However, in our very special case of finite sets and finite-dimensional Hilbert spaces, we may describe it directly:
+
+<div class="highlight-box">
+**Theorem.** Let $\calx$ be a nonempty finite set (equipped with the discrete topology), $\calh$ a finite-dimensional Hilbert space, and $E$ a spectral measure relative to the pair $(\calx,\calh)$. Then for each function $f\in C(\calx)$ we have
+
+\begin{equation}\notag
+\int_\calx f \ \d E = \sum_{\lambda \in \bbc} \lambda E\left(f^{-1}(\lambda) \right).
+\end{equation}
+
+In particular, if $\chi_A$ is the characteristic function of a subset $A\subseteq \calx$, then
+
+\begin{equation}\notag
+E(A) = \int_\calx \chi_A \ \d E.
+\end{equation}
+</div>
+
+The next result is the central theorem in this section and is another representation-theoretic type theorem. Instead of linear functionals, however, this time we are dealing with $\ast$-representations of commutative $C^\ast$-algeras as linear operators on a Hilbert space.
+
+<div class="highlight-box">
+**Spectral Representation Theorem (Finite-Dimensional Version).** Let $\calx$ be a nonempty finite set (equipped with the discrete topology) and $\calh$ a finite-dimensional Hilbert space.
+
+1. If $E$ a spectral measure relative to the pair $(\calx,\calh)$, then the map
+    \begin{equation}\notag
+    \rho: C(\calx) \to \calb(\calh), \quad f \mapsto \int_\calx f \ \d E,
+    \end{equation}
+is a unital $\ast$-homomorphism.
+
+2. Conversely, if
+    \begin{equation}\notag
+    \rho: C(\calx) \to \calb(\calh)
+    \end{equation}
+is a unital $\ast$-homomorphism, then there is a unique spectral measure $E$ relative to $(\calx, \calh)$ such that $\rho(f) = \int_\calx f \ \d E$.
+</div>
+
+(1.): To prove linearity, let $f,g\in C(\calx)$ and $\mu \in \bbc$. Then since
+
+\begin{align}
+\ang{I_{f,E}(v) + \mu I_{g,E}(v),w} &= \ang{I_{f,E}(v),w} + \mu \ang{I_{g,E}(v),w} \notag  \\\ &= \int_\calx f \ \d E_{v,w} + \mu \int_{\calx} g \ \d E_{v,w} \notag \\\ &= \int_\calx\left(f + \mu g \right) \ \d E_{v,w}, \notag
+\end{align}
+
+we must have
+
+\begin{equation}\notag
+\rho(f) + \mu\rho(g) = I_{f,E} + \mu I_{g,E} = I_{f+\mu g,E} = \rho(f+\mu g).
+\end{equation}
+
+To prove that the spectral integral is multiplicative, in view of linearity, we note that it suffices to prove
+
+\begin{equation}\notag
+\int_\calx \chi_A \chi_B \ \d E = \left( \int_\calx \chi_A \ \d E \right)\left( \int_\calx \chi_B \ \d E\right)
+\end{equation}
+
+for two characteristic functions $\chi_A$ and $\chi_B$. But note that the integral on the left-hand side is equal to $E(A\cap B)$, while the product of integrals on the right-hand side is equal to $E(A) E(B)$. But these two operators are equal by axiom (3.) of a spectral measure.
+
+Finally, to prove that $\rho$ preserves involutions, we compute:
+
+\begin{align}
+\int_\calx \overline{f(x)} \ \d E(x) &= \sum_{\lambda \in \bbc} \lambda E\left((f^\ast)^{-1}(\lambda) \right) \notag \\\ &= \sum_{\lambda \in \bbc} \bar{\lambda} E\left( f^{-1}(\lambda) \right) \notag \\\ &= \left( \sum_{\lambda \in \bbc} \lambda E\left( f^{-1}(\lambda) \right) \right)^\ast \notag \\\ &= \left( \int_\calx f(x) \ \d E(x) \right)^\ast, \notag
+\end{align}
+
+and hence $\rho(f^\ast) = \rho(f)^\ast$. This finishes the proof of (1.).
+
+(2.): Define
+
+\begin{equation}\notag
+E: P(\calx) \to \calb(\calh), \quad A \mapsto \rho(\chi_A).
+\end{equation}
+
+Note that each $E(A)$ is self-adjoint since each characteristic function $\chi_A$ is self-adjoint and $\rho$ preserves involutions; furthermore, each $E(A)$ is idempotent because each $\chi_A$ is idempotent and $\rho$ is multiplicative. Thus, the image of $E$ lands in the subset of $\calb(\calh)$ consisting of projection operators. This shows that $E$ satisfies the first axiom in the definition of a spectral measure; the proofs of the rest of the axioms are entirely straightforward, expect perhaps the assertion that
+
+\begin{equation}\notag
+A\mapsto E_{v,w}(A) \defeq \ang{E(A)v,w} = \ang{\rho(\chi_A)v,w}
+\end{equation}
+
+is a complex measure, for each pair $v,w\in \calh$. However, note that the function
+
+\begin{equation}\notag
+\varphi_{v,w} : C(\calx) \to \bbc, \quad f\mapsto \ang{\rho(f)v,w},
+\end{equation}
+
+is a linear functional, and hence by the Riesz-Markov-Kakutani Representation Theorem there is a unique complex measure $\mu_{v,w}$ on $P(\calx)$ such that
+
+\begin{equation}\notag
+\mu_{v,w}(A) = \varphi_{v,w}(\chi_A).
+\end{equation}
+
+But the right-hand side of this last equation is exactly $E_{v,w}(A)$, and hence $E$ satisfies the last axiom of a spectral measure.
+
+Now, all that remains to prove is the equation
+
+\begin{equation}\label{final-eqn}
+\rho(f) = \int_\calx f \ \d E.
+\end{equation}
+
+But notice that
+
+\begin{equation}\notag
+\ang{\rho(f)v,w} = \varphi_{v,w}(f) = \int_\calx f \ \d \mu_{v,w} = \int_\calx f \ \d E_{v,w},
+\end{equation}
+
+where the second equality comes from the Riesz-Markov-Kakutani theorem. But this shows that $\rho(f)$ satisfies the defining property for the spectral integral, and the desired equation \eqref{final-eqn} then follows. Q.E.D.
+
+Combining the previous theorem with the continuous functional calculus yields the Spectral Theorem:
+
+<div class="highlight-box">
+**Spectral Theorem for Self-Adjoint Operators (Finite-Dimensional Version).** Let $T$ be a self-adjoint linear operator on a finite-dimensional Hilbert space $\calh$. Then there is a unique spectral measure $E$ relative to $(\sigma(T),\calh)$ such that
+
+\begin{equation}\label{huh-eqn}
+T = \int_{\sigma(T)} \lambda \ \d E(\lambda).
+\end{equation}
+
+The equation \eqref{huh-eqn} is called the *spectral decomposition* of $T$.
+</div>
+
+Let $\alpha: C(\sigma(T)) \to \calb(\calh)$ be the continuous functional calculus at $T$, which is a unital $\ast$-homomorphism. By the previous theorem, we know that there is a unique spectral measure $E$ relative to $(\sigma(T),\calh)$ such that
+
+\begin{equation}\label{cont-eqn}
+\alpha(f) = \int_{\sigma(T)} f(\lambda) \ \d E(\lambda), \quad \forall f\in C(\sigma(T)).
+\end{equation}
+
+In particular, since $\alpha(z) = T$ (where $z$ is the inclusion map of $\sigma(T)$ into $\bbc$), the desired equation \eqref{huh-eqn} follows. To prove uniqueness of $E$, let $E'$ be a second spectral measure such that \eqref{huh-eqn} holds. Then the map
+
+\begin{equation}\notag
+\rho: C(\sigma(T)) \to \calb(\calh), \quad f\mapsto \int_{\sigma(T)} f \ \d E',
+\end{equation}
+
+is a unital $\ast$-homomorphism with $\rho(z) = T$. But then we must have $\rho = \alpha$, and hence $E=E'$. Q.E.D.
+
+Let's finish the post with a measure-theoretic description of the continuous functional calculus, which is just the equation \eqref{cont-eqn} in the previous proof:
+
+<div class="highlight-box">
+**Continuous Functional Calculus for Self-Adjoint Operators (Finite-Dimensional Version).** Let $T$ be a self-adjoint linear operator on a finite-dimensional Hilbert space $\calh$. Then the continuous functional calculus at $T$ is given by the formula
+
+\begin{equation}\notag
+f(T) = \int_{\sigma(T)} f(\lambda) \ \d E(\lambda), \quad f\in C(\sigma(T)).
+\end{equation}
+</div>
+</section>
+
+
+
+
+
+
+
+
+## References
+
+* J. B. Conway. A course in functional analysis. Second edition. Graduate Texts in Mathematics, 96. *Springer-Verlag, New York, 1990*.
+
+* D. Han, K. Kornelson, D. Larson, E. Weber. Frames for undergraduates. Student Mathematical Library, 40. *American Mathematical Society, Providence, RI, 2007.*
+
+* G. B. Folland. Real analysis. Modern techniques and their applications. Second edition. Pure and Applied Mathematics (New York). *A Wiley-Interscience Publication. John Wiley & Sons, Inc., New York, 1999.*
+
+* V. L. Hansen. Functional analysis. Entering Hilbert space. *World Scientific Publishing Co. Pte. Ltd., Hackensack, NJ, 2006.*
+
+* A. N. Kolmogorov, S. V. Fomin. Introductory real analysis. Translated from the second Russian edition and edited by Richard A. Silverman. Corrected reprinting. *Dover Publications, Inc., New York, 1975.*
+
+* K. Landsman. Foundations of quantum theory. From classical concepts to operator algebras. Fundamental Theories of Physics, 188. *Springer, Cham, 2017.*
+
+* P. D. Lax. Functional analysis. Pure and Applied Mathematics. *Wiley-Interscience [John Wiley & Sons], New York, 2002*.
+
+* G. J. Murphy. C$^\ast$-algebras and operator theory. *Academic Press, Inc., Boston, MA, 1990.*
+
+* W. Rudin. Functional analysis. Second edition. International Series in Pure and Applied Mathematics. *McGraw-Hill, Inc., New York, 1991.*
+
+* W. Rudin. Real and complex analysis. Third edition. *McGraw-Hill Book Co., New York, 1987*.
+</section>
