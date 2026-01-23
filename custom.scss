@@ -1,186 +1,108 @@
 /*-- scss:defaults --*/
 
-// Website font.
-$font-family-sans-serif: "IBM Plex Mono", monospace !default;
-$body-font-family: "IBM Plex Sans" !default;
+$font-family-sans-serif: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif !default;
+$font-family-monospace: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !default;
 
+// Colors
 $darkgrey: #121212;
 $yellow: #FFC300;
-$white: #E5E5E5;
+$white: #FAF9F6;
 $blue: #3399FF;
 
-// Page background color and text color.
+// Theme variables
 $body-bg: $darkgrey !default;
 $body-color: $white !default;
-
-// Navbar background color and active page text color.
 $navbar-bg: $yellow !default;
-$navbar-hl: #E0FFFF !default;
-
-// Navbar dropdown colors.
-$dropdown-link-color: #E0FFFF !default;
-$dropdown-link-hover-bg: $yellow !default;
-$dropdown-link-active-bg: $blue !default;
-
 $code-block-bg: #1E1E1E !default;
 $btn-code-copy-color: #AFAFAF !default;
 $btn-code-copy-color-active: $blue !default;
 $code-color: $blue !default;
 
-$callout-color-note: $yellow !default;
-$callout-border-scale: 0% !default;
-
-// $code-block-border-left: true !default;
-
 /*-- scss:rules --*/
 
-code.sourceCode.python::before {
-  content: "Python";
-  color: #AFAFAF;
-  display: block;
-  margin-bottom: 1.5em;
-  // border-bottom: 1px solid $white;
-  // width: 1in;
+// Navigation
+.navbar-title,
+.nav-link,
+.navbar .dropdown-item {
+  font-family: $font-family-monospace;
 }
 
-code.sourceCode.r::before {
-  content: "R";
-  color: #AFAFAF;
-  display: block;
-  margin-bottom: 1.5em;
-  // border-bottom: 1px solid $white;
-  // width: 1in;
-}
-
-p {
-  font-family: $body-font-family;
-  line-height: 1.6;
+// Typography
+p, ol, ul {
+  font-family: $font-family-sans-serif;
   color: $body-color;
 }
 
-// .proof p:last-of-type::after {
-//   content: "Q.E.D.";
-//   color: $yellow;
-//   margin-left: 0.5em;
-//   float: right;
-//   font-style: italic;
-// }
+p {
+  line-height: 1.6;
+}
 
+h1, h2, h3 {
+  font-family: $font-family-sans-serif;
+  color: $white;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+// Math/theorem elements
 .qed {
-  float: right;          /* push it to the right margin */
-  color: $blue;        /* yellow */
-  font-style: italic;    /* optional */
-  margin-left: 0.5em;    /* small spacing from text */
+  float: right;
+  color: $blue;
+  font-style: italic;
+  margin-left: 0.5em;
 }
 
-// .proof {
-//   background-color: #3399FF1A !important;
-//   padding: 1em !important;
-//   padding-bottom: 0 !important;
-//   margin-bottom: 1em !important;
-//   border-radius: 4px !important;
-//   border-left: 3px solid $blue !important;
-// }
-
-.quarto-xref {
-  color: $white !important;
-  text-decoration: none !important;
-}
-
-.proof-title {
+.quarto-xref,
+.proof-title,
+.theorem-title strong {
   color: $blue !important;
 }
 
-li p {
-  margin-bottom: 0 !important;
+.quarto-xref {
+  text-decoration: none !important;
 }
 
+.theorem-title strong::after {
+  content: "." !important;
+  margin-right: 0.25em;
+}
+
+// Spacing adjustments
+li p,
 .theorem p {
   margin-bottom: 0 !important;
 }
 
-ol, ul {
-  color: $body-color;
-  font-family: $body-font-family;
-}
-
-h1, h2 {
-  font-weight: 300;
-}
-
-.nav-link {
-  font-family: $font-family-sans-serif !important;
-}
-
-.navbar ul.dropdown-menu {
-    font-family: $font-family-sans-serif !important;
-}
-
-// Proofs
-.callout-note {
+// Callouts
+.callout-note,
+.callout-tip {
   border: 0 solid $blue !important;
   border-left: 3px solid $blue !important;
   background-color: #3399FF1A !important;
-  // background-color: #3399FF1A !important;
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
+  margin: 1rem 0 !important;
+}
+
+.callout-note {
   padding-left: .5rem !important;
   font-size: 1.5em !important;
 }
 
-// Definitions
-.callout-tip {
-  border: 0px solid $yellow !important;
-  border-left: 3px solid $blue !important;
-  background-color: #3399FF1A !important;
-  // background-color: #FF33991A !important;
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
-}
-
-.callout.callout-style-default .callout-body {
-  font-size: 1rem !important;
-}
-
-.callout.callout-style-simple .callout-body {
-  font-size: 1em !important;
-  margin-bottom: 0em !important;
-  margin-top: 0em !important;
-}
-
-// Asides
-.column-margin.column-container>*:not(.collapse):first-child {
-  color: $body-color !important;
-  font-family: $body-font-family !important;
-}
-
-div.callout-note.callout-style-default>.callout-header {
-  background-color: #3399FF00 !important;
-
+div.callout-note.callout-style-default > .callout-header {
+  background-color: transparent !important;
   font-style: italic;
-  font-family: $body-font-family;
+  font-family: $font-family-sans-serif;
   font-weight: 500 !important;
   color: $blue !important;
   font-size: 1rem !important;
 }
 
-// .callout {
-//     margin-top: 0.5rem !important;
-//     margin-bottom: .5rem !important;
-//     background-color: #3399FF00 !important;
-// }
-
-.theorem-title strong::after {
-  content: "." !important;
-  margin-right: 0.25em; 
-}
-
-.theorem-title strong {
-  color: $blue !important;  /* your desired color */
-}
-
-.theorem.definition .theorem-title strong {
-  color: $blue !important;  /* blue for definitions */
+// Margins and tooltips
+.column-margin.column-container > *:not(.collapse):first-child {
+  color: $body-color !important;
+  font-family: $font-family-sans-serif !important;
 }
 
 .tooltip .tooltip-inner {
@@ -188,27 +110,11 @@ div.callout-note.callout-style-default>.callout-header {
   color: $white !important;
 }
 
+// Code styling
+a:hover code {
+  color: rgba(121, 187, 252, 0.8) !important;
+}
+
 pre code {
   color: $white !important;
 }
-
-// .table {
-//     // color: $yellow !important;
-//     // border-bottom: 0.5px solid $yellow !important;
-//     // border-color: $yellow !important;
-// }
-
-pre.sourceCode {
-  border-left-color: $yellow !important;
-}
-
-// caption {
-//   color: $yellow !important;
-// }
-
-// th {
-//   font-weight: 300;
-//   color: $yellow !important;
-//   border-bottom: 1px solid $yellow !important; /* sets color for inner grid lines */
-//   border-top: 1px solid $yellow !important; /* sets color for inner grid lines */
-// }
