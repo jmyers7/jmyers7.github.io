@@ -3,6 +3,7 @@ title: "Operator theory I: the finite-dimensional case"
 date: "2026-01-22"
 toc: true
 categories: [Operator theory, Functional analysis, C*-algebras, Spectral theorem, Hilbert spaces]
+draft: true
 include-in-header: 
   - file: /Users/johnmyers/dev/johnmyers-phd/posts/fd-operator/commands.tex
 ---
