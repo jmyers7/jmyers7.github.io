@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-01-22">
+
+<title>Operator theory I: the finite-dimensional case – john myers, ph.d.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/fav.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a20a51d952f05018587ef02e289faf91.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VWK3RHBGT2"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
+</script>
+</head><body class="nav-fixed quarto-light">$$
+\newcommand{\bbc}{\mathbb{C}}
+\newcommand{\bbr}{\mathbb{R}}
+
+\newcommand{\cala}{\mathcal{A}}
+\newcommand{\calb}{\mathcal{B}}
+\newcommand{\calh}{\mathcal{H}}
+\newcommand{\calk}{\mathcal{K}}
+\newcommand{\calm}{\mathcal{M}}
+\newcommand{\calv}{\mathcal{V}}
+\newcommand{\cals}{\mathcal{S}}
+\newcommand{\calx}{\mathcal{X}}
+
+\newcommand{\mfP}{\mathcal{P}}
+
+\newcommand{\d}{\textnormal{d}}
+\newcommand{\id}{\boldsymbol{1}}
+\newcommand{\zero}{\boldsymbol{0}}
+
+\newcommand{\defeq}{\overset{\textnormal{def}}{=}}
+
+\newcommand{\ang}[1]{\langle{#1\rangle}}
+\newcommand{\norm}[1]{\lVert{#1\rVert}}
+$$
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../writings.html"> 
+<span class="menu-text">writings</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-teaching" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">teaching</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
+        <li>
+    <a class="dropdown-item" href="../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
+ <span class="dropdown-text">Multivariable Calculus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../teaching/pde-sp-26/pde-sp-26.html">
+ <span class="dropdown-text">Partial Differential Equations</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.johnmyers-phd.com/book" target="_blank"> 
+<span class="menu-text">probabilistic machine learning</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jmyers7/" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/john-myers-phd" target="_blank"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jmmyers25@gmail.com"> <i class="bi bi-envelope-open-fill" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#representation-theorems-and-linear-functionals" id="toc-representation-theorems-and-linear-functionals" class="nav-link" data-scroll-target="#representation-theorems-and-linear-functionals">Representation theorems and linear functionals</a></li>
+  <li><a href="#classes-of-operators" id="toc-classes-of-operators" class="nav-link" data-scroll-target="#classes-of-operators">Classes of operators</a></li>
+  <li><a href="#spectral-theory-of-normal-operators" id="toc-spectral-theory-of-normal-operators" class="nav-link" data-scroll-target="#spectral-theory-of-normal-operators">Spectral theory of normal operators</a></li>
+  <li><a href="#a-first-look-at-cast-algebras" id="toc-a-first-look-at-cast-algebras" class="nav-link" data-scroll-target="#a-first-look-at-cast-algebras">A first look at <span class="math inline">\(C^\ast\)</span>-Algebras</a></li>
+  <li><a href="#the-measure-theoretic-approach-to-the-spectral-theorem" id="toc-the-measure-theoretic-approach-to-the-spectral-theorem" class="nav-link" data-scroll-target="#the-measure-theoretic-approach-to-the-spectral-theorem">The measure-theoretic approach to the Spectral Theorem</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Operator theory I: the finite-dimensional case</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Operator theory</div>
+    <div class="quarto-category">Functional analysis</div>
+    <div class="quarto-category">C*-algebras</div>
+    <div class="quarto-category">Spectral theorem</div>
+    <div class="quarto-category">Hilbert spaces</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 22, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Perhaps in no other mathematical theory is the fusion of algebraic, analytic and topological techniques more distinctive than <em>operator theory</em>. In its concrete form, this is the theory of linear transformations on Hilbert spaces, which are called <em>(linear) operators</em>. But what sets operator theory apart from elementary linear algebra is that the base Hilbert spaces are infinite-dimensional in many of the most interesting cases, which accounts for the presence of topology and analysis in the theory.</p>
+<p>The theory studies not only <em>single</em> operators, one at a time, but it also analyzes the collections of <em>all</em> such operators on a fixed Hilbert space, called <em>operator algebras</em>. These broader considerations lead to a more abstract form of the theory, in which concrete algebras of operators on a Hilbert space are replaced with abstract operator algebras that <em>a priori</em> have no connection with <em>any</em> Hilbert space whatsoever. The reader should recall that the same generalization from concrete to abstract occurs in the theory of groups, in which a group was originally understood as a concrete group of permutations (or symmetries) of some set or object, these later being generalized to <em>abstract groups</em> defined via the familiar set of axioms and having no <em>a priori</em> connection to symmetries or permutations. Likewise, the theory of manifolds saw a similar generalization, going from geometric objects embedded in cartesian spaces, but eventually being freed to live on their own as <em>abstract manifolds</em>, independent of any embedding.</p>
+<p>The algebra of all operators <span class="math inline">\(A\)</span> on a fixed Hilbert space has a norm inherited from the underlying Hilbert space, called the <em>operator norm</em>, which endows <span class="math inline">\(A\)</span> with the structure of a Banach algebra (a type of algebra mentioned in the previous post). But <span class="math inline">\(A\)</span> also has a <em><span class="math inline">\(\ast\)</span>-operation</em> or <em>adjoint operation</em>, a special involutive unary operation which is conceptually analogous to conjugation on <span class="math inline">\(\bbc\)</span>. This latter operation endows <span class="math inline">\(A\)</span> with the structure of a so-called <em><span class="math inline">\(\ast\)</span>-algebra</em>. As we will see throughout this series of posts, it turns out that the subalgebras of <span class="math inline">\(A\)</span> that are (topologically) closed in the metric topology induced by the operator norm, and which are (algebraically) closed under the <span class="math inline">\(\ast\)</span>-operation, admit an abstract characterization via a beautifully short and concise list of axioms. The abstract operator algebras defined by these axioms are called <em><span class="math inline">\(C^\ast\)</span>-algebras</em>, where the “<span class="math inline">\(C\)</span>” stands for “closed.” We will sample the theory of <span class="math inline">\(C^\ast\)</span>-algebras in this post.</p>
+<p>Having generalized away from concrete algebras of operators to obtain abstract <span class="math inline">\(C^\ast\)</span>-algebras, everything is brought back full circle via the <a href="https://en.wikipedia.org/wiki/Gelfand%E2%80%93Naimark_theorem">Gelfand-Naimark Theorem</a>, which states that every abstract <span class="math inline">\(C^\ast\)</span>-algebra is isometrically <span class="math inline">\(\ast\)</span>-isomorphic to one of the special subalgebras of concrete operators mentioned above. In this way, the Gelfand-Naimark Theorem plays an analogous role in <span class="math inline">\(C^\ast\)</span>-theory compared to <a href="https://en.wikipedia.org/wiki/Cayley%27s_theorem">Cayley’s Theorem</a> in group theory and <a href="https://en.wikipedia.org/wiki/Whitney_embedding_theorem">Whitney’s Theorem</a> in manifold theory, which link the abstract definitions of groups and manifolds with their concrete origins.</p>
+<p>The Gelfand-Naimark Theorem will have to wait till a future post, however, as my goals in this first post are much more limited. In fact, having stated above that many of the most interesting cases occur when the Hilbert spaces are infinite-dimensional, in this post we restrict ourselves to the finite-dimensional setting. The main motivation for this restriction comes from the fact that many results in the general theory are <em>direct</em> generalizations of theorems in the finite-dimensional case, but they are often dressed up in fancy functional-analytic and measure-theoretic language. Thus, I believe it is worth the time and effort to tour the simpler finite-dimensional theory first, before moving on to the general stuff.</p>
+<p>The main result of this post will be the Spectral Theorem for normal operators on a finite-dimensional Hilbert space. By fixing bases and considering matrices instead of linear operators, this theorem includes as a special case the result that all hermitian matrices may be (unitarily) diagonalized, a fact that may be familiar to some readers from their first course in basic linear algebra. But the proof of the Spectral Theorem given here is operator-theoretic, not matrix-theoretic.</p>
+<p>Fascinatingly, the hypothesis of finite dimensions is <em>not</em> necessary for the Spectral Theorem, though, as I indicated above, even the <em>statement</em> of this general Spectral Theorem is difficult to understand if you’re not fluent in measure theory. So, after proving our finite-dimensional version of the Spectral Theorem, we will then begin to explore the tools and techniques needed to establish the general version (namely, measure-theoretic tools like <em>spectral measures</em> and <em>spectral integrals</em>). I will prove a version of the Spectral Theorem for self-adjoint operators on Hilbert spaces using these new measure-theoretic tools—still in finitely many dimensions—that is independent of our first proof. This latter proof will follow the same arc as the one in arbitrary dimensions; in particular, we will meet <span class="math inline">\(C^\ast\)</span>-algebras for the first time, along with the <a href="https://en.wikipedia.org/wiki/Gelfand_representation">Gelfand Representation Theorem</a> and the <a href="https://en.wikipedia.org/wiki/Functional_calculus">continuous functional calculus</a>, the latter being the crucial ingredient for the measure-theoretic proof.</p>
+<p>From a broader point of view, my ultimate goal is to take the mathematical theory developed in these posts and learn how it is applied in quantum theory. As the reader trained in quantum mechanics knows, the observables of a quantum system are modeled as self-adjoint operators on a Hilbert space, (pure) states of the system are modeled as unit vectors in the Hilbert space, and the possible measurements of an observable are its eigenvalues. Thus, the Hilbert-space formalism of quantum mechanics relies crucially on the Spectral Theorem for (not necessarily bounded) self-adjoint operators. But perhaps not as well known is a mathematical formalism of quantum mechanics based on abstract <span class="math inline">\(C^\ast\)</span>-algebras. This is a formalism that, as of now, I know very little about, and preparing for its future study is really my main motivation for writing these preliminary posts on operator theory.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>I will assume that readers have a working knowledge of Hilbert spaces and their linear operators. This is treated in every textbook on functional analysis ever written, and in many (advanced) texts on real analysis. For example, one could learn this theory from:</p>
+<ul>
+<li><p>the first two chapters of Conway’s <em>A Course in Functional Analysis</em>;</p></li>
+<li><p>the sixth and fifteenth chapters in Lax’s <em>Functional Analysis</em>;</p></li>
+<li><p>the fourth and eighteenth chapters in Rudin’s <em>Real &amp; Complex Analysis</em> or the tenth and twelfth chapters in his <em>Functional Analysis</em>;</p></li>
+<li><p>the fifth chapter in Folland’s <em>Real Analysis</em>;</p></li>
+<li><p>the fourth and sixth chapters in Kolmogorov and Fomin’s <em>Introductory Real Analysis</em>;</p></li>
+<li><p>or the first appendix in Landsman’s <em>Foundations of Quantum Theory</em>.</p></li>
+</ul>
+<p>(For a precise bibliography, see the references at the end of this post.)</p>
+<p>Each of the references above treats general Hilbert spaces of (possibly) infinite dimension, which the reader who wants to go deep into theory will eventually have to learn. But since we focus on the finite-dimensional case in this post, the reader can get by (for now) with just a nodding acquaintance with Hilbert spaces and their operators in finitely many dimensions. Since completeness is automatic in this case, these latter gadgets are just finite-dimensional complex vector spaces equipped with a hermitian inner product. For the finite-dimensional theory, I don’t think one can do better than the first two chapters in Han, Kornelson, Larson, and Weber’s <em>Frames for Undergraduates</em>. In fact, the second chapter is called “Finite-Dimensional Operator Theory” and serves as a very good reference for many parts of this post. This might seem like a rather obscure reference, not likely to be on many of our bookshelves, but I have a particularly close attachment to this textbook, as I attended (as an undergraduate, a long time ago) the REU on which this textbook was based. I have very fond memories of working through this book!</p>
+<p>One could also learn about operators on Hilbert spaces from Hansen’s <em>Functional Analysis, Entering Hilbert Space</em>. Though this last text doesn’t get very far, it serves as a good, short introduction to functional analysis free of measure theory.</p>
+<p>Speaking of measure theory, readers of this post must know the definition of <a href="https://en.wikipedia.org/wiki/Complex_measure">complex measures</a> and their very basic properties. Though the last section of this post is measure-theoretic, it’s not <em>difficult</em> measure theory.</p>
+<p>Though we don’t get into the heavy infinite-dimensional theory in this post, it might be interesting to have a copy of Murphy’s <em>C<span class="math inline">\(^\ast\)</span>-algebras and Operator Theory</em> at hand. Indeed, when we begin working with measure-theoretic tools like <em>spectral measures</em> and <em>spectral integrals</em> in the latter part of this post, you will notice that my treatment follows Murphy’s text almost <em>exactly</em> —specifically, see Section 2.5 in his text—but with finite-dimensional hypotheses thrown in everywhere. It would be instructive to compare how Murphy states the definitions and theorems in the general case of arbitrary dimension with how <em>I</em> state the same definitions and theorems in finitely many dimensions.</p>
+</section>
+<section id="representation-theorems-and-linear-functionals" class="level2">
+<h2 class="anchored" data-anchor-id="representation-theorems-and-linear-functionals">Representation theorems and linear functionals</h2>
+<p>We begin the theory with a pair of fundamental theorems that allow us to “represent” linear functionals defined on Hilbert spaces and spaces of continuous functions. The first representation theorem will be used to construct adjoint operators, while the second representation theorem will be used in the latter measure-theoretic part of this post.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-riesz" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Riesz Representation Theorem (Finite-Dimensional Version))</strong></span> Let <span class="math inline">\(\varphi\)</span> be a linear functional on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then there is a unique vector <span class="math inline">\(w_\varphi\in \calh\)</span> such that</p>
+<p><span class="math display">\[
+\varphi(v) = \ang{v,w_\varphi}, \quad \forall v\in \calh.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose first that such a vector <span class="math inline">\(w_\varphi\)</span> exists, and let <span class="math inline">\(\{e_k\}_{k=1}^n\)</span> be an orthonormal basis of <span class="math inline">\(\calh\)</span>. Then for each <span class="math inline">\(e_k\)</span> we have</p>
+<p><span id="eq-first-eqn"><span class="math display">\[
+\varphi(e_k) = \ang{e_k,w_\varphi}
+\tag{1}\]</span></span></p>
+<p>and thus the inner products of <span class="math inline">\(w_\varphi\)</span> with the orthonormal basis are determined by <span class="math inline">\(\varphi\)</span>, and hence <span class="math inline">\(w_\varphi\)</span> is unique, if it exists. For existence, we essentially <em>define</em> <span class="math inline">\(w_\varphi\)</span> using (<a href="#eq-first-eqn" class="quarto-xref">1</a>) by setting</p>
+<p><span class="math display">\[
+w_\varphi = \sum_{k=1}^n \overline{\varphi(e_k)} e_k.
+\]</span></p>
+<p>Then, given any <span class="math inline">\(v\in \calh\)</span>, we have</p>
+<p><span class="math display">\[
+\varphi(v) = \varphi\left( \sum_{k=1}^n\ang{v,e_k}e_k \right) = \sum_{k=1}^n \varphi(e_k) \ang{v,e_k} = \ang{v,w_\varphi},
+\]</span></p>
+<p>which is what we wanted to prove.</p>
+</div>
+</div>
+</div>
+<p>For the next representation theorem, we need to set up some notation and terminology. Let <span class="math inline">\(\calx\)</span> be a nonempty finite set.</p>
+<ol type="1">
+<li><p>We write <span class="math inline">\(C(\calx)\)</span> for the set of all <span class="math inline">\(\bbc\)</span>-valued functions on <span class="math inline">\(\calx\)</span>. The motivation for this notation comes from the observation that if <span class="math inline">\(\calx\)</span> is equipped with the discrete topology, then <span class="math inline">\(C(\calx)\)</span> coincides with the set of all <em>continuous</em> <span class="math inline">\(\bbc\)</span>-valued functions on <span class="math inline">\(\calx\)</span>. Notice that <span class="math inline">\(C(\calx)\)</span> is a finite-dimensional unital <span class="math inline">\(\bbc\)</span>-algebra (it’s even a <span class="math inline">\(C^\ast\)</span>-algebra, but we’ll come to this later).</p></li>
+<li><p>We write <span class="math inline">\(P(\calx)\)</span> for the power set of <span class="math inline">\(\calx\)</span>. Notice that <span class="math inline">\(P(\calx)\)</span> coincides with the Borel algebra of <span class="math inline">\(\calx\)</span>, if the latter is equipped with the discrete topology.</p></li>
+<li><p>A linear functional <span class="math inline">\(\varphi: C(\calx) \to \bbc\)</span> is called <em>positive</em> if <span class="math inline">\(\varphi(f) \geq 0\)</span> whenever <span class="math inline">\(f\in C(\calx)\)</span> is a function with its image in <span class="math inline">\([0,\infty)\)</span>. It is called <em>normalized</em> if <span class="math inline">\(\varphi(\id)=1\)</span>, where <span class="math inline">\(\id: \calx \to \bbc\)</span> is the constant function that sends all of <span class="math inline">\(\calx\)</span> to <span class="math inline">\(1\in \bbc\)</span>.</p></li>
+</ol>
+<p>The following fundamental theorem has multiple names; sometimes it is called the Riesz Representation Theorem—and thus is easily confused with the theorem above—while other times it is called the Riesz-Markov Theorem or the Riesz-Kakutani Theorem. I’ve decided to follow the convention of the <a href="https://en.wikipedia.org/wiki/Riesz%E2%80%93Markov%E2%80%93Kakutani_representation_theorem" target="_blank">Wikipedia article</a> and combine all three mathematicians’ names.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-riesz-markov-kakutani" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Riesz-Markov-Kakutani Representation Theorem (Finite-Dimensional Version))</strong></span> Let <span class="math inline">\(\calx\)</span> be a nonempty finite set. Then there is a bijective correspondence between all complex measures <span class="math inline">\(\mu\)</span> on <span class="math inline">\(P(\calx)\)</span> and all <span class="math inline">\(\bbc\)</span>-linear functionals <span class="math inline">\(\varphi\)</span> on <span class="math inline">\(C(\calx)\)</span>:</p>
+<ol type="1">
+<li><p>Given a complex measure <span class="math inline">\(\mu\)</span> on <span class="math inline">\(P(\calx)\)</span>, the corresponding functional <span class="math inline">\(\varphi\)</span> is defined by the formula <span id="eq-int-eqn"><span class="math display">\[
+\varphi(f) = \int_\calx f \ \d \mu, \quad f\in C(\calx).
+  \tag{2}\]</span></span></p></li>
+<li><p>Given a linear functional <span class="math inline">\(\varphi\)</span> on <span class="math inline">\(C(\calx)\)</span>, the corresponding complex measure is defined by <span id="eq-int2-eqn"><span class="math display">\[
+\mu(A) = \varphi(\chi_{A}), \quad A\in P(\calx),
+  \tag{3}\]</span></span> where <span class="math inline">\(\chi_A\)</span> is the characteristic (<span class="math inline">\(=\)</span> indicator) function of <span class="math inline">\(A\)</span>.</p></li>
+</ol>
+<p>Furthermore, the measure <span class="math inline">\(\mu\)</span> is a positive measure if and only if the functional <span class="math inline">\(\varphi\)</span> is positive, and <span class="math inline">\(\mu\)</span> is a probability measure if and only if <span class="math inline">\(\varphi\)</span> is positive and normalized.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Given a complex measure <span class="math inline">\(\mu\)</span>, define <span class="math inline">\(\varphi\)</span> by the formula (<a href="#eq-int-eqn" class="quarto-xref">2</a>). Then, for all <span class="math inline">\(A\in P(\calx)\)</span> we have</p>
+<p><span class="math display">\[
+\mu(A) = \int_A \d \mu = \int_\calx \chi_A \ \d \mu =  \varphi(\chi_A).
+\]</span></p>
+<p>On the other hand, given a linear functional <span class="math inline">\(\varphi\)</span>, define <span class="math inline">\(\mu\)</span> by (<a href="#eq-int2-eqn" class="quarto-xref">3</a>). Then, for all <span class="math inline">\(f\in C(\calx)\)</span> we have</p>
+<p><span class="math display">\[
+\varphi(f) = \sum_{\lambda \in \bbc} \lambda \varphi(\chi_{f^{-1}(\lambda)}) = \sum_{\lambda \in \bbc} \lambda \mu(f^{-1}(\lambda)) = \int_\calx f \ \d\mu.
+\]</span></p>
+<p>Taken together, these two sequences of equations shows that the correspondence <span class="math inline">\(\mu \leftrightarrow \varphi\)</span> is indeed bijective.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="classes-of-operators" class="level2">
+<h2 class="anchored" data-anchor-id="classes-of-operators">Classes of operators</h2>
+<p>Our first goal is to use the Riesz Representation Theorem to construct the <em>adjoint</em> of an operator.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-adjoint" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3</strong></span> For every operator <span class="math inline">\(T\)</span> on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>, there is a <em>unique</em> operator <span class="math inline">\(T^\ast\)</span> on <span class="math inline">\(\calh\)</span> for which</p>
+<p><span class="math display">\[
+\ang{Tv,w} = \ang{v, T^\ast w}, \quad \forall v,w\in \calh.
+\]</span></p>
+<p>The operator <span class="math inline">\(T^\ast\)</span> is called the <em>adjoint</em> of <span class="math inline">\(T\)</span>, and <span class="math inline">\(T\)</span> is called <em>self-adjoint</em> if <span class="math inline">\(T=T^\ast\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If we fix a vector <span class="math inline">\(w\in \calh\)</span>, then the mapping</p>
+<p><span class="math display">\[
+\varphi_w : \calh \to \bbc, \quad v\mapsto \ang{Tv,w},
+\]</span></p>
+<p>is a linear functional. By the Riesz Representation Theorem, there is a unique vector <span class="math inline">\(T^\ast w\in \calh\)</span> such that</p>
+<p><span class="math display">\[
+\ang{Tv,w} = \varphi_w(v) = \ang{v, T^\ast w}.
+\]</span></p>
+<p>The association <span class="math inline">\(w\mapsto T^\ast w\)</span> then defines the desired operator <span class="math inline">\(T^\ast\)</span>. To see that it is <span class="math inline">\(\bbc\)</span>-linear, we compute:</p>
+<p><span class="math display">\[
+\ang{v,T^\ast(w+\lambda w')} = \ang{Tv,w} + \bar{\lambda} \ang{Tv,w'} = \ang{v,T^\ast w} + \ang{v,\lambda T^\ast w'} = \ang{v,T^\ast w + \lambda T^\ast w'},
+\]</span></p>
+<p>where <span class="math inline">\(v,w,w'\in \calh\)</span> and <span class="math inline">\(\lambda \in \bbc\)</span>. This proves <span class="math inline">\(T^\ast(w+\lambda w') = T^\ast w + \lambda T^\ast w'\)</span>, and hence the mapping <span class="math inline">\(w\mapsto T^\ast w\)</span> is indeed linear.</p>
+</div>
+</div>
+</div>
+<p>If an orthonormal basis <span class="math inline">\(\{e_k\}_{k=1}^n\)</span> of a Hilbert space <span class="math inline">\(\calh\)</span> is fixed, then the matrix representations of an operator <span class="math inline">\(T\)</span> and its adjoint <span class="math inline">\(T^\ast\)</span> are conjugate transposes of each other. Indeed, if <span class="math inline">\(T\)</span> is represented by the matrix <span class="math inline">\([T_{ij}]\)</span>, then</p>
+<p><span class="math display">\[
+T_{ij} = \ang{Te_j,e_i} = \ang{e_j,T^\ast e_i} = \overline{\ang{T^\ast e_i,e_j}},
+\]</span></p>
+<p>which shows <span class="math inline">\(T^\ast\)</span> is represented by the conjugate transpose <span class="math inline">\([\overline{T}_{ji}]\)</span>. This observation can be used to give a quick proof of the next theorem:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-adjoint-props" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4</strong></span> Let <span class="math inline">\(\calh\)</span> be a finite-dimensional Hilbert space. The association <span class="math inline">\(T\mapsto T^\ast\)</span> is conjugate-linear, involutive, and anti-multiplicative. That is:</p>
+<ol type="1">
+<li><p>For all operators <span class="math inline">\(S,T\)</span> and <span class="math inline">\(\lambda \in \bbc\)</span>, we have <span class="math display">\[
+(S + \lambda T)^\ast = S^\ast + \bar{\lambda} T^\ast.
+\]</span></p></li>
+<li><p>For all operators <span class="math inline">\(T\)</span>, we have <span class="math display">\[
+(T^\ast)^\ast = T.
+\]</span></p></li>
+<li><p>For all operators <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>, we have <span class="math display">\[
+(ST)^\ast = T^\ast S^\ast.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Another application of the Riesz Theorem allows us to represent the following types of forms with an operator; this will prove important later when we discuss spectral integrals.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-sesquilinear" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(\calv\)</span> be a vector space. A function</p>
+<p><span class="math display">\[
+\beta: \calv \times \calv \to \bbc
+\]</span></p>
+<p>is called a <em>sesquilinear form</em> if is linear in the first argument and conjugate-linear in the second. Precisely:</p>
+<ol type="1">
+<li><p>We have <span class="math display">\[
+\beta(v+\lambda v', w) = \beta(v,w) + \lambda \beta(v',w), \quad \forall v,v',w\in \calv, \ \lambda \in \bbc.
+\]</span></p></li>
+<li><p>We have <span class="math display">\[
+\beta(v,w+\mu w') = \beta(v,w) + \bar{\mu} \beta(v,w'), \quad \forall v,w,w' \in \calv, \ \mu \in \bbc.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>For example, the hermitian inner product on a Hilbert space <span class="math inline">\(\calh\)</span> is a particular type of sesquilinear form; it, however, has the additional properties of positive-definiteness and conjugate-symmetry that distinguish it from more general sesquilinear forms.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-riesz-sesquilinear" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5</strong></span> Let <span class="math inline">\(\beta: \calh \times \calh \to \bbc\)</span> be a sesquilinear form on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then there is a unique operator <span class="math inline">\(B\)</span> on <span class="math inline">\(\calh\)</span> such that</p>
+<p><span class="math display">\[
+\beta(v,w) = \ang{Bv, w}, \quad \forall v,w\in \calh.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For each fixed <span class="math inline">\(w\in \calh\)</span>, the mapping</p>
+<p><span class="math display">\[
+v \mapsto \beta(v,w) = \ang{v,w}
+\]</span></p>
+<p>is a linear functional on <span class="math inline">\(\calh\)</span>, and hence, by the Riesz Representation Theorem, there is a unique vector <span class="math inline">\(Tw \in \calh\)</span> such that</p>
+<p><span class="math display">\[
+\beta(v,w) = \ang{v,Tw}, \quad \forall v\in \calh.
+\]</span></p>
+<p>As you may easily prove, the mapping <span class="math inline">\(w\mapsto Tw\)</span> is linear, so that we may take <span class="math inline">\(B = T^\ast\)</span> to prove the theorem. I will leave the details to you.</p>
+</div>
+</div>
+</div>
+<p>The self-adjoint operators will prove to be a very important class of operators. We now give the definitions of four more important classes:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-operator-classes" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(\calh\)</span> be a finite-dimensional Hilbert space.</p>
+<ol type="1">
+<li><p>An operator <span class="math inline">\(T\)</span> on <span class="math inline">\(\calh\)</span> is called <em>normal</em> if it commutes with its adjoint, i.e., <span class="math display">\[
+TT^\ast = T^\ast T.
+\]</span></p></li>
+<li><p>An operator <span class="math inline">\(T\)</span> on <span class="math inline">\(\calh\)</span> is called <em>positive</em> if it is self-adjoint and <span class="math display">\[
+\ang{Tv,v} \geq 0, \quad \forall v\in \calh.
+\]</span></p></li>
+<li><p>An operator <span class="math inline">\(U\)</span> on <span class="math inline">\(\calh\)</span> is called <em>unitary</em> if it is invertible and <span class="math display">\[
+U^{-1} = U^\ast.
+\]</span></p></li>
+<li><p>An operator <span class="math inline">\(P\)</span> on <span class="math inline">\(\calh\)</span> is called an <em>(orthogonal) projection</em> if it is self-adjoint and <span class="math display">\[
+P^2 = P.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>We now have <em>five</em> classes of operators to keep straight. Notice that the class of normal operators includes the classes of self-adjoint operators, positive operators, and unitary operators; to help organize the relationships between these four classes, the following analogy will be extremely useful:</p>
+<div id="fundamental-analogy" class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The Fundamental Analogy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If we conceptualize the normal operators as analogous to the complex numbers <span class="math inline">\(\bbc\)</span>, then:</p>
+<ol type="1">
+<li><p>The self-adjoint operators are analogous to the real numbers <span class="math inline">\(\bbr\subset \bbc\)</span>.</p></li>
+<li><p>The positive operators are analogous to the nonnegative numbers <span class="math inline">\([0,\infty)\subset \bbc\)</span></p></li>
+<li><p>The unitary operators are analogous to the modulus-<span class="math inline">\(1\)</span> complex numbers on the unit circle in <span class="math inline">\(\bbc\)</span>.</p></li>
+</ol>
+</div>
+</div>
+<p>In fact, this is more than just a mere analogy and can be made mathematically precise in a very satisfying manner. But, we’ll have to wait till we have the Spectral Theorem to explain further.</p>
+<p>Notice that the class of normal operators also includes all projections, since projections are (by definition!) self-adjoint; in fact, we can say more:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-proj-positive" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6</strong></span> Every projection <span class="math inline">\(P\)</span> on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span> is a positive operator.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Given <span class="math inline">\(v\in \calh\)</span>, we compute:</p>
+<p><span class="math display">\[
+\ang{Pv,v} = \ang{P^2v,v} = \ang{Pv,P^\ast v} = \ang{Pv,Pv} = \norm{Pv}^2 \geq 0.
+\]</span></p>
+<p>Thus, <span class="math inline">\(P\)</span> is positive.</p>
+</div>
+</div>
+</div>
+<p>By the way, the name “projection” comes from the following useful theorem:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-proj-subspace" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7</strong></span> Let <span class="math inline">\(\calh\)</span> be a finite-dimensional Hilbert space. There is a bijective correspondence between the set of all nonzero vector subspaces <span class="math inline">\(\calm\)</span> of <span class="math inline">\(\calh\)</span> and all nonzero projection operators <span class="math inline">\(P\)</span> given as follows:</p>
+<ol type="1">
+<li><p>Given a nonzero subspace <span class="math inline">\(\calm\)</span>, there is a unique nonzero projection operator <span class="math inline">\(P\)</span> whose image is <span class="math inline">\(\calm\)</span> and whose kernel is the orthogonal complement <span class="math inline">\(\calm^\perp\)</span>.</p></li>
+<li><p>Conversely, given a nonzero projection operator <span class="math inline">\(P\)</span>, the image <span class="math inline">\(\calm\)</span> of <span class="math inline">\(P\)</span> is a nonzero linear subspace of <span class="math inline">\(\calh\)</span>.</p></li>
+</ol>
+<p>Moreover, if the projection <span class="math inline">\(P\)</span> and subspace <span class="math inline">\(\calm\)</span> correspond to each other, then</p>
+<p><span class="math display">\[
+\norm{v-Pv} \leq \norm{v-w}, \quad \forall v\in \calh, \ w\in \calm,
+\]</span></p>
+<p>and hence <span class="math inline">\(Pv\)</span> is the closest vector in <span class="math inline">\(\calm\)</span> to the vector <span class="math inline">\(v\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="spectral-theory-of-normal-operators" class="level2">
+<h2 class="anchored" data-anchor-id="spectral-theory-of-normal-operators">Spectral theory of normal operators</h2>
+<p>With all preliminary definitions and basic results established, we begin working toward the main theorem in this post. We start with a familiar definition from our first course in linear algebra:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-eigenvalue" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(T\)</span> be an operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. A constant <span class="math inline">\(\lambda \in \bbc\)</span> is called an <em>eigenvalue</em> of <span class="math inline">\(T\)</span> if there exists a nonzero vector <span class="math inline">\(v\in \calh\)</span>, called an <em>eigenvector</em>, such that</p>
+<p><span class="math display">\[
+Tv = \lambda v.
+\]</span></p>
+<p>The <em>spectrum</em> of <span class="math inline">\(T\)</span>, denoted <span class="math inline">\(\sigma(T)\)</span>, is the set of all eigenvalues of <span class="math inline">\(T\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The first theorem in this section presents the first step toward making the <a href="#fundamental-analogy">Fundamental Analogy</a> mathematically precise.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-first-analogy" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8</strong></span> Let <span class="math inline">\(\calh\)</span> be a finite-dimensional Hilbert space.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(T\)</span> is a self-adjoint operator on <span class="math inline">\(\calh\)</span>, its eigenvalues are real numbers, i.e., <span class="math inline">\(\sigma(T) \subset \bbr\)</span>.</p></li>
+<li><p>If <span class="math inline">\(T\)</span> is a positive operator on <span class="math inline">\(\calh\)</span>, its eigenvalues are nonnegative real numbers, i.e., <span class="math inline">\(\sigma(T) \subset [0,\infty)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(U\)</span> is a unitary operator on <span class="math inline">\(\calh\)</span>, its eigenvalues all have modulus <span class="math inline">\(1\)</span>.</p></li>
+<li><p>If <span class="math inline">\(P\)</span> is a projection operator on <span class="math inline">\(\calh\)</span>, then <span class="math inline">\(\sigma(P) \subseteq \\{0,1\\}\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(1.): Let <span class="math inline">\(\lambda\)</span> be an eigenvalue of <span class="math inline">\(T\)</span> with eigenvector <span class="math inline">\(v\)</span>. If <span class="math inline">\(T\)</span> is self-adjoint, then</p>
+<p><span class="math display">\[
+\lambda \norm{v}^2 = \ang{Tv,v} = \ang{v,Tv} = \bar{\lambda} \norm{v}^2.
+\]</span></p>
+<p>But <span class="math inline">\(v\neq 0\)</span> and hence <span class="math inline">\(\norm{v}^2\neq 0\)</span>, which implies <span class="math inline">\(\lambda = \bar{\lambda}\)</span>. Hence, <span class="math inline">\(\lambda\)</span> is real.</p>
+<p>(2.): Let <span class="math inline">\(\lambda\)</span> be an eigenvalue of <span class="math inline">\(T\)</span> with eigenvector <span class="math inline">\(v\)</span>. Since <span class="math inline">\(T\)</span> is self-adjoint, by (1.) we see that <span class="math inline">\(\lambda\)</span> is real. But also</p>
+<p><span class="math display">\[
+\lambda \norm{v}^2 = \ang{Tv,v} \geq 0,
+\]</span></p>
+<p>which implies <span class="math inline">\(\lambda \geq 0\)</span>.</p>
+<p>(3.): Let <span class="math inline">\(\lambda\)</span> be an eigenvalue of <span class="math inline">\(U\)</span> with eigenvector <span class="math inline">\(v\)</span>. Then</p>
+<p><span class="math display">\[
+\|\lambda\|^2 \norm{v}^2 =  \norm{Uv}^2 = \ang{Uv,Uv} = \ang{U^\ast Uv,v} = \ang{v,v} = \norm{v}^2,
+\]</span></p>
+<p>and so <span class="math inline">\(\|\lambda\|=1\)</span>.</p>
+<p>(4.): Let <span class="math inline">\(\lambda\)</span> be an eigenvalue of <span class="math inline">\(P\)</span> with eigenvector <span class="math inline">\(v\)</span>. We then compute:</p>
+<p><span class="math display">\[
+\lambda(\lambda-1)v = (P^2 - P)v = 0.
+\]</span></p>
+<p>But since <span class="math inline">\(v\neq 0\)</span>, we must have either <span class="math inline">\(\lambda=0\)</span> or <span class="math inline">\(\lambda =1\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Of course, one might wonder if the conditions on the eigenvalues in the previous theorem are actually <em>sufficient</em> for the operators to be self-adjoint, positive, or unitary. It turns out that they <em>are</em> sufficient, the proof of which will follow essentially from the Spectral Theorem for normal operators. Before stating this fundamental theorem, however, we need a few facts regarding the eigenvalues and eigenvectors of normal operators:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-normal-eigenprops" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 9</strong></span> Let <span class="math inline">\(T\)</span> be a normal operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>.</p>
+<ol type="1">
+<li><p>We have <span class="math inline">\(\norm{Tv} = \norm{T^\ast v}\)</span>, for all <span class="math inline">\(v\in \calh\)</span>.</p></li>
+<li><p>A vector <span class="math inline">\(v\in \calh\)</span> is an eigenvector of <span class="math inline">\(T\)</span> with eigenvalue <span class="math inline">\(\lambda\)</span> if and only if <span class="math inline">\(v\)</span> is an eigenvector of <span class="math inline">\(T^\ast\)</span> with eigenvalue <span class="math inline">\(\bar{\lambda}\)</span>.</p></li>
+<li><p>If <span class="math inline">\(v\)</span> and <span class="math inline">\(w\)</span> are two eigenvectors of <span class="math inline">\(T\)</span> corresponding to <em>distinct</em> eigenvalues <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span>, then <span class="math inline">\(v\)</span> and <span class="math inline">\(w\)</span> are orthogonal.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(1.): We compute:</p>
+<p><span class="math display">\[
+\norm{Tv}^2 = \ang{Tv, Tv} = \ang{T^\ast Tv, v} = \ang{T T^\ast v,v} = \ang{T^\ast v, T^\ast V} = \norm{T^\ast V}^2.
+\]</span></p>
+<p>Taking square roots at both ends yields the desired result.</p>
+<p>(2.): Let <span class="math inline">\(v\in \calh\)</span> be a nonzero vector and <span class="math inline">\(\lambda \in \bbc\)</span>. Since <span class="math inline">\(T\)</span> is normal, so is the operator <span class="math inline">\(T-\lambda = T-\lambda \id\)</span>, and its adjoint is <span class="math inline">\(T^\ast - \bar{\lambda}\)</span>. Then, from (1.), we get</p>
+<p><span class="math display">\[
+\norm{Tv - \lambda v} = \norm{T^\ast v - \bar{\lambda}v}.
+\]</span></p>
+<p>Thus, we have <span class="math inline">\(Tv =\lambda v\)</span> if and only if <span class="math inline">\(T^\ast v = \bar{\lambda}v\)</span>.</p>
+<p>(3.): By (2.), note that <span class="math inline">\(w\)</span> is an eigenvector of <span class="math inline">\(T^\ast\)</span> with eigenvalue <span class="math inline">\(\bar{\mu}\)</span>. Then, using this, we compute:</p>
+<p><span class="math display">\[
+\lambda \ang{v,w} = \ang{Tv,w} = \ang{v,T^\ast w} = \mu \ang{v,w}.
+\]</span></p>
+<p>But since <span class="math inline">\(\lambda\neq \mu\)</span>, we must have <span class="math inline">\(\ang{v,w}=0\)</span>.</p>
+</div>
+</div>
+</div>
+<p>The Spectral Theorem will involve projections onto special subspaces spanned by eigenvectors; let’s give these spaces a name:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-eigenspace" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\(\lambda\)</span> be an eigenvalue of a an operator <span class="math inline">\(T\)</span> on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. The <em>eigenspace</em> of <span class="math inline">\(\lambda\)</span>, denoted <span class="math inline">\(\cals_\lambda\)</span>, is the span of the set</p>
+<p><span class="math display">\[
+\left\{ v\in \calh : Tv = \lambda v\right\}.
+\]</span></p>
+<p>The dimension of the eigenspace <span class="math inline">\(\cals_\lambda\)</span> is called the <em>geometric multiplicity</em> of <span class="math inline">\(\lambda\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Now, the main theorem:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-spectral-theorem" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 10 (Spectral Theorem for Normal Operators (Finite-Dimensional Version))</strong></span> Let <span class="math inline">\(T\)</span> be a normal operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. For each <span class="math inline">\(\lambda\)</span> in the spectrum <span class="math inline">\(\sigma(T)\)</span>, let <span class="math inline">\(P_\lambda\)</span> denote the orthogonal projection of <span class="math inline">\(\calh\)</span> onto the eigenspace <span class="math inline">\(\cals_\lambda\)</span>. Then:</p>
+<ol type="1">
+<li><p>For all <span class="math inline">\(\lambda, \mu \in \sigma(T)\)</span>, we have <span class="math display">\[
+P_\lambda P_\mu = \delta_{\lambda \mu} P_\lambda,
+\]</span> where <span class="math inline">\(\delta_{\lambda \mu}\)</span> is the Kronecker delta.</p></li>
+<li><p>We have <span id="eq-spec-decomp"><span class="math display">\[
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
+  \tag{4}\]</span></span></p></li>
+<li><p>We have <span class="math display">\[
+I = \sum_{\lambda \in \sigma(T)} P_\lambda,
+\]</span> where <span class="math inline">\(I\)</span> is the identity operator on <span class="math inline">\(\calh\)</span>.</p></li>
+</ol>
+<p>The equation (<a href="#eq-spec-decomp" class="quarto-xref">4</a>) is called the <em>spectral decomposition</em> of the operator <span class="math inline">\(T\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The desired results essentially all flow from the single equation</p>
+<p><span id="eq-dir-sum"><span class="math display">\[
+\calh = \bigoplus_{\lambda \in \sigma(T)} S_\lambda,
+\tag{5}\]</span></span></p>
+<p>which we will prove. First, note that the sum on the right-hand side really is an orthogonal direct sum, since we proved above that eigenvectors of <span class="math inline">\(T\)</span> corresponding to <em>distinct</em> eigenvalues are orthogonal to each other. To establish the equality, we will let <span class="math inline">\(\calk\)</span> denote the direct sum on the right-hand side and prove that <span class="math inline">\(\calk^\perp=0\)</span>.</p>
+<p>Note, first, that <span class="math inline">\(\calk\)</span> is invariant under <span class="math inline">\(T^\ast\)</span> (and also <span class="math inline">\(T\)</span>, but we don’t need this), in the sense that</p>
+<p><span id="eq-yup-eqn"><span class="math display">\[
+w\in \calk \quad \Rightarrow \quad T^\ast w \in \calk.
+\tag{6}\]</span></span></p>
+<p>Indeed, since <span class="math inline">\(w\)</span> is a linear combination of eigenvectors of <span class="math inline">\(T\)</span>, it is also a linear combination of eigenvectors of <span class="math inline">\(T^\ast\)</span> (since <span class="math inline">\(T\)</span> is normal), and then (<a href="#eq-yup-eqn" class="quarto-xref">6</a>) follows immediately from the definition of an eigenvector. From this, we get that the orthogonal complement <span class="math inline">\(\calk^\perp\)</span> is invariant under <span class="math inline">\(T\)</span> in the same sense: for if <span class="math inline">\(v\in \calk^\perp\)</span> and <span class="math inline">\(w\in \calk\)</span>, we have</p>
+<p><span class="math display">\[
+\ang{Tv,w} = \ang{v,T^\ast w} = 0
+\]</span></p>
+<p>since <span class="math inline">\(T^\ast w\in \calk\)</span>. Thus, <span class="math inline">\(Tv\in \calk^\perp\)</span> provided that <span class="math inline">\(v\in \calk^\perp\)</span>.</p>
+<p>It follows that the restricted linear operator</p>
+<p><span class="math display">\[
+T|_{\calk^\perp} : \calk^\perp \to \calk^\perp
+\]</span></p>
+<p>is well-defined. If we assume to the contrary that the orthogonal complement <span class="math inline">\(\calk^\perp\)</span> is <em>not</em> zero, then the linear operator <span class="math inline">\(T|_{\calk^\perp}\)</span> has an eigenvector <span class="math inline">\(u\in \calk^\perp\)</span>, say</p>
+<p><span class="math display">\[
+T|_{\calk^\perp} u = \mu u
+\]</span></p>
+<p>for some <span class="math inline">\(\mu \in \bbc\)</span>. But the left-hand side of this equation is equal to <span class="math inline">\(Tu\)</span>, and hence <span class="math inline">\(u\)</span> is an eigenvector of <span class="math inline">\(T\)</span> that lives in <span class="math inline">\(\calk^\perp\)</span>. But this contradicts the definition of <span class="math inline">\(\calk\)</span>, and hence we must have <span class="math inline">\(\calk^\perp=0\)</span>.</p>
+</div>
+</div>
+</div>
+<p>For our first corollary of the Spectral Theorem, we prove the converses of the first three statements in <a href="#thm-first-analogy" class="quarto-xref">Theorem&nbsp;8</a>, thereby making the the <a href="#fundamental-analogy">Fundamental Analogy</a> mathematically precise.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-analogy-converse" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 11</strong></span> Let <span class="math inline">\(T\)</span> and <span class="math inline">\(U\)</span> be normal operators on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>.</p>
+<ol type="1">
+<li><p>The operator <span class="math inline">\(T\)</span> is self-adjoint if and only if <span class="math inline">\(\sigma(T) \subset \bbr\)</span>.</p></li>
+<li><p>The operator <span class="math inline">\(T\)</span> is positive if and only if <span class="math inline">\(\sigma(T) \subset [0,\infty)\)</span>.</p></li>
+<li><p>The operator <span class="math inline">\(U\)</span> is unitary if and only if all its eigenvalues have modulus <span class="math inline">\(1\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We need only show that the conditions on the eigenvalues are sufficient. To do this, consider the spectral decompositions</p>
+<p><span class="math display">\[
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda \quad \text{and} \quad U = \sum_{\mu \in \sigma(U)} \mu P_\mu.
+\]</span></p>
+<p>Since the adjoint operation is conjugate-linear and projection operators are self-adjoint, we have</p>
+<p><span class="math display">\[
+T^\ast = \sum_{\lambda \in \sigma(T)}\bar{\lambda} P_\lambda.
+\]</span></p>
+<p>But if each <span class="math inline">\(\lambda\)</span> is real, then <span class="math inline">\(\lambda = \bar{\lambda}\)</span>, which proves (1.). To prove (2.), we let <span class="math inline">\(v\in \calh\)</span> and compute:</p>
+<p><span class="math display">\[
+\ang{Tv,v} = \sum_{\lambda \in \sigma(T)} \lambda \ang{P_\lambda v,v}.
+\]</span></p>
+<p>But projection operators are positive, so that if <span class="math inline">\(\lambda\geq 0\)</span> for each <span class="math inline">\(\lambda\in \sigma(T)\)</span>, we necessarily have <span class="math inline">\(\ang{Tv,v} \geq 0\)</span>. Finally, to prove (3.), suppose that each <span class="math inline">\(\mu\in \sigma(U)\)</span> has <span class="math inline">\(\bar{\mu} \mu = \|\mu\|^2=1\)</span>. But then</p>
+<p><span class="math display">\[
+U^\ast U = \Big( \sum_{\mu \in \sigma(U)} \bar{\mu} P_\mu \Big)\Big( \sum_{\mu \in \sigma(U)} \mu P_\mu \Big) = \sum_{\mu_1\in \sigma(U)} \sum_{\mu_2 \in \sigma(U)} \bar{\mu}_1 \mu_2 P_{\mu_1} P_{\mu_2} = \sum_{\mu\in \sigma(U)} \bar{\mu}\mu P_\mu = \sum_{\mu \in \sigma(U)} P_\mu = I,
+\]</span></p>
+<p>and similarly, <span class="math inline">\(UU^\ast = I\)</span>. Thus, <span class="math inline">\(U\)</span> is unitary.</p>
+</div>
+</div>
+</div>
+<p>Our second corollary of the Spectral Theorem is a formula for the operator norm of a normal operator. But first, a definition:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-spectral-radius" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5</strong></span> Let <span class="math inline">\(T\)</span> be an opeartor on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. The <em>spectral radius</em> of <span class="math inline">\(T\)</span>, denoted <span class="math inline">\(r(T)\)</span>, is the real number</p>
+<p><span class="math display">\[\begin{equation}\notag
+r(T) = \max \{ \|\lambda \| : \lambda \in \sigma(T) \}.
+\end{equation}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Then:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-spectral-radius" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 12</strong></span> Let <span class="math inline">\(T\)</span> be an operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then</p>
+<p><span id="eq-main-eqn"><span class="math display">\[
+r(T) \leq \norm{T},
+\tag{7}\]</span></span></p>
+<p>with equality if <span class="math inline">\(T\)</span> is normal.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To prove the inequality, let <span class="math inline">\(v\)</span> be a normalized eigenvector of <span class="math inline">\(\lambda \in \sigma(T)\)</span>. Then</p>
+<p><span class="math display">\[
+\|\lambda \| = \|\lambda\| \norm{v} = \norm{Tv} \leq \norm{T} \norm{v} = \norm{T},
+\]</span></p>
+<p>which proves <span class="math inline">\(r(T) \leq \norm{T}\)</span>. Now, assume that <span class="math inline">\(T\)</span> is normal and consider the spectral decomposition</p>
+<p><span id="eq-spec-ag-eqn"><span class="math display">\[
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
+\tag{8}\]</span></span></p>
+<p>Given a vector <span class="math inline">\(v\in \calh\)</span>, we have</p>
+<p><span id="eq-spec-ag2-eqn"><span class="math display">\[
+v = \sum_{\lambda \in \sigma(T)} P_\lambda v.
+\tag{9}\]</span></span></p>
+<p>Then</p>
+<p><span class="math display">\[
+\norm{Tv}^2 = \sum_{\lambda \in \sigma(T)} \|\lambda\|^2 \norm{P_\lambda v}^2 \leq r(T)^2 \sum_{\lambda \in \sigma(T)} \norm{P_\lambda v}^2 = r(T)^2 \norm{v}^2,
+\]</span></p>
+<p>where the first equality follows from (<a href="#eq-spec-ag-eqn" class="quarto-xref">8</a>) and the Pythagorean relation (which holds in <em>any</em> Hilbert space), and the second equality follows from (<a href="#eq-spec-ag2-eqn" class="quarto-xref">9</a>) and a second application of the Pythagorean relation. It follows that <span class="math inline">\(\norm{Tv} \leq r(T) \norm{v}\)</span> and hence <span class="math inline">\(\norm{T} \leq r(T)\)</span>; combined with the inequality (<a href="#eq-main-eqn" class="quarto-xref">7</a>), we get <span class="math inline">\(\norm{T} = r(T)\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-first-look-at-cast-algebras" class="level2">
+<h2 class="anchored" data-anchor-id="a-first-look-at-cast-algebras">A first look at <span class="math inline">\(C^\ast\)</span>-Algebras</h2>
+<p>The operators on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span> have been our main focus so far. Together, these operators constitute the operator algebra <span class="math inline">\(\calb(\calh)\)</span> of (necessarily bounded) operators on <span class="math inline">\(\calh\)</span>. The algebra <span class="math inline">\(\calb(\calh)\)</span> is a Banach algebra, when equipped with the operator norm.</p>
+<p>But <span class="math inline">\(\calb(\calh)\)</span> is also equipped with the fundamental adjoint operation</p>
+<p><span class="math display">\[\begin{equation}\notag
+(-)^\ast: \calb(\calh) \to \calb(\calh)
+\end{equation}\]</span></p>
+<p>mapping an operator <span class="math inline">\(T\)</span> to its adjoint <span class="math inline">\(T^\ast\)</span>, and we <a href="#thm-adjoint-props">noted</a> that this operation has the three important algebraic properties of conjugate-linearity, involutativity, and anti-multiplicativity. In addition, it also has an important topological property:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-adjoint-isometry" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 13</strong></span> Let <span class="math inline">\(\calb(\calh)\)</span> be the algebra of linear operators on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then the adjoint operation <span class="math inline">\(T \mapsto T^\ast\)</span> is an <em>isometry</em>, in the sense that</p>
+<p><span id="eq-iso1-eqn"><span class="math display">\[
+\norm{T^\ast} = \norm{T}, \quad \forall T\in \calb(\calh).
+\tag{10}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the proof, suppose we are given <span class="math inline">\(v\in \calh\)</span>. Then we compute</p>
+<p><span id="eq-string-eqn"><span class="math display">\[
+\norm{T^\ast v}^2 = \ang{TT^\ast v, v} \leq \norm{TT^\ast v} \norm{v} \leq \norm{T} \norm{T^\ast v} \norm{v},
+\tag{11}\]</span></span></p>
+<p>where the first inequality is the Cauchy-Schwarz one. If <span class="math inline">\(T^\ast v=0\)</span>, then we clearly have</p>
+<p><span id="eq-paper-eqn"><span class="math display">\[
+\norm{T^\ast v} \leq \norm{T} \norm{v};
+\tag{12}\]</span></span></p>
+<p>otherwise, if <span class="math inline">\(T^\ast v \neq 0\)</span>, then we may divide (<a href="#eq-string-eqn" class="quarto-xref">11</a>) through by <span class="math inline">\(\norm{T^\ast v}\)</span> to obtain the same inequality (<a href="#eq-paper-eqn" class="quarto-xref">12</a>). Thus <span class="math inline">\(\norm{T^\ast} \leq \norm{T}\)</span>. But the same argument beginning with <span class="math inline">\(\norm{Tv}^2\)</span> instead of <span class="math inline">\(\norm{T^\ast v}^2\)</span> will produce the opposite inequality <span class="math inline">\(\norm{T^\ast} \geq \norm{T}\)</span>, and hence <span class="math inline">\(\norm{T^\ast} = \norm{T}\)</span>.</p>
+</div>
+</div>
+</div>
+<p>So, the adjoint operation <span class="math inline">\(T\mapsto T^\ast\)</span> interacts coherently with both the algebraic structure of <span class="math inline">\(\calb(\calh)\)</span>, and also its topological structure induced by the operator norm. But even more, all three structures come together (the product, the adjoint operation, and the norm) into a single fundamental identity:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-cstar-identity" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 14</strong></span> Let <span class="math inline">\(\calb(\calh)\)</span> be the algebra of linear operators on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then</p>
+<p><span id="eq-cstar-identity"><span class="math display">\[
+\norm{T^\ast T} = \norm{T}^2, \quad \forall T\in \calb(\calh).
+\tag{13}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Using submultiplicativity of the operator norm and the fact that <span class="math inline">\(T\mapsto T^\ast\)</span> is an isometry, we get</p>
+<p><span class="math display">\[
+\norm{T^\ast T} \leq \norm{T^\ast} \norm{T} = \norm{T}^2.
+\]</span></p>
+<p>On the other hand, we also have</p>
+<p><span class="math display">\[
+\norm{Tv}^2 = \ang{T^\ast Tv,v} \leq \norm{T^\ast Tv} \norm{v} \leq \norm{T^\ast T} \norm{v}^2
+\]</span></p>
+<p>for any <span class="math inline">\(v\in \calh\)</span>. Thus, <span class="math inline">\(\norm{T}^2 \leq  \norm{T^\ast T}\)</span>, and so we must have equality <span class="math inline">\(\norm{T^\ast T} = \norm{T}^2\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Now, the logical transition in this section is one of <em>abstraction</em>: We take the <em>concrete</em> operator algebra <span class="math inline">\(\calb(\calh)\)</span> as the <em>model</em> of a certain type of <em>abstract</em> operator algebra called a <em><span class="math inline">\(C^\ast\)</span>-algebra</em>; in fact, we will define a two-step hierarchy of <em>abstract</em> operator algebras:</p>
+<p><span class="math display">\[
+\{\text{$C^\ast$-algebras}\} \subset \{\text{Banach $\ast$-algebras}\} \subset \{\text{$\ast$-algebras}\}.
+\]</span></p>
+<p>Here are their definitions, in one big highlighted box. It begins with the definition of an <em>abstract</em> adjoint operation, naturally called an <em>involution</em>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-star-algebra" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 6</strong></span> Let <span class="math inline">\(\cala\)</span> be a (possibly non-unital) algebra. An <em>involution</em> on <span class="math inline">\(\cala\)</span> is a function</p>
+<p><span class="math display">\[
+(-)^\ast :\cala \to \cala, \quad a \mapsto a^\ast,
+\]</span></p>
+<p>with the following properties:</p>
+<ol type="1">
+<li><p><em>Conjugate-linearity</em>: For all <span class="math inline">\(a,b\in \cala\)</span> and <span class="math inline">\(\lambda \in \bbc\)</span>, we have <span class="math display">\[
+(a+\lambda b)^\ast = a^\ast + \bar{\lambda} b^\ast.
+\]</span></p></li>
+<li><p><em>Involutativity</em>: For all <span class="math inline">\(a\in \cala\)</span>, we have <span class="math display">\[
+(a^\ast)^\ast = a.
+\]</span></p></li>
+<li><p><em>Anti-multiplicativity</em>: For all <span class="math inline">\(a,b\in \cala\)</span>, we have <span class="math display">\[
+(ab)^\ast = b^\ast a^\ast.
+\]</span></p></li>
+</ol>
+<p>With the definition of an involution in hand, we now make several more definitions:</p>
+<ol type="1">
+<li><p>An algebra <span class="math inline">\(\cala\)</span> equipped with an involution <span class="math inline">\(\ast\)</span> is called a <em><span class="math inline">\(\ast\)</span>-algebra</em>. (Pronunciation: “star algebra.”)</p></li>
+<li><p>If an algebra <span class="math inline">\(\cala\)</span> is simultaneously a Banach algebra and a <span class="math inline">\(\ast\)</span>-algebra, it will be called a <em>Banach <span class="math inline">\(\ast\)</span>-algebra</em> if the involution is <em>isometric</em>, in the sense that <span id="eq-iso2-eqn"><span class="math display">\[
+\norm{a} = \norm{a^\ast}, \quad \forall a\in \cala.
+  \tag{14}\]</span></span></p></li>
+<li><p>A Banach <span class="math inline">\(\ast\)</span>-algebra <span class="math inline">\(\cala\)</span> is called a <em><span class="math inline">\(C^\ast\)</span>-algebra</em> if <span id="eq-cstar2-eqn"><span class="math display">\[
+\norm{a^\ast a} = \norm{a}^2, \quad \forall a\in \cala.
+  \tag{15}\]</span></span></p></li>
+</ol>
+<p>We now define the morphisms in the category of <span class="math inline">\(\ast\)</span>-algebras:</p>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\alpha: \cala \to \calb\)</span> be a function from one <span class="math inline">\(\ast\)</span>-algebra to another. Then <span class="math inline">\(\alpha\)</span> is called a <em><span class="math inline">\(\ast\)</span>-homomorphism</em> if it is an algebra homomorphism such that <span class="math inline">\(\alpha(a^\ast) = \alpha(a)^\ast\)</span> for all <span class="math inline">\(a\in \cala\)</span>.</p></li>
+<li><p>The function <span class="math inline">\(\alpha:\cala \to \calb\)</span> is called a <em><span class="math inline">\(\ast\)</span>-isomorphism</em> if it is a <span class="math inline">\(\ast\)</span>-homomorphism which is invertible as a set-theoretic function.</p></li>
+</ol>
+<p>Finally:</p>
+<ul>
+<li>A subalgebra <span class="math inline">\(\calb\)</span> of a <span class="math inline">\(\ast\)</span>-algebra <span class="math inline">\(\cala\)</span> is called a <em><span class="math inline">\(\ast\)</span>-subalgebra</em> if the involution on <span class="math inline">\(\cala\)</span> restricts to an involution on <span class="math inline">\(\calb\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Prove that the involution on a <em>unital</em> <span class="math inline">\(\ast\)</span>-algebra preserves the multiplicative identity <span class="math inline">\(\id\)</span>, in the sense that <span class="math inline">\(\id^\ast = \id\)</span>.</p></li>
+<li><p>If <span class="math inline">\(a\in \cala\)</span> is an invertible element in a <span class="math inline">\(\ast\)</span>-algebra <span class="math inline">\(\cala\)</span>, prove that <span class="math inline">\((a^{-1})^\ast = (a^\ast)^{-1}\)</span>.</p></li>
+<li><p>Prove that a <span class="math inline">\(\ast\)</span>-homomorphism <span class="math inline">\(\alpha:\cala\to \calb\)</span> is a <span class="math inline">\(\ast\)</span>-isomorphism if and only if it is invertible as a set-theoretic function and its inverse is a <span class="math inline">\(\ast\)</span>-homomorphism. (Of course, one direction of the implication follows straight from the definition.)</p></li>
+<li><p>Let <span class="math inline">\(\cals\)</span> be a subset of a <span class="math inline">\(\ast\)</span>-algebra <span class="math inline">\(\cala\)</span> and define <span class="math display">\[
+\cals^\ast = \{ a^\ast : a\in \cals\}.
+\]</span> We shall say <span class="math inline">\(\cals\)</span> is <em>self-adjoint</em> if <span class="math inline">\(\cals = \cals^\ast\)</span>. Prove that a subalgebra <span class="math inline">\(\calb\)</span> of <span class="math inline">\(\cala\)</span> is a <span class="math inline">\(\ast\)</span>-subalgebra if and only if it is self-adjoint.</p></li>
+</ol>
+</div>
+</div>
+<p>Of course, you’ll notice that the isometry identity (<a href="#eq-iso2-eqn" class="quarto-xref">14</a>) and the <span class="math inline">\(C^\ast\)</span>-identity (<a href="#eq-cstar2-eqn" class="quarto-xref">15</a>) in the definition are nothing but abstractions of the same identities (<a href="#eq-iso1-eqn" class="quarto-xref">10</a>) and (<a href="#eq-cstar-identity" class="quarto-xref">13</a>) established for the concrete operator algebra <span class="math inline">\(\calb(\calh)\)</span>. Thus, we conclude that <span class="math inline">\(\calb(\calh)\)</span> is an example of a <span class="math inline">\(C^\ast\)</span>-algebra.</p>
+<p>In fact, as we will see in a later post, operator algebras of the form <span class="math inline">\(\calb(\calh)\)</span>, along with their topologically closed <span class="math inline">\(\ast\)</span>-subalgebras, are in a sense the <em>only</em> examples of <span class="math inline">\(C^\ast\)</span>-algebras. This is made precise via a general result called the <a href="https://en.wikipedia.org/wiki/Gelfand%E2%80%93Naimark_theorem" target="_blank">Gelfand-Naimark Theorem</a>, which says that every abstract <span class="math inline">\(C^\ast\)</span>-algebra is <span class="math inline">\(\ast\)</span>-isomorphic to a topologically closed <span class="math inline">\(\ast\)</span>-subalgebra of some <span class="math inline">\(\calb(\calh)\)</span> (and <span class="math inline">\(\calh\)</span> need not be finite-dimensional). Among other things, this theorem provides the key link between the <span class="math inline">\(C^\ast\)</span>-formalism in quantum mechanics and the more familiar one in terms of operators on Hilbert spaces.</p>
+<p>For now, we will content ourselves with exploring some of the most basic properties of <span class="math inline">\(C^\ast\)</span>-algebras. We begin with an abstraction of the spectrum of a linear operator, which actually applies to elements in <em>any</em> unital algebra.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-spectrum" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 7</strong></span> Let <span class="math inline">\(a\)</span> be an element in a unital algebra <span class="math inline">\(\cala\)</span>.</p>
+<ol type="1">
+<li><p>The <em>spectrum</em> of <span class="math inline">\(a\)</span>, denoted <span class="math inline">\(\sigma(a)\)</span>, is the set of all numbers <span class="math inline">\(\lambda \in \bbc\)</span> such that <span class="math inline">\(a-\lambda \id\)</span> is <em>not</em> invertible, i.e., such that <span class="math inline">\(a-\lambda \id\)</span> does <em>not</em> have a two-sided multiplicative inverse.</p></li>
+<li><p>The <em>spectral radius</em> of <span class="math inline">\(a\)</span>, denoted <span class="math inline">\(r(a)\)</span>, is the number <span class="math display">\[
+r(a) = \sup \{ \|\lambda\| : \lambda \in \sigma(a)\},
+\]</span> provided <span class="math inline">\(\sigma(a) \neq \emptyset\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Of course, as you may easily check, when <span class="math inline">\(\cala\)</span> is an algebra of the form <span class="math inline">\(\calb(\calh)\)</span> for a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>, the abstract spectra just defined coincide with the usual spectra of eigenvalues of operators.</p>
+<p>Our focus in this post is on finite-dimensional algebras; all elements in such algebras have an important property called <em>algebraicity</em>. To define this property, we first note that, given any element <span class="math inline">\(a\)</span> in a unital algebra <span class="math inline">\(\cala\)</span>, there is a unique algebra homomorphism</p>
+<p><span class="math display">\[\begin{equation}\notag
+\theta_a: \bbc[z] \to \cala
+\end{equation}\]</span></p>
+<p>from the formal polynomial ring <span class="math inline">\(\bbc[z]\)</span> to <span class="math inline">\(\cala\)</span>, with</p>
+<p><span class="math display">\[\begin{equation}\notag
+\bbc[z] \ni \lambda_n z^n + \cdots + \lambda_1 z + \lambda_0 \mapsto \lambda_n a^n + \cdots + \lambda_1 a + \lambda_0 \in \cala.
+\end{equation}\]</span></p>
+<p>Indeed, <span class="math inline">\(\theta_a\)</span> is uniquely determined by the equality <span class="math inline">\(\theta_a(z) = a\)</span> and the fact that it is an algebra homomorphism.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-algebraic-element" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 8</strong></span> An element <span class="math inline">\(a\)</span> in a unital algebra <span class="math inline">\(\cala\)</span> is called <em>algebraic</em> if there exists a nonzero formal polynomial <span class="math inline">\(p(z) \in \bbc[z]\)</span> with <span class="math inline">\(p(a) = 0\)</span>. (Here, the notation “<span class="math inline">\(p(a)\)</span>” is shorthand for “<span class="math inline">\(\theta_a(p(z))\)</span>.”)</p>
+</div>
+</div>
+</div>
+</div>
+<p>The special polynomial identified in the next theorem is the key device to computing spectra of algebraic elements:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-minimal-polynomial" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 15</strong></span> Let <span class="math inline">\(a\)</span> be an algebraic element in a unital algebra <span class="math inline">\(\cala\)</span>. Then there is a <em>unique</em> monic formal polynomial <span class="math inline">\(p_a(z)\in \bbc[z]\)</span> such that:</p>
+<ol type="1">
+<li>We have <span class="math inline">\(p_a(z)=0\)</span>.</li>
+<li>If <span class="math inline">\(f(z) \in \bbc[z]\)</span> is any other polynomial such that <span class="math inline">\(f(a)=0\)</span>, then <span class="math inline">\(f(z)\)</span> is divisible (in the formal polynomial algebra) by <span class="math inline">\(p_a(z)\)</span>.</li>
+</ol>
+<p>The formal polynomial <span class="math inline">\(p_a(z)\)</span> is called the <em>minimal polynomial</em> of <span class="math inline">\(a\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Indeed, we consider the kernel of the algebra homomorphism <span class="math inline">\(\theta_a:\bbc[z] \to \cala\)</span> described above with <span class="math inline">\(z\mapsto a\)</span>. Since <span class="math inline">\(\bbc[z]\)</span> is a principal ideal domain, we may choose <span class="math inline">\(p_a(z)\)</span> to be the unique monic generator of this ideal.</p>
+</div>
+</div>
+</div>
+<p>We then have the following fundamental result regarding the spectra of algebraic elements in unital algebras:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-spectral-mapping" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16 (Spectral Mapping Theorem)</strong></span> Let <span class="math inline">\(a\)</span> be an element of a unital algebra <span class="math inline">\(\cala\)</span>.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(\sigma(a)\)</span> is nonempty and <span class="math inline">\(f(z) \in \bbc[z]\)</span>, then <span id="eq-short-eqn"><span class="math display">\[
+\sigma(f(a)) = f(\sigma(a)).
+  \tag{16}\]</span></span></p></li>
+<li><p>Suppose <span class="math inline">\(a\)</span> is an algebraic element and let <span class="math inline">\(p_a(z) \in \bbc[z]\)</span> be its minimal polynomial. Then <span class="math inline">\(\lambda \in \sigma(a)\)</span> if and only if <span class="math inline">\(p_a(\lambda)=0\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>To be clear, the equation (<a href="#eq-short-eqn" class="quarto-xref">16</a>) is one of sets, with <span class="math inline">\(\sigma(f(a))\)</span> being the spectrum of the element <span class="math inline">\(f(a) \in \cala\)</span>. The expression on the right-hand side, however, is shorthand notation for</p>
+<p><span class="math display">\[
+f(\sigma(a)) = \\{ f(\lambda) : \lambda \in \sigma(a)\\}.
+\]</span></p>
+<p>With notation clarified, here’s the proof of the theorem:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(1.): The equation holds trivially if <span class="math inline">\(f(z)\)</span> is constant, so let’s assume that <span class="math inline">\(f(z)\)</span> is not constant. Given any <span class="math inline">\(\lambda\in \bbc\)</span>, since <span class="math inline">\(\bbc\)</span> is algebraically closed, we may factor:</p>
+<p><span class="math display">\[
+f(z) - \lambda = \mu_0 \prod_{k=1}^n (z-\mu_i),
+\]</span></p>
+<p>where <span class="math inline">\(\mu_0,\mu_1,\ldots,\mu_n\in \bbc\)</span> and <span class="math inline">\(\mu_0\neq 0\)</span>. Then <span class="math inline">\(f(a) - \lambda\)</span> is invertible if and only if each <span class="math inline">\(a-\mu_k\)</span> is invertible, and thus <span class="math inline">\(\lambda \in \sigma(f(a))\)</span> if and only if there is a <span class="math inline">\(k\)</span> such that <span class="math inline">\(\mu_k \in \sigma(a)\)</span>, in which case we have <span class="math inline">\(\lambda = f(\mu_k)\)</span>. The desired equation follows.</p>
+<p>(2.): First, suppose that <span class="math inline">\(\lambda\)</span> is a root of the minimal polynomial <span class="math inline">\(p_a(z)\)</span>, so that</p>
+<p><span class="math display">\[
+p_a(z) = q(z) (z-\lambda),
+\]</span></p>
+<p>for some <span class="math inline">\(q(z) \in \bbc[z]\)</span>. Then</p>
+<p><span class="math display">\[
+q(a) (a-\lambda) =0,
+\]</span></p>
+<p>which proves <span class="math inline">\(\lambda \in \sigma(a)\)</span>, for otherwise <span class="math inline">\(a-\lambda\)</span> is invertible, which would imply <span class="math inline">\(q(a)=0\)</span>. But the degree of <span class="math inline">\(q(z)\)</span> is less than the degree of <span class="math inline">\(p_a(z)\)</span>, which is the <em>minimal</em> polynomial of <span class="math inline">\(a\)</span>. This proves one half of the desired equivalence; the remaining implication follows immediately from part (1.).</p>
+</div>
+</div>
+</div>
+<p>As a first corollary of the Spectral Mapping Theorem, we have the following result regarding the nonemptiness of spectra of algebraic elements:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-spectrum-nonempty" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 17</strong></span> Let <span class="math inline">\(a\)</span> be an algebraic element in a unital algebra <span class="math inline">\(\cala\)</span>.</p>
+<ol type="1">
+<li><p>The spectrum <span class="math inline">\(\sigma(a)\)</span> is nonempty and finite.</p></li>
+<li><p>We have <span class="math inline">\(a=0\)</span> if and only if <span class="math inline">\(\sigma(a) = \\{0\\}\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The first claim is immediate from the theorem, while for the second, suppose <span class="math inline">\(\sigma(a) =\{0\}\)</span>. Since <span class="math inline">\(a\)</span> is algebraic, from the theorem we conclude that the minimal polynomial <span class="math inline">\(p_a(z)\)</span> has only <span class="math inline">\(\lambda=0\)</span> as a root. Thus, we must have <span class="math inline">\(p_a(z) = z\)</span>, from which it follows that <span class="math inline">\(a = p_a(a) = 0\)</span>. The other implication is trivial.</p>
+</div>
+</div>
+</div>
+<p>That the spectrum of an algebraic element in a unital algebra <span class="math inline">\(\cala\)</span> is nonempty emerged from elementary and purely algebraic considerations. However, the spectrum of <em>any</em> element in a unital algebra <span class="math inline">\(\cala\)</span> is nonempty, provided that the algebra is a Banach algebra. This is the result of a theorem attributed to Gelfand, which Murphy calls the “fundamental theorem of Banach algebras.” The typical proof of Gelfand’s theorem that one finds in a textbook (in particular, in Murphy’s textbook) is a paradigmatic example of the confluence of algebra, analysis, and topology that is so typical of the theory of operator algebras.</p>
+<p>A similar diversity of algebraic and analytic techniques establishes the following fundamental formula:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-spectral-radius-formula" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 18</strong></span> Let <span class="math inline">\(a\)</span> be an element in a unital Banach algebra <span class="math inline">\(\cala\)</span>. Then <span class="math inline">\(r(a)\)</span> is well-defined and finite, and</p>
+<p><span id="eq-spectral-radius-formula"><span class="math display">\[
+r(a) = \lim_{n\to \infty} \norm{a^n}^{1/n},
+\tag{17}\]</span></span></p>
+<p>where the existence of the limit is part of the claim.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The experienced reader will no doubt notice that this is precisely <a href="https://en.wikipedia.org/wiki/Spectral_radius#Gelfand's_formula" target="_blank">Gelfand’s formula</a>, a familiar result from matrix analysis. So, this theorem shows that this same formula holds in (possibly infinite-dimensional) unital Banach algebras, not just matrix algebras. This formula is also sometimes attributed to Beurling (as it is in Murphy’s textbook).</p>
+<p>We will not prove the spectral radius formula (<a href="#eq-spectral-radius-formula" class="quarto-xref">17</a>). Instead, let me show you how it combines with the <span class="math inline">\(C^\ast\)</span>-identity (<a href="#eq-cstar2-eqn" class="quarto-xref">15</a>) to yield a formula for the norm of self-adjoint elements:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-norm-self-adjoint" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 19</strong></span> Let <span class="math inline">\(a\)</span> be an element in a <span class="math inline">\(C^\ast\)</span>-algebra <span class="math inline">\(\cala\)</span>. If <span class="math inline">\(a\)</span> is <em>self-adjoint</em>, i.e., if <span class="math inline">\(a=a^\ast\)</span>, then <span class="math inline">\(r(a)= \norm{a}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the <span class="math inline">\(C^\ast\)</span>-identity (<a href="#eq-cstar2-eqn" class="quarto-xref">15</a>) and self-adjointness, we have</p>
+<p><span class="math display">\[
+\norm{a^2} = \norm{a^\ast a} = \norm{a}^2.
+\]</span></p>
+<p>Generalizing via induction, we get</p>
+<p><span class="math display">\[
+\norm{a^{2^n}} = \norm{a}^{2^n}, \quad \forall n\geq 1.
+\]</span></p>
+<p>But then, from the spectral radius formula (<a href="#eq-spectral-radius-formula" class="quarto-xref">17</a>), we get</p>
+<p><span class="math display">\[
+r(a) = \lim_{n\to \infty} \norm{a^{2^n}}^{1/2^n} = \norm{a},
+\]</span></p>
+<p>which is what we wanted to prove.</p>
+</div>
+</div>
+</div>
+<p>Before continuing, let’s extract the definition of <em>self-adjoint</em> given in the previous theorem and place it into its own box, along with the generalizations of all the other classes of Hilbert space operators we studied in the previous sections.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-operator-classes" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 9</strong></span> Let <span class="math inline">\(a\)</span> be an element in a unital <span class="math inline">\(\ast\)</span>-algebra <span class="math inline">\(\cala\)</span>. The element <span class="math inline">\(a\)</span> is called…</p>
+<ol type="1">
+<li><p>…<em>self-adjoint</em> if <span class="math inline">\(a=a^\ast\)</span>.</p></li>
+<li><p>…<em>normal</em> if <span class="math inline">\(aa^\ast = a^\ast a\)</span>.</p></li>
+<li><p>…<em>positive</em> if it is self-adjoint and <span class="math inline">\(\sigma(a)\subset [0,\infty)\)</span>.</p></li>
+<li><p>…<em>unitary</em> if it is invertible and <span class="math inline">\(a^{-1} = a^\ast\)</span>.</p></li>
+<li><p>…a <em>projection</em> if it is self-adjoint and <span class="math inline">\(a^2 = a\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Notice that these definitions are the exact transcriptions from the concrete case of <span class="math inline">\(\calb(\calh)\)</span> to the general, abstract case of <span class="math inline">\(\ast\)</span>-algebras; all, that is, except for positivity. The definition of positivity in <span class="math inline">\(\calb(\calh)\)</span> does not transfer directly to <span class="math inline">\(\ast\)</span>-algebras because we do not have a Hilbert space at hand with an inner product. Rather, we must generalize the equivalent characterization of positive Hilbert space operators in terms of their spectra.</p>
+<p>One profitable method for studying general noncommutative <span class="math inline">\(C^\ast\)</span>-algebras is through their commutative subalgebras; in the context of the <span class="math inline">\(C^\ast\)</span>-formalism in quantum mechanics, this method is called <em>Bohrification</em> by Landsman. The next result shows how to generate many commutative subalgebras:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-fd-functional-calculus" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 20</strong></span> Let <span class="math inline">\(\cala\)</span> be a finite-dimensional unital <span class="math inline">\(C^\ast\)</span>-algebra.</p>
+<ol type="1">
+<li><p>Let <span class="math inline">\(a\in A\)</span> be a normal element. Then the subset <span class="math display">\[
+C^\ast(a) = \left\{ f(a,a^\ast)\in \cala : f(z,w) \in \bbc[z,w]\right\}
+\]</span> is a commutative unital <span class="math inline">\(C^\ast\)</span>-subalgebra of <span class="math inline">\(\cala\)</span> (i.e., a closed <span class="math inline">\(\ast\)</span>-subalgebra). In fact, it is the smallest (in terms of inclusion) unital <span class="math inline">\(C^\ast\)</span>-subalgebra of <span class="math inline">\(\cala\)</span> that contains <span class="math inline">\(a\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(a\in \cala\)</span> be a self-adjoint element. Then the subset <span class="math display">\[
+C^\ast(a) = \left\{ f(a)\in \cala : f(z) \in \bbc[z]\right\}
+\]</span> is a commutative unital <span class="math inline">\(C^\ast\)</span>-subalgebra of <span class="math inline">\(\cala\)</span>. Just like in (1.), it is, in fact, the smallest unital <span class="math inline">\(C^\ast\)</span>-subalgebra of <span class="math inline">\(\cala\)</span> that contains <span class="math inline">\(a\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove the theorem. (<em>Hint</em>: Note that the finite-dimensional hypothesis implies topologically closed. Why?)</p>
+</div>
+</div>
+<p>Just as closed <span class="math inline">\(\ast\)</span>-subalgebras of bounded linear operators on Hilbert spaces provide the “models” for noncommutative <span class="math inline">\(C^\ast\)</span>-algebras, algebras of continuous <span class="math inline">\(\bbc\)</span>-valued functions (vanishing at infinity) on locally compact Hausdorff spaces provide the “models” for commutative <span class="math inline">\(C^\ast\)</span>-algebras. I mentioned above that the first claim is a result of the Gelfand-Naimark theorem, which we will cover later; the second claim is a result of the Gelfand Representation Theorem, and is one of the protoypical examples in mathematics of the <a href="https://ncatlab.org/nlab/show/duality+between+algebra+and+geometry" target="_blank">duality</a> between algebra and geometry.</p>
+<p>My remaining goal in this section is to prove the finite-dimensional version of the Gelfand Representation Theorem, and then to use it to develop the “continuous functional calculus” which we will use in our upcoming rewrite of the Spectral Theorem in the language of spectral measures.</p>
+<p>First, however, let’s talk about <span class="math inline">\(C^\ast\)</span>-algebras of functions:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-cb-calx" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 21</strong></span> Let <span class="math inline">\(\calx\)</span> be a topological space and <span class="math inline">\(C_b(\calx)\)</span> the <span class="math inline">\(\bbc\)</span>-algebra of all bounded continuous functions <span class="math inline">\(f: \calx \to \bbc\)</span>. Then <span class="math inline">\(C_b(\calx)\)</span> is a Banach algebra when equipped with the <span class="math inline">\(\infty\)</span>-norm</p>
+<p><span class="math display">\[
+\norm{f}_\infty \defeq \sup \{ \|f(x)\| : x\in \calx\},
+\]</span></p>
+<p>and it is a <span class="math inline">\(C^\ast\)</span>-algebra when equipped with the involution defined pointwise by</p>
+<p><span class="math display">\[
+(f^\ast)(x) = \overline{f(x)}, \quad \forall x\in \calx.
+\]</span></p>
+<p>Here, the overline denotes complex conjugation.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Note that if <span class="math inline">\(\calx\)</span> is compact, then <span class="math inline">\(C_b(\calx)\)</span> coincides with the algebra <span class="math inline">\(C(\calx)\)</span> of <em>all</em> continuous <span class="math inline">\(\bbc\)</span>-valued functions.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Prove the theorem.</p></li>
+<li><p>If <span class="math inline">\(\calx\)</span> is compact and <span class="math inline">\(f\in C(\calx)\)</span>, prove that the spectrum <span class="math inline">\(\sigma(f)\)</span> is equal to the range of <span class="math inline">\(f\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\calx\)</span> is compact and <span class="math inline">\(f\in C(\calx)\)</span>, prove that <span class="math inline">\(r(f) = \norm{f}_\infty\)</span>.</p></li>
+</ol>
+</div>
+</div>
+<p>We now have everything that we need to state and prove the main result of this section. It is a special case of a more general result that applies to (unital) <span class="math inline">\(C^\ast\)</span>-algebras of arbitrary dimension, and also to normal elements, instead of just self-adjoint ones. I’ve chosen to focus here on self-adjoint elements in finite-dimensional algebras because then I can use the theory of minimal polynomials, which makes the proof fairly easy (except for the part about norm-preserving, which uses the spectral radius formula (<a href="#eq-spectral-radius-formula" class="quarto-xref">17</a>)).</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-gelfand-representation" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 22 (Gelfand Representation Theorem (Finite-Dimensional Version))</strong></span> Let <span class="math inline">\(a\)</span> be a self-adjoint element in a finite-dimensional unital <span class="math inline">\(C^\ast\)</span>-algebra <span class="math inline">\(\cala\)</span>, and let its (finite) spectrum <span class="math inline">\(\sigma(a)\)</span> be equipped with the discrete topology. Then the algebra homomorphism</p>
+<p><span id="eq-yuppers-eqn"><span class="math display">\[
+\vartheta: \bbc[z] \to C(\sigma(a)), \quad f(z) \mapsto (f: \sigma(a) \to \bbc),
+\tag{18}\]</span></span></p>
+<p>obtained by viewing a formal polynomial <span class="math inline">\(f(z)\)</span> as a <span class="math inline">\(\bbc\)</span>-valued function on the spectrum <span class="math inline">\(\sigma(a)\)</span>, descends to an isometric <span class="math inline">\(\ast\)</span>-isomorphism</p>
+<p><span id="eq-yuppers2-eqn"><span class="math display">\[
+\phi: C^\ast(a) \xrightarrow{\cong} C(\sigma(a)).
+\tag{19}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<p>First, let me explain what I mean by “descending.” There is a surjective algebra homomorphism</p>
+<p><span id="eq-yuppers3-eqn"><span class="math display">\[
+\gamma: \bbc[z] \to C^\ast(a), \quad f(z) \mapsto f(a),
+\tag{20}\]</span></span></p>
+<p>whose kernel is the principal ideal <span class="math inline">\((p_a(z))\)</span>, where <span class="math inline">\(p_a(z)\)</span> is the minimal polynomial of <span class="math inline">\(a\)</span>. (Why is <span class="math inline">\(a\)</span> algebraic?) Then, to say that <span class="math inline">\(\vartheta\)</span> descends to <span class="math inline">\(C^\ast(a)\)</span> means that there exists a unique algebra homomorphism <span class="math inline">\(\phi\)</span> such that <span class="math inline">\(\vartheta = \phi \circ \gamma\)</span>. But not only does <span class="math inline">\(\phi\)</span> exist, the claim is that it is an isometric <span class="math inline">\(\ast\)</span>-isomorphism.</p>
+<p>Now, to the proof:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To show that <span class="math inline">\(\phi\)</span> exists, since <span class="math inline">\(\gamma\)</span> is surjective, it suffice to show that <span class="math inline">\(\vartheta\)</span> kills the minimal polynomial <span class="math inline">\(p_a(z)\)</span>. But this is true essentially by definition of <span class="math inline">\(p_a(z)\)</span>. Thus, <span class="math inline">\(\phi\)</span> exists. To prove <span class="math inline">\(\phi\)</span> is surjective, it will suffice to show <span class="math inline">\(\vartheta\)</span> is surjective. Suppose that <span class="math inline">\(\sigma(a) = \{\lambda_1,\ldots,\lambda_n\}\)</span>. Given a function <span class="math inline">\(g\in C(\sigma(a))\)</span>, it is <a href="https://en.wikipedia.org/wiki/Polynomial_interpolation">well known</a> that there is a polynomial <span class="math inline">\(f(z) \in \bbc[z]\)</span> that interpolates the points</p>
+<p><span class="math display">\[
+(\lambda_1,g(\lambda_1)),\ldots,(\lambda_n,g(\lambda_n))
+\]</span></p>
+<p>in the sense that <span class="math inline">\(f(\lambda_k) = g(\lambda_k)\)</span>, for each <span class="math inline">\(k=1,\ldots,n\)</span>. Thus, <span class="math inline">\(\vartheta\)</span> is surjective, and then so too is <span class="math inline">\(\phi\)</span>. To show <span class="math inline">\(\phi\)</span> is injective, it will suffice to show that the kernel of <span class="math inline">\(\vartheta\)</span> is contained in the principal ideal <span class="math inline">\((p_a(z))\)</span>. So, suppose that <span class="math inline">\(f(z) \in \bbc[z]\)</span> is mapped to the zero function on <span class="math inline">\(\sigma(a)\)</span> by <span class="math inline">\(\vartheta\)</span>. Then, by the Spectral Mapping Theorem, we have</p>
+<p><span class="math display">\[
+\sigma(f(a)) = f(\sigma(a)) = \{0\}.
+\]</span></p>
+<p>But this implies <span class="math inline">\(f(a)=0\)</span>, and hence <span class="math inline">\(f(z) \in (p_a(z))\)</span>. Thus, <span class="math inline">\(\phi\)</span> is an isomorphism of algebras; that it is a <span class="math inline">\(\ast\)</span>-isomorphism follows easily from the fact <span class="math inline">\(a\)</span> is self-adjoint and all elements in its spectrum are real.</p>
+<p>All that is left is to prove <span class="math inline">\(\phi\)</span> preserves norms. To prove this, we use the fact that the norm of a self-adjoint element in a unital <span class="math inline">\(C^\ast\)</span>-algebra coincides with its spectral radius, along with the Spectral Mapping Theorem:</p>
+<p><span class="math display">\[\begin{align}
+\norm{\phi(f(a))} &amp;= r(f) \notag \\ &amp;= \max \{ \|f(\lambda)\| : \lambda \in \sigma(a)\} \notag \\ &amp;= \max \{ \|\mu\| : \mu \in f(\sigma(a))\} \notag \\ &amp;= \max \{ \|\mu\| : \mu \in \sigma(f(a))\} \notag \\ &amp;= r(f(a)) \notag \\ &amp;= \norm{f(a)}.
+\end{align}\]</span></p>
+<p>This completes the proof.</p>
+</div>
+</div>
+</div>
+<p>Then, we may use the Gelfand Representation Theorem to establish the continuous functional calculus for self-adjoint elements in finite-dimensional unital <span class="math inline">\(C^\ast\)</span>-algebras:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-continuous-functional-calculus" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 23 (Continuous Functional Calculus (Finite-Dimensional Version))</strong></span> Let <span class="math inline">\(a\)</span> be a self-adjoint element in a finite-dimensional unital <span class="math inline">\(C^\ast\)</span>-algebra <span class="math inline">\(\cala\)</span>, let its (finite) spectrum <span class="math inline">\(\sigma(a)\)</span> be equipped with the discrete topology, and let</p>
+<p><span class="math display">\[
+z:\sigma(a) \to \bbc
+\]</span></p>
+<p>be the inclusion map. Then there is a unique unital <span class="math inline">\(\ast\)</span>-homomorphism</p>
+<p><span id="eq-who-eqn"><span class="math display">\[
+\alpha_a: C(\sigma(a)) \to \cala
+\tag{21}\]</span></span></p>
+<p>such that <span class="math inline">\(\alpha_a(z) = a\)</span>, called the <em>(continuous) functional calculus at <span class="math inline">\(a\)</span>.</em> Moreover, <span class="math inline">\(\alpha_a\)</span> is norm-preserving and its image is <span class="math inline">\(C^\ast(a)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The existence of such a map <span class="math inline">\(\alpha_a\)</span> is an immediate corollary of the Gelfand Representation Theorem, since we may take <span class="math inline">\(\alpha_a\)</span> to be the inverse isomorphism <span class="math inline">\(\phi^{-1}\)</span> in that theorem (see (<a href="#eq-yuppers2-eqn" class="quarto-xref">19</a>)) composed with the inclusion map</p>
+<p><span class="math display">\[
+\iota: C^\ast(a) \to \cala.
+\]</span></p>
+<p>For uniqueness, first let</p>
+<p><span class="math display">\[
+\gamma: \bbc[z] \to C^\ast(a), \quad f(z) \mapsto f(a),
+\]</span></p>
+<p>be the canonical map (<a href="#eq-yuppers3-eqn" class="quarto-xref">20</a>) discussed in the proof of the Gelfand Representation Theorem. (Note that we are using <span class="math inline">\(z\)</span> to denote the inclusion of <span class="math inline">\(\sigma(a)\)</span> into <span class="math inline">\(\bbc\)</span> and for the formal variable in the polynomial algebra <span class="math inline">\(\bbc[z]\)</span>.) If <span class="math inline">\(\alpha_a\)</span> is a map (<a href="#eq-who-eqn" class="quarto-xref">21</a>) with <span class="math inline">\(\alpha_a(z) = a\)</span>, then</p>
+<p><span class="math display">\[
+(\alpha_a \circ \vartheta)(z) =a = (\iota \circ \gamma)(z)
+\]</span></p>
+<p>where <span class="math inline">\(\vartheta\)</span> is the canonical map (<a href="#eq-yuppers-eqn" class="quarto-xref">18</a>). But both composites <span class="math inline">\(\alpha_a\circ \vartheta\)</span> and <span class="math inline">\(\iota \circ \gamma\)</span> are algebra maps defined on the polynomial algebra <span class="math inline">\(\bbc[z]\)</span>, and thus they are uniquely determined by their action on <span class="math inline">\(z\)</span>. It then follows that <span class="math inline">\(\alpha_a \circ \vartheta = \iota \circ \gamma\)</span>, and hence <span class="math inline">\(\alpha_a \circ \varphi \circ \gamma = \iota \circ \gamma\)</span> as well. But <span class="math inline">\(\gamma\)</span> is a surjection, which implies <span class="math inline">\(\alpha_a \circ \varphi = \iota\)</span>, so that <span class="math inline">\(\alpha_a = \iota \circ \varphi^{-1}\)</span>.</p>
+</div>
+</div>
+</div>
+<p>The name “functional calculus” comes about because the theorem allows us to make sense of an expression like <span class="math inline">\(f(a)\)</span>, where <span class="math inline">\(a\)</span> is a self-adjoint element in a finite-dimensional unital <span class="math inline">\(C^\ast\)</span>-algebra and <span class="math inline">\(f:\sigma(a) \to \bbc\)</span> is a function. Indeed, we <em>define</em></p>
+<p><span class="math display">\[\begin{equation}\notag
+f(a) = \alpha_a(f),
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\alpha_a:C(\sigma(a)) \to \cala\)</span> is the functional calculus at <span class="math inline">\(a\)</span>. For example, if <span class="math inline">\(a\)</span> is <em>positive</em>, so that <span class="math inline">\(\sigma(a) \subset [0, \infty)\)</span>, then the square root <span class="math inline">\(\sqrt{a}\)</span> of <span class="math inline">\(a\)</span> is well-defined via the functional calculus, and it has the property that <span class="math inline">\(\left( \sqrt{a}\right)^2 = a\)</span>.</p>
+<p>Before finishing this section, it might be worth describing the continuous functional calculus in the special case that the <span class="math inline">\(C^\ast\)</span>-algebra is of the form <span class="math inline">\(\calb(\calh)\)</span> for some finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. It is described here only for self-adjoint operators in order to link it with the results above, but it actually holds more generally for normal operators.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-continuous-functional-calculus-operators" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 24 (Continuous Functional Calculus for Self-Adjoint Operators (Finite-Dimensional Version))</strong></span> Let <span class="math inline">\(T\)</span> be a self-adjoint linear operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>, and let</p>
+<p><span class="math display">\[
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda
+\]</span></p>
+<p>be its spectral decomposition. Then, given a function <span class="math inline">\(f\in C(\sigma(T))\)</span>, the continuous functional calculus at <span class="math inline">\(T\)</span> is given by</p>
+<p><span class="math display">\[
+f(T) = \alpha_T(f) = \sum_{\lambda \in \sigma(T)} f(\lambda) P_\lambda.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove the theorem. (<em>Hint</em>: Use the <em>uniqueness</em> part of the preceding theorem.)</p>
+</div>
+</div>
+</section>
+<section id="the-measure-theoretic-approach-to-the-spectral-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-measure-theoretic-approach-to-the-spectral-theorem">The measure-theoretic approach to the Spectral Theorem</h2>
+<p>The goal now is to obtain a version of the Spectral Theorem for self-adjoint operators (on a finite-dimensional Hilbert space) whose proof uses measure-theoretic techniques and which is completely independent of our earlier proof of the theorem for normal operators.</p>
+<p>Not only does this new proof use measure theory, it also uses the continuous functional calculus developed in the previous section on <span class="math inline">\(C^\ast\)</span>-theory. As we are therefore pivoting away from abstract <span class="math inline">\(C^\ast\)</span>-algebras back toward concrete algebras of linear operators, the skeptical reader may well wonder why we went through the trouble of establishing the functional calculus for general <span class="math inline">\(C^\ast\)</span>-algebras. The reason I would give to the skeptical reader is the same that I would give to anyone who questions the motivation for abstraction in mathematics: Abstracting a mathematical object is a process of <em>insight building</em>, in the sense that it requires us to identify and strip away all but the most important and essential pieces of its structure. If a certain theorem generalizes from the concrete object to its abstraction, then one has gained insight into the structure of the concrete object. Indeed, we can then point our finger at the object and say that it is precisely <em>this</em> and <em>that</em> part of its structure that allows the theorem to go through, and all the rest of its structure is purely extraneous. In our case, through abstraction, we obtain a deeper understanding of algebras of operators by generalizing to <span class="math inline">\(C^\ast\)</span>-algebras and, at least in some respects, we see that the latter are perhaps more <em>fundamental</em> objects.</p>
+<p>In any case, as I mentioned in the section on prerequisites, the sequence of results and theorems in this section is taken almost <em>exactly</em> from Murphy’s textbook on <span class="math inline">\(C^\ast\)</span>-algebras and operator theory, but with finite-dimensional hypotheses applied. If you can follow and understand the general arc of the arguments given in this section, you should then have no problem at least understanding the <em>statements</em> of the theorems in Murphy’s book leading up to the general Spectral Theorem in arbitrary dimensions for normal operators.</p>
+<p>So, let’s begin!</p>
+<p>The motivation for the measure-theoretic approach is to notice that the spectral decomposition</p>
+<p><span class="math display">\[\begin{equation}\notag
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda
+\end{equation}\]</span></p>
+<p>of a normal operator (on a finite-dimensional Hilbert space) looks a lot like an integral. But integrals are numbers in <span class="math inline">\(\bbc\)</span>, whereas the spectral decomposition—if it could be written as an “integral”—would have to be some sort of operator-valued integral. As we will see, a theory of such integrals does, in fact, exist!</p>
+<p>The starting point is the definition of a new type of measure:</p>
+<div class="highlight-box">
+<p><strong>Definition.</strong> Let <span class="math inline">\(\calx\)</span> be a nonempty finite set, <span class="math inline">\(P(\calx)\)</span> its power set, and let <span class="math inline">\(\calh\)</span> be a finite-dimensional Hilbert space. A <em>spectral measure</em> relative to the pair <span class="math inline">\((\calx,\calh)\)</span> is a function</p>
+<p><span class="math display">\[\begin{equation}\notag
+E: P(\calx) \to \calb(\calh)
+\end{equation}\]</span></p>
+<p>satisfying the following properties:</p>
+<ol type="1">
+<li><p>The image of <span class="math inline">\(E\)</span> is contained in the subset of <span class="math inline">\(\calb(\calh)\)</span> consisting of all orthogonal projections.</p></li>
+<li><p><span class="math inline">\(E(\emptyset)=\zero\)</span> and <span class="math inline">\(E(\calx) = I\)</span>, the zero and identity operators, respectively.</p></li>
+<li><p>For any two subsets <span class="math inline">\(A,B\in P(\calx)\)</span>, we have <span class="math display">\[\begin{equation}\notag
+E(A \cap B) = E(A)E(B).
+\end{equation}\]</span></p></li>
+<li><p>For all <span class="math inline">\(v,w\in \calh\)</span>, the function <span class="math display">\[\begin{equation}\notag
+E_{v,w}: P(X) \to \bbc, \quad A \mapsto \ang{E(A)v,w},
+\end{equation}\]</span> is a complex measure on <span class="math inline">\(\calx\)</span>.</p></li>
+</ol>
+</div>
+<p>The definition of a spectral measure is cooked up in such a way to generalize the (finite) collection of orthogonal projections onto eigenspaces identified in the finite-dimensional version of the Spectral Theorem. The next theorem explains the precise details; note that it will <em>not</em> be used in the rest of this section, so our arguments will indeed be independent of that first version of the Spectral Theorem.</p>
+<div class="highlight-box">
+<p><strong>Theorem.</strong> Let <span class="math inline">\(T\)</span> be a normal linear operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span> with spectral decomposition</p>
+<p><span class="math display">\[\begin{equation}\notag
+T = \sum_{\lambda \in \sigma(T)} \lambda P_\lambda.
+\end{equation}\]</span></p>
+<p>If for each subset <span class="math inline">\(A\subseteq\sigma(T)\)</span> we define</p>
+<p><span class="math display">\[\begin{equation}\label{cool-eqn}
+E(A) =  \sum_{\lambda \in \sigma(T) \cap A} P_\lambda,
+\end{equation}\]</span></p>
+<p>then the function <span class="math inline">\(E: P(\sigma(T)) \to \calb(\calh)\)</span> is a spectral measure. (If <span class="math inline">\(A=\emptyset\)</span>, we take <span class="math inline">\(E(A)\)</span> to be the zero operator.)</p>
+</div>
+<p>I’ll show you the proof in a moment, but first: Note that if <span class="math inline">\(T\)</span> is self-adjoint, so that we may use its <a href="#huh">continuous functional calculus</a>, then it’s easy to see that the formula <span class="math inline">\(\eqref{cool-eqn}\)</span> may be expressed concisely as</p>
+<p><span class="math display">\[\begin{equation}\label{cool1-eqn}
+E(A) = \chi_A(T),
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\chi_A\)</span> is the characteristic (<span class="math inline">\(=\)</span> indicator) function of <span class="math inline">\(A\)</span>. (Remember that the functional calculus actually applies more broadly to <em>normal</em> elements in a <span class="math inline">\(C^\ast\)</span>-algebra, so <span class="math inline">\(\eqref{cool1-eqn}\)</span> actually applies in general. We only proved the existence of the functional calculus in the case of self-adjoint elements, however.)</p>
+<p>To prove the theorem, we must check all the defining axioms of a spectral measure:</p>
+<p>(1.): Since the adjoint operation is additive and each <span class="math inline">\(P_\lambda\)</span> is self-adjoint, so too is each operator <span class="math inline">\(E(A)\)</span>, for each <span class="math inline">\(A\in P(\sigma(T))\)</span>. That each <span class="math inline">\(E(A)\)</span> is idempotent is a simple computation:</p>
+<p><span class="math display">\[\begin{equation}\notag
+E(A) E(A) = \sum_{\lambda,\mu \in \sigma(T) \cap A} P_\lambda P_\mu = \sum_{\lambda,\mu \in \sigma(T) \cap A} \delta_{\lambda\mu}P_\lambda = E(A).
+\end{equation}\]</span></p>
+<p>Thus, each operator <span class="math inline">\(E(A)\)</span> (including <span class="math inline">\(E(\emptyset)=\zero\)</span>) is an orthogonal projection.</p>
+<p>(2.): We have <span class="math inline">\(E(\emptyset)=\zero\)</span> by definition, while the equality <span class="math inline">\(E(\sigma(T)) = \id\)</span> follows from the Spectral Theorem.</p>
+<p>(3.): We compute:</p>
+<p><span class="math display">\[\begin{equation}\notag
+E(A) E(B) = \sum_{\lambda \in \sigma(T) \cap A} \sum_{\mu \in \sigma(T) \cap B} P_\lambda P_\mu = \sum_{\lambda \in \sigma(T) \cap A} \sum_{\mu \in \sigma(T) \cap B} \delta_{\mu\lambda}P_\lambda = \sum_{\lambda \in \sigma(T) \cap A \cap B} P_\lambda = E(A\cap B).
+\end{equation}\]</span></p>
+<p>(4.): We need only show that each function <span class="math inline">\(E_{v,w}: A \mapsto \ang{E(A)v,w}\)</span> is additive. So, let <span class="math inline">\(\\{A_1,\ldots,A_n\\}\)</span> be a collection of pairwise disjoint subsets of the spectrum <span class="math inline">\(\sigma(T)\)</span>, and set <span class="math inline">\(A = \bigcup_{k=1}^n A_k\)</span>. We then compute</p>
+<p><span class="math display">\[\begin{equation}\notag
+\ang{E(A)v,w} = \sum_{\lambda \in \sigma(T) \cap A} \ang{P_\lambda v, w} = \sum_{k=1}^n \left\langle \sum_{\lambda \in \sigma(T) \cap A_k} P_\lambda v,w \right\rangle = \sum_{k=1}^n \ang{ E(A_k)v,w},
+\end{equation}\]</span></p>
+<p>which completes the proof. Q.E.D.</p>
+<p>Now, having defined spectral measures, the next step is to move toward <em>spectral integrals</em>. The first step is given in:</p>
+<div class="highlight-box">
+<p><strong>Theorem.</strong> Let <span class="math inline">\(\calx\)</span> be a nonempty finite set (equipped with the discrete topology), <span class="math inline">\(\calh\)</span> a finite-dimensional Hilbert space, and <span class="math inline">\(E\)</span> a spectral measure relative to the pair <span class="math inline">\((\calx,\calh)\)</span>. Then for each function <span class="math inline">\(f\in C(\calx)\)</span>, the function</p>
+<p><span class="math display">\[\begin{equation}\notag
+\beta_f: \calh \times \calh \to \bbc, \quad \beta_f(v,w) = \int_{\calx} f \ \d E_{v,w},
+\end{equation}\]</span></p>
+<p>is a sesquilinear form on <span class="math inline">\(\calh\)</span>.</p>
+</div>
+<p>To prove the theorem, first note that the function <span class="math inline">\(f\)</span> is necessarily simple, and so the integral is just a finite sum:</p>
+<p><span class="math display">\[\begin{equation}\notag
+\beta_f(v,w) = \sum_{\lambda \in \bbc} \lambda E_{v,w}\left( f^{-1}(\lambda) \right) = \sum_{\lambda \in \bbc} \lambda \left\langle E\left( f^{-1}(\lambda)\right)v,w \right\rangle.
+\end{equation}\]</span></p>
+<p>The proof follows easily from this expression for <span class="math inline">\(\beta_f(v,w)\)</span>; I will leave the details to you!</p>
+<p>Here comes the integral:</p>
+<div class="highlight-box">
+<p><strong>Corollary/Definition.</strong> Let <span class="math inline">\(\calx\)</span> be a nonempty finite set (equipped with the discrete topology), <span class="math inline">\(\calh\)</span> a finite-dimensional Hilbert space, and <span class="math inline">\(E\)</span> a spectral measure relative to the pair <span class="math inline">\((\calx,\calh)\)</span>. Then for each function <span class="math inline">\(f\in C(\calx)\)</span>, there is a unique operator <span class="math inline">\(I_{f,E}\)</span> on <span class="math inline">\(\calh\)</span> such that</p>
+<p><span class="math display">\[\begin{equation}\notag
+\ang{I_{f,E}(v),w} = \int_{\calx} f \ \d E_{v,w}, \quad \forall v,w\in \calh.
+\end{equation}\]</span></p>
+<p>The operator <span class="math inline">\(I_{f,e}\)</span> is called the <em>spectral integral</em> of <span class="math inline">\(f\)</span> relative to the spectral measure <span class="math inline">\(E\)</span>, and is denoted</p>
+<p><span class="math display">\[\begin{equation}\notag
+I_{f,E} = \int_\calx f \ \d E.
+\end{equation}\]</span></p>
+</div>
+<p>Since <span class="math inline">\(\beta_f\)</span> is sesquilinear, the existence and uniqueness of the operator <span class="math inline">\(I_{f,E}\)</span> follows from the <a href="#Riesz-cor">Riesz Theorem</a>.</p>
+<p>The spectral integral was obtained in a rather abstract, indirect fashion by appealing to the Riesz Representation Theorem. However, in our very special case of finite sets and finite-dimensional Hilbert spaces, we may describe it directly:</p>
+<div class="highlight-box">
+<p><strong>Theorem.</strong> Let <span class="math inline">\(\calx\)</span> be a nonempty finite set (equipped with the discrete topology), <span class="math inline">\(\calh\)</span> a finite-dimensional Hilbert space, and <span class="math inline">\(E\)</span> a spectral measure relative to the pair <span class="math inline">\((\calx,\calh)\)</span>. Then for each function <span class="math inline">\(f\in C(\calx)\)</span> we have</p>
+<p><span class="math display">\[\begin{equation}\notag
+\int_\calx f \ \d E = \sum_{\lambda \in \bbc} \lambda E\left(f^{-1}(\lambda) \right).
+\end{equation}\]</span></p>
+<p>In particular, if <span class="math inline">\(\chi_A\)</span> is the characteristic function of a subset <span class="math inline">\(A\subseteq \calx\)</span>, then</p>
+<p><span class="math display">\[\begin{equation}\notag
+E(A) = \int_\calx \chi_A \ \d E.
+\end{equation}\]</span></p>
+</div>
+<p>The next result is the central theorem in this section and is another representation-theoretic type theorem. Instead of linear functionals, however, this time we are dealing with <span class="math inline">\(\ast\)</span>-representations of commutative <span class="math inline">\(C^\ast\)</span>-algeras as linear operators on a Hilbert space.</p>
+<div class="highlight-box">
+<p><strong>Spectral Representation Theorem (Finite-Dimensional Version).</strong> Let <span class="math inline">\(\calx\)</span> be a nonempty finite set (equipped with the discrete topology) and <span class="math inline">\(\calh\)</span> a finite-dimensional Hilbert space.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(E\)</span> a spectral measure relative to the pair <span class="math inline">\((\calx,\calh)\)</span>, then the map <span class="math display">\[\begin{equation}\notag
+\rho: C(\calx) \to \calb(\calh), \quad f \mapsto \int_\calx f \ \d E,
+\end{equation}\]</span> is a unital <span class="math inline">\(\ast\)</span>-homomorphism.</p></li>
+<li><p>Conversely, if <span class="math display">\[\begin{equation}\notag
+\rho: C(\calx) \to \calb(\calh)
+\end{equation}\]</span> is a unital <span class="math inline">\(\ast\)</span>-homomorphism, then there is a unique spectral measure <span class="math inline">\(E\)</span> relative to <span class="math inline">\((\calx, \calh)\)</span> such that <span class="math inline">\(\rho(f) = \int_\calx f \ \d E\)</span>.</p></li>
+</ol>
+</div>
+<p>(1.): To prove linearity, let <span class="math inline">\(f,g\in C(\calx)\)</span> and <span class="math inline">\(\mu \in \bbc\)</span>. Then since</p>
+<p><span class="math display">\[\begin{align}
+\ang{I_{f,E}(v) + \mu I_{g,E}(v),w} &amp;= \ang{I_{f,E}(v),w} + \mu \ang{I_{g,E}(v),w} \notag  \\\ &amp;= \int_\calx f \ \d E_{v,w} + \mu \int_{\calx} g \ \d E_{v,w} \notag \\\ &amp;= \int_\calx\left(f + \mu g \right) \ \d E_{v,w}, \notag
+\end{align}\]</span></p>
+<p>we must have</p>
+<p><span class="math display">\[\begin{equation}\notag
+\rho(f) + \mu\rho(g) = I_{f,E} + \mu I_{g,E} = I_{f+\mu g,E} = \rho(f+\mu g).
+\end{equation}\]</span></p>
+<p>To prove that the spectral integral is multiplicative, in view of linearity, we note that it suffices to prove</p>
+<p><span class="math display">\[\begin{equation}\notag
+\int_\calx \chi_A \chi_B \ \d E = \left( \int_\calx \chi_A \ \d E \right)\left( \int_\calx \chi_B \ \d E\right)
+\end{equation}\]</span></p>
+<p>for two characteristic functions <span class="math inline">\(\chi_A\)</span> and <span class="math inline">\(\chi_B\)</span>. But note that the integral on the left-hand side is equal to <span class="math inline">\(E(A\cap B)\)</span>, while the product of integrals on the right-hand side is equal to <span class="math inline">\(E(A) E(B)\)</span>. But these two operators are equal by axiom (3.) of a spectral measure.</p>
+<p>Finally, to prove that <span class="math inline">\(\rho\)</span> preserves involutions, we compute:</p>
+<p><span class="math display">\[\begin{align}
+\int_\calx \overline{f(x)} \ \d E(x) &amp;= \sum_{\lambda \in \bbc} \lambda E\left((f^\ast)^{-1}(\lambda) \right) \notag \\\ &amp;= \sum_{\lambda \in \bbc} \bar{\lambda} E\left( f^{-1}(\lambda) \right) \notag \\\ &amp;= \left( \sum_{\lambda \in \bbc} \lambda E\left( f^{-1}(\lambda) \right) \right)^\ast \notag \\\ &amp;= \left( \int_\calx f(x) \ \d E(x) \right)^\ast, \notag
+\end{align}\]</span></p>
+<p>and hence <span class="math inline">\(\rho(f^\ast) = \rho(f)^\ast\)</span>. This finishes the proof of (1.).</p>
+<p>(2.): Define</p>
+<p><span class="math display">\[\begin{equation}\notag
+E: P(\calx) \to \calb(\calh), \quad A \mapsto \rho(\chi_A).
+\end{equation}\]</span></p>
+<p>Note that each <span class="math inline">\(E(A)\)</span> is self-adjoint since each characteristic function <span class="math inline">\(\chi_A\)</span> is self-adjoint and <span class="math inline">\(\rho\)</span> preserves involutions; furthermore, each <span class="math inline">\(E(A)\)</span> is idempotent because each <span class="math inline">\(\chi_A\)</span> is idempotent and <span class="math inline">\(\rho\)</span> is multiplicative. Thus, the image of <span class="math inline">\(E\)</span> lands in the subset of <span class="math inline">\(\calb(\calh)\)</span> consisting of projection operators. This shows that <span class="math inline">\(E\)</span> satisfies the first axiom in the definition of a spectral measure; the proofs of the rest of the axioms are entirely straightforward, expect perhaps the assertion that</p>
+<p><span class="math display">\[\begin{equation}\notag
+A\mapsto E_{v,w}(A) \defeq \ang{E(A)v,w} = \ang{\rho(\chi_A)v,w}
+\end{equation}\]</span></p>
+<p>is a complex measure, for each pair <span class="math inline">\(v,w\in \calh\)</span>. However, note that the function</p>
+<p><span class="math display">\[\begin{equation}\notag
+\varphi_{v,w} : C(\calx) \to \bbc, \quad f\mapsto \ang{\rho(f)v,w},
+\end{equation}\]</span></p>
+<p>is a linear functional, and hence by the Riesz-Markov-Kakutani Representation Theorem there is a unique complex measure <span class="math inline">\(\mu_{v,w}\)</span> on <span class="math inline">\(P(\calx)\)</span> such that</p>
+<p><span class="math display">\[\begin{equation}\notag
+\mu_{v,w}(A) = \varphi_{v,w}(\chi_A).
+\end{equation}\]</span></p>
+<p>But the right-hand side of this last equation is exactly <span class="math inline">\(E_{v,w}(A)\)</span>, and hence <span class="math inline">\(E\)</span> satisfies the last axiom of a spectral measure.</p>
+<p>Now, all that remains to prove is the equation</p>
+<p><span class="math display">\[\begin{equation}\label{final-eqn}
+\rho(f) = \int_\calx f \ \d E.
+\end{equation}\]</span></p>
+<p>But notice that</p>
+<p><span class="math display">\[\begin{equation}\notag
+\ang{\rho(f)v,w} = \varphi_{v,w}(f) = \int_\calx f \ \d \mu_{v,w} = \int_\calx f \ \d E_{v,w},
+\end{equation}\]</span></p>
+<p>where the second equality comes from the Riesz-Markov-Kakutani theorem. But this shows that <span class="math inline">\(\rho(f)\)</span> satisfies the defining property for the spectral integral, and the desired equation <span class="math inline">\(\eqref{final-eqn}\)</span> then follows. Q.E.D.</p>
+<p>Combining the previous theorem with the continuous functional calculus yields the Spectral Theorem:</p>
+<div class="highlight-box">
+<p><strong>Spectral Theorem for Self-Adjoint Operators (Finite-Dimensional Version).</strong> Let <span class="math inline">\(T\)</span> be a self-adjoint linear operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then there is a unique spectral measure <span class="math inline">\(E\)</span> relative to <span class="math inline">\((\sigma(T),\calh)\)</span> such that</p>
+<p><span class="math display">\[\begin{equation}\label{huh-eqn}
+T = \int_{\sigma(T)} \lambda \ \d E(\lambda).
+\end{equation}\]</span></p>
+<p>The equation <span class="math inline">\(\eqref{huh-eqn}\)</span> is called the <em>spectral decomposition</em> of <span class="math inline">\(T\)</span>.</p>
+</div>
+<p>Let <span class="math inline">\(\alpha: C(\sigma(T)) \to \calb(\calh)\)</span> be the continuous functional calculus at <span class="math inline">\(T\)</span>, which is a unital <span class="math inline">\(\ast\)</span>-homomorphism. By the previous theorem, we know that there is a unique spectral measure <span class="math inline">\(E\)</span> relative to <span class="math inline">\((\sigma(T),\calh)\)</span> such that</p>
+<p><span class="math display">\[\begin{equation}\label{cont-eqn}
+\alpha(f) = \int_{\sigma(T)} f(\lambda) \ \d E(\lambda), \quad \forall f\in C(\sigma(T)).
+\end{equation}\]</span></p>
+<p>In particular, since <span class="math inline">\(\alpha(z) = T\)</span> (where <span class="math inline">\(z\)</span> is the inclusion map of <span class="math inline">\(\sigma(T)\)</span> into <span class="math inline">\(\bbc\)</span>), the desired equation <span class="math inline">\(\eqref{huh-eqn}\)</span> follows. To prove uniqueness of <span class="math inline">\(E\)</span>, let <span class="math inline">\(E'\)</span> be a second spectral measure such that <span class="math inline">\(\eqref{huh-eqn}\)</span> holds. Then the map</p>
+<p><span class="math display">\[\begin{equation}\notag
+\rho: C(\sigma(T)) \to \calb(\calh), \quad f\mapsto \int_{\sigma(T)} f \ \d E',
+\end{equation}\]</span></p>
+<p>is a unital <span class="math inline">\(\ast\)</span>-homomorphism with <span class="math inline">\(\rho(z) = T\)</span>. But then we must have <span class="math inline">\(\rho = \alpha\)</span>, and hence <span class="math inline">\(E=E'\)</span>. Q.E.D.</p>
+<p>Let’s finish the post with a measure-theoretic description of the continuous functional calculus, which is just the equation <span class="math inline">\(\eqref{cont-eqn}\)</span> in the previous proof:</p>
+<div class="highlight-box">
+<p><strong>Continuous Functional Calculus for Self-Adjoint Operators (Finite-Dimensional Version).</strong> Let <span class="math inline">\(T\)</span> be a self-adjoint linear operator on a finite-dimensional Hilbert space <span class="math inline">\(\calh\)</span>. Then the continuous functional calculus at <span class="math inline">\(T\)</span> is given by the formula</p>
+<p><span class="math display">\[\begin{equation}\notag
+f(T) = \int_{\sigma(T)} f(\lambda) \ \d E(\lambda), \quad f\in C(\sigma(T)).
+\end{equation}\]</span></p>
+</div>
+</section>
+
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><p>J. B. Conway. A course in functional analysis. Second edition. Graduate Texts in Mathematics, 96. <em>Springer-Verlag, New York, 1990</em>.</p></li>
+<li><p>D. Han, K. Kornelson, D. Larson, E. Weber. Frames for undergraduates. Student Mathematical Library, 40. <em>American Mathematical Society, Providence, RI, 2007.</em></p></li>
+<li><p>G. B. Folland. Real analysis. Modern techniques and their applications. Second edition. Pure and Applied Mathematics (New York). <em>A Wiley-Interscience Publication. John Wiley &amp; Sons, Inc., New York, 1999.</em></p></li>
+<li><p>V. L. Hansen. Functional analysis. Entering Hilbert space. <em>World Scientific Publishing Co.&nbsp;Pte. Ltd., Hackensack, NJ, 2006.</em></p></li>
+<li><p>A. N. Kolmogorov, S. V. Fomin. Introductory real analysis. Translated from the second Russian edition and edited by Richard A. Silverman. Corrected reprinting. <em>Dover Publications, Inc., New York, 1975.</em></p></li>
+<li><p>K. Landsman. Foundations of quantum theory. From classical concepts to operator algebras. Fundamental Theories of Physics, 188. <em>Springer, Cham, 2017.</em></p></li>
+<li><p>P. D. Lax. Functional analysis. Pure and Applied Mathematics. <em>Wiley-Interscience [John Wiley &amp; Sons], New York, 2002</em>.</p></li>
+<li><p>G. J. Murphy. C<span class="math inline">\(^\ast\)</span>-algebras and operator theory. <em>Academic Press, Inc., Boston, MA, 1990.</em></p></li>
+<li><p>W. Rudin. Functional analysis. Second edition. International Series in Pure and Applied Mathematics. <em>McGraw-Hill, Inc., New York, 1991.</em></p></li>
+<li><p>W. Rudin. Real and complex analysis. Third edition. <em>McGraw-Hill Book Co., New York, 1987</em>.</p>
+</li></ul></section>
+
+
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/johnmyers-phd\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
