@@ -1,0 +1,529 @@
+---
+title: "Multivariable Calculus"
+toc: true
+---
+
+This course is an introduction to multivariable calculus. We will cover the following topics:
+
+1. Vectors and matrices: We will learn about vector algebra, dot products, matrix operations, and determinants.
+2. Calculus of functions of several variables: We will study limits, continuity, derivatives, and applications of all these concepts.
+3. Multiple integrals: We will explore double and triple integrals, as well as applications such as volume and surface area.
+4. Vector calculus: We will cover vector fields, line integrals, surface integrals, Green's theorem, Stokes' theorem, and the divergence theorem.
+
+# Course information
+
+<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
+  <tr>
+    <td>instructor:</td>
+    <td>john myers</td>
+  </tr>
+  <tr>
+    <td>office:</td>
+    <td>marano 175</td>
+  </tr>
+  <tr>
+    <td>office hours:</td>
+    <td>to be determined</td>
+  </tr>
+  <tr>
+    <td>syllabus:</td>
+    <td>will upload later</td>
+  </tr>
+</table>
+
+# Schedule, slides, info
+
+| week | date | topics | slides | exercises | info |
+|-|--|----|---|---|---|
+|| 01.30 fri |||| quiz 01
+|| 01.28 wed | 
+| 01| 01.26 mon | "Remote day": Watch the videos [here](https://www.3blue1brown.com/?v=vectors){target="_blank"}, [here](https://www.3blue1brown.com/?v=linear-transformations#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=matrix-multiplication#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=determinant#video-section){target="_blank"}, and [here](https://www.3blue1brown.com/?v=dot-products#video-section){target="_blank"} || [exercises](#vectors-and-matrices-part-1)
+
+
+# Suggested exercises
+
+The following is a list of (strongly) suggested exercises that follow along with the material covered in class. They are not to be turned in or graded, but I highly recommend that you work through them on your own time to reinforce your understanding of the material. In particular, many quiz and exam problems will be similar to these exercises.
+
+## 01 Vectors and matrices, part 1
+
+### Exercise 1: Vector algebra
+
+A *vector* in $\mathbb{R}^n$ is an ordered list of $n$ real numbers, which we typically write in boldface, such as $\mathbf{v}$. For example, when $n=2$, we might have the $2$-dimensional vector
+
+$$
+\mathbf{v} = \begin{bmatrix} 3 \\ -2 \end{bmatrix},
+$$
+
+which we visualize as an arrow with its tail at the origin and its head at the point $(3, -2)$. Technically, though, a vector can be moved and still be the same vector, just as long as it keeps its direction and length intact. So, while it is often convenient to draw vectors with their tails at the origin, they could have their tails *anywhere* and still be the same vector.
+
+Similarly, when $n=3$, a $3$-dimensional vector might look like
+
+$$
+\mathbf{w} = \begin{bmatrix} 1 \\ 4 \\ -3 \end{bmatrix}.
+$$
+
+Vectors can be added, subtracted, and scaled (multiplied by real numbers) componentwise. For example, if
+
+$$
+\mathbf{u} = \begin{bmatrix} 2 \\ 5 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} 3 \\ -1 \end{bmatrix},
+$$
+
+then
+
+$$
+\mathbf{u} + \mathbf{v} = \begin{bmatrix} 2 + 3 \\ 5 + (-1) \end{bmatrix} = \begin{bmatrix} 5 \\ 4 \end{bmatrix},
+$$
+
+$$
+\mathbf{u} - \mathbf{v} = \begin{bmatrix} 2 - 3 \\ 5 - (-1) \end{bmatrix} = \begin{bmatrix} -1 \\ 6 \end{bmatrix},
+$$
+
+and for a scalar $c = 3$,
+
+$$
+3\mathbf{u} = \begin{bmatrix} 3 \cdot 2 \\ 3 \cdot 5 \end{bmatrix} = \begin{bmatrix} 6 \\ 15 \end{bmatrix}.
+$$
+
+::: {.callout-note icon="false"}
+## Exercises.
+
+Let $\mathbf{u} = \begin{bmatrix} 4 \\ -1 \end{bmatrix}$, $\mathbf{v} = \begin{bmatrix} -2 \\ 3 \end{bmatrix}$, $\mathbf{a} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}$, and $\mathbf{b} = \begin{bmatrix} 4 \\ 0 \\ -2 \end{bmatrix}$.
+
+1. Compute $\mathbf{u} + \mathbf{v}$.
+
+2. Compute $\mathbf{u} - \mathbf{v}$.
+
+3. Compute $2\mathbf{u} + 3\mathbf{v}$.
+
+4. Compute $-\mathbf{u}$.
+
+5. Compute $\mathbf{a} + \mathbf{b}$.
+
+6. Compute $\mathbf{a} - 2\mathbf{b}$.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+1. $\mathbf{u} + \mathbf{v} = \begin{bmatrix} 4 + (-2) \\ -1 + 3 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$
+
+2. $\mathbf{u} - \mathbf{v} = \begin{bmatrix} 4 - (-2) \\ -1 - 3 \end{bmatrix} = \begin{bmatrix} 6 \\ -4 \end{bmatrix}$
+
+3. $2\mathbf{u} + 3\mathbf{v} = 2\begin{bmatrix} 4 \\ -1 \end{bmatrix} + 3\begin{bmatrix} -2 \\ 3 \end{bmatrix} = \begin{bmatrix} 8 \\ -2 \end{bmatrix} + \begin{bmatrix} -6 \\ 9 \end{bmatrix} = \begin{bmatrix} 2 \\ 7 \end{bmatrix}$
+
+4. $-\mathbf{u} = \begin{bmatrix} -4 \\ 1 \end{bmatrix}$
+
+5. $\mathbf{a} + \mathbf{b} = \begin{bmatrix} 2 + 4 \\ -1 + 0 \\ 3 + (-2) \end{bmatrix} = \begin{bmatrix} 6 \\ -1 \\ 1 \end{bmatrix}$
+
+6. $\mathbf{a} - 2\mathbf{b} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix} - 2\begin{bmatrix} 4 \\ 0 \\ -2 \end{bmatrix} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix} - \begin{bmatrix} 8 \\ 0 \\ -4 \end{bmatrix} = \begin{bmatrix} -6 \\ -1 \\ 7 \end{bmatrix}$
+
+
+:::
+
+***
+
+### Exercise 2: Dot products, angles, and orthogonality
+
+The *dot product* (also called the *inner product* or *scalar product*) of two vectors $\mathbf{u}$ and $\mathbf{v}$ in $\mathbb{R}^n$ is a real number obtained by multiplying corresponding components and summing the results. For example, if
+
+$$
+\mathbf{u} = \begin{bmatrix} 2 \\ 3 \\ -1 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} 4 \\ 0 \\ 5 \end{bmatrix},
+$$
+
+then the dot product of $\mathbf{u}$ and $\mathbf{v}$ is
+
+$$
+\mathbf{u} \cdot \mathbf{v} = (2)(4) + (3)(0) + (-1)(5) = 8 + 0 - 5 = 3.
+$$
+
+We also write this using angle bracket notation as
+
+$$
+\langle \mathbf{u}, \mathbf{v} \rangle = 3.
+$$
+
+The *length* (or *magnitude*, or *norm*) of a vector $\mathbf{v}$ is defined as
+
+$$
+\|\mathbf{v}\| = \sqrt{\mathbf{v} \cdot \mathbf{v}} = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}.
+$$
+
+For example, if $\mathbf{u} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$, then
+
+$$
+\|\mathbf{u}\| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5.
+$$
+
+The dot product is closely related to the angle between two vectors. Specifically, if $\mathbf{u}$ and $\mathbf{v}$ are two nonzero vectors in $\mathbb{R}^n$ and $\theta$ is the angle between them (with $0 \leq \theta \leq \pi$), then
+
+$$
+\mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \cos{\theta}.
+$$
+
+Rearranging, we get
+
+$$
+\cos{\theta} = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|}.
+$$
+
+Two vectors $\mathbf{u}$ and $\mathbf{v}$ are said to be *orthogonal* (or *perpendicular*) if their dot product is zero, i.e., $\mathbf{u} \cdot \mathbf{v} = 0$. This corresponds to the angle between them being $\theta = \frac{\pi}{2}$.
+
+::: {.callout-note icon="false"}
+## Exercises.
+
+1. Let $\mathbf{u} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}$. Compute $\mathbf{u} \cdot \mathbf{v}$.
+
+2. Compute $\langle \mathbf{u}, \mathbf{u} \rangle$ for $\mathbf{u} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}$.
+
+3. Find the length of the vector $\mathbf{v} = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}$.
+
+4. Let $\mathbf{a} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$. Find the angle $\theta$ between $\mathbf{a}$ and $\mathbf{b}$.
+
+5. Determine whether the vectors $\mathbf{p} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ and $\mathbf{q} = \begin{bmatrix} 6 \\ -4 \end{bmatrix}$ are orthogonal.
+
+6. Find a vector in $\mathbb{R}^2$ that is orthogonal to $\mathbf{w} = \begin{bmatrix} 5 \\ 2 \end{bmatrix}$.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+1. $\mathbf{u} \cdot \mathbf{v} = (1)(3) + (2)(-4) = 3 - 8 = -5$
+
+2. $\langle \mathbf{u}, \mathbf{u} \rangle = 2^2 + (-1)^2 + 3^2 = 4 + 1 + 9 = 14$
+
+3. $\|\mathbf{v}\| = \sqrt{1^2 + 2^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3$
+
+4. First, we compute the dot product and the magnitudes:
+   $$
+   \mathbf{a} \cdot \mathbf{b} = (1)(1) + (1)(0) = 1,
+   $$
+   $$
+   \|\mathbf{a}\| = \sqrt{1^2 + 1^2} = \sqrt{2},
+   $$
+   $$
+   \|\mathbf{b}\| = \sqrt{1^2 + 0^2} = 1.
+   $$
+   Therefore,
+   $$
+   \cos{\theta} = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\| \|\mathbf{b}\|} = \frac{1}{\sqrt{2} \cdot 1} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}.
+   $$
+   Thus, $\theta = \arccos\left(\frac{\sqrt{2}}{2}\right) = \frac{\pi}{4}$.
+
+5. We compute $\mathbf{p} \cdot \mathbf{q} = (2)(6) + (3)(-4) = 12 - 12 = 0$. Since the dot product is zero, the vectors are orthogonal.
+
+6. There are infinitely many correct answers. One simple choice is $\begin{bmatrix} -2 \\ 5 \end{bmatrix}$, since
+   $$
+   \begin{bmatrix} 5 \\ 2 \end{bmatrix} \cdot \begin{bmatrix} -2 \\ 5 \end{bmatrix} = (5)(-2) + (2)(5) = -10 + 10 = 0.
+   $$
+   Another choice is $\begin{bmatrix} 2 \\ -5 \end{bmatrix}$.
+
+:::
+
+***
+
+### Exercise 3: Matrix algebra
+
+A *matrix* is a rectangular array of numbers arranged in rows and columns. For example, the matrix
+
+$$
+A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}
+$$
+
+has 2 rows and 3 columns, so we say $A$ is a $2 \times 3$ matrix. The entry in row $i$ and column $j$ is often denoted $a_{ij}$.
+
+Matrices can be added and subtracted (if they have the same number of rows and columns) by adding or subtracting corresponding entries. For example,
+
+$$
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} + \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} = \begin{bmatrix} 6 & 8 \\ 10 & 12 \end{bmatrix}.
+$$
+
+Matrices can also be multiplied by scalars by multiplying each entry:
+
+$$
+3\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} = \begin{bmatrix} 3 & 6 \\ 9 & 12 \end{bmatrix}.
+$$
+
+Matrix *multiplication* is more intricate. If $A$ is an $m \times n$ matrix and $B$ is an $n \times p$ matrix, then their product $AB$ is an $m \times p$ matrix. The entry in row $i$ and column $j$ of $AB$ is obtained by taking the dot product of the $i$-th row of $A$ with the $j$-th column of $B$. For example,
+
+$$
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} = \begin{bmatrix} (1)(5) + (2)(7) & (1)(6) + (2)(8) \\ (3)(5) + (4)(7) & (3)(6) + (4)(8) \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}.
+$$
+
+*Note*: Matrix multiplication is **not** commutative in general, meaning that $AB \neq BA$ in most cases.
+
+::: {.callout-note icon="false"}
+## Exercises.
+
+1. Let $A = \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix}$ and $B = \begin{bmatrix} 4 & 1 \\ -2 & 5 \end{bmatrix}$. Compute $A + B$.
+
+2. Compute $2A - B$.
+
+3. Compute the matrix product $AB$.
+
+4. Compute the matrix product $BA$.
+
+5. Does $AB = BA$ for these matrices? What does this tell you about matrix multiplication?
+
+6. Let $C = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$. Compute $AC$ and $CA$. What do you notice about the matrix $C$?
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+1. $A + B = \begin{bmatrix} 2 + 4 & -1 + 1 \\ 0 + (-2) & 3 + 5 \end{bmatrix} = \begin{bmatrix} 6 & 0 \\ -2 & 8 \end{bmatrix}$
+
+2. $2A - B = 2\begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} - \begin{bmatrix} 4 & 1 \\ -2 & 5 \end{bmatrix} = \begin{bmatrix} 4 & -2 \\ 0 & 6 \end{bmatrix} - \begin{bmatrix} 4 & 1 \\ -2 & 5 \end{bmatrix} = \begin{bmatrix} 0 & -3 \\ 2 & 1 \end{bmatrix}$
+
+3. $AB = \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} \begin{bmatrix} 4 & 1 \\ -2 & 5 \end{bmatrix} = \begin{bmatrix} (2)(4) + (-1)(-2) & (2)(1) + (-1)(5) \\ (0)(4) + (3)(-2) & (0)(1) + (3)(5) \end{bmatrix} = \begin{bmatrix} 10 & -3 \\ -6 & 15 \end{bmatrix}$
+
+4. $BA = \begin{bmatrix} 4 & 1 \\ -2 & 5 \end{bmatrix} \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} = \begin{bmatrix} (4)(2) + (1)(0) & (4)(-1) + (1)(3) \\ (-2)(2) + (5)(0) & (-2)(-1) + (5)(3) \end{bmatrix} = \begin{bmatrix} 8 & -1 \\ -4 & 17 \end{bmatrix}$
+
+5. No, $AB \neq BA$. This demonstrates that matrix multiplication is not commutative—the order of multiplication matters.
+
+6. $AC = \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} = A$
+   
+   $CA = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} = \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix} = A$
+   
+   The matrix $C$ is the *identity matrix*, which has the property that $CA = AC = A$ for any matrix $A$ (of compatible shape). It acts as the "multiplicative identity" for matrices, analogous to the number 1 for real numbers.
+
+:::
+
+***
+
+### Exercise 4: Determinants and areas
+
+For a $2 \times 2$ matrix
+
+$$
+A = \begin{bmatrix} a & b \\ c & d \end{bmatrix},
+$$
+
+the *determinant* of $A$ is defined as
+
+$$
+\det(A) = ad - bc.
+$$
+
+The determinant has many important interpretations and applications in mathematics. One of the most geometric interpretations is that $|\det(A)|$ (the absolute value of the determinant) represents the area of the parallelogram formed by the column vectors of $A$.
+
+Specifically, if we think of the matrix $A$ above as having column vectors
+
+$$
+\mathbf{v}_1 = \begin{bmatrix} a \\ c \end{bmatrix} \quad \text{and} \quad \mathbf{v}_2 = \begin{bmatrix} b \\ d \end{bmatrix},
+$$
+
+then the parallelogram with sides $\mathbf{v}_1$ and $\mathbf{v}_2$ (with one vertex at the origin) has area $|\det(A)|$.
+
+For example, the matrix
+
+$$
+A = \begin{bmatrix} 3 & 1 \\ 0 & 2 \end{bmatrix}
+$$
+
+has determinant $\det(A) = (3)(2) - (1)(0) = 6$, so the parallelogram formed by the vectors $\begin{bmatrix} 3 \\ 0 \end{bmatrix}$ and $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ has area 6.
+
+*Note*: If $\det(A) = 0$, the matrix is called *singular*, and geometrically this means the two column vectors are parallel (or one is the zero vector), so they don't span a two-dimensional region.
+
+::: {.callout-note icon="false"}
+## Exercises.
+
+1. Compute the determinant of $A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}$.
+
+2. Compute the determinant of $B = \begin{bmatrix} 5 & -2 \\ 3 & 1 \end{bmatrix}$.
+
+3. Find the area of the parallelogram formed by the vectors $\mathbf{v}_1 = \begin{bmatrix} 4 \\ 1 \end{bmatrix}$ and $\mathbf{v}_2 = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$.
+
+4. Determine whether the matrix $C = \begin{bmatrix} 6 & 2 \\ 9 & 3 \end{bmatrix}$ is singular.
+
+5. Find a value of $k$ such that the matrix $D = \begin{bmatrix} k & 4 \\ 3 & 6 \end{bmatrix}$ is singular.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+1. $\det(A) = (2)(4) - (3)(1) = 8 - 3 = 5$
+
+2. $\det(B) = (5)(1) - (-2)(3) = 5 + 6 = 11$
+
+3. The area is the absolute value of the determinant of the matrix with columns $\mathbf{v}_1$ and $\mathbf{v}_2$:
+   $$
+   \left|\det\begin{bmatrix} 4 & 2 \\ 1 & 3 \end{bmatrix}\right| = |(4)(3) - (2)(1)| = |12 - 2| = 10.
+   $$
+
+4. $\det(C) = (6)(3) - (2)(9) = 18 - 18 = 0$. Since the determinant is zero, the matrix is singular. (Note: The second column is exactly $\frac{1}{3}$ times the first column, so the column vectors are parallel.)
+
+5. For $D$ to be singular, we need $\det(D) = 0$:
+   $$
+   (k)(6) - (4)(3) = 0
+   $$
+   $$
+   6k - 12 = 0
+   $$
+   $$
+   k = 2.
+   $$
+
+
+:::
+
+***
+
+### Exercise 5: The derivative as a difference quotient and linear approximation
+
+Recall from single-variable calculus that the *derivative* of a function $f$ at a point $x = a$ is defined as the limit
+
+$$
+f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h},
+$$
+
+provided this limit exists. This ratio $\frac{f(a + h) - f(a)}{h}$ is called a *difference quotient*, and it represents the slope of the secant line connecting the points $(a, f(a))$ and $(a + h, f(a + h))$ on the graph of $f$. As $h$ approaches zero, this secant line approaches the *tangent line* to the graph of $f$ at the point $(a, f(a))$.
+
+The tangent line at $x = a$ has equation
+
+$$
+y = f(a) + f'(a)(x - a).
+$$
+
+This is called the *linear approximation* (or *tangent line approximation*) to $f$ at $x = a$. For values of $x$ close to $a$, we have
+
+$$
+f(x) \approx f(a) + f'(a)(x - a).
+$$
+
+This approximation says that, near the point $x = a$, the function $f$ is approximately equal to a linear function with slope $f'(a)$ passing through the point $(a, f(a))$. In fact, the tangent line is the *best* linear approximation to $f$ near $x = a$.
+
+::: {.callout-note icon="false"}
+## Exercises.
+
+1. Let $f(x) = x^2$. Write out the difference quotient $\frac{f(3 + h) - f(3)}{h}$ explicitly (without taking the limit).
+
+2. Simplify your expression from part 1 as much as possible.
+
+3. Now compute $f'(3)$ by taking the limit as $h \to 0$ of your simplified expression.
+
+4. Use the definition of the derivative as a limit to compute $f'(2)$ for $f(x) = \frac{1}{x}$.
+
+5. Find the equation of the tangent line to $f(x) = x^3$ at the point $x = 1$.
+
+6. Use the linear approximation to estimate $f(1.1)$ for $f(x) = x^3$ at $x = 1$.
+
+7. Compare your estimate from part 6 to the actual value $f(1.1) = (1.1)^3 = 1.331$.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+1. We have
+   $$
+   \frac{f(3 + h) - f(3)}{h} = \frac{(3 + h)^2 - 3^2}{h} = \frac{(3 + h)^2 - 9}{h}.
+   $$
+
+2. Expanding the numerator:
+   $$
+   \frac{(3 + h)^2 - 9}{h} = \frac{9 + 6h + h^2 - 9}{h} = \frac{6h + h^2}{h} = \frac{h(6 + h)}{h} = 6 + h.
+   $$
+
+3. Taking the limit:
+   $$
+   f'(3) = \lim_{h \to 0} (6 + h) = 6.
+   $$
+
+4. We compute the difference quotient:
+   $$
+   \frac{f(2 + h) - f(2)}{h} = \frac{\frac{1}{2 + h} - \frac{1}{2}}{h} = \frac{\frac{2 - (2 + h)}{2(2 + h)}}{h} = \frac{-h}{2h(2 + h)} = \frac{-1}{2(2 + h)}.
+   $$
+   Taking the limit:
+   $$
+   f'(2) = \lim_{h \to 0} \frac{-1}{2(2 + h)} = \frac{-1}{2(2)} = -\frac{1}{4}.
+   $$
+
+5. First, we need $f(1) = 1^3 = 1$ and $f'(1) = 3(1)^2 = 3$. The tangent line has equation
+   $$
+   y = f(1) + f'(1)(x - 1) = 1 + 3(x - 1) = 1 + 3x - 3 = 3x - 2.
+   $$
+
+6. Using the linear approximation at $x = 1$:
+   $$
+   f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
+   $$
+
+7. The actual value is $f(1.1) = 1.331$, so our linear approximation gave $1.3$, which is quite close. The error is $|1.331 - 1.3| = 0.031$.
+
+:::
+
+***
+
+### Exercise 6: Integrals and signed area
+
+Recall from single-variable calculus that the *definite integral* of a function $f$ over an interval $[a, b]$ is defined as
+
+$$
+\int_a^b f(x)\, dx,
+$$
+
+and it represents the *signed area* between the graph of $f$ and the $x$-axis over the interval $[a, b]$. Here, "signed" means that:
+
+- Areas above the $x$-axis (where $f(x) > 0$) contribute positively to the integral.
+- Areas below the $x$-axis (where $f(x) < 0$) contribute negatively to the integral.
+
+The *Fundamental Theorem of Calculus* states that if $F$ is an antiderivative of $f$ (meaning $F'(x) = f(x)$), then
+
+$$
+\int_a^b f(x)\, dx = F(b) - F(a).
+$$
+
+This theorem connects the two main concepts of calculus: derivatives and integrals.
+
+For example, if $f(x) = x$ and we integrate from $x = 0$ to $x = 2$, we get
+
+$$
+\int_0^2 x\, dx = \left[\frac{x^2}{2}\right]_0^2 = \frac{4}{2} - \frac{0}{2} = 2.
+$$
+
+Geometrically, this represents the area of a triangle with base 2 and height 2, which is $\frac{1}{2}(2)(2) = 2$.
+
+::: {.callout-note icon="false"}
+## Exercises.
+
+1. Compute $\displaystyle\int_1^3 2x\, dx$ using the Fundamental Theorem of Calculus.
+
+2. Verify your answer from part 1 by interpreting the integral as the area of a trapezoid.
+
+3. Compute $\displaystyle\int_0^\pi \sin{x}\, dx$.
+
+4. What is the geometric interpretation of your answer from part 3?
+
+5. Compute $\displaystyle\int_{-1}^1 x^3\, dx$.
+
+6. Explain why the answer to part 5 is zero using the concept of signed area.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+1. An antiderivative of $f(x) = 2x$ is $F(x) = x^2$. Therefore,
+   $$
+   \int_1^3 2x\, dx = F(3) - F(1) = 3^2 - 1^2 = 9 - 1 = 8.
+   $$
+
+2. The region under the curve $y = 2x$ from $x = 1$ to $x = 3$ is a trapezoid with parallel sides of heights $f(1) = 2$ and $f(3) = 6$, and base width $3 - 1 = 2$. The area is
+   $$
+   \frac{1}{2}(2 + 6)(2) = \frac{1}{2}(8)(2) = 8.
+   $$
+   This matches our answer from part 1.
+
+3. An antiderivative of $\sin{x}$ is $-\cos{x}$. Therefore,
+   $$
+   \int_0^\pi \sin{x}\, dx = [-\cos{x}]_0^\pi = -\cos{\pi} - (-\cos{0}) = -(-1) - (-1) = 1 + 1 = 2.
+   $$
+
+4. This represents the total area between the sine curve and the $x$-axis from $x = 0$ to $x = \pi$. Since $\sin{x} > 0$ for all $x \in (0, \pi)$, the entire region is above the $x$-axis, so the signed area equals the actual geometric area.
+
+5. An antiderivative of $x^3$ is $\frac{x^4}{4}$. Therefore,
+   $$
+   \int_{-1}^1 x^3\, dx = \left[\frac{x^4}{4}\right]_{-1}^1 = \frac{1^4}{4} - \frac{(-1)^4}{4} = \frac{1}{4} - \frac{1}{4} = 0.
+   $$
+
+6. The function $f(x) = x^3$ is an *odd function*, meaning $f(-x) = -f(x)$. This means the graph is symmetric about the origin. For $x \in (0, 1)$, we have $f(x) > 0$, contributing positive area. For $x \in (-1, 0)$, we have $f(x) < 0$, contributing negative area. Because of the symmetry, these two areas are equal in magnitude but opposite in sign, so they cancel out, giving a total signed area of zero.
+
+:::

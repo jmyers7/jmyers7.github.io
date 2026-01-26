@@ -1,0 +1,420 @@
+---
+title: "01 An introduction to PDEs, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - custom-slides.scss
+---
+
+# What is a partial differential equation (PDE)?
+
+## What are *equations*? What do we do with them?  {.scrollable}
+
+- We use equations to describe relationships between quantities.
+
+    - Often, some quantities are known, while others are unknown and need to be determined.
+
+    - We need to "solve for" the unknown quantities in terms of the known ones.
+
+::: {.callout-note icon="false" .fragment}
+
+### Equations with numbers and algebraic operations
+
+- For example, in the equation
+$$
+2x + 3 = 9,
+$$
+we know the numbers $2$, $3$, and $9$, the algebraic operations connecting them, and we want to solve for the unknown number $x$.
+
+- The answer is easy: $x = 3$.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+
+### Equations with functions and algebraic operations
+
+- For example, in the equation
+$$
+2f(x) + 4 = 10x^2,
+$$
+we know the numbers $2$, $4$, and the function $10x^2$, the algebraic operations connecting them, and we want to solve for the unknown function $f(x)$.
+
+- The answer is also easy: $f(x) = 5x^2 - 2$.
+
+:::
+
+## Beyond "algebraic" equations {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### Equations with functions and differential operations
+
+- For example, in the equation
+$$
+\frac{dy}{dx} = 2y,
+$$
+the function $y(x)$ is unknown. It is embedded in an equation that involves an algebraic operation (multiplication by $2$) and a differential operation (taking the derivative with respect to $x$).
+
+- The answer is a bit less easy: $y(x) = Ce^{2x}$, where $C$ is an arbitrary constant determined by initial (or boundary) conditions.
+
+:::
+
+- Such equations are called **differential equations** because they involve differential operations.
+
+- This one happens to be an **ordinary differential equation** (ODE) because the unknown function $y$ depends on a single variable $x$.
+
+    - A synonym for "ordinary" (in this context) is "single-variable."
+
+- ODEs appear everywhere in the real world.
+
+::: {.callout-note icon="false" .fragment}
+### Example: Newton's second law of motion
+
+This equation says that
+$$
+F = m \frac{d^2x}{dt^2},
+$$
+
+where $x(t)$ is the position of an object as a function of time $t$, $m$ is its mass, and $F$ is the force acting on it.
+:::
+
+
+## Partial differential equations (part 1) {.scrollable}
+
+- A **partial differential equation** (PDE) is a differential equation that involves an unknown function of multiple variables and its partial derivatives.
+
+    - A synonym for "partial" (in this context) is "multi-variable."
+
+::: {.callout-note icon="false" .fragment}
+### Example: the wave equation
+
+This equation says that
+
+$$
+\frac{\partial^2 y}{\partial t^2} = a^2 \frac{\partial^2 y}{\partial x^2},
+$$
+
+where $y(x,t)$ is a two-variable function and $a$ is a known constant. 
+
+:::
+   
+- This equation appears in many places, like:
+
+    - Vibrations of a stretched string (e.g., guitar or violin string).
+    - Sound waves in air.
+    - Electromagnetic waves (light, radio, etc.).
+    - Waves in a fluid.
+    - Etc., etc., etc.
+    
+
+## Partial differential equations (part 2) {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Example: the heat equation
+
+This equation says that
+
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
+$$
+
+where $u(x,t)$ is a two-variable function and $k$ is a known constant.
+
+:::
+
+- This equation models how heat diffuses through a medium over time.
+- It also appears in other diffusion processes, like the spread of pollutants in air or water.
+- It even appears in the mathematics of option pricing in financial markets.
+
+::: {.callout-note icon="false" .fragment}
+### Example: Schrödinger's equation
+
+This is the fundamental equation of quantum mechanics. It says that
+
+$$
+i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m} \frac{\partial^2 \psi}{\partial x^2} + V(x)\psi,
+$$
+
+where $\psi(x,t)$ is the wave function of a particle, $\hbar$ is the reduced Planck constant, $m$ is the particle's mass, and $V(x)$ is the potential energy.
+:::
+
+
+# From beads to waves: deriving the wave equation
+
+## Deriving the wave equation (part 1) {.scrollable}
+
+- We imagine that we have a vibrating string of length $L$ fixed at both ends.
+
+    - For definiteness, suppose that the string lies along the $x$-axis, and is clamped at $x=0$ and $x=L$.
+
+- Let $y(x,t)$ denote the vertical displacement of the string at position $x$ and time $t$.
+
+- Thus, if we **freeze** a time $t$ and plot $y$ versus $x$, we get the shape of the string at that time.
+
+- Interesting examples of vibrations are the **harmonics** and their **superpositions** (i.e., sums).
+
+## Visualizing string vibrations {.scrollable}
+
+::: {.r-stack}
+::: {.fragment}
+```{python}
+import numpy as np
+from plotting import plot_animation_2d, plot_3d
+
+L = 10
+blue = "#3399FF"
+
+
+def u(x, t, n):
+    return np.sin(n * np.pi * x / L) * np.cos(n * np.pi * t / L)
+
+
+def u1(x, t):
+    return u(x, t, 1)
+
+
+x = np.linspace(0, L, 100)
+t = np.linspace(0, 2 * L, 100)
+
+plot_animation_2d(
+    functions=[u1],
+    colors=[blue],
+    title="Harmonic n=1",
+    x_vals=x,
+    y_vals=[-2, 2],
+    t_vals=t,
+)
+
+```
+
+:::
+
+
+::: {.fragment}
+```{python}
+X, T = np.meshgrid(x, t)
+Z = u1(X, T)
+plot_3d(X, T, Z, "Harmonic n=1 over space and time")
+```
+
+:::
+
+::: {.fragment}
+```{python}
+def u2(x, t):
+    return u(x, t, 2)
+
+
+plot_animation_2d(
+    [u2],
+    labels=["Harmonic n=2"],
+    colors=[blue],
+    title="Harmonic n=2",
+    x_vals=x,
+    y_vals=[-2, 2],
+    t_vals=t,
+)
+```
+
+:::
+
+::: {.fragment}
+```{python}
+Z = u2(X, T)
+
+plot_3d(X, T, Z, "Harmonic n=2 over space and time")
+```
+
+:::
+
+::: {.fragment}
+```{python}
+def u3(x, t):
+    return u(x, t, 3)
+
+
+plot_animation_2d(
+    [u3],
+    labels=["Harmonic n=3"],
+    colors=[blue],
+    title="Harmonic n=3",
+    x_vals=x,
+    y_vals=[-2, 2],
+    t_vals=t,
+)
+```
+
+:::
+
+::: {.fragment}
+```{python}
+Z = u3(X, T)
+plot_3d(X, T, Z, "Harmonic n=3 over space and time")
+```
+
+:::
+
+::: {.fragment}
+```{python}
+def superposition(x, t):
+    return u2(x, t) + u3(x, t)
+
+
+plot_animation_2d(
+    [u2, u3, superposition],
+    labels=["n=2", "n=3", "superposition"],
+    colors=[blue, "#FF3399", "#33FF99"],
+    title="Superposition of harmonics n=2 and n=3",
+    x_vals=x,
+    y_vals=[-2, 2],
+    t_vals=t,
+)
+```
+
+:::
+
+::: {.fragment}
+```{python}
+Z = superposition(X, T)
+plot_3d(X, T, Z, "Superposition of harmonics n=2 and n=3 over space and time")
+```
+
+:::
+
+:::
+
+
+## Deriving the wave equation (part 2) {.scrollable}
+
+::: {.callout-note .fragment icon="false"}
+
+### The wave problem as an initial-value problem
+
+- Now, suppose you know:
+
+    - The initial displacement of the string, i.e., you know the function $y(x,0)$ for $0 \leq x \leq L$.
+
+    - The initial velocity of each point on the string, i.e., you know the derivative $\displaystyle\frac{\partial y}{\partial t}(x,0)$ for $0 \leq x \leq L$.
+
+    - The string is fixed at both ends, so $y(0,t) = 0$ and $y(L,t) = 0$ for all $t \geq 0$.
+
+- From these initial conditions, **can we determine how the string moves over time?** In other words, can we find $y(x,t)$ for all $x$ and $t$?
+:::
+
+
+- The answer is **yes**, provided that we are willing to make some simplifying assumptions about the string and its motion.
+
+- Essentially, the goal is to derive an equation that $y(x,t)$ must satisfy. This will be the wave equation.
+
+- We follow an argument begun by John Bernoulli in 1727, and later advanced by d'Alembert in 1747.
+
+## Deriving the wave equation (part 3) {.scrollable}
+
+::: {.callout-note .fragment icon="false"}
+
+### Deriving the wave equation via beads
+
+- Here's the plan:
+
+    1. Suppose that the string is chopped up into $n$ equal length segments, with a small bead between each segment. The beads can move up and down, but not left and right. The beads all have equal mass. There are $n+1$ beads in total, including the two fixed beads at the ends.
+
+    2. The $n$ string segments are weightless, and perfectly flexible and elastic. In particular, the segments are **always** straight and do not curve. (You could think of the string segments as tiny springs.)
+
+    3. We analyze the motion of each of the $n-1$ interior beads using Newton's laws of motion. We obtain equations of motion for each bead.
+
+    4. Then, to treat the "real, continuous" string, we let the number $n$ of beads tend to $\infty$, while the mass of each bead also tends to $0$.
+    
+    5. As $n\to \infty$, the equations derived in step 2 will combine to reveal the wave equation.
+
+:::
+
+## Deriving the wave equation (part 4) {.scrollable}
+
+- The $x$-positions of the beads are given by
+    $$
+    x_k = k\frac{L}{n}, \quad k = 1, 2, \ldots, n,
+    $$
+    including the one at the right end $x=L$ (which doesn't move).
+    
+    
+- The vertical displacement of the $k$-th bead at time $t$ is given by $y_k$.
+
+- Each of the interior beads feels a pull (i.e., tension force) from the bead to its left and a pull from the bead to its right.
+
+    - We assume that all these tension forces have the same magnitude $T$ (a known constant).
+
+    - We assume that the mass of each bead is $m$ (also a known constant).
+
+- By Newton's second law, the vertical acceleration of the $k$-th bead is given by
+    $$
+    m \frac{d^2 y_k}{dt^2} = F_{k},
+    $$
+    where $F_{k}$ is the net vertical force acting on the $k$-th bead. Since the beads do not move left or right, the horizontal components of the tension forces cancel out.
+
+- If $\theta_{k+1}$ is the angle that the string to the right of the $k$-th bead makes with the positive $x$-axis, measured counterclockwise, and if $\theta_{k-1}$ is the angle that the string to the left of the $k$-th bead makes with the negative $x$-axis, measured clockwise, then a little trigonometry shows that
+    $$
+    F_{k} = T \sin\theta_{k+1} + T \sin\theta_{k-1}.
+    $$
+    
+- But as long as these angles are small, we have
+    $$
+    \sin\theta_{k+1} \approx \tan \theta_{k+1} = \frac{y_{k+1} - y_k}{L/n} \quad \text{and} \quad \sin\theta_{k-1} \approx \tan \theta_{k-1} = \frac{y_{k-1} - y_k}{L/n}.
+    $$
+
+## Deriving the wave equation (part 5) {.scrollable}
+
+- Thus, for small angles, we have
+    $$
+    F_{k} = \frac{Tn}{L} (y_{k+1} - 2y_k + y_{k-1})
+    $$
+    where we've written "$=$" for simplicity instead of "$\approx$".
+
+- If we write $M = nm$ (which is *almost* the total mass of the string—why?), then Newton's second law becomes
+    $$
+    \frac{d^2 y_k}{dt^2} = \frac{Tn^2}{ML} (y_{k+1} - 2y_k + y_{k-1}).
+    $$
+
+- Set $a^2 = \frac{TL}{M}$ and $\Delta x = \frac{L}{n}$, and then rearrange to get
+    $$
+    \frac{d^2 y_k}{dt^2} = a^2 \left(\frac{y_{k+1} - 2y_k + y_{k-1}}{(\Delta x)^2}\right).
+    $$
+
+- Now, switch to function notation by writing $y(x,t)$ instead of $y_k(t)$, and $x$ instead of $x_k$. Then the equation becomes
+    $$
+    \frac{\partial^2 y(x, t)}{\partial t^2} = a^2 \left(\frac{y(x + \Delta x, t) - 2y(x, t) + y(x - \Delta x, t)}{(\Delta x)^2}\right).
+    $$
+
+
+## Deriving the wave equation (part 6) {.scrollable}
+
+- From calculus, we know that
+    $$
+    y(x+\Delta x, t) = y(x,t) + \frac{\partial y}{\partial x}(x,t)\Delta x + \frac{\partial^2 y}{\partial x^2}(x,t)\frac{(\Delta x)^2}{2} + (\text{higher order terms in } \Delta x),
+    $$
+    and
+    $$
+    y(x-\Delta x, t) = y(x,t) - \frac{\partial y}{\partial x}(x,t)\Delta x + \frac{\partial^2 y}{\partial x^2}(x,t)\frac{(\Delta x)^2}{2} + (\text{higher order terms in } \Delta x).
+    $$
+
+- Thus
+    $$
+    y(x + \Delta x, t) - 2y(x, t) + y(x - \Delta x, t) = \frac{\partial^2 y}{\partial x^2}(x,t)(\Delta x)^2 + (\text{higher order terms in } \Delta x).
+    $$
+
+- And so
+    $$
+    \frac{\partial^2 y(x, t)}{\partial t^2} = a^2 \frac{\partial^2 y}{\partial x^2}(x,t) + (\text{terms that vanish as } \Delta x \to 0).
+    $$
+
+- If we remember that $M=mn$ and $\Delta x = L/n$, then we want $n\to \infty$ and $m\to 0$ in such a way that $M$ remains constant. Then $\Delta x \to 0$ as $n\to \infty$, while $a^2 = \frac{TL}{M}$ remains constant.
+
+- Voila. This gives the wave equation:
+    $$
+    \frac{\partial^2 y}{\partial t^2} = a^2 \frac{\partial^2 y}{\partial x^2}.
+    $$
+    Here, $a^2 = T/ \rho$, where $\rho$ is the mass per unit length of the string and $T$ is the tension force.
+

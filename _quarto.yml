@@ -20,8 +20,8 @@ website:
         href: writings.qmd
       - text: "teaching"
         menu:
-          - teaching/calculus-ii-fa-25.qmd
-          - teaching/analysis-fa-25.qmd
+          - teaching/multi-calc-sp-26/multi-calc-sp-26.qmd
+          - teaching/pde-sp-26/pde-sp-26.qmd
       - text: "probabilistic machine learning"
         href: https://www.johnmyers-phd.com/book
         target: _blank
