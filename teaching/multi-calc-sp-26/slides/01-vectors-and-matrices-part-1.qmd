@@ -1,0 +1,20 @@
+---
+title: "01 Vectors and matrices, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+# Section title
+
+## Slide title
+
+::: {.callout-note icon="false" .fragment}
+
+### Box title
+
+:::
