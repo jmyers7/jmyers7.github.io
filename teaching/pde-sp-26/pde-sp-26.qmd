@@ -3,7 +3,7 @@ title: "Partial Differential Equations"
 toc: true
 ---
 
-This course is an introduction to partial differential equations (PDEs). A special emphasis will be placed on solving PDEs via Fourier series, and hence the course also serves as an introduction to Fourier analysis. In particular:
+This course is an introduction to partial differential equations (PDEs) and Fourier analysis.
 
 1. We will study the classical PDEs of mathematical physics: the heat equation, the wave equation, and Laplace's equation.
 2. We will learn how to solve these equations using separation of variables and Fourier series.
