@@ -1,5 +1,5 @@
 ---
-title: "01 An introduction to PDEs, part 1"
+title: "01 An introduction to PDEs"
 format:
     revealjs:
         incremental: true
