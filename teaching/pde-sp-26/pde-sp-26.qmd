@@ -9,7 +9,9 @@ This course is an introduction to partial differential equations (PDEs). A speci
 2. We will learn how to solve these equations using separation of variables and Fourier series.
 3. Complex variables and complex exponentials will be introduced as tools to help us understand Fourier series.
 4. We will study the properties of Fourier series, including convergence theorems and applications to function approximation.
-5. Properties of complex exponentials, sines, and cosines will be generalized to abstract properties of functions in $L^2$ spaces. Accordingly, students will be introduced to the notion of Hilbert spaces.
+5. Properties of complex exponentials, sines, and cosines will be generalized to abstract properties of functions in $L^2$ spaces. Accordingly, will will study the notion of Hilbert spaces.
+6. An introduction to Sturm-Liouville theory will be given, including eigenvalue problems and orthogonal functions.
+7. If time permits, we will study additional topics such as Fourier and Laplace transforms.
 
 # Course information
 
