@@ -6,7 +6,7 @@ format:
         slide-number: true
         theme:
             - default
-            - custom-slides.scss
+            - "../../aux-files/custom-slides.scss"
 ---
 
 # What is a partial differential equation (PDE)?
@@ -83,87 +83,45 @@ where $x(t)$ is the position of an object as a function of time $t$, $m$ is its 
 :::
 
 
-## Partial differential equations (part 1) {.scrollable}
-
-- A **partial differential equation** (PDE) is a differential equation that involves an unknown function of multiple variables and its partial derivatives.
-
-    - A synonym for "partial" (in this context) is "multi-variable."
+## The central definition
 
 ::: {.callout-note icon="false" .fragment}
-### Example: the wave equation
+
+### Definition
+
+A **partial differential equation** (PDE) is a differential equation that involves an unknown function of multiple variables and its partial derivatives.
+
+:::
+
+- A synonym for "partial" (in this context) is "multi-variable."
+
+## The wave equation in 1 dimension {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Example: the $1$-dimensional wave equation
 
 This equation says that
 
 $$
-\frac{\partial^2 y}{\partial t^2} = a^2 \frac{\partial^2 y}{\partial x^2},
+\frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2},
 $$
 
-where $y(x,t)$ is a two-variable function and $a$ is a known constant. 
+where $u(x,t)$ is a two-variable function and $a$ is a known constant. It models wave-like phenomena, such as vibrations of a string, sound waves, electromagnetic waves, *etc*.
+
+- $x$ typically represents a spatial variable (e.g., position along a string).
+- $t$ typically represents time.
+- $u(x,t)$ represents the displacement of the wave at position $x$ and time $t$.
 
 :::
-   
-- This equation appears in many places, like:
-
-    - Vibrations of a stretched string (e.g., guitar or violin string).
-    - Sound waves in air.
-    - Electromagnetic waves (light, radio, etc.).
-    - Waves in a fluid.
-    - Etc., etc., etc.
-    
-
-## Partial differential equations (part 2) {.scrollable}
-
-::: {.callout-note icon="false" .fragment}
-### Example: the heat equation
-
-This equation says that
-
-$$
-\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
-$$
-
-where $u(x,t)$ is a two-variable function and $k$ is a known constant.
-
-:::
-
-- This equation models how heat diffuses through a medium over time.
-- It also appears in other diffusion processes, like the spread of pollutants in air or water.
-- It even appears in the mathematics of option pricing in financial markets.
-
-::: {.callout-note icon="false" .fragment}
-### Example: Schrödinger's equation
-
-This is the fundamental equation of quantum mechanics. It says that
-
-$$
-i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m} \frac{\partial^2 \psi}{\partial x^2} + V(x)\psi,
-$$
-
-where $\psi(x,t)$ is the wave function of a particle, $\hbar$ is the reduced Planck constant, $m$ is the particle's mass, and $V(x)$ is the potential energy.
-:::
-
-
-# From beads to waves: deriving the wave equation
-
-## Deriving the wave equation (part 1) {.scrollable}
-
-- We imagine that we have a vibrating string of length $L$ fixed at both ends.
-
-    - For definiteness, suppose that the string lies along the $x$-axis, and is clamped at $x=0$ and $x=L$.
-
-- Let $y(x,t)$ denote the vertical displacement of the string at position $x$ and time $t$.
-
-- Thus, if we **freeze** a time $t$ and plot $y$ versus $x$, we get the shape of the string at that time.
-
-- Interesting examples of vibrations are the **harmonics** and their **superpositions** (i.e., sums).
-
-## Visualizing string vibrations {.scrollable}
 
 ::: {.r-stack}
 ::: {.fragment}
 ```{python}
+import sys
+
+sys.path.append("/Users/johnmyers/dev/johnmyers-phd/teaching/aux-files")
 import numpy as np
-from plotting import plot_animation_2d, plot_3d
+from plotting import plot_curve_animation, plot_surface
 
 L = 10
 blue = "#3399FF"
@@ -180,13 +138,15 @@ def u1(x, t):
 x = np.linspace(0, L, 100)
 t = np.linspace(0, 2 * L, 100)
 
-plot_animation_2d(
+plot_curve_animation(
     functions=[u1],
     colors=[blue],
     title="Harmonic n=1",
     x_vals=x,
     y_vals=[-2, 2],
     t_vals=t,
+    x_axis_label="x = position",
+    y_axis_label="u(x,t) = displacement",
 )
 
 ```
@@ -197,8 +157,16 @@ plot_animation_2d(
 ::: {.fragment}
 ```{python}
 X, T = np.meshgrid(x, t)
-Z = u1(X, T)
-plot_3d(X, T, Z, "Harmonic n=1 over space and time")
+
+plot_surface(
+    function=u1,
+    X=X,
+    Y=T,
+    x_axis_label="x = position",
+    y_axis_label="t = time",
+    z_axis_label="u(x,t) = displacement",
+    title="Harmonic n=1 over space and time",
+)
 ```
 
 :::
@@ -209,7 +177,7 @@ def u2(x, t):
     return u(x, t, 2)
 
 
-plot_animation_2d(
+plot_curve_animation(
     [u2],
     labels=["Harmonic n=2"],
     colors=[blue],
@@ -217,6 +185,8 @@ plot_animation_2d(
     x_vals=x,
     y_vals=[-2, 2],
     t_vals=t,
+    x_axis_label="x = position",
+    y_axis_label="u(x,t) = displacement",
 )
 ```
 
@@ -224,9 +194,15 @@ plot_animation_2d(
 
 ::: {.fragment}
 ```{python}
-Z = u2(X, T)
-
-plot_3d(X, T, Z, "Harmonic n=2 over space and time")
+plot_surface(
+    function=u2,
+    X=X,
+    Y=T,
+    x_axis_label="x = position",
+    y_axis_label="t = time",
+    z_axis_label="u(x,t) = displacement",
+    title="Harmonic n=2 over space and time",
+)
 ```
 
 :::
@@ -237,7 +213,7 @@ def u3(x, t):
     return u(x, t, 3)
 
 
-plot_animation_2d(
+plot_curve_animation(
     [u3],
     labels=["Harmonic n=3"],
     colors=[blue],
@@ -245,6 +221,8 @@ plot_animation_2d(
     x_vals=x,
     y_vals=[-2, 2],
     t_vals=t,
+    x_axis_label="x = position",
+    y_axis_label="u(x,t) = displacement",
 )
 ```
 
@@ -252,8 +230,15 @@ plot_animation_2d(
 
 ::: {.fragment}
 ```{python}
-Z = u3(X, T)
-plot_3d(X, T, Z, "Harmonic n=3 over space and time")
+plot_surface(
+    function=u3,
+    X=X,
+    Y=T,
+    x_axis_label="x = position",
+    y_axis_label="t = time",
+    z_axis_label="u(x,t) = displacement",
+    title="Harmonic n=3 over space and time",
+)
 ```
 
 :::
@@ -264,7 +249,7 @@ def superposition(x, t):
     return u2(x, t) + u3(x, t)
 
 
-plot_animation_2d(
+plot_curve_animation(
     [u2, u3, superposition],
     labels=["n=2", "n=3", "superposition"],
     colors=[blue, "#FF3399", "#33FF99"],
@@ -272,6 +257,8 @@ plot_animation_2d(
     x_vals=x,
     y_vals=[-2, 2],
     t_vals=t,
+    x_axis_label="x = position",
+    y_axis_label="u(x,t) = displacement"
 )
 ```
 
@@ -279,40 +266,298 @@ plot_animation_2d(
 
 ::: {.fragment}
 ```{python}
-Z = superposition(X, T)
-plot_3d(X, T, Z, "Superposition of harmonics n=2 and n=3 over space and time")
+plot_surface(
+    function=superposition,
+    X=X,
+    Y=T,
+    x_axis_label="x = position",
+    y_axis_label="t = time",
+    z_axis_label="u(x,t) = displacement",
+    title="Superposition of harmonics n=2 and n=3 over space and time",
+)
+```
+
+:::
+:::
+
+## The wave equation in 2 dimensions {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Example: the $2$-dimensional wave equation
+
+This equation says that
+
+$$
+\frac{\partial^2 u}{\partial t^2} = a^2 \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right),
+$$
+
+where $u(x,y,t)$ is a three-variable function and $a$ is a known constant. It models wave-like phenomena in two spatial dimensions, such as waves on the surface of a pond.
+
+- $x$ and $y$ typically represent spatial variables (e.g., position on a surface).
+- $t$ typically represents time.
+- $u(x,y,t)$ represents the displacement of the wave at position $(x,y)$ and time $t$.
+:::
+
+::: {.r-stack}
+::: {.fragment}
+```{python}
+import numpy as np
+from plotting import plot_surface_animation
+
+
+def u(x, y, t):
+    return (
+        np.sin(2 * np.pi * x) * np.sin(3 * np.pi * y) * np.sin(np.sqrt(13) * np.pi * t)
+    )
+
+
+def u0(x, y):
+    return u(x, y, 0)
+
+
+x = np.linspace(0, 1, 50)
+y = np.linspace(0, 1, 50)
+t_vals = np.linspace(0, 2, 200)
+X, Y = np.meshgrid(x, y)
+
+plot_surface_animation(
+    function=u,
+    init_function=u0,
+    X=X,
+    Y=Y,
+    z_range=[-1, 1],
+    t_vals=t_vals,
+    x_axis_label="x = position",
+    y_axis_label="y = position",
+    z_axis_label="u(x,y,t) = displacement",
+    title="Solution of 2D wave equation",
+)
+
 ```
 
 :::
 
+::: {.fragment}
+```{python}
+
+
+def superposition(x, y, t):
+    return np.sin(2 * np.pi * x) * np.sin(3 * np.pi * y) * np.sin(
+        np.sqrt(13) * np.pi * t
+    ) + np.sin(3 * np.pi * x) * np.sin(4 * np.pi * y) * np.sin(np.sqrt(25) * np.pi * t)
+
+
+def sup0(x, y):
+    return superposition(x, y, 0)
+
+
+plot_surface_animation(
+    function=superposition,
+    init_function=sup0,
+    X=X,
+    Y=Y,
+    z_range=[-2, 2],
+    t_vals=t_vals,
+    x_axis_label="x = position",
+    y_axis_label="y = position",
+    z_axis_label="u(x,y,t) = displacement",
+    title="Superposition of 2D wave equation solutions",
+)
+
+```
+
+:::
+:::
+
+## The heat equation in 1 dimension {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Example: the $1$-dimensional heat equation
+
+This equation says that
+
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
+$$
+
+where $u(x,t)$ is a two-variable function and $k$ is a known constant. It models "stationary" diffusion processes (i.e., no "drift"), such as the diffusion of heat in a rod over time.
+
+- $x$ typically represents a spatial variable (e.g., position along a rod).
+- $t$ typically represents time.
+- $u(x,t)$ represents the temperature at position $x$ and time $t$.
+:::
+
+::: {.r-stack}
+::: {.fragment}
+```{python}
+blue = "#3399FF"
+pink = "#FF3399"
+green = "#33FF99"
+
+
+def u3(x, t):
+    return np.exp(-(9 * np.pi**2 * t) / 4) * np.cos((3 * np.pi * x) / 2)
+
+
+def u4(x, t):
+    return np.exp(-(4**2 * np.pi**2 * t) / 4) * np.sin((4 * np.pi * x) / 2)
+
+
+def superposition(x, t):
+    return u3(x, t) + u4(x, t)
+
+
+x_vals = np.linspace(0, 2, 100)
+y_vals = [-2, 2]
+t_vals = np.linspace(0, 1, 100)
+x_axis_label = "x = position"
+y_axis_label = "u(x, t) = temperature"
+
+plot_curve_animation(
+    functions=[u3, u4, superposition],
+    x_vals=x_vals,
+    y_vals=y_vals,
+    t_vals=t_vals,
+    x_axis_label=x_axis_label,
+    y_axis_label=y_axis_label,
+    title="Solutions of 1D heat equation",
+    colors=[blue, pink, green],
+    labels=["u₃", "u₄", "u₃ + u₄"],
+)
+```
+
+:::
+
+::: {.fragment}
+```{python}
+t_vals = np.linspace(0, 0.2, 100)
+X, T = np.meshgrid(x_vals, t_vals)
+plot_surface(
+    function=superposition,
+    X=X,
+    Y=T,
+    x_axis_label="x = position",
+    y_axis_label="t = time",
+    z_axis_label="u(x,t) = temperature",
+    title="A solution of the 1D heat equation over space and time",
+    aspectmode="manual",
+    aspectratio=dict(x=1, y=0.5, z=0.75),
+)
+```
+
+:::
+:::
+
+## The Fokker-Planck (diffusion) equation {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Example: the Fokker-Planck (diffusion) equation
+
+This equation says that
+
+$$
+\frac{\partial u}{\partial t} = -\mu \frac{\partial u}{\partial x} + \frac{\sigma^2}{2} \frac{\partial^2u}{\partial x^2},
+$$
+
+where $u(x,t)$ is a two-variable function and $\mu$ and $\sigma$ are known constants. It models diffusion processes with "drift" or "trend," such as the evolution of probability densities in random processes. A good example to have in mind is the *random* price of a stock or some financial asset over time:
+
+- $x$ then represents the stock price.
+- $t$ represents time.
+- $\mu$ represents the trend of the stock, with $\mu>0$ indicating an *average* upward trend and $\mu<0$ indicating an *average* downward trend.
+- $\sigma$ represents the volatility (i.e., randomness) of the stock price.
+- $u(x,t)$ represents the probability density of the stock price being $x$ at time $t$.
+:::
+
+::: {.r-stack}
+::: {.fragment}
+```{python}
+blue = "#3399FF"
+pink = "#FF3399"
+green = "#33FF99"
+
+sigma = 1
+mu = 1
+x0 = 1
+
+
+def p(x, t):
+    return (1 / (sigma**2 * np.sqrt(2 * np.pi * t))) * np.exp(
+        -((x - x0 - mu * t) ** 2) / (2 * sigma**2 * t)
+    )
+
+
+x_vals = np.linspace(-1, 12, 200)
+y_vals = [-0.1, 1.4]
+t_vals = np.linspace(0.1, 10, 100)
+x_axis_label = "x = stock price"
+y_axis_label = "u(x, t) = probability density"
+
+plot_curve_animation(
+    functions=[p],
+    x_vals=x_vals,
+    y_vals=y_vals,
+    t_vals=t_vals,
+    x_axis_label=x_axis_label,
+    y_axis_label=y_axis_label,
+    title="A solution to the diffusion equation",
+    colors=[blue],
+)
+```
+
+:::
+::: {.fragment}
+```{python}
+X, T = np.meshgrid(x_vals, t_vals)
+plot_surface(
+    function=p,
+    X=X,
+    Y=T,
+    x_axis_label=x_axis_label,
+    y_axis_label="t = time",
+    z_axis_label=y_axis_label,
+    title="A solution of the diffusion equation over space and time",
+    cmin=0,
+    cmax=0.2,
+)
+```
+
 :::
 
 
-## Deriving the wave equation (part 2) {.scrollable}
+:::
+
+
+# From beads to waves: deriving the wave equation
+
+## Deriving the wave equation (part 1) {.scrollable}
+
+- We imagine that we have a vibrating string of length $L$ fixed at both ends.
+
+    - For definiteness, suppose that the string lies along the $x$-axis, and is clamped at $x=0$ and $x=L$.
 
 ::: {.callout-note .fragment icon="false"}
 
-### The wave problem as an initial-value problem
+### The wave problem as a boundary-value/initial-value problem
 
 - Now, suppose you know:
 
-    - The initial displacement of the string, i.e., you know the function $y(x,0)$ for $0 \leq x \leq L$.
+    - The initial displacement of the string, i.e., you know the function $u(x,0)$ for $0 \leq x \leq L$.
 
-    - The initial velocity of each point on the string, i.e., you know the derivative $\displaystyle\frac{\partial y}{\partial t}(x,0)$ for $0 \leq x \leq L$.
+    - The initial velocity of each point on the string, i.e., you know the derivative $\displaystyle\frac{\partial u}{\partial t}(x,0)$ for $0 \leq x \leq L$.
 
-    - The string is fixed at both ends, so $y(0,t) = 0$ and $y(L,t) = 0$ for all $t \geq 0$.
+    - The string is fixed at both ends, so $u(0,t) = 0$ and $u(L,t) = 0$ for all $t \geq 0$.
 
-- From these initial conditions, **can we determine how the string moves over time?** In other words, can we find $y(x,t)$ for all $x$ and $t$?
+- From these boundary and initial conditions, **can we determine how the string moves over time?** In other words, can we find $u(x,t)$ for all $x$ and $t$?
 :::
 
 
 - The answer is **yes**, provided that we are willing to make some simplifying assumptions about the string and its motion.
 
-- Essentially, the goal is to derive an equation that $y(x,t)$ must satisfy. This will be the wave equation.
+- Essentially, the goal is to derive an equation that $u(x,t)$ must satisfy. This will be the wave equation.
 
 - We follow an argument begun by John Bernoulli in 1727, and later advanced by d'Alembert in 1747.
 
-## Deriving the wave equation (part 3) {.scrollable}
+## Deriving the wave equation (part 2) {.scrollable}
 
 ::: {.callout-note .fragment icon="false"}
 
@@ -332,7 +577,7 @@ plot_3d(X, T, Z, "Superposition of harmonics n=2 and n=3 over space and time")
 
 :::
 
-## Deriving the wave equation (part 4) {.scrollable}
+## Deriving the wave equation (part 3) {.scrollable}
 
 - The $x$-positions of the beads are given by
     $$
@@ -341,7 +586,7 @@ plot_3d(X, T, Z, "Superposition of harmonics n=2 and n=3 over space and time")
     including the one at the right end $x=L$ (which doesn't move).
     
     
-- The vertical displacement of the $k$-th bead at time $t$ is given by $y_k$.
+- The vertical displacement of the $k$-th bead at time $t$ is given by $u_k$.
 
 - Each of the interior beads feels a pull (i.e., tension force) from the bead to its left and a pull from the bead to its right.
 
@@ -351,7 +596,7 @@ plot_3d(X, T, Z, "Superposition of harmonics n=2 and n=3 over space and time")
 
 - By Newton's second law, the vertical acceleration of the $k$-th bead is given by
     $$
-    m \frac{d^2 y_k}{dt^2} = F_{k},
+    m \frac{d^2 u_k}{dt^2} = F_{k},
     $$
     where $F_{k}$ is the net vertical force acting on the $k$-th bead. Since the beads do not move left or right, the horizontal components of the tension forces cancel out.
 
@@ -362,59 +607,59 @@ plot_3d(X, T, Z, "Superposition of harmonics n=2 and n=3 over space and time")
     
 - But as long as these angles are small, we have
     $$
-    \sin\theta_{k+1} \approx \tan \theta_{k+1} = \frac{y_{k+1} - y_k}{L/n} \quad \text{and} \quad \sin\theta_{k-1} \approx \tan \theta_{k-1} = \frac{y_{k-1} - y_k}{L/n}.
+    \sin\theta_{k+1} \approx \tan \theta_{k+1} = \frac{u_{k+1} - u_k}{L/n} \quad \text{and} \quad \sin\theta_{k-1} \approx \tan \theta_{k-1} = \frac{u_{k-1} - u_k}{L/n}.
     $$
 
-## Deriving the wave equation (part 5) {.scrollable}
+## Deriving the wave equation (part 4) {.scrollable}
 
 - Thus, for small angles, we have
     $$
-    F_{k} = \frac{Tn}{L} (y_{k+1} - 2y_k + y_{k-1})
+    F_{k} = \frac{Tn}{L} (u_{k+1} - 2u_k + u_{k-1})
     $$
     where we've written "$=$" for simplicity instead of "$\approx$".
 
 - If we write $M = nm$ (which is *almost* the total mass of the string—why?), then Newton's second law becomes
     $$
-    \frac{d^2 y_k}{dt^2} = \frac{Tn^2}{ML} (y_{k+1} - 2y_k + y_{k-1}).
+    \frac{d^2 u_k}{dt^2} = \frac{Tn^2}{ML} (u_{k+1} - 2u_k + u_{k-1}).
     $$
 
 - Set $a^2 = \frac{TL}{M}$ and $\Delta x = \frac{L}{n}$, and then rearrange to get
     $$
-    \frac{d^2 y_k}{dt^2} = a^2 \left(\frac{y_{k+1} - 2y_k + y_{k-1}}{(\Delta x)^2}\right).
+    \frac{d^2 u_k}{dt^2} = a^2 \left(\frac{u_{k+1} - 2u_k + u_{k-1}}{(\Delta x)^2}\right).
     $$
 
-- Now, switch to function notation by writing $y(x,t)$ instead of $y_k(t)$, and $x$ instead of $x_k$. Then the equation becomes
+- Now, switch to function notation by writing $u(x,t)$ instead of $u_k$, and $x$ instead of $x_k$. Then the equation becomes
     $$
-    \frac{\partial^2 y(x, t)}{\partial t^2} = a^2 \left(\frac{y(x + \Delta x, t) - 2y(x, t) + y(x - \Delta x, t)}{(\Delta x)^2}\right).
+    \frac{\partial^2 u(x, t)}{\partial t^2} = a^2 \left(\frac{u(x + \Delta x, t) - 2u(x, t) + u(x - \Delta x, t)}{(\Delta x)^2}\right).
     $$
 
 
-## Deriving the wave equation (part 6) {.scrollable}
+## Deriving the wave equation (part 5) {.scrollable}
 
 - From calculus, we know that
     $$
-    y(x+\Delta x, t) = y(x,t) + \frac{\partial y}{\partial x}(x,t)\Delta x + \frac{\partial^2 y}{\partial x^2}(x,t)\frac{(\Delta x)^2}{2} + (\text{higher order terms in } \Delta x),
+    u(x+\Delta x, t) = u(x,t) + \frac{\partial u}{\partial x}(x,t)\Delta x + \frac{\partial^2 u}{\partial x^2}(x,t)\frac{(\Delta x)^2}{2} + (\text{higher order terms in } \Delta x),
     $$
     and
     $$
-    y(x-\Delta x, t) = y(x,t) - \frac{\partial y}{\partial x}(x,t)\Delta x + \frac{\partial^2 y}{\partial x^2}(x,t)\frac{(\Delta x)^2}{2} + (\text{higher order terms in } \Delta x).
+    u(x-\Delta x, t) = u(x,t) - \frac{\partial u}{\partial x}(x,t)\Delta x + \frac{\partial^2 u}{\partial x^2}(x,t)\frac{(\Delta x)^2}{2} + (\text{higher order terms in } \Delta x).
     $$
 
 - Thus
     $$
-    y(x + \Delta x, t) - 2y(x, t) + y(x - \Delta x, t) = \frac{\partial^2 y}{\partial x^2}(x,t)(\Delta x)^2 + (\text{higher order terms in } \Delta x).
+    u(x + \Delta x, t) - 2u(x, t) + u(x - \Delta x, t) = \frac{\partial^2 u}{\partial x^2}(x,t)(\Delta x)^2 + (\text{higher order terms in } \Delta x).
     $$
 
 - And so
     $$
-    \frac{\partial^2 y(x, t)}{\partial t^2} = a^2 \frac{\partial^2 y}{\partial x^2}(x,t) + (\text{terms that vanish as } \Delta x \to 0).
+    \frac{\partial^2 u(x, t)}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2}(x,t) + (\text{terms that vanish as } \Delta x \to 0).
     $$
 
 - If we remember that $M=mn$ and $\Delta x = L/n$, then we want $n\to \infty$ and $m\to 0$ in such a way that $M$ remains constant. Then $\Delta x \to 0$ as $n\to \infty$, while $a^2 = \frac{TL}{M}$ remains constant.
 
-- Voila. This gives the wave equation:
+- This gives the wave equation:
     $$
-    \frac{\partial^2 y}{\partial t^2} = a^2 \frac{\partial^2 y}{\partial x^2}.
+    \frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2}.
     $$
     Here, $a^2 = T/ \rho$, where $\rho$ is the mass per unit length of the string and $T$ is the tension force.
 

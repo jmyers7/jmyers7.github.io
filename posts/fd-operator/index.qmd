@@ -1,8 +1,8 @@
 ---
-title: "Operator theory I: the finite-dimensional case"
+title: "Finite-dimensional operator theory"
 date: "2026-01-22"
 toc: true
-categories: [Operator theory, Functional analysis, C*-algebras, Spectral theorem, Hilbert spaces]
+categories: [Operator theory, Operator algebras, Functional analysis, C*-algebras, Spectral theorem, Hilbert spaces]
 draft: true
 include-in-header: 
   - file: /Users/johnmyers/dev/johnmyers-phd/posts/fd-operator/commands.tex
@@ -77,9 +77,9 @@ Though we don't get into the heavy infinite-dimensional theory in this post, it 
 
 
 
-## Representation theorems and linear functionals
+## Representation theorems
 
-We begin the theory with a pair of fundamental theorems that allow us to "represent" linear functionals defined on Hilbert spaces and spaces of continuous functions. The first representation theorem will be used to construct adjoint operators, while the second representation theorem will be used in the latter measure-theoretic part of this post.
+We begin the theory with a pair of fundamental theorems that allow us to *represent* linear functionals defined on Hilbert spaces and spaces of continuous functions. The first representation theorem will be used to construct adjoint operators, while the second representation theorem will be used in the latter measure-theoretic part of this post.
 
 
 ::: {#thm-riesz}
@@ -109,13 +109,12 @@ $$
 Then, given any $v\in \calh$, we have
 
 $$
-\varphi(v) = \varphi\left( \sum_{k=1}^n\ang{v,e_k}e_k \right) = \sum_{k=1}^n \varphi(e_k) \ang{v,e_k} = \ang{v,w_\varphi},
+\varphi(v) = \varphi\left( \sum_{k=1}^n\ang{v,e_k}e_k \right) = \sum_{k=1}^n \varphi(e_k) \ang{v,e_k} = \ang{v, \sum_{k=1}^n \overline{\varphi(e_k)} e_k} = \ang{v,w_\varphi}.
 $$
 
-which is what we wanted to prove.
 :::
 
-For the next representation theorem, we need to set up some notation and terminology. Let $\calx$ be a nonempty finite set.
+For the second representation theorem, we need to set up some notation and terminology. Let $\calx$ be a nonempty finite set.
 
 1. We write $C(\calx)$ for the set of all $\bbc$-valued functions on $\calx$. The motivation for this notation comes from the observation that if $\calx$ is equipped with the discrete topology, then $C(\calx)$ coincides with the set of all *continuous* $\bbc$-valued functions on $\calx$. Notice that $C(\calx)$ is a finite-dimensional unital $\bbc$-algebra (it's even a $C^\ast$-algebra, but we'll come to this later).
 
@@ -132,14 +131,14 @@ Let $\calx$ be a nonempty finite set. Then there is a bijective correspondence b
 
 1. Given a complex measure $\mu$ on $P(\calx)$, the corresponding functional $\varphi$ is defined by the formula
     $$
-    \varphi(f) = \int_\calx f \ \d \mu, \quad f\in C(\calx).
+    \varphi(f) = \int_\calx f \, \d \mu, \quad f\in C(\calx).
     $$ {#eq-int-eqn}
 
 2. Given a linear functional $\varphi$ on $C(\calx)$, the corresponding complex measure is defined by
     $$
-    \mu(A) = \varphi(\chi_{A}), \quad A\in P(\calx),
+    \mu(A) = \varphi(I_{A}), \quad A\in P(\calx),
     $$ {#eq-int2-eqn}
-where $\chi_A$ is the characteristic ($=$ indicator) function of $A$.
+where $I_A$ is the indicator function on $A$.
 
 Furthermore, the measure $\mu$ is a positive measure if and only if the functional $\varphi$ is positive, and $\mu$ is a probability measure if and only if $\varphi$ is positive and normalized.
 :::
@@ -148,16 +147,20 @@ Furthermore, the measure $\mu$ is a positive measure if and only if the function
 Given a complex measure $\mu$, define $\varphi$ by the formula ([-@eq-int-eqn]). Then, for all $A\in P(\calx)$ we have
 
 $$
-\mu(A) = \int_A \d \mu = \int_\calx \chi_A \ \d \mu =  \varphi(\chi_A).
+\mu(A) = \int_A \d \mu = \int_\calx I_A \, \d \mu =  \varphi(I_A) ,
 $$
+
+so $\mu$ is recovered from $\varphi$. Thus, the mapping $\mu \mapsto \varphi$ is injective.
 
 On the other hand, given a linear functional $\varphi$, define $\mu$ by ([-@eq-int2-eqn]). Then, for all $f\in C(\calx)$ we have
 
 $$
-\varphi(f) = \sum_{\lambda \in \bbc} \lambda \varphi(\chi_{f^{-1}(\lambda)}) = \sum_{\lambda \in \bbc} \lambda \mu(f^{-1}(\lambda)) = \int_\calx f \ \d\mu.
+\varphi(f) = \sum_{\lambda \in \bbc} \lambda \varphi(I_{f^{-1}(\lambda)}) = \sum_{\lambda \in \bbc} \lambda \mu(f^{-1}(\lambda)) = \int_\calx f \, \d\mu.
 $$
 
-Taken together, these two sequences of equations shows that the correspondence $\mu \leftrightarrow \varphi$ is indeed bijective.
+Thus, $\varphi$ is recovered from $\mu$, so the mapping $\varphi \mapsto \mu$ is injective. This proves the bijective correspondence.
+
+Finally, the equivalences regarding positivity and normalization are straightforward consequences of the definitions.
 :::
 
 
@@ -176,7 +179,7 @@ Our first goal is to use the Riesz Representation Theorem to construct the *adjo
 
 ::: {#thm-adjoint}
 
-For every operator $T$ on a finite-dimensional Hilbert space $\calh$, there is a *unique* operator $T^\ast$ on $\calh$ for which
+For every operator $T$, on a finite-dimensional Hilbert space $\calh$, there is a *unique* operator $T^\ast$ on $\calh$ for which
 
 $$
 \ang{Tv,w} = \ang{v, T^\ast w}, \quad \forall v,w\in \calh.
@@ -273,19 +276,13 @@ $$
 ::: {.callout-note collapse="true" icon="false"}
 ## Proof.
 
-For each fixed $w\in \calh$, the mapping
-
-$$
-v \mapsto \beta(v,w) = \ang{v,w}
-$$
-
-is a linear functional on $\calh$, and hence, by the Riesz Representation Theorem, there is a unique vector $Tw \in \calh$ such that
+For each fixed $w\in \calh$, the mapping $v \mapsto \beta(v,w)$ is a linear functional on $\calh$, and hence, by the Riesz Representation Theorem, there is a unique vector $Tw \in \calh$ such that
 
 $$
 \beta(v,w) = \ang{v,Tw}, \quad \forall v\in \calh.
 $$
 
-As you may easily prove, the mapping $w\mapsto Tw$ is linear, so that we may take $B = T^\ast$ to prove the theorem. I will leave the details to you.
+As you may easily prove, the mapping $w\mapsto Tw$ is linear, so that we may take $B = T^\ast$ to prove the theorem.
 :::
 
 The self-adjoint operators will prove to be a very important class of operators. We now give the definitions of four more important classes:
@@ -387,7 +384,7 @@ and hence $Pv$ is the closest vector in $\calm$ to the vector $v$.
 
 ## Spectral theory of normal operators
 
-With all preliminary definitions and basic results established, we begin working toward the main theorem in this post. We start with a familiar definition from our first course in linear algebra:
+With all preliminary definitions and basic results established, we begin working toward the main theorem in this post. We start with a familiar definition from a first course in linear algebra:
 
 ::: {#def-eigenvalue}
 
@@ -437,10 +434,10 @@ which implies $\lambda \geq 0$.
 (3.): Let $\lambda$ be an eigenvalue of $U$ with eigenvector $v$. Then
 
 $$
-\|\lambda\|^2 \norm{v}^2 =  \norm{Uv}^2 = \ang{Uv,Uv} = \ang{U^\ast Uv,v} = \ang{v,v} = \norm{v}^2,
+|\lambda|^2 \norm{v}^2 = \lambda \overline{\lambda} \ang{v,v} = \ang{\lambda v,\lambda v} =\ang{Uv, Uv} = \ang{U^\ast Uv,v} = \ang{v,v} = \norm{v}^2,
 $$
 
-and so $\|\lambda\|=1$.
+and so $|\lambda|=1$.
 
 (4.): Let $\lambda$ be an eigenvalue of $P$ with eigenvector $v$. We then compute:
 
@@ -497,7 +494,7 @@ The Spectral Theorem will involve projections onto special subspaces spanned by 
 
 ::: {#def-eigenspace}
 
-Let $\lambda$ be an eigenvalue of a an operator $T$ on a finite-dimensional Hilbert space $\calh$. The *eigenspace* of $\lambda$, denoted $\cals_\lambda$, is the span of the set
+Let $\lambda$ be an eigenvalue of an operator $T$ on a finite-dimensional Hilbert space $\calh$. The *eigenspace* of $\lambda$, denoted $\cals_\lambda$, is the span of the set
 
 $$
 \left\{ v\in \calh : Tv = \lambda v\right\}.
@@ -540,7 +537,7 @@ $$
 \calh = \bigoplus_{\lambda \in \sigma(T)} S_\lambda,
 $$ {#eq-dir-sum}
 
-which we will prove. First, note that the sum on the right-hand side really is an orthogonal direct sum, since we proved above that eigenvectors of $T$ corresponding to *distinct* eigenvalues are orthogonal to each other. To establish the equality, we will let $\calk$ denote the direct sum on the right-hand side and prove that $\calk^\perp=0$.
+which we will prove. First, note that the sum on the right-hand side really is an orthogonal direct sum, since we proved above that eigenvectors of $T$ corresponding to *distinct* eigenvalues are orthogonal to each other. To establish the equality, we will let $\calk$ denote the direct sum on the right-hand side and prove that its orthogonal complement $\calk^\perp=0$.
 
 Note, first, that $\calk$ is invariant under $T^\ast$ (and also $T$, but we don't need this), in the sense that
 
@@ -621,7 +618,7 @@ Our second corollary of the Spectral Theorem is a formula for the operator norm 
 Let $T$ be an opeartor on a finite-dimensional Hilbert space $\calh$. The *spectral radius* of $T$, denoted $r(T)$, is the real number
 
 \begin{equation}\notag
-r(T) = \max \{ \|\lambda \| : \lambda \in \sigma(T) \}.
+r(T) = \max \{ |\lambda| : \lambda \in \sigma(T) \}.
 \end{equation}
 :::
 
@@ -643,7 +640,7 @@ with equality if $T$ is normal.
 To prove the inequality, let $v$ be a normalized eigenvector of $\lambda \in \sigma(T)$. Then
 
 $$
-\|\lambda \| = \|\lambda\| \norm{v} = \norm{Tv} \leq \norm{T} \norm{v} = \norm{T},
+|\lambda| = |\lambda| \norm{v} = \norm{Tv} \leq \norm{T} \norm{v} = \norm{T},
 $$
 
 which proves $r(T) \leq \norm{T}$. Now, assume that $T$ is normal and consider the spectral decomposition
@@ -661,7 +658,7 @@ $$ {#eq-spec-ag2-eqn}
 Then
 
 $$
-\norm{Tv}^2 = \sum_{\lambda \in \sigma(T)} \|\lambda\|^2 \norm{P_\lambda v}^2 \leq r(T)^2 \sum_{\lambda \in \sigma(T)} \norm{P_\lambda v}^2 = r(T)^2 \norm{v}^2,
+\norm{Tv}^2 = \sum_{\lambda \in \sigma(T)} |\lambda|^2 \norm{P_\lambda v}^2 \leq r(T)^2 \sum_{\lambda \in \sigma(T)} \norm{P_\lambda v}^2 = r(T)^2 \norm{v}^2,
 $$
 
 where the first equality follows from ([-@eq-spec-ag-eqn]) and the Pythagorean relation (which holds in *any* Hilbert space), and the second equality follows from ([-@eq-spec-ag2-eqn]) and a second application of the Pythagorean relation. It follows that $\norm{Tv} \leq r(T) \norm{v}$ and hence $\norm{T} \leq r(T)$; combined with the inequality ([-@eq-main-eqn]), we get $\norm{T} = r(T)$.
@@ -779,7 +776,7 @@ with the following properties:
     (ab)^\ast = b^\ast a^\ast.
     $$
 
-With the definition of an involution in hand, we now make several more definitions:
+Then:
 
 1. An algebra $\cala$ equipped with an involution $\ast$ is called a *$\ast$-algebra*. (Pronunciation: "star algebra.")
 
@@ -836,7 +833,7 @@ Let $a$ be an element in a unital algebra $\cala$.
 
 2. The *spectral radius* of $a$, denoted $r(a)$, is the number
     $$
-    r(a) = \sup \{ \|\lambda\| : \lambda \in \sigma(a)\},
+    r(a) = \sup \{ |\lambda| : \lambda \in \sigma(a)\},
     $$
 provided $\sigma(a) \neq \emptyset$.
 :::
