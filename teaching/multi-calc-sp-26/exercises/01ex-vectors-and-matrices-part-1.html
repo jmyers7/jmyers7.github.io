@@ -200,6 +200,10 @@ window.Quarto = {
   <li><a href="#exercise-4-determinants-and-areas" id="toc-exercise-4-determinants-and-areas" class="nav-link" data-scroll-target="#exercise-4-determinants-and-areas">Exercise 4: Determinants and areas</a></li>
   <li><a href="#exercise-5-the-derivative-as-a-difference-quotient-and-linear-approximation" id="toc-exercise-5-the-derivative-as-a-difference-quotient-and-linear-approximation" class="nav-link" data-scroll-target="#exercise-5-the-derivative-as-a-difference-quotient-and-linear-approximation">Exercise 5: The derivative as a difference quotient and linear approximation</a></li>
   <li><a href="#exercise-6-integrals-and-signed-area" id="toc-exercise-6-integrals-and-signed-area" class="nav-link" data-scroll-target="#exercise-6-integrals-and-signed-area">Exercise 6: Integrals and signed area</a></li>
+  <li><a href="#exercise-7-basis-vectors-and-vector-decomposition" id="toc-exercise-7-basis-vectors-and-vector-decomposition" class="nav-link" data-scroll-target="#exercise-7-basis-vectors-and-vector-decomposition">Exercise 7: Basis vectors and vector decomposition</a></li>
+  <li><a href="#exercise-8-unit-vectors-and-scaling" id="toc-exercise-8-unit-vectors-and-scaling" class="nav-link" data-scroll-target="#exercise-8-unit-vectors-and-scaling">Exercise 8: Unit vectors and scaling</a></li>
+  <li><a href="#exercise-9-parallel-vectors" id="toc-exercise-9-parallel-vectors" class="nav-link" data-scroll-target="#exercise-9-parallel-vectors">Exercise 9: Parallel vectors</a></li>
+  <li><a href="#exercise-10-orthogonal-projections" id="toc-exercise-10-orthogonal-projections" class="nav-link" data-scroll-target="#exercise-10-orthogonal-projections">Exercise 10: Orthogonal projections</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -648,6 +652,283 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 \int_{-1}^1 x^3\, dx = \left[\frac{x^4}{4}\right]_{-1}^1 = \frac{1^4}{4} - \frac{(-1)^4}{4} = \frac{1}{4} - \frac{1}{4} = 0.
 \]</span></p></li>
 <li><p>The function <span class="math inline">\(f(x) = x^3\)</span> is an <em>odd function</em>, meaning <span class="math inline">\(f(-x) = -f(x)\)</span>. This means the graph is symmetric about the origin. For <span class="math inline">\(x \in (0, 1)\)</span>, we have <span class="math inline">\(f(x) &gt; 0\)</span>, contributing positive area. For <span class="math inline">\(x \in (-1, 0)\)</span>, we have <span class="math inline">\(f(x) &lt; 0\)</span>, contributing negative area. Because of the symmetry, these two areas are equal in magnitude but opposite in sign, so they cancel out, giving a total signed area of zero.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-7-basis-vectors-and-vector-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-7-basis-vectors-and-vector-decomposition">Exercise 7: Basis vectors and vector decomposition</h2>
+<p>Recall from class that the <em>standard basis vectors</em> in <span class="math inline">\(\mathbb{R}^2\)</span> are</p>
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \quad \text{and} \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+\]</span></p>
+<p>Similarly, in <span class="math inline">\(\mathbb{R}^3\)</span>, the standard basis vectors are</p>
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}.
+\]</span></p>
+<p>We saw that any vector in <span class="math inline">\(\mathbb{R}^n\)</span> can be written as a <em>linear combination</em> of the standard basis vectors. For example, in <span class="math inline">\(\mathbb{R}^3\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{v} = \begin{bmatrix} 2 \\ -3 \\ 5 \end{bmatrix} = 2\mathbf{e}_1 - 3\mathbf{e}_2 + 5\mathbf{e}_3.
+\]</span></p>
+<p>One important property of the standard basis vectors is that they are <em>orthonormal</em>, meaning:</p>
+<ol type="1">
+<li>They are all unit vectors: <span class="math inline">\(\|\mathbf{e}_i\| = 1\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li>They are mutually orthogonal: <span class="math inline">\(\mathbf{e}_i \cdot \mathbf{e}_j = 0\)</span> whenever <span class="math inline">\(i \neq j\)</span>.</li>
+</ol>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Write the vector <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 4 \\ -2 \\ 7 \end{bmatrix}\)</span> as a linear combination of the standard basis vectors <span class="math inline">\(\mathbf{e}_1\)</span>, <span class="math inline">\(\mathbf{e}_2\)</span>, and <span class="math inline">\(\mathbf{e}_3\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{w} = 3\mathbf{e}_1 - 5\mathbf{e}_2 + 2\mathbf{e}_3\)</span>. Write <span class="math inline">\(\mathbf{w}\)</span> in column vector form.</p></li>
+<li><p>Verify that the standard basis vectors in <span class="math inline">\(\mathbb{R}^3\)</span> are orthonormal by computing all pairwise dot products and all norms.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{u} = \begin{bmatrix} -1 \\ 6 \\ 2 \end{bmatrix}\)</span>. Compute <span class="math inline">\(\mathbf{u} \cdot \mathbf{e}_1\)</span>, <span class="math inline">\(\mathbf{u} \cdot \mathbf{e}_2\)</span>, and <span class="math inline">\(\mathbf{u} \cdot \mathbf{e}_3\)</span>. What do you notice?</p></li>
+<li><p>Express the zero vector <span class="math inline">\(\mathbf{0}\)</span> in <span class="math inline">\(\mathbb{R}^3\)</span> as a linear combination of the standard basis vectors.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><span class="math inline">\(\mathbf{v} = 4\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{w} = \begin{bmatrix} 3 \\ -5 \\ 2 \end{bmatrix}\)</span></p></li>
+<li><p>Computing the norms: <span class="math display">\[
+\|\mathbf{e}_1\| = \sqrt{1^2 + 0^2 + 0^2} = 1, \quad \|\mathbf{e}_2\| = \sqrt{0^2 + 1^2 + 0^2} = 1, \quad \|\mathbf{e}_3\| = \sqrt{0^2 + 0^2 + 1^2} = 1.
+\]</span> Computing the pairwise dot products: <span class="math display">\[
+\mathbf{e}_1 \cdot \mathbf{e}_2 = (1)(0) + (0)(1) + (0)(0) = 0,
+\]</span> <span class="math display">\[
+\mathbf{e}_1 \cdot \mathbf{e}_3 = (1)(0) + (0)(0) + (0)(1) = 0,
+\]</span> <span class="math display">\[
+\mathbf{e}_2 \cdot \mathbf{e}_3 = (0)(0) + (1)(0) + (0)(1) = 0.
+\]</span> Since all the norms are 1 and all pairwise dot products are 0, the vectors are orthonormal.</p></li>
+<li><p><span class="math inline">\(\mathbf{u} \cdot \mathbf{e}_1 = (-1)(1) + (6)(0) + (2)(0) = -1\)</span></p>
+<p><span class="math inline">\(\mathbf{u} \cdot \mathbf{e}_2 = (-1)(0) + (6)(1) + (2)(0) = 6\)</span></p>
+<p><span class="math inline">\(\mathbf{u} \cdot \mathbf{e}_3 = (-1)(0) + (6)(0) + (2)(1) = 2\)</span></p>
+<p>The dot products give exactly the components of <span class="math inline">\(\mathbf{u}\)</span>! This shows that <span class="math inline">\(\mathbf{u} = (\mathbf{u} \cdot \mathbf{e}_1)\mathbf{e}_1 + (\mathbf{u} \cdot \mathbf{e}_2)\mathbf{e}_2 + (\mathbf{u} \cdot \mathbf{e}_3)\mathbf{e}_3\)</span>.</p></li>
+<li><p><span class="math inline">\(\mathbf{0} = 0\mathbf{e}_1 + 0\mathbf{e}_2 + 0\mathbf{e}_3\)</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-8-unit-vectors-and-scaling" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-8-unit-vectors-and-scaling">Exercise 8: Unit vectors and scaling</h2>
+<p>Recall that a <em>unit vector</em> is a vector with length (norm) equal to 1. Given any nonzero vector <span class="math inline">\(\mathbf{v}\)</span>, we can always construct a unit vector in the same direction, often denoted <span class="math inline">\(\mathbf{\hat{v}}\)</span>, by dividing <span class="math inline">\(\mathbf{v}\)</span> by its length:</p>
+<p><span class="math display">\[
+\mathbf{\hat{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}.
+\]</span></p>
+<p>This process is called <em>normalization</em> of <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Find the length of the vector <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}\)</span>.</p></li>
+<li><p>Find a unit vector pointing in the same direction as <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}\)</span>.</p></li>
+<li><p>Find a vector with length <span class="math inline">\(10\)</span> pointing in the same direction as <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}\)</span>.</p></li>
+<li><p>Find a vector with length <span class="math inline">\(2\)</span> pointing in the same direction as <span class="math inline">\(\mathbf{u} = \mathbf{e}_1 - \mathbf{e}_2 + 2\mathbf{e}_3\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{a} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\)</span>. Find a unit vector in the direction of <span class="math inline">\(\mathbf{a}\)</span>.</p></li>
+<li><p>Find a vector of length <span class="math inline">\(5\)</span> pointing in the opposite direction of <span class="math inline">\(\mathbf{b} = \begin{bmatrix} 2 \\ -1 \\ 2 \end{bmatrix}\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><span class="math inline">\(\|\mathbf{v}\| = \sqrt{3^2 + (-4)^2} = \sqrt{9 + 16} = \sqrt{25} = 5\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{\hat{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|} = \frac{1}{5}\begin{bmatrix} 3 \\ -4 \end{bmatrix} = \begin{bmatrix} 3/5 \\ -4/5 \end{bmatrix}\)</span></p></li>
+<li><p>The vector is <span class="math inline">\(10 \cdot \mathbf{\hat{v}} = 10 \cdot \frac{1}{5}\begin{bmatrix} 3 \\ -4 \end{bmatrix} = 2\begin{bmatrix} 3 \\ -4 \end{bmatrix} = \begin{bmatrix} 6 \\ -8 \end{bmatrix}\)</span></p></li>
+<li><p>First, we write <span class="math inline">\(\mathbf{u}\)</span> in column form: <span class="math inline">\(\mathbf{u} = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}\)</span>. Then we compute its length: <span class="math display">\[
+\|\mathbf{u}\| = \sqrt{1^2 + (-1)^2 + 2^2} = \sqrt{1 + 1 + 4} = \sqrt{6}.
+\]</span> The desired vector is <span class="math display">\[
+2 \cdot \frac{\mathbf{u}}{\|\mathbf{u}\|} = \frac{2}{\sqrt{6}}\begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2/\sqrt{6} \\ -2/\sqrt{6} \\ 4/\sqrt{6} \end{bmatrix}.
+\]</span></p></li>
+<li><p><span class="math inline">\(\|\mathbf{a}\| = \sqrt{1^2 + 1^2 + 1^2} = \sqrt{3}\)</span>. The unit vector is <span class="math display">\[
+\mathbf{\hat{a}} = \frac{1}{\sqrt{3}}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1/\sqrt{3} \\ 1/\sqrt{3} \\ 1/\sqrt{3} \end{bmatrix} = \begin{bmatrix} \sqrt{3}/3 \\ \sqrt{3}/3 \\ \sqrt{3}/3 \end{bmatrix}.
+\]</span></p></li>
+<li><p>First, <span class="math inline">\(\|\mathbf{b}\| = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{4 + 1 + 4} = \sqrt{9} = 3\)</span>. To point in the opposite direction, we need a negative scalar: <span class="math display">\[
+-5 \cdot \frac{\mathbf{b}}{\|\mathbf{b}\|} = -\frac{5}{3}\begin{bmatrix} 2 \\ -1 \\ 2 \end{bmatrix} = \begin{bmatrix} -10/3 \\ 5/3 \\ -10/3 \end{bmatrix}.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-9-parallel-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-9-parallel-vectors">Exercise 9: Parallel vectors</h2>
+<p>Two nonzero vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are said to be <em>parallel</em> if one is a scalar multiple of the other. That is, <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are parallel if there exists a scalar <span class="math inline">\(c\)</span> such that <span class="math inline">\(\mathbf{u} = c\mathbf{v}\)</span> (or <span class="math inline">\(\mathbf{v} = c\mathbf{u}\)</span>, it doesn’t matter which way you write it).</p>
+<p>Geometrically, parallel vectors point in the same direction (if <span class="math inline">\(c &gt; 0\)</span>) or in opposite directions (if <span class="math inline">\(c &lt; 0\)</span>).</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Determine whether the vectors <span class="math inline">\(\mathbf{u} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 3 \\ 6 \end{bmatrix}\)</span> are parallel.</p></li>
+<li><p>Find a vector parallel to <span class="math inline">\(\mathbf{w} = \begin{bmatrix} 1 \\ -3 \\ 2 \end{bmatrix}\)</span> with length <span class="math inline">\(7\)</span>.</p></li>
+<li><p>Find the values of <span class="math inline">\(a\)</span> that make <span class="math inline">\(\mathbf{v} = 5a\mathbf{e}_1 - 3\mathbf{e}_2\)</span> parallel to <span class="math inline">\(\mathbf{w} = a^2\mathbf{e}_1 + 6\mathbf{e}_2\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{p} = \begin{bmatrix} 4 \\ -2 \\ 6 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{q} = \begin{bmatrix} -6 \\ 3 \\ k \end{bmatrix}\)</span>. Find the value of <span class="math inline">\(k\)</span> such that <span class="math inline">\(\mathbf{p}\)</span> and <span class="math inline">\(\mathbf{q}\)</span> are parallel.</p></li>
+<li><p>Explain why the zero vector <span class="math inline">\(\mathbf{0}\)</span> is considered parallel to every vector.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>We check if <span class="math inline">\(\mathbf{v} = c\mathbf{u}\)</span> for some scalar <span class="math inline">\(c\)</span>: <span class="math display">\[
+\begin{bmatrix} 3 \\ 6 \end{bmatrix} = c\begin{bmatrix} 2 \\ 4 \end{bmatrix} = \begin{bmatrix} 2c \\ 4c \end{bmatrix}.
+\]</span> From the first component, <span class="math inline">\(3 = 2c\)</span>, so <span class="math inline">\(c = 3/2\)</span>. From the second component, <span class="math inline">\(6 = 4c\)</span>, so <span class="math inline">\(c = 6/4 = 3/2\)</span>. Since both components give the same value of <span class="math inline">\(c\)</span>, the vectors are parallel.</p></li>
+<li><p>First, we need the length of <span class="math inline">\(\mathbf{w}\)</span>: <span class="math inline">\(\|\mathbf{w}\| = \sqrt{1^2 + (-3)^2 + 2^2} = \sqrt{1 + 9 + 4} = \sqrt{14}\)</span>. A parallel vector with length <span class="math inline">\(7\)</span> is <span class="math display">\[
+7 \cdot \frac{\mathbf{w}}{\|\mathbf{w}\|} = \frac{7}{\sqrt{14}}\begin{bmatrix} 1 \\ -3 \\ 2 \end{bmatrix}.
+\]</span></p></li>
+<li><p>Writing in column form: <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 5a \\ -3 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{w} = \begin{bmatrix} a^2 \\ 6 \end{bmatrix}\)</span>. For these to be parallel, we need <span class="math inline">\(\mathbf{v} = c\mathbf{w}\)</span> for some scalar <span class="math inline">\(c\)</span>: <span class="math display">\[
+\begin{bmatrix} 5a \\ -3 \end{bmatrix} = c\begin{bmatrix} a^2 \\ 6 \end{bmatrix} = \begin{bmatrix} ca^2 \\ 6c \end{bmatrix}.
+\]</span> From the first component: <span class="math inline">\(5a = ca^2\)</span>, so <span class="math inline">\(c = 5a/a^2 = 5/a\)</span> (assuming <span class="math inline">\(a \neq 0\)</span>).</p>
+<p>From the second component: <span class="math inline">\(-3 = 6c\)</span>, so <span class="math inline">\(c = -1/2\)</span>.</p>
+<p>Setting these equal: <span class="math inline">\(5/a = -1/2\)</span>, which gives <span class="math inline">\(a = -10\)</span>.</p>
+<p>We should also check the case <span class="math inline">\(a = 0\)</span>: if <span class="math inline">\(a = 0\)</span>, then <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 0 \\ -3 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{w} = \begin{bmatrix} 0 \\ 6 \end{bmatrix}\)</span>, which are parallel (one is <span class="math inline">\(-1/2\)</span> times the other). So <span class="math inline">\(a = 0\)</span> and <span class="math inline">\(a = -10\)</span> both work.</p></li>
+<li><p>For <span class="math inline">\(\mathbf{p}\)</span> and <span class="math inline">\(\mathbf{q}\)</span> to be parallel, we need <span class="math inline">\(\mathbf{q} = c\mathbf{p}\)</span> for some scalar <span class="math inline">\(c\)</span>: <span class="math display">\[
+\begin{bmatrix} -6 \\ 3 \\ k \end{bmatrix} = c\begin{bmatrix} 4 \\ -2 \\ 6 \end{bmatrix} = \begin{bmatrix} 4c \\ -2c \\ 6c \end{bmatrix}.
+\]</span> From the first component: <span class="math inline">\(-6 = 4c\)</span>, so <span class="math inline">\(c = -3/2\)</span>.</p>
+<p>From the second component: <span class="math inline">\(3 = -2c\)</span>, so <span class="math inline">\(c = -3/2\)</span>. (Consistent!)</p>
+<p>From the third component: <span class="math inline">\(k = 6c = 6(-3/2) = -9\)</span>.</p></li>
+<li><p>The zero vector can be written as <span class="math inline">\(\mathbf{0} = 0 \cdot \mathbf{v}\)</span> for any vector <span class="math inline">\(\mathbf{v}\)</span>. Since <span class="math inline">\(\mathbf{0}\)</span> is always a scalar multiple of any vector (with scalar <span class="math inline">\(c = 0\)</span>), it is parallel to every vector by definition.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-10-orthogonal-projections" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-10-orthogonal-projections">Exercise 10: Orthogonal projections</h2>
+<p>Given two vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> (with <span class="math inline">\(\mathbf{v} \neq \mathbf{0}\)</span>), we can decompose <span class="math inline">\(\mathbf{u}\)</span> into two parts:</p>
+<ol type="1">
+<li>A component <em>parallel</em> to <span class="math inline">\(\mathbf{v}\)</span>, called the <em>projection</em> of <span class="math inline">\(\mathbf{u}\)</span> onto <span class="math inline">\(\mathbf{v}\)</span></li>
+<li>A component <em>perpendicular</em> (orthogonal) to <span class="math inline">\(\mathbf{v}\)</span></li>
+</ol>
+<p>The projection of <span class="math inline">\(\mathbf{u}\)</span> onto <span class="math inline">\(\mathbf{v}\)</span> is denoted <span class="math inline">\(\text{proj}_{\mathbf{v}}\mathbf{u}\)</span> and is defined as</p>
+<p><span class="math display">\[
+\text{proj}_{\mathbf{v}}\mathbf{u} = \frac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{v} \cdot \mathbf{v}} \mathbf{v} = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{v}\|^2} \mathbf{v}.
+\]</span></p>
+<p>The component of <span class="math inline">\(\mathbf{u}\)</span> perpendicular to <span class="math inline">\(\mathbf{v}\)</span> is the vector</p>
+<p><span class="math display">\[
+\mathbf{u}_{\perp} = \mathbf{u} - \text{proj}_{\mathbf{v}}\mathbf{u}.
+\]</span></p>
+<p>This gives us the decomposition: <span class="math inline">\(\mathbf{u} = \text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp}\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Let <span class="math inline">\(\mathbf{u} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\)</span>. Compute the projection of <span class="math inline">\(\mathbf{u}\)</span> onto <span class="math inline">\(\mathbf{v}\)</span>.</p></li>
+<li><p>For the same vectors as in part a, find the component of <span class="math inline">\(\mathbf{u}\)</span> perpendicular to <span class="math inline">\(\mathbf{v}\)</span>.</p></li>
+<li><p>Verify that <span class="math inline">\(\mathbf{u} = \text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp}\)</span> for the vectors in parts a and b.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{u} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{v} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}\)</span>. Compute <span class="math inline">\(\text{proj}_{\mathbf{v}}\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{u}_{\perp}\)</span>. Then draw all four vectors (<span class="math inline">\(\mathbf{u}\)</span>, <span class="math inline">\(\mathbf{v}\)</span>, <span class="math inline">\(\text{proj}_{\mathbf{v}}\mathbf{u}\)</span>, and <span class="math inline">\(\mathbf{u}_{\perp}\)</span>) in the plane, and verify geometrically that <span class="math inline">\(\mathbf{u} = \text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\mathbf{a} = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{b} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\)</span>. Find <span class="math inline">\(\text{proj}_{\mathbf{b}}\mathbf{a}\)</span>.</p></li>
+<li><p>For the vectors in part e, verify that <span class="math inline">\(\mathbf{u}_{\perp} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}\)</span> is orthogonal to <span class="math inline">\(\mathbf{b}\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(\text{proj}_{\mathbf{e}_1}\mathbf{u}\)</span> for an arbitrary vector <span class="math inline">\(\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}\)</span>. What do you notice?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>We compute: <span class="math display">\[
+\mathbf{u} \cdot \mathbf{v} = (3)(1) + (4)(0) = 3,
+\]</span> <span class="math display">\[
+\mathbf{v} \cdot \mathbf{v} = 1^2 + 0^2 = 1.
+\]</span> Therefore, <span class="math display">\[
+\text{proj}_{\mathbf{v}}\mathbf{u} = \frac{3}{1}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 3 \\ 0 \end{bmatrix}.
+\]</span></p></li>
+<li><p><span class="math inline">\(\mathbf{u}_{\perp} = \mathbf{u} - \text{proj}_{\mathbf{v}}\mathbf{u} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} - \begin{bmatrix} 3 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 4 \end{bmatrix}\)</span></p></li>
+<li><p><span class="math inline">\(\text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp} = \begin{bmatrix} 3 \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ 4 \end{bmatrix} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \mathbf{u}\)</span></p></li>
+<li><p>We compute: <span class="math display">\[
+\mathbf{u} \cdot \mathbf{v} = (3)(2) + (1)(1) = 6 + 1 = 7,
+\]</span> <span class="math display">\[
+\mathbf{v} \cdot \mathbf{v} = 2^2 + 1^2 = 4 + 1 = 5.
+\]</span> Therefore, <span class="math display">\[
+\text{proj}_{\mathbf{v}}\mathbf{u} = \frac{7}{5}\begin{bmatrix} 2 \\ 1 \end{bmatrix} = \begin{bmatrix} 14/5 \\ 7/5 \end{bmatrix}.
+\]</span> And <span class="math display">\[
+\mathbf{u}_{\perp} = \mathbf{u} - \text{proj}_{\mathbf{v}}\mathbf{u} = \begin{bmatrix} 3 \\ 1 \end{bmatrix} - \begin{bmatrix} 14/5 \\ 7/5 \end{bmatrix} = \begin{bmatrix} 15/5 - 14/5 \\ 5/5 - 7/5 \end{bmatrix} = \begin{bmatrix} 1/5 \\ -2/5 \end{bmatrix}.
+\]</span></p>
+<p>In a diagram, you should see that:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> both start at the origin</li>
+<li><span class="math inline">\(\text{proj}_{\mathbf{v}}\mathbf{u}\)</span> lies along the line defined by <span class="math inline">\(\mathbf{v}\)</span></li>
+<li><span class="math inline">\(\mathbf{u}_{\perp}\)</span> is perpendicular to <span class="math inline">\(\mathbf{v}\)</span></li>
+<li>When you add <span class="math inline">\(\text{proj}_{\mathbf{v}}\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{u}_{\perp}\)</span> using the “tip-to-tail” rule, you get <span class="math inline">\(\mathbf{u}\)</span></li>
+</ul></li>
+<li><p>We compute: <span class="math display">\[
+\mathbf{a} \cdot \mathbf{b} = (2)(1) + (1)(1) + (3)(1) = 2 + 1 + 3 = 6,
+\]</span> <span class="math display">\[
+\mathbf{b} \cdot \mathbf{b} = 1^2 + 1^2 + 1^2 = 3.
+\]</span> Therefore, <span class="math display">\[
+\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{6}{3}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = 2\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \\ 2 \end{bmatrix}.
+\]</span></p></li>
+<li><p>First, we compute: <span class="math display">\[
+\mathbf{u}_{\perp} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix} - \begin{bmatrix} 2 \\ 2 \\ 2 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \\ 1 \end{bmatrix}.
+\]</span> Now we check orthogonality: <span class="math display">\[
+\mathbf{u}_{\perp} \cdot \mathbf{b} = (0)(1) + (-1)(1) + (1)(1) = 0 - 1 + 1 = 0.
+\]</span> Since the dot product is zero, <span class="math inline">\(\mathbf{u}_{\perp}\)</span> is indeed orthogonal to <span class="math inline">\(\mathbf{b}\)</span>.</p></li>
+<li><p>We have: <span class="math display">\[
+\mathbf{u} \cdot \mathbf{e}_1 = u_1(1) + u_2(0) + u_3(0) = u_1,
+\]</span> <span class="math display">\[
+\mathbf{e}_1 \cdot \mathbf{e}_1 = 1.
+\]</span> Therefore, <span class="math display">\[
+\text{proj}_{\mathbf{e}_1}\mathbf{u} = \frac{u_1}{1}\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} u_1 \\ 0 \\ 0 \end{bmatrix}.
+\]</span> The projection onto <span class="math inline">\(\mathbf{e}_1\)</span> simply extracts the first component of <span class="math inline">\(\mathbf{u}\)</span> and zeros out the other components. This makes sense geometrically: we’re finding the part of <span class="math inline">\(\mathbf{u}\)</span> that lies along the <span class="math inline">\(x\)</span>-axis.</p></li>
 </ol>
 </div>
 </div>
