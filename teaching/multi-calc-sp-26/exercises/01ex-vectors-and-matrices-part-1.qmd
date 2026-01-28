@@ -475,3 +475,313 @@ e. An antiderivative of $x^3$ is $\frac{x^4}{4}$. Therefore,
 f. The function $f(x) = x^3$ is an *odd function*, meaning $f(-x) = -f(x)$. This means the graph is symmetric about the origin. For $x \in (0, 1)$, we have $f(x) > 0$, contributing positive area. For $x \in (-1, 0)$, we have $f(x) < 0$, contributing negative area. Because of the symmetry, these two areas are equal in magnitude but opposite in sign, so they cancel out, giving a total signed area of zero.
 
 :::
+
+
+## Exercise 7: Basis vectors and vector decomposition
+
+Recall from class that the *standard basis vectors* in $\mathbb{R}^2$ are
+
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \quad \text{and} \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+$$
+
+Similarly, in $\mathbb{R}^3$, the standard basis vectors are
+
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}.
+$$
+
+We saw that any vector in $\mathbb{R}^n$ can be written as a *linear combination* of the standard basis vectors. For example, in $\mathbb{R}^3$,
+
+$$
+\mathbf{v} = \begin{bmatrix} 2 \\ -3 \\ 5 \end{bmatrix} = 2\mathbf{e}_1 - 3\mathbf{e}_2 + 5\mathbf{e}_3.
+$$
+
+One important property of the standard basis vectors is that they are *orthonormal*, meaning:
+
+1. They are all unit vectors: $\|\mathbf{e}_i\| = 1$ for all $i$.
+2. They are mutually orthogonal: $\mathbf{e}_i \cdot \mathbf{e}_j = 0$ whenever $i \neq j$.
+
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Write the vector $\mathbf{v} = \begin{bmatrix} 4 \\ -2 \\ 7 \end{bmatrix}$ as a linear combination of the standard basis vectors $\mathbf{e}_1$, $\mathbf{e}_2$, and $\mathbf{e}_3$.
+
+b. Let $\mathbf{w} = 3\mathbf{e}_1 - 5\mathbf{e}_2 + 2\mathbf{e}_3$. Write $\mathbf{w}$ in column vector form.
+
+c. Verify that the standard basis vectors in $\mathbb{R}^3$ are orthonormal by computing all pairwise dot products and all norms.
+
+d. Let $\mathbf{u} = \begin{bmatrix} -1 \\ 6 \\ 2 \end{bmatrix}$. Compute $\mathbf{u} \cdot \mathbf{e}_1$, $\mathbf{u} \cdot \mathbf{e}_2$, and $\mathbf{u} \cdot \mathbf{e}_3$. What do you notice?
+
+e. Express the zero vector $\mathbf{0}$ in $\mathbb{R}^3$ as a linear combination of the standard basis vectors.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $\mathbf{v} = 4\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3$
+
+b. $\mathbf{w} = \begin{bmatrix} 3 \\ -5 \\ 2 \end{bmatrix}$
+
+c. Computing the norms:
+   $$
+   \|\mathbf{e}_1\| = \sqrt{1^2 + 0^2 + 0^2} = 1, \quad \|\mathbf{e}_2\| = \sqrt{0^2 + 1^2 + 0^2} = 1, \quad \|\mathbf{e}_3\| = \sqrt{0^2 + 0^2 + 1^2} = 1.
+   $$
+   Computing the pairwise dot products:
+   $$
+   \mathbf{e}_1 \cdot \mathbf{e}_2 = (1)(0) + (0)(1) + (0)(0) = 0,
+   $$
+   $$
+   \mathbf{e}_1 \cdot \mathbf{e}_3 = (1)(0) + (0)(0) + (0)(1) = 0,
+   $$
+   $$
+   \mathbf{e}_2 \cdot \mathbf{e}_3 = (0)(0) + (1)(0) + (0)(1) = 0.
+   $$
+   Since all the norms are 1 and all pairwise dot products are 0, the vectors are orthonormal.
+
+d. $\mathbf{u} \cdot \mathbf{e}_1 = (-1)(1) + (6)(0) + (2)(0) = -1$
+   
+   $\mathbf{u} \cdot \mathbf{e}_2 = (-1)(0) + (6)(1) + (2)(0) = 6$
+   
+   $\mathbf{u} \cdot \mathbf{e}_3 = (-1)(0) + (6)(0) + (2)(1) = 2$
+   
+   The dot products give exactly the components of $\mathbf{u}$! This shows that $\mathbf{u} = (\mathbf{u} \cdot \mathbf{e}_1)\mathbf{e}_1 + (\mathbf{u} \cdot \mathbf{e}_2)\mathbf{e}_2 + (\mathbf{u} \cdot \mathbf{e}_3)\mathbf{e}_3$.
+
+e. $\mathbf{0} = 0\mathbf{e}_1 + 0\mathbf{e}_2 + 0\mathbf{e}_3$
+
+:::
+
+
+## Exercise 8: Unit vectors and scaling
+
+Recall that a *unit vector* is a vector with length (norm) equal to 1. Given any nonzero vector $\mathbf{v}$, we can always construct a unit vector in the same direction, often denoted $\mathbf{\hat{v}}$, by dividing $\mathbf{v}$ by its length:
+
+$$
+\mathbf{\hat{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}.
+$$
+
+This process is called *normalization* of $\mathbf{v}$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Find the length of the vector $\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}$.
+
+b. Find a unit vector pointing in the same direction as $\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}$.
+
+c. Find a vector with length $10$ pointing in the same direction as $\mathbf{v} = \begin{bmatrix} 3 \\ -4 \end{bmatrix}$.
+
+d. Find a vector with length $2$ pointing in the same direction as $\mathbf{u} = \mathbf{e}_1 - \mathbf{e}_2 + 2\mathbf{e}_3$.
+
+e. Let $\mathbf{a} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$. Find a unit vector in the direction of $\mathbf{a}$.
+
+f. Find a vector of length $5$ pointing in the opposite direction of $\mathbf{b} = \begin{bmatrix} 2 \\ -1 \\ 2 \end{bmatrix}$.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $\|\mathbf{v}\| = \sqrt{3^2 + (-4)^2} = \sqrt{9 + 16} = \sqrt{25} = 5$
+
+b. $\mathbf{\hat{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|} = \frac{1}{5}\begin{bmatrix} 3 \\ -4 \end{bmatrix} = \begin{bmatrix} 3/5 \\ -4/5 \end{bmatrix}$
+
+c. The vector is $10 \cdot \mathbf{\hat{v}} = 10 \cdot \frac{1}{5}\begin{bmatrix} 3 \\ -4 \end{bmatrix} = 2\begin{bmatrix} 3 \\ -4 \end{bmatrix} = \begin{bmatrix} 6 \\ -8 \end{bmatrix}$
+
+d. First, we write $\mathbf{u}$ in column form: $\mathbf{u} = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}$. Then we compute its length:
+   $$
+   \|\mathbf{u}\| = \sqrt{1^2 + (-1)^2 + 2^2} = \sqrt{1 + 1 + 4} = \sqrt{6}.
+   $$
+   The desired vector is
+   $$
+   2 \cdot \frac{\mathbf{u}}{\|\mathbf{u}\|} = \frac{2}{\sqrt{6}}\begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2/\sqrt{6} \\ -2/\sqrt{6} \\ 4/\sqrt{6} \end{bmatrix}.
+   $$
+
+
+e. $\|\mathbf{a}\| = \sqrt{1^2 + 1^2 + 1^2} = \sqrt{3}$. The unit vector is
+   $$
+   \mathbf{\hat{a}} = \frac{1}{\sqrt{3}}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1/\sqrt{3} \\ 1/\sqrt{3} \\ 1/\sqrt{3} \end{bmatrix} = \begin{bmatrix} \sqrt{3}/3 \\ \sqrt{3}/3 \\ \sqrt{3}/3 \end{bmatrix}.
+   $$
+
+f. First, $\|\mathbf{b}\| = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{4 + 1 + 4} = \sqrt{9} = 3$. To point in the opposite direction, we need a negative scalar:
+   $$
+   -5 \cdot \frac{\mathbf{b}}{\|\mathbf{b}\|} = -\frac{5}{3}\begin{bmatrix} 2 \\ -1 \\ 2 \end{bmatrix} = \begin{bmatrix} -10/3 \\ 5/3 \\ -10/3 \end{bmatrix}.
+   $$
+
+:::
+
+
+## Exercise 9: Parallel vectors
+
+Two nonzero vectors $\mathbf{u}$ and $\mathbf{v}$ are said to be *parallel* if one is a scalar multiple of the other. That is, $\mathbf{u}$ and $\mathbf{v}$ are parallel if there exists a scalar $c$ such that $\mathbf{u} = c\mathbf{v}$ (or $\mathbf{v} = c\mathbf{u}$, it doesn't matter which way you write it).
+
+Geometrically, parallel vectors point in the same direction (if $c > 0$) or in opposite directions (if $c < 0$).
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Determine whether the vectors $\mathbf{u} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 3 \\ 6 \end{bmatrix}$ are parallel.
+
+b. Find a vector parallel to $\mathbf{w} = \begin{bmatrix} 1 \\ -3 \\ 2 \end{bmatrix}$ with length $7$.
+
+c. Find the values of $a$ that make $\mathbf{v} = 5a\mathbf{e}_1 - 3\mathbf{e}_2$ parallel to $\mathbf{w} = a^2\mathbf{e}_1 + 6\mathbf{e}_2$.
+
+d. Let $\mathbf{p} = \begin{bmatrix} 4 \\ -2 \\ 6 \end{bmatrix}$ and $\mathbf{q} = \begin{bmatrix} -6 \\ 3 \\ k \end{bmatrix}$. Find the value of $k$ such that $\mathbf{p}$ and $\mathbf{q}$ are parallel.
+
+e. Explain why the zero vector $\mathbf{0}$ is considered parallel to every vector.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. We check if $\mathbf{v} = c\mathbf{u}$ for some scalar $c$:
+   $$
+   \begin{bmatrix} 3 \\ 6 \end{bmatrix} = c\begin{bmatrix} 2 \\ 4 \end{bmatrix} = \begin{bmatrix} 2c \\ 4c \end{bmatrix}.
+   $$
+   From the first component, $3 = 2c$, so $c = 3/2$. From the second component, $6 = 4c$, so $c = 6/4 = 3/2$. Since both components give the same value of $c$, the vectors are parallel.
+
+b. First, we need the length of $\mathbf{w}$: $\|\mathbf{w}\| = \sqrt{1^2 + (-3)^2 + 2^2} = \sqrt{1 + 9 + 4} = \sqrt{14}$. A parallel vector with length $7$ is
+   $$
+   7 \cdot \frac{\mathbf{w}}{\|\mathbf{w}\|} = \frac{7}{\sqrt{14}}\begin{bmatrix} 1 \\ -3 \\ 2 \end{bmatrix}.
+   $$
+
+c. Writing in column form: $\mathbf{v} = \begin{bmatrix} 5a \\ -3 \end{bmatrix}$ and $\mathbf{w} = \begin{bmatrix} a^2 \\ 6 \end{bmatrix}$. For these to be parallel, we need $\mathbf{v} = c\mathbf{w}$ for some scalar $c$:
+   $$
+   \begin{bmatrix} 5a \\ -3 \end{bmatrix} = c\begin{bmatrix} a^2 \\ 6 \end{bmatrix} = \begin{bmatrix} ca^2 \\ 6c \end{bmatrix}.
+   $$
+   From the first component: $5a = ca^2$, so $c = 5a/a^2 = 5/a$ (assuming $a \neq 0$).
+   
+   From the second component: $-3 = 6c$, so $c = -1/2$.
+   
+   Setting these equal: $5/a = -1/2$, which gives $a = -10$.
+   
+   We should also check the case $a = 0$: if $a = 0$, then $\mathbf{v} = \begin{bmatrix} 0 \\ -3 \end{bmatrix}$ and $\mathbf{w} = \begin{bmatrix} 0 \\ 6 \end{bmatrix}$, which are parallel (one is $-1/2$ times the other). So $a = 0$ and $a = -10$ both work.
+
+d. For $\mathbf{p}$ and $\mathbf{q}$ to be parallel, we need $\mathbf{q} = c\mathbf{p}$ for some scalar $c$:
+   $$
+   \begin{bmatrix} -6 \\ 3 \\ k \end{bmatrix} = c\begin{bmatrix} 4 \\ -2 \\ 6 \end{bmatrix} = \begin{bmatrix} 4c \\ -2c \\ 6c \end{bmatrix}.
+   $$
+   From the first component: $-6 = 4c$, so $c = -3/2$.
+   
+   From the second component: $3 = -2c$, so $c = -3/2$. (Consistent!)
+   
+   From the third component: $k = 6c = 6(-3/2) = -9$.
+
+e. The zero vector can be written as $\mathbf{0} = 0 \cdot \mathbf{v}$ for any vector $\mathbf{v}$. Since $\mathbf{0}$ is always a scalar multiple of any vector (with scalar $c = 0$), it is parallel to every vector by definition.
+
+:::
+
+
+## Exercise 10: Orthogonal projections
+
+Given two vectors $\mathbf{u}$ and $\mathbf{v}$ (with $\mathbf{v} \neq \mathbf{0}$), we can decompose $\mathbf{u}$ into two parts:
+
+1. A component *parallel* to $\mathbf{v}$, called the *projection* of $\mathbf{u}$ onto $\mathbf{v}$
+2. A component *perpendicular* (orthogonal) to $\mathbf{v}$
+
+The projection of $\mathbf{u}$ onto $\mathbf{v}$ is denoted $\text{proj}_{\mathbf{v}}\mathbf{u}$ and is defined as
+
+$$
+\text{proj}_{\mathbf{v}}\mathbf{u} = \frac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{v} \cdot \mathbf{v}} \mathbf{v} = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{v}\|^2} \mathbf{v}.
+$$
+
+The component of $\mathbf{u}$ perpendicular to $\mathbf{v}$ is the vector
+
+$$
+\mathbf{u}_{\perp} = \mathbf{u} - \text{proj}_{\mathbf{v}}\mathbf{u}.
+$$
+
+This gives us the decomposition: $\mathbf{u} = \text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp}$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Let $\mathbf{u} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$. Compute the projection of $\mathbf{u}$ onto $\mathbf{v}$.
+
+b. For the same vectors as in part a, find the component of $\mathbf{u}$ perpendicular to $\mathbf{v}$.
+
+c. Verify that $\mathbf{u} = \text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp}$ for the vectors in parts a and b.
+
+d. Let $\mathbf{u} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$. Compute $\text{proj}_{\mathbf{v}}\mathbf{u}$ and $\mathbf{u}_{\perp}$. Then draw all four vectors ($\mathbf{u}$, $\mathbf{v}$, $\text{proj}_{\mathbf{v}}\mathbf{u}$, and $\mathbf{u}_{\perp}$) in the plane, and verify geometrically that $\mathbf{u} = \text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp}$.
+
+e. Let $\mathbf{a} = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$. Find $\text{proj}_{\mathbf{b}}\mathbf{a}$.
+
+f. For the vectors in part e, verify that $\mathbf{u}_{\perp} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}$ is orthogonal to $\mathbf{b}$.
+
+g. Compute $\text{proj}_{\mathbf{e}_1}\mathbf{u}$ for an arbitrary vector $\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}$. What do you notice?
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. We compute:
+   $$
+   \mathbf{u} \cdot \mathbf{v} = (3)(1) + (4)(0) = 3,
+   $$
+   $$
+   \mathbf{v} \cdot \mathbf{v} = 1^2 + 0^2 = 1.
+   $$
+   Therefore,
+   $$
+   \text{proj}_{\mathbf{v}}\mathbf{u} = \frac{3}{1}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 3 \\ 0 \end{bmatrix}.
+   $$
+
+b. $\mathbf{u}_{\perp} = \mathbf{u} - \text{proj}_{\mathbf{v}}\mathbf{u} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} - \begin{bmatrix} 3 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 4 \end{bmatrix}$
+
+c. $\text{proj}_{\mathbf{v}}\mathbf{u} + \mathbf{u}_{\perp} = \begin{bmatrix} 3 \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ 4 \end{bmatrix} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \mathbf{u}$
+
+d. We compute:
+   $$
+   \mathbf{u} \cdot \mathbf{v} = (3)(2) + (1)(1) = 6 + 1 = 7,
+   $$
+   $$
+   \mathbf{v} \cdot \mathbf{v} = 2^2 + 1^2 = 4 + 1 = 5.
+   $$
+   Therefore,
+   $$
+   \text{proj}_{\mathbf{v}}\mathbf{u} = \frac{7}{5}\begin{bmatrix} 2 \\ 1 \end{bmatrix} = \begin{bmatrix} 14/5 \\ 7/5 \end{bmatrix}.
+   $$
+   And
+   $$
+   \mathbf{u}_{\perp} = \mathbf{u} - \text{proj}_{\mathbf{v}}\mathbf{u} = \begin{bmatrix} 3 \\ 1 \end{bmatrix} - \begin{bmatrix} 14/5 \\ 7/5 \end{bmatrix} = \begin{bmatrix} 15/5 - 14/5 \\ 5/5 - 7/5 \end{bmatrix} = \begin{bmatrix} 1/5 \\ -2/5 \end{bmatrix}.
+   $$
+   
+   In a diagram, you should see that:
+   - $\mathbf{u}$ and $\mathbf{v}$ both start at the origin
+   - $\text{proj}_{\mathbf{v}}\mathbf{u}$ lies along the line defined by $\mathbf{v}$
+   - $\mathbf{u}_{\perp}$ is perpendicular to $\mathbf{v}$
+   - When you add $\text{proj}_{\mathbf{v}}\mathbf{u}$ and $\mathbf{u}_{\perp}$ using the "tip-to-tail" rule, you get $\mathbf{u}$
+   
+
+e. We compute:
+   $$
+   \mathbf{a} \cdot \mathbf{b} = (2)(1) + (1)(1) + (3)(1) = 2 + 1 + 3 = 6,
+   $$
+   $$
+   \mathbf{b} \cdot \mathbf{b} = 1^2 + 1^2 + 1^2 = 3.
+   $$
+   Therefore,
+   $$
+   \text{proj}_{\mathbf{b}}\mathbf{a} = \frac{6}{3}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = 2\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \\ 2 \end{bmatrix}.
+   $$
+
+f. First, we compute:
+   $$
+   \mathbf{u}_{\perp} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix} - \begin{bmatrix} 2 \\ 2 \\ 2 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \\ 1 \end{bmatrix}.
+   $$
+   Now we check orthogonality:
+   $$
+   \mathbf{u}_{\perp} \cdot \mathbf{b} = (0)(1) + (-1)(1) + (1)(1) = 0 - 1 + 1 = 0.
+   $$
+   Since the dot product is zero, $\mathbf{u}_{\perp}$ is indeed orthogonal to $\mathbf{b}$.
+
+f. We have:
+   $$
+   \mathbf{u} \cdot \mathbf{e}_1 = u_1(1) + u_2(0) + u_3(0) = u_1,
+   $$
+   $$
+   \mathbf{e}_1 \cdot \mathbf{e}_1 = 1.
+   $$
+   Therefore,
+   $$
+   \text{proj}_{\mathbf{e}_1}\mathbf{u} = \frac{u_1}{1}\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} u_1 \\ 0 \\ 0 \end{bmatrix}.
+   $$
+   The projection onto $\mathbf{e}_1$ simply extracts the first component of $\mathbf{u}$ and zeros out the other components. This makes sense geometrically: we're finding the part of $\mathbf{u}$ that lies along the $x$-axis.
+
+:::

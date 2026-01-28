@@ -9,12 +9,339 @@ format:
             - "../../aux-files/custom-slides.scss"
 ---
 
-# Section title
+# Points and vectors in the plane {.scrollable}
 
-## Slide title
+## Sets of points and vectors {.scrollable}
 
 ::: {.callout-note icon="false" .fragment}
 
-### Box title
+### $\mathbb{R}^2$ as a set of points
+
+We write $\mathbb{R}^2$ to denote the set of all points in the plane.
+
+- A point is represented by an **ordered pair** of real numbers $(x, y)$.
+
+- The numbers $x$ and $y$ are called the **coordinates** of the point.
+
+:::
+
+- This is the usual way of thinking about points in the plane. You've known this your entire mathematical life.
+
+- However, sometimes it is convenient to think of $\mathbb{R}^2$ in a different way:
+
+::: {.callout-note icon="false" .fragment}
+### $\mathbb{R}^2$ as a set of vectors
+
+We write $\mathbb{R}^2$ to denote the set of all vectors in the plane.
+
+- Such a vector is represented as a **$2$-dimensional column vectors** written as
+    $$
+    \begin{bmatrix}
+    x \\ y 
+    \end{bmatrix}
+    $$
+    where $x$ and $y$ are real numbers.
+
+- The numbers $x$ and $y$ are called the **components** of the vector.
+
+:::
+
+- Visually, we can think of a vector $\begin{bmatrix} x \\ y \end{bmatrix}$ as an arrow with its tail at the origin $(0,0)$ and its head at the point $(x,y)$.
+
+- Which way we think of $\mathbb{R}^2$ (as points or as vectors) depends on the context. We will go back and forth between these two interpretations repeatedly.
+
+## Vector algebra in the plane {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Vector addition/subtraction
+Given two vectors
+$$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix},$$
+their **sum**/**difference** $\mathbf{u} \pm \mathbf{v}$ is defined as
+$$\mathbf{u} \pm \mathbf{v} = \begin{bmatrix} u_1 \pm v_1 \\ u_2 \pm v_2 \end{bmatrix}.$$
+:::
+
+- Geometrically, vector addition can be visualized using the "tip-to-tail" method. (See the upcoming exercise.)
+
+::: {.callout-note icon="false" .fragment}
+### Scalar multiplication
+Given a vector
+$$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix}$$
+and a scalar (real number) $c$, the **scalar multiple** $c\mathbf{u}$ is defined as
+$$c\mathbf{u} = \begin{bmatrix} cu_1 \\ cu_2 \end{bmatrix}.$$
+:::
+
+- Geometrically, scalar multiplication stretches or shrinks the vector by a factor of $|c|$. If $c$ is negative, it also reverses the direction of the vector. (Again, see the upcoming exercise.)
+
+## Properties of vector algebra {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Properties of vector addition and scalar multiplication
+Let $\mathbf{u}$, $\mathbf{v}$, and $\mathbf{w}$ be vectors in $\mathbb{R}^2$, and let $a$ and $b$ be scalars. Then the following properties hold:
+
+a. **Commutative property** of addition: $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$.
+b. **Associative property** of addition: $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$.
+c. **Distributive property** of scalar multiplication over vector addition: $a(\mathbf{u} + \mathbf{v}) = a\mathbf{u} + a\mathbf{v}$.
+d. **Distributive property** of scalar multiplication over scalar addition: $(a + b)\mathbf{u} = a\mathbf{u} + b\mathbf{u}$.
+e. **Associative property** of scalar multiplication: $a(b\mathbf{u}) = (ab)\mathbf{u}$.
+f. **Identity property** of scalar multiplication: $1\mathbf{u} = \mathbf{u}$.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Zero vector
+- The **zero vector** in $\mathbb{R}^2$ is denoted by $\mathbf{0}$ and is defined as
+    $$\mathbf{0} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.$$
+-  It has the property that for any vector $\mathbf{u}$ in $\mathbb{R}^2$,
+    $$\mathbf{u} + \mathbf{0} = \mathbf{u}.$$
+:::
+
+## Exercise 1: Vector algebra {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+
+### Practice with vector addition, subtraction, and scalar multiplication
+
+Given the vectors
+$$
+\mathbf{u} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} -1 \\ 4 \end{bmatrix},
+$$
+compute the following:
+
+a. $\mathbf{u} + \mathbf{v}$
+b. $\mathbf{u} - \mathbf{v}$
+c. $3\mathbf{u}$
+d. $-2\mathbf{v}$
+
+Then, draw the vectors $\mathbf{u}$ and $\mathbf{v}$ in $\mathbb{R}^2$, and the results of each operation.
+
+:::
+
+## Norms and magnitudes {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Magnitude of a vector
+
+- The **norm** (or **magnitude**) of a vector
+    $$
+    \mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix}
+    $$
+    is denoted by $\lVert \mathbf{u}\rVert$ and is defined as
+    $$
+    \lVert \mathbf{u}\rVert = \sqrt{u_1^2 + u_2^2}.
+    $$
+
+- A vector is called a **unit vector** if its norm is $1$.
+:::
+
+## Exercise 2: Norms {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### a) Geometric interpretation of norms
+
+i. Explain why the norm of a vector is its length, interpreting the vector as an arrow in the plane.
+
+ii. Given a vector $\mathbf{u}$ and a scalar $c$, explain why $\lVert c\mathbf{u} \rVert = |c| \lVert \mathbf{u} \rVert$. Does this make sense geometrically?
+
+:::
+
+::: {.callout-note .nonincremental icon="false"}
+
+### b) Practice with computing norms
+
+Given the vectors
+$$
+\mathbf{a} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} \quad \text{and} \quad \mathbf{b} = \begin{bmatrix} -1 \\ 2 \end{bmatrix},
+$$
+
+compute the following:
+
+i. $\lVert \mathbf{a} \rVert$
+ii. $\lVert \mathbf{b} \rVert$
+iii. Find a unit vector in the direction of $\mathbf{a}$.
+iv. Find a unit vector in the direction of $\mathbf{b}$.
+:::
+
+
+## Dot/inner products {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Algebraic definition of the dot product
+- Given two vectors
+    $$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix},$$
+    their **dot product** $\mathbf{u} \cdot \mathbf{v}$ is defined as
+    $$\mathbf{u} \cdot \mathbf{v} = u_1v_1 + u_2v_2.$$
+
+- The dot product is also called an **inner product** and is written alternatively as $\langle \mathbf{u}, \mathbf{v} \rangle$.
+:::
+
+- We will switch between both notations $\mathbf{u} \cdot \mathbf{v}$ and $\langle \mathbf{u}, \mathbf{v} \rangle$ very often!
+
+- The above definition is called the **algebraic definition** of the dot product since it only involes algebraic operations on the components of the vectors.
+
+- There is also a **geometric definition** of the dot product, which relates it to the angle between the two vectors and their norms.
+
+::: {.callout-note icon="false" .fragment}
+### Geometric definition of the dot product
+Given two vectors $\mathbf{u}$ and $\mathbf{v}$, the dot product can also be defined as
+$$\mathbf{u} \cdot \mathbf{v} = \lVert \mathbf{u} \rVert \lVert \mathbf{v} \rVert \cos \theta,$$
+where $\theta$ ($0 \leq \theta \leq \pi$) is the angle between the two vectors.
+
+:::
+
+## Properties of dot/inner products {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### Algebraic and geometric properties of the dot product
+a. The dot product is **commutative**: $\mathbf{u} \cdot \mathbf{v} = \mathbf{v} \cdot \mathbf{u}$.
+
+b. The dot product is **distributive** over vector addition: $\mathbf{u} \cdot (\mathbf{v} + \mathbf{w}) = \mathbf{u} \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{w}$.
+
+c. The dot product is **bilinear**: for any scalar $c$, $(c\mathbf{u}) \cdot \mathbf{v} = c(\mathbf{u} \cdot \mathbf{v})$.
+
+d. If $\mathbf{u}$ and $\mathbf{v}$ are nonzero, then they are **orthogonal** (i.e., **perpendicular**) if and only if $\mathbf{u} \cdot \mathbf{v} = 0$.
+
+:::
+
+## Exercise 3: Dot products {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### a) Practice with computing dot/inner products
+
+Given the vectors
+$$
+\mathbf{p} = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \quad \text{and} \quad \mathbf{q} = \begin{bmatrix} 3 \\ 4 \end{bmatrix},
+$$
+compute the following:
+
+i. $\mathbf{p} \cdot \mathbf{q}$
+ii. $\langle\mathbf{q}, \mathbf{p}\rangle$
+iii. $\langle \mathbf{p}, \mathbf{p} \rangle$
+iv. $\mathbf{q} \cdot \mathbf{q}$
+
+:::
+
+::: {.callout-note .nonincremental icon="false"}
+### b) Geometric interpretation of the dot/inner product
+
+Explain why the algebraic and geometric definitions of the inner product $\langle \mathbf{u} , \mathbf{v}\rangle$ are equivalent. For simplicity, you may assume that $\mathbf{u}$ points along the x-axis, i.e.,
+$$\mathbf{u} = \begin{bmatrix} u_1 \\ 0 \end{bmatrix}.$$
+
+:::
+
+## Standard basis vectors in the plane {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Standard basis vectors in $\mathbb{R}^2$
+
+The **standard basis vectors** in $\mathbb{R}^2$ are denoted by $\mathbf{e}_1$ and $\mathbf{e}_2$, and are defined as
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Theorem: Resolving vectors into standard basis vectors
+
+Any vector
+
+$$
+\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix}
+$$
+
+in $\mathbb{R}^2$ can be expressed as a **linear combination** of the standard basis vectors (i.e., a sum of scalar multiples of the basis vectors) as:
+
+$$\mathbf{u} = u_1 \mathbf{e}_1 + u_2 \mathbf{e}_2.$$
+
+:::
+
+## Exercise 4: Basis vectors {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### Practice with basis vectors
+Given any vector $\mathbf{u}$, explain why
+$$
+\mathbf{u} = \langle \mathbf{u}, \mathbf{e}_1 \rangle \mathbf{e}_1 + \langle \mathbf{u}, \mathbf{e}_2 \rangle \mathbf{e}_2.
+$$
+
+Take care to notice that there are **three** vector operations happening in this equation: inner products, scalar multiplication, and vector addition.
+:::
+
+
+
+# Points and vectors in space
+
+## Sets of points and vectors in space {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### $\mathbb{R}^3$ as a set of points
+
+We write $\mathbb{R}^3$ to denote the set of all points in $3$-dimensional space.
+
+- A point is represented by an **ordered triple** of real numbers $(x, y, z)$.
+
+- The numbers $x$, $y$, and $z$ are called the **coordinates** of the point.
+
+:::
+
+- As with $\mathbb{R}^2$, we can also think of $\mathbb{R}^3$ as a set of vectors:
+
+::: {.callout-note icon="false" .fragment}
+### $\mathbb{R}^3$ as a set of vectors
+
+We write $\mathbb{R}^3$ to denote the set of all vectors in $3$-dimensional space.
+
+- Such a vector is represented as a **$3$-dimensional column vectors** written as
+    $$
+    \begin{bmatrix}
+    x \\ y \\ z
+    \end{bmatrix}
+    $$
+    where $x$, $y$, and $z$ are real numbers.
+
+- The numbers $x$, $y$, and $z$ are called the **components** of the vector.
+
+:::
+
+## Alegebra, norms, and dot products in space {.scrollable}
+
+- All the definitions and properties of vector algebra, norms, and dot products that we discussed for $\mathbb{R}^2$ carry over to $\mathbb{R}^3$ with only minor modifications.
+
+- For exmaple, given two vectors
+    $$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix},$$
+    their sum/difference is defined as
+    $$\mathbf{u} \pm \mathbf{v} = \begin{bmatrix} u_1 \pm v_1 \\ u_2 \pm v_2 \\ u_3 \pm v_3 \end{bmatrix}.$$
+
+- Their norm is defined as
+    $$\lVert \mathbf{u} \rVert = \sqrt{u_1^2 + u_2^2 + u_3^2}.$$
+
+- Their inner product is defined as
+    $$\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_1 + u_2v_2 + u_3v_3.$$
+
+- All the properties we discussed for vectors in $\mathbb{R}^2$ also hold in $\mathbb{R}^3$.
+
+## Standard basis vectors in space {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Standard basis vectors in $\mathbb{R}^3$
+
+The **standard basis vectors** in $\mathbb{R}^3$ are denoted by $\mathbf{e}_1$, $\mathbf{e}_2$, and $\mathbf{e}_3$, and are defined as
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Theorem: Resolving vectors into standard basis vectors
+
+Any vector
+
+$$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}$$
+
+in $\mathbb{R}^3$ can be expressed as a **linear combination** of the standard basis vectors (i.e., a sum of scalar multiples of the basis vectors) as:
+
+$$\mathbf{u} = u_1 \mathbf{e}_1 + u_2 \mathbf{e}_2 + u_3 \mathbf{e}_3.$$
 
 :::
