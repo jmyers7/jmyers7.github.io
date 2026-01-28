@@ -513,7 +513,74 @@ b. The four vertices of the bottom of the box are at
 :::
 
 
-## Exercise 8: Basis vectors and vector decomposition
+## Exercise 8: Practice moving in $\mathbb{R}^3$
+
+Recall that in $\mathbb{R}^3$, there are three *coordinate planes*:
+
+- The $xy$-plane, where $z = 0$.
+- The $xz$-plane, where $y = 0$.
+- The $yz$-plane, where $x = 0$.
+
+Other planes that are parallel with one of these coordinate planes can be described by equations of the form:
+
+- $x = k$ for planes parallel to the $yz$-plane,
+- $y = k$ for planes parallel to the $xz$-plane,
+- $z = k$ for planes parallel to the $xy$-plane,
+
+where $k$ is a constant.
+
+Similarly, the three *coordinate axes* are:
+
+- The $x$-axis, where $y = 0$ and $z = 0$.
+- The $y$-axis, where $x = 0$ and $z = 0$.
+- The $z$-axis, where $x = 0$ and $y = 0$.
+
+Other lines that are parallel with one of these coordinate axes can be described by pairs of equations of the form:
+
+- $y= k_1$ and $z = k_2$ for lines parallel to the $x$-axis,
+- $x = k_1$ and $z = k_2$ for lines parallel to the $y$-axis,
+- $x = k_1$ and $y = k_2$ for lines parallel to the $z$-axis,
+
+where $k_1$ and $k_2$ are constants.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. You are standing at a point in the $yz$-plane and you walk $3$ units in the negative $x$-direction to arrive at the point $(-3, 1, 2)$. What point were you at to begin with?
+
+b. You start at a point on the $xy$-plane and walk $4$ units in the positive $z$-direction to arrive at $(2, -1, 4)$. Find your starting point.
+
+c. You begin at a point on the $x$-axis and walk $2$ units in the positive $y$-direction and $3$ units in the negative $z$-direction to arrive at $(5, 2, -3)$. Where did you start?
+
+d. You start at the point $(1, 4, 2)$ and walk $5$ units in the negative $y$-direction. At what point do you arrive?
+
+e. Starting from the origin, you walk $3$ units in the positive $x$-direction, then $2$ units in the negative $y$-direction, and finally $4$ units in the positive $z$-direction. What is your final position?
+
+f. You begin at a point on the plane $x=2$ and walk $4$ units in the negative $x$-direction, $2$ units in the positive $y$-direction, and $3$ units in the negative $z$-direction to arrive at $(-2, 4, -2)$. What was your starting point?
+
+g. You begin at a point on the line defined by $y=3$ and $z=-1$. You walk $1$ unit in the negative $y$-direction, then $4$ units in the negative $x$-direction, and finally $6$ units in the positive $z$-direction to arrive at $(-1, 2, 5)$. Where did you start?
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $(0, 1, 2)$
+
+b. $(2, -1, 0)$
+
+c. $(5, 0, 0)$
+
+d. $(1, -1, 2)$
+
+e. $(3, -2, 4)$
+
+f. $(2, 2, 1)$
+
+g. $(3, 3, -1)$
+
+:::
+
+
+## Exercise 9: Basis vectors and vector decomposition
 
 Recall from class that the *standard basis vectors* in $\mathbb{R}^2$ are
 
@@ -588,7 +655,7 @@ e. $\mathbf{0} = 0\mathbf{e}_1 + 0\mathbf{e}_2 + 0\mathbf{e}_3$
 :::
 
 
-## Exercise 9: Unit vectors and scaling
+## Exercise 10: Unit vectors and scaling
 
 Recall that a *unit vector* is a vector with length (norm) equal to 1. Given any nonzero vector $\mathbf{v}$, we can always construct a unit vector in the same direction, often denoted $\mathbf{\hat{v}}$, by dividing $\mathbf{v}$ by its length:
 
@@ -645,7 +712,7 @@ f. First, $\|\mathbf{b}\| = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{4 + 1 + 4} = \sqrt
 :::
 
 
-## Exercise 10: Parallel vectors
+## Exercise 11: Parallel vectors
 
 Two nonzero vectors $\mathbf{u}$ and $\mathbf{v}$ are said to be *parallel* if one is a scalar multiple of the other. That is, $\mathbf{u}$ and $\mathbf{v}$ are parallel if there exists a scalar $c$ such that $\mathbf{u} = c\mathbf{v}$ (or $\mathbf{v} = c\mathbf{u}$, it doesn't matter which way you write it).
 
@@ -705,7 +772,7 @@ e. The zero vector can be written as $\mathbf{0} = 0 \cdot \mathbf{v}$ for any v
 :::
 
 
-## Exercise 11: Orthogonal projections
+## Exercise 12: Orthogonal projections
 
 Given two vectors $\mathbf{u}$ and $\mathbf{v}$ (with $\mathbf{v} \neq \mathbf{0}$), we can decompose $\mathbf{u}$ into two parts:
 
