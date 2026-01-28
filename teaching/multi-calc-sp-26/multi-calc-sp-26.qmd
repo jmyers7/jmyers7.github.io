@@ -36,6 +36,6 @@ This course is an introduction to multivariable calculus. We will cover the foll
 | week | date | topics | slides | exercises | info |
 |-|--|----|---|:-:|---|
 || 01.30 fri
-|| 01.29 thu |||| Quiz over Section 01, part 1 (just vectors—no matrices)
-|| 01.28 wed | 01 Vectors and matrices, part 1 | [slides](./slides/01-vectors-and-matrices-part-1.qmd){target="_blank"} | Do the new exercies in the set below ↓
+|| 01.29 thu | 01 Vectors and matrices, part 1 | [slides](./slides/01-vectors-and-matrices-part-1.qmd){target="_blank"} | ↓
+|| 01.28 wed | Another "remote day": Watch the videos below if you haven't already, continue working on exercises. || ↓
 | 01| 01.26 mon | "Remote day": Watch the videos [here](https://www.3blue1brown.com/?v=vectors){target="_blank"}, [here](https://www.3blue1brown.com/?v=linear-transformations#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=matrix-multiplication#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=determinant#video-section){target="_blank"}, and [here](https://www.3blue1brown.com/?v=dot-products#video-section){target="_blank"}. Complete the exercises (see the link to the right). || [exercises](./exercises/01ex-vectors-and-matrices-part-1.qmd)
