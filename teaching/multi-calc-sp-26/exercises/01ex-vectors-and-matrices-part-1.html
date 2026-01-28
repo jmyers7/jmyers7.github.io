@@ -200,10 +200,11 @@ window.Quarto = {
   <li><a href="#exercise-4-determinants-and-areas" id="toc-exercise-4-determinants-and-areas" class="nav-link" data-scroll-target="#exercise-4-determinants-and-areas">Exercise 4: Determinants and areas</a></li>
   <li><a href="#exercise-5-the-derivative-as-a-difference-quotient-and-linear-approximation" id="toc-exercise-5-the-derivative-as-a-difference-quotient-and-linear-approximation" class="nav-link" data-scroll-target="#exercise-5-the-derivative-as-a-difference-quotient-and-linear-approximation">Exercise 5: The derivative as a difference quotient and linear approximation</a></li>
   <li><a href="#exercise-6-integrals-and-signed-area" id="toc-exercise-6-integrals-and-signed-area" class="nav-link" data-scroll-target="#exercise-6-integrals-and-signed-area">Exercise 6: Integrals and signed area</a></li>
-  <li><a href="#exercise-7-basis-vectors-and-vector-decomposition" id="toc-exercise-7-basis-vectors-and-vector-decomposition" class="nav-link" data-scroll-target="#exercise-7-basis-vectors-and-vector-decomposition">Exercise 7: Basis vectors and vector decomposition</a></li>
-  <li><a href="#exercise-8-unit-vectors-and-scaling" id="toc-exercise-8-unit-vectors-and-scaling" class="nav-link" data-scroll-target="#exercise-8-unit-vectors-and-scaling">Exercise 8: Unit vectors and scaling</a></li>
-  <li><a href="#exercise-9-parallel-vectors" id="toc-exercise-9-parallel-vectors" class="nav-link" data-scroll-target="#exercise-9-parallel-vectors">Exercise 9: Parallel vectors</a></li>
-  <li><a href="#exercise-10-orthogonal-projections" id="toc-exercise-10-orthogonal-projections" class="nav-link" data-scroll-target="#exercise-10-orthogonal-projections">Exercise 10: Orthogonal projections</a></li>
+  <li><a href="#exercise-7-rectangular-boxes" id="toc-exercise-7-rectangular-boxes" class="nav-link" data-scroll-target="#exercise-7-rectangular-boxes">Exercise 7: Rectangular boxes</a></li>
+  <li><a href="#exercise-8-basis-vectors-and-vector-decomposition" id="toc-exercise-8-basis-vectors-and-vector-decomposition" class="nav-link" data-scroll-target="#exercise-8-basis-vectors-and-vector-decomposition">Exercise 8: Basis vectors and vector decomposition</a></li>
+  <li><a href="#exercise-9-unit-vectors-and-scaling" id="toc-exercise-9-unit-vectors-and-scaling" class="nav-link" data-scroll-target="#exercise-9-unit-vectors-and-scaling">Exercise 9: Unit vectors and scaling</a></li>
+  <li><a href="#exercise-10-parallel-vectors" id="toc-exercise-10-parallel-vectors" class="nav-link" data-scroll-target="#exercise-10-parallel-vectors">Exercise 10: Parallel vectors</a></li>
+  <li><a href="#exercise-11-orthogonal-projections" id="toc-exercise-11-orthogonal-projections" class="nav-link" data-scroll-target="#exercise-11-orthogonal-projections">Exercise 11: Orthogonal projections</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -657,8 +658,52 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 </section>
-<section id="exercise-7-basis-vectors-and-vector-decomposition" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-7-basis-vectors-and-vector-decomposition">Exercise 7: Basis vectors and vector decomposition</h2>
+<section id="exercise-7-rectangular-boxes" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-7-rectangular-boxes">Exercise 7: Rectangular boxes</h2>
+<p>In this problem, we will work with rectangular boxes in <span class="math inline">\(\mathbb{R}^3\)</span>. We assume that all boxes have eight vertices (i.e., corners), and that their edges are aligned with the coordinate axes. In other words, every edge of a box is parallel to either the <span class="math inline">\(x\)</span>-, <span class="math inline">\(y\)</span>-, or <span class="math inline">\(z\)</span>-axis.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>A rectangular box has two opposite corners at <span class="math inline">\(P = (0, 0, 0)\)</span> and <span class="math inline">\(Q = (3, 2, 4)\)</span>. Find the coordinates of all eight vertices of the box.</p></li>
+<li><p>A rectangular box has three vertices at <span class="math inline">\(A = (1, 1, 1)\)</span>, <span class="math inline">\(B = (5, 1, 1)\)</span>, and <span class="math inline">\(C = (1, 3, 4)\)</span>. Find the coordinates of all eight vertices of the box.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>The four vertices of the bottom of the box are at <span class="math display">\[
+(0,0,0), \quad (3,0,0), \quad (0,2,0), \quad (3,2,0).
+\]</span> The four vertices of the top of the box are at <span class="math display">\[
+(0,0,4), \quad (3,0,4), \quad (0,2,4), \quad (3,2,4).
+\]</span></p></li>
+<li><p>The four vertices of the bottom of the box are at <span class="math display">\[
+(1, 1, 1), \quad (5, 1, 1), \quad (5, 3, 1), \quad (1, 3, 1).
+\]</span> The four vertices of the top of the box are at <span class="math display">\[
+(1, 1, 4), \quad (5, 1, 4), \quad (5, 3, 4), \quad (1, 3, 4).
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-8-basis-vectors-and-vector-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-8-basis-vectors-and-vector-decomposition">Exercise 8: Basis vectors and vector decomposition</h2>
 <p>Recall from class that the <em>standard basis vectors</em> in <span class="math inline">\(\mathbb{R}^2\)</span> are</p>
 <p><span class="math display">\[
 \mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \quad \text{and} \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
@@ -693,7 +738,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -702,7 +747,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="a">
 <li><p><span class="math inline">\(\mathbf{v} = 4\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3\)</span></p></li>
@@ -726,8 +771,8 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 </section>
-<section id="exercise-8-unit-vectors-and-scaling" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-8-unit-vectors-and-scaling">Exercise 8: Unit vectors and scaling</h2>
+<section id="exercise-9-unit-vectors-and-scaling" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-9-unit-vectors-and-scaling">Exercise 9: Unit vectors and scaling</h2>
 <p>Recall that a <em>unit vector</em> is a vector with length (norm) equal to 1. Given any nonzero vector <span class="math inline">\(\mathbf{v}\)</span>, we can always construct a unit vector in the same direction, often denoted <span class="math inline">\(\mathbf{\hat{v}}\)</span>, by dividing <span class="math inline">\(\mathbf{v}\)</span> by its length:</p>
 <p><span class="math display">\[
 \mathbf{\hat{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}.
@@ -751,7 +796,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -760,7 +805,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="a">
 <li><p><span class="math inline">\(\|\mathbf{v}\| = \sqrt{3^2 + (-4)^2} = \sqrt{9 + 16} = \sqrt{25} = 5\)</span></p></li>
@@ -782,8 +827,8 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 </section>
-<section id="exercise-9-parallel-vectors" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-9-parallel-vectors">Exercise 9: Parallel vectors</h2>
+<section id="exercise-10-parallel-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-10-parallel-vectors">Exercise 10: Parallel vectors</h2>
 <p>Two nonzero vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are said to be <em>parallel</em> if one is a scalar multiple of the other. That is, <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are parallel if there exists a scalar <span class="math inline">\(c\)</span> such that <span class="math inline">\(\mathbf{u} = c\mathbf{v}\)</span> (or <span class="math inline">\(\mathbf{v} = c\mathbf{u}\)</span>, it doesn’t matter which way you write it).</p>
 <p>Geometrically, parallel vectors point in the same direction (if <span class="math inline">\(c &gt; 0\)</span>) or in opposite directions (if <span class="math inline">\(c &lt; 0\)</span>).</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -803,7 +848,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -812,7 +857,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="a">
 <li><p>We check if <span class="math inline">\(\mathbf{v} = c\mathbf{u}\)</span> for some scalar <span class="math inline">\(c\)</span>: <span class="math display">\[
@@ -838,8 +883,8 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 </section>
-<section id="exercise-10-orthogonal-projections" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-10-orthogonal-projections">Exercise 10: Orthogonal projections</h2>
+<section id="exercise-11-orthogonal-projections" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-11-orthogonal-projections">Exercise 11: Orthogonal projections</h2>
 <p>Given two vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> (with <span class="math inline">\(\mathbf{v} \neq \mathbf{0}\)</span>), we can decompose <span class="math inline">\(\mathbf{u}\)</span> into two parts:</p>
 <ol type="1">
 <li>A component <em>parallel</em> to <span class="math inline">\(\mathbf{v}\)</span>, called the <em>projection</em> of <span class="math inline">\(\mathbf{u}\)</span> onto <span class="math inline">\(\mathbf{v}\)</span></li>
@@ -873,7 +918,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -882,7 +927,7 @@ f(1.1) \approx f(1) + f'(1)(1.1 - 1) = 1 + 3(0.1) = 1 + 0.3 = 1.3.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="a">
 <li><p>We compute: <span class="math display">\[
