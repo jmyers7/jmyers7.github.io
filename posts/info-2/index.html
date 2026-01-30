@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -313,28 +278,28 @@ window.Quarto = {
 <p>We’ll work primarily with a concrete example: three coin flips and the nested algebras they generate. Through explicit computations in <code>R</code>, we’ll see how entropy quantifies information at each stage of learning. The mathematical machinery we develop (algebras, partitions, and their correspondence) forms the backbone of modern probability theory. These ideas have powerful applications in <em>gambling problems</em> and <em>games of chance</em>, where players accumulate information over time, and in <em>options pricing in mathematical finance</em>, where nested filtrations model traders’ evolving information and determine fair prices for derivative securities. We will explore these latter themes in future posts.</p>
 <p>The idea that algebras (and their <span class="math inline">\(\sigma\)</span>-algebra generalizations) can represent “information states” is familiar to probability theorists. For example, these ideas appear throughout <span class="citation" data-cites="Billingsley1995">(<a href="#ref-Billingsley1995" role="doc-biblioref">Billingsley 1995</a>)</span>, which also discusses gambling strategies, while <span class="citation" data-cites="Bjork2020">(<a href="#ref-Bjork2020" role="doc-biblioref">Björk 2020</a>)</span> provides a perspective from mathematical finance. Information-theoretic measures like entropy are applied to <span class="math inline">\(\sigma\)</span>-algebras in ergodic theory and other areas; for an introduction, see <span class="citation" data-cites="Walters1982">(<a href="#ref-Walters1982" role="doc-biblioref">Walters 1982</a>)</span>.</p>
 <p>If you’d like to follow along with the code examples in this post, please see the dropdown code block below for the usual imports and setup.</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>) <span class="co"># For plotting</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"knitr"</span>) <span class="co"># For table formatting (used with kable())</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>) <span class="co"># For data manipulation</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"latex2exp"</span>) <span class="co"># For LaTeX rendering in plots</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Source custom theme file</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: Replace this path with your own theme file location</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../../aux-files/custom-theme.R"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract custom colors from theme</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: These color definitions depend on your custom theme file</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>yellow <span class="ot">&lt;-</span> custom_colors[[<span class="st">"yellow"</span>]]</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">&lt;-</span> custom_colors[[<span class="st">"blue"</span>]]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply custom ggplot2 theme</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">custom_theme</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Load required packages
+library("ggplot2") # For plotting
+library("knitr") # For table formatting (used with kable())
+library("dplyr") # For data manipulation
+library("latex2exp") # For LaTeX rendering in plots
+
+# Source custom theme file
+# Note: Replace this path with your own theme file location
+source("../../aux-files/custom-theme.R")
+
+# Extract custom colors from theme
+# Note: These color definitions depend on your custom theme file
+yellow &lt;- custom_colors[["yellow"]]
+blue &lt;- custom_colors[["blue"]]
+
+# Apply custom ggplot2 theme
+theme_set(custom_theme())
+</code></pre>
 </section>
 <section id="algebras-as-information-carriers" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="algebras-as-information-carriers">Algebras as information carriers</h2>
@@ -409,91 +374,28 @@ Y = X_1 + X_2 + X_3.
 \]</span></p>
 <p>The four functions <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y\)</span> are, of course, random variables on <span class="math inline">\(\Omega\)</span>. If the coin has probability <span class="math inline">\(\theta\)</span> of showing heads, then <span class="math inline">\(X_i \sim \mathcal{B}er(\theta)\)</span> for each <span class="math inline">\(i\)</span>, and <span class="math inline">\(Y\sim \mathcal{B}in(3,\theta)\)</span>.</p>
 <p>We will be carrying out some basic computations later, so let’s implement our scenario in the machine, by coding a data frame in which each row represents an outcome <span class="math inline">\(\omega\)</span>:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the sample space Omega as a data frame</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each row represents one of the 8 possible outcomes (binary sequences of length 3)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="co"># First coin flip: 0 = tail, 1 = head</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">X2 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="co"># Second coin flip</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">X3 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># Third coin flip</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add random variable Y: total number of heads across all three flips</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y =</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space as a formatted table</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  Omega,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$"</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>sample space <span class="math inline">\(\Omega\)</span> and random variables <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">X1</th>
-<th style="text-align: right;">X2</th>
-<th style="text-align: right;">X3</th>
-<th style="text-align: right;">Y</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Create the sample space Omega as a data frame
+# Each row represents one of the 8 possible outcomes (binary sequences of length 3)
+Omega &lt;- data.frame(
+  X1 = c(0, 0, 0, 0, 1, 1, 1, 1), # First coin flip: 0 = tail, 1 = head
+  X2 = c(0, 0, 1, 1, 0, 0, 1, 1), # Second coin flip
+  X3 = c(0, 1, 0, 1, 0, 1, 0, 1) # Third coin flip
+)
+
+# Add random variable Y: total number of heads across all three flips
+Omega &lt;- Omega %&gt;%
+  mutate(Y = X1 + X2 + X3)
+
+# Display the sample space as a formatted table
+kable(
+  Omega,
+  caption = "sample space $\\Omega$ and random variables $X_1$, $X_2$, $X_3$, and $Y$"
+)
+</code></pre>
 <p><br></p>
 <p>Now, suppose that the coin was flipped three times, producing a definite outcome <span class="math inline">\(\omega_0\)</span> in <span class="math inline">\(\Omega\)</span>, but that its exact identity is unknown to our observer. The only information available is the answer to the question: “<em>What is the outcome of the first flip?</em>”. This information allows the observer to partition the sample space <span class="math inline">\(\Omega\)</span> and generate an algebra <span class="math inline">\(\mathcal{F}_1\)</span>, just as we described at the beginning of this section.</p>
 <p>This partition consists of the sets</p>
@@ -511,93 +413,21 @@ A_1 = \{000,001,010,011\} \quad \text{and} \quad A_2 = \{100,101,110,111\},
 </figure>
 </div>
 <p>Let’s insert a column in our data frame tracking the membership of each outcome <span class="math inline">\(\omega\)</span> (i.e., row) in <span class="math inline">\(A_1\)</span> or <span class="math inline">\(A_2\)</span>:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group outcomes by the result of the first flip (X1)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and assign a group ID to track which partition set (A1 or A2) each outcome belongs to</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ai =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> <span class="co"># Ai = 1 for A1 (X1=0), Ai = 2 for A2 (X1=1)</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated sample space showing partition membership</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Ai records the index $i$ of $A_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>column Ai records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(A_i\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">X1</th>
-<th style="text-align: right;">X2</th>
-<th style="text-align: right;">X3</th>
-<th style="text-align: right;">Y</th>
-<th style="text-align: right;">Ai</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Group outcomes by the result of the first flip (X1)
+# and assign a group ID to track which partition set (A1 or A2) each outcome belongs to
+Omega &lt;- Omega %&gt;%
+  group_by(X1) %&gt;%
+  mutate(Ai = cur_group_id()) %&gt;% # Ai = 1 for A1 (X1=0), Ai = 2 for A2 (X1=1)
+  ungroup() %&gt;%
+  as.data.frame()
+
+# Display the updated sample space showing partition membership
+kable(Omega, caption = "column Ai records the index $i$ of $A_i$")
+</code></pre>
 <p><br></p>
 <p>Now, suppose the observer is also given the answer to the question: “<em>What is the outcome of the second flip?</em>” Combining this with the information from the first flip, the observer can now distinguish outcomes based on the results of the first two flips. This additional information generates a finer partition of <span class="math inline">\(\Omega\)</span> and produces a second algebra <span class="math inline">\(\mathcal{F}_2\)</span>, which contains the first:</p>
 <p><span class="math display">\[
@@ -619,102 +449,21 @@ B_1 = \{000,001\}, \quad B_2 = \{010,011\}, \quad B_3 = \{100,101\}, \quad B_4 =
 </figure>
 </div>
 <p>Let’s insert our new algebra into the machine:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group outcomes by the results of the first two flips (X1 and X2)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and assign a group ID to track which partition set (B1, B2, B3, or B4) each outcome belongs to</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1, X2) <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Bi =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> <span class="co"># Bi = 1 for B1, Bi = 2 for B2, etc.</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated sample space showing partition membership for the refined algebra F2</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Bi records the index $i$ of $B_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>column Bi records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(B_i\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">X1</th>
-<th style="text-align: right;">X2</th>
-<th style="text-align: right;">X3</th>
-<th style="text-align: right;">Y</th>
-<th style="text-align: right;">Ai</th>
-<th style="text-align: right;">Bi</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Group outcomes by the results of the first two flips (X1 and X2)
+# and assign a group ID to track which partition set (B1, B2, B3, or B4) each outcome belongs to
+Omega &lt;- Omega %&gt;%
+  group_by(X1, X2) %&gt;%
+  mutate(Bi = cur_group_id()) %&gt;% # Bi = 1 for B1, Bi = 2 for B2, etc.
+  ungroup() %&gt;%
+  as.data.frame()
+
+# Display the updated sample space showing partition membership for the refined algebra F2
+kable(Omega, caption = "column Bi records the index $i$ of $B_i$")
+</code></pre>
 <p><br></p>
 <p>Finally, suppose the observer is given the answer to the question: “<em>What is the outcome of the third flip?</em>” With this information, the observer can now distinguish outcomes based on all three flips, completely specifying <span class="math inline">\(\omega_0\)</span>. This generates the finest partition of <span class="math inline">\(\Omega\)</span> and produces a third algebra <span class="math inline">\(\mathcal{F}_3\)</span>, which refines the information in <span class="math inline">\(\mathcal{F}_2\)</span> (and thus also <span class="math inline">\(\mathcal{F}_1\)</span>):</p>
 <p><span class="math display">\[
@@ -734,112 +483,22 @@ C_5 = \{100\}, \ C_6 = \{101\}, \ C_7 = \{110\}, \ C_8 = \{111\},
 </figure>
 </div>
 <p>We insert one last column in our data frame for the <span class="math inline">\(C_i\)</span>’s:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group outcomes by all three flips (X1, X2, and X3)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each combination of (X1, X2, X3) uniquely identifies one outcome</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(X1, X2, X3) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ci =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span> <span class="co"># Ci = 1 for C1, Ci = 2 for C2, etc.</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated sample space showing the finest partition (singletons)</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># At this level, each outcome is completely distinguishable</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Omega, <span class="at">caption =</span> <span class="st">"column Ci records the index $i$ of $C_i$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>column Ci records the index <span class="math inline">\(i\)</span> of <span class="math inline">\(C_i\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">X1</th>
-<th style="text-align: right;">X2</th>
-<th style="text-align: right;">X3</th>
-<th style="text-align: right;">Y</th>
-<th style="text-align: right;">Ai</th>
-<th style="text-align: right;">Bi</th>
-<th style="text-align: right;">Ci</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">8</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Group outcomes by all three flips (X1, X2, and X3)
+# Each combination of (X1, X2, X3) uniquely identifies one outcome
+Omega &lt;- Omega %&gt;%
+  group_by(X1, X2, X3) %&gt;%
+  mutate(Ci = cur_group_id()) %&gt;% # Ci = 1 for C1, Ci = 2 for C2, etc.
+  ungroup() %&gt;%
+  as.data.frame()
+
+# Display the updated sample space showing the finest partition (singletons)
+# At this level, each outcome is completely distinguishable
+kable(Omega, caption = "column Ci records the index $i$ of $C_i$")
+</code></pre>
 <p><br></p>
 <p>To recap, the sets <span class="math inline">\(A_k\)</span>, <span class="math inline">\(B_k\)</span>, and <span class="math inline">\(C_k\)</span> form partitions of <span class="math inline">\(\Omega\)</span>, with each successive partition being finer than the last: each <span class="math inline">\(A_k\)</span> is a union of <span class="math inline">\(B_k\)</span>’s, and each <span class="math inline">\(B_k\)</span> is a union of <span class="math inline">\(C_k\)</span>’s. These sets are also the <em>atoms</em> of their respective algebras, meaning they do not properly contain any nonempty subset in the corresponding algebra.</p>
 <p>Two outcomes <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> in the same <span class="math inline">\(A_k\)</span> are <em>indistinguishable</em> using only the information in <span class="math inline">\(\mathcal{F}_1\)</span>. Likewise, outcomes in the same <span class="math inline">\(B_k\)</span> are indistinguishable with respect to <span class="math inline">\(\mathcal{F}_2\)</span>. The <span class="math inline">\(C_k\)</span>, by contrast, correspond to <em>complete</em> information in <span class="math inline">\(\mathcal{F}_3\)</span>, so no ambiguity remains.</p>
@@ -1024,125 +683,26 @@ P(A) = \sum_{\omega \in A} P(\{\omega\}).
 P(\{\omega\}) = \theta^{Y(\omega)} (1-\theta)^{3-Y(\omega)}.
 \]</span></p>
 <p>If we suppose that <span class="math inline">\(\theta = 0.6\)</span>, then the probabilties on <span class="math inline">\(\Omega\)</span> are as follows:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># Probability of heads (coin bias parameter)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the probabilities of each outcome in Omega</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Under independence, P({ω}) = θ^(# heads) × (1-θ)^(# tails)</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> (theta<span class="sc">^</span>Y) <span class="sc">*</span> ((<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="dv">3</span> <span class="sc">-</span> Y)) <span class="co"># Probability based on binomial model</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the sample space with probabilities as a formatted table</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Each row shows an outcome ω and its probability P({ω})</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  Omega,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"sample space $</span><span class="sc">\\</span><span class="st">Omega$ with probabilities $P(</span><span class="sc">\\</span><span class="st">{</span><span class="sc">\\</span><span class="st">omega</span><span class="sc">\\</span><span class="st">})$ for each outcome $</span><span class="sc">\\</span><span class="st">omega$"</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>sample space <span class="math inline">\(\Omega\)</span> with probabilities <span class="math inline">\(P(\{\omega\})\)</span> for each outcome <span class="math inline">\(\omega\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">X1</th>
-<th style="text-align: right;">X2</th>
-<th style="text-align: right;">X3</th>
-<th style="text-align: right;">Y</th>
-<th style="text-align: right;">Ai</th>
-<th style="text-align: right;">Bi</th>
-<th style="text-align: right;">Ci</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.064</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0.144</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0.216</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+theta &lt;- 0.6 # Probability of heads (coin bias parameter)
+
+# Calculate the probabilities of each outcome in Omega
+# Under independence, P({ω}) = θ^(# heads) × (1-θ)^(# tails)
+Omega &lt;- Omega %&gt;%
+  mutate(
+    p = (theta^Y) * ((1 - theta)^(3 - Y)) # Probability based on binomial model
+  )
+
+# Display the sample space with probabilities as a formatted table
+# Each row shows an outcome ω and its probability P({ω})
+kable(
+  Omega,
+  caption = "sample space $\\Omega$ with probabilities $P(\\{\\omega\\})$ for each outcome $\\omega$"
+)
+</code></pre>
 <p><br></p>
 <p>With finite probability spaces defined, we can now introduce the <em>entropy</em> of an algebra of sets, which measures the uncertainty associated with the information it encodes. The definition is a straightforward extension of <em>Shannon entropy</em>, applied to the partition of <span class="math inline">\(\Omega\)</span> formed by the atoms of the algebra.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -1174,240 +734,111 @@ H(\mathcal{G}) = \int_\Omega (s\circ \pi)(\omega) \ P(d\omega),
 \]</span></p>
 <p>so the entropy is nothing but the expected value <span class="math inline">\(E(s\circ \pi)\)</span> of the random variable <span class="math inline">\(s\circ \pi\)</span> on <span class="math inline">\(\Omega\)</span>. This abstraction becomes essential for infinite sample spaces, but we won’t need it here.</p>
 <p>Returning to our coin-flip example, we can now compute the entropies of the three algebras <span class="math inline">\(\mathcal{F}_1\)</span>, <span class="math inline">\(\mathcal{F}_2\)</span>, and <span class="math inline">\(\mathcal{F}_3\)</span> that we constructed. First, we summarize the probabilities of the atoms in each algebra:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F1</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F1 with partition {A1, A2}, sum the probabilities of outcomes in each atom</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>F1_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ai) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Ai = 1 or 2)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities of all outcomes in each atom</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F1 as a formatted table</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  F1_probs,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(A_i)$ for the atoms $A_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$"</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>probabilities <span class="math inline">\(P(A_i)\)</span> for the atoms <span class="math inline">\(A_i\)</span> of algebra <span class="math inline">\(\mathcal{F}_1\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Ai</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.6</td>
-</tr>
-</tbody>
-</table>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F2</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F2 with partition {B1, B2, B3, B4}, sum probabilities for each atom</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>F2_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Bi) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Bi = 1, 2, 3, or 4)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities of all outcomes in each atom</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F2 as a formatted table</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  F2_probs,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(B_i)$ for the atoms $B_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$"</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>probabilities <span class="math inline">\(P(B_i)\)</span> for the atoms <span class="math inline">\(B_i\)</span> of algebra <span class="math inline">\(\mathcal{F}_2\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Bi</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.16</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0.24</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0.36</td>
-</tr>
-</tbody>
-</table>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate probabilities on the atoms of F3</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F3 with partition {C1, ..., C8} (singletons), extract individual outcome probabilities</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>F3_probs <span class="ot">&lt;-</span> Omega <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ci) <span class="sc">%&gt;%</span> <span class="co"># Group by atom membership (Ci = 1 through 8)</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> <span class="fu">sum</span>(p)) <span class="co"># Sum probabilities (each atom contains exactly one outcome)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the probabilities for atoms of F3 as a formatted table</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Since F3 is the power set, each atom Ci corresponds to a single outcome ω</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  F3_probs,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"probabilities $P(C_i)$ for the atoms $C_i$ of algebra $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>probabilities <span class="math inline">\(P(C_i)\)</span> for the atoms <span class="math inline">\(C_i\)</span> of algebra <span class="math inline">\(\mathcal{F}_3\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Ci</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.064</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0.144</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0.216</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Calculate probabilities on the atoms of F1
+# For algebra F1 with partition {A1, A2}, sum the probabilities of outcomes in each atom
+F1_probs &lt;- Omega %&gt;%
+  group_by(Ai) %&gt;% # Group by atom membership (Ai = 1 or 2)
+  summarise(p = sum(p)) # Sum probabilities of all outcomes in each atom
+
+# Display the probabilities for atoms of F1 as a formatted table
+kable(
+  F1_probs,
+  caption = "probabilities $P(A_i)$ for the atoms $A_i$ of algebra $\\mathcal{F}_1$"
+)
+
+# Calculate probabilities on the atoms of F2
+# For algebra F2 with partition {B1, B2, B3, B4}, sum probabilities for each atom
+F2_probs &lt;- Omega %&gt;%
+  group_by(Bi) %&gt;% # Group by atom membership (Bi = 1, 2, 3, or 4)
+  summarise(p = sum(p)) # Sum probabilities of all outcomes in each atom
+
+# Display the probabilities for atoms of F2 as a formatted table
+kable(
+  F2_probs,
+  caption = "probabilities $P(B_i)$ for the atoms $B_i$ of algebra $\\mathcal{F}_2$"
+)
+
+# Calculate probabilities on the atoms of F3
+# For algebra F3 with partition {C1, ..., C8} (singletons), extract individual outcome probabilities
+F3_probs &lt;- Omega %&gt;%
+  group_by(Ci) %&gt;% # Group by atom membership (Ci = 1 through 8)
+  summarise(p = sum(p)) # Sum probabilities (each atom contains exactly one outcome)
+
+# Display the probabilities for atoms of F3 as a formatted table
+# Since F3 is the power set, each atom Ci corresponds to a single outcome ω
+kable(
+  F3_probs,
+  caption = "probabilities $P(C_i)$ for the atoms $C_i$ of algebra $\\mathcal{F}_3$"
+)
+</code></pre>
 <p><br></p>
 <p>Since the algebra <span class="math inline">\(\mathcal{F}_3\)</span> is the power set on <span class="math inline">\(\Omega\)</span>, notice that the probabilties of the atoms in <span class="math inline">\(\mathcal{F}_3\)</span> are just the probabilities of the individual outcomes in <span class="math inline">\(\Omega\)</span>.</p>
 <p>We now compute the entropies of the three algebras:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate entropy using H = -sum(p * log(p))</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This formula computes Shannon entropy, measuring uncertainty in the distribution</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F1)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F1 with atoms {A1, A2}, compute entropy over the 2-element partition</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>H_F1 <span class="ot">&lt;-</span> F1_probs <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span> <span class="co"># Surprisal: -log(p) for each atom's probability</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span> <span class="co"># Entropy: expected surprisal</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H) <span class="co"># Extract the scalar value</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F2)</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F2 with atoms {B1, B2, B3, B4}, compute entropy over the 4-element partition</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>H_F2 <span class="ot">&lt;-</span> F2_probs <span class="sc">%&gt;%</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate marginal entropy H(F3)</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># For algebra F3 with atoms {C1, ..., C8}, compute entropy over the 8-element partition</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># F3 corresponds to complete information (the power set of Omega)</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>H_F3 <span class="ot">&lt;-</span> F3_probs <span class="sc">%&gt;%</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">surprisal =</span> <span class="sc">-</span><span class="fu">log</span>(p)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">H =</span> <span class="fu">sum</span>(p <span class="sc">*</span> surprisal)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(H)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing the three entropy values</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how entropy increases as algebras refine: H(F1) &lt; H(F2) &lt; H(F3)</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>marginal_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F1)"</span>, <span class="st">"H(F2)"</span>, <span class="st">"H(F3)"</span>), <span class="co"># Labels for each algebra</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3) <span class="co"># Corresponding entropy values in nats</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the marginal entropies as a formatted table</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  marginal_entropies,</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"marginal entropies for algebras $</span><span class="sc">\\</span><span class="st">mathcal{F}_1$, $</span><span class="sc">\\</span><span class="st">mathcal{F}_2$, and $</span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>marginal entropies for algebras <span class="math inline">\(\mathcal{F}_1\)</span>, <span class="math inline">\(\mathcal{F}_2\)</span>, and <span class="math inline">\(\mathcal{F}_3\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">entropy</th>
-<th style="text-align: right;">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">H(F1)</td>
-<td style="text-align: right;">0.6730117</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">H(F2)</td>
-<td style="text-align: right;">1.3460233</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">H(F3)</td>
-<td style="text-align: right;">2.0190350</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Calculate entropy using H = -sum(p * log(p))
+# This formula computes Shannon entropy, measuring uncertainty in the distribution
+
+# Calculate marginal entropy H(F1)
+# For algebra F1 with atoms {A1, A2}, compute entropy over the 2-element partition
+H_F1 &lt;- F1_probs %&gt;%
+  mutate(surprisal = -log(p)) %&gt;% # Surprisal: -log(p) for each atom's probability
+  summarise(H = sum(p * surprisal)) %&gt;% # Entropy: expected surprisal
+  pull(H) # Extract the scalar value
+
+# Calculate marginal entropy H(F2)
+# For algebra F2 with atoms {B1, B2, B3, B4}, compute entropy over the 4-element partition
+H_F2 &lt;- F2_probs %&gt;%
+  mutate(surprisal = -log(p)) %&gt;%
+  summarise(H = sum(p * surprisal)) %&gt;%
+  pull(H)
+
+# Calculate marginal entropy H(F3)
+# For algebra F3 with atoms {C1, ..., C8}, compute entropy over the 8-element partition
+# F3 corresponds to complete information (the power set of Omega)
+H_F3 &lt;- F3_probs %&gt;%
+  mutate(surprisal = -log(p)) %&gt;%
+  summarise(H = sum(p * surprisal)) %&gt;%
+  pull(H)
+
+# Create a tibble containing the three entropy values
+# Shows how entropy increases as algebras refine: H(F1) &lt; H(F2) &lt; H(F3)
+marginal_entropies &lt;- tibble(
+  entropy = c("H(F1)", "H(F2)", "H(F3)"), # Labels for each algebra
+  value = c(H_F1, H_F2, H_F3) # Corresponding entropy values in nats
+)
+
+# Display the marginal entropies as a formatted table
+kable(
+  marginal_entropies,
+  caption = "marginal entropies for algebras $\\mathcal{F}_1$, $\\mathcal{F}_2$, and $\\mathcal{F}_3$"
+)
+</code></pre>
 <p><br></p>
 <p>Thus, we see that the entropy <em>increases</em> as we refine our information. This means that <em>uncertainty</em> increases as our information becomes more detailed, which may seem counterintuitive at first glance. However, this is a natural consequence of the way entropy is defined: it measures the <em>expected</em> uncertainty over all possible outcomes, and as we refine our information, we are effectively considering a larger number of possible outcomes (the atoms of the finer algebra), each with its own associated probability. The increased granularity leads to a higher overall uncertainty when averaged across all outcomes.</p>
 <p>We may visualize this increase in entropy as follows, where reading the plot from left to right corresponds to refining our information from <span class="math inline">\(\mathcal{F}_1\)</span> to <span class="math inline">\(\mathcal{F}_2\)</span> to <span class="math inline">\(\mathcal{F}_3\)</span>:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar chart visualizing how entropy increases across the filtration</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each bar represents the entropy H(Fi) for i = 1, 2, 3</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(marginal_entropies, <span class="fu">aes</span>(<span class="at">x =</span> entropy, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> yellow, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># Yellow bars with reduced width for clarity</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"entropy increases under refinement"</span>, <span class="co"># Title describes the key pattern</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="co"># Remove x-axis label (entropy names are self-explanatory)</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"entropy"</span> <span class="co"># Label y-axis with the quantity being measured</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
-</figure>
-</div>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-width: 5
+#| fig-height: 3
+
+# Create a bar chart visualizing how entropy increases across the filtration
+# Each bar represents the entropy H(Fi) for i = 1, 2, 3
+ggplot(marginal_entropies, aes(x = entropy, y = value)) +
+  geom_col(fill = yellow, width = 0.4) + # Yellow bars with reduced width for clarity
+  labs(
+    title = "entropy increases under refinement", # Title describes the key pattern
+    x = NULL, # Remove x-axis label (entropy names are self-explanatory)
+    y = "entropy" # Label y-axis with the quantity being measured
+  )
+</code></pre>
 <p>Having defined the entropy of an algebra, we can now introduce two related concepts: <em>conditional entropy</em> and <em>mutual information</em>. These quantities measure, respectively, the uncertainty remaining in one algebra given knowledge of another, and the amount of information shared between two algebras.</p>
 <p>To define the conditional entropy, we need two sub-<span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> of a finite probability space <span class="math inline">\((\Omega,\mathcal{F},P)\)</span>. If the decompositions of <span class="math inline">\(\Omega\)</span> into the atoms of <span class="math inline">\(\mathcal{G}\)</span> and <span class="math inline">\(\mathcal{H}\)</span> are</p>
 <p><span class="math display">\[
@@ -1440,50 +871,25 @@ H(\mathcal{F}_3 \mid \mathcal{F}_1) = H(\mathcal{F}_1 \vee \mathcal{F}_3) - H(\m
 \tag{4}\]</span></span></p>
 <p>and similarly for <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_2)\)</span> and <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_3)\)</span>. In particular, we have that <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_3) =0\)</span>, which squares with our intuition that, given the information in <span class="math inline">\(\mathcal{F}_3\)</span>, the uncertainty remaining in <span class="math inline">\(\mathcal{F}_3\)</span> is zero.</p>
 <p>We compute all three conditional entropies:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing conditional entropy values for the filtration</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For nested algebras F1 ⊂ F2 ⊂ F3, conditional entropy H(F3 | Fi) = H(F3) - H(Fi)</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This measures the residual uncertainty in F3 given knowledge of Fi</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>conditional_entropies <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"H(F3 | F1)"</span>, <span class="st">"H(F3 | F2)"</span>, <span class="st">"H(F3 | F3)"</span>), <span class="co"># Labels for each conditional entropy</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F3 <span class="sc">-</span> H_F1, H_F3 <span class="sc">-</span> H_F2, H_F3 <span class="sc">-</span> H_F3) <span class="co"># Values: H(F3 | Fi) for each i</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the conditional entropies as a formatted table</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how residual uncertainty in F3 decreases as we refine from F1 to F2 to F3</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  conditional_entropies,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"conditional entropies for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>conditional entropies for the filtration <span class="math inline">\(\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">entropy</th>
-<th style="text-align: right;">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">H(F3 | F1)</td>
-<td style="text-align: right;">1.3460233</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">H(F3 | F2)</td>
-<td style="text-align: right;">0.6730117</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">H(F3 | F3)</td>
-<td style="text-align: right;">0.0000000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Create a tibble containing conditional entropy values for the filtration
+# For nested algebras F1 ⊂ F2 ⊂ F3, conditional entropy H(F3 | Fi) = H(F3) - H(Fi)
+# This measures the residual uncertainty in F3 given knowledge of Fi
+conditional_entropies &lt;- tibble(
+  entropy = c("H(F3 | F1)", "H(F3 | F2)", "H(F3 | F3)"), # Labels for each conditional entropy
+  value = c(H_F3 - H_F1, H_F3 - H_F2, H_F3 - H_F3) # Values: H(F3 | Fi) for each i
+)
+
+# Display the conditional entropies as a formatted table
+# Shows how residual uncertainty in F3 decreases as we refine from F1 to F2 to F3
+kable(
+  conditional_entropies,
+  caption = "conditional entropies for the filtration $\\mathcal{F}_1 \\subset \\mathcal{F}_2 \\subset \\mathcal{F}_3$"
+)
+</code></pre>
 <p><br></p>
 <p>These values show that as we compute <span class="math inline">\(H(\mathcal{F}_3 \mid \mathcal{F}_i)\)</span> along the sequence</p>
 <p><span class="math display">\[
@@ -1512,50 +918,25 @@ I(\mathcal{G},\mathcal{H}) = H(\mathcal{G}) -H(\mathcal{G}\mid \mathcal{H}).
 I(\mathcal{F}_3, \mathcal{F}_1) = H(\mathcal{F}_3) - H(\mathcal{F}_3 \mid \mathcal{F}_1) = H(\mathcal{F}_3) - (H(\mathcal{F}_3) - H(\mathcal{F}_1)) = H(\mathcal{F}_1),
 \]</span></p>
 <p>and similarly for <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_2)\)</span> and <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_3)\)</span>. We compute all three mutual informations:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble containing mutual information values for each algebra in the filtration</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For nested algebras F1 ⊂ F2 ⊂ F3, the mutual information I(F3, Fi) equals H(Fi)</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># because Fi contains all the information about F3 that Fi itself possesses</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mutual_infos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(<span class="st">"I(F3, F1)"</span>, <span class="st">"I(F3, F2)"</span>, <span class="st">"I(F3, F3)"</span>),  <span class="co"># Labels for each mutual information</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(H_F1, H_F2, H_F3)  <span class="co"># Values: I(F3, Fi) = H(Fi) for nested algebras</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the mutual informations as a formatted table</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows how shared information between F3 and each Fi increases with refinement</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  mutual_infos,</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"mutual informations for the filtration $</span><span class="sc">\\</span><span class="st">mathcal{F}_1 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_2 </span><span class="sc">\\</span><span class="st">subset </span><span class="sc">\\</span><span class="st">mathcal{F}_3$"</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>mutual informations for the filtration <span class="math inline">\(\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3\)</span></caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">entropy</th>
-<th style="text-align: right;">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">I(F3, F1)</td>
-<td style="text-align: right;">0.6730117</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">I(F3, F2)</td>
-<td style="text-align: right;">1.3460233</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">I(F3, F3)</td>
-<td style="text-align: right;">2.0190350</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+
+# Create a tibble containing mutual information values for each algebra in the filtration
+# For nested algebras F1 ⊂ F2 ⊂ F3, the mutual information I(F3, Fi) equals H(Fi)
+# because Fi contains all the information about F3 that Fi itself possesses
+mutual_infos &lt;- tibble(
+  entropy = c("I(F3, F1)", "I(F3, F2)", "I(F3, F3)"),  # Labels for each mutual information
+  value = c(H_F1, H_F2, H_F3)  # Values: I(F3, Fi) = H(Fi) for nested algebras
+)
+
+# Display the mutual informations as a formatted table
+# Shows how shared information between F3 and each Fi increases with refinement
+kable(
+  mutual_infos,
+  caption = "mutual informations for the filtration $\\mathcal{F}_1 \\subset \\mathcal{F}_2 \\subset \\mathcal{F}_3$"
+)
+</code></pre>
 <p><br></p>
 <p>Thus, as we compute <span class="math inline">\(I(\mathcal{F}_3,\mathcal{F}_i)\)</span> along the sequence</p>
 <p><span class="math display">\[
@@ -1567,38 +948,34 @@ I(\mathcal{F}_3, \mathcal{F}_1) = H(\mathcal{F}_3) - H(\mathcal{F}_3 \mid \mathc
 H(\mathcal{F}_3) = I(\mathcal{F}_3,\mathcal{F}_i) + H(\mathcal{F}_3 \mid \mathcal{F}_i),
 \]</span></p>
 <p>for each <span class="math inline">\(i=1,2,3\)</span>, and so the total entropy in <span class="math inline">\(\mathcal{F}_3\)</span> decomposes into the sum of mutual information and conditional entropy. We visualize this decomposition for each of the three algebras in our filtration:</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame decomposing the entropy H(F3) into mutual information and conditional entropy</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For each algebra F_i (i=1,2,3), we have: H(F3) = I(F3, F_i) + H(F3 | F_i)</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>decomposition <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">algebra =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"i=1"</span>, <span class="st">"i=2"</span>, <span class="st">"i=3"</span>), <span class="at">each =</span> <span class="dv">2</span>), <span class="co"># Three algebras, each with two components</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">component =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"mutual information"</span>, <span class="st">"conditional entropy"</span>), <span class="dv">3</span>), <span class="co"># Two components per algebra</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">entropy =</span> <span class="fu">c</span>(H_F1, H_F3 <span class="sc">-</span> H_F1, H_F2, H_F3 <span class="sc">-</span> H_F2, H_F3, <span class="dv">0</span>) <span class="co"># Values for each component</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a stacked bar chart showing the decomposition</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Each bar represents H(F3) for a different conditioning algebra F_i</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(decomposition, <span class="fu">aes</span>(<span class="at">x =</span> algebra, <span class="at">y =</span> entropy, <span class="at">fill =</span> component)) <span class="sc">+</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co"># Stacked column chart</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"mutual information"</span> <span class="ot">=</span> blue, <span class="st">"conditional entropy"</span> <span class="ot">=</span> yellow)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">TeX</span>(<span class="st">"entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"</span>),</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
+<pre class="{r}"><code>#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-width: 6
+#| fig-height: 3
+
+# Create a data frame decomposing the entropy H(F3) into mutual information and conditional entropy
+# For each algebra F_i (i=1,2,3), we have: H(F3) = I(F3, F_i) + H(F3 | F_i)
+decomposition &lt;- tibble(
+  algebra = rep(c("i=1", "i=2", "i=3"), each = 2), # Three algebras, each with two components
+  component = rep(c("mutual information", "conditional entropy"), 3), # Two components per algebra
+  entropy = c(H_F1, H_F3 - H_F1, H_F2, H_F3 - H_F2, H_F3, 0) # Values for each component
+)
+
+# Create a stacked bar chart showing the decomposition
+# Each bar represents H(F3) for a different conditioning algebra F_i
+ggplot(decomposition, aes(x = algebra, y = entropy, fill = component)) +
+  geom_col(width = 0.4) + # Stacked column chart
+  scale_fill_manual(
+    name = NULL,
+    values = c("mutual information" = blue, "conditional entropy" = yellow)
+  ) +
+  labs(
+    title = TeX("entropy decomposition $H(F_3) = I(F_3, F_i) + H(F_3 | F_i)$"),
+    x = NULL
+  )
+
+</code></pre>
 <p>The decomposition <span class="math inline">\(H(\mathcal{F}_3) = I(\mathcal{F}_3, \mathcal{F}_i) + H(\mathcal{F}_3 \mid \mathcal{F}_i)\)</span> reveals a fundamental trade-off: as we refine our information from <span class="math inline">\(\mathcal{F}_1\)</span> to <span class="math inline">\(\mathcal{F}_2\)</span> to <span class="math inline">\(\mathcal{F}_3\)</span>, mutual information increases (capturing more shared knowledge with the complete outcome) while conditional entropy decreases (leaving less residual uncertainty). The total entropy <span class="math inline">\(H(\mathcal{F}_3)\)</span> remains constant, but its composition shifts as information accumulates.</p>
 </section>
 <section id="conclusion" class="level2">
