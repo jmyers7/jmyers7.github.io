@@ -1,0 +1,15 @@
+name: blog-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - jupyter
+  - ipykernel
+  - pyyaml
+  - nbformat
+  - nbclient
+  - pip
+  - pip:
+      - quarto
+      - sigalg
