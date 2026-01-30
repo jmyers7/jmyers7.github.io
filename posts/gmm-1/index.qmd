@@ -2,6 +2,7 @@
 title: "Gaussian mixture models I: a first look"
 date: "2025-09-26"
 toc: true
+jupyter: blog-env
 categories: [Mixture models, Gaussian mixture models, Probabilistic graphical models, Machine learning, Probability theory, Python]
 image: "thumbnail.png"
 # draft: true

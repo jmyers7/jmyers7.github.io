@@ -9,6 +9,7 @@ open-graph:
     title: "Algebras & information"
     image: "https://johnmyers-phd.com/posts/info-2/thumbnail.png"
 # draft: true
+jupyter: blog-env
 ---
 
 ::: {.content-hidden}

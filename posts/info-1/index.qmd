@@ -8,6 +8,7 @@ image: "thumbnail.svg"
 open-graph:
     title: "Entropy & information"
     image: "thumbnail.png"
+jupyter: blog-env
 # draft: true
 ---
 

@@ -2,6 +2,7 @@
 title: "Diffusion"
 toc: true
 draft: true
+jupyter: blog-env
 include-in-header: 
   - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
 ---
