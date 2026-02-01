@@ -1,5 +1,5 @@
 ---
-title: "Building random walks in SigAlg"
+title: "From random walks to the Fokker-Planck equation (with SigAlg)"
 toc: true
 draft: true
 jupyter: blog-env
@@ -148,7 +148,7 @@ B = IIDProcess(
     random_state=42,
 )
 
-# Construc the increment process
+# Construct the increment process
 Delta_X = 2 * B - 1
 
 # Add the initial state
@@ -355,3 +355,159 @@ $$
 
 where $Y$ is a binomial random variable with parameters $t$ and $p$. Then $X_t=x$ if and only if $Y = \frac{x - a + t}{2}$, so the result follows from the probability function of the binomial distribution.
 :::
+
+## Scaled random walks
+
+We now construct a scaled random walk. First, we fix a position $x\in \bbr$ and a time $t>0$. We then have a spatial interval from the starting position $a$ to the position $x$, of length $|x - a|$, and also a time interval from $0$ to $t$, of length $t$. We chop these intervals into $m$ and $n$ subintervals of equal lengths
+
+$$
+h = \frac{|x - a|}{m} \quad \text{and} \quad \tau = \frac{t}{n},
+$$ {#eq-step-sizes}
+
+respectively. Note that as $m,n\to \infty$, the step sizes $h$ and $\tau$ both shrink to zero. The goal is to understand what happens to as these step sizes vanish.
+
+For each integer $k=1,2,\ldots,n$, we define the increments
+
+$$
+\Delta X_{k\tau}^{(h,\tau)} = h(2B_k - 1),
+$$
+
+so that each increment is a random variable that takes the value $h$ with probability $p$ and the value $-h$ with probability $1-p$. Then, we define
+
+$$
+X_t^{(h,\tau)} = a + \sum_{k=1}^n \Delta X_{k\tau}^{(h,\tau)}
+$$
+
+and compute
+
+$$
+E\big(X_t^{(h,\tau)}\big) = a + t\cdot   \frac{h}{\tau} (p - q),
+$$
+
+and
+
+$$
+V\big(X_t^{(h,\tau)}\big) = t\cdot 4\frac{h^2}{\tau} p q.
+$$
+
+Now, let the step sizes $h$ and $\tau$ go to $0$. From these formulas, it is clear that we need to do this in a controlled way, otherwise the expectations and variances will either blow up to infinity or vanish. In particular, if $h^2$ goes to zero faster than $\tau$, then the variance will shrink to zero, and the random variable $X_t^{(h,\tau)}$ will be deterministic in the limit. Conversely, if $\tau$ goes to zero faster than $h^2$, then the variance will blow up to infinity, and the random walk will become wildly erratic in the limit. To avoid these extremes, we impose a *scaling condition* that $h^2$ and $\tau$ go to zero at the same rate; that is, we require that there exists a positive constant $D>0$ such that
+
+$$
+\frac{h^2}{\tau} = D
+$$
+
+as $h,\tau \to 0$. This constant (which has units of squared length over time) is known as a *diffusion coefficient*.
+
+However, note that this scaling condition creates a problem in the expectation. Indeed, unless $p=q=1/2$, the expectation will still blow up to either positive or negative infinity as $h,\tau \to 0$. To avoid this, we need to also impose a second condition that $p$ and $q$ depend on $h$ and $\tau$ in such a way that there is a constant $\mu \in \mathbb{R}$ such that
+
+$$
+D\cdot \frac{p-q}{h} = \mu
+$$
+
+as $h,\tau\to 0$. Note that this condition indeed implies that $p$ and $q$ both approach $1/2$ as $h,\tau \to 0$. This constant (which has units of length over time) is known as a *drift coefficient*.
+
+Putting all this together, we find that under these scaling conditions, the expectations and variances of the scaled random walk converge to
+
+$$
+E(X_t^{(h,\tau)}) \to a + \mu t,
+$$
+
+and
+
+$$
+V(X_t^{(h,\tau)}) \to Dt.
+$$
+
+Now, is it actually possible to have $h$ and $\tau$ go to $0$ while satisfying these scaling conditions? Yes! For example, we can set $n=m^2$ and
+
+$$
+p = \frac{1}{2} + \frac{1}{2m},
+$$
+
+and then let $m\to \infty$.
+
+```{python}
+# | fig-align: center
+# | code-fold: true
+
+def gen_random_walk(m, x, t, n_trajectories, random_state=None):
+    n = m**2  # number of time steps
+    h = x / m  # size of space step
+    tau = t / n  # size of time step
+    p = 0.5 + 1 / (2 * m)  # probability of up move
+
+    T = Time.continuous(start=tau, stop=t, num_points=n)
+
+    B = IIDProcess(
+        distribution=bernoulli(p=p),
+        time=T,
+        name="B",
+    ).from_simulation(
+        n_trajectories=n_trajectories,
+        random_state=random_state,
+    )
+
+    # Construct the increment processes
+    Delta_X = h * (2 * B - 1)
+
+    # Add the initial state
+    a = RandomVariable(domain=B.domain, name=0).from_constant(0)
+    Delta_X.add_initial_state(a)
+
+    # Construct the random walk processes by cumulative summation
+    X = Delta_X.cumsum(name="X")
+
+    return X
+
+
+# Number of space steps
+m1 = 10
+m2 = 30
+
+x = 30  # space endpoint
+t = 10  # time endpoint
+
+n_trajectories = 1
+
+X1 = gen_random_walk(m1, x, t, n_trajectories, random_state=42).with_name("X1")
+X2 = gen_random_walk(m2, x, t, n_trajectories, random_state=42).with_name("X2")
+
+_, ax = plt.subplots(figsize=(6, 5))
+X1.plot_trajectories(
+    ax=ax,
+    colors=[yellow],
+    plot_kwargs={"linewidth": 1},
+)
+X2.plot_trajectories(
+    ax=ax,
+    colors=[blue],
+    plot_kwargs={"linewidth": 1},
+)
+ax.set_title("Scaled random walks")
+plt.show()
+```
+
+
+```{python}
+# | fig-align: center
+# | code-fold: true
+
+n_trajectories = 50
+
+X1 = gen_random_walk(m1, x, t, n_trajectories, random_state=42).with_name("X1")
+X2 = gen_random_walk(m2, x, t, n_trajectories, random_state=42).with_name("X2")
+
+_, ax = plt.subplots(figsize=(6, 5))
+X1.plot_trajectories(
+    ax=ax,
+    colors=[yellow],
+    plot_kwargs={"linewidth": 1, "alpha": 0.3},
+)
+X2.plot_trajectories(
+    ax=ax,
+    colors=[blue],
+    plot_kwargs={"linewidth": 1, "alpha": 0.3},
+)
+ax.set_title("Scaled random walks")
+plt.show()
+```
