@@ -12,5 +12,5 @@ dependencies:
   - pip
   - pip:
       - quarto
-      - sigalg
+      - -e /Users/johnmyers/dev/sigalg[dev]
       - seaborn
