@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>From random walks to the Fokker-Planck equation (with SigAlg) – john myers, ph.d.</title>
+<title>Building random walks in SigAlg – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,7 +140,6 @@ $$
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
-<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -177,7 +176,7 @@ window.Quarto = {
 
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -254,7 +253,6 @@ window.Quarto = {
   <ul>
   <li><a href="#building-a-random-walk-in-sigalg" id="toc-building-a-random-walk-in-sigalg" class="nav-link active" data-scroll-target="#building-a-random-walk-in-sigalg">Building a random walk in SigAlg</a></li>
   <li><a href="#time-evolution-of-transition-probabilities-diffusion" id="toc-time-evolution-of-transition-probabilities-diffusion" class="nav-link" data-scroll-target="#time-evolution-of-transition-probabilities-diffusion">Time-evolution of transition probabilities: diffusion</a></li>
-  <li><a href="#scaled-random-walks" id="toc-scaled-random-walks" class="nav-link" data-scroll-target="#scaled-random-walks">Scaled random walks</a></li>
   </ul>
 </nav>
     </div>
@@ -263,7 +261,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">From random walks to the Fokker-Planck equation (with SigAlg)</h1>
+<h1 class="title">Building random walks in SigAlg</h1>
 </div>
 
 
@@ -298,7 +296,7 @@ X(\omega) \stackrel{\text{def}}{=} X(-, \omega): T\to \mathbb{R}, \quad t\mapsto
 \]</span></p>
 <p>which is called a <em>trajectory</em> (or <em>sample path</em>) of the stochastic process <span class="math inline">\(X\)</span>. Thus, a stochastic process can also be thought of as a collection of trajectories indexed by the sample space <span class="math inline">\(\Omega\)</span>.</p>
 <p>Perhaps the simplest example of a stochastic process is an <em>independent and identically distributed</em> (IID) process, where each random variable <span class="math inline">\(X_t\)</span> is independent from all other random variables <span class="math inline">\(X_s\)</span> for <span class="math inline">\(s \neq t\)</span>, and all random variables <span class="math inline">\(X_t\)</span> have the same probability distribution. A simple example of an IID process is a sequence of Bernoulli random variables indexed by a finite set <span class="math inline">\(T = \{1,2,\ldots,n\}\)</span>, which can be used to model a sequence of <span class="math inline">\(n\)</span> coin flips where <span class="math inline">\(X_t = 1\)</span> represents heads and <span class="math inline">\(X_t = 0\)</span> represents tails on the <span class="math inline">\(t\)</span>-th flip. Such a process can be implemented using the SigAlg library and its interface with SciPy:</p>
-<div id="b1f6cf74" class="cell" data-execution_count="1">
+<div id="a36d1663" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> bernoulli</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> IIDProcess</span>
@@ -341,7 +339,7 @@ P(X(\omega)) = \prod_{t=0}^2 P(X_t = X(t,\omega)).
 P(X(\omega_3)) = P(X_0 = 0) P(X_1 = 1) P(X_2 = 1) = 0.3 \cdot 0.7^2 = 0.147.
 \]</span></p>
 <p>The probabilities of each trajectory can be accessed via the <code>probability_measure</code> attribute of the process:</p>
-<div id="ec7741d3" class="cell" data-execution_count="2">
+<div id="c3bec8e1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>P_X <span class="op">=</span> X.probability_measure.with_name(<span class="st">"P_X"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(P_X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -360,7 +358,7 @@ trajectory
 </div>
 </div>
 <p>Longer trajectories can be generated by increasing the <code>length</code> parameter in the <code>Time</code> instance, though care must be taken since the number of possible trajectories grows exponentially with the length of the process. For long processes, it is often more practical to work with simulations or samples of trajectories rather than enumerating all possible trajectories. In the next code block, we simulate a single trajectory of length 100 from the same IID Bernoulli process above and plot it:</p>
-<div id="afeb0dd1" class="cell" data-execution_count="3">
+<div id="727b4bf2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
@@ -406,7 +404,7 @@ X_t = X_0 + \sum_{s=1}^t \Delta X_s.
 \Delta X_t = 2B_t -1,
 \]</span></p>
 <p>where <span class="math inline">\(B_t\)</span> is a Bernoulli random variable with parameter <span class="math inline">\(p\)</span>. Therefore, with <span class="math inline">\(n=10\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(p=0.7\)</span>, we can build a random walk process as follows, and then simulate 10 trajectories from it:</p>
-<div id="f289c6cd" class="cell" data-execution_count="4">
+<div id="c3b2f3d4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> RandomVariable</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">10</span>, start<span class="op">=</span><span class="dv">1</span>)</span>
@@ -420,7 +418,7 @@ X_t = X_0 + \sum_{s=1}^t \Delta X_s.
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the increment process</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Construc the increment process</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>Delta_X <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> B <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the initial state</span></span>
@@ -448,7 +446,7 @@ trajectory
 </div>
 </div>
 <p>So, for example, we see that the final position of trajectory <code>3</code> is <code>6</code>. A plot of these simulated trajectories is shown below:</p>
-<div id="df54a799" class="cell" data-execution_count="5">
+<div id="f9422a5d" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], plot_kwargs<span class="op">=</span>{<span class="st">"alpha"</span>: <span class="fl">0.7</span>})</span>
@@ -462,7 +460,7 @@ trajectory
 </div>
 </div>
 <p>Longer trajectories reveal the “drift” that we mentioned above. To make these longer trajectories, we use the built-in <code>RandomWalk</code> class in SigAlg, which internally implements the same construction as above. The following code simulates 10 trajectories of length 100 from a random walk with <span class="math inline">\(p=0.7\)</span> and plots them:</p>
-<div id="4a42d596" class="cell" data-execution_count="6">
+<div id="62e479c1" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> RandomWalk</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">100</span>)</span>
@@ -505,7 +503,7 @@ E(X_t) = X_0 + \sum_{s=1}^t E(\Delta X_s) = X_0 + t(p-q),
 <p>so the expectations also grow linearly as a function of time <span class="math inline">\(t\)</span>.</p>
 <p>These observations, along with the plots in the previous section, suggest that the time-evolution of the law of <span class="math inline">\(X_t\)</span> consists of a “peak” that moves linearly with time (according to the expectation) while simultaneously diffusing (according to the variance).</p>
 <p>This evolution may be observed experimentally in SigAlg, as shown in the following plot. We simulate 10,000 trajectories of a random walk with <span class="math inline">\(p=0.7\)</span> and then plots histograms of the values of <span class="math inline">\(X_t\)</span> for various <span class="math inline">\(t\)</span> in a “ridgeline” plot:</p>
-<div id="4a989085" class="cell" data-execution_count="7">
+<div id="e312e149" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LinearSegmentedColormap</span>
@@ -650,150 +648,6 @@ x \in \{ a-t, a-t+2, a-t+4, \ldots, a+t \}.
 X_t = a + \sum_{s=1}^t \Delta X_s = a + \sum_{s=1}^t (2B_s - 1) = a-t + 2Y,
 \]</span></p>
 <p>where <span class="math inline">\(Y\)</span> is a binomial random variable with parameters <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span>. Then <span class="math inline">\(X_t=x\)</span> if and only if <span class="math inline">\(Y = \frac{x - a + t}{2}\)</span>, so the result follows from the probability function of the binomial distribution.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="scaled-random-walks" class="level2">
-<h2 class="anchored" data-anchor-id="scaled-random-walks">Scaled random walks</h2>
-<p>We now construct a scaled random walk. First, we fix a position <span class="math inline">\(x\in \bbr\)</span> and a time <span class="math inline">\(t&gt;0\)</span>. We then have a spatial interval from the starting position <span class="math inline">\(a\)</span> to the position <span class="math inline">\(x\)</span>, of length <span class="math inline">\(|x - a|\)</span>, and also a time interval from <span class="math inline">\(0\)</span> to <span class="math inline">\(t\)</span>, of length <span class="math inline">\(t\)</span>. We chop these intervals into <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span> subintervals of equal lengths</p>
-<p><span id="eq-step-sizes"><span class="math display">\[
-h = \frac{|x - a|}{m} \quad \text{and} \quad \tau = \frac{t}{n},
-\tag{3}\]</span></span></p>
-<p>respectively. Note that as <span class="math inline">\(m,n\to \infty\)</span>, the step sizes <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> both shrink to zero. The goal is to understand what happens to as these step sizes vanish.</p>
-<p>For each integer <span class="math inline">\(k=1,2,\ldots,n\)</span>, we define the increments</p>
-<p><span class="math display">\[
-\Delta X_{k\tau}^{(h,\tau)} = h(2B_k - 1),
-\]</span></p>
-<p>so that each increment is a random variable that takes the value <span class="math inline">\(h\)</span> with probability <span class="math inline">\(p\)</span> and the value <span class="math inline">\(-h\)</span> with probability <span class="math inline">\(1-p\)</span>. Then, we define</p>
-<p><span class="math display">\[
-X_t^{(h,\tau)} = a + \sum_{k=1}^n \Delta X_{k\tau}^{(h,\tau)}
-\]</span></p>
-<p>and compute</p>
-<p><span class="math display">\[
-E\big(X_t^{(h,\tau)}\big) = a + t\cdot   \frac{h}{\tau} (p - q),
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-V\big(X_t^{(h,\tau)}\big) = t\cdot 4\frac{h^2}{\tau} p q.
-\]</span></p>
-<p>Now, let the step sizes <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> go to <span class="math inline">\(0\)</span>. From these formulas, it is clear that we need to do this in a controlled way, otherwise the expectations and variances will either blow up to infinity or vanish. In particular, if <span class="math inline">\(h^2\)</span> goes to zero faster than <span class="math inline">\(\tau\)</span>, then the variance will shrink to zero, and the random variable <span class="math inline">\(X_t^{(h,\tau)}\)</span> will be deterministic in the limit. Conversely, if <span class="math inline">\(\tau\)</span> goes to zero faster than <span class="math inline">\(h^2\)</span>, then the variance will blow up to infinity, and the random walk will become wildly erratic in the limit. To avoid these extremes, we impose a <em>scaling condition</em> that <span class="math inline">\(h^2\)</span> and <span class="math inline">\(\tau\)</span> go to zero at the same rate; that is, we require that there exists a positive constant <span class="math inline">\(D&gt;0\)</span> such that</p>
-<p><span class="math display">\[
-\frac{h^2}{\tau} = D
-\]</span></p>
-<p>as <span class="math inline">\(h,\tau \to 0\)</span>. This constant (which has units of squared length over time) is known as a <em>diffusion coefficient</em>.</p>
-<p>However, note that this scaling condition creates a problem in the expectation. Indeed, unless <span class="math inline">\(p=q=1/2\)</span>, the expectation will still blow up to either positive or negative infinity as <span class="math inline">\(h,\tau \to 0\)</span>. To avoid this, we need to also impose a second condition that <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> depend on <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> in such a way that there is a constant <span class="math inline">\(\mu \in \mathbb{R}\)</span> such that</p>
-<p><span class="math display">\[
-D\cdot \frac{p-q}{h} = \mu
-\]</span></p>
-<p>as <span class="math inline">\(h,\tau\to 0\)</span>. Note that this condition indeed implies that <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> both approach <span class="math inline">\(1/2\)</span> as <span class="math inline">\(h,\tau \to 0\)</span>. This constant (which has units of length over time) is known as a <em>drift coefficient</em>.</p>
-<p>Putting all this together, we find that under these scaling conditions, the expectations and variances of the scaled random walk converge to</p>
-<p><span class="math display">\[
-E(X_t^{(h,\tau)}) \to a + \mu t,
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-V(X_t^{(h,\tau)}) \to Dt.
-\]</span></p>
-<p>Now, is it actually possible to have <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> go to <span class="math inline">\(0\)</span> while satisfying these scaling conditions? Yes! For example, we can set <span class="math inline">\(n=m^2\)</span> and</p>
-<p><span class="math display">\[
-p = \frac{1}{2} + \frac{1}{2m},
-\]</span></p>
-<p>and then let <span class="math inline">\(m\to \infty\)</span>.</p>
-<div id="51806ead" class="cell" data-execution_count="8">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_random_walk(m, x, t, n_trajectories, random_state<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> m<span class="op">**</span><span class="dv">2</span>  <span class="co"># number of time steps</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> x <span class="op">/</span> m  <span class="co"># size of space step</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> t <span class="op">/</span> n  <span class="co"># size of time step</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> m)  <span class="co"># probability of up move</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> Time.continuous(start<span class="op">=</span>tau, stop<span class="op">=</span>t, num_points<span class="op">=</span>n)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> IIDProcess(</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        distribution<span class="op">=</span>bernoulli(p<span class="op">=</span>p),</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        time<span class="op">=</span>T,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        name<span class="op">=</span><span class="st">"B"</span>,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    ).from_simulation(</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        n_trajectories<span class="op">=</span>n_trajectories,</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span>random_state,</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the increment processes</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    Delta_X <span class="op">=</span> h <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> B <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the initial state</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> RandomVariable(domain<span class="op">=</span>B.domain, name<span class="op">=</span><span class="dv">0</span>).from_constant(<span class="dv">0</span>)</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    Delta_X.add_initial_state(a)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct the random walk processes by cumulative summation</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> Delta_X.cumsum(name<span class="op">=</span><span class="st">"X"</span>)</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of space steps</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>m2 <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">30</span>  <span class="co"># space endpoint</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">10</span>  <span class="co"># time endpoint</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>n_trajectories <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> gen_random_walk(m1, x, t, n_trajectories, random_state<span class="op">=</span><span class="dv">42</span>).with_name(<span class="st">"X1"</span>)</span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> gen_random_walk(m2, x, t, n_trajectories, random_state<span class="op">=</span><span class="dv">42</span>).with_name(<span class="st">"X2"</span>)</span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>X1.plot_trajectories(</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>[yellow],</span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"linewidth"</span>: <span class="dv">1</span>},</span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>X2.plot_trajectories(</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>[blue],</span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"linewidth"</span>: <span class="dv">1</span>},</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Scaled random walks"</span>)</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="553" height="483"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="7073a717" class="cell" data-execution_count="9">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n_trajectories <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> gen_random_walk(m1, x, t, n_trajectories, random_state<span class="op">=</span><span class="dv">42</span>).with_name(<span class="st">"X1"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> gen_random_walk(m2, x, t, n_trajectories, random_state<span class="op">=</span><span class="dv">42</span>).with_name(<span class="st">"X2"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>X1.plot_trajectories(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>[yellow],</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"linewidth"</span>: <span class="dv">1</span>, <span class="st">"alpha"</span>: <span class="fl">0.3</span>},</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>X2.plot_trajectories(</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>[blue],</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"linewidth"</span>: <span class="dv">1</span>, <span class="st">"alpha"</span>: <span class="fl">0.3</span>},</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Scaled random walks"</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="553" height="483"></p>
-</figure>
 </div>
 </div>
 </div>
