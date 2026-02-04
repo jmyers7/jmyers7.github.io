@@ -1,0 +1,53 @@
+---
+title: "Stochastic processes I: Building a random walk in SigAlg"
+toc: true
+draft: true
+jupyter: blog-env
+categories: [Stochastic processes, Random walk, Probability theory, Martingale, SigAlg, Python]
+include-in-header: 
+  - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
+bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
+---
+
+## Measurability and conditional expectations
+
+As we saw above, a random variable $Y$, on a sample space $\Omega$, carries information expressed and encoded in the $\sigma$-algebra $\sigma(Y)$, whose atoms are the level sets of $Y$. Given another $\sigma$-algebra $\mathcal{F}$ on $\Omega$, a structural comparison of the information content of the two $\sigma$-algebras $\mathcal{F}$ and $\sigma(Y)$ is possible by checking the containment $\sigma(Y) \subset \mathcal{F}$.
+
+However, as we noted when we first introduced filtrations, this containment holds if and only if every atom of $\mathcal{F}$ is contained in an atom of $\sigma(Y)$. So, if the observer has the information in $\mathcal{F}$ that allows them to identify which of the atoms of $\mathcal{F}$ contains an unknown sample point $\omega$, then they also would be able to identify the atom of $\sigma(Y)$ that contains $\omega$. In this sense, $\mathcal{F}$ contains all the information in $\sigma(Y)$; or, in slightly different words, there is no more information encoded in the random variable $Y$ that is not already encoded in the $\sigma$-algebra $\mathcal{F}$.
+
+This leads us to:
+
+::: {#def-measurable}
+
+A random variable $Y$, on a sample space $\Omega$, is said to be *measurable* with respect to a $\sigma$-algebra $\mathcal{F}$ on $\Omega$ if $\sigma(Y) \subset \mathcal{F}$. We also say that $Y$ is $\mathcal{F}$-*measurable*, to emphasize the $\sigma$-algebra.
+:::
+
+Now, given a random sample point $\omega \in \Omega$ and a random variable $Y$ on $\Omega$, the observer is interested in estimating the value $Y(\omega)$. The observer's estimate for this value will change, depending on what information they have access to. If the information comes in the form of a $\sigma$-algebra $\mathcal{F}$, then we shall write
+
+$$
+E(Y \mid \mathcal{F})
+$$
+
+for the observer's "best guess" for $Y$, given the information in $\mathcal{F}$. This is a random variable on $\Omega$, called the *conditional expectation* of $Y$ given $\mathcal{F}$. Of course, exactly what is meant by "best guess" will have to be clarified later.
+
+But whatever it ends up meaning, there are two special cases where we have a good hunch what the conditional expectation should be:
+
+1. Suppose that the observer has *no* additional information. In this case, the absence of information is modeled by the *trivial $\sigma$-algebra*, whose only atom is $\Omega$ itself.[The trivial $\sigma$-algebra contains only one *atom*, but as a set of subsets of $\Omega$, it contains two sets: $\Omega$ itself, and the empty set $\emptyset$.]{.aside} Indeed, it does the observer little good having the ability to identify which atom of this $\sigma$-algebra an unknown sample point belongs to. Therefore, we suspect that
+    $$
+    E(Y \mid \{\emptyset, \Omega\}) = E(Y),
+    $$
+    the right-hand side interpreted as the *constant* random variable taking the value $E(Y)$ at every $\omega \in \Omega$. This equation says that, in the absence of any additional information, the "best guess" for $Y(\omega)$ is the mean of $Y$.
+
+2. Suppose that the observer has *complete* information on $Y$. This would be modeled by a $\sigma$-algebra $\mathcal{F}$, for which $Y$ is $\mathcal{F}$-measurable. Indeed, if $\omega$ is a random sample point, and the observer has the information in $\mathcal{F}$, then they would be able to identify the atom of $\mathcal{F}$ to which $\omega$ belongs. But then they would *also* be able to determine the value $Y(\omega)$, since $Y$ is $\mathcal{F}$-measurable. Therefore, we must have
+    $$
+    E(Y \mid \mathcal{F}) = Y.
+    $$
+    This says that, given the information in $\mathcal{F}$, the best guess for $Y(\omega)$ is simply $Y(\omega)$ itself, because the observer actually knows the value!
+
+
+
+
+
+
+
+## Bibliography
