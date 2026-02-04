@@ -550,7 +550,7 @@
     "href": "teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html#exercise-1-practice-with-vectors-in-4-space",
     "title": "02 Vectors and matrices, part 2",
     "section": "Exercise 1: Practice with vectors in \\(4\\)-space",
-    "text": "Exercise 1: Practice with vectors in \\(4\\)-space\n\n\n\na. Practice with vector algebra\n\n\nLet\n\\[\n\\mathbf{u} = \\begin{bmatrix} 1 \\\\ 2 \\\\ -1 \\\\ 3 \\end{bmatrix} \\quad \\text{and} \\quad \\mathbf{v} = \\begin{bmatrix} 0 \\\\ -1 \\\\ 2 \\\\ 1 \\end{bmatrix}\n\\]\n\nCompute \\(\\mathbf{u} +\\mathbf{v}\\).\nCompute \\(2\\mathbf{v}\\).\n\n\n\n\n\n\n\na. Practice with inner produts and norms\n\n\nWith the same vectors \\(\\mathbf{u}\\) and \\(\\mathbf{v}\\) as in part (a):\n\nCompute \\(\\langle \\mathbf{u}, \\mathbf{v} \\rangle\\).\nCompute \\(\\lVert \\mathbf{u} \\rVert\\)."
+    "text": "Exercise 1: Practice with vectors in \\(4\\)-space\n\n\n\na. Practice with vector algebra\n\n\nLet\n\\[\n\\mathbf{u} = \\begin{bmatrix} 1 \\\\ 2 \\\\ -1 \\\\ 3 \\end{bmatrix} \\quad \\text{and} \\quad \\mathbf{v} = \\begin{bmatrix} 0 \\\\ -1 \\\\ 2 \\\\ 1 \\end{bmatrix}\n\\]\n\nCompute \\(\\mathbf{u} +\\mathbf{v}\\).\nCompute \\(2\\mathbf{v}\\).\n\n\n\n\n\n\n\nb. Practice with inner produts and norms\n\n\nWith the same vectors \\(\\mathbf{u}\\) and \\(\\mathbf{v}\\) as in part (a):\n\nCompute \\(\\langle \\mathbf{u}, \\mathbf{v} \\rangle\\).\nCompute \\(\\lVert \\mathbf{u} \\rVert\\)."
   },
   {
     "objectID": "teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html#definition-of-a-matrix",
@@ -564,7 +564,7 @@
     "href": "teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html#exercise-2-practice-with-matrices",
     "title": "02 Vectors and matrices, part 2",
     "section": "Exercise 2: Practice with matrices",
-    "text": "Exercise 2: Practice with matrices\n\n\n\na. Practice with matrix addition/subtraction/scaling\n\n\nLet\n\\[\nA = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{bmatrix}, \\quad B = \\begin{bmatrix} 0 & -1 \\\\ 2 & 1 \\\\ -3 & 0 \\end{bmatrix}.\n\\]\n\nThe matrices are both \\(m\\times n\\). What is \\(m\\)? What is \\(n\\)?\nCompute \\(A + B\\).\nCompute \\(2A - B\\).\n\n\n\n\n\n\n\na. Practice with matrix multiplication\n\n\nLet\n\\[\nA = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{bmatrix}, \\quad C = \\begin{bmatrix} 0 & -1 \\\\ 2 & 1 \\end{bmatrix}.\n\\]\n\nThe matrix \\(A\\) is \\(m\\times n\\). What is \\(m\\)? What is \\(n\\)?\nThe matrix \\(C\\) is \\(p\\times q\\). What is \\(p\\)? What is \\(q\\)?\nCompute \\(AC\\), if possible. What is the size of the resulting matrix?\nCompute \\(CA\\), if possible. What is the size of the resulting matrix?"
+    "text": "Exercise 2: Practice with matrices\n\n\n\na. Practice with matrix addition/subtraction/scaling\n\n\nLet\n\\[\nA = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{bmatrix}, \\quad B = \\begin{bmatrix} 0 & -1 \\\\ 2 & 1 \\\\ -3 & 0 \\end{bmatrix}.\n\\]\n\nThe matrices are both \\(m\\times n\\). What is \\(m\\)? What is \\(n\\)?\nCompute \\(A + B\\).\nCompute \\(2A - B\\).\n\n\n\n\n\n\n\nb. Practice with matrix multiplication\n\n\nLet\n\\[\nA = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{bmatrix}, \\quad C = \\begin{bmatrix} 0 & -1 \\\\ 2 & 1 \\end{bmatrix}.\n\\]\n\nThe matrix \\(A\\) is \\(m\\times n\\). What is \\(m\\)? What is \\(n\\)?\nThe matrix \\(C\\) is \\(p\\times q\\). What is \\(p\\)? What is \\(q\\)?\nCompute \\(AC\\), if possible. What is the size of the resulting matrix?\nCompute \\(CA\\), if possible. What is the size of the resulting matrix?"
   },
   {
     "objectID": "teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html#exercise-3-more-practice-with-matrix-multiplication",
@@ -578,7 +578,7 @@
     "href": "teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html#a-quick-reminder-on-functions",
     "title": "02 Vectors and matrices, part 2",
     "section": "A quick reminder on functions",
-    "text": "A quick reminder on functions\n\nImportant to remember: A function \\(f\\) is a “machine” that accepts an input, and produces an output.\nThe set \\(D\\) of inputs is called the domain of \\(f\\), while the set \\(C\\) that contains the outputs is called the codomain.\nThe actual set of outputs is called the range of \\(f\\).\nThis is represented notationally as \\(f:C\\to D\\)."
+    "text": "A quick reminder on functions\n\nImportant to remember: A function \\(f\\) is a “machine” that accepts an input, and produces an output.\nThe set \\(D\\) of inputs is called the domain of \\(f\\), while the set \\(C\\) that contains the outputs is called the codomain.\nThe actual set of outputs is called the range of \\(f\\).\nThis is represented notationally as \\(f:D\\to C\\)."
   },
   {
     "objectID": "teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html#exercise-4-practice-with-function-notation",
