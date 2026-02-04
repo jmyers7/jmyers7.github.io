@@ -4,8 +4,6 @@ toc: true
 date: "2026-02-03"
 jupyter: blog-env
 categories: [Stochastic process, IID process, Random walk, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, SciPy, Python]
-include-in-header: 
-  - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
 bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
 csl: /Users/johnmyers/dev/johnmyers-phd/aux-files/american-mathematical-society-numeric.csl
 image: "thumbnail.png"
@@ -14,9 +12,30 @@ open-graph:
     image: "https://johnmyers-phd.com/posts/random-walk/thumbnail.png"
 ---
 
-SigAlg is a new open-source Python library designed for working with measure-theoretic probability theory and stochastic processes. Unlike many statistical computing libraries that prioritize computational efficiency or simplify the mathematical formalism, SigAlg aims to provide an API with high fidelity to the underlying mathematics. The goal is to make manipulating probability spaces, random variables, $\sigma$-algebras, and stochastic processes as natural as writing equations on a whiteboard or working through proofs on paper. Whether you're defining random variables, computing conditional expectations, or constructing filtrations, SigAlg's object-oriented design mirrors the mathematical structures you already know.
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
 
-In this first post of a series on SigAlg, we explore two fundamental building blocks of stochastic process theory: independent and identically distributed (IID) processes and random walks. Through concrete examples with code, we'll see how SigAlg allows us to construct these objects, inspect their probability measures and natural filtrations, visualize information flow, and simulate trajectories—all while maintaining mathematical rigor and clarity. By the end, you'll have a sense of how SigAlg can serve as both a computational tool and a pedagogical aid for understanding stochastic processes.
+## Introduction
+
+SigAlg is a new open-source Python library for working with measure-theoretic probability theory and stochastic processes. Its name is derived from *$\sigma$-algebra*, the foundational structure through which modern probability theory encodes information. SigAlg provides an API that closely mirrors the underlying mathematics, with the goal of making probability spaces, random variables, $\sigma$-algebras, filtrations, and stochastic processes programmable in a way that feels as natural as writing definitions and equations on a whiteboard.
+
+Many existing scientific computing tools designed for production environments place their emphasis on numerical simulation and speed. This is enormously valuable, of course, but this means these tools are not meant to explore the underlying mathematical structures in a faithful way. As a result, a gap emerges between the theory, which lives in textbooks and papers, and the code that implements or explores it. SigAlg is designed to close that gap.
+
+SigAlg is both a pedagogical and a research tool. Its central design principle is mathematical fidelity rather than computational efficiency. As you will begin to see in this introductory post, objects in SigAlg are meant to correspond directly to their mathematical counterparts, making SigAlg particularly well suited for:
+
+1. Students and instructors learning or teaching measure-theoretic probability and stochastic processes.
+
+2. Researchers who work with abstract probabilistic constructions and want a computational sandbox for experimenting with ideas that are usually confined to paper.
+
+The author falls squarely into both categories. SigAlg grew out of the frustration of translating clean mathematical definitions into code that immediately discards the very structure those definitions are meant to emphasize.
+
+SigAlg is therefore not a replacement for production-grade Monte Carlo simulation libraries or high-performance statistical tools. Instead, it complements them by prioritizing clarity, inspectability, and conceptual alignment with the theory. It is aimed at users who want to *understand* why probabilistic constructions work, not merely apply them as black boxes.
+
+In this first post of a series on SigAlg, we explore two foundational objects in stochastic process theory: independent and identically distributed (IID) processes and random walks. Through concrete examples and executable code, we will see how SigAlg allows us to construct these processes, examine their probability measures and natural filtrations, visualize information flow over time, and simulate trajectories—all while staying close to the underlying mathematics. By the end, you should have a clear sense of how SigAlg can function both as a computational tool and as a conceptual aid for learning and working with stochastic processes.
+
 
 ## Prerequisites
 
