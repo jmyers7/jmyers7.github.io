@@ -1,17 +1,47 @@
 ---
-title: "Stochastic processes I: Building a random walk in SigAlg"
+title: "SigAlg I: IID processes and random walks"
 toc: true
-draft: true
+date: "2026-02-03"
 jupyter: blog-env
-categories: [Stochastic processes, Random walk, Probability theory, Martingale, SigAlg, Python]
+categories: [Stochastic process, IID process, Random walk, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, SciPy, Python]
 include-in-header: 
   - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
 bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
+csl: /Users/johnmyers/dev/johnmyers-phd/aux-files/american-mathematical-society-numeric.csl
+image: "thumbnail.png"
+open-graph:
+    title: "SigAlg I: IID processes and random walks"
+    image: "https://johnmyers-phd.com/posts/random-walk/thumbnail.png"
 ---
+
+SigAlg is a new open-source Python library designed for working with measure-theoretic probability theory and stochastic processes. Unlike many statistical computing libraries that prioritize computational efficiency or simplify the mathematical formalism, SigAlg aims to provide an API with high fidelity to the underlying mathematics. The goal is to make manipulating probability spaces, random variables, $\sigma$-algebras, and stochastic processes as natural as writing equations on a whiteboard or working through proofs on paper. Whether you're defining random variables, computing conditional expectations, or constructing filtrations, SigAlg's object-oriented design mirrors the mathematical structures you already know.
+
+In this first post of a series on SigAlg, we explore two fundamental building blocks of stochastic process theory: independent and identically distributed (IID) processes and random walks. Through concrete examples with code, we'll see how SigAlg allows us to construct these objects, inspect their probability measures and natural filtrations, visualize information flow, and simulate trajectories—all while maintaining mathematical rigor and clarity. By the end, you'll have a sense of how SigAlg can serve as both a computational tool and a pedagogical aid for understanding stochastic processes.
+
+## Prerequisites
+
+### Software
+
+At the time of writing, SigAlg has been released on PyPI as v.0.1.1. You can install it in the familiar way:
+
+```bash
+pip install sigalg
+```
+
+SigAlg also has a [GitHub repository](https://github.com/jmyers7/sigalg){target="_blank"}.
+
+The body of this post will eventually be adapted to a tutorial in the official SigAlg documentation which—again, as of this writing—has not yet been published.
+
+### Mathematics
+
+Though one of the target audiences of SigAlg is students and other practioners of probability and stochastic processes that might not be familiar with measure-theoretic concepts (probability measures, $\sigma$-algebras, measurable functions, etc.), this post is pitched at a slightly higher level than might be typical for an introductory tutorial. This post—along with the few that follow—is designed to be an advertisement of sorts for SigAlg's capabilities, and hence we flex its mathematical muscles a bit, without fully explaining all the underlying theory.
+
+Accordingly, we assume that the reader is familiar with the basics of stochastic processes and at least a modicum of measure-theoretic probability. For this background, one can hardly do better than the first three chapters of William's brilliant text [-@Williams1991].
+
 
 ## Generalities on stochastic processes
 
-We assume that the reader is familiar with the basics of stochastic processes. But, to make sure we're on the same page regarding notation, terminology, and concepts, we'll briefly review some generalities.
+
 
 Given a nonempty set $T\subset \bbr$, our definition of a stochastic process requires us to consider the function space $\bbr^T$, which consists of all $\bbr$-valued functions on $T$.
 
@@ -50,7 +80,7 @@ $$
 is called a *trajectory* (or *sample path*) of the stochastic process. It is these trajectories that are often the central objects of study in applications of stochastic processes.
 
 
-[Technically, in order for the law of $X$ to be well-defined, $X$ needs to be a measurable function with respect to a $\sigma$-algebra on $U$. This is indeed the case. [See, for example, Lemma 4.1 in @Kallenberg2021.]]{.aside}
+[Technically, in order for the law of $X$ to be well-defined, $X$ needs to be a measurable function with respect to a $\sigma$-algebra on $U$. This is indeed the case. See, for example, Lemma 4.1 in @Kallenberg2021.]{.aside}
 
 If $X: \Omega \to U$ is a random variable as in the definition above, and if $P$ is the probability measure on $\Omega$, then $X$ has a well-defined *law*, which is a probability measure $P_X$ on $U$ given by
 
@@ -58,7 +88,7 @@ $$
 P_X(A) \stackrel{\text{def}}{=} P(X\in A),
 $$ {#eq-big-law}
 
-for all measurable sets $A \subset U$. It is an important fact [see Proposition 4.2 in @Kallenberg2021] that this law is uniquely determined by the *finite-dimensional distributions* of $X$, which are the probability measures on $\bbr^n$ of the form
+for all measurable sets $A \subset U$. It is an important fact (see Proposition 4.2 in @Kallenberg2021) that this law is uniquely determined by the *finite-dimensional distributions* of $X$, which are the probability measures on $\bbr^n$ of the form
 
 $$
 P_{X_{t_1}, \ldots, X_{t_n}}(B) \stackrel{\text{def}}{=} P\big((X_{t_1}, \ldots, X_{t_n}) \in B\big),
@@ -90,14 +120,16 @@ where we assume $B = B_1 \times \cdots \times B_n \subset \bbr^n$ is a product o
 
 A simple example of an IID process is a sequence of Bernoulli random variables indexed by a finite set $T = \{1,2,\ldots,n\}$, which can be used to model a sequence of $n$ coin flips where $X_t = 1$ represents heads and $X_t = 0$ represents tails on the $t$-th flip. Such a process can be implemented using the SigAlg library and its interface with SciPy:
 
+[In constructing the `Time` instance `T` modeling the index set $T = \{1,2,3\}$, note that the `length` parameter is `2`, which is the length of **time** spanned by the interval from `1` to `3`. In particular, the `length` parameter is **not** the length in the sense of the Python magic method `len()`, which would return the number of time points, `3`.]{.aside}
+
 ```{python}
 
 from scipy.stats import bernoulli
 from sigalg.core import Time
 from sigalg.processes import IIDProcess
 
-# Construct time index
-T = Time.discrete(length=3, start=1)
+# Construct time index [1, 2, 3]. See the aside in the margin --->
+T = Time.discrete(start=1, length=2)
 
 # Set the parameters for the IID process
 X = IIDProcess(
@@ -154,36 +186,71 @@ $$
 \mathcal{F}_t = \sigma(X_1, X_2, \ldots, X_t), \quad t = 1,2,3,
 $$
 
+[In general, a containment $\mathcal{F}\subset \mathcal{G}$ of $\sigma$-algebras on a common (finite!) sample space $\Omega$ is equivalent to the statement that every atom of $\mathcal{F}$ is a union of atoms of $\mathcal{G}$, which, in turn, is the same as saying that every atom of $\mathcal{G}$ is a subset of some atom of $\mathcal{F}$. In the present case, the reader will *see* this relationship in the "information flow" diagram below.]{.aside}
+
 is the $\sigma$-algebra generated by the random vector $(X_1, X_2, \ldots, X_t)$. This is the coarest $\sigma$-algebra with respect to which $X_1, X_2, \ldots, X_t$ are all measurable. But, since $\Omega$ is finite, $\sigma$-algebras can be completely described in terms of their *atoms*, which are the minimal non-empty sets in the $\sigma$-algebra (and which partition $\Omega$). The atoms of the $\sigma$-algebra $\mathcal{F}_t$ are simply the level sets of the random vector $(X_1,X_2,\ldots,X_t)$ as a function on $\Omega$.
 
-In SigAlg, $\sigma$-algebras are stored internally by associating to each sample point $\omega\in \Omega$ an atom identifier that specifies which atom the sample point belongs to. Since the atoms of the $\sigma$-algebras $\mathcal{F}_t$ are the level sets of $(X_1,X_2,\ldots,X_t)$, a convenient set of atom IDs are the *values* of these random vectors themselves. For example, here are the atom IDs of $\mathcal{F}_1$:
+In SigAlg, $\sigma$-algebras are stored internally by associating to each sample point $\omega\in \Omega$ an atom identifier that specifies which atom the sample point belongs to. Since the atoms of the $\sigma$-algebras $\mathcal{F}_t$ are the level sets of $(X_1,X_2,\ldots,X_t)$, a convenient set of atom IDs are the *values* of these random vectors themselves.
+
+For example, here are the atom IDs of $\mathcal{F}_1$:
 
 ```{python}
+import pandas as pd
+
+# Get the natural filtration
 F = X.natural_filtration
 
-print(F[1])
+# Grab the F1 sigma-algebra
+F1 = F[1]
+
+# Display the atom IDs alongside the process data.
+# Almost all objects in SigAlg have `data` attributes that return Pandas objects.
+display_df = pd.concat([X.data, F1.data.rename("F1 atom ID")], axis=1)
+
+print(display_df)
 ```
 
-Indeed, notice that the atom IDs are simply the values of the random variable $X_1(\omega)\in \{0,1\}$, as $\omega$ ranges over $\Omega = \{0,1,\ldots,7\}$. Here are the atom IDs of $\mathcal{F}_2$:
+Indeed, notice that the atom IDs are simply the values of the random variable $X_1(\omega)\in \{0,1\}$, as $\omega$ ranges over $\Omega = \{0,1,\ldots,7\}$.
+
+Here are the atom IDs of $\mathcal{F}_2$:
 
 ```{python}
-print(F[2])
+F2 = F[2]
+display_df = pd.concat([display_df, F2.data.rename("F2 atom ID")], axis=1)
+
+print(display_df)
 ```
 
-Again, note that the atom IDs are the values of the random vector $(X_1,X_2)$, as $\omega$ ranges over $\Omega = \{0,1,\ldots,7\}$. For the third $\sigma$-algebra $\mathcal{F}_3$, we have
+Again, note that the atom IDs are the values of the random vector $(X_1,X_2)$, as $\omega$ ranges over $\Omega = \{0,1,\ldots,7\}$.
+
+For the third $\sigma$-algebra $\mathcal{F}_3$, we have:
 
 ```{python}
-print(F[3])
+F3 = F[3]
+display_df = pd.concat([display_df, F3.data.rename("F3 atom ID")], axis=1)
+
+print(display_df)
 ```
 
 In this last case, note that each $\omega$ has its own unique atom ID, which means that the $\sigma$-algebra $\mathcal{F}_3$ is the power set on $\Omega$, i.e., the finest $\sigma$-algebra on $\Omega$.
 
-In probability theory, these filtrations (increasing sequences of $\sigma$-algebras) are intended to model refinements of "information" available to an observer over time. For our current IID process $X$, the natural filtration might have the following concrete information-theoretic interpretation: Suppose that each $X_t$ (for $t=1,2,3$) does indeed model the outcome of a (biased) coin flip, with $X_t=0$ representing a tail, and $X_t=1$ a head on the $t$-th flip. Now, suppose that all three flips have occured, so that a definite trajectory $X(\omega)$ of the process has been identified, or, what is the same thing, a definite $\omega$ has been identified. However, suppose that our observer does not yet know which $\omega$ has been realized, and it its true value is only progressively revealed over time. At time $t=1$, the observer only knows the outcome of the first flip, i.e., they only know the value of $X_1(\omega)$. Note that this information would allow the observer to identify which of the two atoms of $\mathcal{F}_1$ contains $\omega$, but they cannot yet decide which of the four atoms of $\mathcal{F}_2$ contains $\omega$, nor can they decide which of the eight atoms of $\mathcal{F}_3$ contain it. But, as the clock ticks forward to $t=2$, the observer now has access to the value of the second flip $X_2(\omega)$, so *now* they can decide which of the four atoms of $\mathcal{F}_2$ contains $\omega$. Finally, at time $t=3$, the third flip $X_3(\omega)$ is revealed, so now the observer can decide which of the eight atoms of $\mathcal{F}_3$ contains $\omega$. But since $\mathcal{F}_3$ is the power set, this amounts to complete information on $\omega$.
+In probability theory, these filtrations (increasing sequences of $\sigma$-algebras) are intended to model "refinements of information" available to an observer over time. For our current IID process $X$, the natural filtration might have the following concrete information-theoretic interpretation: Suppose that each $X_t$ (for $t=1,2,3$) does indeed model the outcome of a (biased) coin flip, with $X_t=0$ representing a tail, and $X_t=1$ a head on the $t$-th flip. Now, suppose that all three flips have occured, so that a definite trajectory $X(\omega)$ of the process has been identified, which is the same as saying that a definite sample point $\omega$ has been identified, since the sample points and their trajectories are in one-to-one correspondence.
 
-This "flow" of information, refining the observer's knowledge over time, is precisely what a filtration models. This flow can be visualized through SigAlg's interface with Plotly to create a Sankey-style figure:
+However, suppose that our observer does not yet know which $\omega$ has been realized, and its true value is only progressively revealed over time, flip by flip.
+
+At time $t=1$, the observer sees the result of the first flip, $X_1(\omega)$. With this information, the observer would be able to identify which of the two atoms of $\mathcal{F}_1$ contains the sample point $\omega$. And conversely, if the observer knew which of these atoms contained $\omega$, then the observer would also know the value of $X_1(\omega)$. So, in this sense, the information contained in knowledge of the value $X_1(\omega)$ is equally well contained in the $\sigma$-algebra $\mathcal{F}_1$.
+
+Note that while this information reduces *some* uncertainty about the identity of $\omega$, it does not reduce all of it. For within each atom of $\mathcal{F}_1$, the differenent trajectories $X(\omega)$ are indistinguishable, given only the information in $\mathcal{F}_1$.
+
+Now, at time $t=2$, the observer sees the result of the second flip, $X_2(\omega)$. With this additional information, combined with knowledge of the first flip, the observer would be able to identify which of the four atoms of $\mathcal{F}_2$ contains the sample point $\omega$. But again, while this reduces more of the uncertainty about $\omega$, it does not eliminate it entirely, for the observer still cannot distinguish between the trajectories $X(\omega)$ within each of the four atoms of $\mathcal{F}_2$, given only the information in $\mathcal{F}_2$.
+
+Finally, at time $t=3$, the observer sees the result of the third flip, $X_3(\omega)$. As in the previous two cases, with this new information, the observer can identify which of the eight atoms of $\mathcal{F}_3$ contains the sample point $\omega$. But since $\mathcal{F}_3$ is the power set, this amounts to complete information on $\omega$. The trajectory $X(\omega)$ is now fully determined.
+
+This "flow" of information, refining the observer's knowledge over time, is precisely what a filtration models. This flow can be visualized through SigAlg's interface with Plotly, to create a Sankey-style figure:
 
 ```{python}
-# These two lines are only necessary to render in Quarto markdown. The reader may remove them
+# These two lines are only necessary to render in Quarto markdown.
+# The reader may remove them.
 import plotly.io as pio
 pio.renderers.default = "plotly_mimetype+notebook_connected"
 
@@ -209,7 +276,7 @@ fig.show()
 
 ```
 
-As we read the figure from left to right through time, notice that each atom is split into a union of atoms in the next $\sigma$-algebra. This illustrates how the observer's knowledge is refined over time as more information becomes available. If earlier atoms were *not* unions of later atoms, then one of the containments $\mathcal{F}_1 \subset \mathcal{F}_2$ or $\mathcal{F}_2 \subset \mathcal{F}_3$ would be violated, which means that the three $\sigma$-algebras would not form a filtration.
+As we read the figure from left to right through time, notice that each atom is split into a union of atoms in the next $\sigma$-algebra. This illustrates how the observer's knowledge is refined over time as more information becomes available. If earlier atoms were *not* unions of later atoms, then one of the containments $\mathcal{F}_1 \subset \mathcal{F}_2$ or $\mathcal{F}_2 \subset \mathcal{F}_3$ would be violated, which means that the three $\sigma$-algebras would not form a filtration. (Recall the most recent margin note above.)
 
 The trajectories of our process $X$ are short. Longer trajectories can be generated by increasing the `length` parameter in the `Time` instance, though care must be taken since the number of possible trajectories grows exponentially with the length of the trajectories. For long trajectories, it is often more practical to work with Monte Carlo simulations rather than exhaustive enumerations. In the next code block, we simulate a single trajectory of length 100 from the same IID Bernoulli process above and plot it:
 
@@ -218,11 +285,11 @@ The trajectories of our process $X$ are short. Longer trajectories can be genera
 
 import matplotlib.pyplot as plt
 
-# The reader will need to omit this line, or set their own custom style
+# The reader may remove this line, or set their own custom style
 plt.style.use("../../aux-files/custom-theme.mplstyle")
 
 # Set the time index of the process to a longer length
-T = Time.discrete(length=100, start=1)
+T = Time.discrete(start=1, length=100)
 X.time = T
 
 # Simulate a single trajectory
@@ -237,21 +304,28 @@ X.plot_trajectories(ax=ax)
 plt.show()
 ```
 
-The trajectory is plotted by first plotting the points $(t, X_t)$ for each time $t=1,2,\ldots,100$, and then connecting these points with lines for visual clarity.
+The trajectory is plotted by first plotting the points $(t, X_t)$ for each time $t=1,2,\ldots,101$, and then connecting these points with lines for visual clarity.
 
 ## Random walks
 
 With IID processes as building blocks, we can construct more complex stochastic processes such as random walks.
 
 ::: {#def-random-walk}
-Let $p$ be a real number with $0\leq p \leq 1$, let $x_0$ and $t_0$ be  integers, and let $T$ be a set of integers of the form $\{t_0+1, t_0+2, t_0+3, \ldots, t_n\}$, where $t_n$ is either an integer or $\infty$. Then a *random walk* with starting position $x_0$ and starting time $t_0$, is a stochastic process $X$ with the following properties:
+Let $p$ be a real number with $0\leq p \leq 1$, let $x_0$ and $t_0$ be  integers, and let
 
-1. The *increments*
+$$
+T = \{t_0, t_0+1, t_0+2, \ldots, t_0 + n\},
+$$
+
+where $n$ is either a positive integer or $\infty$. Then a *random walk* of length $n$, with initial position $x_0$ and initial time $t_0$, is a stochastic process $X$ with the following properties:
+
+1. We have $X_{t_0}=x_0$, the constant random variable.
+2. The *increments*
     $$
-    \Delta X_t \stackrel{\text{def}}{=} X_t - X_{t-1}, \quad t \in T,
+    \Delta X_t \stackrel{\text{def}}{=} X_t - X_{t-1}, \quad t \in T, \ t\neq t_0,
     $$
-    are IID random variables, where we set $X_{t_0}=x_0$.
-2. Each increment $\Delta X_t$ takes either the value $1$ or $-1$, the former with probability $p$ and the latter with probability $q=1-p$.
+    are IID random variables.
+3. Each increment $\Delta X_t$ takes either the value $1$ or $-1$, the former with probability $p$ and the latter with probability $q=1-p$.
 :::
 
 When $p\neq 0.5$, the random walk is said to have *drift*, which we will discuss in more detail below. If $p=0.5$, the random walk is said to be *symmetric*.
@@ -267,7 +341,7 @@ $$
 
 Thus, by modeling the increments $\Delta X_t$ in SigAlg as an IID process, we can model a random walk $X$ as the cumulative sum of these increments plus the starting point $x_0$.
 
-To begin, let's suppose we want to model a random walk where $n=10$, $x_0=0$, $t_0=0$, and $p=0.7$. Then, note that
+To begin, let's suppose we want to model a random walk of length $n=10$, with initial position $x_0=0$, with initial time $t_0=0$, and with probability $p=0.7$ of stepping "to the right." Then, note that
 
 $$
 \Delta X_t = 2B_t -1
@@ -278,8 +352,10 @@ for $1 \leq t \leq 10$, where $B_t \sim \mathcal{B}er(0.7)$. Thus, in SigAlg, we
 ```{python}
 from sigalg.core import RandomVariable
 
-T = Time.discrete(length=10, start=1)
+# The increments start at time t=1 and stop at t=10
+T = Time.discrete(start=1, stop=10)
 
+# Define the IID Bernoulli process
 B = IIDProcess(
     distribution=bernoulli(p=0.7),
     time=T,
@@ -292,9 +368,12 @@ B = IIDProcess(
 # Construct the increment process
 Delta_X = 2 * B - 1
 
-# Add the initial state
-x0 = RandomVariable(domain=B.domain, name=0).from_constant(0)
-Delta_X.add_initial_state(x0)
+# The initial state is a constant random variable X0=x0=0.
+# Note that its `name` parameter is set to the initial time t0=0.
+X0 = RandomVariable(domain=B.domain, name=0).from_constant(0)
+
+# Add the initial state to the increment process
+Delta_X.add_initial_state(X0)
 
 # Construct the random walk process by cumulative summation
 X = Delta_X.cumsum(name="X")
@@ -331,20 +410,17 @@ X.plot_trajectories(ax=ax, colors=[yellow], plot_kwargs={"alpha": 0.7})
 plt.show()
 ```
 
-While random, it is evident that the trajectories tend to drift upwards over time, since the expected increment is positive: $E(\Delta X_t) = 2 \cdot 0.7 - 1 = 0.4 > 0$.
-
-## Expectations and martingales
-
-The reader is undoubtedly familiar with the concept of the expectation $E(Y)$ of a random variable $Y:\Omega \to \bbr$ on some probability space $\Omega$. The expectation $E(Y)$ is the "average" or "mean" value of $Y$ over all possible outcomes in $\Omega$; in particular, the expectation is a *number*, in this very simple case.
-
-As we saw in the previous section, a $\sigma$-algebra $\mathcal{F}$ on $\Omega$ can model information available to an observer. This information *might* allow the observer to update the expected value of $Y$, leading to a new expectation denoted $E(Y\mid \mathcal{F})$ called the *conditional expectation* of $Y$ given $\mathcal{F}$.
-
-To describe it, let's consider our Bernoulli IID process $X$ from the second section, where $X_0$, $X_1$, and $X_2$ model the outcomes of three independent coin flips, and then set $Y=X_0 + X_1 + X_2$, the total number of heads. The expected value of $Y$ is then
+While random, it is evident that the trajectories tend to drift upwards over time, since the expected increment is positive:
 
 $$
-E(Y) = E(X_0) + E(X_1) + E(X_2) = 0.7 + 0.7 + 0.7 = 2.1.
+E(\Delta X_t) = 2E(B_t) - 1 = 2 \cdot 0.7 - 1 = 0.4 > 0.
 $$
 
-However, suppose that the observer was granted the information in the $\sigma$-algebra $\mathcal{F}_0$, which, as we saw, amounts to knowing the outcome of the first flip $X_0$. If the first flip were a tail, $X_0=0$, then certainly the new expected value of $Y$ should *decrease* from $2.1$, and likewise if the first flip were a head, $X_0=1$, then the expected value of $Y$ should *increase* from $2.1$.
+
+## Conclusion
+
+In this post, we've explored how SigAlg enables a natural and mathematically faithful approach to working with stochastic processes in Python. Starting from the general definition of a stochastic process, we constructed IID processes and random walks, examining their trajectories, probability measures, and natural filtrations. Throughout these examples, we saw how SigAlg's API closely mirrors the mathematical notation and concepts: defining a process feels like writing its mathematical definition.
+
+The examples with Bernoulli random variables and random walks demonstrate SigAlg's versatility in both exhaustive enumeration (for small state spaces and short trajectories) and Monte Carlo simulation. As we continue this series, we'll build on these foundations to explore other topics in stochastic process and probability theory. The consistent mathematical framework provided by SigAlg will allow us to navigate these increasingly sophisticated topics while maintaining the same intuitive, paper-and-pencil feel evident in this post.
 
 ## Bibliography
