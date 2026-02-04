@@ -1,0 +1,247 @@
+---
+title: "02 Vectors and matrices, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+# Points and vectors in $n$-space {.scrollable}
+
+## Sets of points and vectors {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### $\mathbb{R}^n$ as a set of points
+
+We write $\mathbb{R}^n$ to denote the set of all points in $n$-dimensional space.
+
+- A point is represented by an **ordered $n$-tuple** of real numbers $(x_1, x_2, \dots, x_n)$.
+
+- The numbers $x_1, x_2, \dots, x_n$ are called the **coordinates** of the point.
+:::
+
+- We might still think of points in $\mathbb{R}^n$ as points in an $n$-dimensional "hyper" space. But we can't literally see them!
+
+::: {.callout-note icon="false" .fragment}
+### $\mathbb{R}^n$ as a set of vectors
+
+We write $\mathbb{R}^n$ to denote the set of all vectors in $n$-dimensional space.
+
+- Such a vector is represented as a **$n$-dimensional column vectors** written as
+    $$
+    \begin{bmatrix}
+    x_1 \\ x_2 \\ \vdots \\ x_n
+    \end{bmatrix}
+    $$
+    where $x_1, x_2, \dots, x_n$ are real numbers.
+
+- The numbers $x_1, x_2, \dots, x_n$ are called the **components** of the vector.
+:::
+
+- Similarly, we can think of vectors in $\mathbb{R}^n$ as arrows pointing from the origin in $\bbr^n$ to the point $(x_1, x_2, \dots, x_n)$ in $n$-dimensional space.
+
+## Algebra, norms, and dot products in $n$-space {.scrollable}
+
+- All the definitions and properties of vector algebra, norms, and dot products that we discussed for $\mathbb{R}^2$ and $\mathbb{R}^3$ also carry over to $\mathbb{R}^n$ with only minor modifications.
+
+- For exmaple, given two vectors
+    $$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix},$$
+    their sum/difference is defined as
+    $$\mathbf{u} \pm \mathbf{v} = \begin{bmatrix} u_1 \pm v_1 \\ u_2 \pm v_2 \\ \vdots \\ u_n \pm v_n \end{bmatrix}.$$
+
+- Their norm is defined as
+    $$\lVert \mathbf{u} \rVert = \sqrt{u_1^2 + u_2^2 + \dots + u_n^2}.$$
+
+- Their inner product is defined as
+    $$\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_1 + u_2v_2 + \dots + u_nv_n.$$
+
+## Standard basis vectors in $n$-space {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Standard basis vectors in $\mathbb{R}^n$
+
+The **standard basis vectors** in $\mathbb{R}^n$ are denoted by $\mathbf{e}_1$, $\mathbf{e}_2$, $\dots$, $\mathbf{e}_n$, and are defined as
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}, \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{bmatrix}, \quad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \\ \vdots \\ 0 \end{bmatrix}, \quad \dots, \quad \mathbf{e}_n = \begin{bmatrix} 0 \\ 0 \\ 0 \\ \vdots \\ 1 \end{bmatrix}.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Theorem: Resolving vectors into standard basis vectors
+
+Any vector
+
+$$\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix}$$
+
+in $\mathbb{R}^n$ can be expressed as a **linear combination** of the standard basis vectors (i.e., a sum of scalar multiples of the basis vectors) as:
+
+$$\mathbf{u} = u_1 \mathbf{e}_1 + u_2 \mathbf{e}_2 + \dots + u_n \mathbf{e}_n.$$
+:::
+
+## Exercise 1: Practice with vectors in $4$-space {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### a. Practice with vector algebra
+Let
+
+$$
+\mathbf{u} = \begin{bmatrix} 1 \\ 2 \\ -1 \\ 3 \end{bmatrix} \quad \text{and} \quad \mathbf{v} = \begin{bmatrix} 0 \\ -1 \\ 2 \\ 1 \end{bmatrix}
+$$
+
+i. Compute $\mathbf{u} +\mathbf{v}$.
+ii. Compute $2\mathbf{v}$.
+:::
+
+::: {.callout-note .nonincremental icon="false"}
+### a. Practice with inner produts and norms
+
+With the same vectors $\mathbf{u}$ and $\mathbf{v}$ as in part (a):
+
+i. Compute $\langle \mathbf{u}, \mathbf{v} \rangle$.
+ii. Compute $\lVert \mathbf{u} \rVert$.
+:::
+
+# Matrices
+
+## Definition of a matrix {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### Matrices
+
+An **$m\times n$ matrix** is a rectangular array of numbers with $m$ rows and $n$ columns, typically written as
+$$
+A = \begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n} \\
+a_{21} & a_{22} & \dots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \dots & a_{mn}
+\end{bmatrix}.
+$$
+
+- The numbers in a matrix are called **entries** or **elements**.
+- The entry $a_{ij}$ is said to be in the **$(i,j)$-th position** of the matrix.
+:::
+
+::: {.callout-note icon="false" .fragment}
+
+### Matrix algebra
+
+- Matrix **addition** and **subtraction** is performed element-wise. However, both matrix must have the same number of rows and columns.
+
+- **Scalar multiplication** is performed by multiplying each entry of the matrix by the scalar.
+
+- **Matrix multiplication** is defined when the number of columns of the first matrix equals the number of rows of the second matrix. The product is obtained by taking the dot product of rows and columns. (See the next exercise.)
+:::
+
+## Exercise 2: Practice with matrices {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### a. Practice with matrix addition/subtraction/scaling
+Let
+
+$$
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}, \quad B = \begin{bmatrix} 0 & -1 \\ 2 & 1 \\ -3 & 0 \end{bmatrix}.
+$$
+
+i. The matrices are both $m\times n$. What is $m$? What is $n$?
+ii. Compute $A + B$.
+iii. Compute $2A - B$.
+:::
+
+::: {.callout-note .nonincremental icon="false"}
+### a. Practice with matrix multiplication
+Let
+
+$$
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}, \quad C = \begin{bmatrix} 0 & -1 \\ 2 & 1 \end{bmatrix}.
+$$
+
+i. The matrix $A$ is $m\times n$. What is $m$? What is $n$?
+ii. The matrix $C$ is $p\times q$. What is $p$? What is $q$?
+iii. Compute $AC$, if possible. What is the size of the resulting matrix?
+iv. Compute $CA$, if possible. What is the size of the resulting matrix?
+:::
+
+## Exercise 3: More practice with matrix multiplication {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### Matrices multiplied by vectors
+
+Let
+
+$$
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}, \quad \mathbf{v} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}.
+$$
+
+i. You can think of $\mathbf{v}$ as a matrix. If its size is $m\times n$, what is $m$? What is $n$?
+ii. Compute $A\mathbf{v}$, if possible. What is the size of the resulting matrix?
+ii. Compute $\mathbf{v}A$, if possible. What is the size of the resulting matrix?
+:::
+
+## A quick reminder on functions  {.scrollable}
+
+- Important to remember: A function $f$ is a "machine" that accepts an input, and produces an output.
+
+- The set $D$ of inputs is called the **domain** of $f$, while the set $C$ that contains the outputs is called the **codomain**.
+
+- The actual set of outputs is called the **range** of $f$.
+
+- This is represented notationally as $f:C\to D$.
+
+## Exercise 4: Practice with function notation {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### A familiar function from pre-calculus
+
+Suppose you're in a pre-calculus class (or calculus, I guess) and your instructor writes $f(x) = x^2$ on the board.
+
+a. What is (likely) the intended domain of $f$?
+b. What is the range of $f$?
+c. What are some possibilities for codomains of $f$?
+d. Express your answers in (a) and (c) using the "arrow" notation.
+
+Now do the same four exercises, but with the expression $g(x) = \sqrt{x}$.
+
+:::
+
+## Functions from matrices {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem: Every matrix yields a function
+
+Let $A$ be an $m\times n$ matrix. Then $A$ defines a function $T:\mathbb{R}^n \to \mathbb{R}^m$ by the formula
+
+$$
+T(\mathbf{v}) = A\mathbf{v}.
+$$
+
+In words, $T$ is a function that takes an $n$-dimensional vector and outputs an $m$-dimensional vector.
+
+:::
+
+## Exercise 5: Functions from matrices {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+Let
+
+$$
+A = \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}
+$$
+
+Then $A$ defines a function $T$, as described on the previous slide.
+
+a. What is the domain of $T$? What is its codomain?
+b. Compute $T\left(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\right)$.
+c. Compute $T\left(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\right)$.
+d. Compute $T\left( \begin{bmatrix} -2 \\ 1 \end{bmatrix} \right)$.
+e. Consider the line $y=0$ in $\mathbb{R}^2$. What does $T$ do to this line?
+f. Consider the line $x=0$ in $\mathbb{R}^2$. What does $T$ do to this line?
+g. Consider the unit square in the first quadrant of $\mathbb{R}^2$. This is the square that has $\mathbf{e}_1$ and $\mathbf{e}_2$ as two of its sides. What does $T$ do to this square?
+:::

@@ -36,8 +36,10 @@ This course is an introduction to partial differential equations (PDEs) and Four
 # Schedule, slides, exercises, and info
 
 | week | date | topics | slides | exercises | info |
-|-|:-:|:--:|:-:|:-:|:-:|
-| 02 | 02.02 mon | ↓ | ↓ | ↓
-|| 01.30 fri | 01 An introduction to PDEs | [slides](./slides/01-an-introduction-to-pdes.qmd){target="_blank"} | ↓
-|| 01.28 wed | Another "remote day": Watch the videos below if you haven't already, continue working on Exercises 1-8. || ↓
-| 01| 01.26 mon | "Remote day": Watch the videos [here](https://www.3blue1brown.com/?v=pdes#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=heat-equation#video-section){target="_blank"}, and [here](https://www.3blue1brown.com/?v=fourier-series#video-section){target="_blank"}. Begin working on Exercises 1-8 (see link to the right). || [exercises](./exercises/01ex-an-introduction-to-pdes.qmd)
+|:-:|:-:|:--:|:-:|:-:|:-:|
+|| 02.06 fri |||| Quiz on Sec 1
+|| 02.04 wed | Sec 2: Separation of variables, part 1 | [Sec 2 Slides](./slides/02-separation-of-var.qmd){target="_blank"} | Coming soon
+| Week 2 | 02.02 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
+|| 01.30 fri | Sec 1: An introduction to PDEs | [Sec 1 Slides](./slides/01-an-introduction-to-pdes.qmd){target="_blank"} | Same as below ↓
+|| 01.28 wed | Another "remote day": Watch the videos below if you haven't already, continue working on Exercises 1-8. || Same as below ↓
+| Week 1 | 01.26 mon | "Remote day": Watch the videos [here](https://www.3blue1brown.com/?v=pdes#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=heat-equation#video-section){target="_blank"}, and [here](https://www.3blue1brown.com/?v=fourier-series#video-section){target="_blank"}. Begin working on Exercises 1-8 (see link to the right). || [Sec 1 Exercises](./exercises/01ex-an-introduction-to-pdes.qmd)
