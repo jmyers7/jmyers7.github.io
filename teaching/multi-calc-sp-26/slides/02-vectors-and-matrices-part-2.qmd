@@ -98,7 +98,7 @@ ii. Compute $2\mathbf{v}$.
 :::
 
 ::: {.callout-note .nonincremental icon="false"}
-### a. Practice with inner produts and norms
+### b. Practice with inner produts and norms
 
 With the same vectors $\mathbf{u}$ and $\mathbf{v}$ as in part (a):
 
@@ -155,7 +155,7 @@ iii. Compute $2A - B$.
 :::
 
 ::: {.callout-note .nonincremental icon="false"}
-### a. Practice with matrix multiplication
+### b. Practice with matrix multiplication
 Let
 
 $$
@@ -181,7 +181,7 @@ $$
 
 i. You can think of $\mathbf{v}$ as a matrix. If its size is $m\times n$, what is $m$? What is $n$?
 ii. Compute $A\mathbf{v}$, if possible. What is the size of the resulting matrix?
-ii. Compute $\mathbf{v}A$, if possible. What is the size of the resulting matrix?
+iii. Compute $\mathbf{v}A$, if possible. What is the size of the resulting matrix?
 :::
 
 ## A quick reminder on functions  {.scrollable}
@@ -192,7 +192,7 @@ ii. Compute $\mathbf{v}A$, if possible. What is the size of the resulting matrix
 
 - The actual set of outputs is called the **range** of $f$.
 
-- This is represented notationally as $f:C\to D$.
+- This is represented notationally as $f:D\to C$.
 
 ## Exercise 4: Practice with function notation {.scrollable}
 
