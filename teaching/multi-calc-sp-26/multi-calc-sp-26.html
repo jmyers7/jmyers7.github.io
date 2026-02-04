@@ -82,6 +82,35 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -239,7 +268,7 @@ Syllabus:
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>week</th>
+<th style="text-align: center;">week</th>
 <th style="text-align: center;">date</th>
 <th style="text-align: center;">topics</th>
 <th style="text-align: center;">slides</th>
@@ -249,43 +278,59 @@ Syllabus:
 </thead>
 <tbody>
 <tr class="odd">
-<td>02</td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">↓</td>
 <td style="text-align: center;"></td>
+<td style="text-align: center;">02.05 thu</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Quiz on Sec 1<br>Just vectors in <span class="math inline">\(\mathbb{R}^2\)</span> and <span class="math inline">\(\mathbb{R}^3\)</span>, no matrices</td>
 </tr>
 <tr class="even">
-<td></td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">01 Vectors and matrices, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/01-vectors-and-matrices-part-1.html" target="_blank">slides</a></td>
-<td style="text-align: center;">↓</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">02.04 wed</td>
+<td style="text-align: center;">Sec 2: Vectors and matrices, part 2</td>
+<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html" target="_blank">Sec 2 Slides</a></td>
+<td style="text-align: center;">Coming soon</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
-<td></td>
+<td style="text-align: center;">Week 2</td>
+<td style="text-align: center;">02.02 mon</td>
+<td style="text-align: center;">Same as below ↓</td>
+<td style="text-align: center;">Same as below ↓</td>
+<td style="text-align: center;">Same as below ↓</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">01.30 fri</td>
+<td style="text-align: center;">Sec 1: Vectors and matrices, part 1</td>
+<td style="text-align: center;"><a href="./slides/01-vectors-and-matrices-part-1.qmd" target="_blank">Sec 1 Slides</a></td>
+<td style="text-align: center;">Same as below ↓</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
 <td style="text-align: center;">01.29 thu</td>
 <td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on exercises.</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">↓</td>
+<td style="text-align: center;">Same as below ↓</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
-<td></td>
+<td style="text-align: center;"></td>
 <td style="text-align: center;">01.28 wed</td>
 <td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on exercises.</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">↓</td>
+<td style="text-align: center;">Same as below ↓</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
-<td>01</td>
+<td style="text-align: center;">Week 1</td>
 <td style="text-align: center;">01.26 mon</td>
 <td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=vectors" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=linear-transformations#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=matrix-multiplication#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=determinant#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=dot-products#video-section" target="_blank">here</a>. Complete the exercises (see the link to the right).</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/01ex-vectors-and-matrices-part-1.html">exercises</a></td>
+<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/01ex-vectors-and-matrices-part-1.html">Sec 1 Exercises</a></td>
 <td style="text-align: center;"></td>
 </tr>
 </tbody>
