@@ -121,6 +121,11 @@ div.callout-note.callout-style-default > .callout-header {
 }
 
 // Code styling
+code {
+  background-color: #1E1E1E !important;
+  color: $blue !important;
+}
+
 a:hover code {
   color: rgba(121, 187, 252, 0.8) !important;
 }
