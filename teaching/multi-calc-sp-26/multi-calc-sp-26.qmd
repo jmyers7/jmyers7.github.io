@@ -23,7 +23,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
   </tr>
   <tr>
     <td>Office hours:</td>
-    <td>To be determined</td>
+    <td>12-12:30 MWF, and by appointment</td>
   </tr>
   <tr>
     <td>Syllabus:</td>
@@ -35,7 +35,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-|| 02.05 thu |||| Quiz on Sec 1<br>Just vectors in $\mathbb{R}^2$ and $\mathbb{R}^3$, no matrices
+|| 02.05 thu | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 1<br>Just vectors in $\mathbb{R}^2$ and $\mathbb{R}^3$, no matrices
 || 02.04 wed | Sec 2: Vectors and matrices, part 2 | [Sec 2 Slides](./slides/02-vectors-and-matrices-part-2.qmd){target="_blank"} | [Sec 2 Exercises](./exercises/02ex-vectors-and-matrices-part-2.qmd)
 | Week 2 | 02.02 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
 || 01.30 fri | Sec 1: Vectors and matrices, part 1 | [Sec 1 Slides](./slides/01-vectors-and-matrices-part-1.qmd){target="_blank"} | Same as below ↓
