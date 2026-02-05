@@ -232,7 +232,7 @@ In words, $T$ is a function that takes an $n$-dimensional vector and outputs an 
 Let
 
 $$
-A = \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}
+A = \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}
 $$
 
 Then $A$ defines a function $T$, as described on the previous slide.
