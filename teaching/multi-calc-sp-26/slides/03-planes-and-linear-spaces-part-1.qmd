@@ -1,0 +1,185 @@
+---
+title: "03 Planes and linear spaces, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+# Planes in $\mathbb{R}^3$
+
+## Point-slope equations of planes
+
+::: {.callout-note icon="false" .fragment}
+### Point-slope equation for a line in $\mathbb{R}^2$
+- The **point-slope equation for a line** through a point $(x_0,y_0)$ with slope $m$ is
+$$
+y = m(x-x_0) + y_0.
+$$
+
+:::
+
+- We interpret the slope $m$ as the slope in the *positive* $x$-direction.
+
+::: {.callout-note icon="false" .fragment}
+
+### Point-slope equation for a plane in $\mathbb{R}^3$
+
+- The **point-slope equation for a plane** through a point $(x_0,y_0,z_0)$ with slope $m$ in the positive $x$-direction and slope $n$ in the positive $y$-direction is
+$$
+z = m(x-x_0) + n(y-y_0) + z_0.
+$$
+:::
+
+
+
+## Exercise 1: Computing point-slope equations
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+a. Compute the point-slope equation for a plane through the point $(1,2,3)$ with slope $2$ in the positive $x$-direction and slope $-1$ in the positive $y$-direction.
+
+b. The point-slope equation of a plane is
+$$
+z = 4(x-2) - 3(y-2) + 5.
+$$
+Through what point does this plane pass? What are the slopes in the $+x$ and $+y$ directions?
+
+c. The point-slope equation of a plane is
+$$
+z = 3x+ 4.
+$$
+Through what point does this plane pass? What are the slopes in the $+x$ and $+y$ directions?
+
+d. The point-slope equation of a plane is
+$$
+z = 0.
+$$
+Through what point does this plane pass? What are the slopes in the $+x$ and $+y$ directions?
+
+:::
+
+## Exercise 2: Linear models {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+The profit, $p$, that a company makes depends on the number of two types of gadgets that it produces, Gadget 1 and Gadget 2. Let $g_1$ and $g_2$ be the number of gadgets that are manufactured of each type, and suppose they sell for $s_1$ and $s_2$ dollars (per gadget), respectively. Suppose the company believes that the profit depends linearly on the number of gadgets produced.
+
+Let $p = f(g_1,g_2)$ be the profit function, and assume that if no gadgets are products, then $p=0$.
+
+a. What is the domain of $f$? What is its codomain?
+
+b. Find a formula for the profit function $p = f(g_1, g_2)$.
+
+:::
+
+## Vector equations of planes {.scrollable}
+
+- Suppose a point $(x,y,z)$ lies on a plane with equation
+$$
+z = m(x-x_0) + n(y-y_0) + z_0.
+$$
+- The two points $(x,y,z)$ and $(x_0,y_0,z_0)$ have position vectors
+$$
+\mathbf{r} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} \quad \text{and} \quad \mathbf{r}_0 = \begin{bmatrix} x_0 \\ y_0 \\ z_0 \end{bmatrix}.
+$$
+- If the vector $\mathbf{r}-\mathbf{r_0}$ has its tail moved to the point $(x_0,y_0,z_0)$, then it *lies in the plane*. Draw the picture!
+- Define
+$$
+\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
+$$
+which is an example of a **normal vector** to the plane. (See below.)
+- Then, observe:
+$$
+\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = \left\langle \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix}, \begin{bmatrix} x-x_0 \\ y-y_0 \\ z-z_0 \end{bmatrix} \right\rangle = -m(x-x_0) -n(y-y_0) + (z-z_0) = 0.
+$$
+
+::: {.callout-note icon="false" .fragment}
+
+### Vector equation of a plane in $\mathbb{R}^3$
+
+Let $\mathbf{n}$ and $\mathbf{r}_0$ be two given vectors in $\mathbb{R}^3$. A **vector equation** of the plane with **normal vector** $\mathbf{n}$, passing through the point with position vector $\mathbf{r}_0$, is
+$$
+\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = 0,
+$$
+where $\mathbf{r}$ is a variable position vector in $\mathbb{R}^3$.
+:::
+
+- *Any* vector that is orthogonal to all vectors in a plane is called a **normal vector** to the plane.
+
+## Standard equations of planes {.scrollable}
+
+- If a plane has a point-slope equation, then a normal vector can always be found of the form
+$$
+\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
+$$
+as we saw on the prevoius slide.
+- But not all planes have normal vectors of this special form!
+- So, we must resort to the vector equation. If we write
+$$
+\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix},
+$$
+and expand the inner product in the vector equation, we get the following:
+
+::: {.callout-note icon="false" .fragment}
+
+### Standard equation of a plane in $\mathbb{R}^3$
+
+A **standard equation** of a plane in $\mathbb{R}^3$ passing through the point $(x_0,y_0,z_0)$ is
+$$
+a(x-x_0) + b(y-y_0) + c(z-z_0) = 0,
+$$
+where $a$, $b$, and $c$ are components of a normal vector $\mathbf{n}$.
+
+:::
+
+## Exercise 3: Normal vectors {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental}
+
+### a. Practice with normal vectors
+
+i. Find a normal vector to the plane $z = 2(x-1) - (y-2) + 3$.
+ii. Find a normal vector to the plane $z = 4(x-2) + 5$.
+iii. Find a normal vector to the plane $z = -y$.
+iv. Find a normal vector to the plane $x=2$.
+v. Find a point-slope equation of the plane with normal vector
+$$
+\mathbf{n} = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}
+$$
+passing through the point $(1,2,3)$.
+:::
+
+::: {.callout-note icon="false" .nonincremental}
+
+### b. Normal vectors and the coordinate planes
+
+i. Find a normal vector to the $xy$-plane in $\mathbb{R}^3$.
+ii. Find a normal vector to the $xz$-plane in $\mathbb{R}^3$.
+iii. Find a normal vector to the $yz$-plane in $\mathbb{R}^3$.
+:::
+
+::: {.callout-note icon="false" .nonincremental}
+
+### b. Normal vectors and standard equations
+
+i. Find a normal vector to the plane with standard equation $2(x-2) - 3y + z = 0$. Identify a point on this plane.
+ii. A plane passes through the point $(1,2,-1)$ and has normal vector $\mathbf{e}_2$. Find its standard equation.
+:::
+
+## Exercise 4: "Non-homogeneous" linear equations {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Let $a$, $b$, $c$, and $d$ be constants, not all $0$. The set of points $(x,y,z)$ that are solutions to the equation
+
+$$
+ax + by + cz = d
+$$
+
+form a plane in $\mathbb{R}^3$. Explain why.
+
+:::
