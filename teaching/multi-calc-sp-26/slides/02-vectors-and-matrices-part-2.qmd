@@ -245,3 +245,136 @@ e. Consider the line $y=0$ in $\mathbb{R}^2$. What does $T$ do to this line?
 f. Consider the line $x=0$ in $\mathbb{R}^2$. What does $T$ do to this line?
 g. Consider the unit square in the first quadrant of $\mathbb{R}^2$. This is the square that has $\mathbf{e}_1$ and $\mathbf{e}_2$ as two of its sides. What does $T$ do to this square?
 :::
+
+# Determinants, areas, and volumes {.scrollable}
+
+## Determinants of $2\times 2$ matrices
+
+::: {.callout-note icon="false" .fragment}
+
+### Determinants of $2\times 2$ matrices
+
+Let
+
+$$
+A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}.
+$$
+
+The **determinant** of $A$ is defined as the number
+
+$$
+\det(A) = ad - bc.
+$$
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Theorem: $2\times 2$ determinants and area
+
+Let
+
+$$
+A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}.
+$$
+
+The area of the parallelogram with sides given by the columns of $A$ is $|\det(A)|$.
+:::
+
+## Exercise 6: Determinants and area {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### a. Computing $2\times 2$ determinants
+
+Compute the determinants of the following matrices.
+
+i. 
+$$
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}
+$$
+
+ii. 
+$$
+B = \begin{bmatrix} 0 & -1 \\ 2 & 3 \end{bmatrix}
+$$
+
+iii. 
+$$
+C = \begin{bmatrix} 1 & 0 \\ -1 & 0 \end{bmatrix}
+$$
+
+:::
+
+::: {.callout-note .nonincremental icon="false"}
+### b. Areas of parallelograms
+
+Compute the areas of the parallelograms whose sets of vertices contain the following points:
+
+i. $(1,1)$, $(2,0)$, $(0,0)$
+ii. $(-1,1)$, $(1,2)$, $(0,0)$
+iii. $(1,0)$, $(-1,0)$, $(0,0)$
+iv. $(0,1)$, $(1,2)$, $(0,0)$
+:::
+
+## Determinants of $3\times 3$ matrices
+
+::: {.callout-note icon="false" .fragment}
+
+### Determinants of $3\times 3$ matrices
+
+Let
+
+$$
+A = \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix}.
+$$
+
+The **determinant** of $A$ is defined as the number
+
+$$
+\det(A) = a(ei - fh) - b(di - fg) + c(dh - eg).
+$$
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Theorem: $3\times 3$ determinants and volume
+
+Let
+
+$$
+A = \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix}.
+$$
+
+The volume of the parallelepiped with sides given by the columns of $A$ is $|\det(A)|$.
+:::
+
+## Exercise 7: Determinants and volume {.scrollable}
+
+::: {.callout-note .nonincremental icon="false"}
+### a. Computing $3\times 3$ determinants
+
+Compute the determinants of the following matrices.
+
+i. 
+$$
+A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
+$$
+
+ii. 
+$$
+B = \begin{bmatrix} 0 & -1 & 2 \\ 2 & 3 & 1 \\ 1 & 0 & -1 \end{bmatrix}
+$$
+
+iii. 
+$$
+C = \begin{bmatrix} 1 & 0 & 0 \\ -1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+$$
+
+:::
+
+::: {.callout-note .nonincremental icon="false"}
+### b. Volumes of parallelepipeds
+
+Compute the volumes of the parallelepipeds whose sets of vertices contain the following points:
+
+i. $(1,1,1)$, $(2,0,0)$, $(1, -1, 2)$, $(0,0,0)$
+ii. $(0,1,0)$, $(1,2,1)$, $(2,0,1)$, $(0,0,0)$
+iii. $(1,0,0)$, $(-1,0,0)$, $(0,0,1)$, $(0,0,0)$
+:::
