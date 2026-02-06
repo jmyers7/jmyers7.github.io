@@ -122,9 +122,9 @@ T(t) = C_0 \exp\left(-k \lambda t\right),
 $$
 where $C_0$ is an arbitrary constant.
 
-- Based on our fact from the first slide, the general solution to (2) is
+- Based on our knowledge of ODEs (from the first slide), the general solution to (2) is
 $$
-X(x) = C_1 \sin(\sqrt{-\lambda} x) + C_2 \cos(\sqrt{-\lambda} x),
+X(x) = C_1 \sin(\sqrt{\lambda} x) + C_2 \cos(\sqrt{\lambda} x),
 $$
 where $C_1$ and $C_2$ are arbitrary constants.
 
@@ -132,26 +132,26 @@ where $C_1$ and $C_2$ are arbitrary constants.
 
 - But now the boundary condition $X(0)=0$ forces $C_2 = 0$, so
 $$
-X(x) = C_1 \sin(\sqrt{-\lambda} x).
+X(x) = C_1 \sin(\sqrt{\lambda} x).
 $$
 
 - The boundary condition $X(L)=0$ then gives
 $$
-C_1 \sin(\sqrt{-\lambda} L) = 0.
+C_1 \sin(\sqrt{\lambda} L) = 0.
 $$
 
 - Since $C_1 \neq 0$ (otherwise the solution is trivial), we must have
 $$
-\sin(\sqrt{-\lambda} L) = 0,
+\sin(\sqrt{\lambda} L) = 0,
 $$
 which implies
 $$
-\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm3, \dots
+\sqrt{\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm3, \dots
 $$
 
 - Thus,
 $$
-\lambda = -\left( \frac{n \pi}{L} \right)^2.
+\lambda = \left( \frac{n \pi}{L} \right)^2.
 $$
 
 - Therefore, for each $n=1,2,3,\dots$, we have a solution

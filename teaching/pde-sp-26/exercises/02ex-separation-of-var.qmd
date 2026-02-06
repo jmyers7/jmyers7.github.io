@@ -57,23 +57,23 @@ T(t) = C_0 \exp(-k \lambda t),
 $$
 while the general solution to the second is
 $$
-X(x) = C_1 \cos(\sqrt{-\lambda} x) + C_2 \sin(\sqrt{-\lambda} x).
+X(x) = C_1 \cos(\sqrt{\lambda} x) + C_2 \sin(\sqrt{\lambda} x).
 $$
 The boundary condition $X'(0)=0$ tells us that $C_2 = 0$, so
 $$
-X(x) = C_1 \cos(\sqrt{-\lambda} x).
+X(x) = C_1 \cos(\sqrt{\lambda} x).
 $$
 The boundary condition $X'(L)=0$ then gives
 $$
--\sqrt{-\lambda} C_1 \sin(\sqrt{-\lambda} L) = 0,
+-\sqrt{\lambda} C_1 \sin(\sqrt{\lambda} L) = 0,
 $$
-which implies that either $C_1 = 0$ or $\sin(\sqrt{-\lambda} L) = 0$. The nontrivial solutions correspond to
+which implies that either $C_1 = 0$ or $\sin(\sqrt{\lambda} L) = 0$. The nontrivial solutions correspond to
 $$
-\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
+\sqrt{\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
 $$
 so
 $$
-\lambda = -\left(\frac{n \pi}{L}\right)^2.
+\lambda = \left(\frac{n \pi}{L}\right)^2.
 $$
 Therefore, for each $n=0,1,2,3,\dots$, we have a solution
 $$
@@ -139,6 +139,51 @@ u(x,t) = \exp(-4t) \cos(2x) + 5 \exp(-9t) \cos(3x).
 $$
 :::
 
-*** 
+## Exercise 3: Solving the wave equation
 
-More to come...
+**This problem isn't done yet!**
+
+Recall that the wave equation is
+$$
+\frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2},
+$$
+
+where $a>0$ is a constant. Let's suppose that we impose the boundary conditions
+$$
+u(0,t) = 0 \quad \text{and} \quad u(L,t) = 0, \quad t > 0,
+$$
+
+where $L>0$ is a fixed length.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Just as with the heat equation, we may "solve" the wave equation by separation of variables, to obtain an infinite series "solution". Do it!
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+We suppose that we have a solution of the form
+$$
+u(x,t) = X(x)T(t).
+$$
+
+Substituting this into the wave equation, we get
+$$
+X(x) T''(t) = a^2 X''(x) T(t).
+$$
+Dividing both sides by $a^2 X(x) T(t)$, we obtain
+$$
+\frac{T''(t)}{a^2 T(t)} = \frac{X''(x)}{X(x)} = -\lambda,
+$$
+where $\lambda$ is a (real number) constant. This leads us to the system of two ODEs
+$$
+T''(t) + a^2 \lambda T(t) = 0, \quad X''(x) + \lambda X(x) = 0,
+$$
+
+with boundary conditions $X(0)=0$ and $X(L)=0$. The general solution to the first equation is
+$$
+T(t) = C_1\sin(\sqrt{\lambda}a t) + C_2\cos(\sqrt{\lambda}a t).
+$$
+
+:::
