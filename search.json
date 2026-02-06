@@ -322,11 +322,11 @@
     "text": "Point-slope equations of planes\n\n\n\n\nPoint-slope equation for a line in \\(\\mathbb{R}^2\\)\n\n\n\nThe point-slope equation for a line through a point \\((x_0,y_0)\\) with slope \\(m\\) is \\[\ny = m(x-x_0) + y_0.\n\\]\n\n\n\n\n\n\nWe interpret the slope \\(m\\) as the slope in the positive \\(x\\)-direction.\n\n\n\n\n\nPoint-slope equation for a plane in \\(\\mathbb{R}^3\\)\n\n\n\nThe point-slope equation for a plane through a point \\((x_0,y_0,z_0)\\) with slope \\(m\\) in the positive \\(x\\)-direction and slope \\(n\\) in the positive \\(y\\)-direction is \\[\nz = m(x-x_0) + n(y-y_0) + z_0.\n\\]"
   },
   {
-    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-1-computing-point-slope-equations",
-    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-1-computing-point-slope-equations",
+    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-1-point-slope-equations",
+    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-1-point-slope-equations",
     "title": "03 Planes and linear spaces, part 1",
-    "section": "Exercise 1: Computing point-slope equations",
-    "text": "Exercise 1: Computing point-slope equations\n\n\n\n\nCompute the point-slope equation for a plane through the point \\((1,2,3)\\) with slope \\(2\\) in the positive \\(x\\)-direction and slope \\(-1\\) in the positive \\(y\\)-direction.\nThe point-slope equation of a plane is \\[\nz = 4(x-2) - 3(y-2) + 5.\n\\] Through what point does this plane pass? What are the slopes in the \\(+x\\) and \\(+y\\) directions?\nThe point-slope equation of a plane is \\[\nz = 3x+ 4.\n\\] Through what point does this plane pass? What are the slopes in the \\(+x\\) and \\(+y\\) directions?\nThe point-slope equation of a plane is \\[\nz = 0.\n\\] Through what point does this plane pass? What are the slopes in the \\(+x\\) and \\(+y\\) directions?"
+    "section": "Exercise 1: Point-slope equations",
+    "text": "Exercise 1: Point-slope equations\n\n\n\n\nCompute the point-slope equation for a plane through the point \\((1,2,3)\\) with slope \\(2\\) in the positive \\(x\\)-direction and slope \\(-1\\) in the positive \\(y\\)-direction.\nThe point-slope equation of a plane is \\[\nz = 4(x-2) - 3(y-2) + 5.\n\\] Through what point does this plane pass? What are the slopes in the \\(+x\\) and \\(+y\\) directions?\nThe point-slope equation of a plane is \\[\nz = 3x+ 4.\n\\] Through what point does this plane pass? What are the slopes in the \\(+x\\) and \\(+y\\) directions?\nThe point-slope equation of a plane is \\[\nz = 0.\n\\] Through what point does this plane pass? What are the slopes in the \\(+x\\) and \\(+y\\) directions?"
   },
   {
     "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-2-linear-models",
@@ -350,18 +350,25 @@
     "text": "Standard equations of planes\n\nIf a plane has a point-slope equation, then a normal vector can always be found of the form \\[\n\\mathbf{n} = \\begin{bmatrix} -m \\\\ -n \\\\ 1 \\end{bmatrix},\n\\] as we saw on the prevoius slide.\nBut not all planes have normal vectors of this special form!\nSo, we must resort to the vector equation. If we write \\[\n\\mathbf{n} = \\begin{bmatrix} a \\\\ b \\\\ c \\end{bmatrix},\n\\] and expand the inner product in the vector equation, we get the following:\n\n\n\n\n\nStandard equation of a plane in \\(\\mathbb{R}^3\\)\n\n\nA standard equation of a plane in \\(\\mathbb{R}^3\\) passing through the point \\((x_0,y_0,z_0)\\) is \\[\na(x-x_0) + b(y-y_0) + c(z-z_0) = 0,\n\\] where \\(a\\), \\(b\\), and \\(c\\) are components of a normal vector \\(\\mathbf{n}\\)."
   },
   {
-    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-3-normal-vectors",
-    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-3-normal-vectors",
+    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-3-normal-vectors-and-standard-equations",
+    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-3-normal-vectors-and-standard-equations",
     "title": "03 Planes and linear spaces, part 1",
-    "section": "Exercise 3: Normal vectors",
-    "text": "Exercise 3: Normal vectors\n\n\n\na. Practice with normal vectors\n\n\n\nFind a normal vector to the plane \\(z = 2(x-1) - (y-2) + 3\\).\nFind a normal vector to the plane \\(z = 4(x-2) + 5\\).\nFind a normal vector to the plane \\(z = -y\\).\nFind a normal vector to the plane \\(x=2\\).\nFind a point-slope equation of the plane with normal vector \\[\n\\mathbf{n} = \\begin{bmatrix} 1 \\\\ -1 \\\\ 2 \\end{bmatrix}\n\\] passing through the point \\((1,2,3)\\).\n\n\n\n\n\n\n\nb. Normal vectors and the coordinate planes\n\n\n\nFind a normal vector to the \\(xy\\)-plane in \\(\\mathbb{R}^3\\).\nFind a normal vector to the \\(xz\\)-plane in \\(\\mathbb{R}^3\\).\nFind a normal vector to the \\(yz\\)-plane in \\(\\mathbb{R}^3\\).\n\n\n\n\n\n\n\nb. Normal vectors and standard equations\n\n\n\nFind a normal vector to the plane with standard equation \\(2(x-2) - 3y + z = 0\\). Identify a point on this plane.\nA plane passes through the point \\((1,2,-1)\\) and has normal vector \\(\\mathbf{e}_2\\). Find its standard equation."
+    "section": "Exercise 3: Normal vectors and standard equations",
+    "text": "Exercise 3: Normal vectors and standard equations\n\n\n\na. Practice with normal vectors\n\n\n\nFind a normal vector to the plane \\(z = 2(x-1) - (y-2) + 3\\).\nFind a normal vector to the plane \\(z = 4(x-2) + 5\\).\nFind a normal vector to the plane \\(z = -y\\).\nFind a normal vector to the plane \\(x=2\\).\nFind a point-slope equation of the plane with normal vector \\[\n\\mathbf{n} = \\begin{bmatrix} 1 \\\\ -1 \\\\ 2 \\end{bmatrix}\n\\] passing through the point \\((1,2,3)\\).\n\n\n\n\n\n\n\nb. Normal vectors and the coordinate planes\n\n\n\nFind a normal vector to the \\(xy\\)-plane in \\(\\mathbb{R}^3\\).\nFind a normal vector to the \\(xz\\)-plane in \\(\\mathbb{R}^3\\).\nFind a normal vector to the \\(yz\\)-plane in \\(\\mathbb{R}^3\\).\n\n\n\n\n\n\n\nb. Normal vectors and standard equations\n\n\n\nFind a normal vector to the plane with standard equation \\(2(x-2) - 3y + z = 0\\). Identify a point on this plane.\nA plane passes through the point \\((1,2,-1)\\) and has normal vector \\(\\mathbf{e}_2\\). Find its standard equation."
   },
   {
-    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-4-non-homogeneous-linear-equations",
-    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-4-non-homogeneous-linear-equations",
+    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#affine-equations-of-planes",
+    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#affine-equations-of-planes",
     "title": "03 Planes and linear spaces, part 1",
-    "section": "Exercise 4: “Non-homogeneous” linear equations",
-    "text": "Exercise 4: “Non-homogeneous” linear equations\n\n\n\nLet \\(a\\), \\(b\\), \\(c\\), and \\(d\\) be constants, not all \\(0\\). The set of points \\((x,y,z)\\) that are solutions to the equation\n\\[\nax + by + cz = d\n\\]\nform a plane in \\(\\mathbb{R}^3\\). Explain why."
+    "section": "Affine equations of planes",
+    "text": "Affine equations of planes\n\n\n\nAffine equation of a plane in \\(\\mathbb{R}^3\\)\n\n\nLet \\(a\\), \\(b\\), \\(c\\), and \\(d\\) be constants (where not all \\(a\\), \\(b\\), and \\(c\\) are \\(0\\)). The set of points \\((x,y,z)\\) that are solutions to the equation\n\\[\nax + by + cz = d\n\\]\nforms a plane in \\(\\mathbb{R}^3\\). This is called an affine equation of a plane.\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\nBe very, VERY careful: The constants \\(a\\), \\(b\\), and \\(c\\) in an affine equation are NOT (in general) the components of a normal vector to the plane."
+  },
+  {
+    "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-4-affine-equations",
+    "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-4-affine-equations",
+    "title": "03 Planes and linear spaces, part 1",
+    "section": "Exercise 4: Affine equations",
+    "text": "Exercise 4: Affine equations\n\n\n\na. From affine equations to standard equations\n\n\nConvert the following affine equations to standard equations. Give a normal vector and a point on each plane.\n\n\\(2x - 3y + z = 5\\)\n\\(x + y  = 1\\)\n\\(2y - z = 2\\)\n\\(x = 4\\)\n\n\n\n\n\n\n\nb. From standard equations to affine equations\n\n\nConvert the following standard equations to affine equations:\n\n\\(4(x-1) + 2(y-2) - 5(z-3) = 0\\)\n\\((x-1) + 3(y-2) = 0\\)\n\\(2(y-1) - (z-2) = 0\\)\n\\(2(x-8) = 0\\)\n\n\n\n\n\n\n\nc. From affine equations to point-slope equations\n\n\nConvert the following affine equations to point-slope equations, if possible.\n\n\\(2x - 3y + z = 5\\)\n\\(6x + y = 1\\)\n\\(2y - 3z = 2\\)\n\\(x = 4\\)"
   },
   {
     "objectID": "teaching/analysis-fa-25/analysis-fa-25.html",

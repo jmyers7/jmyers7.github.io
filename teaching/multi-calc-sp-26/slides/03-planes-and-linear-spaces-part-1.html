@@ -185,8 +185,8 @@ z = m(x-x_0) + n(y-y_0) + z_0.
 </div>
 </div>
 </section>
-<section id="exercise-1-computing-point-slope-equations" class="slide level2">
-<h2>Exercise 1: Computing point-slope equations</h2>
+<section id="exercise-1-point-slope-equations" class="slide level2">
+<h2>Exercise 1: Point-slope equations</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -282,8 +282,8 @@ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0,
 </div>
 </div>
 </section>
-<section id="exercise-3-normal-vectors" class="slide level2 scrollable">
-<h2>Exercise 3: Normal vectors</h2>
+<section id="exercise-3-normal-vectors-and-standard-equations" class="slide level2 scrollable">
+<h2>Exercise 3: Normal vectors and standard equations</h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -330,16 +330,85 @@ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0,
 </div>
 </div>
 </section>
-<section id="exercise-4-non-homogeneous-linear-equations" class="slide level2 scrollable">
-<h2>Exercise 4: “Non-homogeneous” linear equations</h2>
-<div class="callout callout-note no-icon callout-style-simple">
+<section id="affine-equations-of-planes" class="slide level2 scrollable">
+<h2>Affine equations of planes</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
+<p><strong>Affine equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
+</div>
 <div class="callout-content">
-<p>Let <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> be constants, not all <span class="math inline">\(0\)</span>. The set of points <span class="math inline">\((x,y,z)\)</span> that are solutions to the equation</p>
+<p>Let <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> be constants (where not all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are <span class="math inline">\(0\)</span>). The set of points <span class="math inline">\((x,y,z)\)</span> that are solutions to the equation</p>
 <p><span class="math display">\[
 ax + by + cz = d
 \]</span></p>
-<p>form a plane in <span class="math inline">\(\mathbb{R}^3\)</span>. Explain why.</p>
+<p>forms a plane in <span class="math inline">\(\mathbb{R}^3\)</span>. This is called an <strong>affine equation</strong> of a plane.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Be very, <strong>VERY</strong> careful: The constants <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> in an affine equation are <strong>NOT</strong> (in general) the components of a normal vector to the plane.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-affine-equations" class="slide level2 scrollable">
+<h2>Exercise 4: Affine equations</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>a. From affine equations to standard equations</strong></p>
+</div>
+<div class="callout-content">
+<p>Convert the following affine equations to standard equations. Give a normal vector and a point on each plane.</p>
+<ol type="i">
+<li><span class="math inline">\(2x - 3y + z = 5\)</span></li>
+<li><span class="math inline">\(x + y  = 1\)</span></li>
+<li><span class="math inline">\(2y - z = 2\)</span></li>
+<li><span class="math inline">\(x = 4\)</span></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>b. From standard equations to affine equations</strong></p>
+</div>
+<div class="callout-content">
+<p>Convert the following standard equations to affine equations:</p>
+<ol type="i">
+<li><span class="math inline">\(4(x-1) + 2(y-2) - 5(z-3) = 0\)</span></li>
+<li><span class="math inline">\((x-1) + 3(y-2) = 0\)</span></li>
+<li><span class="math inline">\(2(y-1) - (z-2) = 0\)</span></li>
+<li><span class="math inline">\(2(x-8) = 0\)</span></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>c.&nbsp;From affine equations to point-slope equations</strong></p>
+</div>
+<div class="callout-content">
+<p>Convert the following affine equations to point-slope equations, if possible.</p>
+<ol type="i">
+<li><span class="math inline">\(2x - 3y + z = 5\)</span></li>
+<li><span class="math inline">\(6x + y = 1\)</span></li>
+<li><span class="math inline">\(2y - 3z = 2\)</span></li>
+<li><span class="math inline">\(x = 4\)</span></li>
+</ol>
 </div>
 </div>
 </div>
