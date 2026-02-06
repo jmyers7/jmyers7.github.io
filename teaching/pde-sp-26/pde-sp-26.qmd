@@ -37,8 +37,8 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-|| 02.06 fri |||| Quiz on Sec 1
-|| 02.04 wed | Sec 2: Separation of variables, part 1 | [Sec 2 Slides](./slides/02-separation-of-var.qmd){target="_blank"} | Coming soon
+|| 02.06 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 1
+|| 02.04 wed | Sec 2: Separation of variables | [Sec 2 Slides](./slides/02-separation-of-var.qmd){target="_blank"} | [Sec 2 Exercises](./exercises/02ex-separation-of-var.qmd) |
 | Week 2 | 02.02 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
 || 01.30 fri | Sec 1: An introduction to PDEs | [Sec 1 Slides](./slides/01-an-introduction-to-pdes.qmd){target="_blank"} | Same as below ↓
 || 01.28 wed | Another "remote day": Watch the videos below if you haven't already, continue working on Exercises 1-8. || Same as below ↓

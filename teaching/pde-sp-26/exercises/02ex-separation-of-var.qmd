@@ -1,0 +1,144 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 02 Separation of variables
+
+## Exercise 1: Separating variables in the heat equation with different boundary conditions
+
+In class, we "solved" the heat equation in the form of the following boundary-value problem:
+
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
+$$
+
+with
+
+$$
+u(0,t) = 0 \quad \text{and} \quad u(L,t) = 0, \quad t > 0.
+$$ {#eq-class-bvp}
+
+In this problem, instead of the boundary conditions ([-@eq-class-bvp]), we will consider the boundary conditions
+
+$$
+\frac{\partial u}{\partial x}(0,t) = 0 \quad \text{and} \quad \frac{\partial u}{\partial x}(L,t) = 0, \quad t > 0.
+$$ {#eq-new-bvp}
+
+Again, notice that these are *not* initial conditions, since we only require $t>0$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Suppose that we have our metal rod lying along the $x$-axis from $x = 0$ to $x = L$, and that $u(x,t)$ models the temperature at position $x$ and time $t$. What do the new boundary conditions ([-@eq-new-bvp]) imply about the behavior of the temperature at the ends of the rod?
+
+b. With the first set of boundary conditions ([-@eq-class-bvp]), in class we found the "solution"
+$$
+u(x,t) = \sum_{n=1}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right)
+$$
+by separation of variables. How does this "solution" change if we use the new boundary conditions ([-@eq-new-bvp]) instead? 
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. At any *fixed* time $t>0$, the derivatives in ([-@eq-new-bvp]) are the slopes of the tangent lines at $x=0$ and $x=L$ to the graph of $u(x,t)$, plotted in the $(x,u)$-plane. The boundary conditions tell us that these slopes are both $0$, so the tangent lines are horizontal. This means that there is no "heat flow" into or out of the rod through the ends. Why? Take a simple example—consider the end of the rod at $x=0$. If there was heat flow *into* the rod from values $x<0$, then the slope at $x=0$ must be negative, since heat "flows" from higher to lower temperatures. Similarly, if there was heat flow *out of* the rod at $x=0$, the slope would be positive. A similar analysis holds at the other end, where $x=L$. We summarize all of this by saying that the boundary conditions ([-@eq-new-bvp]) correspond to *insulated ends*, meaning no heat can enter or leave the rod through its endpoints.
+
+b. Basically, I'm telling you to solve the heat equation again, by separating variables. The main difference is now you'll have the system of ODEs given by
+$$
+T'(t) = -k \lambda T(t), \quad X''(x) +\lambda X(x)=0
+$$
+with the boundary conditions
+$$
+X'(0) = 0 \quad \text{and} \quad X'(L) = 0.
+$$
+The general solution to the first is still
+$$
+T(t) = C_0 \exp(-k \lambda t),
+$$
+while the general solution to the second is
+$$
+X(x) = C_1 \cos(\sqrt{-\lambda} x) + C_2 \sin(\sqrt{-\lambda} x).
+$$
+The boundary condition $X'(0)=0$ tells us that $C_2 = 0$, so
+$$
+X(x) = C_1 \cos(\sqrt{-\lambda} x).
+$$
+The boundary condition $X'(L)=0$ then gives
+$$
+-\sqrt{-\lambda} C_1 \sin(\sqrt{-\lambda} L) = 0,
+$$
+which implies that either $C_1 = 0$ or $\sin(\sqrt{-\lambda} L) = 0$. The nontrivial solutions correspond to
+$$
+\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
+$$
+so
+$$
+\lambda = -\left(\frac{n \pi}{L}\right)^2.
+$$
+Therefore, for each $n=0,1,2,3,\dots$, we have a solution
+$$
+X_n(x) = \cos\left(\frac{n \pi x}{L}\right).
+$$
+Then, just as in class, this means that the infinite series "solution" is of the form
+$$
+u(x,t) = \sum_{n=0}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \cos\left( \frac{n \pi x}{L} \right).
+$$
+
+:::
+
+
+## Exercise 2: Solving the heat equation with real numbers
+
+In this exercise, you will solve the heat equation with real numbers and real initial conditions. Assume that the infinite series "solutions" that we have discovered by separating variables really are *solutions*, and that there are no problems with convergence.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Imagine a metal rod lying along the $x$-axis from $x=0$ to $x=\pi$. Solve the heat equation
+
+$$
+\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2},
+$$
+
+with boundary conditions
+$$
+\frac{\partial u}{\partial x}(0,t) = 0 \quad \text{and} \quad \frac{\partial u}{\partial x}(\pi,t) = 0, \quad t > 0,
+$$
+
+and initial condition
+$$
+u(x,0) = \cos{2x} +5\cos{3x}, \quad 0 \le x \le \pi.
+$$
+
+Then, once you have your solution $u(x,t)$, make an animation in [Desmos](https://www.desmos.com/calculator) by plotting the solution in the $(x,u)$-plane with a slider for $t$.
+
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+From the previous exercise, we know that the general solution to the heat equation will be
+
+$$
+u(x,t) = \sum_{n=0}^{\infty} a_n \exp\left(-n^2 t \right) \cos{nx },
+$$
+
+since $k=1$ and $L=\pi$. We have
+
+$$
+u(x,0) = \sum_{n=0}^{\infty} a_n\cos{n x },
+$$
+
+which must equal the initial condition $u(x,0) = \cos{2x} +5\cos{3x}$, and so
+$$
+\cos{2x} +5\cos{3x} = \sum_{n=0}^{\infty} a_n\cos{n x }.
+$$
+
+By equating coefficients on both sides, we get that $a_2 = 1$, $a_3 = 5$, and $a_n = 0$ for all other $n$. Therefore, the solution we seek is
+$$
+u(x,t) = \exp(-4t) \cos(2x) + 5 \exp(-9t) \cos(3x).
+$$
+:::
+
+*** 
+
+More to come...

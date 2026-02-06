@@ -1,5 +1,5 @@
 ---
-title: "02 Separation of variables, part 1"
+title: "02 Separation of variables"
 format:
     revealjs:
         incremental: true
@@ -11,10 +11,10 @@ format:
 
 # Solving the heat equation
 
-## A fact from ODEs {.scrollable}
+## A theorem from ODEs {.scrollable}
 
 ::: {.callout-note icon="false" .fragment}
-### General solutions to a special ODE
+### Theorem (General solutions to a special ODE).
 Let $f$ be a function with continuous first and second derivatives. Consider the differential equation
 $$
 f'' + af' + bf = 0,
@@ -45,18 +45,22 @@ where $C_1$ and $C_2$ are arbitrary constants determined by the initial and boun
 
 - This ODE is called **constant-coefficient** because the coefficients $a$ and $b$ are constants, not functions of $x$.
 
-::: {.callout-note icon="false" .fragment appearance="minimal"}
+## Complex roots to the characteristic equation
 
 - The roots $r_1$ and $r_2$ might be complex! In this case, they are conjugates of each other:
     $$
     r_1 = \alpha + i\beta, \quad r_2 = \alpha - i\beta
     $$
+Thus:
 
-- In this case, the general solution can be written as
-    $$
-    f(x) = e^{\alpha x} \left( C_1 \sin(\beta x) + C_2 \cos(\beta x) \right),
-    $$
-    where $C_1$ and $C_2$ are arbitrary constants.
+::: {.callout-note icon="false" .fragment}
+### Convenient expression for the general solutions
+
+The general solution can be written as
+$$
+f(x) = e^{\alpha x} \left( C_1 \sin(\beta x) + C_2 \cos(\beta x) \right),
+$$
+where $C_1$ and $C_2$ are arbitrary constants.
 
 :::
 
@@ -105,22 +109,22 @@ $$
 
 - This leads to a system of **two** ODEs:
 $$
-T'(t) = - k \lambda T(t)
+T'(t) = - k \lambda T(t) \tag{1}
 $$
 and
 $$
-X''(x) + \lambda X(x) = 0, \quad X(0) = 0, \quad X(L) = 0,
+X''(x) + \lambda X(x) = 0, \quad X(0) = 0, \quad X(L) = 0, \tag{2}
 $$
 
-- The general solution to the first ODE is
+- The general solution to (1) is
 $$
 T(t) = C_0 \exp\left(-k \lambda t\right),
 $$
 where $C_0$ is an arbitrary constant.
 
-- The general solution to the second ODE is
+- Based on our fact from the first slide, the general solution to (2) is
 $$
-X(x) = C_1 \sin(\sqrt{\lambda} x) + C_2 \cos(\sqrt{\lambda} x),
+X(x) = C_1 \sin(\sqrt{-\lambda} x) + C_2 \cos(\sqrt{-\lambda} x),
 $$
 where $C_1$ and $C_2$ are arbitrary constants.
 
@@ -128,43 +132,112 @@ where $C_1$ and $C_2$ are arbitrary constants.
 
 - But now the boundary condition $X(0)=0$ forces $C_2 = 0$, so
 $$
-X(x) = C_1 \sin(\sqrt{\lambda} x).
+X(x) = C_1 \sin(\sqrt{-\lambda} x).
 $$
 
 - The boundary condition $X(L)=0$ then gives
 $$
-C_1 \sin(\sqrt{\lambda} L) = 0.
+C_1 \sin(\sqrt{-\lambda} L) = 0.
 $$
 
 - Since $C_1 \neq 0$ (otherwise the solution is trivial), we must have
 $$
-\sin(\sqrt{\lambda} L) = 0,
+\sin(\sqrt{-\lambda} L) = 0,
 $$
 which implies
 $$
-\sqrt{\lambda} L = n \pi, \quad n = \pm 1, \pm 2, \pm3, \dots
-$$
-Therefore,
-$$
-\lambda = \left( \frac{n \pi}{L} \right)^2.
+\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm3, \dots
 $$
 
-- Therefore, for each $n=1,2,3,\dots$ (we ignore the negative values—why?), we have a solution
+- Thus,
 $$
-X_n(x) = C_1 \sin\left( \frac{n \pi x}{L} \right).
+\lambda = -\left( \frac{n \pi}{L} \right)^2.
 $$
 
-- Combining this with $T(t)$, we obtain the solutions to the heat equation
+- Therefore, for each $n=1,2,3,\dots$, we have a solution
+$$
+X_n(x) = \sin\left( \frac{n \pi x}{L} \right)
+$$
+to (2). (We ignore the negative values of $n$—why?)
+
+## "Basic solutions" to the heat equation {.scrollable}
+
+- If we remember that $u(x,t) = X(x)T(t)$, then for each $n=1,2,3,\dots$, we have a "basic solution" to the heat equation:
+
+::: {.callout-note icon="false" .fragment}
+### Basic solutions to the heat equation (w/zero temperature at the boundaries)
+
+Consider the heat equation
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}
+$$
+with boundary conditions $u(0,t) = 0$ and $u(L,t) = 0$ for all $t>0$. Then for each $n=1,2,3,\dots$, the function
+$$
+u_n(x,t) = \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right), \quad 0 \leq x \leq L, \ t\geq 0
+$$
+is a solution to the boundary-value problem above.
+
+:::
+
+## More complex solutions: Superposition principle {.scrollable}
+
+- How might we build up more "complex" solutions using the basic equations to the heat equation?
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Superposition principle for the heat equation).
+
+If $u_1(x,t), u_2(x,t), \dots, u_n(x,t)$ are solutions to the heat equation, then any linear combination
+$$
+u(x,t) = a_1 u_1(x,t) + a_2 u_2(x,t) + \dots + a_n u_n(x,t)
+$$
+is also a solution, where $a_1, a_2, \dots, a_n$ are constants.
+
+:::
+
+- Thought: If linear combinations of **finitely** many solutions are also solutions, what about **infinite** sums?
+
+- If $u_1(x,t), u_2(x,t), \dots$ are solutions to the heat equation, then perhaps the infinite sum
+$$
+u(x,t) = \sum_{n=1}^{\infty} a_n u_n(x,t)
+$$
+is also a solution, where $a_n$ are constants.
+
+- In particular, if we take the basic solutions
 $$
 u_n(x,t) = \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right),
 $$
-
-one for each $n=1,2,3,\ldots$.
-
-## Separation of variables, part 4 {.scrollable}
-
-- Since sums and scalar multiples of solutions to the heat equation are also solutions, we are led to believe that perhaps the infinite sum of solutions
+to the heat equation, then is the infinite sum
 $$
 u(x,t) = \sum_{n=1}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right)
 $$
-is also a solution, where $a_n$ are constants.
+also a solution? (Even more pressing—what about convergence of the series?)
+
+## Bringing in the initial condition {.scrollable}
+
+- If we now bring in an initial condition specifying that
+$$
+u(x,0) = f(x), \quad 0 \leq x \leq L,
+$$
+for some initial temperature distribution $f(x)$, then our "infinite superposition" solution must satisfy
+$$
+f(x) = \sum_{n=1}^{\infty} a_n \sin\left( \frac{n \pi x}{L} \right), \quad 0 \leq x \leq L.
+$$
+
+- But for what functions $f(x)$ does this series converge? What are the $a_n$'s?
+
+## Conclusion: Open questions {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Quetions raised by separation of variables
+
+- Assuming it converges, is an infinite linear combination of solutions to the heat equation also a solution?
+
+- For what types of functions $f(x)$ can we write
+$$
+f(x) = \sum_{n=1}^{\infty} a_n \sin\left( nx \right), \quad (0 \leq x \leq \pi)?
+$$
+(This is just a "rescaled" version of the series on the previous slide.)
+    - When does it converge? What type of convergence?
+    - How do we determine the coefficients $a_n$?
+
+:::
