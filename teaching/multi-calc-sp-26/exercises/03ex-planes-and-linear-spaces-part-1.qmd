@@ -299,6 +299,56 @@ d. $2(x-1) - 3(y+1) - (z-4) = 0$
 
 :::
 
-***
+## Exercise 7: Affine equations of planes
 
-More to come...
+Recall that an *affine equation* for a plane is given by
+
+$$
+ax + by + cz = d,
+$$
+
+where $a$, $b$, $c$, and $d$ are constants (and not all of $a$, $b$ and $c$ are $0$).
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Rewrite the point-slope equation
+$$
+z = 2(x-1) - 3(y+1) + 4
+$$
+as an affine equation.
+b. Rewrite the affine equation
+$$
+3x - 2y +4z = 5
+$$
+as both a point-slope equation. What is the slope in the $+x$-direction? What is the slope in the $+y$-direction?
+c. Rewrite the affine equation
+$$
+2x + 4y = 8
+$$
+as a point-slope equation, if possible. If it isn't possible, explain why.
+d. Find a normal vector to the plane with affine equation
+$$
+2x - y + 3z = 7.
+$$
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $2x - 3y - z = 1$
+
+b. Equation: $z = - \frac{3}{4}x + \frac{1}{2}y + \frac{5}{4}$. Slope in $+x$-direction: $-\frac{3}{4}$. Slope in $+y$-direction: $\frac{1}{2}$.
+
+c. $2x + 4y = 8$ cannot be rewritten as a point-slope equation because it does not define $z$ as a function of $x$ and $y$.
+
+d. First, rewrite the equation in standard form:
+$$
+2x - (y+7) + 3z = 0.
+$$
+
+Then, we see that a normal vector to the plane is
+$$
+\mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}.
+$$
+
+:::
