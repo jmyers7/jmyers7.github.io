@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multivariable calculus: Exercises – john myers, ph.d.</title>
+<title>Partial Differential Equations: Exercises – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -192,14 +192,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#planes-and-linear-spaces-part-1" id="toc-planes-and-linear-spaces-part-1" class="nav-link active" data-scroll-target="#planes-and-linear-spaces-part-1">03 Planes and linear spaces, part 1</a>
+  <li><a href="#separation-of-variables" id="toc-separation-of-variables" class="nav-link active" data-scroll-target="#separation-of-variables">02 Separation of variables</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-point-slope-equations-for-planes" id="toc-exercise-1-point-slope-equations-for-planes" class="nav-link" data-scroll-target="#exercise-1-point-slope-equations-for-planes">Exercise 1: Point-slope equations for planes</a></li>
-  <li><a href="#exercise-2-normal-vectors-to-planes" id="toc-exercise-2-normal-vectors-to-planes" class="nav-link" data-scroll-target="#exercise-2-normal-vectors-to-planes">Exercise 2: Normal vectors to planes</a></li>
-  <li><a href="#exercise-3-vector-equations-of-planes" id="toc-exercise-3-vector-equations-of-planes" class="nav-link" data-scroll-target="#exercise-3-vector-equations-of-planes">Exercise 3: Vector equations of planes</a></li>
-  <li><a href="#exercise-4-finding-planes-from-geometric-information" id="toc-exercise-4-finding-planes-from-geometric-information" class="nav-link" data-scroll-target="#exercise-4-finding-planes-from-geometric-information">Exercise 4: Finding planes from geometric information</a></li>
-  <li><a href="#exercise-5-temperature-distribution" id="toc-exercise-5-temperature-distribution" class="nav-link" data-scroll-target="#exercise-5-temperature-distribution">Exercise 5: Temperature distribution</a></li>
-  <li><a href="#exercise-6-standard-equations-of-planes" id="toc-exercise-6-standard-equations-of-planes" class="nav-link" data-scroll-target="#exercise-6-standard-equations-of-planes">Exercise 6: Standard equations of planes</a></li>
+  <li><a href="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" id="toc-exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" class="nav-link" data-scroll-target="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions">Exercise 1: Separating variables in the heat equation with different boundary conditions</a></li>
+  <li><a href="#exercise-2-solving-the-heat-equation-with-real-numbers" id="toc-exercise-2-solving-the-heat-equation-with-real-numbers" class="nav-link" data-scroll-target="#exercise-2-solving-the-heat-equation-with-real-numbers">Exercise 2: Solving the heat equation with real numbers</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -209,7 +205,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multivariable calculus: Exercises</h1>
+<h1 class="title">Partial Differential Equations: Exercises</h1>
 </div>
 
 
@@ -226,14 +222,23 @@ window.Quarto = {
 </header>
 
 
-<section id="planes-and-linear-spaces-part-1" class="level1">
-<h1>03 Planes and linear spaces, part 1</h1>
-<section id="exercise-1-point-slope-equations-for-planes" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-1-point-slope-equations-for-planes">Exercise 1: Point-slope equations for planes</h2>
-<p>Recall that the <em>point-slope equation</em> for a plane through a point <span class="math inline">\((x_0,y_0,z_0)\)</span> with slope <span class="math inline">\(m\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(n\)</span> in the positive <span class="math inline">\(y\)</span>-direction is</p>
+<section id="separation-of-variables" class="level1">
+<h1>02 Separation of variables</h1>
+<section id="exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions">Exercise 1: Separating variables in the heat equation with different boundary conditions</h2>
+<p>In class, we “solved” the heat equation in the form of the following boundary-value problem:</p>
 <p><span class="math display">\[
-z = m(x-x_0) + n(y-y_0) + z_0.
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
 \]</span></p>
+<p>with</p>
+<p><span id="eq-class-bvp"><span class="math display">\[
+u(0,t) = 0 \quad \text{and} \quad u(L,t) = 0, \quad t &gt; 0.
+\tag{1}\]</span></span></p>
+<p>In this problem, instead of the boundary conditions (<a href="#eq-class-bvp" class="quarto-xref">1</a>), we will consider the boundary conditions</p>
+<p><span id="eq-new-bvp"><span class="math display">\[
+\frac{\partial u}{\partial x}(0,t) = 0 \quad \text{and} \quad \frac{\partial u}{\partial x}(L,t) = 0, \quad t &gt; 0.
+\tag{2}\]</span></span></p>
+<p>Again, notice that these are <em>not</em> initial conditions, since we only require <span class="math inline">\(t&gt;0\)</span>.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -241,15 +246,10 @@ z = m(x-x_0) + n(y-y_0) + z_0.
 </div>
 <div class="callout-body-container">
 <ol type="a">
-<li><p>Find the point-slope equation for a plane through the point <span class="math inline">\((2, -1, 4)\)</span> with slope <span class="math inline">\(3\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(-2\)</span> in the positive <span class="math inline">\(y\)</span>-direction.</p></li>
-<li><p>Find the point-slope equation for a plane through the origin with slope <span class="math inline">\(1\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(5\)</span> in the positive <span class="math inline">\(y\)</span>-direction.</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = -2(x+3) + 4(y-1) + 7.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 5y - 2.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
-<li><p>Find the point-slope equation for a plane through the point <span class="math inline">\((1, 1, 1)\)</span> that is parallel to the <span class="math inline">\(xy\)</span>-plane.</p></li>
+<li><p>Suppose that we have our metal rod lying along the <span class="math inline">\(x\)</span>-axis from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = L\)</span>, and that <span class="math inline">\(u(x,t)\)</span> models the temperature at position <span class="math inline">\(x\)</span> and time <span class="math inline">\(t\)</span>. What do the new boundary conditions (<a href="#eq-new-bvp" class="quarto-xref">2</a>) imply about the behavior of the temperature at the ends of the rod?</p></li>
+<li><p>With the first set of boundary conditions (<a href="#eq-class-bvp" class="quarto-xref">1</a>), in class we found the “solution” <span class="math display">\[
+u(x,t) = \sum_{n=1}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right)
+\]</span> by separation of variables. How does this “solution” change if we use the new boundary conditions (<a href="#eq-new-bvp" class="quarto-xref">2</a>) instead?</p></li>
 </ol>
 </div>
 </div>
@@ -267,37 +267,53 @@ z = 5y - 2.
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="a">
-<li><p><span class="math inline">\(z = 3(x-2) - 2(y+1) + 4\)</span></p></li>
-<li><p><span class="math inline">\(z = x + 5y\)</span></p></li>
-<li><p>The plane passes through <span class="math inline">\((-3, 1, 7)\)</span>. The slope in the <span class="math inline">\(+x\)</span> direction is <span class="math inline">\(-2\)</span>, and the slope in the <span class="math inline">\(+y\)</span> direction is <span class="math inline">\(4\)</span>.</p></li>
-<li><p>The plane passes through <span class="math inline">\((0, 0, -2)\)</span>, has slope <span class="math inline">\(0\)</span> in the <span class="math inline">\(+x\)</span> direction, and slope <span class="math inline">\(5\)</span> in the <span class="math inline">\(+y\)</span> direction.</p></li>
-<li><p>A plane parallel to the <span class="math inline">\(xy\)</span>-plane has slope <span class="math inline">\(0\)</span> in both the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions. So the equation is <span class="math inline">\(z = 0(x-1) + 0(y-1) + 1\)</span>, or simply <span class="math inline">\(z = 1\)</span>.</p></li>
+<li><p>At any <em>fixed</em> time <span class="math inline">\(t&gt;0\)</span>, the derivatives in (<a href="#eq-new-bvp" class="quarto-xref">2</a>) are the slopes of the tangent lines at <span class="math inline">\(x=0\)</span> and <span class="math inline">\(x=L\)</span> to the graph of <span class="math inline">\(u(x,t)\)</span>, plotted in the <span class="math inline">\((x,u)\)</span>-plane. The boundary conditions tell us that these slopes are both <span class="math inline">\(0\)</span>, so the tangent lines are horizontal. This means that there is no “heat flow” into or out of the rod through the ends. Why? Take a simple example—consider the end of the rod at <span class="math inline">\(x=0\)</span>. If there was heat flow <em>into</em> the rod from values <span class="math inline">\(x&lt;0\)</span>, then the slope at <span class="math inline">\(x=0\)</span> must be negative, since heat “flows” from higher to lower temperatures. Similarly, if there was heat flow <em>out of</em> the rod at <span class="math inline">\(x=0\)</span>, the slope would be positive. A similar analysis holds at the other end, where <span class="math inline">\(x=L\)</span>. We summarize all of this by saying that the boundary conditions (<a href="#eq-new-bvp" class="quarto-xref">2</a>) correspond to <em>insulated ends</em>, meaning no heat can enter or leave the rod through its endpoints.</p></li>
+<li><p>Basically, I’m telling you to solve the heat equation again, by separating variables. The main difference is now you’ll have the system of ODEs given by <span class="math display">\[
+T'(t) = -k \lambda T(t), \quad X''(x) +\lambda X(x)=0
+\]</span> with the boundary conditions <span class="math display">\[
+X'(0) = 0 \quad \text{and} \quad X'(L) = 0.
+\]</span> The general solution to the first is still <span class="math display">\[
+T(t) = C_0 \exp(-k \lambda t),
+\]</span> while the general solution to the second is <span class="math display">\[
+X(x) = C_1 \cos(\sqrt{-\lambda} x) + C_2 \sin(\sqrt{-\lambda} x).
+\]</span> The boundary condition <span class="math inline">\(X'(0)=0\)</span> tells us that <span class="math inline">\(C_2 = 0\)</span>, so <span class="math display">\[
+X(x) = C_1 \cos(\sqrt{-\lambda} x).
+\]</span> The boundary condition <span class="math inline">\(X'(L)=0\)</span> then gives <span class="math display">\[
+-\sqrt{-\lambda} C_1 \sin(\sqrt{-\lambda} L) = 0,
+\]</span> which implies that either <span class="math inline">\(C_1 = 0\)</span> or <span class="math inline">\(\sin(\sqrt{-\lambda} L) = 0\)</span>. The nontrivial solutions correspond to <span class="math display">\[
+\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
+\]</span> so <span class="math display">\[
+\lambda = -\left(\frac{n \pi}{L}\right)^2.
+\]</span> Therefore, for each <span class="math inline">\(n=0,1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
+X_n(x) = \cos\left(\frac{n \pi x}{L}\right).
+\]</span> Then, just as in class, this means that the infinite series “solution” is of the form <span class="math display">\[
+u(x,t) = \sum_{n=0}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \cos\left( \frac{n \pi x}{L} \right).
+\]</span></p></li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-2-normal-vectors-to-planes" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-2-normal-vectors-to-planes">Exercise 2: Normal vectors to planes</h2>
-<p>Recall that a vector <span class="math inline">\(\mathbf{n}\)</span> is called a <em>normal vector</em> to a plane if it is orthogonal to all vectors that lie in the plane. For a plane with point-slope equation</p>
-<p><span class="math display">\[
-z = m(x-x_0) + n(y-y_0) + z_0,
-\]</span></p>
-<p>a normal vector is given by <span class="math inline">\(\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix}\)</span>.</p>
+<section id="exercise-2-solving-the-heat-equation-with-real-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-solving-the-heat-equation-with-real-numbers">Exercise 2: Solving the heat equation with real numbers</h2>
+<p>In this exercise, you will solve the heat equation with real numbers and real initial conditions. Assume that the infinite series “solutions” that we have discovered by separating variables really are <em>solutions</em>, and that there are no problems with convergence.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<ol type="a">
-<li><p>Find a normal vector to the plane <span class="math inline">\(z = 3(x-2) - 2(y+1) + 4\)</span>.</p></li>
-<li><p>Find a normal vector to the plane <span class="math inline">\(z = x + 5y\)</span>.</p></li>
-<li><p>Find a normal vector to the plane <span class="math inline">\(z = -4x + 2y - 1\)</span>.</p></li>
-<li><p>Find a normal vector to the plane <span class="math inline">\(z = 7\)</span>.</p></li>
-<li><p>Find a normal vector to the plane <span class="math inline">\(y = 3\)</span>.</p></li>
-<li><p>Is <span class="math inline">\(\mathbf{n} = \begin{bmatrix} -6 \\ 4 \\ 2 \end{bmatrix}\)</span> also a normal vector to the plane <span class="math inline">\(z = 3(x-2) - 2(y+1) + 4\)</span>? Explain.</p></li>
-</ol>
+<p>Imagine a metal rod lying along the <span class="math inline">\(x\)</span>-axis from <span class="math inline">\(x=0\)</span> to <span class="math inline">\(x=\pi\)</span>. Solve the heat equation</p>
+<p><span class="math display">\[
+\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2},
+\]</span></p>
+<p>with boundary conditions <span class="math display">\[
+\frac{\partial u}{\partial x}(0,t) = 0 \quad \text{and} \quad \frac{\partial u}{\partial x}(\pi,t) = 0, \quad t &gt; 0,
+\]</span></p>
+<p>and initial condition <span class="math display">\[
+u(x,0) = \cos{2x} +5\cos{3x}, \quad 0 \le x \le \pi.
+\]</span></p>
+<p>Then, once you have your solution <span class="math inline">\(u(x,t)\)</span>, make an animation in <a href="https://www.desmos.com/calculator">Desmos</a> by plotting the solution in the <span class="math inline">\((x,u)\)</span>-plane with a slider for <span class="math inline">\(t\)</span>.</p>
 </div>
 </div>
 </div>
@@ -313,231 +329,20 @@ z = m(x-x_0) + n(y-y_0) + z_0,
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ol type="a">
-<li><p><span class="math inline">\(\mathbf{n} = \begin{bmatrix} -3 \\ 2 \\ 1 \end{bmatrix}\)</span></p></li>
-<li><p><span class="math inline">\(\mathbf{n} = \begin{bmatrix} -1 \\ -5 \\ 1 \end{bmatrix}\)</span></p></li>
-<li><p><span class="math inline">\(\mathbf{n} = \begin{bmatrix} 4 \\ -2 \\ 1 \end{bmatrix}\)</span></p></li>
-<li><p><span class="math inline">\(\mathbf{n} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\)</span>.</p></li>
-<li><p><span class="math inline">\(\mathbf{n} = \mathbf{e}_2\)</span>.</p></li>
-<li><p>Yes. Notice that <span class="math inline">\(\begin{bmatrix} -6 \\ 4 \\ 2 \end{bmatrix} = 2\begin{bmatrix} -3 \\ 2 \\ 1 \end{bmatrix}\)</span>. Any scalar multiple (except zero) of a normal vector is also a normal vector.</p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-3-vector-equations-of-planes" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-3-vector-equations-of-planes">Exercise 3: Vector equations of planes</h2>
-<p>Recall that the <em>vector equation</em> of a plane with normal vector <span class="math inline">\(\mathbf{n}\)</span> passing through the point with position vector <span class="math inline">\(\mathbf{r}_0\)</span> is</p>
+<p>From the previous exercise, we know that the general solution to the heat equation will be</p>
 <p><span class="math display">\[
-\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = 0,
+u(x,t) = \sum_{n=0}^{\infty} a_n \exp\left(-n^2 t \right) \cos{nx },
 \]</span></p>
-<p>where <span class="math inline">\(\mathbf{r} = \begin{bmatrix} x \\ y \\ z \end{bmatrix}\)</span> is a variable position vector in <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ol type="a">
-<li><p>Find the point-slope equation of the plane with normal vector <span class="math inline">\(\mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}\)</span> passing through the point <span class="math inline">\((1, 0, -2)\)</span>.</p></li>
-<li><p>Find the point-slope equation of the plane with normal vector <span class="math inline">\(\mathbf{n} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\)</span> passing through the origin.</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ol type="a">
-<li><p><span class="math inline">\(z = -\frac{2}{3}(x-1) + \frac{1}{3}(y-0) - 2\)</span></p></li>
-<li><p><span class="math inline">\(z = -x - y\)</span></p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-4-finding-planes-from-geometric-information" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-4-finding-planes-from-geometric-information">Exercise 4: Finding planes from geometric information</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ol type="a">
-<li><p>Find a point-slope equation of the plane passing through the points <span class="math inline">\((1, 0, 2)\)</span>, <span class="math inline">\((2, 1, 3)\)</span>, and <span class="math inline">\((0, 1, 1)\)</span>.</p></li>
-<li><p>Find a point-slope equation of the plane that contains the point <span class="math inline">\((0, 1, 1)\)</span> and the <span class="math inline">\(x\)</span>-axis.</p></li>
-<li><p>Find a plane that passes through the point <span class="math inline">\((2, -1, 3)\)</span> and is perpendicular to the vector <span class="math display">\[
-\mathbf{v} = \begin{bmatrix} 1 \\ 2 \\ -1 \end{bmatrix}.
-\]</span></p></li>
-<li><p>Find the point-slope equation of the plane that is parallel to the <span class="math inline">\(xz\)</span>-plane and passes through the point <span class="math inline">\((1, 3, 2)\)</span>, if possible. If no such equation exists, explain why, and which equation you would use instead.</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ol type="a">
-<li><p>Let <span class="math display">\[
-\mathbf{r}_1 = \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}, \quad \mathbf{r}_2 = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}, \quad \mathbf{r}_3 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
-\]</span> be position vectors for the three points. Two vectors in the plane are <span class="math display">\[
-\mathbf{v}_1 = \mathbf{r}_2 - \mathbf{r}_1 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad \mathbf{v}_2 = \mathbf{r}_3 - \mathbf{r}_1 = \begin{bmatrix} -1 \\ 1 \\ -1 \end{bmatrix}.
-\]</span> We need a vector <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}
-\]</span> orthogonal to both: <span class="math display">\[
-\langle \mathbf{n}, \mathbf{v}_1 \rangle = a + b + c = 0, \quad \langle \mathbf{n}, \mathbf{v}_2 \rangle = -a + b - c = 0.
-\]</span> From the second equation, <span class="math inline">\(b = a + c\)</span>. Substituting into the first: <span class="math inline">\(a + (a+c) + c = 0\)</span>, so <span class="math inline">\(2a + 2c = 0\)</span>, giving <span class="math inline">\(c = -a\)</span>. Then <span class="math inline">\(b = a + (-a) = 0\)</span>. Choosing <span class="math inline">\(a = 1\)</span>, we get the normal vector <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}.
-\]</span> Then, a point-slope equation of the plane is <span class="math display">\[
-z = (x-1) + 2.
-\]</span></p></li>
-<li><p>A normal vector to the plane is <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 0 \\ -1 \\ 1 \end{bmatrix}.
-\]</span> Using this, we get a point-slope equation <span class="math display">\[
-z = (y-1) + 1
-\]</span></p></li>
-<li><p>If the plane is perpendicular to <span class="math inline">\(\mathbf{v}\)</span>, then <span class="math inline">\(\mathbf{v}\)</span> is a normal vector. So <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 1 \\ 2 \\ -1 \end{bmatrix}.
-\]</span> Then a point-slope equation of the plane is <span class="math display">\[
-z = (x-2) + 2(y+1) + 3
-\]</span></p></li>
-<li><p>A plane parallel to the <span class="math inline">\(xz\)</span>-plane has normal vector <span class="math display">\[
-\mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}.
-\]</span> But this can’t be written in the form <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
-\]</span> so no point-slope equation exists for this plane. Instead, we use the standard form: <span class="math display">\[
-y-3 = 0.
-\]</span></p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-5-temperature-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-5-temperature-distribution">Exercise 5: Temperature distribution</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>The temperature <span class="math inline">\(T\)</span> (in degrees Celsius) at a point <span class="math inline">\((x, y, z)\)</span> in a room is modeled by a linear function. Measurements show that:</p>
-<ul>
-<li>At the point <span class="math inline">\((0, 0, 0)\)</span>, the temperature is <span class="math inline">\(20°C\)</span>.</li>
-<li>As you move 1 meter in the positive <span class="math inline">\(x\)</span>-direction, the temperature increases by <span class="math inline">\(2°C\)</span> per meter.</li>
-<li>As you move 1 meter in the positive <span class="math inline">\(y\)</span>-direction, the temperature decreases by <span class="math inline">\(1°C\)</span> per meter.</li>
-<li>The temperature does not change as you move in the <span class="math inline">\(z\)</span>-direction.</li>
-</ul>
-<p>Because of the third bullet point, the temperature is actually a function of the form <span class="math inline">\(T = f(x,y)\)</span>, independent of <span class="math inline">\(z\)</span>.</p>
-<ol type="a">
-<li><p>Find a formula for <span class="math inline">\(T = f(x, y)\)</span>.</p></li>
-<li><p>What is the temperature at the point <span class="math inline">\((3, 2, 5)\)</span>?</p></li>
-<li><p>Find all points where the temperature is exactly <span class="math inline">\(25°C\)</span>.</p></li>
-<li><p>Does the set of solutions in part (c) form a plane? If so, find a normal vector.</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ol type="a">
-<li><p>Since temperature changes linearly with position and increases at <span class="math inline">\(2°C\)</span>/meter in the <span class="math inline">\(+x\)</span> direction and decreases at <span class="math inline">\(1°C\)</span>/meter in the <span class="math inline">\(+y\)</span> direction, and doesn’t change with <span class="math inline">\(z\)</span>, we have <span class="math display">\[
-T = f(x,y)= 2x - y + 20.
-\]</span> (Since <span class="math inline">\(f(0,0,0) = 20\)</span>.)</p></li>
-<li><p><span class="math inline">\(T = f(3, 2) = 24°C\)</span>.</p></li>
-<li><p>Setting <span class="math inline">\(T = 25\)</span> and solving <span class="math inline">\(f(x,y)=25\)</span>, we get: <span class="math display">\[
-\begin{align*}
-2x - y + 20 = 25\\
-2x - y = 5.
-\end{align*}
-\]</span></p></li>
-<li><p>Yes, the set of solutions forms a plane. Note that the equation can be rewritten in the standard form <span class="math display">\[
-2(x-0) - (y+5)=0.
-\]</span> Thus, a normal vector is <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 0 \end{bmatrix}.
-\]</span></p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-6-standard-equations-of-planes" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-6-standard-equations-of-planes">Exercise 6: Standard equations of planes</h2>
-<p>Recall that a <em>standard equation</em> of a plane in <span class="math inline">\(\mathbb{R}^3\)</span> passing through the point <span class="math inline">\((x_0,y_0,z_0)\)</span> with normal vector <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}
-\]</span> is given by <span class="math display">\[
-a(x-x_0) + b(y-y_0) + c(z-z_0) = 0.
+<p>since <span class="math inline">\(k=1\)</span> and <span class="math inline">\(L=\pi\)</span>. We have</p>
+<p><span class="math display">\[
+u(x,0) = \sum_{n=0}^{\infty} a_n\cos{n x },
 \]</span></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ol type="a">
-<li><p>Find a standard equation of the plane with normal vector <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 2 \\ -3 \\ 1 \end{bmatrix}
-\]</span> passing through the point <span class="math inline">\((1, 2, -1)\)</span>.</p></li>
-<li><p>A standard equation of a plane is <span class="math display">\[
-3(x-1) - 2(y+2) + 4z = 0.
-\]</span> Find a normal vector to this plane and identify a point on the plane.</p></li>
-<li><p>Expand the standard equation from part (a) to obtain an equation of the form <span class="math inline">\(ax + by + cz = d\)</span>.</p></li>
-<li><p>Consider the plane with point-slope equation <span class="math inline">\(z = 2(x-1) - 3(y+1) + 4\)</span>. Write this in standard form.</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ol type="a">
-<li><p>Using the formula with <span class="math inline">\(a = 2\)</span>, <span class="math inline">\(b = -3\)</span>, <span class="math inline">\(c = 1\)</span> and the point <span class="math inline">\((1, 2, -1)\)</span>: <span class="math display">\[
-2(x-1) - 3(y-2) + (z+1) = 0.
-\]</span></p></li>
-<li><p>The normal vector is <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 3 \\ -2 \\ 4 \end{bmatrix}.
-\]</span> One point on the plane is <span class="math inline">\((1, -2, 0)\)</span>.</p></li>
-<li><p><span class="math inline">\(2x - 3y + z = -5\)</span></p></li>
-<li><p><span class="math inline">\(2(x-1) - 3(y+1) - (z-4) = 0\)</span></p></li>
-</ol>
+<p>which must equal the initial condition <span class="math inline">\(u(x,0) = \cos{2x} +5\cos{3x}\)</span>, and so <span class="math display">\[
+\cos{2x} +5\cos{3x} = \sum_{n=0}^{\infty} a_n\cos{n x }.
+\]</span></p>
+<p>By equating coefficients on both sides, we get that <span class="math inline">\(a_2 = 1\)</span>, <span class="math inline">\(a_3 = 5\)</span>, and <span class="math inline">\(a_n = 0\)</span> for all other <span class="math inline">\(n\)</span>. Therefore, the solution we seek is <span class="math display">\[
+u(x,t) = \exp(-4t) \cos(2x) + 5 \exp(-9t) \cos(3x).
+\]</span></p>
 </div>
 </div>
 </div>

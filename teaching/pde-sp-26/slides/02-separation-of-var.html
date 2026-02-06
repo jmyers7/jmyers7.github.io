@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>john myers, ph.d. – 02 Separation of variables, part 1</title>
+  <title>john myers, ph.d. – 02 Separation of variables</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,7 +136,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">02 Separation of variables, part 1</h1>
+  <h1 class="title">02 Separation of variables</h1>
 
 <div class="quarto-title-authors">
 </div>
@@ -147,13 +147,13 @@
 <h1>Solving the heat equation</h1>
 
 </section>
-<section id="a-fact-from-odes" class="slide level2 scrollable">
-<h2>A fact from ODEs</h2>
+<section id="a-theorem-from-odes" class="slide level2 scrollable">
+<h2>A theorem from ODEs</h2>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>General solutions to a special ODE</strong></p>
+<p><strong>Theorem (General solutions to a special ODE).</strong></p>
 </div>
 <div class="callout-content">
 <p>Let <span class="math inline">\(f\)</span> be a function with continuous first and second derivatives. Consider the differential equation <span class="math display">\[
@@ -178,18 +178,24 @@ f( x ) = C_1 e^{r_1 x} + C_2 e^{r_2 x},
 <li class="fragment"><p>This ODE is called <strong>second-order</strong> because the highest derivative that appears is the second derivative, <span class="math inline">\(f''\)</span>.</p></li>
 <li class="fragment"><p>This ODE is called <strong>constant-coefficient</strong> because the coefficients <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are constants, not functions of <span class="math inline">\(x\)</span>.</p></li>
 </ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
+</section>
+<section id="complex-roots-to-the-characteristic-equation" class="slide level2">
+<h2>Complex roots to the characteristic equation</h2>
 <ul>
-<li class="fragment"><p>The roots <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> might be complex! In this case, they are conjugates of each other: <span class="math display">\[
+<li class="fragment">The roots <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> might be complex! In this case, they are conjugates of each other: <span class="math display">\[
   r_1 = \alpha + i\beta, \quad r_2 = \alpha - i\beta
-  \]</span></p></li>
-<li class="fragment"><p>In this case, the general solution can be written as <span class="math display">\[
-  f(x) = e^{\alpha x} \left( C_1 \sin(\beta x) + C_2 \cos(\beta x) \right),
-  \]</span> where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are arbitrary constants.</p></li>
+  \]</span> Thus:</li>
 </ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Convenient expression for the general solutions</strong></p>
+</div>
+<div class="callout-content">
+<p>The general solution can be written as <span class="math display">\[
+f(x) = e^{\alpha x} \left( C_1 \sin(\beta x) + C_2 \cos(\beta x) \right),
+\]</span> where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are arbitrary constants.</p>
 </div>
 </div>
 </div>
@@ -238,15 +244,15 @@ X(0) = 0, \quad X(L) = 0.
 \frac{T'(t)}{k T(t)} = \frac{X''(x)}{X(x)} = -\lambda.
 \]</span></p></li>
 <li class="fragment"><p>This leads to a system of <strong>two</strong> ODEs: <span class="math display">\[
-T'(t) = - k \lambda T(t)
+T'(t) = - k \lambda T(t) \tag{1}
 \]</span> and <span class="math display">\[
-X''(x) + \lambda X(x) = 0, \quad X(0) = 0, \quad X(L) = 0,
+X''(x) + \lambda X(x) = 0, \quad X(0) = 0, \quad X(L) = 0, \tag{2}
 \]</span></p></li>
-<li class="fragment"><p>The general solution to the first ODE is <span class="math display">\[
+<li class="fragment"><p>The general solution to (1) is <span class="math display">\[
 T(t) = C_0 \exp\left(-k \lambda t\right),
 \]</span> where <span class="math inline">\(C_0\)</span> is an arbitrary constant.</p></li>
-<li class="fragment"><p>The general solution to the second ODE is <span class="math display">\[
-X(x) = C_1 \sin(\sqrt{\lambda} x) + C_2 \cos(\sqrt{\lambda} x),
+<li class="fragment"><p>Based on our fact from the first slide, the general solution to (2) is <span class="math display">\[
+X(x) = C_1 \sin(\sqrt{-\lambda} x) + C_2 \cos(\sqrt{-\lambda} x),
 \]</span> where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are arbitrary constants.</p></li>
 </ul>
 </section>
@@ -254,34 +260,111 @@ X(x) = C_1 \sin(\sqrt{\lambda} x) + C_2 \cos(\sqrt{\lambda} x),
 <h2>Separation of variables, part 3</h2>
 <ul>
 <li class="fragment"><p>But now the boundary condition <span class="math inline">\(X(0)=0\)</span> forces <span class="math inline">\(C_2 = 0\)</span>, so <span class="math display">\[
-X(x) = C_1 \sin(\sqrt{\lambda} x).
+X(x) = C_1 \sin(\sqrt{-\lambda} x).
 \]</span></p></li>
 <li class="fragment"><p>The boundary condition <span class="math inline">\(X(L)=0\)</span> then gives <span class="math display">\[
-C_1 \sin(\sqrt{\lambda} L) = 0.
+C_1 \sin(\sqrt{-\lambda} L) = 0.
 \]</span></p></li>
 <li class="fragment"><p>Since <span class="math inline">\(C_1 \neq 0\)</span> (otherwise the solution is trivial), we must have <span class="math display">\[
-\sin(\sqrt{\lambda} L) = 0,
+\sin(\sqrt{-\lambda} L) = 0,
 \]</span> which implies <span class="math display">\[
-\sqrt{\lambda} L = n \pi, \quad n = \pm 1, \pm 2, \pm3, \dots
-\]</span> Therefore, <span class="math display">\[
-\lambda = \left( \frac{n \pi}{L} \right)^2.
+\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm3, \dots
 \]</span></p></li>
-<li class="fragment"><p>Therefore, for each <span class="math inline">\(n=1,2,3,\dots\)</span> (we ignore the negative values—why?), we have a solution <span class="math display">\[
-X_n(x) = C_1 \sin\left( \frac{n \pi x}{L} \right).
+<li class="fragment"><p>Thus, <span class="math display">\[
+\lambda = -\left( \frac{n \pi}{L} \right)^2.
 \]</span></p></li>
-<li class="fragment"><p>Combining this with <span class="math inline">\(T(t)\)</span>, we obtain the solutions to the heat equation <span class="math display">\[
-u_n(x,t) = \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right),
-\]</span></p></li>
+<li class="fragment"><p>Therefore, for each <span class="math inline">\(n=1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
+X_n(x) = \sin\left( \frac{n \pi x}{L} \right)
+\]</span> to (2). (We ignore the negative values of <span class="math inline">\(n\)</span>—why?)</p></li>
 </ul>
-<p>one for each <span class="math inline">\(n=1,2,3,\ldots\)</span>.</p>
 </section>
-<section id="separation-of-variables-part-4" class="slide level2 scrollable">
-<h2>Separation of variables, part 4</h2>
+<section id="basic-solutions-to-the-heat-equation" class="slide level2 scrollable">
+<h2>“Basic solutions” to the heat equation</h2>
 <ul>
-<li class="fragment">Since sums and scalar multiples of solutions to the heat equation are also solutions, we are led to believe that perhaps the infinite sum of solutions <span class="math display">\[
-u(x,t) = \sum_{n=1}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right)
-\]</span> is also a solution, where <span class="math inline">\(a_n\)</span> are constants.</li>
+<li class="fragment">If we remember that <span class="math inline">\(u(x,t) = X(x)T(t)\)</span>, then for each <span class="math inline">\(n=1,2,3,\dots\)</span>, we have a “basic solution” to the heat equation:</li>
 </ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Basic solutions to the heat equation (w/zero temperature at the boundaries)</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider the heat equation <span class="math display">\[
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}
+\]</span> with boundary conditions <span class="math inline">\(u(0,t) = 0\)</span> and <span class="math inline">\(u(L,t) = 0\)</span> for all <span class="math inline">\(t&gt;0\)</span>. Then for each <span class="math inline">\(n=1,2,3,\dots\)</span>, the function <span class="math display">\[
+u_n(x,t) = \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right), \quad 0 \leq x \leq L, \ t\geq 0
+\]</span> is a solution to the boundary-value problem above.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="more-complex-solutions-superposition-principle" class="slide level2 scrollable">
+<h2>More complex solutions: Superposition principle</h2>
+<ul>
+<li class="fragment">How might we build up more “complex” solutions using the basic equations to the heat equation?</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Superposition principle for the heat equation).</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(u_1(x,t), u_2(x,t), \dots, u_n(x,t)\)</span> are solutions to the heat equation, then any linear combination <span class="math display">\[
+u(x,t) = a_1 u_1(x,t) + a_2 u_2(x,t) + \dots + a_n u_n(x,t)
+\]</span> is also a solution, where <span class="math inline">\(a_1, a_2, \dots, a_n\)</span> are constants.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><p>Thought: If linear combinations of <strong>finitely</strong> many solutions are also solutions, what about <strong>infinite</strong> sums?</p></li>
+<li class="fragment"><p>If <span class="math inline">\(u_1(x,t), u_2(x,t), \dots\)</span> are solutions to the heat equation, then perhaps the infinite sum <span class="math display">\[
+u(x,t) = \sum_{n=1}^{\infty} a_n u_n(x,t)
+\]</span> is also a solution, where <span class="math inline">\(a_n\)</span> are constants.</p></li>
+<li class="fragment"><p>In particular, if we take the basic solutions <span class="math display">\[
+u_n(x,t) = \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right),
+\]</span> to the heat equation, then is the infinite sum <span class="math display">\[
+u(x,t) = \sum_{n=1}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right)
+\]</span> also a solution? (Even more pressing—what about convergence of the series?)</p></li>
+</ul>
+</section>
+<section id="bringing-in-the-initial-condition" class="slide level2 scrollable">
+<h2>Bringing in the initial condition</h2>
+<ul>
+<li class="fragment"><p>If we now bring in an initial condition specifying that <span class="math display">\[
+u(x,0) = f(x), \quad 0 \leq x \leq L,
+\]</span> for some initial temperature distribution <span class="math inline">\(f(x)\)</span>, then our “infinite superposition” solution must satisfy <span class="math display">\[
+f(x) = \sum_{n=1}^{\infty} a_n \sin\left( \frac{n \pi x}{L} \right), \quad 0 \leq x \leq L.
+\]</span></p></li>
+<li class="fragment"><p>But for what functions <span class="math inline">\(f(x)\)</span> does this series converge? What are the <span class="math inline">\(a_n\)</span>’s?</p></li>
+</ul>
+</section>
+<section id="conclusion-open-questions" class="slide level2 scrollable">
+<h2>Conclusion: Open questions</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Quetions raised by separation of variables</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment"><p>Assuming it converges, is an infinite linear combination of solutions to the heat equation also a solution?</p></li>
+<li class="fragment"><p>For what types of functions <span class="math inline">\(f(x)\)</span> can we write <span class="math display">\[
+f(x) = \sum_{n=1}^{\infty} a_n \sin\left( nx \right), \quad (0 \leq x \leq \pi)?
+\]</span> (This is just a “rescaled” version of the series on the previous slide.)</p>
+<ul>
+<li class="fragment">When does it converge? What type of convergence?</li>
+<li class="fragment">How do we determine the coefficients <span class="math inline">\(a_n\)</span>?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
 
 </section></section>
