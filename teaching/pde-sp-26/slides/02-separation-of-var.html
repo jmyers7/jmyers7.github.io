@@ -251,8 +251,8 @@ X''(x) + \lambda X(x) = 0, \quad X(0) = 0, \quad X(L) = 0, \tag{2}
 <li class="fragment"><p>The general solution to (1) is <span class="math display">\[
 T(t) = C_0 \exp\left(-k \lambda t\right),
 \]</span> where <span class="math inline">\(C_0\)</span> is an arbitrary constant.</p></li>
-<li class="fragment"><p>Based on our fact from the first slide, the general solution to (2) is <span class="math display">\[
-X(x) = C_1 \sin(\sqrt{-\lambda} x) + C_2 \cos(\sqrt{-\lambda} x),
+<li class="fragment"><p>Based on our knowledge of ODEs (from the first slide), the general solution to (2) is <span class="math display">\[
+X(x) = C_1 \sin(\sqrt{\lambda} x) + C_2 \cos(\sqrt{\lambda} x),
 \]</span> where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are arbitrary constants.</p></li>
 </ul>
 </section>
@@ -260,18 +260,18 @@ X(x) = C_1 \sin(\sqrt{-\lambda} x) + C_2 \cos(\sqrt{-\lambda} x),
 <h2>Separation of variables, part 3</h2>
 <ul>
 <li class="fragment"><p>But now the boundary condition <span class="math inline">\(X(0)=0\)</span> forces <span class="math inline">\(C_2 = 0\)</span>, so <span class="math display">\[
-X(x) = C_1 \sin(\sqrt{-\lambda} x).
+X(x) = C_1 \sin(\sqrt{\lambda} x).
 \]</span></p></li>
 <li class="fragment"><p>The boundary condition <span class="math inline">\(X(L)=0\)</span> then gives <span class="math display">\[
-C_1 \sin(\sqrt{-\lambda} L) = 0.
+C_1 \sin(\sqrt{\lambda} L) = 0.
 \]</span></p></li>
 <li class="fragment"><p>Since <span class="math inline">\(C_1 \neq 0\)</span> (otherwise the solution is trivial), we must have <span class="math display">\[
-\sin(\sqrt{-\lambda} L) = 0,
+\sin(\sqrt{\lambda} L) = 0,
 \]</span> which implies <span class="math display">\[
-\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm3, \dots
+\sqrt{\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm3, \dots
 \]</span></p></li>
 <li class="fragment"><p>Thus, <span class="math display">\[
-\lambda = -\left( \frac{n \pi}{L} \right)^2.
+\lambda = \left( \frac{n \pi}{L} \right)^2.
 \]</span></p></li>
 <li class="fragment"><p>Therefore, for each <span class="math inline">\(n=1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
 X_n(x) = \sin\left( \frac{n \pi x}{L} \right)

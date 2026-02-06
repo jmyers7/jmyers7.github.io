@@ -196,6 +196,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" id="toc-exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" class="nav-link" data-scroll-target="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions">Exercise 1: Separating variables in the heat equation with different boundary conditions</a></li>
   <li><a href="#exercise-2-solving-the-heat-equation-with-real-numbers" id="toc-exercise-2-solving-the-heat-equation-with-real-numbers" class="nav-link" data-scroll-target="#exercise-2-solving-the-heat-equation-with-real-numbers">Exercise 2: Solving the heat equation with real numbers</a></li>
+  <li><a href="#exercise-3-solving-the-wave-equation" id="toc-exercise-3-solving-the-wave-equation" class="nav-link" data-scroll-target="#exercise-3-solving-the-wave-equation">Exercise 3: Solving the wave equation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -275,15 +276,15 @@ X'(0) = 0 \quad \text{and} \quad X'(L) = 0.
 \]</span> The general solution to the first is still <span class="math display">\[
 T(t) = C_0 \exp(-k \lambda t),
 \]</span> while the general solution to the second is <span class="math display">\[
-X(x) = C_1 \cos(\sqrt{-\lambda} x) + C_2 \sin(\sqrt{-\lambda} x).
+X(x) = C_1 \cos(\sqrt{\lambda} x) + C_2 \sin(\sqrt{\lambda} x).
 \]</span> The boundary condition <span class="math inline">\(X'(0)=0\)</span> tells us that <span class="math inline">\(C_2 = 0\)</span>, so <span class="math display">\[
-X(x) = C_1 \cos(\sqrt{-\lambda} x).
+X(x) = C_1 \cos(\sqrt{\lambda} x).
 \]</span> The boundary condition <span class="math inline">\(X'(L)=0\)</span> then gives <span class="math display">\[
--\sqrt{-\lambda} C_1 \sin(\sqrt{-\lambda} L) = 0,
-\]</span> which implies that either <span class="math inline">\(C_1 = 0\)</span> or <span class="math inline">\(\sin(\sqrt{-\lambda} L) = 0\)</span>. The nontrivial solutions correspond to <span class="math display">\[
-\sqrt{-\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
+-\sqrt{\lambda} C_1 \sin(\sqrt{\lambda} L) = 0,
+\]</span> which implies that either <span class="math inline">\(C_1 = 0\)</span> or <span class="math inline">\(\sin(\sqrt{\lambda} L) = 0\)</span>. The nontrivial solutions correspond to <span class="math display">\[
+\sqrt{\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
 \]</span> so <span class="math display">\[
-\lambda = -\left(\frac{n \pi}{L}\right)^2.
+\lambda = \left(\frac{n \pi}{L}\right)^2.
 \]</span> Therefore, for each <span class="math inline">\(n=0,1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
 X_n(x) = \cos\left(\frac{n \pi x}{L}\right).
 \]</span> Then, just as in class, this means that the infinite series “solution” is of the form <span class="math display">\[
@@ -346,8 +347,55 @@ u(x,t) = \exp(-4t) \cos(2x) + 5 \exp(-9t) \cos(3x).
 </div>
 </div>
 </div>
-<hr>
-<p>More to come…</p>
+</section>
+<section id="exercise-3-solving-the-wave-equation" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-solving-the-wave-equation">Exercise 3: Solving the wave equation</h2>
+<p><strong>This problem isn’t done yet!</strong></p>
+<p>Recall that the wave equation is <span class="math display">\[
+\frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2},
+\]</span></p>
+<p>where <span class="math inline">\(a&gt;0\)</span> is a constant. Let’s suppose that we impose the boundary conditions <span class="math display">\[
+u(0,t) = 0 \quad \text{and} \quad u(L,t) = 0, \quad t &gt; 0,
+\]</span></p>
+<p>where <span class="math inline">\(L&gt;0\)</span> is a fixed length.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Just as with the heat equation, we may “solve” the wave equation by separation of variables, to obtain an infinite series “solution”. Do it!</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We suppose that we have a solution of the form <span class="math display">\[
+u(x,t) = X(x)T(t).
+\]</span></p>
+<p>Substituting this into the wave equation, we get <span class="math display">\[
+X(x) T''(t) = a^2 X''(x) T(t).
+\]</span> Dividing both sides by <span class="math inline">\(a^2 X(x) T(t)\)</span>, we obtain <span class="math display">\[
+\frac{T''(t)}{a^2 T(t)} = \frac{X''(x)}{X(x)} = -\lambda,
+\]</span> where <span class="math inline">\(\lambda\)</span> is a (real number) constant. This leads us to the system of two ODEs <span class="math display">\[
+T''(t) + a^2 \lambda T(t) = 0, \quad X''(x) + \lambda X(x) = 0,
+\]</span></p>
+<p>with boundary conditions <span class="math inline">\(X(0)=0\)</span> and <span class="math inline">\(X(L)=0\)</span>. The general solution to the first equation is <span class="math display">\[
+T(t) = C_1\sin(\sqrt{\lambda}a t) + C_2\cos(\sqrt{\lambda}a t).
+\]</span></p>
+</div>
+</div>
+</div>
 
 
 </section>
