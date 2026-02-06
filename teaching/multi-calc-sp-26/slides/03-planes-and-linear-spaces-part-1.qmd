@@ -36,7 +36,7 @@ $$
 
 
 
-## Exercise 1: Computing point-slope equations
+## Exercise 1: Point-slope equations
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
 
@@ -136,7 +136,7 @@ where $a$, $b$, and $c$ are components of a normal vector $\mathbf{n}$.
 
 :::
 
-## Exercise 3: Normal vectors {.scrollable}
+## Exercise 3: Normal vectors and standard equations {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental}
 
@@ -170,16 +170,63 @@ i. Find a normal vector to the plane with standard equation $2(x-2) - 3y + z = 0
 ii. A plane passes through the point $(1,2,-1)$ and has normal vector $\mathbf{e}_2$. Find its standard equation.
 :::
 
-## Exercise 4: "Non-homogeneous" linear equations {.scrollable}
+## Affine equations of planes {.scrollable}
 
-::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+::: {.callout-note icon="false" .nonincremental}
+### Affine equation of a plane in $\mathbb{R}^3$
 
-Let $a$, $b$, $c$, and $d$ be constants, not all $0$. The set of points $(x,y,z)$ that are solutions to the equation
+Let $a$, $b$, $c$, and $d$ be constants (where not all $a$, $b$, and $c$ are $0$). The set of points $(x,y,z)$ that are solutions to the equation
 
 $$
 ax + by + cz = d
 $$
 
-form a plane in $\mathbb{R}^3$. Explain why.
+forms a plane in $\mathbb{R}^3$. This is called an **affine equation** of a plane.
+:::
+
+::: {.callout-warning .fragment}
+
+Be very, **VERY** careful: The constants $a$, $b$, and $c$ in an affine equation are **NOT** (in general) the components of a normal vector to the plane.
+
+:::
+
+## Exercise 4: Affine equations {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental}
+
+### a. From affine equations to standard equations
+
+Convert the following affine equations to standard equations. Give a normal vector and a point on each plane.
+
+i. $2x - 3y + z = 5$
+ii. $x + y  = 1$
+iii. $2y - z = 2$
+iv. $x = 4$
+
+:::
+
+::: {.callout-note icon="false" .nonincremental}
+
+### b. From standard equations to affine equations
+
+Convert the following standard equations to affine equations:
+
+i. $4(x-1) + 2(y-2) - 5(z-3) = 0$
+ii. $(x-1) + 3(y-2) = 0$
+iii. $2(y-1) - (z-2) = 0$
+iv. $2(x-8) = 0$
+
+:::
+
+::: {.callout-note icon="false" .nonincremental}
+
+### c. From affine equations to point-slope equations
+
+Convert the following affine equations to point-slope equations, if possible.
+
+i. $2x - 3y + z = 5$
+ii. $6x + y = 1$
+iii. $2y - 3z = 2$
+iv. $x = 4$
 
 :::
