@@ -197,6 +197,7 @@ window.Quarto = {
   <li><a href="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" id="toc-exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" class="nav-link" data-scroll-target="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions">Exercise 1: Separating variables in the heat equation with different boundary conditions</a></li>
   <li><a href="#exercise-2-solving-the-heat-equation-with-real-numbers" id="toc-exercise-2-solving-the-heat-equation-with-real-numbers" class="nav-link" data-scroll-target="#exercise-2-solving-the-heat-equation-with-real-numbers">Exercise 2: Solving the heat equation with real numbers</a></li>
   <li><a href="#exercise-3-solving-the-wave-equation" id="toc-exercise-3-solving-the-wave-equation" class="nav-link" data-scroll-target="#exercise-3-solving-the-wave-equation">Exercise 3: Solving the wave equation</a></li>
+  <li><a href="#exercise-4-the-laplacian-and-laplaces-equation" id="toc-exercise-4-the-laplacian-and-laplaces-equation" class="nav-link" data-scroll-target="#exercise-4-the-laplacian-and-laplaces-equation">Exercise 4: The Laplacian and Laplace’s equation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -350,7 +351,6 @@ u(x,t) = \exp(-4t) \cos(2x) + 5 \exp(-9t) \cos(3x).
 </section>
 <section id="exercise-3-solving-the-wave-equation" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-solving-the-wave-equation">Exercise 3: Solving the wave equation</h2>
-<p><strong>This problem isn’t done yet!</strong></p>
 <p>Recall that the wave equation is <span class="math display">\[
 \frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2},
 \]</span></p>
@@ -391,8 +391,147 @@ X(x) T''(t) = a^2 X''(x) T(t).
 T''(t) + a^2 \lambda T(t) = 0, \quad X''(x) + \lambda X(x) = 0,
 \]</span></p>
 <p>with boundary conditions <span class="math inline">\(X(0)=0\)</span> and <span class="math inline">\(X(L)=0\)</span>. The general solution to the first equation is <span class="math display">\[
-T(t) = C_1\sin(\sqrt{\lambda}a t) + C_2\cos(\sqrt{\lambda}a t).
+T(t) = C_1\sin(\sqrt{\lambda}a t) + C_2\cos(\sqrt{\lambda}a t),
 \]</span></p>
+<p>while the general solution to the second equation is</p>
+<p><span class="math display">\[
+X(x) = C_3 \sin(\sqrt{\lambda} x) + C_4 \cos(\sqrt{\lambda} x).
+\]</span></p>
+<p>The boundary condition <span class="math inline">\(X(0)=0\)</span> implies <span class="math inline">\(C_4 = 0\)</span>, so we have</p>
+<p><span class="math display">\[
+X(x) = C_3 \sin(\sqrt{\lambda} x).
+\]</span></p>
+<p>Then, since <span class="math inline">\(X(L)=0\)</span>, we must have</p>
+<p><span class="math display">\[
+\sqrt{\lambda} L = n \pi, \quad n = 1, 2, 3, \dots
+\]</span></p>
+<p>just as in the case of the heat equation. So, for each <span class="math inline">\(n=1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
+X_n(x) = \sin\left(\frac{n \pi x}{L}\right).
+\]</span> Then, just as in class, this means that the infinite series “solution” is of the form <span class="math display">\[
+u(x,t) = \sum_{n=1}^{\infty} \left[ a_n \cos\left(\frac{n \pi a t}{L}\right) + b_n \sin\left(\frac{n \pi a t}{L}\right) \right] \sin\left(\frac{n \pi x}{L}\right),
+\]</span></p>
+<p>for some constants <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-the-laplacian-and-laplaces-equation" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4-the-laplacian-and-laplaces-equation">Exercise 4: The Laplacian and Laplace’s equation</h2>
+<p>Let <span class="math inline">\(u(x_1,x_2,\ldots,x_n)\)</span> be a real-valued function of <span class="math inline">\(n\)</span> real variables with continuous second-order partial derivatives. The <em>Laplacian</em> is the differential operator <span class="math inline">\(\nabla^2\)</span> that acts on <span class="math inline">\(u\)</span> as <span class="math display">\[
+\nabla^2 u = \sum_{k=1}^n \frac{\partial^2 u}{\partial x_k^2} =  \frac{\partial^2 u}{\partial x_1^2} + \frac{\partial^2 u}{\partial x_2^2} + \cdots + \frac{\partial^2 u}{\partial x_n^2}.
+\]</span></p>
+<p>For example, for a function of the form <span class="math inline">\(u(x,y)\)</span>, the Laplacian of <span class="math inline">\(u\)</span> is <span class="math display">\[
+\nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2},
+\]</span></p>
+<p>while for a function of the form <span class="math inline">\(u(x)\)</span>, the Laplacian of <span class="math inline">\(u\)</span> is simply the second derivative:</p>
+<p><span class="math display">\[
+\nabla^2 u = \frac{d^2 u}{dx^2}.
+\]</span></p>
+<p>If <span class="math inline">\(u\)</span> has “space” variables as well as a “time” variable <span class="math inline">\(t\)</span>, then the Laplacian only acts on the space variables, not on <span class="math inline">\(t\)</span>. For example, for a function of the form <span class="math inline">\(u(x,t)\)</span>, we have</p>
+<p><span class="math display">\[
+\nabla^2 u(x,t) = \frac{\partial^2 u}{\partial x^2}(x,t).
+\]</span></p>
+<p>Therefore, the heat and wave equations may equivalently be written as</p>
+<p><span class="math display">\[
+\frac{\partial u}{\partial t} = \nabla^2 u \quad \text{and} \quad \frac{\partial^2 u}{\partial t^2} = \nabla^2 u,
+\]</span></p>
+<p>respectively.</p>
+<p>In any number of variables, <em>Laplace’s equation</em> is the linear, homogeneous, second-order partial differential equation <span class="math display">\[
+\nabla^2 u = 0.
+\]</span> Solutions to Laplace’s equation are called <em>harmonic functions</em>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Is the Laplacian a <em>linear</em> differential operator?</p></li>
+<li><p>Compute the Laplacians of the following functions:</p>
+<ol type="i">
+<li><span class="math inline">\(u(x,y) = x^2 + y^2\)</span></li>
+<li><span class="math inline">\(u(x,y,z) = 2x^2\sin{y} + e^z\)</span></li>
+<li><span class="math inline">\(u(x) = x^2e^x\)</span></li>
+<li><span class="math inline">\(u(x,y,t) = x^2yt + y^2t + t^2\cos{x}\)</span></li>
+</ol></li>
+<li><p>Find all single-variable harmonic functions <span class="math inline">\(u(x)\)</span> on the unit interval <span class="math inline">\([0,1]\)</span> subject to the boundary conditions <span class="math inline">\(u(0)=a\)</span> and <span class="math inline">\(u(1)=b\)</span> (for some constants <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>).</p></li>
+<li><p>Consider Laplace’s equation for functions <span class="math inline">\(u(x,y)\)</span> on the rectangle <span class="math display">\[
+0 \leq x \leq 2\pi, \quad 0 \leq y \leq 1,
+\]</span> in <span class="math inline">\(\mathbb{R}^2\)</span>. Suppose we impose the boundary conditions <span class="math display">\[
+u(x,0) = \sin{x}-\sin\left(\frac{3x}{2}\right) \quad \text{and} \quad u(x,1) = e\sin{x} - e^{3/2}\sin\left(\frac{3x}{2}\right)
+\]</span> along the bottom and top edges of the rectangle (draw the rectangle in the <span class="math inline">\(xy\)</span>-plane), and <span class="math display">\[
+u(0,y) = 0, \quad u(2\pi,y) = 0
+\]</span> along the left and right edges of the rectangle. Using separation of variables, solve Laplace’s equation. Plot your solution using <a href="https://www.desmos.com/3d" target="_blank">Desmos</a>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Yes. This is because the Laplacian is <span class="math display">\[
+\nabla^2 = \sum_{k=1}^n \frac{\partial^2}{\partial x_k^2}
+\]</span> which is a sum of all the second-order partial derivative operators, and the latter are known (from calculus!) to be linear.</p></li>
+<li></li>
+<li><p>In one variable, the Laplacian is just the second derivative, so we need to solve the ODE <span class="math display">\[
+u''(x)=0.
+\]</span> One application of the Fundamental Theorem of Calculus gives us <span class="math display">\[
+u'(x) - u'(0) = \int_0^x u''(s) \, ds = 0,
+\]</span> and so <span class="math inline">\(u'(x) = u'(0)\)</span>. But then another application of the same theorem yields <span class="math display">\[
+u(x) - u(0) = \int_0^x u'(0) \, ds = u'(0) x,
+\]</span> and so <span class="math display">\[
+u(x) = u'(0) x + u(0).
+\]</span> However, the boundary conditions <span class="math inline">\(u(0)=a\)</span> and <span class="math inline">\(u(1)=b\)</span> imply <span class="math display">\[
+u(0) = u'(0) \cdot 0 + u(0) = a \quad \text{and} \quad u(1) = u'(0) \cdot 1 + u(0) = b,
+\]</span> so we must have <span class="math inline">\(u(0) = a\)</span> and <span class="math inline">\(u'(0) = b - a\)</span>. Therefore, the solution is <span class="math display">\[
+u(x) = (b-a)x + a.
+\]</span> Thus, there is only <em>one</em> harmonic function on the unit interval <span class="math inline">\([0,1]\)</span> that satisfies the given boundary conditions, namely, the linear function that passes through the points <span class="math inline">\((0,a)\)</span> and <span class="math inline">\((1,b)\)</span>.</p></li>
+<li><p>Suppose that <span class="math inline">\(u\)</span> factors as <span class="math display">\[
+u(x,y) = X(x)Y(y).
+\]</span> Substituting this into Laplace’s equation gives <span class="math display">\[
+X''(x)Y(y) + X(x)Y''(y) = 0.
+\]</span> Rearranging and dividing both sides by <span class="math inline">\(X(x)Y(y)\)</span> gives <span class="math display">\[
+\frac{X''(x)}{X(x)} =- \frac{Y''(y)}{Y(y)}.
+\]</span> Since the left-hand side is a function only of <span class="math inline">\(x\)</span>, and the right-hand side is a function only of <span class="math inline">\(y\)</span>, each side must be equal to a nonzero real constant, say <span class="math inline">\(-\lambda\)</span>. Then <span class="math display">\[
+\frac{X''(x)}{X(x)} = -\lambda \quad \text{and} \quad \frac{Y''(y)}{Y(y)} = \lambda,
+\]</span> which gives us the system of two ODEs <span class="math display">\[
+X''(x) + \lambda X(x) = 0, \quad Y''(y) - \lambda Y(y) = 0.
+\]</span> The boundary conditions translate to <span class="math display">\[
+X(x)Y(0) = \sin{x}-\sin\left(\frac{3x}{2}\right) \quad \text{and} \quad X(x)Y(1)=e\sin{x} - e^{3/2}\sin\left(\frac{3x}{2}\right),
+\]</span> along with <span class="math display">\[
+\quad X(0)Y(y)=0 \quad \text{and} \quad X(2\pi)Y(y)=0.
+\]</span> Now, this part is a little different than the heat and wave equations, since we must consider two cases: either <span class="math inline">\(\lambda&lt;0\)</span> or <span class="math inline">\(\lambda&gt;0\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(\lambda&lt;0\)</span>, then we may set <span class="math inline">\(\lambda = -a^2\)</span>, for some nonzero real number <span class="math inline">\(a\)</span>. Then the general solution to the <span class="math inline">\(X\)</span>-equation is <span class="math display">\[
+X(x) = C_1 e^{ax},
+\]</span> while the general solution to the <span class="math inline">\(Y\)</span>-equation is <span class="math display">\[
+Y(y) = C_2 \sin{ay} + C_3 \cos{ay}.
+\]</span> But then the boundary condition <span class="math inline">\(X(x)Y(0)=0\)</span> implies <span class="math display">\[
+C_1C_3 e^{ax} = \sin{x}-\sin\left(\frac{3x}{2}\right)
+\]</span> for all <span class="math inline">\(0\leq x \leq 2\pi\)</span>. But this is impossible, and hence we cannot have <span class="math inline">\(\lambda&lt;0\)</span>.</li>
+<li>So, we assume <span class="math inline">\(\lambda&gt;0\)</span>. In this case, we set <span class="math inline">\(\lambda = a^2\)</span>, for some nonzero real number <span class="math inline">\(a\)</span>. Then the general solution to the <span class="math inline">\(X\)</span>-equation is <span class="math display">\[
+X(x) = C_1 \sin{ax} + C_2 \cos{ax},
+\]</span> while the general solution to the <span class="math inline">\(Y\)</span>-equation is <span class="math display">\[
+Y(y) = C_3 e^{ay}.
+\]</span> Then the boundary condition <span class="math inline">\(X(0)Y(y)=0\)</span> implies that <span class="math inline">\(C_2 = 0\)</span>, so we must have <span class="math display">\[
+X(x) = C_1 \sin{ax}.
+\]</span> The boundary condition <span class="math inline">\(X(2\pi)Y(y)=0\)</span> implies that <span class="math inline">\(C_1 \sin{2\pi a} = 0\)</span>, so we must have <span class="math inline">\(a = n/2\)</span> for some integer <span class="math inline">\(n\)</span>. Therefore, for each <span class="math inline">\(n=1,2,\ldots\)</span>, we get a solution <span class="math display">\[
+u_n(x,y) = \sin\left(\frac{nx}{2}\right) \exp\left( \frac{ny}{2}  \right)
+\]</span> to Laplace’s equation. By comparing these solutions to the boundary conditions, we determine that our desired solution is the superposition <span class="math display">\[
+u(x,y) = u_2(x,y) - u_3(x,y) = \sin{x} \exp{y} - \sin\left(\frac{3x}{2}\right) \exp\left( \frac{3y}{2} \right).
+\]</span></li>
+</ul></li>
+</ol>
 </div>
 </div>
 </div>
