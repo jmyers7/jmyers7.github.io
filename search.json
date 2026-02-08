@@ -368,7 +368,7 @@
     "href": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#affine-equations-of-planes",
     "title": "03 Planes and linear spaces, part 1",
     "section": "Affine equations of planes",
-    "text": "Affine equations of planes\n\n\n\nAffine equation of a plane in \\(\\mathbb{R}^3\\)\n\n\nLet \\(a\\), \\(b\\), \\(c\\), and \\(d\\) be constants (where not all \\(a\\), \\(b\\), and \\(c\\) are \\(0\\)). The set of points \\((x,y,z)\\) that are solutions to the equation\n\\[\nax + by + cz = d\n\\]\nforms a plane in \\(\\mathbb{R}^3\\). This is called an affine equation of a plane.\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\nBe very, VERY careful: The constants \\(a\\), \\(b\\), and \\(c\\) in an affine equation are NOT (in general) the components of a normal vector to the plane."
+    "text": "Affine equations of planes\n\n\n\nAffine equation of a plane in \\(\\mathbb{R}^3\\)\n\n\nLet \\(a\\), \\(b\\), \\(c\\), and \\(d\\) be constants (where not all \\(a\\), \\(b\\), and \\(c\\) are \\(0\\)). The set of points \\((x,y,z)\\) that are solutions to the equation\n\\[\nax + by + cz = d\n\\]\nforms a plane in \\(\\mathbb{R}^3\\). This is called an affine equation of a plane."
   },
   {
     "objectID": "teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html#exercise-4-affine-equations",
