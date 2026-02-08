@@ -37,6 +37,7 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Week 3 | 02.09 mon | Sec 3: The Laplacian and Laplace's equation | [Sec 3 Slides](./slides/03-the-laplacian-and-laplaces-equation.qmd){target="_blank"} | [Sec 3 Exercises](./exercises/03ex-the-laplacian-and-laplaces-equation.qmd)
 || 02.06 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 1
 || 02.04 wed | Sec 2: Separation of variables | [Sec 2 Slides](./slides/02-separation-of-var.qmd){target="_blank"} | [Sec 2 Exercises](./exercises/02ex-separation-of-var.qmd) |
 | Week 2 | 02.02 mon | Same as below ↓ | Same as below ↓ | Same as below ↓

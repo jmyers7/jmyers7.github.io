@@ -1,0 +1,223 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 03 The Laplacian and Laplace's equation
+
+## Exercise 1: Computing Laplacians from derivatives
+
+In $n$ variables, recall that the Laplacian operator is defined as
+$$
+\nabla^2 =\sum_{i=1}^n \frac{\partial^2 }{\partial x_i^2}.
+$$
+
+Recall also that if $u(x_1, \dots, x_n, t)$ is a time-dependent function, the Laplacian only acts on the spatial variables.
+
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the Laplacians of the following functions, using the definition above.
+
+a. $u(x,y) = x^2 + y^2$
+b. $u(x,y,z) = 2x^2\sin{y} + e^z$
+c. $u(x) = x^2e^x$
+d. $u(x,y,t) = x^2yt + y^2t + t^2\cos{x}$
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $4$
+
+b. $-2 x^2 \sin {y}+4 \sin {y}+e^z$
+
+c. $e^x x^2+4 e^x x+2 e^x$
+
+d. $-t^2 \cos {x}+ 2 y t+2 t$
+
+:::
+
+## Exercise 2: Computing Laplacians as limits of average values
+
+Let $u(x,y)$ be a function with continuous second-order partial derivatives. In class, we showed that the Laplacian may be computed as the limit
+
+$$
+(\nabla^2 u)(x_0,y_0) = \lim_{r\to 0^+}\left( \frac{4}{r^2}\cdot \frac{1}{2\pi r} \int_C \big( u(x,y) - u(x_0,y_0)\big) \, ds\right),
+$$
+
+where $C$ is a circle centered at $(x_0,y_0)$ with radius $r$. This formula sheds some light on the intuitive idea that the Laplacian measures how the value of a function at a point compares to the average value around that point.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Suppose $u(x,y) = \sin(x^2+y^2)$. 
+
+a. Compute the Laplacian at $(x_0,y_0) = (0,0)$ using the limit formula above.
+
+b. Check that your answer is correct by computing the Laplacian from the definition.
+
+c. Use your value for the Laplacian to estimate the average value of $u$ around the point $(0,0)$ on a circle of radius $r=0.1$. Compare this to the true average value.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Parametrize the circle $C$ as $x=r\cos{t}$ and $y=r\sin{t}$ for $0\leq t \leq 2\pi$. Then $dx = -r\sin{t}\, dt$ and $dy = r\cos{t}\, dt$, so that
+$$
+ds = \sqrt{ dx^2 + dy^2} = \sqrt{r^2\sin^2{t}+ r^2\cos^2{t}}\, dt = r\, dt
+$$
+We then have
+$$
+\int_C \big( u(x,y) - u(0,0)\big) \, ds = \int_0^{2\pi} r\sin(r^2) \, dt = 2\pi r \sin(r^2).
+$$
+Inserting this into the limit formula gives
+$$
+\begin{align*}
+(\nabla^2 u)(0,0) &= \lim_{r\to 0^+} \frac{4}{r^2} \cdot \frac{1}{2\pi r} \cdot 2\pi r \sin(r^2) \\
+&= \lim_{r\to 0^+} \frac{4\sin(r^2)}{r^2}  \\
+&= \lim_{r\to 0^+} \frac{ 8r\cos(r^2)}{2r} \\
+&= 4.
+\end{align*}
+$$
+
+b. We first compute:
+$$
+\begin{align*}
+\frac{\partial u}{\partial x} &= 2x \cos(x^2+y^2), \\
+\frac{\partial u}{\partial y} &= 2y \cos(x^2+y^2).
+\end{align*}
+$$
+Then:
+$$
+\begin{align*}
+\frac{\partial^2 u}{\partial x^2} &= 2\cos(x^2+y^2) - 4x^2\sin(x^2+y^2), \\
+\frac{\partial^2 u}{\partial y^2} &= 2\cos(x^2+y^2) - 4y^2\sin(x^2+y^2). 
+\end{align*}
+$$
+Hence:
+$$
+(\nabla^2 u)(0,0) = \frac{\partial^2 u}{\partial x^2}(0,0) + \frac{\partial^2 u}{\partial y^2}(0,0) = 2 + 2 = 4.
+$$
+
+c. As long as $r$ is small, the limit formula for the Laplacian may be rearranged to give
+$$
+\frac{r^2}{4} \cdot (\nabla^2 u)(0,0) \approx \frac{1}{2\pi r} \int_C u(x,y) \, ds.
+$$
+Note that $u(0,0)=0$, so the integral on the right is the *true* average value of $u$ around the circle of radius $r$ centered at $(0,0)$. But from our solution to (a), we know
+$$
+\frac{1}{2\pi r} \int_C u(x,y) \, ds = \sin(r^2).
+$$
+On the other hand, we have
+$$
+\frac{r^2}{4} \cdot (\nabla^2 u)(0,0) = r^2.
+$$
+Note that
+$$
+r^2 = 0.01 \quad \text{and} \quad \sin(r^2) \approx 0.0099998
+$$
+when $r=0.1$.
+
+:::
+
+
+## Exercise 3: Solving Laplace's equation
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Consider Laplace's equation for functions $u(x,y)$ on the rectangle
+
+$$
+0 \leq x \leq 2\pi, \quad 0 \leq y \leq 1,
+$$
+
+in $\mathbb{R}^2$. Suppose we impose the boundary conditions
+
+$$
+u(x,0) = \sin{x}-\sin\left(\frac{3x}{2}\right) \quad \text{and} \quad u(x,1) = e\sin{x} - e^{3/2}\sin\left(\frac{3x}{2}\right)
+$$
+
+along the bottom and top edges of the rectangle (draw the rectangle in the $xy$-plane), and
+
+$$
+u(0,y) = 0, \quad u(2\pi,y) = 0
+$$
+
+along the left and right edges of the rectangle.
+
+a. Using separation of variables, solve Laplace's equation.
+
+b. Plot your solution using [Desmos](https://www.desmos.com/3d){target="_blank"}. Be sure to adjust the $x$- and $y$-axes so that you only view your solution over the rectangle $0\leq x \leq 2\pi$ and $0\leq y \leq 1$. We discussed in class that harmonic functions are the optimally "boring" functions that are consistent with the boundary conditions. Does your plot support this intuition? Does your solution exhibit any unexpected features? Any extreme values that are *not* on the boundary?
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+Suppose that $u$ factors as
+$$
+u(x,y) = X(x)Y(y).
+$$
+Substituting this into Laplace's equation gives
+$$
+X''(x)Y(y) + X(x)Y''(y) = 0.
+$$
+Rearranging and dividing both sides by $X(x)Y(y)$ gives
+$$
+\frac{X''(x)}{X(x)} =- \frac{Y''(y)}{Y(y)}.
+$$
+Since the left-hand side is a function only of $x$, and the right-hand side is a function only of $y$, each side must be equal to a nonzero real constant, say $-\lambda$. Then
+$$
+\frac{X''(x)}{X(x)} = -\lambda \quad \text{and} \quad \frac{Y''(y)}{Y(y)} = \lambda,
+$$
+which gives us the system of two ODEs
+$$
+X''(x) + \lambda X(x) = 0, \quad Y''(y) - \lambda Y(y) = 0.
+$$
+The boundary conditions translate to
+$$
+X(x)Y(0) = \sin{x}-\sin\left(\frac{3x}{2}\right) \quad \text{and} \quad X(x)Y(1)=e\sin{x} - e^{3/2}\sin\left(\frac{3x}{2}\right), 
+$$
+along with
+$$
+\quad X(0)Y(y)=0 \quad \text{and} \quad X(2\pi)Y(y)=0.
+$$
+Now, this part is a little different than the heat and wave equations, since we must consider two cases: either $\lambda<0$ or $\lambda>0$.
+
+- If $\lambda<0$, then we may set $\lambda = -a^2$, for some nonzero real number $a$. Then the general solution to the $X$-equation is
+$$
+X(x) = C_1 e^{ax},
+$$
+while the general solution to the $Y$-equation is
+$$
+Y(y) = C_2 \sin{ay} + C_3 \cos{ay}.
+$$
+But then the boundary condition $X(x)Y(0)=0$ implies
+$$
+C_1C_3 e^{ax} = \sin{x}-\sin\left(\frac{3x}{2}\right)
+$$
+for all $0\leq x \leq 2\pi$. But this is impossible, and hence we cannot have $\lambda<0$.
+
+- So, we assume $\lambda>0$. In this case, we set $\lambda = a^2$, for some nonzero real number $a$. Then the general solution to the $X$-equation is
+$$
+X(x) = C_1 \sin{ax} + C_2 \cos{ax},
+$$
+while the general solution to the $Y$-equation is
+$$
+Y(y) = C_3 e^{ay}.
+$$
+Then the boundary condition $X(0)Y(y)=0$ implies that $C_2 = 0$, so we must have
+$$
+X(x) = C_1 \sin{ax}.
+$$
+The boundary condition $X(2\pi)Y(y)=0$ implies that $C_1 \sin{2\pi a} = 0$, so we must have $a = n/2$ for some integer $n$. Therefore, for each $n=1,2,\ldots$, we get a solution
+$$
+u_n(x,y) = \sin\left(\frac{nx}{2}\right) \exp\left( \frac{ny}{2}  \right)
+$$
+to Laplace's equation. By comparing these solutions to the boundary conditions, we determine that our desired solution is the superposition
+$$
+u(x,y) = u_2(x,y) - u_3(x,y) = \sin{x} \exp{y} - \sin\left(\frac{3x}{2}\right) \exp\left( \frac{3y}{2} \right).
+$$
+
+
+
+:::

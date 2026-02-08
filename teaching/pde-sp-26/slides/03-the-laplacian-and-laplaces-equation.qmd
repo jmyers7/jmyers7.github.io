@@ -1,0 +1,199 @@
+---
+title: "03 The Laplacian and Laplace's equation"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+# Reminders of some differential operators
+
+## Gradient {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Gradient operator in two dimensions
+
+Let $u:\mathbb{R}^2\to \mathbb{R}$ be a differentiable function. The **gradient** of $u$, denoted $\nabla u$, is the vector field with
+
+$$
+(\nabla u)(x,y) = \begin{bmatrix} \displaystyle \frac{\partial u}{\partial x}(x,y) \\ \displaystyle \frac{\partial u}{\partial y}(x,y) \end{bmatrix}.
+$$
+:::
+
+- The fundamental properties of gradient fields are:
+    - The dot product $(\nabla u)(x,y) \cdot \mathbf{v}$ is the (approximate) change in $u$, at the point $(x,y)$, in the direction of a vector $\mathbf{v}$.
+    - The gradient vector at a point $(x,y)$ is orthogonal to the level curve of $u$ through $(x,y)$.
+    - The gradient vector at a point $(x,y)$ points in the direction of maximum increase of $u$.
+
+## Divergence {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Divergence operator in two dimensions
+
+Let $\mathbf{F}:\mathbb{R}^2\to \mathbb{R}^2$ be a continuously differentiable vector field with components $F_1$ and $F_2$. The **divergence** of $\mathbf{F}$, denoted $\nabla \cdot \mathbf{F}$, is the scalar field with
+
+$$
+(\nabla \cdot \mathbf{F})(x,y) = \frac{\partial F_1}{\partial x}(x,y) + \frac{\partial F_2}{\partial y}(x,y).
+$$
+
+:::
+
+- How should you think of the divergence?
+
+    - Imagine a small circle $C$ of radius $r$ centered at $(x_0,y_0)$. Then the integral
+    $$
+    \int_C \mathbf{F} \cdot \mathbf{n} \, ds
+    $$
+    is the net flux of $\mathbf{F}$ across the circle. (Think of $\mathbf{F}$ as a velocity field of some "flow".)
+    - As $r\to 0$, this integral certainly vanishes since the circle shrinks to a point.
+    - In fact, it goes to $0$ as fast as the area of the circle, and **the divergence is the rate**:
+    $$
+    (\nabla \cdot \mathbf{F})(x_0,y_0) = \lim_{r\to 0^+} \frac{1}{\pi r^2} \int_C \mathbf{F} \cdot \mathbf{n} \, ds.
+    $$
+
+## The Divergence Theorem {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Divergence Theorem).
+
+Let $\mathbf{F}:\mathbb{R}^2\to \mathbb{R}^2$ be a continuously differentiable vector field, and let $R$ be a region in $\mathbb{R}^2$ with a piecewise smooth boundary $\partial R$. Then
+$$
+\int_{\partial R} \mathbf{F} \cdot \mathbf{n} \, ds = \int_R (\nabla \cdot \mathbf{F}) \, dA.
+$$
+
+:::
+
+# The Laplacian and operators in arbitrary dimensions
+
+## Laplacian {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Laplacian operator in two dimensions
+
+Let $u:\mathbb{R}^2\to \mathbb{R}$ be a function with continuous second-order partial derivatives. The **Laplacian** of $u$, denoted $\nabla^2 u$, is the scalar field with
+
+$$
+(\nabla^2 u)(x,y) = \frac{\partial^2 u}{\partial x^2}(x,y) + \frac{\partial^2 u}{\partial y^2}(x,y).
+$$
+:::
+
+- The motivation for the notation comes from:
+$$
+\nabla^2 u = \nabla \cdot (\nabla u),
+$$
+which shows that the Laplacian is the divergence of the gradient of $u$.
+
+- How should you think of the Laplacian?
+
+    - Imagine a small circle $C$ of radius $r$ centered at $(x_0,y_0)$. Then the integral
+    $$
+    \frac{1}{2\pi r} \int_C \big( u(x,y) - u(x_0,y_0)\big) \, ds
+    $$
+    is the average difference between the value of $u$ on the circle and the value at the center.
+    - As $r\to 0$, this integral certainly vanishes since $u(x,y) \to u(x_0,y_0)$.
+    - In fact, it goes to $0$ as fast as $r^2$, and **the Laplacian is (proportional to) the rate**:
+    $$
+    (\nabla^2 u)(x_0,y_0) = \lim_{r\to 0^+}\left( \frac{4}{r^2}\cdot \frac{1}{2\pi r} \int_C \big( u(x,y) - u(x_0,y_0)\big) \, ds\right).
+    $$
+
+## Differential operators in arbitrary dimensions {.scrollable}
+
+- The gradient, divergence, and Laplacian all have natural generalizations to higher dimensions:
+$$
+\nabla u = \begin{bmatrix} \frac{\partial u}{\partial x_1} \\ \vdots \\ \frac{\partial u}{\partial x_n} \end{bmatrix}, \quad
+\nabla \cdot \mathbf{F} = \sum_{i=1}^n \frac{\partial F_i}{\partial x_i}, \quad
+\nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
+$$
+
+- But the Laplacian has a slightly different interpretation if $u$ is "time-dependent."
+    - For example, let $u:\mathbb{R}^3 \to \mathbb{R}$, and write the third variable as $t$. So, our function is $u(x,y,t)$.
+    - Then the Laplacian only acts on the spatial variables $x$ and $y$, not on $t$:
+    $$
+    \nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}.
+    $$
+    - If our function is $u(x,t)$, then:
+    $$
+    \nabla^2 u = \frac{\partial^2 u}{\partial x^2}.
+    $$
+
+
+
+## The heat and wave equations revisited {.scrollable}
+
+- This means we can rewrite the heat and wave equations in terms of the Laplacian acting only on the spatial variables!
+
+::: {.callout-note icon="false" .fragment}
+### The heat equation in arbitrary dimensions
+
+Let $u:\mathbb{R}^{n+1} \times \mathbb{R} \to \mathbb{R}$ be function with continuous second-order partial derivatives, and write
+$$
+u = u(x_1,\dots,x_n,t).
+$$
+Then the heat equation is
+$$
+\frac{\partial u}{\partial t} = k \nabla^2 u,
+$$
+where $\nabla^2$ is the Laplacian acting only on the first $n$ spatial variables and $k$ is a positive constant.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### The wave equation in arbitrary dimensions
+
+Let $u:\mathbb{R}^{n+1} \times \mathbb{R} \to \mathbb{R}$ be function with continuous second-order partial derivatives, and write
+$$
+u = u(x_1,\dots,x_n,t).
+$$
+Then the wave equation is
+$$
+\frac{\partial^2 u}{\partial t^2} = a^2 \nabla^2 u,
+$$
+where $\nabla^2$ is the Laplacian acting only on the first $n$ spatial variables and $a$ is a positive constant.
+
+:::
+
+# Laplace's equation and harmonic functions {.scrollable}
+
+## Laplace's equation{.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Laplace's equation in arbitrary dimensions
+
+Let $u:\mathbb{R}^{n} \to \mathbb{R}$ be function with continuous second-order partial derivatives, and write
+$$
+u = u(x_1,\dots,x_n).
+$$
+Then Laplace's equation is
+$$
+\nabla^2 u = 0,
+$$
+where $\nabla^2$ is the Laplacian acting on all $n$ spatial variables.
+
+:::
+
+- As you may check, $\nabla^2$ is a *linear* differential operator:
+$$
+\nabla^2 (u+v) = \nabla^2 u + \nabla^2 v, \quad \nabla^2 (cu) = c \nabla^2 u.
+$$
+- Thus, solutions to Laplace's equation are functions in the *kernel* of the Laplacian operator.
+- Solutions are called **harmonic functions**.
+- Using our intuition for the Laplacian, we see that harmonic functions are those that are equal to their average values in every small neighborhood.
+- As David Griffiths in *Introduction to Electrodynamics* says: harmonic functions are "as boring as they possibly could be".
+
+## Exercise: Harmonic functions in one dimension
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Find all solutions $u(x)$ to Laplace's equation $\nabla^2 u =0$ over the unit interval $[0,1]$, subject to the boundary conditions
+$$
+u(0) = a \quad \text{and} \quad u(1) = b,
+$$
+where $a$ and $b$ are given constants.
+
+a. Show that no solution has a maximum or minimum in the interior of the interval. (Assume $a\neq b$.)
+b. Let $u(x)$ be a solution. For each $x_0$ in the interior of $[0,1]$, show that $u(x_0)$ is the average of its values on the boundary of the subinterval $[x_0-\epsilon, x_0+\epsilon]$ for all $\epsilon > 0$ such that $[x_0-\epsilon, x_0+\epsilon] \subset [0,1]$.
+
+:::
