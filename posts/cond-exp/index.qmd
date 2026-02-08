@@ -1,9 +1,9 @@
 ---
-title: "Stochastic processes I: Building a random walk in SigAlg"
+title: "SigAlg II: Conditional expectations and $\\sigma$-algebras"
 toc: true
 draft: true
 jupyter: blog-env
-categories: [Stochastic processes, Random walk, Probability theory, Martingale, SigAlg, Python]
+categories: [Conditional expectations, Hilbert spaces, L2 spaces, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, Python]
 include-in-header: 
   - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
 bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
@@ -45,9 +45,6 @@ But whatever it ends up meaning, there are two special cases where we have a goo
     This says that, given the information in $\mathcal{F}$, the best guess for $Y(\omega)$ is simply $Y(\omega)$ itself, because the observer actually knows the value!
 
 
+## Regression
 
-
-
-
-
-## Bibliography
+Suppose $(\Omega,\mathcal{F},P)$ is a probability space, with $\Omega$ finite, and suppose that we have a $2$-dimensional random variable $(X,Y)$ on $\Omega$.
