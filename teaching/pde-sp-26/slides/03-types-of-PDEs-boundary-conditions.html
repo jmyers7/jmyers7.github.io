@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Partial Differential Equations: Exercises – john myers, ph.d.</title>
+<title>03 Types of PDEs and boundary conditions – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -188,25 +188,14 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#separation-of-variables" id="toc-separation-of-variables" class="nav-link active" data-scroll-target="#separation-of-variables">02 Separation of variables</a>
-  <ul class="collapse">
-  <li><a href="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" id="toc-exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" class="nav-link" data-scroll-target="#exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions">Exercise 1: Separating variables in the heat equation with different boundary conditions</a></li>
-  <li><a href="#exercise-2-solving-the-heat-equation-with-real-numbers" id="toc-exercise-2-solving-the-heat-equation-with-real-numbers" class="nav-link" data-scroll-target="#exercise-2-solving-the-heat-equation-with-real-numbers">Exercise 2: Solving the heat equation with real numbers</a></li>
-  <li><a href="#exercise-3-solving-the-wave-equation" id="toc-exercise-3-solving-the-wave-equation" class="nav-link" data-scroll-target="#exercise-3-solving-the-wave-equation">Exercise 3: Solving the wave equation</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03-types-of-PDEs-boundary-conditions.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Partial Differential Equations: Exercises</h1>
+<h1 class="title">03 Types of PDEs and boundary conditions</h1>
 </div>
 
 
@@ -223,196 +212,75 @@ window.Quarto = {
 </header>
 
 
-<section id="separation-of-variables" class="level1">
-<h1>02 Separation of variables</h1>
-<section id="exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-1-separating-variables-in-the-heat-equation-with-different-boundary-conditions">Exercise 1: Separating variables in the heat equation with different boundary conditions</h2>
-<p>In class, we “solved” the heat equation in the form of the following boundary-value problem:</p>
-<p><span class="math display">\[
-\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
-\]</span></p>
-<p>with</p>
-<p><span id="eq-class-bvp"><span class="math display">\[
-u(0,t) = 0 \quad \text{and} \quad u(L,t) = 0, \quad t &gt; 0.
-\tag{1}\]</span></span></p>
-<p>In this problem, instead of the boundary conditions (<a href="#eq-class-bvp" class="quarto-xref">1</a>), we will consider the boundary conditions</p>
-<p><span id="eq-new-bvp"><span class="math display">\[
-\frac{\partial u}{\partial x}(0,t) = 0 \quad \text{and} \quad \frac{\partial u}{\partial x}(L,t) = 0, \quad t &gt; 0.
-\tag{2}\]</span></span></p>
-<p>Again, notice that these are <em>not</em> initial conditions, since we only require <span class="math inline">\(t&gt;0\)</span>.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ol type="a">
-<li><p>Suppose that we have our metal rod lying along the <span class="math inline">\(x\)</span>-axis from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = L\)</span>, and that <span class="math inline">\(u(x,t)\)</span> models the temperature at position <span class="math inline">\(x\)</span> and time <span class="math inline">\(t\)</span>. What do the new boundary conditions (<a href="#eq-new-bvp" class="quarto-xref">2</a>) imply about the behavior of the temperature at the ends of the rod?</p></li>
-<li><p>With the first set of boundary conditions (<a href="#eq-class-bvp" class="quarto-xref">1</a>), in class we found the “solution” <span class="math display">\[
-u(x,t) = \sum_{n=1}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \sin\left( \frac{n \pi x}{L} \right)
-\]</span> by separation of variables. How does this “solution” change if we use the new boundary conditions (<a href="#eq-new-bvp" class="quarto-xref">2</a>) instead?</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<section id="types-of-pdes" class="level1">
+<h1>Types of PDEs</h1>
+<section id="a-reminder-from-analytic-geometry" class="level2 scrollable">
+<h2 class="scrollable anchored" data-anchor-id="a-reminder-from-analytic-geometry">A reminder from analytic geometry</h2>
+<div class="fragment callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
+<span class="screen-reader-only">Note</span>Classification of conics
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ol type="a">
-<li><p>At any <em>fixed</em> time <span class="math inline">\(t&gt;0\)</span>, the derivatives in (<a href="#eq-new-bvp" class="quarto-xref">2</a>) are the slopes of the tangent lines at <span class="math inline">\(x=0\)</span> and <span class="math inline">\(x=L\)</span> to the graph of <span class="math inline">\(u(x,t)\)</span>, plotted in the <span class="math inline">\((x,u)\)</span>-plane. The boundary conditions tell us that these slopes are both <span class="math inline">\(0\)</span>, so the tangent lines are horizontal. This means that there is no “heat flow” into or out of the rod through the ends. Why? Take a simple example—consider the end of the rod at <span class="math inline">\(x=0\)</span>. If there was heat flow <em>into</em> the rod from values <span class="math inline">\(x&lt;0\)</span>, then the slope at <span class="math inline">\(x=0\)</span> must be negative, since heat “flows” from higher to lower temperatures. Similarly, if there was heat flow <em>out of</em> the rod at <span class="math inline">\(x=0\)</span>, the slope would be positive. A similar analysis holds at the other end, where <span class="math inline">\(x=L\)</span>. We summarize all of this by saying that the boundary conditions (<a href="#eq-new-bvp" class="quarto-xref">2</a>) correspond to <em>insulated ends</em>, meaning no heat can enter or leave the rod through its endpoints.</p></li>
-<li><p>Basically, I’m telling you to solve the heat equation again, by separating variables. The main difference is now you’ll have the system of ODEs given by <span class="math display">\[
-T'(t) = -k \lambda T(t), \quad X''(x) +\lambda X(x)=0
-\]</span> with the boundary conditions <span class="math display">\[
-X'(0) = 0 \quad \text{and} \quad X'(L) = 0.
-\]</span> The general solution to the first is still <span class="math display">\[
-T(t) = C_0 \exp(-k \lambda t),
-\]</span> while the general solution to the second is <span class="math display">\[
-X(x) = C_1 \cos(\sqrt{\lambda} x) + C_2 \sin(\sqrt{\lambda} x).
-\]</span> The boundary condition <span class="math inline">\(X'(0)=0\)</span> tells us that <span class="math inline">\(C_2 = 0\)</span>, so <span class="math display">\[
-X(x) = C_1 \cos(\sqrt{\lambda} x).
-\]</span> The boundary condition <span class="math inline">\(X'(L)=0\)</span> then gives <span class="math display">\[
--\sqrt{\lambda} C_1 \sin(\sqrt{\lambda} L) = 0,
-\]</span> which implies that either <span class="math inline">\(C_1 = 0\)</span> or <span class="math inline">\(\sin(\sqrt{\lambda} L) = 0\)</span>. The nontrivial solutions correspond to <span class="math display">\[
-\sqrt{\lambda} L = n \pi, \quad n = 0, \pm 1, \pm 2, \pm 3, \dots
-\]</span> so <span class="math display">\[
-\lambda = \left(\frac{n \pi}{L}\right)^2.
-\]</span> Therefore, for each <span class="math inline">\(n=0,1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
-X_n(x) = \cos\left(\frac{n \pi x}{L}\right).
-\]</span> Then, just as in class, this means that the infinite series “solution” is of the form <span class="math display">\[
-u(x,t) = \sum_{n=0}^{\infty} a_n \exp\left(\frac{-n^2 \pi^2 kt}{L^2} \right) \cos\left( \frac{n \pi x}{L} \right).
-\]</span></p></li>
-</ol>
+<p>Consider the quadratic equation <span class="math display">\[
+Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0,
+\]</span> where <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span>, <span class="math inline">\(D\)</span>, <span class="math inline">\(E\)</span>, and <span class="math inline">\(F\)</span> are constants. The type of conic section represented by this equation depends on the discriminant <span class="math display">\[
+\Delta = B^2 - 4AC.
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(\Delta &gt; 0\)</span>, the conic is a <strong>hyperbola</strong>.</li>
+<li>If <span class="math inline">\(\Delta = 0\)</span>, the conic is a <strong>parabola</strong>.</li>
+<li>If <span class="math inline">\(\Delta &lt; 0\)</span>, the conic is an <strong>ellipse</strong> (or a circle if <span class="math inline">\(A = C\)</span> and <span class="math inline">\(B = 0\)</span>).</li>
+</ul>
 </div>
 </div>
-</div>
+<ul>
+<li>Familiar examples:
+<ul>
+<li>The equation <span class="math inline">\(x^2 + y^2 = 1\)</span> has <span class="math inline">\(\Delta = -4 &lt; 0\)</span>, so it is an ellipse.</li>
+<li>The equation <span class="math inline">\(y-x^2=0\)</span> has <span class="math inline">\(\Delta=0\)</span>, so it is a parabola.</li>
+<li>The equation <span class="math inline">\(xy-1=0\)</span> has <span class="math inline">\(\Delta=1&gt;0\)</span>, so it is a hyperbola.</li>
+</ul></li>
+</ul>
 </section>
-<section id="exercise-2-solving-the-heat-equation-with-real-numbers" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-2-solving-the-heat-equation-with-real-numbers">Exercise 2: Solving the heat equation with real numbers</h2>
-<p>In this exercise, you will solve the heat equation with real numbers and real initial conditions. Assume that the infinite series “solutions” that we have discovered by separating variables really are <em>solutions</em>, and that there are no problems with convergence.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Imagine a metal rod lying along the <span class="math inline">\(x\)</span>-axis from <span class="math inline">\(x=0\)</span> to <span class="math inline">\(x=\pi\)</span>. Solve the heat equation</p>
-<p><span class="math display">\[
-\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2},
-\]</span></p>
-<p>with boundary conditions <span class="math display">\[
-\frac{\partial u}{\partial x}(0,t) = 0 \quad \text{and} \quad \frac{\partial u}{\partial x}(\pi,t) = 0, \quad t &gt; 0,
-\]</span></p>
-<p>and initial condition <span class="math display">\[
-u(x,0) = \cos{2x} +5\cos{3x}, \quad 0 \le x \le \pi.
-\]</span></p>
-<p>Then, once you have your solution <span class="math inline">\(u(x,t)\)</span>, make an animation in <a href="https://www.desmos.com/calculator">Desmos</a> by plotting the solution in the <span class="math inline">\((x,u)\)</span>-plane with a slider for <span class="math inline">\(t\)</span>.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<section id="types-of-pdes-1" class="level2 scrollable">
+<h2 class="scrollable anchored" data-anchor-id="types-of-pdes-1">Types of PDEs</h2>
+<div class="fragment callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
+<span class="screen-reader-only">Note</span>Classification of linear, second-order PDEs
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>From the previous exercise, we know that the general solution to the heat equation will be</p>
-<p><span class="math display">\[
-u(x,t) = \sum_{n=0}^{\infty} a_n \exp\left(-n^2 t \right) \cos{nx },
+<p>Consider the general linear, second-order PDE for a function <span class="math inline">\(u(x,y)\)</span>: <span class="math display">\[
+Au_{xx} + B u_{xy} + C u_{yy} + D u_x + E u_y + F u = G,
+\]</span> where <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span>, <span class="math inline">\(D\)</span>, <span class="math inline">\(E\)</span>, <span class="math inline">\(F\)</span>, and <span class="math inline">\(G\)</span> are functions of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The type of PDE represented by this equation depends on the discriminant <span class="math display">\[
+\Delta = B^2 - 4AC.
 \]</span></p>
-<p>since <span class="math inline">\(k=1\)</span> and <span class="math inline">\(L=\pi\)</span>. We have</p>
-<p><span class="math display">\[
-u(x,0) = \sum_{n=0}^{\infty} a_n\cos{n x },
-\]</span></p>
-<p>which must equal the initial condition <span class="math inline">\(u(x,0) = \cos{2x} +5\cos{3x}\)</span>, and so <span class="math display">\[
-\cos{2x} +5\cos{3x} = \sum_{n=0}^{\infty} a_n\cos{n x }.
-\]</span></p>
-<p>By equating coefficients on both sides, we get that <span class="math inline">\(a_2 = 1\)</span>, <span class="math inline">\(a_3 = 5\)</span>, and <span class="math inline">\(a_n = 0\)</span> for all other <span class="math inline">\(n\)</span>. Therefore, the solution we seek is <span class="math display">\[
-u(x,t) = \exp(-4t) \cos(2x) + 5 \exp(-9t) \cos(3x).
-\]</span></p>
+<ul>
+<li>If <span class="math inline">\(\Delta &gt; 0\)</span> in a region of the <span class="math inline">\(xy\)</span>-plane, the PDE is <strong>hyperbolic</strong> there.</li>
+<li>If <span class="math inline">\(\Delta = 0\)</span> in a region of the <span class="math inline">\(xy\)</span>-plane, the PDE is <strong>parabolic</strong> there.</li>
+<li>If <span class="math inline">\(\Delta &lt; 0\)</span> in a region of the <span class="math inline">\(xy\)</span>-plane, the PDE is <strong>elliptic</strong> there.</li>
+</ul>
 </div>
 </div>
-</div>
-</section>
-<section id="exercise-3-solving-the-wave-equation" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-3-solving-the-wave-equation">Exercise 3: Solving the wave equation</h2>
-<p>Recall that the wave equation is <span class="math display">\[
-\frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2},
-\]</span></p>
-<p>where <span class="math inline">\(a&gt;0\)</span> is a constant. Let’s suppose that we impose the boundary conditions <span class="math display">\[
-u(0,t) = 0 \quad \text{and} \quad u(L,t) = 0, \quad t &gt; 0,
-\]</span></p>
-<p>where <span class="math inline">\(L&gt;0\)</span> is a fixed length.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Just as with the heat equation, we may “solve” the wave equation by separation of variables, to obtain an infinite series “solution”. Do it!</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solutions.
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>We suppose that we have a solution of the form <span class="math display">\[
-u(x,t) = X(x)T(t).
-\]</span></p>
-<p>Substituting this into the wave equation, we get <span class="math display">\[
-X(x) T''(t) = a^2 X''(x) T(t).
-\]</span> Dividing both sides by <span class="math inline">\(a^2 X(x) T(t)\)</span>, we obtain <span class="math display">\[
-\frac{T''(t)}{a^2 T(t)} = \frac{X''(x)}{X(x)} = -\lambda,
-\]</span> where <span class="math inline">\(\lambda\)</span> is a (real number) constant. This leads us to the system of two ODEs <span class="math display">\[
-T''(t) + a^2 \lambda T(t) = 0, \quad X''(x) + \lambda X(x) = 0,
-\]</span></p>
-<p>with boundary conditions <span class="math inline">\(X(0)=0\)</span> and <span class="math inline">\(X(L)=0\)</span>. The general solution to the first equation is <span class="math display">\[
-T(t) = C_1\sin(\sqrt{\lambda}a t) + C_2\cos(\sqrt{\lambda}a t),
-\]</span></p>
-<p>while the general solution to the second equation is</p>
-<p><span class="math display">\[
-X(x) = C_3 \sin(\sqrt{\lambda} x) + C_4 \cos(\sqrt{\lambda} x).
-\]</span></p>
-<p>The boundary condition <span class="math inline">\(X(0)=0\)</span> implies <span class="math inline">\(C_4 = 0\)</span>, so we have</p>
-<p><span class="math display">\[
-X(x) = C_3 \sin(\sqrt{\lambda} x).
-\]</span></p>
-<p>Then, since <span class="math inline">\(X(L)=0\)</span>, we must have</p>
-<p><span class="math display">\[
-\sqrt{\lambda} L = n \pi, \quad n = 1, 2, 3, \dots
-\]</span></p>
-<p>just as in the case of the heat equation. So, for each <span class="math inline">\(n=1,2,3,\dots\)</span>, we have a solution <span class="math display">\[
-X_n(x) = \sin\left(\frac{n \pi x}{L}\right).
-\]</span> Then, just as in class, this means that the infinite series “solution” is of the form <span class="math display">\[
-u(x,t) = \sum_{n=1}^{\infty} \left[ a_n \cos\left(\frac{n \pi a t}{L}\right) + b_n \sin\left(\frac{n \pi a t}{L}\right) \right] \sin\left(\frac{n \pi x}{L}\right),
-\]</span></p>
-<p>for some constants <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span>.</p>
-</div>
-</div>
-</div>
+<ul>
+<li>We may use <span class="math inline">\(y\)</span> as a space-like variable, or we can set <span class="math inline">\(y=t\)</span> as well.</li>
+<li>Familiar examples:
+<ul>
+<li>The heat equation <span class="math inline">\(u_t - k u_{xx} = 0\)</span> has <span class="math inline">\(\Delta = 0\)</span>, so it is parabolic everywhere.</li>
+<li>The wave equation <span class="math inline">\(u_{tt} - a^2 u_{xx} = 0\)</span> has <span class="math inline">\(\Delta = 4a^2 &gt; 0\)</span>, so it is hyperbolic everywhere.</li>
+<li>Laplace’s equation <span class="math inline">\(u_{xx} + u_{yy} = 0\)</span> has <span class="math inline">\(\Delta = -4 &lt; 0\)</span>, so it is elliptic everywhere.</li>
+</ul></li>
+<li></li>
+</ul>
 
 
 </section>
