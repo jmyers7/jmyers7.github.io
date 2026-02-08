@@ -341,14 +341,85 @@ b. Equation: $z = - \frac{3}{4}x + \frac{1}{2}y + \frac{5}{4}$. Slope in $+x$-di
 
 c. $2x + 4y = 8$ cannot be rewritten as a point-slope equation because it does not define $z$ as a function of $x$ and $y$.
 
-d. First, rewrite the equation in standard form:
-$$
-2x - (y+7) + 3z = 0.
-$$
-
-Then, we see that a normal vector to the plane is
+d. A normal vector to the plane is
 $$
 \mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}.
 $$
 
+:::
+
+## Exercise 8: More practice with planes
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Suppose you are standing at the point $(1, 2, 3)$ on the plane with equation
+$$
+z = 2(x-1) + 3(y-2) + 3.
+$$
+    i. If you step $2$ units in the $+x$-direction, what point are you at?
+    ii. If you step 1 unit in the $-x$-direction, what point are you at? 
+    iii. If you step 3 units in the $-x$-direction and $4$ in the $-y$-direction, what point are you at?
+b. Suppose you are standing at $(1, -2, 0)$ on the plane with equation
+$$
+2(x-1) -4 (y+2) +2z = 0.
+$$
+    i. If you step $1$ unit in the $-x$-direction, what point are you at?
+    ii. If you step $2$ units in the $+y$ direction, what point are you at?
+c. Consider the plane with equation
+$$
+2x-3y + 3z = 5.
+$$
+This plane has a *unique* normal vector that points in the positive $+z$-direction (i.e., the $z$-component of the normal vector is positive). If you begin at the point $(1,0,1)$ and step $2$ units along this vector, what point are you at?
+
+d. Consider the plane with equation
+$$
+2x + 3y + 4z = 1.
+$$
+What is the point on this plane closest to the point $(2,3,-1)$?
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $(3, 2, 7)$, $(0, 2, 1)$, $(-2, -2, -15)$
+
+
+b. $(0, -2, 1)$, $(1, 0, 4)$
+    
+
+c. A normal vector with positive $z$-component is
+$$
+\mathbf{n} = \begin{bmatrix}
+2 \\
+-3 \\
+3
+\end{bmatrix}
+$$
+Now, we want to step $2$ units along this vector, and for this, it will be helpful to first normalize $\mathbf{n}$ to get a unit normal vector:
+$$
+\hat{\mathbf{n}} = \frac{\mathbf{n}}{\|\mathbf{n}\|} = \frac{1}{\sqrt{22}} \begin{bmatrix} 2 \\ -3 \\ 3 \end{bmatrix}.
+$$
+So, if we begin at the point $(1,0,1)$ and step $2$ units along $\hat{\mathbf{n}}$, the position vector of our new point will be
+$$
+\begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} + \frac{2}{\sqrt{22}} \begin{bmatrix} 2 \\ -3 \\ 3 \end{bmatrix} = \begin{bmatrix} 1 + \frac{4}{\sqrt{22}} \\ 0 - \frac{6}{\sqrt{22}} \\ 1 + \frac{6}{\sqrt{22}} \end{bmatrix} \approx \begin{bmatrix} 1.85 \\ -1.28 \\ 2.28 \end{bmatrix}.
+$$
+Thus, the new point is approximately $(1.85, -1.28, 2.28)$.
+
+d. Let $\mathbf{r}$ be the position vector of the point $(2,3,-1)$, and let $\mathbf{r}_0$ be the position vector of the point $(x_0,y_0,z_0)$ on the plane closest to $(2,3,-1)$. Then it follows that the difference $\mathbf{r}-\mathbf{r_0}$ is orthogonal to the plane. But a normal vector to the plane is
+$$
+\mathbf{n} = \begin{bmatrix} 2 \\ 3 \\ 4 \end{bmatrix},
+$$
+so the difference $\mathbf{r}-\mathbf{r_0}$ must be parallel to $\mathbf{n}$, which means there is a scalar $t$ such that $\mathbf{r}-\mathbf{r_0} = t \mathbf{n}$. Then we have $\mathbf{r}_0 = \mathbf{r} - t \mathbf{n}$:
+$$
+\begin{bmatrix} x_0 \\ y_0 \\ z_0 \end{bmatrix} = \begin{bmatrix} 2 - 2t \\ 3 - 3t \\ -1 - 4t \end{bmatrix}.
+$$
+But since $(x_0,y_0,z_0)$ lies on the plane, it must be a solution to the equation of the plane:
+$$
+2(2 - 2t) + 3(3 - 3t) + 4(-1 - 4t) = 1.
+$$
+Solving for $t$, we get $t = 8/29$. Therefore, the point on the plane closest to $(2,3,-1)$ has position vector
+$$
+\mathbf{r_0} = \mathbf{r} - \frac{8}{29}\mathbf{n} = \begin{bmatrix} \frac{42}{29} \\ \frac{63}{29} \\ -\frac{61}{29} \end{bmatrix} \approx 
+\begin{bmatrix} 1.45 \\ 2.17 \\ -2.10 \end{bmatrix}. $$
+Thus, the point on the plane closest to $(2,3,-1)$ is approximately $(1.45, 2.17, -2.10)$.
 :::
