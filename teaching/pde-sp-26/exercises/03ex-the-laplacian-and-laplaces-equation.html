@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multivariable Calculus – john myers, ph.d.</title>
+<title>Partial Differential Equations: Exercises – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../img/fav.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-cf920b21180d50ffb9c5e5129dd645f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../img/fav.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-cf920b21180d50ffb9c5e5129dd645f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,7 +121,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -131,15 +131,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">about</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../writings.html"> 
+    <a class="nav-link" href="../../../writings.html"> 
 <span class="menu-text">writings</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -148,11 +148,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
         <li>
-    <a class="dropdown-item" href="../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
+    <a class="dropdown-item" href="../../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
  <span class="dropdown-text">Multivariable Calculus</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../teaching/pde-sp-26/pde-sp-26.html">
+    <a class="dropdown-item" href="../../../teaching/pde-sp-26/pde-sp-26.html">
  <span class="dropdown-text">Partial Differential Equations</span></a>
   </li>  
     </ul>
@@ -192,8 +192,12 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-information" id="toc-course-information" class="nav-link active" data-scroll-target="#course-information">Course information</a></li>
-  <li><a href="#schedule-slides-exercises-and-info" id="toc-schedule-slides-exercises-and-info" class="nav-link" data-scroll-target="#schedule-slides-exercises-and-info">Schedule, slides, exercises, and info</a></li>
+  <li><a href="#the-laplacian-and-laplaces-equation" id="toc-the-laplacian-and-laplaces-equation" class="nav-link active" data-scroll-target="#the-laplacian-and-laplaces-equation">03 The Laplacian and Laplace’s equation</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-computing-laplacians-from-derivatives" id="toc-exercise-1-computing-laplacians-from-derivatives" class="nav-link" data-scroll-target="#exercise-1-computing-laplacians-from-derivatives">Exercise 1: Computing Laplacians from derivatives</a></li>
+  <li><a href="#exercise-2-computing-laplacians-as-limits-of-average-values" id="toc-exercise-2-computing-laplacians-as-limits-of-average-values" class="nav-link" data-scroll-target="#exercise-2-computing-laplacians-as-limits-of-average-values">Exercise 2: Computing Laplacians as limits of average values</a></li>
+  <li><a href="#exercise-3-solving-laplaces-equation" id="toc-exercise-3-solving-laplaces-equation" class="nav-link" data-scroll-target="#exercise-3-solving-laplaces-equation">Exercise 3: Solving Laplace’s equation</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -202,7 +206,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multivariable Calculus</h1>
+<h1 class="title">Partial Differential Equations: Exercises</h1>
 </div>
 
 
@@ -219,140 +223,207 @@ window.Quarto = {
 </header>
 
 
-<p>This course is an introduction to multivariable calculus. We will cover the following topics:</p>
-<ol type="1">
-<li>Vectors and matrices: We will learn about vector algebra, dot products, matrix operations, and determinants.</li>
-<li>Calculus of functions of several variables: We will study limits, continuity, derivatives, and applications of all these concepts.</li>
-<li>Multiple integrals: We will explore double and triple integrals, as well as applications such as volume and surface area.</li>
-<li>Vector calculus: We will cover vector fields, line integrals, surface integrals, Green’s theorem, Stokes’ theorem, and the divergence theorem.</li>
+<section id="the-laplacian-and-laplaces-equation" class="level1">
+<h1>03 The Laplacian and Laplace’s equation</h1>
+<section id="exercise-1-computing-laplacians-from-derivatives" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-computing-laplacians-from-derivatives">Exercise 1: Computing Laplacians from derivatives</h2>
+<p>In <span class="math inline">\(n\)</span> variables, recall that the Laplacian operator is defined as <span class="math display">\[
+\nabla^2 =\sum_{i=1}^n \frac{\partial^2 }{\partial x_i^2}.
+\]</span></p>
+<p>Recall also that if <span class="math inline">\(u(x_1, \dots, x_n, t)\)</span> is a time-dependent function, the Laplacian only acts on the spatial variables.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Compute the Laplacians of the following functions, using the definition above.</p>
+<ol type="a">
+<li><span class="math inline">\(u(x,y) = x^2 + y^2\)</span></li>
+<li><span class="math inline">\(u(x,y,z) = 2x^2\sin{y} + e^z\)</span></li>
+<li><span class="math inline">\(u(x) = x^2e^x\)</span></li>
+<li><span class="math inline">\(u(x,y,t) = x^2yt + y^2t + t^2\cos{x}\)</span></li>
 </ol>
-<section id="course-information" class="level1">
-<h1>Course information</h1>
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-John Myers
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Marano 175
-</td>
-</tr>
-<tr>
-<td>
-Office hours:
-</td>
-<td>
-12-12:30 MWF, and by appointment
-</td>
-</tr>
-<tr>
-<td>
-Syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1z4ctWQjU2zq9zx1-rrIpdGhqS-efvWWo/view?usp=sharing" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><span class="math inline">\(4\)</span></p></li>
+<li><p><span class="math inline">\(-2 x^2 \sin {y}+4 \sin {y}+e^z\)</span></p></li>
+<li><p><span class="math inline">\(e^x x^2+4 e^x x+2 e^x\)</span></p></li>
+<li><p><span class="math inline">\(-t^2 \cos {x}+ 2 y t+2 t\)</span></p></li>
+</ol>
+</div>
+</div>
+</div>
 </section>
-<section id="schedule-slides-exercises-and-info" class="level1">
-<h1>Schedule, slides, exercises, and info</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">week</th>
-<th style="text-align: center;">date</th>
-<th style="text-align: center;">topics</th>
-<th style="text-align: center;">slides</th>
-<th style="text-align: center;">exercises</th>
-<th style="text-align: center;">info</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Week 3</td>
-<td style="text-align: center;">02.09 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.06 fri</td>
-<td style="text-align: center;">Sec 3: Planes and linear spaces, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html" target="_blank">Sec 3 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/03ex-planes-and-linear-spaces-part-1.html">Sec 3 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.05 thu</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 1<br>Just vectors in <span class="math inline">\(\mathbb{R}^2\)</span> and <span class="math inline">\(\mathbb{R}^3\)</span>, no matrices</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.04 wed</td>
-<td style="text-align: center;">Sec 2: Vectors and matrices, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html" target="_blank">Sec 2 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/02ex-vectors-and-matrices-part-2.html">Sec 2 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 2</td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">Sec 1: Vectors and matrices, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/01-vectors-and-matrices-part-1.html" target="_blank">Sec 1 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.29 thu</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on exercises.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.28 wed</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on exercises.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 1</td>
-<td style="text-align: center;">01.26 mon</td>
-<td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=vectors" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=linear-transformations#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=matrix-multiplication#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=determinant#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=dot-products#video-section" target="_blank">here</a>. Complete the exercises (see the link to the right).</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/01ex-vectors-and-matrices-part-1.html">Sec 1 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<section id="exercise-2-computing-laplacians-as-limits-of-average-values" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-computing-laplacians-as-limits-of-average-values">Exercise 2: Computing Laplacians as limits of average values</h2>
+<p>Let <span class="math inline">\(u(x,y)\)</span> be a function with continuous second-order partial derivatives. In class, we showed that the Laplacian may be computed as the limit</p>
+<p><span class="math display">\[
+(\nabla^2 u)(x_0,y_0) = \lim_{r\to 0^+}\left( \frac{4}{r^2}\cdot \frac{1}{2\pi r} \int_C \big( u(x,y) - u(x_0,y_0)\big) \, ds\right),
+\]</span></p>
+<p>where <span class="math inline">\(C\)</span> is a circle centered at <span class="math inline">\((x_0,y_0)\)</span> with radius <span class="math inline">\(r\)</span>. This formula sheds some light on the intuitive idea that the Laplacian measures how the value of a function at a point compares to the average value around that point.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Suppose <span class="math inline">\(u(x,y) = \sin(x^2+y^2)\)</span>.</p>
+<ol type="a">
+<li><p>Compute the Laplacian at <span class="math inline">\((x_0,y_0) = (0,0)\)</span> using the limit formula above.</p></li>
+<li><p>Check that your answer is correct by computing the Laplacian from the definition.</p></li>
+<li><p>Use your value for the Laplacian to estimate the average value of <span class="math inline">\(u\)</span> around the point <span class="math inline">\((0,0)\)</span> on a circle of radius <span class="math inline">\(r=0.1\)</span>. Compare this to the true average value.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Parametrize the circle <span class="math inline">\(C\)</span> as <span class="math inline">\(x=r\cos{t}\)</span> and <span class="math inline">\(y=r\sin{t}\)</span> for <span class="math inline">\(0\leq t \leq 2\pi\)</span>. Then <span class="math inline">\(dx = -r\sin{t}\, dt\)</span> and <span class="math inline">\(dy = r\cos{t}\, dt\)</span>, so that <span class="math display">\[
+ds = \sqrt{ dx^2 + dy^2} = \sqrt{r^2\sin^2{t}+ r^2\cos^2{t}}\, dt = r\, dt
+\]</span> We then have <span class="math display">\[
+\int_C \big( u(x,y) - u(0,0)\big) \, ds = \int_0^{2\pi} r\sin(r^2) \, dt = 2\pi r \sin(r^2).
+\]</span> Inserting this into the limit formula gives <span class="math display">\[
+\begin{align*}
+(\nabla^2 u)(0,0) &amp;= \lim_{r\to 0^+} \frac{4}{r^2} \cdot \frac{1}{2\pi r} \cdot 2\pi r \sin(r^2) \\
+&amp;= \lim_{r\to 0^+} \frac{4\sin(r^2)}{r^2}  \\
+&amp;= \lim_{r\to 0^+} \frac{ 8r\cos(r^2)}{2r} \\
+&amp;= 4.
+\end{align*}
+\]</span></p></li>
+<li><p>We first compute: <span class="math display">\[
+\begin{align*}
+\frac{\partial u}{\partial x} &amp;= 2x \cos(x^2+y^2), \\
+\frac{\partial u}{\partial y} &amp;= 2y \cos(x^2+y^2).
+\end{align*}
+\]</span> Then: <span class="math display">\[
+\begin{align*}
+\frac{\partial^2 u}{\partial x^2} &amp;= 2\cos(x^2+y^2) - 4x^2\sin(x^2+y^2), \\
+\frac{\partial^2 u}{\partial y^2} &amp;= 2\cos(x^2+y^2) - 4y^2\sin(x^2+y^2).
+\end{align*}
+\]</span> Hence: <span class="math display">\[
+(\nabla^2 u)(0,0) = \frac{\partial^2 u}{\partial x^2}(0,0) + \frac{\partial^2 u}{\partial y^2}(0,0) = 2 + 2 = 4.
+\]</span></p></li>
+<li><p>As long as <span class="math inline">\(r\)</span> is small, the limit formula for the Laplacian may be rearranged to give <span class="math display">\[
+\frac{r^2}{4} \cdot (\nabla^2 u)(0,0) \approx \frac{1}{2\pi r} \int_C u(x,y) \, ds.
+\]</span> Note that <span class="math inline">\(u(0,0)=0\)</span>, so the integral on the right is the <em>true</em> average value of <span class="math inline">\(u\)</span> around the circle of radius <span class="math inline">\(r\)</span> centered at <span class="math inline">\((0,0)\)</span>. But from our solution to (a), we know <span class="math display">\[
+\frac{1}{2\pi r} \int_C u(x,y) \, ds = \sin(r^2).
+\]</span> On the other hand, we have <span class="math display">\[
+\frac{r^2}{4} \cdot (\nabla^2 u)(0,0) = r^2.
+\]</span> Note that <span class="math display">\[
+r^2 = 0.01 \quad \text{and} \quad \sin(r^2) \approx 0.0099998
+\]</span> when <span class="math inline">\(r=0.1\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-solving-laplaces-equation" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-solving-laplaces-equation">Exercise 3: Solving Laplace’s equation</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Consider Laplace’s equation for functions <span class="math inline">\(u(x,y)\)</span> on the rectangle</p>
+<p><span class="math display">\[
+0 \leq x \leq 2\pi, \quad 0 \leq y \leq 1,
+\]</span></p>
+<p>in <span class="math inline">\(\mathbb{R}^2\)</span>. Suppose we impose the boundary conditions</p>
+<p><span class="math display">\[
+u(x,0) = \sin{x}-\sin\left(\frac{3x}{2}\right) \quad \text{and} \quad u(x,1) = e\sin{x} - e^{3/2}\sin\left(\frac{3x}{2}\right)
+\]</span></p>
+<p>along the bottom and top edges of the rectangle (draw the rectangle in the <span class="math inline">\(xy\)</span>-plane), and</p>
+<p><span class="math display">\[
+u(0,y) = 0, \quad u(2\pi,y) = 0
+\]</span></p>
+<p>along the left and right edges of the rectangle.</p>
+<ol type="a">
+<li><p>Using separation of variables, solve Laplace’s equation.</p></li>
+<li><p>Plot your solution using <a href="https://www.desmos.com/3d" target="_blank">Desmos</a>. Be sure to adjust the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-axes so that you only view your solution over the rectangle <span class="math inline">\(0\leq x \leq 2\pi\)</span> and <span class="math inline">\(0\leq y \leq 1\)</span>. We discussed in class that harmonic functions are the optimally “boring” functions that are consistent with the boundary conditions. Does your plot support this intuition? Does your solution exhibit any unexpected features? Any extreme values that are <em>not</em> on the boundary?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose that <span class="math inline">\(u\)</span> factors as <span class="math display">\[
+u(x,y) = X(x)Y(y).
+\]</span> Substituting this into Laplace’s equation gives <span class="math display">\[
+X''(x)Y(y) + X(x)Y''(y) = 0.
+\]</span> Rearranging and dividing both sides by <span class="math inline">\(X(x)Y(y)\)</span> gives <span class="math display">\[
+\frac{X''(x)}{X(x)} =- \frac{Y''(y)}{Y(y)}.
+\]</span> Since the left-hand side is a function only of <span class="math inline">\(x\)</span>, and the right-hand side is a function only of <span class="math inline">\(y\)</span>, each side must be equal to a nonzero real constant, say <span class="math inline">\(-\lambda\)</span>. Then <span class="math display">\[
+\frac{X''(x)}{X(x)} = -\lambda \quad \text{and} \quad \frac{Y''(y)}{Y(y)} = \lambda,
+\]</span> which gives us the system of two ODEs <span class="math display">\[
+X''(x) + \lambda X(x) = 0, \quad Y''(y) - \lambda Y(y) = 0.
+\]</span> The boundary conditions translate to <span class="math display">\[
+X(x)Y(0) = \sin{x}-\sin\left(\frac{3x}{2}\right) \quad \text{and} \quad X(x)Y(1)=e\sin{x} - e^{3/2}\sin\left(\frac{3x}{2}\right),
+\]</span> along with <span class="math display">\[
+\quad X(0)Y(y)=0 \quad \text{and} \quad X(2\pi)Y(y)=0.
+\]</span> Now, this part is a little different than the heat and wave equations, since we must consider two cases: either <span class="math inline">\(\lambda&lt;0\)</span> or <span class="math inline">\(\lambda&gt;0\)</span>.</p>
+<ul>
+<li><p>If <span class="math inline">\(\lambda&lt;0\)</span>, then we may set <span class="math inline">\(\lambda = -a^2\)</span>, for some nonzero real number <span class="math inline">\(a\)</span>. Then the general solution to the <span class="math inline">\(X\)</span>-equation is <span class="math display">\[
+X(x) = C_1 e^{ax},
+\]</span> while the general solution to the <span class="math inline">\(Y\)</span>-equation is <span class="math display">\[
+Y(y) = C_2 \sin{ay} + C_3 \cos{ay}.
+\]</span> But then the boundary condition <span class="math inline">\(X(x)Y(0)=0\)</span> implies <span class="math display">\[
+C_1C_3 e^{ax} = \sin{x}-\sin\left(\frac{3x}{2}\right)
+\]</span> for all <span class="math inline">\(0\leq x \leq 2\pi\)</span>. But this is impossible, and hence we cannot have <span class="math inline">\(\lambda&lt;0\)</span>.</p></li>
+<li><p>So, we assume <span class="math inline">\(\lambda&gt;0\)</span>. In this case, we set <span class="math inline">\(\lambda = a^2\)</span>, for some nonzero real number <span class="math inline">\(a\)</span>. Then the general solution to the <span class="math inline">\(X\)</span>-equation is <span class="math display">\[
+X(x) = C_1 \sin{ax} + C_2 \cos{ax},
+\]</span> while the general solution to the <span class="math inline">\(Y\)</span>-equation is <span class="math display">\[
+Y(y) = C_3 e^{ay}.
+\]</span> Then the boundary condition <span class="math inline">\(X(0)Y(y)=0\)</span> implies that <span class="math inline">\(C_2 = 0\)</span>, so we must have <span class="math display">\[
+X(x) = C_1 \sin{ax}.
+\]</span> The boundary condition <span class="math inline">\(X(2\pi)Y(y)=0\)</span> implies that <span class="math inline">\(C_1 \sin{2\pi a} = 0\)</span>, so we must have <span class="math inline">\(a = n/2\)</span> for some integer <span class="math inline">\(n\)</span>. Therefore, for each <span class="math inline">\(n=1,2,\ldots\)</span>, we get a solution <span class="math display">\[
+u_n(x,y) = \sin\left(\frac{nx}{2}\right) \exp\left( \frac{ny}{2}  \right)
+\]</span> to Laplace’s equation. By comparing these solutions to the boundary conditions, we determine that our desired solution is the superposition <span class="math display">\[
+u(x,y) = u_2(x,y) - u_3(x,y) = \sin{x} \exp{y} - \sin\left(\frac{3x}{2}\right) \exp\left( \frac{3y}{2} \right).
+\]</span></p></li>
+</ul>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
