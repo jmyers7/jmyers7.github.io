@@ -184,12 +184,6 @@ $$
 forms a plane in $\mathbb{R}^3$. This is called an **affine equation** of a plane.
 :::
 
-::: {.callout-warning .fragment}
-
-Be very, **VERY** careful: The constants $a$, $b$, and $c$ in an affine equation are **NOT** (in general) the components of a normal vector to the plane.
-
-:::
-
 ## Exercise 4: Affine equations {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental}
