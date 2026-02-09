@@ -171,6 +171,9 @@
 <li class="fragment">The gradient vector at a point <span class="math inline">\((x,y)\)</span> is orthogonal to the level curve of <span class="math inline">\(u\)</span> through <span class="math inline">\((x,y)\)</span>.</li>
 <li class="fragment">The gradient vector at a point <span class="math inline">\((x,y)\)</span> points in the direction of maximum increase of <span class="math inline">\(u\)</span>.</li>
 </ul></li>
+<li class="fragment">As long as <span class="math inline">\(\|\mathbf{v}\|\)</span> is small, we have: <span class="math display">\[
+(\nabla u)(x,y) \cdot \mathbf{v} \approx u(x+v_1, y+v_2) - u(x,y).
+\]</span></li>
 </ul>
 </section>
 <section id="divergence" class="slide level2 scrollable">
@@ -248,12 +251,13 @@
 \]</span> which shows that the Laplacian is the divergence of the gradient of <span class="math inline">\(u\)</span>.</p></li>
 <li class="fragment"><p>How should you think of the Laplacian?</p>
 <ul>
-<li class="fragment">Imagine a small circle <span class="math inline">\(C\)</span> of radius <span class="math inline">\(r\)</span> centered at <span class="math inline">\((x_0,y_0)\)</span>. Then the integral <span class="math display">\[
-  \frac{1}{2\pi r} \int_C \big( u(x,y) - u(x_0,y_0)\big) \, ds
-  \]</span> is the average difference between the value of <span class="math inline">\(u\)</span> on the circle and the value at the center.</li>
-<li class="fragment">As <span class="math inline">\(r\to 0\)</span>, this integral certainly vanishes since <span class="math inline">\(u(x,y) \to u(x_0,y_0)\)</span>.</li>
+<li class="fragment">Imagine a small circle <span class="math inline">\(C\)</span> of radius <span class="math inline">\(r\)</span> centered at <span class="math inline">\((x_0,y_0)\)</span>. Then <span class="math display">\[
+  \frac{1}{2\pi r} \int_C u(x,y) \, ds - u(x_0,y_0)
+  \]</span> is the difference between the average value of <span class="math inline">\(u\)</span> on the circle and the value at the center.</li>
+<li class="fragment">As <span class="math inline">\(r\to 0\)</span>, this quantity certainly vanishes since <span class="math inline">\(u(x,y) \to u(x_0,y_0)\)</span> for all <span class="math inline">\((x,y)\in C\)</span>.</li>
 <li class="fragment">In fact, it goes to <span class="math inline">\(0\)</span> as fast as <span class="math inline">\(r^2\)</span>, and <strong>the Laplacian is (proportional to) the rate</strong>: <span class="math display">\[
-  (\nabla^2 u)(x_0,y_0) = \lim_{r\to 0^+}\left( \frac{4}{r^2}\cdot \frac{1}{2\pi r} \int_C \big( u(x,y) - u(x_0,y_0)\big) \, ds\right).
+  (\nabla^2 u)(x_0,y_0) = \lim_{r\to 0^+} \frac{4}{r^2} \left( \frac{1}{2\pi r} \int_C u(x,y) \, ds - u(x_0,y_0)\right).
+  =
   \]</span></li>
 </ul></li>
 </ul>

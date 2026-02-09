@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>SigAlg II: Conditional expectations and \sigma-algebras – john myers, ph.d.</title>
+<title>SigAlg II: Conditional expectations and L^2-spaces – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -217,8 +272,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#measurability-and-conditional-expectations" id="toc-measurability-and-conditional-expectations" class="nav-link active" data-scroll-target="#measurability-and-conditional-expectations">Measurability and conditional expectations</a></li>
-  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#random-variables-as-information-carriers" id="toc-random-variables-as-information-carriers" class="nav-link" data-scroll-target="#random-variables-as-information-carriers">Random variables as information carriers</a></li>
+  <li><a href="#measurability" id="toc-measurability" class="nav-link" data-scroll-target="#measurability">Measurability</a></li>
+  <li><a href="#example-a-coin-with-momentum" id="toc-example-a-coin-with-momentum" class="nav-link" data-scroll-target="#example-a-coin-with-momentum">Example: a coin with momentum</a></li>
+  <li><a href="#hilbert-spaces-of-random-variables" id="toc-hilbert-spaces-of-random-variables" class="nav-link" data-scroll-target="#hilbert-spaces-of-random-variables">Hilbert spaces of random variables</a></li>
+  <li><a href="#conditional-expectations-as-projections" id="toc-conditional-expectations-as-projections" class="nav-link" data-scroll-target="#conditional-expectations-as-projections">Conditional expectations as projections</a></li>
+  <li><a href="#return-to-the-coin-flip-with-momentum" id="toc-return-to-the-coin-flip-with-momentum" class="nav-link" data-scroll-target="#return-to-the-coin-flip-with-momentum">Return to the coin flip with momentum</a></li>
   </ul>
 </nav>
     </div>
@@ -227,7 +287,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">SigAlg II: Conditional expectations and <span class="math inline">\(\sigma\)</span>-algebras</h1>
+<h1 class="title">SigAlg II: Conditional expectations and <span class="math inline">\(L^2\)</span>-spaces</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Conditional expectations</div>
     <div class="quarto-category">Hilbert spaces</div>
@@ -255,11 +315,219 @@ window.Quarto = {
 </header>
 
 
-<section id="measurability-and-conditional-expectations" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="measurability-and-conditional-expectations">Measurability and conditional expectations</h2>
-<p>As we saw above, a random variable <span class="math inline">\(Y\)</span>, on a sample space <span class="math inline">\(\Omega\)</span>, carries information expressed and encoded in the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(Y)\)</span>, whose atoms are the level sets of <span class="math inline">\(Y\)</span>. Given another <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> on <span class="math inline">\(\Omega\)</span>, a structural comparison of the information content of the two <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\sigma(Y)\)</span> is possible by checking the containment <span class="math inline">\(\sigma(Y) \subset \mathcal{F}\)</span>.</p>
-<p>However, as we noted when we first introduced filtrations, this containment holds if and only if every atom of <span class="math inline">\(\mathcal{F}\)</span> is contained in an atom of <span class="math inline">\(\sigma(Y)\)</span>. So, if the observer has the information in <span class="math inline">\(\mathcal{F}\)</span> that allows them to identify which of the atoms of <span class="math inline">\(\mathcal{F}\)</span> contains an unknown sample point <span class="math inline">\(\omega\)</span>, then they also would be able to identify the atom of <span class="math inline">\(\sigma(Y)\)</span> that contains <span class="math inline">\(\omega\)</span>. In this sense, <span class="math inline">\(\mathcal{F}\)</span> contains all the information in <span class="math inline">\(\sigma(Y)\)</span>; or, in slightly different words, there is no more information encoded in the random variable <span class="math inline">\(Y\)</span> that is not already encoded in the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>.</p>
-<p>This leads us to:</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this post we explore the relationship between random variables, algebras of sets, and Hilbert spaces. We begin by showing how random variables induce algebras of observable events through their level sets, and we characterize the refinement relations between these algebras in terms of the behavior of the random variables on the atoms of pre-existing algebras. Next, we introduce the <span class="math inline">\(L^2\)</span>-spaces associated to algebras of sets, demonstrating that these spaces are Hilbert spaces with inner products defined via expectation. Finally, we connect the refinement of algebras to the nesting of their corresponding <span class="math inline">\(L^2\)</span>-spaces, providing a geometric perspective on information refinement.</p>
+</section>
+<section id="random-variables-as-information-carriers" class="level2">
+<h2 class="anchored" data-anchor-id="random-variables-as-information-carriers">Random variables as information carriers</h2>
+<p>First, we set the scene and recall a few concepts from basic probability theory. We let <span class="math inline">\(\Omega\)</span> be a finite set, conceptualized as the set of outcomes of an experiment. We call <span class="math inline">\(\Omega\)</span> a <em>sample space</em>. A <em><span class="math inline">\(\sigma\)</span>-algebra</em> of sets <span class="math inline">\(\mathcal{F}\)</span> in <span class="math inline">\(\Omega\)</span> is a collection of subsets of <span class="math inline">\(\Omega\)</span> that contains <span class="math inline">\(\Omega\)</span> and is closed under complements and unions. These structures capture information about which events can be observed in the experiment: if a subset <span class="math inline">\(A \in \mathcal{F}\)</span>, then the event <span class="math inline">\(A\)</span> is observable, meaning that an observer can determine whether the outcome <span class="math inline">\(\omega \in A\)</span> or not. The class of all <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(\Omega\)</span> may be partially ordered by the refinement relation: a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> <em>refines</em> another <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{G}\)</span> if <span class="math inline">\(\mathcal{G}\subset \mathcal{F}\)</span>. In this case, <span class="math inline">\(\mathcal{F}\)</span> contains at least as much information as <span class="math inline">\(\mathcal{G}\)</span>, since every event observable in <span class="math inline">\(\mathcal{G}\)</span> is also observable in <span class="math inline">\(\mathcal{F}\)</span>.</p>
+<p>A function <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span>, called a <em>random variable</em>, also carries information. It induces a <span class="math inline">\(\sigma\)</span>-algebra through its <em>level sets</em>, which are the preimages of singletons in <span class="math inline">\(\mathbb{R}\)</span>. To describe these more generally, in what follows, it will be convenient to allow the codomain of <span class="math inline">\(X\)</span> to be an arbitrary finite-dimensional euclidean space <span class="math inline">\(\mathbb{R}^n\)</span>, not just <span class="math inline">\(\mathbb{R}\)</span>, in which case a function <span class="math inline">\(X:\Omega \to \mathbb{R}^n\)</span> is often called a <em>random vector</em>. The integer <span class="math inline">\(n\)</span> is called the <em>dimension</em> of the random vector, and so a random variable is just a random vector of dimension 1.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-rv-part" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(X:\Omega\to \mathbb{R}^n\)</span> be a random vector on a finite set <span class="math inline">\(\Omega\)</span>. For <span class="math inline">\(x\in \mathbb{R}^n\)</span>, sets of the form</p>
+<p><span class="math display">\[
+X^{-1}(x) \overset{\text{def}}{=}\{ \omega \in \Omega : X(\omega)=x\}
+\]</span></p>
+<p>are called <em>level sets</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>As you may easily check, the nonempty level sets of a random vector <span class="math inline">\(X\)</span> partition its domain, and through this partition the random vector generates a <span class="math inline">\(\sigma\)</span>-algebra of sets in <span class="math inline">\(\Omega\)</span> denoted <span class="math inline">\(\sigma(X)\)</span>. The level sets are the <em>atoms</em> of this <span class="math inline">\(\sigma\)</span>-algebra, i.e., they are the minimal nonempty sets in <span class="math inline">\(\sigma(X)\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(X)\)</span> captures precisely the information an observer gains by learning the values of <span class="math inline">\(X\)</span>. If the observer knows <span class="math inline">\(X(\omega) = x\)</span>, then they know that <span class="math inline">\(\omega\)</span> is contained in the level set <span class="math inline">\(X^{-1}(x)\)</span>, but they cannot distinguish between outcomes within this level set. Thus, <span class="math inline">\(\sigma(X)\)</span> represents the coarsest partition of <span class="math inline">\(\Omega\)</span> consistent with the information provided by <span class="math inline">\(X\)</span>.</p>
+<p>More generally, we may construct a <span class="math inline">\(\sigma\)</span>-algebra induced by a sequence of random vectors:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-algebra-gen-rv" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(X_1,X_2,\ldots,X_m\)</span> be random vectors on a finite set <span class="math inline">\(\Omega\)</span>. The <em>algebra generated</em> by <span class="math inline">\(X_1,X_2,\ldots,X_m\)</span> is the algebra of sets in <span class="math inline">\(\Omega\)</span>, denoted by <span class="math inline">\(\sigma(X_1,X_2,\ldots,X_m)\)</span>, whose atoms are all nonempty intersections of the form <span class="math display">\[
+\bigcap_{i=1}^m X_i^{-1}(x_i).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>If we are given a finite set of random variables <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> as in the definition, then we may form the <span class="math inline">\(n\)</span>-dimensional random vector</p>
+<p><span class="math display">\[
+X: \Omega \to \mathbb{R}^n, \quad X(\omega) = (X_1(\omega), X_2(\omega), \ldots, X_n(\omega)).
+\]</span></p>
+<p>Then the <span class="math inline">\(\sigma\)</span>-algebra generated by <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> is simply the <span class="math inline">\(\sigma\)</span>-algebra generated by the random vector <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+\sigma(X_1,X_2,\ldots,X_n) = \sigma(X).
+\]</span></p>
+<p>Let’s see how to construct random vectors and variables in SigAlg. In the following code block, we will implement the <span class="math inline">\(2\)</span>-dimensional random vector <span class="math display">\[
+X: \Omega \to \mathbb{R}^2, \quad X(\omega) = \begin{cases}
+(1, 2) &amp; : \omega = 1, \\
+(3, 4) &amp; : \omega = 2, \\
+(1, 2) &amp; : \omega = 3, \\
+(5, 6) &amp; : \omega = 4,
+\end{cases}
+\]</span></p>
+<p>on the sample space <span class="math inline">\(\Omega = \{1,2,3,4\}\)</span>.</p>
+<div id="ee7d922f" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> RandomVector, SampleSpace</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="op">=</span> SampleSpace().from_sequence(size<span class="op">=</span><span class="dv">4</span>, initial_index<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: (<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>: (<span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>: (<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>: (<span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> RandomVector(domain<span class="op">=</span>Omega, name<span class="op">=</span><span class="st">"X"</span>).from_dict(outputs)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random vector 'X':
+feature  X_0  X_1
+sample           
+1          1    2
+2          3    4
+3          1    2
+4          5    6</code></pre>
+</div>
+</div>
+<p>In the printout, we see that the data columns are indexed by <code>X_0</code> and <code>X_1</code>, corresponding to the two component random variables of the random vector. The rows are indexed by the sample points in <span class="math inline">\(\Omega\)</span>.</p>
+<p>The component random variables may be easily extracted using the appropriate method:</p>
+<div id="48e79c40" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X.get_component_rv(<span class="st">"X_0"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable 'X_0':
+        X_0
+sample     
+1         1
+2         3
+3         1
+4         5</code></pre>
+</div>
+</div>
+<p>Random vectors and variables are functions, which is reflected in their implementation in SigAlg by making both types of objects callable:</p>
+<div id="95adcbc1" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Calling a random vector returns a feature vector:"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X(<span class="dv">1</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Calling a random variable returns a scalar:"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"X_0(2) = "</span>, X_0(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calling a random vector returns a feature vector:
+Feature vector of '1':
+         1
+feature   
+X_0      1
+X_1      2
+
+Calling a random variable returns a scalar:
+X_0(2) =  3</code></pre>
+</div>
+</div>
+<p>The <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\sigma(X)\)</span> and <span class="math inline">\(\sigma(X_0)\)</span> may be obtained through the <code>sigma_algebra</code> attribute:</p>
+<div id="044bf176" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.sigma_algebra)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, X_0.sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra 'sigma(X)':
+       atom ID
+sample        
+1       (1, 2)
+2       (3, 4)
+3       (1, 2)
+4       (5, 6)
+
+ Sigma algebra 'sigma(X_0)':
+        atom ID
+sample         
+1             1
+2             3
+3             1
+4             5</code></pre>
+</div>
+</div>
+<p>The printout shows the atom identifier for each sample point in <span class="math inline">\(\Omega\)</span>. Recall that, in SigAlg, <span class="math inline">\(\sigma\)</span>-algebras are implemented by tracking the atom of the <span class="math inline">\(\sigma\)</span>-algebra to which each sample point belongs. For <span class="math inline">\(\sigma\)</span>-algebras induced by random vectors, the atom identifiers are taken to be the function values of the random vector itself.</p>
+<p>We saw above that we have the equality <span class="math display">\[
+\sigma(X_0, X_1) = \sigma(X)
+\]</span></p>
+<p>of <span class="math inline">\(\sigma\)</span>-algebras. Let’s verify this equality in SigAlg. First, let’s get the second component random variable:</p>
+<div id="357c5cdd" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X.get_component_rv(<span class="st">"X_1"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_1.sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra 'sigma(X_1)':
+        atom ID
+sample         
+1             2
+2             4
+3             2
+4             6</code></pre>
+</div>
+</div>
+<p>Now, to manufacture <span class="math inline">\(\sigma(X_0,X_1)\)</span> from the individual <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\sigma(X_0)\)</span> and <span class="math inline">\(\sigma(X_1)\)</span>, we use the <code>join</code> function:</p>
+<div id="5faea522" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> join</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sigma_X0_X1 <span class="op">=</span> join([X_0.sigma_algebra, X_1.sigma_algebra]).with_name(<span class="st">"sigma(X_0,X_1)"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sigma_X0_X1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra 'sigma(X_0,X_1)':
+       atom ID
+sample        
+1       (1, 2)
+2       (3, 4)
+3       (1, 2)
+4       (5, 6)</code></pre>
+</div>
+</div>
+<p>Note that this <span class="math inline">\(\sigma\)</span>-algebra is exactly the same as <span class="math inline">\(\sigma(X)\)</span>, confirming the equality above.</p>
+</section>
+<section id="measurability" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="measurability">Measurability</h2>
+<p>Very often the sample space <span class="math inline">\(\Omega\)</span> comes equipped with a pre-existing <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> of observable events. Given a random vector <span class="math inline">\(X\)</span> on <span class="math inline">\(\Omega\)</span>, it is then natural to ask how the information encoded in <span class="math inline">\(\sigma(X)\)</span> relates to that in <span class="math inline">\(\mathcal{F}\)</span>. The first possiblity is that neither algebra refines the other, meaning that <span class="math inline">\(\sigma(X)\)</span> and <span class="math inline">\(\mathcal{F}\)</span> contain different kinds of information. The other possibilities are that one algebra refines the other, meaning that one contains at least as much information as the other. The following theorem characterizes these refinement relations in terms of the behavior of <span class="math inline">\(X\)</span> on the atoms of <span class="math inline">\(\mathcal{F}\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-rv-refine" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Random variables and refinements)</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be an algebra of sets in a finite set <span class="math inline">\(\Omega\)</span>, and let <span class="math inline">\(X:\Omega \to \mathbb{R}^n\)</span> be a random vector.</p>
+<ol type="1">
+<li><p>The algebra <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\sigma(X)\)</span> (equivalently, <span class="math inline">\(\sigma(X) \subset \mathcal{F}\)</span>) if and only if <span class="math inline">\(X\)</span> is constant on every atom in <span class="math inline">\(\mathcal{F}\)</span>.</p></li>
+<li><p>The algebra <span class="math inline">\(\sigma(X)\)</span> refines <span class="math inline">\(\mathcal{F}\)</span> (equivalently, <span class="math inline">\(\mathcal{F}\subset \sigma(X)\)</span>) if and only if every atom in <span class="math inline">\(\mathcal{F}\)</span> is a union of level sets of <span class="math inline">\(X\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The algebra <span class="math inline">\(\mathcal{F}\)</span> refines <span class="math inline">\(\sigma(X)\)</span> if and only if every nonempty level set is a union of atoms in <span class="math inline">\(\mathcal{F}\)</span>. This proves the result in the first statement. A symmetric argument using the same theorem proves the second statement.</p>
+</div>
+</div>
+</div>
+<p>Random vectors satisfying the first condition in <a href="#thm-rv-refine" class="quarto-xref">Theorem&nbsp;1</a> arise frequently enough to warrant their own terminology.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -267,34 +535,732 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <div id="def-measurable" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> A random variable <span class="math inline">\(Y\)</span>, on a sample space <span class="math inline">\(\Omega\)</span>, is said to be <em>measurable</em> with respect to a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> on <span class="math inline">\(\Omega\)</span> if <span class="math inline">\(\sigma(Y) \subset \mathcal{F}\)</span>. We also say that <span class="math inline">\(Y\)</span> is <span class="math inline">\(\mathcal{F}\)</span>-<em>measurable</em>, to emphasize the <span class="math inline">\(\sigma\)</span>-algebra.</p>
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(\mathcal{F}\)</span> be an algebra of sets in a finite set <span class="math inline">\(\Omega\)</span>. A random vector <span class="math inline">\(X\)</span> on <span class="math inline">\(\Omega\)</span> will be called <em><span class="math inline">\(\mathcal{F}\)</span>-measurable</em> if <span class="math inline">\(\mathcal{F}\)</span> refines the algebra <span class="math inline">\(\sigma(X)\)</span>, i.e., <span class="math inline">\(\sigma(X) \subset \mathcal{F}\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
-<p>Now, given a random sample point <span class="math inline">\(\omega \in \Omega\)</span> and a random variable <span class="math inline">\(Y\)</span> on <span class="math inline">\(\Omega\)</span>, the observer is interested in estimating the value <span class="math inline">\(Y(\omega)\)</span>. The observer’s estimate for this value will change, depending on what information they have access to. If the information comes in the form of a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>, then we shall write</p>
-<p><span class="math display">\[
-E(Y \mid \mathcal{F})
-\]</span></p>
-<p>for the observer’s “best guess” for <span class="math inline">\(Y\)</span>, given the information in <span class="math inline">\(\mathcal{F}\)</span>. This is a random variable on <span class="math inline">\(\Omega\)</span>, called the <em>conditional expectation</em> of <span class="math inline">\(Y\)</span> given <span class="math inline">\(\mathcal{F}\)</span>. Of course, exactly what is meant by “best guess” will have to be clarified later.</p>
-<p>But whatever it ends up meaning, there are two special cases where we have a good hunch what the conditional expectation should be:</p>
+<p>Returning to our coin-flipping scenario, we see that <span class="math inline">\(Y\)</span> is <em>only</em> <span class="math inline">\(\mathcal{F}_3\)</span>-measureable, since the atoms in this algebra are the only ones on which <span class="math inline">\(Y\)</span> is constant. (Of course, <span class="math inline">\(\mathcal{F}_3\)</span> is the power set of <span class="math inline">\(\Omega\)</span>.) The information afforded by <span class="math inline">\(Y\)</span> is not comparable to that of <span class="math inline">\(\mathcal{F}_1\)</span> or <span class="math inline">\(\mathcal{F}_2\)</span>, since there are no subset containments between <span class="math inline">\(\sigma(Y)\)</span> and <span class="math inline">\(\mathcal{F}_1\)</span> or <span class="math inline">\(\mathcal{F}_2\)</span>.</p>
+<p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are both random vectors on <span class="math inline">\(\Omega\)</span>, then we may compare the information they encode by comparing their algebras <span class="math inline">\(\sigma(X)\)</span> and <span class="math inline">\(\sigma(Y)\)</span>. Then <a href="#thm-rv-refine" class="quarto-xref">Theorem&nbsp;1</a> tells us <em>when</em> one algebra refines the other, but not <em>how</em> the vectors relate. The next theorem provides this missing piece: refinement is equivalent to functional dependence.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-functional-rep" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Functional representation)</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two <span class="math inline">\(\mathbb{R}^n\)</span>-valued random vectors on a finite set <span class="math inline">\(\Omega\)</span>. The following statements are equivalent:</p>
+
 <ol type="1">
-<li><p>Suppose that the observer has <em>no</em> additional information. In this case, the absence of information is modeled by the <em>trivial <span class="math inline">\(\sigma\)</span>-algebra</em>, whose only atom is <span class="math inline">\(\Omega\)</span> itself. Indeed, it does the observer little good having the ability to identify which atom of this <span class="math inline">\(\sigma\)</span>-algebra an unknown sample point belongs to. Therefore, we suspect that <span class="math display">\[
-E(Y \mid \{\emptyset, \Omega\}) = E(Y),
-\]</span> the right-hand side interpreted as the <em>constant</em> random variable taking the value <span class="math inline">\(E(Y)\)</span> at every <span class="math inline">\(\omega \in \Omega\)</span>. This equation says that, in the absence of any additional information, the “best guess” for <span class="math inline">\(Y(\omega)\)</span> is the mean of <span class="math inline">\(Y\)</span>.</p></li>
-<li><p>Suppose that the observer has <em>complete</em> information on <span class="math inline">\(Y\)</span>. This would be modeled by a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>, for which <span class="math inline">\(Y\)</span> is <span class="math inline">\(\mathcal{F}\)</span>-measurable. Indeed, if <span class="math inline">\(\omega\)</span> is a random sample point, and the observer has the information in <span class="math inline">\(\mathcal{F}\)</span>, then they would be able to identify the atom of <span class="math inline">\(\mathcal{F}\)</span> to which <span class="math inline">\(\omega\)</span> belongs. But then they would <em>also</em> be able to determine the value <span class="math inline">\(Y(\omega)\)</span>, since <span class="math inline">\(Y\)</span> is <span class="math inline">\(\mathcal{F}\)</span>-measurable. Therefore, we must have <span class="math display">\[
-E(Y \mid \mathcal{F}) = Y.
-\]</span> This says that, given the information in <span class="math inline">\(\mathcal{F}\)</span>, the best guess for <span class="math inline">\(Y(\omega)\)</span> is simply <span class="math inline">\(Y(\omega)\)</span> itself, because the observer actually knows the value!</p></li>
+<li>The algebra <span class="math inline">\(\sigma(Y)\)</span> refines <span class="math inline">\(\sigma(X)\)</span>.</li>
+<li>There exists a function <span class="math inline">\(f:\mathbb{R}^n \to \mathbb{R}^n\)</span> such that <span class="math inline">\(X = f \circ Y\)</span>.</li>
 </ol>
-<div class="no-row-height column-margin column-container"><span class="margin-aside">The trivial <span class="math inline">\(\sigma\)</span>-algebra contains only one <em>atom</em>, but as a set of subsets of <span class="math inline">\(\Omega\)</span>, it contains two sets: <span class="math inline">\(\Omega\)</span> itself, and the empty set <span class="math inline">\(\emptyset\)</span>.</span></div></section>
-<section id="regression" class="level2">
-<h2 class="anchored" data-anchor-id="regression">Regression</h2>
-<p>Suppose <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> is a probability space, with <span class="math inline">\(\Omega\)</span> finite, and suppose that we have a <span class="math inline">\(2\)</span>-dimensional random variable <span class="math inline">\((X,Y)\)</span> on <span class="math inline">\(\Omega\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><div class="callout-margin-content callout-margin-content-simple">
+<p><a href="#thm-functional-rep" class="quarto-xref">Theorem&nbsp;2</a> holds for general measurable spaces, not just finite sets. The proof requires the Doob-Dynkin lemma and properties of <span class="math inline">\(\sigma\)</span>-algebras. See Lemma 1.14 in <span class="citation" data-cites="Kallenberg2021">Kallenberg (<a href="#ref-Kallenberg2021" role="doc-biblioref">2021</a>)</span> for the general statement and proof. Our finite setting allows a more elementary approach.</p>
+</div></div><div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose that <span class="math inline">\(\sigma(Y)\)</span> refines <span class="math inline">\(\sigma(X)\)</span> and write</p>
+<p><span class="math display">\[
+X = \sum_{i=1}^m x_i I_{A_i} \quad \text{and} \quad Y = \sum^n_{j=1} y_j I_{B_j},
+\]</span></p>
+<p>where <span class="math inline">\(I_{A_i}\)</span> and <span class="math inline">\(I_{B_j}\)</span> are indicator functions for the level sets</p>
+<p><span class="math display">\[
+A_i = X^{-1}(x_i) \quad \text{and} \quad B_j = Y^{-1}(y_j).
+\]</span></p>
+<p>Then every level set <span class="math inline">\(B_j\)</span> is contained in a unique level set <span class="math inline">\(A_i\)</span>, and we may define a function</p>
+<p><span class="math display">\[
+h:\{y_1,\ldots,y_n\} \to \mathbb{R}
+\]</span></p>
+<p>by setting <span class="math inline">\(h(y_j) = x_i\)</span> if <span class="math inline">\(B_j \subset A_i\)</span>. Then, define</p>
+<p><span class="math display">\[
+\pi: \mathbb{R}\to \mathbb{R}, \quad \pi(y) = \sum_{j=1}^n \delta_{y_j}(y),
+\]</span></p>
+<p>where <span class="math inline">\(\delta_{y_j}\)</span> is a Dirac delta function. If we then set <span class="math inline">\(f = h \circ \pi\)</span> and choose <span class="math inline">\(\omega\)</span> in an arbitrary <span class="math inline">\(B_j\)</span>, we have</p>
+<p><span class="math display">\[
+f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
+\]</span></p>
+<p>Since <span class="math inline">\(B_j\)</span> and <span class="math inline">\(\omega\)</span> were chosen arbitrarily, this proves that (1) implies (2).</p>
+<p>To prove the converse, suppose that <span class="math inline">\(X = f \circ Y\)</span> for some function <span class="math inline">\(f:\mathbb{R}\to \mathbb{R}\)</span>. To prove that <span class="math inline">\(\sigma(Y)\)</span> refines <span class="math inline">\(\sigma(X)\)</span>, by <a href="#thm-rv-refine" class="quarto-xref">Theorem&nbsp;1</a> it will suffice to show that every level set of <span class="math inline">\(Y\)</span> is contained in a level set of <span class="math inline">\(X\)</span>. So, let <span class="math inline">\(y \in \mathbb{R}\)</span> and consider the level set <span class="math inline">\(B = Y^{-1}(y)\)</span>. If <span class="math inline">\(B\)</span> is nonempty, then for every <span class="math inline">\(\omega \in B\)</span>, we have <span class="math inline">\(X(\omega) = f(Y(\omega)) = f(y)\)</span>. Thus, <span class="math inline">\(B \subset X^{-1}(f(y))\)</span>, and the proof is complete.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-a-coin-with-momentum" class="level2">
+<h2 class="anchored" data-anchor-id="example-a-coin-with-momentum">Example: a coin with momentum</h2>
+<p>Let’s explore these ideas with a concrete example in a “coin flip with momentum” experiment. This means that we observe a sequence of coin flips where the outcome (head or tail) of each flip depends on the outcome of the previous flip, introducing a “momentum” or “inertia” effect. Specifically, if the previous flip was a head, the current coin is more likely to land heads again, and similarly for tails.</p>
+<p>This experiment can be modeled in SigAlg using a Markov chain. To do this, we first begin with the state space:</p>
+<div id="894fca1b" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>states <span class="op">=</span> SampleSpace(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"states"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    data_name<span class="op">=</span><span class="st">"state"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>).from_sequence(size<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(states)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample space 'states':
+[0, 1]</code></pre>
+</div>
+</div>
+<p>We write <span class="math inline">\(X_t\)</span> for the outcome of the <span class="math inline">\(t\)</span>-th coin flip, where <span class="math inline">\(X_t = 1\)</span> represents heads and <span class="math inline">\(X_t = 0\)</span> represents tails. We assume that the first coin is unbiased, so that</p>
+<p><span class="math display">\[
+P(X_1=1) = P(X_1 = 0) = 0.5.
+\]</span></p>
+<p>In the terminology of Markov chains, this is called the <em>initial distribution</em> and is often written as <span class="math inline">\(\pi\)</span>. In SigAlg, we write:</p>
+<div id="e034dedc" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> ProbabilityMeasure</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> ProbabilityMeasure(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    sample_space<span class="op">=</span>states,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"pi"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>).from_dict(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span>: <span class="fl">0.5</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>: <span class="fl">0.5</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Probability measure 'pi':
+       probability
+state             
+0              0.5
+1              0.5</code></pre>
+</div>
+</div>
+<p>Now, the <em>transition probabilities</em> of the chain are encoded as a matrix <span class="math inline">\(K\)</span>, called the <em>transition matrix</em>:</p>
+<p><span class="math display">\[
+K =
+\begin{bmatrix}
+P(X_t=0 \mid X_{t-1}=0) &amp; P(X_t=1 \mid X_{t-1}=0) \\
+P(X_t=0 \mid X_{t-1}=1) &amp; P(X_t=1 \mid X_{t-1}=1)
+\end{bmatrix} =
+\begin{bmatrix}
+0.7 &amp; 0.3 \\
+0.2 &amp; 0.8
+\end{bmatrix}.
+\]</span></p>
+<p>Notice, in particular, that</p>
+<p><span class="math display">\[
+P(X_t = 1 \mid X_{t-1} = 1) = 0.8 \quad \text{and} \quad P(X_t = 0 \mid X_{t-1} = 0) = 0.7,
+\]</span></p>
+<p>so that if the previous flip was a head, the current coin is more likely to land heads again, and similarly for tails. (This is exactly the “momentum” effect we described above.) The transition matrix <span class="math inline">\(K\)</span> is implemented in SigAlg as follows:</p>
+<div id="cbbe74ab" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.7</span>, <span class="fl">0.3</span>],</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.2</span>, <span class="fl">0.8</span>],</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>states.data,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>states.data,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(K)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>state    0    1
+state          
+0      0.7  0.3
+1      0.2  0.8</code></pre>
+</div>
+</div>
+<p>Suppose that we flip the coin four times, producing a Markov chain <span class="math inline">\(X = (X_1,X_2,X_3,X_4)\)</span> on the index set <span class="math inline">\(T = \{1,2,3,4\}\)</span>. Since there are two states and four flips, there are <span class="math inline">\(2^4 = 16\)</span> possible trajectories:</p>
+<div id="47d2eed0" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> MarkovChain</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, stop<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> MarkovChain(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    transition_matrix<span class="op">=</span>K,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    initial_distribution<span class="op">=</span>pi,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>T,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>X.from_enumeration()</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stochastic process 'X':
+time        1  2  3  4
+trajectory            
+0           0  0  0  0
+1           0  0  0  1
+2           0  0  1  0
+3           0  0  1  1
+4           0  1  0  0
+5           0  1  0  1
+6           0  1  1  0
+7           0  1  1  1
+8           1  0  0  0
+9           1  0  0  1
+10          1  0  1  0
+11          1  0  1  1
+12          1  1  0  0
+13          1  1  0  1
+14          1  1  1  0
+15          1  1  1  1</code></pre>
+</div>
+</div>
+<p>The probability assigned to a trajectory <span class="math inline">\((x_1,x_2,x_3,x_4)\)</span> of the process is the joint probability of the component random variables:</p>
+<p><span class="math display">\[
+P(X_1 = x_1, X_2 = x_2, X_3 = x_3, X_4 = x_4).
+\]</span></p>
+<p>However, an application of the chain rule gives</p>
+<p><span class="math display">\[
+\begin{align*}
+P(X_1 = x_1, X_2 = x_2, X_3 = x_3, X_4 = x_4) &amp;= P(X_1=x_1)\\
+&amp;\quad\times P(X_2=x_2 \mid X_1=x_1)\\
+&amp;\quad\times P(X_3=x_3 \mid X_2=x_2, \ X_1=x_1) \\
+&amp;\quad\times P(X_4=x_4 \mid X_3=x_3, \ X_2=x_2, \ X_1=x_1).
+\end{align*}
+\]</span></p>
+<p>But Markov chains have the <a href="https://en.wikipedia.org/wiki/Markov_property" target="_blank">Markov property</a>, which states that the conditional probability of the next state depends only on the current state, not on the sequence of past states. This simplifies the joint probability:</p>
+<p><span class="math display">\[
+\begin{align*}
+P(X_1 = x_1, X_2 = x_2, X_3 = x_3, X_4 = x_4) &amp;= P(X_1=x_1)\\
+&amp;\quad\times P(X_2=x_2 \mid X_1=x_1)\\
+&amp;\quad\times P(X_3=x_3 \mid X_2=x_2) \\
+&amp;\quad\times P(X_4=x_4 \mid X_3=x_3).
+\end{align*}
+\]</span></p>
+<p>Thus, for example, trajectory <code>13</code> in the printout above has probability</p>
+<p><span class="math display">\[
+P(X_1 = 1, X_2 = 1, X_3 = 0, X_4 = 1) = 0.5 \times 0.8 \times 0.2 \times 0.3 = 0.024.
+\]</span></p>
+<p>This may be confirmed in SigAlg:</p>
+<div id="235e7703" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>probability <span class="op">=</span> X.probability_measure(<span class="dv">13</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(probability, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.024</code></pre>
+</div>
+</div>
+<p>We can simulate longer chains of coin flips using this Markov chain model. Below, we simulate a single trajectory of length 50 and plot the individual coin flip outcomes as well as the cumulative number of heads over time.</p>
+<div id="9e86660e" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, stop<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>X.time <span class="op">=</span> T</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>X.from_simulation(n_trajectories<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>_, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>X.cumsum().plot_trajectories(ax<span class="op">=</span>axes[<span class="dv">1</span>], title<span class="op">=</span><span class="st">"Cumulative number of heads"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="788" height="388"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also simulate multiple trajectories to see how the number of heads varies across different runs of the experiment. Below, we simulate 10 chains of length 250 and plot the cumulative number of heads for each simulation.</p>
+<div id="463fb286" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, stop<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>X.time <span class="op">=</span> T</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>X.from_simulation(n_trajectories<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>X.cumsum().plot_trajectories(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>[yellow],</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Cumulative number of heads"</span>,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    plot_kwargs<span class="op">=</span>{<span class="st">"alpha"</span>: <span class="fl">0.7</span>},</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="688" height="388"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="hilbert-spaces-of-random-variables" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="hilbert-spaces-of-random-variables">Hilbert spaces of random variables</h2>
+<p>We’ve seen how random variables encode information through the algebras they generate. But random variables also have numerical values, which allows us to perform algebraic operations: we can add them, multiply them by scalars, and compute their expected values. This algebraic structure becomes particularly rich when we introduce an inner product, turning the space of random variables into a Hilbert space. This latter structure provides a geometric perspective on random variables, where concepts like orthogonality, projection, and distance become meaningful. This perspective will prove essential for understanding conditional expectation, which emerges naturally as orthogonal projection onto subspaces determined by algebras.</p>
+<p>First, we recall that the pointwise sum and scalar multiple of random variables are again random variables, and these operations have the usual properties of commutativity, associativity, <em>etc</em>. Thus, the set of all random variables on a finite set <span class="math inline">\(\Omega\)</span> forms a vector space over the real numbers <span class="math inline">\(\mathbb{R}\)</span>. The subspaces of this vector space that are most relevant to us are those consisting of random variables that are measurable with respect to a given algebra of sets.</p>
+<p>We shall also need the concept of <em>expectation</em> of a measurable random variable. If <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> is a finite probability space and <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span> is a random variable, then the <em>expectation</em> of <span class="math inline">\(X\)</span> is defined as</p>
+<p><span id="eq-def-expectation"><span class="math display">\[
+E(X) \overset{\text{def}}{=}\int_\Omega X \ dP,
+\tag{1}\]</span></span></p>
+<p>where the integral on the right is the Lebesgue integral with respect to the probability measure <span class="math inline">\(P\)</span>. In the finite setting, this integral reduces to the familiar weighted average of the values of the random variable, where the weights are the probabilities of the level sets of <span class="math inline">\(X\)</span>:</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The benefit of using the Lebesgue integral (<a href="#eq-def-expectation" class="quarto-xref">1</a>) to define expectation is that it generalizes directly to “continuous” sample spaces equipped with probability measures on <span class="math inline">\(\sigma\)</span>-algebras. In that more general setting, expectation cannot be defined as a simple finite weighted sum as in (<a href="#eq-expectation-finite" class="quarto-xref">2</a>), though it remains a Lebesgue integral. Thus, the Lebesgue integral allows us to treat both discrete and continuous probability theory in a unified manner.</p>
+</div></div><p><span id="eq-expectation-finite"><span class="math display">\[
+\int_\Omega X \ dP = \sum_{i=1}^m x_i P(A_i),
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(A_1, A_2, \ldots, A_m\)</span> are the level sets of <span class="math inline">\(X\)</span> and <span class="math inline">\(x_i\)</span> is the value of <span class="math inline">\(X\)</span> on <span class="math inline">\(A_i\)</span>. Note that in order for the probability <span class="math inline">\(P(A_i)\)</span> to be defined, we must have <span class="math inline">\(A_i \in \mathcal{F}\)</span>, which is guaranteed if <span class="math inline">\(X\)</span> is <span class="math inline">\(\mathcal{F}\)</span>-measurable.</p>
+<p>Finally, two <span class="math inline">\(\mathcal{F}\)</span>-measurable random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> on <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> will be said to be <em>equal almost surely</em> if</p>
+<p><span class="math display">\[
+P(\{\omega \in \Omega : X(\omega) \neq Y(\omega)\}) = 0.
+\]</span></p>
+<p>Almost sure equality is an equivalence relation on the set of <span class="math inline">\(\mathcal{F}\)</span>-measurable random variables.</p>
+<p>With these ingredients in place, we may now define the <span class="math inline">\(L^2\)</span>-space associated to an algebra of sets on a finite sample space.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-L2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> &nbsp;</p>
+
+<p>Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space. We write <span class="math inline">\(L^2(\Omega,\mathcal{F},P)\)</span> for the set of all <span class="math inline">\(\mathcal{F}\)</span>-measurable random variables <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span>, where two random variables are identified if they are equal almost surely. When the set <span class="math inline">\(\Omega\)</span> and the measure <span class="math inline">\(P\)</span> are understood from context, we will abbreviate <span class="math inline">\(L^2(\Omega,\mathcal{F},P)\)</span> as <span class="math inline">\(L^2(\mathcal{F})\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><div class="callout-margin-content callout-margin-content-simple">
+<p>The <span class="math inline">\(L^2\)</span> notation is borrowed from the case of a general sample space <span class="math inline">\(\Omega\)</span> equipped with a probability measure <span class="math inline">\(P\)</span> on a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>. In that case, <span class="math inline">\(L^2(\Omega,\mathcal{F},P)\)</span> consists of all (equivalence classes of) <span class="math inline">\(\mathcal{F}\)</span>-measurable random variables <span class="math inline">\(X:\Omega \to \mathbb{R}\)</span> such that <span class="math inline">\(E(X^2) &lt; \infty\)</span>. In our finite setting, this condition on the expectation of <span class="math inline">\(X^2\)</span> is automatically satisfied.</p>
+</div></div><p>So, technically <span class="math inline">\(L^2(\mathcal{F})\)</span> is a set of equivalence classes of <span class="math inline">\(\mathcal{F}\)</span>-measurable random variables, but for ease of exposition and notation we will often refer to elements of <span class="math inline">\(L^2(\mathcal{F})\)</span> as if they were random variables themselves. This will not cause too much confusion.</p>
+<p>One should check that <span class="math inline">\(L^2(\mathcal{F})\)</span> is indeed a vector subspace of the vector space of <em>all</em> random variables on <span class="math inline">\(\Omega\)</span>, which amounts to checking that sums and scalar multiples of <span class="math inline">\(\mathcal{F}\)</span>-measurable random variables are again <span class="math inline">\(\mathcal{F}\)</span>-measurable. We will leave this task to the interested reader.</p>
+<p>Beyond inducing equivalence classes under almost sure equality, the probability measure <span class="math inline">\(P\)</span> plays no role in the definition of <span class="math inline">\(L^2(\mathcal{F})\)</span> itself. However, it does define an inner product on this space via expectation:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-inner-prod" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (<span class="math inline">\(L^2\)</span>-spaces are Hilbert spaces)</strong></span> &nbsp;</p>
+
+<p>Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space. The map <span class="math display">\[
+\langle -, - \rangle : L^2(\mathcal{F}) \times L^2(\mathcal{F}) \to \mathbb{R}, \quad \langle X, Y \rangle = E(XY)
+\]</span> defines an inner product on <span class="math inline">\(L^2(\mathcal{F})\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><div class="callout-margin-content callout-margin-content-simple">
+<p>A <em>Hilbert space</em> is a complete inner product space. Since <span class="math inline">\(L^2(\mathcal{F})\)</span> is finite-dimensional (see below), it is automatically complete, so the existence of an inner product suffices to make it a Hilbert space.</p>
+</div></div><p>Using the Lebesgue integral notation, the inner product can be written as</p>
+<p><span id="eq-inner-prod-integral"><span class="math display">\[
+\langle X, Y \rangle = \int_\Omega XY \ dP.
+\tag{3}\]</span></span></p>
+<p>But if we write <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> as linear combinations of indicator functions,</p>
+<p><span class="math display">\[
+X = \sum_{i=1}^m x_i I_{A_i} \quad \text{and} \quad Y = \sum_{j=1}^n y_j I_{B_j}
+\]</span></p>
+<p>where <span class="math inline">\(A_i\)</span> and <span class="math inline">\(B_j\)</span> are the level sets of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively, then (<a href="#eq-inner-prod-integral" class="quarto-xref">3</a>) becomes</p>
+<p><span class="math display">\[
+\langle X, Y \rangle = \sum_{i,j} x_i y_j P(A_i \cap B_j).
+\]</span></p>
+<p>One should check that <span class="math inline">\(\langle -, -\rangle\)</span> satisfies the properties of an inner product: linearity in the first argument, symmetry, and positive-definiteness. Again, we shall leave this task to the interested reader. We only note that the proof of positive-definiteness involves showing that <span class="math inline">\(\langle X,X\rangle=0\)</span> if and only if <span class="math inline">\(X\)</span> is almost surely equal to the zero random variable. Remember that elements in <span class="math inline">\(L^2(\mathcal{F})\)</span> are equivalence classes under almost sure equality!</p>
+<p>The inner product induces a norm</p>
+<p><span class="math display">\[
+\|X\|_2 = \sqrt{\langle X, X \rangle} = \sqrt{E(X^2)},
+\]</span></p>
+<p>which measures the “magnitude” of a random variable. This is precisely the so-called <em><span class="math inline">\(L^2\)</span>-norm</em>, and the corresponding metric <span class="math inline">\(d(X, Y) = \|X - Y\|_2\)</span> measures the mean-squared distance between random variables. In statistics, this is the <em>root mean squared error</em> (<em>RMSE</em>) between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>When algebras are nested, their corresponding <span class="math inline">\(L^2\)</span>-spaces are nested as well:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-nested-subspaces" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space. If <span class="math inline">\(\mathcal{G} \subset \mathcal{H}\)</span> are two subalgebras of <span class="math inline">\(\mathcal{F}\)</span>, then <span class="math display">\[
+L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
+\]</span></p>
+<p>Moreover, these subset inclusions are ones of vector subspaces.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Since <span class="math inline">\(\mathcal{G} \subset \mathcal{H}\)</span>, every <span class="math inline">\(\mathcal{G}\)</span>-measurable random variable is also <span class="math inline">\(\mathcal{H}\)</span>-measurable. Thus, <span class="math inline">\(L^2(\mathcal{G}) \subset L^2(\mathcal{H})\)</span>. A symmetric argument shows that <span class="math inline">\(L^2(\mathcal{H}) \subset L^2(\mathcal{F})\)</span>. The fact that these inclusions are ones of vector subspaces follows from the fact that sums and scalar multiples of measurable random variables are measurable with respect to the same algebra.</p>
+</div>
+</div>
+</div>
+<p>This geometric picture connects directly to information refinement: as algebras refine (capturing more information), their <span class="math inline">\(L^2\)</span>-spaces expand in kind (allowing more functions to be represented). Applied to our coin-flip example the nested sequence</p>
+<p><span class="math display">\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3
+\]</span></p>
+<p>induces a nested sequence</p>
+<p><span class="math display">\[
+L^2(\mathcal{F}_1) \subset L^2(\mathcal{F}_2) \subset L^2(\mathcal{F}_3)
+\]</span></p>
+<p>of <span class="math inline">\(L^2\)</span>-spaces, where each larger subspace represents more refined information about the outcomes.</p>
+<p>Finally, we note that the <span class="math inline">\(L^2\)</span>-spaces associated to algebras have particularly simple and useful orthogonal bases, consisting of indicator functions of the atoms of the algebra. Issues arise when atoms have zero probability, but these are easily handled by working with equivalence classes under almost sure equality.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-basis-L2" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Bases of <span class="math inline">\(L^2\)</span>-spaces)</strong></span> Let <span class="math inline">\((\Omega,\mathcal{F},P)\)</span> be a finite probability space, let <span class="math inline">\(\mathcal{G}\)</span> be a subalgebra of <span class="math inline">\(\mathcal{F}\)</span>, and let <span class="math inline">\(B_1, B_2, \ldots, B_m\)</span> be the atoms of <span class="math inline">\(\mathcal{G}\)</span> with positive probability.</p>
+<ol type="1">
+<li><p>The indicator functions <span class="math inline">\(I_{B_1}, I_{B_2}, \ldots, I_{B_m}\)</span> form an orthogonal basis of <span class="math inline">\(L^2(\mathcal{G})\)</span>.</p></li>
+<li><p>The <span class="math inline">\(L^2\)</span>-norm of <span class="math inline">\(I_{B_i}\)</span> is <span class="math inline">\(\sqrt{P(B_i)}\)</span>.</p></li>
+<li><p>The vector space dimension of <span class="math inline">\(L^2(\mathcal{G})\)</span> is equal to the number of atoms in <span class="math inline">\(\mathcal{G}\)</span> with positive probability.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose that we write</p>
+<p><span class="math display">\[
+B_1,B_2,\ldots,B_m, B_{m+1},B_{m+2},\ldots,B_n,
+\]</span></p>
+<p>where the sets <span class="math inline">\(B_{m+1},B_{m+2},\ldots,B_n\)</span> are the atoms of <span class="math inline">\(\mathcal{G}\)</span> with zero probability (which may not exist). Let <span class="math inline">\(X\in L^2(\mathcal{G})\)</span> be a random variable. Since <span class="math inline">\(X\)</span> is <span class="math inline">\(\mathcal{G}\)</span>-measurable, it is constant on each atom in <span class="math inline">\(\mathcal{G}\)</span>. Thus, we may write</p>
+<p><span class="math display">\[
+X = \sum_{i=1}^n x_i I_{B_i},
+\]</span></p>
+<p>for some values <span class="math inline">\(x_i \in \mathbb{R}\)</span> (not necessarily distinct). However, since <span class="math inline">\(P(B_i) = 0\)</span> for <span class="math inline">\(i = m+1, m+2, \ldots, n\)</span>, we have</p>
+<p><span class="math display">\[
+X = \sum_{i=1}^m x_i I_{B_i}
+\]</span></p>
+<p>almost surely. Thus, since elements in <span class="math inline">\(L^2(\mathcal{G})\)</span> are technically equivalence classes under almost sure equality, we have that <span class="math inline">\(X\)</span> is a linear combination of the indicator functions <span class="math inline">\(I_{B_1}, I_{B_2}, \ldots, I_{B_m}\)</span>. Thus, these indicator functions span <span class="math inline">\(L^2(\mathcal{G})\)</span>. To see that they are orthogonal, we suppose <span class="math inline">\(i\neq j\)</span>. Then, <span class="math inline">\(B_i \cap B_j =\emptyset\)</span>, and so</p>
+<p><span class="math display">\[
+\langle I_{B_i}, I_{B_j} \rangle = E(I_{B_i} I_{B_j}) = E(I_{B_i\cap B_j})= E(0) = 0.
+\]</span></p>
+<p>Orthogonality implies linear independence, so the proof is complete.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conditional-expectations-as-projections" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-expectations-as-projections">Conditional expectations as projections</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-conditional-expectation" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space, <span class="math inline">\(\mathcal{G} \subset \mathcal{F}\)</span> a subalgebra, and <span class="math inline">\(X \in L^2(\mathcal{F})\)</span> a random variable. A <em>conditional expectation</em> of <span class="math inline">\(X\)</span> given <span class="math inline">\(\mathcal{G}\)</span> is a random variable <span class="math inline">\(E(X\mid \mathcal{G}) \in L^2(\mathcal{G})\)</span> such that</p>
+<p><span id="eq-averaging-property"><span class="math display">\[
+\int_B X \ dP = \int_B E(X \mid \mathcal{G}) \ dP.
+\tag{4}\]</span></span></p>
+<p>for all <span class="math inline">\(B \in \mathcal{G}\)</span>. This is called the <em>averaging property</em> of conditional expectation.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Any two conditional expectations of <span class="math inline">\(X\)</span> given <span class="math inline">\(\mathcal{G}\)</span> are almost surely equal, so the conditional expectation is unique up to almost sure equality. A particular choice of conditional expectation is called a <em>version</em>.</p>
+<p>The averaging property (<a href="#eq-averaging-property" class="quarto-xref">4</a>) defines conditional expectation abstractly, but doesn’t immediately suggest how to compute it. The key insight is that this property has a geometric interpretation. To uncover it, we rewrite the averaging property as</p>
+<p><span class="math display">\[
+\int_\Omega \left[X - E(X \mid \mathcal{G})\right] I_B \ dP = 0,
+\]</span></p>
+<p>which, using the inner product from <a href="#thm-inner-prod" class="quarto-xref">Theorem&nbsp;3</a>, becomes</p>
+<p><span class="math display">\[
+\langle X - E(X \mid \mathcal{G}), I_B \rangle = 0.
+\]</span></p>
+<p>Since the indicator functions <span class="math inline">\(\{I_B : B \in \mathcal{G}\}\)</span> span <span class="math inline">\(L^2(\mathcal{G})\)</span> (by <a href="#thm-basis-L2" class="quarto-xref">Theorem&nbsp;5</a>), the residual <span class="math inline">\(X - E(X \mid \mathcal{G})\)</span> is orthogonal to every element of <span class="math inline">\(L^2(\mathcal{G})\)</span>. Thus, conditional expectation <span class="math inline">\(E(X\mid \mathcal{G})\)</span> is characterized as the orthogonal projection of <span class="math inline">\(X\)</span> onto the subspace <span class="math inline">\(L^2(\mathcal{G})\)</span>.</p>
+<p>Computing this projection is straightforward. Let <span class="math inline">\(B_1,B_2,\ldots,B_m\)</span> be the atoms of <span class="math inline">\(\mathcal{G}\)</span> with positive probability. By <a href="#thm-basis-L2" class="quarto-xref">Theorem&nbsp;5</a>, the normalized indicator functions</p>
+<p><span class="math display">\[
+\frac{I_{B_1}}{\sqrt{P(B_1)}}, \frac{I_{B_2}}{\sqrt{P(B_2)}}, \ldots, \frac{I_{B_m}}{\sqrt{P(B_m)}}
+\]</span></p>
+<p>form an orthonormal basis of <span class="math inline">\(L^2(\mathcal{G})\)</span>. The conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(\mathcal{G}\)</span> is the orthogonal projection onto this basis:</p>
+<p><span class="math display">\[
+E(X\mid \mathcal{G}) = \sum_{i=1}^m \left\langle X, \frac{I_{B_i}}{\sqrt{P(B_i)}} \right\rangle \frac{I_{B_i}}{\sqrt{P(B_i)}}.
+\]</span></p>
+<p>Simplifying using the definition of the inner product yields</p>
+<p><span id="eq-cond-exp-compute"><span class="math display">\[
+E(X\mid \mathcal{G}) = \sum_{i=1}^m \frac{1}{P(B_i)}\left(\int_{B_i} X \ dP \right)I_{B_i}.
+\tag{5}\]</span></span></p>
+<p>To evaluate the integrals in this formula, we write <span class="math inline">\(X\)</span> in terms of its level sets:</p>
+<p><span class="math display">\[
+X = \sum_{j=1}^n x_j I_{A_j},
+\]</span></p>
+<p>where <span class="math inline">\(A_1,A_2,\ldots,A_n\)</span> are the level sets of <span class="math inline">\(X\)</span>. Then</p>
+<p><span class="math display">\[
+\int_{B_i} X \ dP = \sum_{j=1}^n x_j P(A_j \cap B_i).
+\]</span></p>
+<p>Substituting into (<a href="#eq-cond-exp-compute" class="quarto-xref">5</a>) gives an explicit formula in terms of conditional probabilities:</p>
+<p><span id="eq-cond-exp-compute-2"><span class="math display">\[
+E(X\mid \mathcal{G}) = \sum_{i=1}^m \left(\sum_{j=1}^n x_j P(A_j \mid B_i)\right)I_{B_i}
+\tag{6}\]</span></span></p>
+<p>where <span class="math inline">\(P(A_j \mid B_i) = P(A_j \cap B_i)/P(B_i)\)</span> is the conditional probability of <span class="math inline">\(A_j\)</span> given <span class="math inline">\(B_i\)</span>. This formula connects our geometric framework to the elementary definition of conditional probability.</p>
+<p>We summarize this projection interpretation in the following theorem:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-cond-exp-proj" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (Conditional expectation as orthogonal projection)</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space, <span class="math inline">\(\mathcal{G} \subset \mathcal{F}\)</span> a subalgebra, and <span class="math inline">\(X \in L^2(\mathcal{F})\)</span> a random variable. Then, the orthogonal projection of <span class="math inline">\(X\)</span> onto the subspace <span class="math inline">\(L^2(\mathcal{G})\)</span> is a conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(\mathcal{G}\)</span>. This projection is given by <a href="#eq-cond-exp-compute-2" class="quarto-xref">Equation&nbsp;6</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>So, given an <span class="math inline">\(\mathcal{F}\)</span>-measurable random variable <span class="math inline">\(X\)</span> and a coarser algebra <span class="math inline">\(\mathcal{G}\)</span>, we may trivially write</p>
+<p><span class="math display">\[
+X = E(X\mid \mathcal{G}) + \left[X - E(X \mid \mathcal{G})\right].
+\]</span></p>
+<p>This decomposition gives us two components: a <span class="math inline">\(\mathcal{G}\)</span>-measurable part <span class="math inline">\(E(X\mid \mathcal{G})\)</span> that captures all information in <span class="math inline">\(X\)</span> knowable from <span class="math inline">\(\mathcal{G}\)</span>, and a residual <span class="math inline">\(X - E(X \mid \mathcal{G})\)</span> orthogonal to every <span class="math inline">\(\mathcal{G}\)</span>-measurable random variable, representing pure noise relative to <span class="math inline">\(\mathcal{G}\)</span>.</p>
+<p>In the case that <span class="math inline">\(\mathcal{G}= \{\emptyset, \Omega\}\)</span> is the trivial algebra, we have</p>
+<p><span class="math display">\[
+E(X \mid \mathcal{G}) = E(X),
+\]</span></p>
+<p>the constant random variable (taking value <span class="math inline">\(E(X)\)</span> everywhere). The trivial algebra represents having no information at all, so the best prediction of <span class="math inline">\(X\)</span> without any information is simply its expectation.</p>
+<p>The fact that <span class="math inline">\(E(X \mid \mathcal{G})\)</span> is the “best” <span class="math inline">\(\mathcal{G}\)</span>-measurable approximation to <span class="math inline">\(X\)</span> can be made numerically precise, as in the following theorem:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-best-approx" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7 (Best <span class="math inline">\(L^2\)</span>-approximation)</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space, <span class="math inline">\(\mathcal{G} \subset \mathcal{F}\)</span> a subalgebra, and <span class="math inline">\(X \in L^2(\mathcal{F})\)</span> a random variable. Then,</p>
+<p><span class="math display">\[
+E\left[(X - E(X \mid \mathcal{G}))^2\right] = \min_{Y \in L^2(\mathcal{G})} E\left[(X - Y)^2\right].
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This follows directly from the fact that orthogonal projection minimizes distance in inner product spaces. See, for example, Proposition 6.36 in <span class="citation" data-cites="Axler1997">(<a href="#ref-Axler1997" role="doc-biblioref">Axler 1997</a>)</span>.</p>
+</div>
+</div>
+</div>
+<p>Beyond optimality, the projection interpretation of conditional expectation immediately yields several other important properties, which we now develop.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-linearity" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8 (Linearity of conditional expectation)</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space, <span class="math inline">\(\mathcal{G} \subset \mathcal{F}\)</span> a subalgebra, and <span class="math inline">\(X, Y \in L^2(\mathcal{F})\)</span> random variables. For any scalars <span class="math inline">\(a,b \in \mathbb{R}\)</span>, we have <span class="math display">\[
+E(aX + bY \mid \mathcal{G}) = a E(X \mid \mathcal{G}) + b E(Y \mid \mathcal{G})
+\]</span></p>
+<p>almost surely.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Choose the version of conditional expectation given by orthogonal projection onto <span class="math inline">\(L^2(\mathcal{G})\)</span> as in <a href="#thm-cond-exp-proj" class="quarto-xref">Theorem&nbsp;6</a>. Since orthogonal projection is linear, the desired result follows immediately.</p>
+</div>
+</div>
+</div>
+<p>Linearity tells us that conditional expectation behaves well under linear combinations. But what happens when we condition on the product <span class="math inline">\(XY\)</span> of two random variables? If <span class="math inline">\(Y\)</span> is already <span class="math inline">\(\mathcal{G}\)</span>-measurable, then <span class="math inline">\(Y\)</span> is “known” given the information in <span class="math inline">\(\mathcal{G}\)</span>, so it should factor out of the conditional expectation. This intuition is formalized by the following property:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-pull-out" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 9 (Pull-out property)</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space, <span class="math inline">\(\mathcal{G} \subset \mathcal{F}\)</span> a subalgebra, and <span class="math inline">\(X \in L^2(\mathcal{F})\)</span> a random variable. If <span class="math inline">\(Y\)</span> is a <span class="math inline">\(\mathcal{G}\)</span>-measurable random variable,</p>
+<p><span class="math display">\[
+E(XY \mid \mathcal{G}) = Y E(X \mid \mathcal{G}).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We will prove that the random variable <span class="math inline">\(Y E(X \mid \mathcal{G})\)</span> has the defining property of a conditional expectation of <span class="math inline">\(XY\)</span> given <span class="math inline">\(\mathcal{G}\)</span>. To this end, we let <span class="math inline">\(B\)</span> be a set in <span class="math inline">\(\mathcal{G}\)</span>. Then <span class="math inline">\(YI_B\)</span> is <span class="math inline">\(\mathcal{G}\)</span>-measurable, so that if we choose the version of <span class="math inline">\(E(X\mid \mathcal{G})\)</span> given by orthogonal projection onto <span class="math inline">\(L^2(\mathcal{G})\)</span> as in <a href="#thm-cond-exp-proj" class="quarto-xref">Theorem&nbsp;6</a>, we must have</p>
+<p><span class="math display">\[
+\langle X - E(X \mid \mathcal{G}), Y I_B \rangle = 0.
+\]</span></p>
+<p>However, this inner product is</p>
+<p><span class="math display">\[
+\langle X - E(X \mid \mathcal{G}), Y I_B \rangle = \int_B \left[XY - Y E(X \mid \mathcal{G})\right] \ dP,
+\]</span></p>
+<p>so we get</p>
+<p><span class="math display">\[
+\int_B XY \ dP = \int_B Y E(X \mid \mathcal{G}) \ dP.
+\]</span></p>
+<p>This completes the proof.</p>
+</div>
+</div>
+</div>
+<p>The pull-out property shows that <span class="math inline">\(\mathcal{G}\)</span>-measurable factors can be extracted from conditional expectations. But what happens when we have a nested sequence of algebras <span class="math inline">\(\mathcal{G} \subset \mathcal{H} \subset \mathcal{F}\)</span>, representing increasingly refined information states?</p>
+<p>Intuitively, if we first condition on the finer information <span class="math inline">\(\mathcal{H}\)</span> and then “forget” some information by conditioning on the coarser <span class="math inline">\(\mathcal{G}\)</span>, we should get the same result as conditioning directly on <span class="math inline">\(\mathcal{G}\)</span>. This is the content of the following property (also called the <em>law of iterated expectations</em>):</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-tower" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 10 (Tower property)</strong></span> Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a finite probability space, and let <span class="math inline">\(\mathcal{G} \subset \mathcal{H} \subset \mathcal{F}\)</span> be subalgebras. If <span class="math inline">\(X \in L^2(\mathcal{F})\)</span> is a random variable, then</p>
+<p><span id="eq-tower"><span class="math display">\[
+E(E(X \mid \mathcal{H}) \mid \mathcal{G}) = E(X \mid \mathcal{G}).
+\tag{7}\]</span></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We have the inclusion of vector subspaces</p>
+<p><span class="math display">\[
+L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
+\]</span></p>
+<p>If we choose the versions of the conditional expectations given by orthogonal projection as in <a href="#thm-cond-exp-proj" class="quarto-xref">Theorem&nbsp;6</a>, then the left-hand side of (<a href="#eq-tower" class="quarto-xref">7</a>) is the orthogonal projection of <span class="math inline">\(X\)</span> onto <span class="math inline">\(L^2(\mathcal{H})\)</span> followed by the orthogonal projection onto <span class="math inline">\(L^2(\mathcal{G})\)</span>. However, since the subspaces are nested, this composition is simply the orthogonal projection of <span class="math inline">\(X\)</span> onto <span class="math inline">\(L^2(\mathcal{G})\)</span>, which is the right-hand side of the desired equation.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="return-to-the-coin-flip-with-momentum" class="level2">
+<h2 class="anchored" data-anchor-id="return-to-the-coin-flip-with-momentum">Return to the coin flip with momentum</h2>
+<div id="8cef00e7" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mc.generate_sample_space(trajectory_length=4)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print_html_df(df=mc.omega, title="probability space for coin flips with momentum")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="e545b3ac" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S3 = X1 + X2 + X3</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># def S3(omega):</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     return omega["X1"] + omega["X2"] + omega["X3"]</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the conditional expectation of S3 given X1 and X2</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># cond_exp_S3_given_X1X2 = conditional_exp(</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     omega=mc.omega, RV=S3, sigma_algebra=["X1", "X2"], name="E(S3 | X1, X2)"</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the conditional expectation</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print_html_df(</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     df=cond_exp_S3_given_X1X2,</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     title="conditional expectation E(S3 | X1, X2)",</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We have a submartingale!</p>
+<div id="51a9f60b" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S2 = X1 + X2</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># def S2(omega):</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     return omega["X1"] + omega["X2"]</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a copy of the sample space and compute S2</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># omega = mc.omega.copy()</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># omega["S2"] = omega.apply(S2, axis=1)</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># S2 is constant on the atoms of sigma(X1, X2), so we group</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># by X1 and X2 and get unique values of S2 by using first(). Then</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># we convert to a dataframe and turn the multi-index into columns.</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># S2 = omega.groupby(["X1", "X2"])["S2"].first().to_frame().reset_index()</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the comparison of E(S3 | X1,X2) to S2</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print_html_df(</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     df=cond_exp_S3_given_X1X2.merge(S2, on=["X1", "X2"]),</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     title="comparing E(S3 | X1,X2) to S2",</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Axler1997" class="csl-entry" role="listitem">
+Axler, S. 1997. <em>Linear Algebra Done Right</em>. Second. Undergraduate Texts in Mathematics. Springer.
+</div>
+<div id="ref-Kallenberg2021" class="csl-entry" role="listitem">
+Kallenberg, O. 2021. <em>Foundations of Modern Probability</em>. Third. Vol. 99. Probability Theory and Stochastic Modelling. Springer.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
