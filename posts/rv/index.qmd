@@ -1,0 +1,268 @@
+---
+title: "SigAlg II: Random variables and measurability"
+toc: true
+draft: true
+jupyter: blog-env
+categories: [Random variables, Random vectors, Probability theory, Sigma algebras, SigAlg, Python]
+include-in-header: 
+  - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
+bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
+csl: /Users/johnmyers/dev/johnmyers-phd/aux-files/american-mathematical-society-numeric.csl
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+
+## Introduction
+
+## Probability spaces
+
+To set the scene, we first recall that a *probability space* is an ordered triple $(\Omega, \mathcal{F}, P)$ consisting of a set $\Omega$ called the *sample space*, a $\sigma$-algebra $\calF$ of subsets of $\Omega$ called *events*, and a probability measure $P$ defined on $\calF$.
+
+All three objects making up a probability space are modeled in SigAlg as instances of the `SampleSpace`, `SigmaAlgebra`, and `ProbabilityMeasure` classes, respectively. Here is an example:
+
+```{python}
+from sigalg.core import ProbabilityMeasure, ProbabilitySpace, SampleSpace, SigmaAlgebra
+
+# Define a sample space Omega = {1, 2, 3, 4}
+Omega = SampleSpace().from_sequence(size=4, initial_index=1)
+
+F = SigmaAlgebra(sample_space=Omega, name="F").from_dict(
+    {
+        1: 0,  # Sample point 1 has atom identifier 0
+        2: 0,  # Sample point 2 has atom identifier 0
+        3: 1,  # Sample point 3 has atom identifier 1
+        4: 2,  # Sample point 4 has atom identifier 2
+    }
+)
+
+P = ProbabilityMeasure(sample_space=Omega, name="P").from_dict(
+    {
+        1: 0.2,  # P(1) = 0.2
+        2: 0.1,  # P(2) = 0.1
+        3: 0.4,  # P(3) = 0.4
+        4: 0.3,  # P(4) = 0.3
+    }
+)
+
+prob_space = ProbabilitySpace(
+    sample_space=Omega,
+    sigma_algebra=F,
+    probability_measure=P,
+)
+
+print(prob_space)
+```
+
+The code is reasonably self-explanatory, except for (possibly) the definition of the $\sigma$-algebra $\mathcal{F}$. In SigAlg, $\sigma$-algebras are implemented by tracking the atom identifier for each sample point in $\Omega$, where an *atom* of a $\sigma$-algebra is a minimal non-empty subset in the $\sigma$-algebra. It is a general result that $\sigma$-algebras on finite sets are completely determined by their atoms (which partition the sample space), and so this implementation is sufficient to model the concept. In our case, the $\sigma$-algebra $\calF$ has three atoms, $A_0 = \{1,2\}$, $A_1 = \{3\}$, and $A_2 = \{4\}$, which are identified by the atom identifiers $0$, $1$, and $2$, respectively.
+
+Probability measures, as functions, are implemented in SigAlg as callable objects. They may be called on individual sample points, functioning as probability mass functions, and also on subsets as instances of `Event`:
+
+```{python}
+
+A = Omega.get_event([1, 2])
+
+print("P(1) =", round(P(1), 2))
+print("P({1,2}) =", round(P(A), 2))
+```
+
+Technically, the probability measure of a probability space is only supposed to be defined on events in the associated $\sigma$-algebra, but we do not enforce this requirement in SigAlg. Indeed, we can see this in the printout, since the singleton $\{1\}$ is not an event in $\mathcal{F}$, yet the probability measure $P$ is still defined at this point.
+
+Furthermore, SigAlg does not enforce the requirement that an *event* be a set in the $\sigma$-algebra. For example, the subset $B = \{2,3\}$ is not in $\mathcal{F}$, and so according to the strict mathematical definition, it is not an event in the probability space $(\Omega, \mathcal{F}, P)$. However, in SigAlg, $B$ is an event, and the probability measure $P$ is defined on it:
+
+```{python}
+B = Omega.get_event([2, 3])
+
+print("Is B = {2,3} in F?", B in F)
+print("P({2,3}) =", round(P(B), 2))
+```
+
+Given two $\sigma$-algebras $\mathcal{F}$ and $\mathcal{G}$ on the same sample space $\Omega$, it is important to be able to compare the information they encode. This comparison is captured by the notion of subset containment. Specifically, the containment $\mathcal{G}\subset \mathcal{F}$ corresponds to a *refinement* of information in passing from the smaller $\sigma$-algebra $\mathcal{G}$ to the larger $\sigma$-algebra $\calF$. In this case, we also say that $\mathcal{F}$ is *finer* than $\mathcal{G}$, or that $\mathcal{G}$ is *coarser* than $\mathcal{F}$.
+
+One may show that $\mathcal{F}$ is finer than $\mathcal{G}$ if and only if every atom of $\mathcal{G}$ is a union of atoms of $\mathcal{F}$. In turn, this is equivalent to the condition that every atom of $\mathcal{F}$ is contained in a unique atom of $\mathcal{G}$. In SigAlg, we can check these conditions through the `<=` operator and its cousins:
+
+```{python}
+
+G = SigmaAlgebra(sample_space=Omega, name="G").from_dict(
+    {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 1,
+    }
+)
+
+H = SigmaAlgebra(sample_space=Omega, name="H").from_dict(
+    {
+        1: 0,
+        2: 1,
+        3: 0,
+        4: 1,
+    }
+)
+
+print("Is F finer than G?", G <= F)
+print("Is F finer than H?", H <= F)
+```
+
+
+## Random variables and vectors
+
+We begin with the strict mathematical definition of a random variable.
+
+::: {#def-rv}
+Let $(\Omega,\mathcal{F})$ be an event space. A *random variable* on $\Omega$ is a function that is measurable with respect to $\mathcal{F}$ and the Borel $\sigma$-algebra on $\bbr$.
+
+[An *event space* is an ordered pair $(\Omega, \mathcal{F})$ consisting of a set $\Omega$ and a $\sigma$-algebra $\mathcal{F}$ of subsets of $\Omega$. (In general measure theory, this is just a *measurable space*.) The reader unfamiliar with the concept of *measurability* will find a brief discussion of this concept in the next section.]{.aside}
+:::
+
+More generally, if we replace $\bbr$ with $\bbr^n$, then we get the definition of an *$n$-dimensional random vector*. Then a random variable is simply a random vector of dimension $1$.
+
+Any $n$-dimensional random vector $X$ on $\Omega$ may be written in terms of its component functions as
+
+$$
+X(\omega) = (X_1(\omega), X_2(\omega), \ldots, X_n(\omega)), \quad \omega\in \Omega,
+$$
+
+and each component function $X_i$ is a random variable on $\Omega$ (i.e., each is measurable). These are called the *component random variables* of $X$. Conversely, given $n$ random variables $X_1,X_2,\ldots,X_n$ on $\Omega$, we may construct an $n$-dimensional random vector $X$ via the same formula as above.
+
+In SigAlg, random vectors and variables are modeled as instances of the `RandomVector` and `RandomVariable` classes, the latter (naturally) being a child class of the former. To see how they are implemented, consider the following $2$-dimensional random vector $X$ defined on the sample space $\Omega = \{1,2,3,4\}$ from above:
+
+$$
+X(\omega) = \begin{cases}
+(1, 2) & : \omega = 1, \\
+(3, 4) & : \omega = 2, \\
+(1, 2) & : \omega = 3, \\
+(5, 6) & : \omega = 4.
+\end{cases}
+$$
+
+Then:
+
+```{python}
+
+from sigalg.core import RandomVector
+
+X = RandomVector(domain=Omega, name="X").from_dict(
+    {
+        1: (1, 2),
+        2: (3, 4),
+        3: (1, 2),
+        4: (5, 6),
+    },
+)
+
+print(X)
+```
+
+Notice that the only data required to construct a random vector are the domain and the function values. In particular, no $\sigma$-algebra is required, as measurability of random vectors is not enforced in SigAlg.
+
+The printout shows the function values of $X$ at each sample point in $\Omega$. The data columns are indexed by `X_0` and `X_1`, corresponding to the two component random variables of $X$. These components are extracted through the appropriate method:
+
+```{python}
+X_0 = X.get_component_rv("X_0")
+X_1 = X.get_component_rv("X_1")
+
+print(X_0)
+print("\n", X_1)
+```
+
+Random vectors and variables are functions, which is reflected in their implementation in SigAlg as callable objects:
+
+```{python}
+print("Calling a random vector returns a feature vector:")
+print(X(1))
+print("\nCalling a random variable returns a scalar:")
+print("X_0(2) = ", X_0(2))
+```
+
+## Measurability
+
+Though *measurability* of random vectors is not enforced in SigAlg, the concept is still of fundamental importance in probability theory, and so SigAlg provides the tools to work with it.
+
+For finite sample spaces, *measurability* has a simple characterization in terms of the level sets of a random vector.
+
+::: {#def-rv-part}
+Let $X:\Omega\to \bbr^n$ be a function on a set $\Omega$. For $x\in \bbr^n$, sets of the form
+
+$$
+X^{-1}(x) \defeq \{ \omega \in \Omega : X(\omega)=x\}
+$$
+
+are called *level sets* of $X$.
+:::
+
+Suppose that $X:\Omega \to \bbr^n$ is a function, where we assume that $\Omega$ is finite, for simplicity. Then $X$ induces a $\sigma$-algebra on $\Omega$ denoted $\sigma(X)$, whose atoms are exactly the nonempty level sets of $X$. Then:
+
+::: {#def-measurable}
+Let $(\Omega,\calF)$ be an event space, where $\Omega$ is assumed finite. A function $X:\Omega \to \bbr^n$ is *measurable* with respect to $\calF$ if $\calF$ refines $\sigma(X)$.
+
+[In the case that $\Omega$ is not necessarily finite, the mathematically trained reader will notice that this is essentially the general definition of *measurability* found in textbooks. What is missing, however, is a proper definition of the $\sigma$-algebra $\sigma(X)$ in the general setting, which requires mention of the Borel $\sigma$-algebra on $\bbr^n$.]{.aside}
+:::
+
+If we need to call explicit attention to the $\sigma$-algebra, we say that a function measurable with respect to $\calF$ is *$\calF$-measurable*.
+
+
+We mentioned in the first section that one $\sigma$-algebra is finer than another if every atom of the coarser $\sigma$-algebra is a union of atoms of the finer $\sigma$-algebra. The following theorem uses this characterization to give necessary and sufficient conditions for measurability.
+
+::: {#thm-rv-refine}
+## Measurable functions are constant on atoms
+Let $(\Omega,\calF)$ be an event space, where $\Omega$ is assumed finite, and let $X:\Omega \to \bbr^n$ be a function. Then $X$ is $\calF$-measurable if and only if it is constant on every atom in $\calF$.
+:::
+
+Now, suppose that $X$ and $Y$ are two $\bbr^n$-valued functions on a finite set $\Omega$, with induced $\sigma$-algebras $\sigma(X)$ and $\sigma(Y)$. Then @thm-rv-refine characterizes when one of these $\sigma$-algebras refines the other, but not *how* the vectors are structurally related in the case that there is such a refinement relation. The following theorem fills this gap.
+
+::: {#thm-functional-rep}
+## Functional representation
+Let $X$ and $Y$ be two $\bbr^n$-valued functions on a finite set $\Omega$. The following statements are equivalent:
+
+::: {.column-margin}
+This theorem holds for general event spaces, not just ones with finite sample spaces. The proof requires the Doob-Dynkin lemma and properties of general $\sigma$-algebras. See Lemma 1.14 in @Kallenberg2021 for the general statement and proof.
+:::
+
+1. The algebra $\sigma(Y)$ refines $\sigma(X)$.
+2. There exists a function $f:\bbr^n \to \bbr^n$ such that $X = f \circ Y$.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+Suppose that $\sigma(Y)$ refines $\sigma(X)$ and write
+
+$$
+X = \sum_{i=1}^m x_i I_{A_i} \quad \text{and} \quad Y = \sum^n_{j=1} y_j I_{B_j},
+$$
+
+where $I_{A_i}$ and $I_{B_j}$ are indicator functions for the level sets
+
+$$
+A_i = X^{-1}(x_i) \quad \text{and} \quad B_j = Y^{-1}(y_j).
+$$
+
+Then every level set $B_j$ is contained in a unique level set $A_i$, and we may define a function 
+
+$$
+h:\{y_1,\ldots,y_n\} \to \bbr
+$$
+
+by setting $h(y_j) = x_i$ if $B_j \subset A_i$. Then, define
+
+$$
+\pi: \bbr \to \bbr, \quad \pi(y) = \sum_{j=1}^n I_{y_j}(y),
+$$
+
+where $I_{y_j}$ is the indicator function of the singleton set $\{y_j\}$. If we then set $f = h \circ \pi$ and choose $\omega$ in an arbitrary $B_j$, we have
+
+$$
+f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
+$$
+
+Since $B_j$ and $\omega$ were chosen arbitrarily, this proves that (1) implies (2).
+
+We leave the proof of the converse implication as an exercise for the reader.
+:::
+
+
+
