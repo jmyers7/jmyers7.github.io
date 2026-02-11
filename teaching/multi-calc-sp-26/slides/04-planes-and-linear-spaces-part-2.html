@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>john myers, ph.d. – 03 Planes and linear spaces, part 1</title>
+  <title>john myers, ph.d. – 04 Planes and linear spaces, part 2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,268 +136,292 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">03 Planes and linear spaces, part 1</h1>
+  <h1 class="title">04 Planes and linear spaces, part 2</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
 <section>
-<section id="planes-in-mathbbr3" class="title-slide slide level1 center">
-<h1>Planes in <span class="math inline">\(\mathbb{R}^3\)</span></h1>
+<section id="warm-up-exercises" class="title-slide slide level1 center">
+<h1>Warm-up exercises</h1>
 
 </section>
-<section id="point-slope-equations-of-planes" class="slide level2">
-<h2>Point-slope equations of planes</h2>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Point-slope equation for a line in <span class="math inline">\(\mathbb{R}^2\)</span></strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li class="fragment">The <strong>point-slope equation for a line</strong> through a point <span class="math inline">\((x_0,y_0)\)</span> with slope <span class="math inline">\(m\)</span> is <span class="math display">\[
-y = m(x-x_0) + y_0.
-\]</span></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">We interpret the slope <span class="math inline">\(m\)</span> as the slope in the <em>positive</em> <span class="math inline">\(x\)</span>-direction.</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Point-slope equation for a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li class="fragment">The <strong>point-slope equation for a plane</strong> through a point <span class="math inline">\((x_0,y_0,z_0)\)</span> with slope <span class="math inline">\(m\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(n\)</span> in the positive <span class="math inline">\(y\)</span>-direction is <span class="math display">\[
-z = m(x-x_0) + n(y-y_0) + z_0.
-\]</span></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-1-point-slope-equations" class="slide level2">
-<h2>Exercise 1: Point-slope equations</h2>
+<section id="exercise-1-temperatures" class="slide level2">
+<h2>Exercise 1: Temperatures</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
+<p>Suppose a <span class="math inline">\(3\)</span>-dimensional coordinate system has been set up in the classroom. The temperature, <span class="math inline">\(T\)</span>, in degrees Fahrenheit, at a point in the classroom is a function of the coordinates <span class="math inline">\((x,y,z)\)</span> of that point, <span class="math inline">\(T = f(x,y,z)\)</span>. Suppose that distances are measured in feet, and that</p>
+<p><span class="math display">\[
+T = f(x,y,z) = 0.5x + 0.25y - 0.1z + 70.
+\]</span></p>
 <ol type="a">
-<li><p>Compute the point-slope equation for a plane through the point <span class="math inline">\((1,2,3)\)</span> with slope <span class="math inline">\(2\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(-1\)</span> in the positive <span class="math inline">\(y\)</span>-direction.</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 4(x-2) - 3(y-2) + 5.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 3x+ 4.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 0.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
+<li><p>What is the temperature at the point <span class="math inline">\((0,0,0)\)</span>?</p></li>
+<li><p>What is the temperature at the point <span class="math inline">\((2,4,10)\)</span>?</p></li>
+<li><p>For every foot moved in the positive <span class="math inline">\(x\)</span>-direction, how much does the temperature change?</p></li>
+<li><p>For every foot moved in the positive <span class="math inline">\(y\)</span>-direction, how much does the temperature change?</p></li>
+<li><p>For every foot moved in the positive <span class="math inline">\(z\)</span>-direction, how much does the temperature change?</p></li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-2-linear-models" class="slide level2 scrollable">
-<h2>Exercise 2: Linear models</h2>
+<section id="exercise-2-production-costs" class="slide level2">
+<h2>Exercise 2: Production costs</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The profit, <span class="math inline">\(p\)</span>, that a company makes depends on the number of two types of gadgets that it produces, Gadget 1 and Gadget 2. Let <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_2\)</span> be the number of gadgets that are manufactured of each type, and suppose they sell for <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span> dollars (per gadget), respectively. Suppose the company believes that the profit depends linearly on the number of gadgets produced.</p>
-<p>Let <span class="math inline">\(p = f(g_1,g_2)\)</span> be the profit function, and assume that if no gadgets are products, then <span class="math inline">\(p=0\)</span>.</p>
+<p>A factory produces custom furniture. The total cost to produce one item of furniture, <span class="math inline">\(C\)</span>, in dollars, depends on four variables:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> = number of workers assigned</li>
+<li><span class="math inline">\(y\)</span> = hours of machine time used</li>
+<li><span class="math inline">\(z\)</span> = square feet of wood used</li>
+<li><span class="math inline">\(w\)</span> = gallons of finish/stain applied</li>
+</ul>
+<p>The cost function is: <span class="math display">\[
+C = f(x,y,z,w) = 25x + 15y + 3z + 12w + 200.
+\]</span></p>
 <ol type="a">
-<li><p>What is the domain of <span class="math inline">\(f\)</span>? What is its codomain?</p></li>
-<li><p>Find a formula for the profit function <span class="math inline">\(p = f(g_1, g_2)\)</span>.</p></li>
+<li><p>What is the base cost (when <span class="math inline">\(x=y=z=w=0\)</span>)?</p></li>
+<li><p>What is the cost when <span class="math inline">\(x=4\)</span> workers, <span class="math inline">\(y=8\)</span> hours of machine time, <span class="math inline">\(z=50\)</span> square feet of wood, and <span class="math inline">\(w=2\)</span> gallons of finish are used?</p></li>
+<li><p>How much does the cost increase for each additional worker?</p></li>
+<li><p>How much does the cost increase for each additional square foot of wood?</p></li>
+<li><p>How much does the cost increase for each additional gallon of finish?</p></li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="vector-equations-of-planes" class="slide level2 scrollable">
-<h2>Vector equations of planes</h2>
+<section id="what-do-these-exercises-have-in-common" class="slide level2">
+<h2>What do these exercises have in common?</h2>
 <ul>
-<li class="fragment">Suppose a point <span class="math inline">\((x,y,z)\)</span> lies on a plane with equation <span class="math display">\[
-z = m(x-x_0) + n(y-y_0) + z_0.
+<li class="fragment">The function in Exercise 1 is of the form <span class="math display">\[
+w = m(x-x_0) + n(y-y_0) + p(z-z_0) + w_0.
 \]</span></li>
-<li class="fragment">The two points <span class="math inline">\((x,y,z)\)</span> and <span class="math inline">\((x_0,y_0,z_0)\)</span> have position vectors <span class="math display">\[
-\mathbf{r} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} \quad \text{and} \quad \mathbf{r}_0 = \begin{bmatrix} x_0 \\ y_0 \\ z_0 \end{bmatrix}.
+<li class="fragment">The function in Exercise 2 is of the form <span class="math display">\[
+u = m(x-x_0) + n(y-y_0) + p(z-z_0) + q(w-w_0) + u_0.
 \]</span></li>
-<li class="fragment">If the vector <span class="math inline">\(\mathbf{r}-\mathbf{r_0}\)</span> has its tail moved to the point <span class="math inline">\((x_0,y_0,z_0)\)</span>, then it <em>lies in the plane</em>. Draw the picture!</li>
-<li class="fragment">Define <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
-\]</span> which is an example of a <strong>normal vector</strong> to the plane. (See below.)</li>
-<li class="fragment">Then, observe: <span class="math display">\[
-\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = \left\langle \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix}, \begin{bmatrix} x-x_0 \\ y-y_0 \\ z-z_0 \end{bmatrix} \right\rangle = -m(x-x_0) -n(y-y_0) + (z-z_0) = 0.
-\]</span></li>
+<li class="fragment">Do you see the pattern?!</li>
+</ul>
+</section></section>
+<section>
+<section id="equations-for-hyperplanes" class="title-slide slide level1 center">
+<h1>Equations for hyperplanes</h1>
+
+</section>
+<section id="point-slope-equations-of-hyperplanes" class="slide level2 scrollable">
+<h2>Point-slope equations of “hyperplanes”</h2>
+<ul>
+<li class="fragment">In two dimensions, we use the coordinates <span class="math inline">\((x,y)\)</span>.</li>
+<li class="fragment">In three dimensions, we use the coordinates <span class="math inline">\((x,y,z)\)</span>.</li>
+<li class="fragment">In four dimensions, we use the coordinates <span class="math inline">\((x,y,z,w)\)</span>.</li>
+<li class="fragment">In five dimensions, we use the coordinates <span class="math inline">\((x,y,z,w, u)\)</span>.</li>
+<li class="fragment">In <span class="math inline">\(n\)</span> dimensions, we use the coordinates <span class="math inline">\((x_1, x_2, \ldots, x_n)\)</span>.</li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Vector equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
+<p><strong>Point-slope equation for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span></strong></p>
 </div>
 <div class="callout-content">
-<p>Let <span class="math inline">\(\mathbf{n}\)</span> and <span class="math inline">\(\mathbf{r}_0\)</span> be two given vectors in <span class="math inline">\(\mathbb{R}^3\)</span>. A <strong>vector equation</strong> of the plane with <strong>normal vector</strong> <span class="math inline">\(\mathbf{n}\)</span>, passing through the point with position vector <span class="math inline">\(\mathbf{r}_0\)</span>, is <span class="math display">\[
+<p>A <strong>point-slope equation</strong> for a hyperplane through a point <span class="math inline">\((x_0,y_0, z_0, w_0)\)</span> with</p>
+<ul>
+<li>slope <span class="math inline">\(m\)</span> in the positive <span class="math inline">\(x\)</span>-direction,</li>
+<li>slope <span class="math inline">\(n\)</span> in the positive <span class="math inline">\(y\)</span>-direction, and</li>
+<li>slope <span class="math inline">\(p\)</span> in the positive <span class="math inline">\(z\)</span>-direction</li>
+</ul>
+<p>is <span class="math display">\[
+w = m(x-x_0) + n(y-y_0) + p(z-z_0) + w_0.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Up one more dimension:</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Point-slope equation for a hyperplane in <span class="math inline">\(\mathbb{R}^5\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>A <strong>point-slope equation</strong> for a hyperplane through a point <span class="math inline">\((x_0,y_0, z_0, w_0, u_0)\)</span> with</p>
+<ul>
+<li>slope <span class="math inline">\(m\)</span> in the positive <span class="math inline">\(x\)</span>-direction,</li>
+<li>slope <span class="math inline">\(n\)</span> in the positive <span class="math inline">\(y\)</span>-direction,</li>
+<li>slope <span class="math inline">\(p\)</span> in the positive <span class="math inline">\(z\)</span>-direction, and</li>
+<li>slope <span class="math inline">\(q\)</span> in the positive <span class="math inline">\(w\)</span>-direction</li>
+</ul>
+<p>is <span class="math display">\[
+u = m(x-x_0) + n(y-y_0) + p(z-z_0) + q(w-w_0) + u_0.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-full-story" class="slide level2">
+<h2>The full story</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Point-slope equation for a hyperplane in <span class="math inline">\(\mathbb{R}^n\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>A <strong>point-slope equation</strong> for a hyperplane in <span class="math inline">\(\mathbb{R}^n\)</span> is <span class="math display">\[
+x_n = m_1(x_1-p_1) + m_2(x_2-p_2) + \cdots + m_{n-1}(x_{n-1}-p_{n-1}) + p_{n},
+\]</span></p>
+<p>where <span class="math inline">\((p_1, p_2, \ldots, p_{n})\)</span> is a point in <span class="math inline">\(\mathbb{R}^n\)</span> and <span class="math inline">\(m_1, m_2, \ldots, m_{n-1}\)</span> are the slopes in the positive <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(x_{n-1}\)</span> directions.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">You can’t <em>see</em> the graphs of these hyperplanes when <span class="math inline">\(n&gt;3\)</span>, but that doesn’t mean these are imaginary objects with no real-world applications.</li>
+<li class="fragment">If you doubt this, just look back at Exercises 1 and 2.</li>
+</ul>
+</section>
+<section id="vector-standard-and-affine-equations" class="slide level2 scrollable">
+<h2>Vector, standard and affine equations</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Vector equation for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>A <strong>vector equation</strong> for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span> is <span class="math display">\[
 \langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = 0,
-\]</span> where <span class="math inline">\(\mathbf{r}\)</span> is a variable position vector in <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{n}\)</span> is a normal vector to the hyperplane, <span class="math inline">\(\mathbf{r}_0\)</span> is the position vector of a point on the hyperplane, and <span class="math inline">\(\mathbf{r}\)</span> is a variable position vector.</p>
 </div>
 </div>
 </div>
 </div>
-<ul>
-<li class="fragment"><em>Any</em> vector that is orthogonal to all vectors in a plane is called a <strong>normal vector</strong> to the plane.</li>
-</ul>
-</section>
-<section id="standard-equations-of-planes" class="slide level2 scrollable">
-<h2>Standard equations of planes</h2>
-<ul>
-<li class="fragment">If a plane has a point-slope equation, then a normal vector can always be found of the form <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
-\]</span> as we saw on the prevoius slide.</li>
-<li class="fragment">But not all planes have normal vectors of this special form!</li>
-<li class="fragment">So, we must resort to the vector equation. If we write <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix},
-\]</span> and expand the inner product in the vector equation, we get the following:</li>
-</ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Standard equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
+<p><strong>Standard equation for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span></strong></p>
 </div>
 <div class="callout-content">
-<p>A <strong>standard equation</strong> of a plane in <span class="math inline">\(\mathbb{R}^3\)</span> passing through the point <span class="math inline">\((x_0,y_0,z_0)\)</span> is <span class="math display">\[
-a(x-x_0) + b(y-y_0) + c(z-z_0) = 0,
-\]</span> where <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are components of a normal vector <span class="math inline">\(\mathbf{n}\)</span>.</p>
+<p>A <strong>standard equation</strong> for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span> is <span class="math display">\[
+a(x-x_0) + b(y-y_0) + c(z-z_0) + d(w-w_0) = 0,
+\]</span></p>
+<p>where <span class="math inline">\((x_0,y_0,z_0,w_0)\)</span> is a point on the hyperplane and <span class="math inline">\(a,b,c,d\)</span> are the components of a normal vector to the hyperplane.</p>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="exercise-3-normal-vectors-and-standard-equations" class="slide level2 scrollable">
-<h2>Exercise 3: Normal vectors and standard equations</h2>
+<div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>a. Practice with normal vectors</strong></p>
+<p><strong>Affine equation for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span></strong></p>
 </div>
 <div class="callout-content">
-<ol type="i">
-<li>Find a normal vector to the plane <span class="math inline">\(z = 2(x-1) - (y-2) + 3\)</span>.</li>
-<li>Find a normal vector to the plane <span class="math inline">\(z = 4(x-2) + 5\)</span>.</li>
-<li>Find a normal vector to the plane <span class="math inline">\(z = -y\)</span>.</li>
-<li>Find a normal vector to the plane <span class="math inline">\(x=2\)</span>.</li>
-<li>Find a point-slope equation of the plane with normal vector <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}
-\]</span> passing through the point <span class="math inline">\((1,2,3)\)</span>.</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>b. Normal vectors and the coordinate planes</strong></p>
-</div>
-<div class="callout-content">
-<ol type="i">
-<li>Find a normal vector to the <span class="math inline">\(xy\)</span>-plane in <span class="math inline">\(\mathbb{R}^3\)</span>.</li>
-<li>Find a normal vector to the <span class="math inline">\(xz\)</span>-plane in <span class="math inline">\(\mathbb{R}^3\)</span>.</li>
-<li>Find a normal vector to the <span class="math inline">\(yz\)</span>-plane in <span class="math inline">\(\mathbb{R}^3\)</span>.</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>b. Normal vectors and standard equations</strong></p>
-</div>
-<div class="callout-content">
-<ol type="i">
-<li>Find a normal vector to the plane with standard equation <span class="math inline">\(2(x-2) - 3y + z = 0\)</span>. Identify a point on this plane.</li>
-<li>A plane passes through the point <span class="math inline">\((1,2,-1)\)</span> and has normal vector <span class="math inline">\(\mathbf{e}_2\)</span>. Find its standard equation.</li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="affine-equations-of-planes" class="slide level2 scrollable">
-<h2>Affine equations of planes</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Affine equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
-</div>
-<div class="callout-content">
-<p>An <strong>affine equation</strong> for a plane in <span class="math inline">\(\mathbb{R}^3\)</span> is <span class="math display">\[
-ax + by + cz = d,
+<p>An <strong>affine equation</strong> for a hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span> is <span class="math display">\[
+ax + by + cz + dw = e,
 \]</span></p>
 <p>where:</p>
 <ul>
-<li><span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> are constants,</li>
-<li>not all of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are <span class="math inline">\(0\)</span>, and</li>
-<li>the numbers <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are the components of a normal vector to the plane.</li>
+<li><span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, <span class="math inline">\(d\)</span>, and <span class="math inline">\(e\)</span> are constants,</li>
+<li>not all of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> are <span class="math inline">\(0\)</span>, and</li>
+<li>the numbers <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> are the components of a normal vector to the hyperplane.</li>
 </ul>
 </div>
 </div>
 </div>
+</div>
 </section>
-<section id="exercise-4-affine-equations" class="slide level2 scrollable">
-<h2>Exercise 4: Affine equations</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+<section id="exercise-3-practice-with-equations-of-hyperplanes" class="slide level2 scrollable">
+<h2>Exercise 3: Practice with equations of hyperplanes</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>a. From affine equations to standard equations</strong></p>
+<p><strong>a. Point-slope equation to standard equation</strong></p>
 </div>
 <div class="callout-content">
-<p>Convert the following affine equations to standard equations. Give a normal vector and a point on each plane.</p>
-<ol type="i">
-<li><span class="math inline">\(2x - 3y + z = 5\)</span></li>
-<li><span class="math inline">\(x + y  = 1\)</span></li>
-<li><span class="math inline">\(2y - z = 2\)</span></li>
-<li><span class="math inline">\(x = 4\)</span></li>
+<p>Consider the hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span> with point-slope equation <span class="math display">\[
+w = 2(x-1) - (y-2) + 3(z-3) + 4.
+\]</span></p>
+<p>Identify a point on the hyperplane. Write the equation in standard form and identify a normal vector to the hyperplane.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>b. Affine equation to standard equation</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider the hyperplane in <span class="math inline">\(\mathbb{R}^4\)</span> with affine equation <span class="math display">\[
+2x - y + 3z - 3w = 4.
+\]</span><br>
+Identify a normal vector to the hyperplane. Write the equation in standard form and identify a point on the hyperplane.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-identifying-points-on-hyperplanes" class="slide level2 scrollable">
+<h2>Exercise 4: Identifying points on hyperplanes</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Consider the hyperplane in <span class="math inline">\(\mathbb{R}^5\)</span> with affine equation</p>
+<p><span class="math display">\[
+3x - 2y + z + 4w - 5u = 7.
+\]</span></p>
+<ol type="a">
+<li>Identify a normal vector to the hyperplane.</li>
+<li>Identify a point on the hyperplane.</li>
+<li>Where does the hyperplane intersect the <span class="math inline">\(x\)</span>-axis?</li>
+<li>Where does the hyperplane intersect the <span class="math inline">\(y\)</span>-axis?</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+</section>
+<section id="exercise-5-level-sets" class="slide level2 scrollable">
+<h2>Exercise 5: Level sets</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>b. From standard equations to affine equations</strong></p>
+<p><strong>a. Level sets of linear functions of two variables</strong></p>
 </div>
 <div class="callout-content">
-<p>Convert the following standard equations to affine equations:</p>
+<p>Consider the linear function with point-slope equation <span class="math display">\[
+z = f(x,y) = x - 2y + 3.
+\]</span></p>
 <ol type="i">
-<li><span class="math inline">\(4(x-1) + 2(y-2) - 5(z-3) = 0\)</span></li>
-<li><span class="math inline">\((x-1) + 3(y-2) = 0\)</span></li>
-<li><span class="math inline">\(2(y-1) - (z-2) = 0\)</span></li>
-<li><span class="math inline">\(2(x-8) = 0\)</span></li>
+<li>If we intersect the graph of <span class="math inline">\(f\)</span> with the plane <span class="math inline">\(z = 0\)</span>, what sort of shape do we get?</li>
+<li>If we intersect it with the plane <span class="math inline">\(z = 1\)</span>, what sort of shape do we get?</li>
+<li>What about the planes <span class="math inline">\(z = -1\)</span> and <span class="math inline">\(z = 10\)</span>?</li>
 </ol>
+<p>These intersections are called <strong>level sets</strong> of the function.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>c.&nbsp;From affine equations to point-slope equations</strong></p>
+<p><strong>b. Level sets of linear functions of three variables</strong></p>
 </div>
 <div class="callout-content">
-<p>Convert the following affine equations to point-slope equations, if possible.</p>
+<p>Consider the linear function with point-slope equation</p>
+<p><span class="math display">\[
+w = f(x,y,z) = 2x - y + 3z + 4.
+\]</span></p>
 <ol type="i">
-<li><span class="math inline">\(2x - 3y + z = 5\)</span></li>
-<li><span class="math inline">\(6x + y = 1\)</span></li>
-<li><span class="math inline">\(2y - 3z = 2\)</span></li>
-<li><span class="math inline">\(x = 4\)</span></li>
+<li>If we intersect the graph of <span class="math inline">\(f\)</span> with the hyperplane <span class="math inline">\(w = 0\)</span>, what sort of shape do we get?</li>
+<li>If we intersect it with the hyperplane <span class="math inline">\(w = 1\)</span>, what sort of shape do we get?</li>
 </ol>
+<p>These intersections are called <strong>level sets</strong> of the function.</p>
 </div>
 </div>
 </div>

@@ -372,7 +372,7 @@ X: \Omega \to \mathbb{R}^2, \quad X(\omega) = \begin{cases}
 \end{cases}
 \]</span></p>
 <p>on the sample space <span class="math inline">\(\Omega = \{1,2,3,4\}\)</span>.</p>
-<div id="ee7d922f" class="cell" data-execution_count="1">
+<div id="9b482670" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> RandomVector, SampleSpace</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="op">=</span> SampleSpace().from_sequence(size<span class="op">=</span><span class="dv">4</span>, initial_index<span class="op">=</span><span class="dv">1</span>)</span>
@@ -399,7 +399,7 @@ sample
 </div>
 <p>In the printout, we see that the data columns are indexed by <code>X_0</code> and <code>X_1</code>, corresponding to the two component random variables of the random vector. The rows are indexed by the sample points in <span class="math inline">\(\Omega\)</span>.</p>
 <p>The component random variables may be easily extracted using the appropriate method:</p>
-<div id="48e79c40" class="cell" data-execution_count="2">
+<div id="5d616d8d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X.get_component_rv(<span class="st">"X_0"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -414,7 +414,7 @@ sample
 </div>
 </div>
 <p>Random vectors and variables are functions, which is reflected in their implementation in SigAlg by making both types of objects callable:</p>
-<div id="95adcbc1" class="cell" data-execution_count="3">
+<div id="c4c89049" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Calling a random vector returns a feature vector:"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X(<span class="dv">1</span>))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Calling a random variable returns a scalar:"</span>)</span>
@@ -432,7 +432,7 @@ X_0(2) =  3</code></pre>
 </div>
 </div>
 <p>The <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\sigma(X)\)</span> and <span class="math inline">\(\sigma(X_0)\)</span> may be obtained through the <code>sigma_algebra</code> attribute:</p>
-<div id="044bf176" class="cell" data-execution_count="4">
+<div id="e6bf8a97" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.sigma_algebra)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, X_0.sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -459,7 +459,7 @@ sample
 \sigma(X_0, X_1) = \sigma(X)
 \]</span></p>
 <p>of <span class="math inline">\(\sigma\)</span>-algebras. Let’s verify this equality in SigAlg. First, let’s get the second component random variable:</p>
-<div id="357c5cdd" class="cell" data-execution_count="5">
+<div id="13e660b2" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X.get_component_rv(<span class="st">"X_1"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_1.sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -474,7 +474,7 @@ sample
 </div>
 </div>
 <p>Now, to manufacture <span class="math inline">\(\sigma(X_0,X_1)\)</span> from the individual <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\sigma(X_0)\)</span> and <span class="math inline">\(\sigma(X_1)\)</span>, we use the <code>join</code> function:</p>
-<div id="5faea522" class="cell" data-execution_count="6">
+<div id="7b168739" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> join</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sigma_X0_X1 <span class="op">=</span> join([X_0.sigma_algebra, X_1.sigma_algebra]).with_name(<span class="st">"sigma(X_0,X_1)"</span>)</span>
@@ -603,7 +603,7 @@ f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
 <h2 class="anchored" data-anchor-id="example-a-coin-with-momentum">Example: a coin with momentum</h2>
 <p>Let’s explore these ideas with a concrete example in a “coin flip with momentum” experiment. This means that we observe a sequence of coin flips where the outcome (head or tail) of each flip depends on the outcome of the previous flip, introducing a “momentum” or “inertia” effect. Specifically, if the previous flip was a head, the current coin is more likely to land heads again, and similarly for tails.</p>
 <p>This experiment can be modeled in SigAlg using a Markov chain. To do this, we first begin with the state space:</p>
-<div id="894fca1b" class="cell" data-execution_count="7">
+<div id="6ddf7317" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>states <span class="op">=</span> SampleSpace(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"states"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    data_name<span class="op">=</span><span class="st">"state"</span>,</span>
@@ -620,7 +620,7 @@ f(Y(\omega)) = (h\circ \pi)(y_j) = h(y_j) = x_i = X(\omega).
 P(X_1=1) = P(X_1 = 0) = 0.5.
 \]</span></p>
 <p>In the terminology of Markov chains, this is called the <em>initial distribution</em> and is often written as <span class="math inline">\(\pi\)</span>. In SigAlg, we write:</p>
-<div id="e034dedc" class="cell" data-execution_count="8">
+<div id="80da24cf" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> ProbabilityMeasure</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> ProbabilityMeasure(</span>
@@ -659,7 +659,7 @@ P(X_t=0 \mid X_{t-1}=1) &amp; P(X_t=1 \mid X_{t-1}=1)
 P(X_t = 1 \mid X_{t-1} = 1) = 0.8 \quad \text{and} \quad P(X_t = 0 \mid X_{t-1} = 0) = 0.7,
 \]</span></p>
 <p>so that if the previous flip was a head, the current coin is more likely to land heads again, and similarly for tails. (This is exactly the “momentum” effect we described above.) The transition matrix <span class="math inline">\(K\)</span> is implemented in SigAlg as follows:</p>
-<div id="cbbe74ab" class="cell" data-execution_count="9">
+<div id="2c788bef" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> pd.DataFrame(</span>
@@ -680,7 +680,7 @@ state
 </div>
 </div>
 <p>Suppose that we flip the coin four times, producing a Markov chain <span class="math inline">\(X = (X_1,X_2,X_3,X_4)\)</span> on the index set <span class="math inline">\(T = \{1,2,3,4\}\)</span>. Since there are two states and four flips, there are <span class="math inline">\(2^4 = 16\)</span> possible trajectories:</p>
-<div id="47d2eed0" class="cell" data-execution_count="10">
+<div id="6b156831" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> MarkovChain</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -742,7 +742,7 @@ P(X_1 = x_1, X_2 = x_2, X_3 = x_3, X_4 = x_4) &amp;= P(X_1=x_1)\\
 P(X_1 = 1, X_2 = 1, X_3 = 0, X_4 = 1) = 0.5 \times 0.8 \times 0.2 \times 0.3 = 0.024.
 \]</span></p>
 <p>This may be confirmed in SigAlg:</p>
-<div id="235e7703" class="cell" data-execution_count="11">
+<div id="0e5c24a4" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>probability <span class="op">=</span> X.probability_measure(<span class="dv">13</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(probability, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -751,7 +751,7 @@ P(X_1 = 1, X_2 = 1, X_3 = 0, X_4 = 1) = 0.5 \times 0.8 \times 0.2 \times 0.3 = 0
 </div>
 </div>
 <p>We can simulate longer chains of coin flips using this Markov chain model. Below, we simulate a single trajectory of length 50 and plot the individual coin flip outcomes as well as the cumulative number of heads over time.</p>
-<div id="9e86660e" class="cell" data-execution_count="12">
+<div id="3da28ed9" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
@@ -776,7 +776,7 @@ P(X_1 = 1, X_2 = 1, X_3 = 0, X_4 = 1) = 0.5 \times 0.8 \times 0.2 \times 0.3 = 0
 </div>
 </div>
 <p>We can also simulate multiple trajectories to see how the number of heads varies across different runs of the experiment. Below, we simulate 10 chains of length 250 and plot the cumulative number of heads for each simulation.</p>
-<div id="463fb286" class="cell" data-execution_count="13">
+<div id="0c1d7c22" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, stop<span class="op">=</span><span class="dv">250</span>)</span>
@@ -1196,14 +1196,14 @@ L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
 </section>
 <section id="return-to-the-coin-flip-with-momentum" class="level2">
 <h2 class="anchored" data-anchor-id="return-to-the-coin-flip-with-momentum">Return to the coin flip with momentum</h2>
-<div id="8cef00e7" class="cell" data-execution_count="14">
+<div id="12648a54" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mc.generate_sample_space(trajectory_length=4)</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print_html_df(df=mc.omega, title="probability space for coin flips with momentum")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="e545b3ac" class="cell" data-execution_count="15">
+<div id="b13a74f9" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S3 = X1 + X2 + X3</span></span>
@@ -1224,7 +1224,7 @@ L^2(\mathcal{G}) \subset L^2(\mathcal{H}) \subset L^2(\mathcal{F}).
 </details>
 </div>
 <p>We have a submartingale!</p>
-<div id="51a9f60b" class="cell" data-execution_count="16">
+<div id="37726069" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the random variable S2 = X1 + X2</span></span>

@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>john myers, ph.d. – 03 Planes and linear spaces, part 1</title>
+  <title>john myers, ph.d. – 04 General PDEs and boundary conditions</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,274 +136,204 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">03 Planes and linear spaces, part 1</h1>
+  <h1 class="title">04 General PDEs and boundary conditions</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section>
-<section id="planes-in-mathbbr3" class="title-slide slide level1 center">
-<h1>Planes in <span class="math inline">\(\mathbb{R}^3\)</span></h1>
-
+<section id="domains-of-pdes" class="slide level2 scrollable">
+<h2>Domains of PDEs</h2>
+<ul>
+<li class="fragment">Solutions to PDEs are functions, often of the form <span class="math display">\[
+u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
+\]</span></li>
+<li class="fragment">PDEs are often only considered over a certain domain.</li>
+<li class="fragment">If <span class="math inline">\(u\)</span> is “time-dependent”, this domain often has a “spatial” part and a “time” part.</li>
+</ul>
 </section>
-<section id="point-slope-equations-of-planes" class="slide level2">
-<h2>Point-slope equations of planes</h2>
+<section id="exercise-1-domains-of-pdes" class="slide level2 scrollable">
+<h2>Exercise 1: Domains of PDEs</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>a. Domains of the heat equation</strong></p>
+</div>
+<div class="callout-content">
+<p>For each of the following heat equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.</p>
+<ol type="i">
+<li>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a metal rod of length <span class="math inline">\(L\)</span>.</li>
+<li>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a metal plate of width <span class="math inline">\(x_0\)</span> and height <span class="math inline">\(y_0\)</span>.</li>
+<li>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a solid metal sphere of radius <span class="math inline">\(r\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>b. Domains of the wave equation</strong></p>
+</div>
+<div class="callout-content">
+<p>For each of the following wave equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.</p>
+<ol type="i">
+<li>The displacement <span class="math inline">\(u\)</span> at a certain position and time of a vibrating string of length <span class="math inline">\(L\)</span>.</li>
+<li>The displacement <span class="math inline">\(u\)</span> at a certain position and time of a vibrating drum of radius <span class="math inline">\(r\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>c.&nbsp;Domains of Laplace’s equation</strong></p>
+</div>
+<div class="callout-content">
+<p>For each of the following Laplace’s equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.</p>
+<ol type="i">
+<li>The steady-state temperature <span class="math inline">\(u\)</span> at a certain position of a metal plate of width <span class="math inline">\(x_0\)</span> and height <span class="math inline">\(y_0\)</span>. (<em>Hint</em>: “steady-state” means that the temperature does not change with time.)</li>
+<li>The steady-state temperature <span class="math inline">\(u\)</span> at a certain position of a solid metal sphere of radius <span class="math inline">\(r\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-differential-operators" class="slide level2 scrollable">
+<h2>Linear differential operators</h2>
+<ul>
+<li class="fragment"><p>Recall (from the exercises!) that a linear differential operator <span class="math inline">\(L\)</span> is something of the form <span class="math display">\[
+L(u) = au + \sum_{i=1}^n b_i \frac{\partial u}{\partial x_i} + \sum_{i,j=1}^n c_{ij}\frac{\partial^2 u}{\partial x_i \partial x_j} + \cdots,
+\]</span> where the sum only includes finitely many terms, and the coefficients are functions only of the independent variables.</p></li>
+<li class="fragment"><p>For example, the Laplacian is such an operator: <span class="math display">\[
+\nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
+\]</span> If we set <span class="math inline">\(\nabla^2 u=0\)</span>, we get Laplace’s equation.</p></li>
+<li class="fragment"><p>For another example, the operator <span class="math display">\[
+L(u) = \frac{\partial u}{\partial t} - k \nabla^2 u,
+\]</span> is linear. If we set <span class="math inline">\(L(u)=0\)</span>, we get the heat equation.</p></li>
+<li class="fragment"><p>For a third example, the operator <span class="math display">\[
+L(u) = \frac{\partial^2 u}{\partial t^2} - a^2 \nabla^2 u,
+\]</span> is linear. If we set <span class="math inline">\(L(u)=0\)</span>, we get the wave equation.</p></li>
+</ul>
+</section>
+<section id="linear-pdes" class="slide level2 scrollable">
+<h2>Linear PDEs</h2>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Point-slope equation for a line in <span class="math inline">\(\mathbb{R}^2\)</span></strong></p>
+<p><strong>Linear PDEs</strong></p>
 </div>
 <div class="callout-content">
-<ul>
-<li class="fragment">The <strong>point-slope equation for a line</strong> through a point <span class="math inline">\((x_0,y_0)\)</span> with slope <span class="math inline">\(m\)</span> is <span class="math display">\[
-y = m(x-x_0) + y_0.
-\]</span></li>
-</ul>
+<p>A <strong>linear partial differential equation</strong> consists of the following:</p>
+<ol type="1">
+<li class="fragment"><p>An equation <span class="math inline">\(L(u) = f\)</span>, where <span class="math inline">\(L\)</span> is a linear differential operator and <span class="math inline">\(f\)</span> is some function of the independent variables (but not of <span class="math inline">\(u\)</span> or its derivatives).</p></li>
+<li class="fragment"><p>A specification of the domain over which the equation is considered, i.e., the domains of the solution <span class="math inline">\(u\)</span> and the function <span class="math inline">\(f\)</span>.</p></li>
+</ol>
 </div>
 </div>
 </div>
 </div>
-<ul>
-<li class="fragment">We interpret the slope <span class="math inline">\(m\)</span> as the slope in the <em>positive</em> <span class="math inline">\(x\)</span>-direction.</li>
-</ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Point-slope equation for a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
+<p><strong>Theorem (Superposition principle for homogeneous linear PDEs).</strong></p>
 </div>
 <div class="callout-content">
-<ul>
-<li class="fragment">The <strong>point-slope equation for a plane</strong> through a point <span class="math inline">\((x_0,y_0,z_0)\)</span> with slope <span class="math inline">\(m\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(n\)</span> in the positive <span class="math inline">\(y\)</span>-direction is <span class="math display">\[
-z = m(x-x_0) + n(y-y_0) + z_0.
-\]</span></li>
-</ul>
+<p>If <span class="math inline">\(u_1, u_2, \dots, u_n\)</span> are solutions to a homogeneous linear PDE, then any linear combination <span class="math display">\[
+u = a_1 u_1 + a_2 u_2 + \dots + a_n u_n
+\]</span> is also a solution, where <span class="math inline">\(a_1, a_2, \dots, a_n\)</span> are constants.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-1-point-slope-equations" class="slide level2">
-<h2>Exercise 1: Point-slope equations</h2>
+<section id="exercise-2-solutions-to-non-homogeneous-linear-pdes" class="slide level2 scrollable">
+<h2>Exercise 2: Solutions to non-homogeneous linear PDEs</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
+<p>Let <span class="math inline">\(L(u)=f\)</span> be a non-homogeneous linear PDE, and let <span class="math inline">\(u_p\)</span> be a <strong>particular solution</strong> to this PDE (i.e., <span class="math inline">\(L(u_p)=f\)</span>).</p>
 <ol type="a">
-<li><p>Compute the point-slope equation for a plane through the point <span class="math inline">\((1,2,3)\)</span> with slope <span class="math inline">\(2\)</span> in the positive <span class="math inline">\(x\)</span>-direction and slope <span class="math inline">\(-1\)</span> in the positive <span class="math inline">\(y\)</span>-direction.</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 4(x-2) - 3(y-2) + 5.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 3x+ 4.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
-<li><p>The point-slope equation of a plane is <span class="math display">\[
-z = 0.
-\]</span> Through what point does this plane pass? What are the slopes in the <span class="math inline">\(+x\)</span> and <span class="math inline">\(+y\)</span> directions?</p></li>
+<li><p>Let <span class="math inline">\(u_h\)</span> be a solution to the corresponding homogeneous PDE (i.e., <span class="math inline">\(L(u_h)=0\)</span>). Show that <span class="math inline">\(u = u_p + u_h\)</span> is also a solution to the non-homogeneous PDE.</p></li>
+<li><p>Show that if <span class="math inline">\(u\)</span> is any solution to the non-homogeneous PDE, then <span class="math inline">\(u - u_p\)</span> is a solution to the homogeneous PDE.</p></li>
+<li><p>Conclude that any solution <span class="math inline">\(u\)</span> to the non-homogeneous PDE can be expressed as <span class="math display">\[
+u = u_p + u_h,
+\]</span> where <span class="math inline">\(u_h\)</span> is a solution to the homogeneous PDE.</p></li>
 </ol>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-2-linear-models" class="slide level2 scrollable">
-<h2>Exercise 2: Linear models</h2>
+<section id="boundary-and-initial-conditions" class="slide level2 scrollable">
+<h2>Boundary and initial conditions</h2>
+<ul>
+<li class="fragment">Consider a linear PDE <span class="math inline">\(L(u) = f\)</span> defined over a fixed domain <span class="math inline">\(D\)</span>.</li>
+<li class="fragment">As we saw, the domain <span class="math inline">\(D\)</span> may, or may not, have a “time part”. If it does, then the other part of the domain is called the “spatial part”.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Boundary and initial conditions</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment"><p>A <strong>boundary condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (or its derivatives) at the boundary of the spatial part of the domain <span class="math inline">\(D\)</span>.</p></li>
+<li class="fragment"><p>If the domain has a time part, an <strong>initial condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (or its derivatives) at the initial time (usually <span class="math inline">\(t=0\)</span>).</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Types of boundary conditions</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment"><p><strong>Dirichlet boundary condition</strong>: specifies the value of <span class="math inline">\(u\)</span> at the boundary of the spatial part of the domain.</p></li>
+<li class="fragment"><p><strong>Neumann boundary condition</strong>: specifies the value of the normal derivative of <span class="math inline">\(u\)</span> at the boundary of the spatial part of the domain.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Boundary and initial value problems</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment"><p>A <strong>boundary value problem</strong> is a linear PDE together with a specification of boundary conditions.</p></li>
+<li class="fragment"><p>An <strong>initial value problem</strong> is a linear PDE together with a specification of initial conditions.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-boundary-and-initial-conditions" class="slide level2 scrollable">
+<h2>Exercise 3: Boundary and initial conditions</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The profit, <span class="math inline">\(p\)</span>, that a company makes depends on the number of two types of gadgets that it produces, Gadget 1 and Gadget 2. Let <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_2\)</span> be the number of gadgets that are manufactured of each type, and suppose they sell for <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span> dollars (per gadget), respectively. Suppose the company believes that the profit depends linearly on the number of gadgets produced.</p>
-<p>Let <span class="math inline">\(p = f(g_1,g_2)\)</span> be the profit function, and assume that if no gadgets are products, then <span class="math inline">\(p=0\)</span>.</p>
-<ol type="a">
-<li><p>What is the domain of <span class="math inline">\(f\)</span>? What is its codomain?</p></li>
-<li><p>Find a formula for the profit function <span class="math inline">\(p = f(g_1, g_2)\)</span>.</p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="vector-equations-of-planes" class="slide level2 scrollable">
-<h2>Vector equations of planes</h2>
-<ul>
-<li class="fragment">Suppose a point <span class="math inline">\((x,y,z)\)</span> lies on a plane with equation <span class="math display">\[
-z = m(x-x_0) + n(y-y_0) + z_0.
-\]</span></li>
-<li class="fragment">The two points <span class="math inline">\((x,y,z)\)</span> and <span class="math inline">\((x_0,y_0,z_0)\)</span> have position vectors <span class="math display">\[
-\mathbf{r} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} \quad \text{and} \quad \mathbf{r}_0 = \begin{bmatrix} x_0 \\ y_0 \\ z_0 \end{bmatrix}.
-\]</span></li>
-<li class="fragment">If the vector <span class="math inline">\(\mathbf{r}-\mathbf{r_0}\)</span> has its tail moved to the point <span class="math inline">\((x_0,y_0,z_0)\)</span>, then it <em>lies in the plane</em>. Draw the picture!</li>
-<li class="fragment">Define <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
-\]</span> which is an example of a <strong>normal vector</strong> to the plane. (See below.)</li>
-<li class="fragment">Then, observe: <span class="math display">\[
-\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = \left\langle \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix}, \begin{bmatrix} x-x_0 \\ y-y_0 \\ z-z_0 \end{bmatrix} \right\rangle = -m(x-x_0) -n(y-y_0) + (z-z_0) = 0.
-\]</span></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Vector equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
-</div>
-<div class="callout-content">
-<p>Let <span class="math inline">\(\mathbf{n}\)</span> and <span class="math inline">\(\mathbf{r}_0\)</span> be two given vectors in <span class="math inline">\(\mathbb{R}^3\)</span>. A <strong>vector equation</strong> of the plane with <strong>normal vector</strong> <span class="math inline">\(\mathbf{n}\)</span>, passing through the point with position vector <span class="math inline">\(\mathbf{r}_0\)</span>, is <span class="math display">\[
-\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = 0,
-\]</span> where <span class="math inline">\(\mathbf{r}\)</span> is a variable position vector in <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment"><em>Any</em> vector that is orthogonal to all vectors in a plane is called a <strong>normal vector</strong> to the plane.</li>
-</ul>
-</section>
-<section id="standard-equations-of-planes" class="slide level2 scrollable">
-<h2>Standard equations of planes</h2>
-<ul>
-<li class="fragment">If a plane has a point-slope equation, then a normal vector can always be found of the form <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
-\]</span> as we saw on the prevoius slide.</li>
-<li class="fragment">But not all planes have normal vectors of this special form!</li>
-<li class="fragment">So, we must resort to the vector equation. If we write <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix},
-\]</span> and expand the inner product in the vector equation, we get the following:</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Standard equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
-</div>
-<div class="callout-content">
-<p>A <strong>standard equation</strong> of a plane in <span class="math inline">\(\mathbb{R}^3\)</span> passing through the point <span class="math inline">\((x_0,y_0,z_0)\)</span> is <span class="math display">\[
-a(x-x_0) + b(y-y_0) + c(z-z_0) = 0,
-\]</span> where <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are components of a normal vector <span class="math inline">\(\mathbf{n}\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-3-normal-vectors-and-standard-equations" class="slide level2 scrollable">
-<h2>Exercise 3: Normal vectors and standard equations</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>a. Practice with normal vectors</strong></p>
-</div>
-<div class="callout-content">
+<p>For each of the following scenarios, identify the type of PDE (e.g., heat equation, wave equation, Laplace’s equation), the domain <span class="math inline">\(D\)</span> of the problem and describe the boundary and/or initial conditions that would be appropriate for the scenario. Are the boundary conditions Dirichlet or Neumann?</p>
 <ol type="i">
-<li>Find a normal vector to the plane <span class="math inline">\(z = 2(x-1) - (y-2) + 3\)</span>.</li>
-<li>Find a normal vector to the plane <span class="math inline">\(z = 4(x-2) + 5\)</span>.</li>
-<li>Find a normal vector to the plane <span class="math inline">\(z = -y\)</span>.</li>
-<li>Find a normal vector to the plane <span class="math inline">\(x=2\)</span>.</li>
-<li>Find a point-slope equation of the plane with normal vector <span class="math display">\[
-\mathbf{n} = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}
-\]</span> passing through the point <span class="math inline">\((1,2,3)\)</span>.</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>b. Normal vectors and the coordinate planes</strong></p>
-</div>
-<div class="callout-content">
-<ol type="i">
-<li>Find a normal vector to the <span class="math inline">\(xy\)</span>-plane in <span class="math inline">\(\mathbb{R}^3\)</span>.</li>
-<li>Find a normal vector to the <span class="math inline">\(xz\)</span>-plane in <span class="math inline">\(\mathbb{R}^3\)</span>.</li>
-<li>Find a normal vector to the <span class="math inline">\(yz\)</span>-plane in <span class="math inline">\(\mathbb{R}^3\)</span>.</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>b. Normal vectors and standard equations</strong></p>
-</div>
-<div class="callout-content">
-<ol type="i">
-<li>Find a normal vector to the plane with standard equation <span class="math inline">\(2(x-2) - 3y + z = 0\)</span>. Identify a point on this plane.</li>
-<li>A plane passes through the point <span class="math inline">\((1,2,-1)\)</span> and has normal vector <span class="math inline">\(\mathbf{e}_2\)</span>. Find its standard equation.</li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="affine-equations-of-planes" class="slide level2 scrollable">
-<h2>Affine equations of planes</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Affine equation of a plane in <span class="math inline">\(\mathbb{R}^3\)</span></strong></p>
-</div>
-<div class="callout-content">
-<p>An <strong>affine equation</strong> for a plane in <span class="math inline">\(\mathbb{R}^3\)</span> is <span class="math display">\[
-ax + by + cz = d,
-\]</span></p>
-<p>where:</p>
-<ul>
-<li><span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> are constants,</li>
-<li>not all of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are <span class="math inline">\(0\)</span>, and</li>
-<li>the numbers <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are the components of a normal vector to the plane.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-4-affine-equations" class="slide level2 scrollable">
-<h2>Exercise 4: Affine equations</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>a. From affine equations to standard equations</strong></p>
-</div>
-<div class="callout-content">
-<p>Convert the following affine equations to standard equations. Give a normal vector and a point on each plane.</p>
-<ol type="i">
-<li><span class="math inline">\(2x - 3y + z = 5\)</span></li>
-<li><span class="math inline">\(x + y  = 1\)</span></li>
-<li><span class="math inline">\(2y - z = 2\)</span></li>
-<li><span class="math inline">\(x = 4\)</span></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>b. From standard equations to affine equations</strong></p>
-</div>
-<div class="callout-content">
-<p>Convert the following standard equations to affine equations:</p>
-<ol type="i">
-<li><span class="math inline">\(4(x-1) + 2(y-2) - 5(z-3) = 0\)</span></li>
-<li><span class="math inline">\((x-1) + 3(y-2) = 0\)</span></li>
-<li><span class="math inline">\(2(y-1) - (z-2) = 0\)</span></li>
-<li><span class="math inline">\(2(x-8) = 0\)</span></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>c.&nbsp;From affine equations to point-slope equations</strong></p>
-</div>
-<div class="callout-content">
-<p>Convert the following affine equations to point-slope equations, if possible.</p>
-<ol type="i">
-<li><span class="math inline">\(2x - 3y + z = 5\)</span></li>
-<li><span class="math inline">\(6x + y = 1\)</span></li>
-<li><span class="math inline">\(2y - 3z = 2\)</span></li>
-<li><span class="math inline">\(x = 4\)</span></li>
+<li><p>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a metal rod of length <span class="math inline">\(L\)</span> that is insulated at both ends and is known to have an initial temperature profile.</p></li>
+<li><p>The displacement <span class="math inline">\(u\)</span> at a certain position and time of a vibrating string of length <span class="math inline">\(L\)</span> that is fixed at both ends, given that the string is initially at rest but has an initial displacement profile.</p></li>
+<li><p>The steady-state temperature <span class="math inline">\(u\)</span> at a certain position of a metal plate of width <span class="math inline">\(x_0\)</span> and height <span class="math inline">\(y_0\)</span> that is held at a constant temperature along its boundary and has an initial temperature distribution.</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
