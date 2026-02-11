@@ -148,8 +148,8 @@
 <li class="fragment">Solutions to PDEs are functions, often of the form <span class="math display">\[
 u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
 \]</span></li>
-<li class="fragment">PDEs are often only considered over a certain domain.</li>
-<li class="fragment">If <span class="math inline">\(u\)</span> is “time-dependent”, this domain often has a “spatial” part and a “time” part.</li>
+<li class="fragment">PDEs are only considered over a certain domain <span class="math inline">\(D\)</span>, given to us as part of the problem statement.</li>
+<li class="fragment">If <span class="math inline">\(u\)</span> is “time-dependent”, this domain consists of a “spatial slice” that is extended through time.</li>
 </ul>
 </section>
 <section id="exercise-1-domains-of-pdes" class="slide level2 scrollable">
@@ -160,7 +160,7 @@ u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
 <p><strong>a. Domains of the heat equation</strong></p>
 </div>
 <div class="callout-content">
-<p>For each of the following heat equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.</p>
+<p>For each of the following heat equation scenarios, describe the domain of the PDE, including its dimension. If the solutions are time-dependent, identify the spatial slices of the domain and the initial spatial slice.</p>
 <ol type="i">
 <li>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a metal rod of length <span class="math inline">\(L\)</span>.</li>
 <li>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a metal plate of width <span class="math inline">\(x_0\)</span> and height <span class="math inline">\(y_0\)</span>.</li>
@@ -175,7 +175,7 @@ u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
 <p><strong>b. Domains of the wave equation</strong></p>
 </div>
 <div class="callout-content">
-<p>For each of the following wave equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.</p>
+<p>For each of the following wave equation scenarios, describe the domain of the PDE, including its dimension. If the solutions are time-dependent, identify the spatial slices of the domain and the initial spatial slice.</p>
 <ol type="i">
 <li>The displacement <span class="math inline">\(u\)</span> at a certain position and time of a vibrating string of length <span class="math inline">\(L\)</span>.</li>
 <li>The displacement <span class="math inline">\(u\)</span> at a certain position and time of a vibrating drum of radius <span class="math inline">\(r\)</span>.</li>
@@ -189,9 +189,9 @@ u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
 <p><strong>c.&nbsp;Domains of Laplace’s equation</strong></p>
 </div>
 <div class="callout-content">
-<p>For each of the following Laplace’s equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.</p>
+<p>For each of the following Laplace’s equation scenarios, describe the domain of the PDE, including its dimension. If the solutions are time-dependent, identify the spatial slices of the domain and the initial spatial slice.</p>
 <ol type="i">
-<li>The steady-state temperature <span class="math inline">\(u\)</span> at a certain position of a metal plate of width <span class="math inline">\(x_0\)</span> and height <span class="math inline">\(y_0\)</span>. (<em>Hint</em>: “steady-state” means that the temperature does not change with time.)</li>
+<li>The steady-state temperature <span class="math inline">\(u\)</span> at a certain position of a metal plate of width <span class="math inline">\(x_0\)</span> and height <span class="math inline">\(y_0\)</span>. (<em>Hint</em>: “steady-state” means time-independent.)</li>
 <li>The steady-state temperature <span class="math inline">\(u\)</span> at a certain position of a solid metal sphere of radius <span class="math inline">\(r\)</span>.</li>
 </ol>
 </div>
@@ -203,10 +203,10 @@ u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
 <ul>
 <li class="fragment"><p>Recall (from the exercises!) that a linear differential operator <span class="math inline">\(L\)</span> is something of the form <span class="math display">\[
 L(u) = au + \sum_{i=1}^n b_i \frac{\partial u}{\partial x_i} + \sum_{i,j=1}^n c_{ij}\frac{\partial^2 u}{\partial x_i \partial x_j} + \cdots,
-\]</span> where the sum only includes finitely many terms, and the coefficients are functions only of the independent variables.</p></li>
+\]</span> where the sum only includes finitely many terms, and the coefficients <span class="math inline">\(a, b_i, c_{ij}, \ldots\)</span> are functions only of the independent variables.</p></li>
 <li class="fragment"><p>For example, the Laplacian is such an operator: <span class="math display">\[
-\nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
-\]</span> If we set <span class="math inline">\(\nabla^2 u=0\)</span>, we get Laplace’s equation.</p></li>
+L(u) = \nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
+\]</span> If we set <span class="math inline">\(L(u)=0\)</span>, we get Laplace’s equation.</p></li>
 <li class="fragment"><p>For another example, the operator <span class="math display">\[
 L(u) = \frac{\partial u}{\partial t} - k \nabla^2 u,
 \]</span> is linear. If we set <span class="math inline">\(L(u)=0\)</span>, we get the heat equation.</p></li>
@@ -227,12 +227,15 @@ L(u) = \frac{\partial^2 u}{\partial t^2} - a^2 \nabla^2 u,
 <p>A <strong>linear partial differential equation</strong> consists of the following:</p>
 <ol type="1">
 <li class="fragment"><p>An equation <span class="math inline">\(L(u) = f\)</span>, where <span class="math inline">\(L\)</span> is a linear differential operator and <span class="math inline">\(f\)</span> is some function of the independent variables (but not of <span class="math inline">\(u\)</span> or its derivatives).</p></li>
-<li class="fragment"><p>A specification of the domain over which the equation is considered, i.e., the domains of the solution <span class="math inline">\(u\)</span> and the function <span class="math inline">\(f\)</span>.</p></li>
+<li class="fragment"><p>A specification of the domain <span class="math inline">\(D\)</span> over which the equation is considered, i.e., the domains of the solution <span class="math inline">\(u\)</span> and the function <span class="math inline">\(f\)</span>.</p></li>
 </ol>
 </div>
 </div>
 </div>
 </div>
+<ul>
+<li class="fragment">If <span class="math inline">\(f=0\)</span>, the PDE is called <strong>homogeneous</strong>. If <span class="math inline">\(f \neq 0\)</span>, the PDE is called <strong>non-homogeneous</strong>.</li>
+</ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -269,7 +272,6 @@ u = u_p + u_h,
 <h2>Boundary and initial conditions</h2>
 <ul>
 <li class="fragment">Consider a linear PDE <span class="math inline">\(L(u) = f\)</span> defined over a fixed domain <span class="math inline">\(D\)</span>.</li>
-<li class="fragment">As we saw, the domain <span class="math inline">\(D\)</span> may, or may not, have a “time part”. If it does, then the other part of the domain is called the “spatial part”.</li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -279,8 +281,15 @@ u = u_p + u_h,
 </div>
 <div class="callout-content">
 <ul>
-<li class="fragment"><p>A <strong>boundary condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (or its derivatives) at the boundary of the spatial part of the domain <span class="math inline">\(D\)</span>.</p></li>
-<li class="fragment"><p>If the domain has a time part, an <strong>initial condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (or its derivatives) at the initial time (usually <span class="math inline">\(t=0\)</span>).</p></li>
+<li class="fragment"><p>Suppose first <span class="math inline">\(u\)</span> is time-independent:</p>
+<ul>
+<li class="fragment">A <strong>boundary condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (and possibly its derivatives) on the boundary of <span class="math inline">\(D\)</span>.</li>
+</ul></li>
+<li class="fragment"><p>If <span class="math inline">\(u\)</span> is time-dependent:</p>
+<ul>
+<li class="fragment"><p>A <strong>boundary condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (and possibly its derivatives) on the boundary of the spatial slices of <span class="math inline">\(D\)</span>.</p></li>
+<li class="fragment"><p>An <strong>initial condition</strong> is a specification of the values of the solution <span class="math inline">\(u\)</span> (and possibly its derivatives) on the initial spatial slice of <span class="math inline">\(D\)</span>.</p></li>
+</ul></li>
 </ul>
 </div>
 </div>
@@ -294,8 +303,16 @@ u = u_p + u_h,
 </div>
 <div class="callout-content">
 <ul>
-<li class="fragment"><p><strong>Dirichlet boundary condition</strong>: specifies the value of <span class="math inline">\(u\)</span> at the boundary of the spatial part of the domain.</p></li>
-<li class="fragment"><p><strong>Neumann boundary condition</strong>: specifies the value of the normal derivative of <span class="math inline">\(u\)</span> at the boundary of the spatial part of the domain.</p></li>
+<li class="fragment"><p>Suppose first <span class="math inline">\(u\)</span> is time-independent:</p>
+<ul>
+<li class="fragment"><p><strong>Dirichlet boundary condition</strong>: specifies the value of <span class="math inline">\(u\)</span> on the boundary of <span class="math inline">\(D\)</span>.</p></li>
+<li class="fragment"><p><strong>Neumann boundary condition</strong>: specifies the value of the normal derivative of <span class="math inline">\(u\)</span> on the boundary of <span class="math inline">\(D\)</span>.</p></li>
+</ul></li>
+<li class="fragment"><p>If <span class="math inline">\(u\)</span> is time-dependent:</p>
+<ul>
+<li class="fragment"><p><strong>Dirichlet boundary condition</strong>: specifies the value of <span class="math inline">\(u\)</span> on the boundary of the spatial slices of <span class="math inline">\(D\)</span>.</p></li>
+<li class="fragment"><p><strong>Neumann boundary condition</strong>: specifies the value of the normal derivative of <span class="math inline">\(u\)</span> on the boundary of the spatial slices of <span class="math inline">\(D\)</span>.</p></li>
+</ul></li>
 </ul>
 </div>
 </div>
@@ -322,7 +339,7 @@ u = u_p + u_h,
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>For each of the following scenarios, identify the type of PDE (e.g., heat equation, wave equation, Laplace’s equation), the domain <span class="math inline">\(D\)</span> of the problem and describe the boundary and/or initial conditions that would be appropriate for the scenario. Are the boundary conditions Dirichlet or Neumann?</p>
+<p>For each of the following scenarios, identify the type of PDE (e.g., heat equation, wave equation, Laplace’s equation), whether the solution are time-dependent or time-independent, the domain <span class="math inline">\(D\)</span> of the problem, and describe the boundary and/or initial conditions that would be appropriate for the scenario.</p>
 <ol type="i">
 <li><p>The temperature <span class="math inline">\(u\)</span> at a certain position and time of a metal rod of length <span class="math inline">\(L\)</span> that is insulated at both ends and is known to have an initial temperature profile.</p></li>
 <li><p>The displacement <span class="math inline">\(u\)</span> at a certain position and time of a vibrating string of length <span class="math inline">\(L\)</span> that is fixed at both ends, given that the string is initially at rest but has an initial displacement profile.</p></li>
