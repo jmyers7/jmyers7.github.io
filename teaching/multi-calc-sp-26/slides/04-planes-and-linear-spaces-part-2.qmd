@@ -1,0 +1,249 @@
+---
+title: "04 Planes and linear spaces, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+# Warm-up exercises
+
+
+## Exercise 1: Temperatures
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Suppose a $3$-dimensional coordinate system has been set up in the classroom. The temperature, $T$, in degrees Fahrenheit, at a point in the classroom is a function of the coordinates $(x,y,z)$ of that point, $T = f(x,y,z)$. Suppose that distances are measured in feet, and that
+
+$$
+T = f(x,y,z) = 0.5x + 0.25y - 0.1z + 70.
+$$
+
+a. What is the temperature at the point $(0,0,0)$?
+
+b. What is the temperature at the point $(2,4,10)$?
+
+c. For every foot moved in the positive $x$-direction, how much does the temperature change?
+
+d. For every foot moved in the positive $y$-direction, how much does the temperature change?
+
+e. For every foot moved in the positive $z$-direction, how much does the temperature change?
+
+:::
+
+## Exercise 2: Production costs
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+A factory produces custom furniture. The total cost to produce one item of furniture, $C$, in dollars, depends on four variables:
+
+- $x$ = number of workers assigned
+- $y$ = hours of machine time used
+- $z$ = square feet of wood used
+- $w$ = gallons of finish/stain applied
+
+The cost function is:
+$$
+C = f(x,y,z,w) = 25x + 15y + 3z + 12w + 200.
+$$
+
+a. What is the base cost (when $x=y=z=w=0$)?
+
+b. What is the cost when $x=4$ workers, $y=8$ hours of machine time, $z=50$ square feet of wood, and $w=2$ gallons of finish are used?
+
+c. How much does the cost increase for each additional worker?
+
+d. How much does the cost increase for each additional square foot of wood?
+
+e. How much does the cost increase for each additional gallon of finish?
+
+:::
+
+## What do these exercises have in common?
+
+- The function in Exercise 1 is of the form
+$$
+w = m(x-x_0) + n(y-y_0) + p(z-z_0) + w_0.
+$$
+- The function in Exercise 2 is of the form
+$$
+u = m(x-x_0) + n(y-y_0) + p(z-z_0) + q(w-w_0) + u_0.
+$$
+- Do you see the pattern?!
+
+
+# Equations for hyperplanes
+
+## Point-slope equations of "hyperplanes" {.scrollable}
+
+- In two dimensions, we use the coordinates $(x,y)$.
+- In three dimensions, we use the coordinates $(x,y,z)$.
+- In four dimensions, we use the coordinates $(x,y,z,w)$.
+- In five dimensions, we use the coordinates $(x,y,z,w, u)$.
+- In $n$ dimensions, we use the coordinates $(x_1, x_2, \ldots, x_n)$.
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### Point-slope equation for a hyperplane in $\mathbb{R}^4$
+A **point-slope equation** for a hyperplane through a point $(x_0,y_0, z_0, w_0)$ with
+
+- slope $m$ in the positive $x$-direction,
+- slope $n$ in the positive $y$-direction, and
+- slope $p$ in the positive $z$-direction
+
+is
+$$
+w = m(x-x_0) + n(y-y_0) + p(z-z_0) + w_0.
+$$
+
+:::
+
+- Up one more dimension:
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### Point-slope equation for a hyperplane in $\mathbb{R}^5$
+A **point-slope equation** for a hyperplane through a point $(x_0,y_0, z_0, w_0, u_0)$ with
+
+- slope $m$ in the positive $x$-direction,
+- slope $n$ in the positive $y$-direction,
+- slope $p$ in the positive $z$-direction, and
+- slope $q$ in the positive $w$-direction
+
+is
+$$
+u = m(x-x_0) + n(y-y_0) + p(z-z_0) + q(w-w_0) + u_0.
+$$
+
+:::
+
+## The full story
+
+::: {.callout-note icon="false" .fragment}
+### Point-slope equation for a hyperplane in $\mathbb{R}^n$
+
+A **point-slope equation** for a hyperplane in $\mathbb{R}^n$ is
+$$
+x_n = m_1(x_1-p_1) + m_2(x_2-p_2) + \cdots + m_{n-1}(x_{n-1}-p_{n-1}) + p_{n},
+$$
+
+where $(p_1, p_2, \ldots, p_{n})$ is a point in $\mathbb{R}^n$ and $m_1, m_2, \ldots, m_{n-1}$ are the slopes in the positive $x_1$, $x_2$, $\ldots$, $x_{n-1}$ directions.
+
+:::
+
+- You can't *see* the graphs of these hyperplanes when $n>3$, but that doesn't mean these are imaginary objects with no real-world applications.
+- If you doubt this, just look back at Exercises 1 and 2.
+
+
+## Vector, standard and affine equations {.scrollable}
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### Vector equation for a hyperplane in $\mathbb{R}^4$
+A **vector equation** for a hyperplane in $\mathbb{R}^4$ is
+$$
+\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = 0,
+$$
+
+where $\mathbf{n}$ is a normal vector to the hyperplane, $\mathbf{r}_0$ is the position vector of a point on the hyperplane, and $\mathbf{r}$ is a variable position vector.
+:::
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### Standard equation for a hyperplane in $\mathbb{R}^4$
+A **standard equation** for a hyperplane in $\mathbb{R}^4$ is
+$$
+a(x-x_0) + b(y-y_0) + c(z-z_0) + d(w-w_0) = 0,
+$$
+
+where $(x_0,y_0,z_0,w_0)$ is a point on the hyperplane and $a,b,c,d$ are the components of a normal vector to the hyperplane.
+:::
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### Affine equation for a hyperplane in $\mathbb{R}^4$
+
+An **affine equation** for a hyperplane in $\mathbb{R}^4$ is
+$$
+ax + by + cz + dw = e,
+$$
+
+where:
+
+- $a$, $b$, $c$, $d$, and $e$ are constants,
+- not all of $a$, $b$, $c$, and $d$ are $0$, and
+- the numbers $a$, $b$, $c$, and $d$ are the components of a normal vector to the hyperplane.
+:::
+
+
+## Exercise 3: Practice with equations of hyperplanes {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+### a. Point-slope equation to standard equation
+Consider the hyperplane in $\mathbb{R}^4$ with point-slope equation
+$$
+w = 2(x-1) - (y-2) + 3(z-3) + 4.
+$$
+
+Identify a point on the hyperplane. Write the equation in standard form and identify a normal vector to the hyperplane.
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+### b. Affine equation to standard equation
+Consider the hyperplane in $\mathbb{R}^4$ with affine equation
+$$
+2x - y + 3z - 3w = 4.
+$$  
+Identify a normal vector to the hyperplane. Write the equation in standard form and identify a point on the hyperplane.
+:::
+
+## Exercise 4: Identifying points on hyperplanes {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the hyperplane in $\mathbb{R}^5$ with affine equation
+
+$$
+3x - 2y + z + 4w - 5u = 7.
+$$
+
+a. Identify a normal vector to the hyperplane.
+b. Identify a point on the hyperplane.
+c. Where does the hyperplane intersect the $x$-axis?
+d. Where does the hyperplane intersect the $y$-axis?
+
+:::
+
+## Exercise 5: Level sets {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+### a. Level sets of linear functions of two variables
+
+Consider the linear function with point-slope equation
+$$
+z = f(x,y) = x - 2y + 3.
+$$
+
+i. If we intersect the graph of $f$ with the plane $z = 0$, what sort of shape do we get?
+ii. If we intersect it with the plane $z = 1$, what sort of shape do we get?
+iii. What about the planes $z = -1$ and $z = 10$?
+
+These intersections are called **level sets** of the function.
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+### b. Level sets of linear functions of three variables
+
+Consider the linear function with point-slope equation
+
+$$
+w = f(x,y,z) = 2x - y + 3z + 4.
+$$
+
+
+i. If we intersect the graph of $f$ with the hyperplane $w = 0$, what sort of shape do we get?
+ii. If we intersect it with the hyperplane $w = 1$, what sort of shape do we get?
+
+These intersections are called **level sets** of the function.
+:::

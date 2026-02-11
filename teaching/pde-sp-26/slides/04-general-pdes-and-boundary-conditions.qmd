@@ -1,0 +1,169 @@
+---
+title: "04 General PDEs and boundary conditions"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Domains of PDEs {.scrollable}
+
+- Solutions to PDEs are functions, often of the form
+$$
+u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
+$$
+- PDEs are often only considered over a certain domain.
+- If $u$ is "time-dependent", this domain often has a "spatial" part and a "time" part.
+
+## Exercise 1: Domains of PDEs {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+### a. Domains of the heat equation
+
+For each of the following heat equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain. 
+
+i. The temperature $u$ at a certain position and time of a metal rod of length $L$.
+ii. The temperature $u$ at a certain position and time of a metal plate of width $x_0$ and height $y_0$.
+iii. The temperature $u$ at a certain position and time of a solid metal sphere of radius $r$.
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+### b. Domains of the wave equation
+
+For each of the following wave equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.
+
+i. The displacement $u$ at a certain position and time of a vibrating string of length $L$.
+ii. The displacement $u$ at a certain position and time of a vibrating drum of radius $r$.
+
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+### c. Domains of Laplace's equation
+
+For each of the following Laplace's equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.
+
+i. The steady-state temperature $u$ at a certain position of a metal plate of width $x_0$ and height $y_0$. (*Hint*: "steady-state" means that the temperature does not change with time.)
+ii. The steady-state temperature $u$ at a certain position of a solid metal sphere of radius $r$.
+
+:::
+
+## Linear differential operators {.scrollable}
+
+- Recall (from the exercises!) that a linear differential operator $L$ is something of the form
+$$
+L(u) = au + \sum_{i=1}^n b_i \frac{\partial u}{\partial x_i} + \sum_{i,j=1}^n c_{ij}\frac{\partial^2 u}{\partial x_i \partial x_j} + \cdots,
+$$
+where the sum only includes finitely many terms, and the coefficients are functions only of the independent variables.
+
+- For example, the Laplacian is such an operator:
+$$
+\nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
+$$
+If we set $\nabla^2 u=0$, we get Laplace's equation.
+
+- For another example, the operator
+$$
+L(u) = \frac{\partial u}{\partial t} - k \nabla^2 u,
+$$
+is linear. If we set $L(u)=0$, we get the heat equation.
+
+- For a third example, the operator
+$$
+L(u) = \frac{\partial^2 u}{\partial t^2} - a^2 \nabla^2 u,
+$$
+is linear. If we set $L(u)=0$, we get the wave equation.
+
+
+## Linear PDEs {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Linear PDEs
+
+A **linear partial differential equation** consists of the following:
+
+1. An equation $L(u) = f$, where $L$ is a linear differential operator and $f$ is some function of the independent variables (but not of $u$ or its derivatives).
+
+2. A specification of the domain over which the equation is considered, i.e., the domains of the solution $u$ and the function $f$.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Superposition principle for homogeneous linear PDEs).
+
+If $u_1, u_2, \dots, u_n$ are solutions to a homogeneous linear PDE, then any linear combination
+$$
+u = a_1 u_1 + a_2 u_2 + \dots + a_n u_n
+$$
+is also a solution, where $a_1, a_2, \dots, a_n$ are constants.
+
+:::
+
+## Exercise 2: Solutions to non-homogeneous linear PDEs {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Let $L(u)=f$ be a non-homogeneous linear PDE, and let $u_p$ be a **particular solution** to this PDE (i.e., $L(u_p)=f$).
+
+a. Let $u_h$ be a solution to the corresponding homogeneous PDE (i.e., $L(u_h)=0$). Show that $u = u_p + u_h$ is also a solution to the non-homogeneous PDE.
+
+b. Show that if $u$ is any solution to the non-homogeneous PDE, then $u - u_p$ is a solution to the homogeneous PDE.
+
+c. Conclude that any solution $u$ to the non-homogeneous PDE can be expressed as
+$$
+u = u_p + u_h,
+$$
+where $u_h$ is a solution to the homogeneous PDE.
+
+:::
+
+## Boundary and initial conditions {.scrollable}
+
+- Consider a linear PDE $L(u) = f$ defined over a fixed domain $D$.
+- As we saw, the domain $D$ may, or may not, have a "time part". If it does, then the other part of the domain is called the "spatial part".
+
+::: {.callout-note icon="false" .fragment}
+### Boundary and initial conditions
+
+- A **boundary condition** is a specification of the values of the solution $u$ (or its derivatives) at the boundary of the spatial part of the domain $D$.
+
+- If the domain has a time part, an **initial condition** is a specification of the values of the solution $u$ (or its derivatives) at the initial time (usually $t=0$).
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Types of boundary conditions
+
+- **Dirichlet boundary condition**: specifies the value of $u$ at the boundary of the spatial part of the domain.
+
+- **Neumann boundary condition**: specifies the value of the normal derivative of $u$ at the boundary of the spatial part of the domain.
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Boundary and initial value problems
+
+- A **boundary value problem** is a linear PDE together with a specification of boundary conditions.
+
+- An **initial value problem** is a linear PDE together with a specification of initial conditions.
+
+:::
+
+
+## Exercise 3: Boundary and initial conditions {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+For each of the following scenarios, identify the type of PDE (e.g., heat equation, wave equation, Laplace's equation), the domain $D$ of the problem and describe the boundary and/or initial conditions that would be appropriate for the scenario. Are the boundary conditions Dirichlet or Neumann?
+
+i. The temperature $u$ at a certain position and time of a metal rod of length $L$ that is insulated at both ends and is known to have an initial temperature profile.
+
+ii. The displacement $u$ at a certain position and time of a vibrating string of length $L$ that is fixed at both ends, given that the string is initially at rest but has an initial displacement profile.
+
+iii. The steady-state temperature $u$ at a certain position of a metal plate of width $x_0$ and height $y_0$ that is held at a constant temperature along its boundary and has an initial temperature distribution.
+
+:::

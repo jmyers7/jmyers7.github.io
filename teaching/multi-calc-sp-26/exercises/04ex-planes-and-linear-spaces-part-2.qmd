@@ -1,0 +1,425 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 03 Planes and linear spaces, part 1
+
+## Exercise 1: Point-slope equations for planes
+
+Recall that the *point-slope equation* for a plane through a point $(x_0,y_0,z_0)$ with slope $m$ in the positive $x$-direction and slope $n$ in the positive $y$-direction is
+
+$$
+z = m(x-x_0) + n(y-y_0) + z_0.
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Find the point-slope equation for a plane through the point $(2, -1, 4)$ with slope $3$ in the positive $x$-direction and slope $-2$ in the positive $y$-direction.
+
+b. Find the point-slope equation for a plane through the origin with slope $1$ in the positive $x$-direction and slope $5$ in the positive $y$-direction.
+
+c. The point-slope equation of a plane is
+    $$
+    z = -2(x+3) + 4(y-1) + 7.
+    $$
+    Through what point does this plane pass? What are the slopes in the $+x$ and $+y$ directions?
+
+d. The point-slope equation of a plane is
+    $$
+    z = 5y - 2.
+    $$
+    Through what point does this plane pass? What are the slopes in the $+x$ and $+y$ directions?
+
+e. Find the point-slope equation for a plane through the point $(1, 1, 1)$ that is parallel to the $xy$-plane.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $z = 3(x-2) - 2(y+1) + 4$
+
+b. $z = x + 5y$
+
+c. The plane passes through $(-3, 1, 7)$. The slope in the $+x$ direction is $-2$, and the slope in the $+y$ direction is $4$.
+
+d. The plane passes through $(0, 0, -2)$, has slope $0$ in the $+x$ direction, and slope $5$ in the $+y$ direction.
+
+e. A plane parallel to the $xy$-plane has slope $0$ in both the $+x$ and $+y$ directions. So the equation is $z = 0(x-1) + 0(y-1) + 1$, or simply $z = 1$.
+
+:::
+
+
+## Exercise 2: Normal vectors to planes
+
+Recall that a vector $\mathbf{n}$ is called a *normal vector* to a plane if it is orthogonal to all vectors that lie in the plane. For a plane with point-slope equation
+
+$$
+z = m(x-x_0) + n(y-y_0) + z_0,
+$$
+
+a normal vector is given by $\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix}$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Find a normal vector to the plane $z = 3(x-2) - 2(y+1) + 4$.
+
+b. Find a normal vector to the plane $z = x + 5y$.
+
+c. Find a normal vector to the plane $z = -4x + 2y - 1$.
+
+d. Find a normal vector to the plane $z = 7$.
+
+e. Find a normal vector to the plane $y = 3$.
+
+f. Is $\mathbf{n} = \begin{bmatrix} -6 \\ 4 \\ 2 \end{bmatrix}$ also a normal vector to the plane $z = 3(x-2) - 2(y+1) + 4$? Explain.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $\mathbf{n} = \begin{bmatrix} -3 \\ 2 \\ 1 \end{bmatrix}$
+
+b. $\mathbf{n} = \begin{bmatrix} -1 \\ -5 \\ 1 \end{bmatrix}$
+
+c. $\mathbf{n} = \begin{bmatrix} 4 \\ -2 \\ 1 \end{bmatrix}$
+
+d. $\mathbf{n} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$.
+
+e. $\mathbf{n} = \mathbf{e}_2$.
+
+f. Yes. Notice that $\begin{bmatrix} -6 \\ 4 \\ 2 \end{bmatrix} = 2\begin{bmatrix} -3 \\ 2 \\ 1 \end{bmatrix}$. Any scalar multiple (except zero) of a normal vector is also a normal vector.
+:::
+
+
+## Exercise 3: Vector equations of planes
+
+Recall that the *vector equation* of a plane with normal vector $\mathbf{n}$ passing through the point with position vector $\mathbf{r}_0$ is
+
+$$
+\langle \mathbf{n}, \mathbf{r}-\mathbf{r}_0 \rangle = 0,
+$$
+
+where $\mathbf{r} = \begin{bmatrix} x \\ y \\ z \end{bmatrix}$ is a variable position vector in $\mathbb{R}^3$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Find the point-slope equation of the plane with normal vector $\mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}$ passing through the point $(1, 0, -2)$.
+
+b. Find the point-slope equation of the plane with normal vector $\mathbf{n} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ passing through the origin.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $z = -\frac{2}{3}(x-1) + \frac{1}{3}(y-0) - 2$
+
+b. $z = -x - y$
+
+:::
+
+
+## Exercise 4: Finding planes from geometric information
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Find a point-slope equation of the plane passing through the points $(1, 0, 2)$, $(2, 1, 3)$, and $(0, 1, 1)$.
+
+b. Find a point-slope equation of the plane that contains the point $(0, 1, 1)$ and the $x$-axis.
+
+c. Find a plane that passes through the point $(2, -1, 3)$ and is perpendicular to the vector
+    $$
+    \mathbf{v} = \begin{bmatrix} 1 \\ 2 \\ -1 \end{bmatrix}.
+    $$
+
+d. Find the point-slope equation of the plane that is parallel to the $xz$-plane and passes through the point $(1, 3, 2)$, if possible. If no such equation exists, explain why, and which equation you would use instead.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Let
+$$
+\mathbf{r}_1 = \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix}, \quad \mathbf{r}_2 = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}, \quad \mathbf{r}_3 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
+$$
+be position vectors for the three points. Two vectors in the plane are
+$$
+\mathbf{v}_1 = \mathbf{r}_2 - \mathbf{r}_1 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad \mathbf{v}_2 = \mathbf{r}_3 - \mathbf{r}_1 = \begin{bmatrix} -1 \\ 1 \\ -1 \end{bmatrix}.
+$$
+We need a vector
+$$
+\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}
+$$
+orthogonal to both:
+$$
+\langle \mathbf{n}, \mathbf{v}_1 \rangle = a + b + c = 0, \quad \langle \mathbf{n}, \mathbf{v}_2 \rangle = -a + b - c = 0.
+$$
+From the second equation, $b = a + c$. Substituting into the first: $a + (a+c) + c = 0$, so $2a + 2c = 0$, giving $c = -a$. Then $b = a + (-a) = 0$.
+Choosing $a = 1$, we get the normal vector
+$$
+\mathbf{n} = \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}.
+$$
+Then, a point-slope equation of the plane is
+$$
+z = (x-1) + 2.
+$$
+
+b. A normal vector to the plane is
+$$
+\mathbf{n} = \begin{bmatrix} 0 \\ -1 \\ 1 \end{bmatrix}.
+$$
+Using this, we get a point-slope equation
+$$
+z = (y-1) + 1
+$$
+
+c. If the plane is perpendicular to $\mathbf{v}$, then $\mathbf{v}$ is a normal vector. So
+$$
+\mathbf{n} = \begin{bmatrix} 1 \\ 2 \\ -1 \end{bmatrix}.
+$$
+Then a point-slope equation of the plane is
+$$
+z = (x-2) + 2(y+1) + 3
+$$
+
+d. A plane parallel to the $xz$-plane has normal vector
+$$
+\mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}.
+$$
+But this can't be written in the form
+$$
+\mathbf{n} = \begin{bmatrix} -m \\ -n \\ 1 \end{bmatrix},
+$$
+so no point-slope equation exists for this plane. Instead, we use the standard form:
+$$
+y-3 = 0.
+$$
+:::
+
+## Exercise 5: Temperature distribution
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+The temperature $T$ (in degrees Celsius) at a point $(x, y, z)$ in a room is modeled by a linear function. Measurements show that:
+
+- At the point $(0, 0, 0)$, the temperature is $20°C$.
+- As you move 1 meter in the positive $x$-direction, the temperature increases by $2°C$ per meter.
+- As you move 1 meter in the positive $y$-direction, the temperature decreases by $1°C$ per meter.
+- The temperature does not change as you move in the $z$-direction.
+
+Because of the third bullet point, the temperature is actually a function of the form $T = f(x,y)$, independent of $z$.
+
+a. Find a formula for $T = f(x, y)$.
+
+b. What is the temperature at the point $(3, 2, 5)$?
+
+c. Find all points where the temperature is exactly $25°C$.
+
+d. Does the set of solutions in part (c) form a plane? If so, find a normal vector.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Since temperature changes linearly with position and increases at $2°C$/meter in the $+x$ direction and decreases at $1°C$/meter in the $+y$ direction, and doesn't change with $z$, we have
+   $$
+   T = f(x,y)= 2x - y + 20.
+   $$
+   (Since $f(0,0,0) = 20$.)
+
+b. $T = f(3, 2) = 24°C$.
+
+c. Setting $T = 25$ and solving $f(x,y)=25$, we get:
+$$
+\begin{align*}
+2x - y + 20 = 25\\
+2x - y = 5.
+\end{align*}
+$$
+
+d. Yes, the set of solutions forms a plane. Note that the equation can be rewritten in the standard form
+$$
+2(x-0) - (y+5)=0.
+$$
+Thus, a normal vector is
+$$
+\mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 0 \end{bmatrix}.
+$$
+
+:::
+
+
+## Exercise 6: Standard equations of planes
+
+Recall that a *standard equation* of a plane in $\mathbb{R}^3$ passing through the point $(x_0,y_0,z_0)$ with normal vector
+$$
+\mathbf{n} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}
+$$
+is given by
+$$
+a(x-x_0) + b(y-y_0) + c(z-z_0) = 0.
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Find a standard equation of the plane with normal vector
+    $$
+    \mathbf{n} = \begin{bmatrix} 2 \\ -3 \\ 1 \end{bmatrix}
+    $$
+    passing through the point $(1, 2, -1)$.
+
+b. A standard equation of a plane is
+    $$
+    3(x-1) - 2(y+2) + 4z = 0.
+    $$
+    Find a normal vector to this plane and identify a point on the plane.
+
+c. Expand the standard equation from part (a) to obtain an equation of the form $ax + by + cz = d$.
+
+d. Consider the plane with point-slope equation $z = 2(x-1) - 3(y+1) + 4$. Write this in standard form.
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Using the formula with $a = 2$, $b = -3$, $c = 1$ and the point $(1, 2, -1)$:
+   $$
+   2(x-1) - 3(y-2) + (z+1) = 0.
+   $$
+
+b. The normal vector is
+   $$
+   \mathbf{n} = \begin{bmatrix} 3 \\ -2 \\ 4 \end{bmatrix}.
+   $$
+   One point on the plane is $(1, -2, 0)$.
+
+c. $2x - 3y + z = -5$
+
+d. $2(x-1) - 3(y+1) - (z-4) = 0$
+
+:::
+
+## Exercise 7: Affine equations of planes
+
+Recall that an *affine equation* for a plane is given by
+
+$$
+ax + by + cz = d,
+$$
+
+where $a$, $b$, $c$, and $d$ are constants (and not all of $a$, $b$ and $c$ are $0$).
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Rewrite the point-slope equation
+$$
+z = 2(x-1) - 3(y+1) + 4
+$$
+as an affine equation.
+b. Rewrite the affine equation
+$$
+3x - 2y +4z = 5
+$$
+as both a point-slope equation. What is the slope in the $+x$-direction? What is the slope in the $+y$-direction?
+c. Rewrite the affine equation
+$$
+2x + 4y = 8
+$$
+as a point-slope equation, if possible. If it isn't possible, explain why.
+d. Find a normal vector to the plane with affine equation
+$$
+2x - y + 3z = 7.
+$$
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $2x - 3y - z = 1$
+
+b. Equation: $z = - \frac{3}{4}x + \frac{1}{2}y + \frac{5}{4}$. Slope in $+x$-direction: $-\frac{3}{4}$. Slope in $+y$-direction: $\frac{1}{2}$.
+
+c. $2x + 4y = 8$ cannot be rewritten as a point-slope equation because it does not define $z$ as a function of $x$ and $y$.
+
+d. A normal vector to the plane is
+$$
+\mathbf{n} = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}.
+$$
+
+:::
+
+## Exercise 8: More practice with planes
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Suppose you are standing at the point $(1, 2, 3)$ on the plane with equation
+$$
+z = 2(x-1) + 3(y-2) + 3.
+$$
+    i. If you step $2$ units in the $+x$-direction, what point are you at?
+    ii. If you step 1 unit in the $-x$-direction, what point are you at? 
+    iii. If you step 3 units in the $-x$-direction and $4$ in the $-y$-direction, what point are you at?
+b. Suppose you are standing at $(1, -2, 0)$ on the plane with equation
+$$
+2(x-1) -4 (y+2) +2z = 0.
+$$
+    i. If you step $1$ unit in the $-x$-direction, what point are you at?
+    ii. If you step $2$ units in the $+y$ direction, what point are you at?
+c. Consider the plane with equation
+$$
+2x-3y + 3z = 5.
+$$
+This plane has a *unique* normal vector that points in the positive $+z$-direction (i.e., the $z$-component of the normal vector is positive). If you begin at the point $(1,0,1)$ and step $2$ units along this vector, what point are you at?
+
+d. Consider the plane with equation
+$$
+2x + 3y + 4z = 1.
+$$
+What is the point on this plane closest to the point $(2,3,-1)$?
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $(3, 2, 7)$, $(0, 2, 1)$, $(-2, -2, -15)$
+
+
+b. $(0, -2, 1)$, $(1, 0, 4)$
+    
+
+c. A normal vector with positive $z$-component is
+$$
+\mathbf{n} = \begin{bmatrix}
+2 \\
+-3 \\
+3
+\end{bmatrix}
+$$
+Now, we want to step $2$ units along this vector, and for this, it will be helpful to first normalize $\mathbf{n}$ to get a unit normal vector:
+$$
+\hat{\mathbf{n}} = \frac{\mathbf{n}}{\|\mathbf{n}\|} = \frac{1}{\sqrt{22}} \begin{bmatrix} 2 \\ -3 \\ 3 \end{bmatrix}.
+$$
+So, if we begin at the point $(1,0,1)$ and step $2$ units along $\hat{\mathbf{n}}$, the position vector of our new point will be
+$$
+\begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} + \frac{2}{\sqrt{22}} \begin{bmatrix} 2 \\ -3 \\ 3 \end{bmatrix} = \begin{bmatrix} 1 + \frac{4}{\sqrt{22}} \\ 0 - \frac{6}{\sqrt{22}} \\ 1 + \frac{6}{\sqrt{22}} \end{bmatrix} \approx \begin{bmatrix} 1.85 \\ -1.28 \\ 2.28 \end{bmatrix}.
+$$
+Thus, the new point is approximately $(1.85, -1.28, 2.28)$.
+
+d. Let $\mathbf{r}$ be the position vector of the point $(2,3,-1)$, and let $\mathbf{r}_0$ be the position vector of the point $(x_0,y_0,z_0)$ on the plane closest to $(2,3,-1)$. Then it follows that the difference $\mathbf{r}-\mathbf{r_0}$ is orthogonal to the plane. But a normal vector to the plane is
+$$
+\mathbf{n} = \begin{bmatrix} 2 \\ 3 \\ 4 \end{bmatrix},
+$$
+so the difference $\mathbf{r}-\mathbf{r_0}$ must be parallel to $\mathbf{n}$, which means there is a scalar $t$ such that $\mathbf{r}-\mathbf{r_0} = t \mathbf{n}$. Then we have $\mathbf{r}_0 = \mathbf{r} - t \mathbf{n}$:
+$$
+\begin{bmatrix} x_0 \\ y_0 \\ z_0 \end{bmatrix} = \begin{bmatrix} 2 - 2t \\ 3 - 3t \\ -1 - 4t \end{bmatrix}.
+$$
+But since $(x_0,y_0,z_0)$ lies on the plane, it must be a solution to the equation of the plane:
+$$
+2(2 - 2t) + 3(3 - 3t) + 4(-1 - 4t) = 1.
+$$
+Solving for $t$, we get $t = 8/29$. Therefore, the point on the plane closest to $(2,3,-1)$ has position vector
+$$
+\mathbf{r_0} = \mathbf{r} - \frac{8}{29}\mathbf{n} = \begin{bmatrix} \frac{42}{29} \\ \frac{63}{29} \\ -\frac{61}{29} \end{bmatrix} \approx 
+\begin{bmatrix} 1.45 \\ 2.17 \\ -2.10 \end{bmatrix}. $$
+Thus, the point on the plane closest to $(2,3,-1)$ is approximately $(1.45, 2.17, -2.10)$.
+:::

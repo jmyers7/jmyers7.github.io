@@ -175,13 +175,16 @@ ii. A plane passes through the point $(1,2,-1)$ and has normal vector $\mathbf{e
 ::: {.callout-note icon="false" .nonincremental}
 ### Affine equation of a plane in $\mathbb{R}^3$
 
-Let $a$, $b$, $c$, and $d$ be constants (where not all $a$, $b$, and $c$ are $0$). The set of points $(x,y,z)$ that are solutions to the equation
-
+An **affine equation** for a plane in $\mathbb{R}^3$ is
 $$
-ax + by + cz = d
+ax + by + cz = d,
 $$
 
-forms a plane in $\mathbb{R}^3$. This is called an **affine equation** of a plane.
+where:
+
+- $a$, $b$, $c$, and $d$ are constants,
+- not all of $a$, $b$, and $c$ are $0$, and
+- the numbers $a$, $b$, and $c$ are the components of a normal vector to the plane.
 :::
 
 ## Exercise 4: Affine equations {.scrollable}
