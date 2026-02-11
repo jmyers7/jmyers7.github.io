@@ -9,9 +9,6 @@ format:
             - "../../aux-files/custom-slides.scss"
 ---
 
-# Warm-up exercises
-
-
 ## Exercise 1: Temperatures
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
@@ -31,6 +28,8 @@ c. For every foot moved in the positive $x$-direction, how much does the tempera
 d. For every foot moved in the positive $y$-direction, how much does the temperature change?
 
 e. For every foot moved in the positive $z$-direction, how much does the temperature change?
+
+f. For every foot moved in the *negative* $z$-direction, how much does the temperature change?
 
 :::
 
@@ -75,8 +74,6 @@ $$
 - Do you see the pattern?!
 
 
-# Equations for hyperplanes
-
 ## Point-slope equations of "hyperplanes" {.scrollable}
 
 - In two dimensions, we use the coordinates $(x,y)$.
@@ -117,6 +114,8 @@ u = m(x-x_0) + n(y-y_0) + p(z-z_0) + q(w-w_0) + u_0.
 $$
 
 :::
+
+- So, the **graphs** of the functions in Exercise 1 and 2 were hyperplanes in $\mathbb{R}^4$ and $\mathbb{R}^5$, respectively.
 
 ## The full story
 
@@ -173,6 +172,8 @@ where:
 - the numbers $a$, $b$, $c$, and $d$ are the components of a normal vector to the hyperplane.
 :::
 
+- Can you guess what these equations would look like in $\mathbb{R}^5$? In $\mathbb{R}^n$?
+
 
 ## Exercise 3: Practice with equations of hyperplanes {.scrollable}
 
@@ -221,12 +222,12 @@ d. Where does the hyperplane intersect the $y$-axis?
 
 Consider the linear function with point-slope equation
 $$
-z = f(x,y) = x - 2y + 3.
+z = f(x,y) = 2x - 2y + 3.
 $$
 
 i. If we intersect the graph of $f$ with the plane $z = 0$, what sort of shape do we get?
 ii. If we intersect it with the plane $z = 1$, what sort of shape do we get?
-iii. What about the planes $z = -1$ and $z = 10$?
+iii. What about the planes $z = -1$ and $z = 2$?
 
 These intersections are called **level sets** of the function.
 :::

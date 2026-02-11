@@ -15,8 +15,8 @@ format:
 $$
 u(x,t),\quad u(x,y,t), \quad u(x,y,z,t), \quad u(x,y,z), \ldots.
 $$
-- PDEs are often only considered over a certain domain.
-- If $u$ is "time-dependent", this domain often has a "spatial" part and a "time" part.
+- PDEs are only considered over a certain domain $D$, given to us as part of the problem statement.
+- If $u$ is "time-dependent", this domain consists of a "spatial slice" that is extended through time.
 
 ## Exercise 1: Domains of PDEs {.scrollable}
 
@@ -24,7 +24,7 @@ $$
 
 ### a. Domains of the heat equation
 
-For each of the following heat equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain. 
+For each of the following heat equation scenarios, describe the domain of the PDE, including its dimension. If the solutions are time-dependent, identify the spatial slices of the domain and the initial spatial slice.
 
 i. The temperature $u$ at a certain position and time of a metal rod of length $L$.
 ii. The temperature $u$ at a certain position and time of a metal plate of width $x_0$ and height $y_0$.
@@ -35,7 +35,7 @@ iii. The temperature $u$ at a certain position and time of a solid metal sphere 
 
 ### b. Domains of the wave equation
 
-For each of the following wave equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.
+For each of the following wave equation scenarios, describe the domain of the PDE, including its dimension. If the solutions are time-dependent, identify the spatial slices of the domain and the initial spatial slice.
 
 i. The displacement $u$ at a certain position and time of a vibrating string of length $L$.
 ii. The displacement $u$ at a certain position and time of a vibrating drum of radius $r$.
@@ -46,9 +46,9 @@ ii. The displacement $u$ at a certain position and time of a vibrating drum of r
 
 ### c. Domains of Laplace's equation
 
-For each of the following Laplace's equation scenarios, describe the domain of the PDE, including its dimension, being careful to identify the spatial and time parts of the domain.
+For each of the following Laplace's equation scenarios, describe the domain of the PDE, including its dimension. If the solutions are time-dependent, identify the spatial slices of the domain and the initial spatial slice.
 
-i. The steady-state temperature $u$ at a certain position of a metal plate of width $x_0$ and height $y_0$. (*Hint*: "steady-state" means that the temperature does not change with time.)
+i. The steady-state temperature $u$ at a certain position of a metal plate of width $x_0$ and height $y_0$. (*Hint*: "steady-state" means time-independent.)
 ii. The steady-state temperature $u$ at a certain position of a solid metal sphere of radius $r$.
 
 :::
@@ -59,13 +59,13 @@ ii. The steady-state temperature $u$ at a certain position of a solid metal sphe
 $$
 L(u) = au + \sum_{i=1}^n b_i \frac{\partial u}{\partial x_i} + \sum_{i,j=1}^n c_{ij}\frac{\partial^2 u}{\partial x_i \partial x_j} + \cdots,
 $$
-where the sum only includes finitely many terms, and the coefficients are functions only of the independent variables.
+where the sum only includes finitely many terms, and the coefficients $a, b_i, c_{ij}, \ldots$ are functions only of the independent variables.
 
 - For example, the Laplacian is such an operator:
 $$
-\nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
+L(u) = \nabla^2 u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
 $$
-If we set $\nabla^2 u=0$, we get Laplace's equation.
+If we set $L(u)=0$, we get Laplace's equation.
 
 - For another example, the operator
 $$
@@ -89,9 +89,11 @@ A **linear partial differential equation** consists of the following:
 
 1. An equation $L(u) = f$, where $L$ is a linear differential operator and $f$ is some function of the independent variables (but not of $u$ or its derivatives).
 
-2. A specification of the domain over which the equation is considered, i.e., the domains of the solution $u$ and the function $f$.
+2. A specification of the domain $D$ over which the equation is considered, i.e., the domains of the solution $u$ and the function $f$.
 
 :::
+
+- If $f=0$, the PDE is called **homogeneous**. If $f \neq 0$, the PDE is called **non-homogeneous**.
 
 ::: {.callout-note icon="false" .fragment}
 ### Theorem (Superposition principle for homogeneous linear PDEs).
@@ -125,23 +127,36 @@ where $u_h$ is a solution to the homogeneous PDE.
 ## Boundary and initial conditions {.scrollable}
 
 - Consider a linear PDE $L(u) = f$ defined over a fixed domain $D$.
-- As we saw, the domain $D$ may, or may not, have a "time part". If it does, then the other part of the domain is called the "spatial part".
 
 ::: {.callout-note icon="false" .fragment}
 ### Boundary and initial conditions
 
-- A **boundary condition** is a specification of the values of the solution $u$ (or its derivatives) at the boundary of the spatial part of the domain $D$.
+- Suppose first $u$ is time-independent:
 
-- If the domain has a time part, an **initial condition** is a specification of the values of the solution $u$ (or its derivatives) at the initial time (usually $t=0$).
+    - A **boundary condition** is a specification of the values of the solution $u$ (and possibly its derivatives) on the boundary of $D$.
+
+- If $u$ is time-dependent:
+
+    - A **boundary condition** is a specification of the values of the solution $u$ (and possibly its derivatives) on the boundary of the spatial slices of $D$.
+
+    - An **initial condition** is a specification of the values of the solution $u$ (and possibly its derivatives) on the initial spatial slice of $D$.
 
 :::
 
 ::: {.callout-note icon="false" .fragment}
 ### Types of boundary conditions
 
-- **Dirichlet boundary condition**: specifies the value of $u$ at the boundary of the spatial part of the domain.
+- Suppose first $u$ is time-independent:
 
-- **Neumann boundary condition**: specifies the value of the normal derivative of $u$ at the boundary of the spatial part of the domain.
+    - **Dirichlet boundary condition**: specifies the value of $u$ on the boundary of $D$.
+
+    - **Neumann boundary condition**: specifies the value of the normal derivative of $u$ on the boundary of $D$.
+
+- If $u$ is time-dependent:
+
+    - **Dirichlet boundary condition**: specifies the value of $u$ on the boundary of the spatial slices of $D$.
+
+    - **Neumann boundary condition**: specifies the value of the normal derivative of $u$ on the boundary of the spatial slices of $D$.
 :::
 
 ::: {.callout-note icon="false" .fragment}
@@ -158,7 +173,7 @@ where $u_h$ is a solution to the homogeneous PDE.
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
 
-For each of the following scenarios, identify the type of PDE (e.g., heat equation, wave equation, Laplace's equation), the domain $D$ of the problem and describe the boundary and/or initial conditions that would be appropriate for the scenario. Are the boundary conditions Dirichlet or Neumann?
+For each of the following scenarios, identify the type of PDE (e.g., heat equation, wave equation, Laplace's equation), whether the solution are time-dependent or time-independent, the domain $D$ of the problem, and describe the boundary and/or initial conditions that would be appropriate for the scenario.
 
 i. The temperature $u$ at a certain position and time of a metal rod of length $L$ that is insulated at both ends and is known to have an initial temperature profile.
 
