@@ -15,7 +15,7 @@ format:
 
 The sale price, $s$, and annual property tax, $t$, (both measured in thousands of dollars) are jointly a function $(s,t) = f(q,b,a)$ of three variables:
 
-- $q$, the square footage of the house in hundreds of feed,
+- $q$, the square footage of the house in hundreds of feet,
 - $b$, the number of bedrooms,
 - $a$, the age of the house in years.
 
