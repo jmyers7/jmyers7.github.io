@@ -9,7 +9,7 @@ format:
             - "../../aux-files/custom-slides.scss"
 ---
 
-## Exercise 1: A real estate function
+## Exercise 1: A real estate function {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
 
@@ -33,7 +33,7 @@ c. If you *could* draw the graph of $f$, in how many ambient dimensions would it
 
 :::
 
-## Exercise 2: A manufacturing function
+## Exercise 2: A manufacturing function {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
 
@@ -59,7 +59,7 @@ c. If you *could* draw the graph of $g$, in how many ambient dimensions would it
 :::
 
 
-## Exercise 3: A pure mathematical function
+## Exercise 3: A pure mathematical function {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
 
@@ -74,7 +74,7 @@ b. If you *could* draw the graph of $h$, in how many ambient dimensions would it
 
 :::
 
-## Functions of multiple variables
+## Functions of multiple variables {.scrollable}
 
 ::: {.callout-note icon="false" .fragment .nonincremental}
 ### Functions of multiple variables
@@ -95,7 +95,7 @@ A **multivariable function** is a function of the form $f: \mathbb{R}^m \to \mat
     - We can see the graphs of functions $f:\mathbb{R}^2 \to \mathbb{R}$.
     - We can see the graphs of functions $f:\mathbb{R} \to \mathbb{R}^2$.
 
-## How to graph functions
+## How to graph functions {.scrollable}
 
 
 ::: {.callout-note icon="false" .fragment .nonincremental}
@@ -138,7 +138,7 @@ Suppose the function is $(y,z)=f(x)$. To plot the graph of $f$, we:
     - Plotting cross sections for functions $f:\mathbb{R}^2 \to \mathbb{R}$.
     - Using [Desmos](https://www.desmos.com/3d) or [GeoGebra](https://www.geogebra.org/3d?lang=en).
 
-## Exercise 3: Plotting functions
+## Exercise 3: Plotting functions {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental}
 ### a. Graphing functions of the form $\mathbb{R}^2 \to \mathbb{R}$
