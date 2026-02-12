@@ -1,0 +1,165 @@
+---
+title: "05 Functions of multiple variables, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Exercise 1: A real estate function
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+The sale price, $s$, and annual property tax, $t$, (both measured in thousands of dollars) are jointly a function $(s,t) = f(q,b,a)$ of three variables:
+
+- $q$, the square footage of the house in hundreds of feed,
+- $b$, the number of bedrooms,
+- $a$, the age of the house in years.
+
+The formula for the function $f$ has been determined to be
+
+$$
+f(q,b,a) = (100 + 2q+10b-a, 1+ 0.01q + 0.05).
+$$
+
+a. What is the sale price and annual property tax for a house with $2000$ square feet, $3$ bedrooms, and $5$ years of age?
+
+b. Assuming (unrealisticly) that $q$, $b$, and $a$ can take on any values, express the domain and codomain of the function $f$ in the form $f: \mathbb{R}^m \to \mathbb{R}^n$.
+
+c. If you *could* draw the graph of $f$, in how many ambient dimensions would it be drawn?
+
+:::
+
+## Exercise 2: A manufacturing function
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+The number of units produced, $u$, the total cost of production, $c$ (in dollars), and the totel energy consumed, $k$ (in kWH), are jointly a function $(u,c,k) = g(r,h,m,e)$ of four variables:
+
+- $r$, the production rate in units per hour,
+- $h$, the number of hours worked,
+- $m$, the amount of raw materials used in kilograms,
+- $e$, the equipment maintenance time in hours.
+
+The formula for the function $g$ has been determined to be
+
+$$
+g(r,h,m,e) = (r(h-e), 20h+5m+50e, 10h+5e).
+$$
+
+a. What is the number of units produced, total cost of production, and total energy consumed for a production rate of $100$ units per hour, $8$ hours worked, $50$ kilograms of raw materials used, and $2$ hours of equipment maintenance time?
+
+b. Assuming (unrealisticly) that $r$, $h$, $m$, and $e$ can take on any values, express the domain and codomain of the function $g$ in the form $g: \mathbb{R}^m \to \mathbb{R}^n$.
+
+c. If you *could* draw the graph of $g$, in how many ambient dimensions would it be drawn?
+
+:::
+
+
+## Exercise 3: A pure mathematical function
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function $h:\mathbb{R}^4 \to \mathbb{R}^3$ defined by
+
+$$
+h(x,y,z,w) = \big(x^2y - \sin{z}, e^w - 15y, (z+w)^2\big).
+$$
+
+a. What is $h(-1,0,2,3)$?
+b. If you *could* draw the graph of $h$, in how many ambient dimensions would it be drawn?
+
+:::
+
+## Functions of multiple variables
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### Functions of multiple variables
+
+A **multivariable function** is a function of the form $f: \mathbb{R}^m \to \mathbb{R}^n$ for some positive integers $m$ and $n$.
+
+:::
+
+- The functions you are familiar with are the simple ones of the form $f: \mathbb{R} \to \mathbb{R}$. One input, one output.
+
+- Now we may have $m$ inputs and $n$ outputs.
+
+- Functions of the form $f: \mathbb{R}^m \to \mathbb{R}$ are often called **real-valued functions**.
+
+- The graph of a function $f: \mathbb{R}^m \to \mathbb{R}^n$ lives inside of $\mathbb{R}^{m+n}$. We cannot *see* this graph unless $m+n \leq 3$:
+
+    - We can see the graphs of functions $f:\mathbb{R} \to \mathbb{R}$. (Duh.)
+    - We can see the graphs of functions $f:\mathbb{R}^2 \to \mathbb{R}$.
+    - We can see the graphs of functions $f:\mathbb{R} \to \mathbb{R}^2$.
+
+## How to graph functions
+
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### How to plot the graph of a function $f:\mathbb{R} \to \mathbb{R}$
+
+Suppose the function is $y=f(x)$. To plot the graph of $f$, we:
+
+1. Choose a value of $x$.
+2. Compute $y=f(x)$.
+3. Plot the point $(x,y)$ in the $xy$-plane (i.e., $\mathbb{R}^2$).
+4. Repeat for many values of $x$. Connect the points with a curve.
+:::
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### How to plot the graph of a function $f:\mathbb{R}^2 \to \mathbb{R}$
+
+Suppose the function is $z=f(x,y)$. To plot the graph of $f$, we:
+
+1. Choose a value of $x$ and a value of $y$.
+2. Compute $z=f(x,y)$.
+3. Plot the point $(x,y,z)$ in $xyz$-space (i.e., $\mathbb{R}^3$).
+4. Repeat for many values of $x$ and $y$. Connect the points with a surface.
+:::
+
+::: {.callout-note icon="false" .fragment .nonincremental}
+### How to plot the graph of a function $f:\mathbb{R} \to \mathbb{R}^2$
+
+Suppose the function is $(y,z)=f(x)$. To plot the graph of $f$, we:
+
+1. Choose a value of $x$.
+2. Compute $(y,z)=f(x)$.
+3. Plot the point $(x,y,z)$ in $xyz$-space (i.e., $\mathbb{R}^3$).
+4. Repeat for many values of $x$. Connect the points with a curve.
+:::
+
+- This makes it sound easy. It is very often not.
+- Often you resort to other methods to visualize graphs, such as:
+
+    - Plotting level curves for functions $f:\mathbb{R}^2 \to \mathbb{R}$.
+    - Plotting cross sections for functions $f:\mathbb{R}^2 \to \mathbb{R}$.
+    - Using [Desmos](https://www.desmos.com/3d) or [GeoGebra](https://www.geogebra.org/3d?lang=en).
+
+## Exercise 3: Plotting functions
+
+::: {.callout-note icon="false" .nonincremental}
+### a. Graphing functions of the form $\mathbb{R}^2 \to \mathbb{R}$
+
+Graph the following functions of the form $\mathbb{R}^2 \to \mathbb{R}$:
+
+i. $f(x,y) = 2x + 3y + 5$
+ii. $g(x,y) = x^2 + y^2$
+iii. $h(x,y) = \sin{x} + \cos{y}$
+iv. $k(x,y) = \sin(x^2+y^2)$
+
+:::
+
+::: {.callout-note icon="false" .nonincremental}
+### b. Graphing functions of the form $\mathbb{R} \to \mathbb{R}^2$
+
+Graph the following functions of the form $\mathbb{R} \to \mathbb{R}^2$:
+
+i. $s(x) = (x-1, -x+1)$
+ii. $t(x) = (\sin{x}, \cos{x})$
+iii. $p(x) = (e^x, e^{-x})$
+iv. $u(x) = (\sin{x}, \sin{2x})$
+
+:::

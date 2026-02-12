@@ -35,8 +35,8 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-|| 02.12 thu |||| Quiz on Sec 2 and 3
-|| 02.11 wed | Sec 4: Planes and linear spaces, part 2 | [Sec 4 Slides](./slides/04-planes-and-linear-spaces-part-2.qmd){target="_blank"} | Coming soon |
+|| 02.12 thu | Sec 5: Functions of multiple variables, part 1 | [Sec 5 Slides](./slides/05-functions-of-multiple-variables-part-1.qmd){target="_blank"} | Coming soon | Quiz on Sec 2 and 3
+|| 02.11 wed | Sec 4: Planes and linear spaces, part 2 | [Sec 4 Slides](./slides/04-planes-and-linear-spaces-part-2.qmd){target="_blank"} | [Sec 4 Exercises](./exercises/04ex-planes-and-linear-spaces-part-2.qmd) |
 | Week 3 | 02.09 mon | Same as below ↓ | Same as below ↓ | Same as below ↓ |
 || 02.06 fri| Sec 3: Planes and linear spaces, part 1 | [Sec 3 Slides](./slides/03-planes-and-linear-spaces-part-1.qmd){target="_blank"} | [Sec 3 Exercises](./exercises/03ex-planes-and-linear-spaces-part-1.qmd)
 || 02.05 thu | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 1<br>Just vectors in $\mathbb{R}^2$ and $\mathbb{R}^3$, no matrices
