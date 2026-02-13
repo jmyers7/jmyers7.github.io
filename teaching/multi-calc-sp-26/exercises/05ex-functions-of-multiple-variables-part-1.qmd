@@ -1,0 +1,74 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 05 Functions of multiple variables, part 1
+
+## Exercise 1: Multivariable functions in context {.scrollable}
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. A car rental company charges $\$40$ a day and $15$ cents a
+mile for its cars.
+    i. Write a formula for the cost, $C$, of renting a car as a
+    function, $f$, of the number of days, $d$, and the number of miles driven, $m$.
+    ii. If $C= f(d,m)$, find $f(5,300)$ and interpret it.
+    iii. Draw the graph of $f$.
+b. Give a formula for the function $m= f(b,t)$ where $m$ is the amount of money in a bank account $t$ years after an initial investment of $b$ dollars, if interest is accrued at a rate of $1.2\%$ per year compounded annually. (*Hint*: Annual compounding means that $m$ increases by a factor of $1.012$ each year.)
+c. The concentration $C$ (mg/L) of a drug in the blood is modeled by
+    $$
+    C= f(x,t) = te^{−t(5−x)},
+    $$
+where $x$ is the dose (mg) and $t$ is time (hours) since injection. Here $0 \leq x \leq 4$ and $t \geq 0$.
+    i. Find $f(3,2)$. Give units and interpret your answer.
+    ii. Graph the function $C = f(4,t)$ in the $tC$-plane, and explain its significance.
+    iii. Graph the function $C = f(x,1)$ in the $xC$-plane, and explain its significance.
+:::
+
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a.
+    i. $C = f(d,m) = 40d + 0.15m$
+    ii. $f(5,300) = 245$, which means that the cost of renting a car for $5$ days and driving $300$ miles is $\$245$.
+    iii. The graph is a plane in $dmC$-space, going through the origin, with a slope of $40$ in the $d$-direction and a slope of $0.15$ in the $m$-direction.
+
+b. $m = f(b,t) = b(1.012)^t$
+
+c. 
+    i. $f(3,2) \approx 0.0366$ mg/L, which means that the concentration of the drug in the blood is approximately $0.0366$ mg/L two hours after an injection of $3$ mg.
+    ii. For the graph, use [Desmos](https://www.desmos.com/calculator). The significance of the graph is that it shows how the concentration of the drug changes over time for a fixed dose of $4$ mg.
+    ii. For the graph, use [Desmos](https://www.desmos.com/calculator). The significance of the graph is that it shows how the concentration of the drug changes with different doses at a fixed time of $1$ hour.
+
+:::
+
+
+
+## Exercise 2: Identifying function types {.scrollable}
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Each of the following real-world scenarios can be modeled by a function of the form $f: \mathbb{R}^m \to \mathbb{R}^n$ for some $m$ and $n$. For each part, identify the appropriate values of $m$ and $n$.
+
+
+a. Wind velocity as a function of position in $3$-dimensional space. (Remember, velocity is a *vector*, so it has three components.)
+b. RGB color values as a function of position on a computer screen. (RGB color values consist of a triple of numbers, each representing the intensity of red, green, and blue light, respectively.)
+c. Trajectory of a baseball (position in space as a function of time).
+d. Profit and revenue as functions of price and advertising budget.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $f: \mathbb{R}^3 \to \mathbb{R}^3$. Position in space has three components, and velocity has three components.
+
+b. $f: \mathbb{R}^2 \to \mathbb{R}^3$. Position on a computer screen has two components (horizontal and vertical), and RGB color values have three components.
+
+c. $f: \mathbb{R} \to \mathbb{R}^3$. Time has one component, and position in space has three components.
+
+d. $f: \mathbb{R}^2 \to \mathbb{R}^2$. Price and advertising budget have two components, and profit and revenue have two components.
+
+:::
