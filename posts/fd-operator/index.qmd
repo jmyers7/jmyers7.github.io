@@ -2,7 +2,7 @@
 title: "Finite-dimensional operator theory"
 date: "2026-01-22"
 toc: true
-jupyter: site-env
+jupyter: site
 categories: [Operator theory, Operator algebras, Functional analysis, C*-algebras, Spectral theorem, Hilbert spaces]
 draft: true
 include-in-header: 

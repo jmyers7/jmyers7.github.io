@@ -8,8 +8,6 @@ image: "thumbnail.png"
 open-graph:
     title: "Algebras & information"
     image: "https://johnmyers-phd.com/posts/info-2/thumbnail.png"
-# draft: true
-# jupyter: site-env
 ---
 
 ::: {.content-hidden}

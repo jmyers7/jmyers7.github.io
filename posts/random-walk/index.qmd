@@ -2,7 +2,7 @@
 title: "SigAlg I: IID processes and random walks"
 toc: true
 date: "2026-02-03"
-jupyter: site-env
+jupyter: site
 categories: [Stochastic process, IID process, Random walk, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, SciPy, Python]
 bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl

@@ -1,8 +1,8 @@
 ---
-title: "SigAlg II: Random variables and measurability"
+title: "SigAlg II: Random vectors and measurability"
 toc: true
 draft: true
-jupyter: site-env
+jupyter: site
 categories: [Random variables, Random vectors, Probability theory, Sigma algebras, SigAlg, Python]
 include-in-header: 
   - file: /Users/johnmyers/dev/site/aux-files/commands.tex
@@ -15,7 +15,6 @@ $$
 {{< include /aux-files/custom.tex >}}
 $$
 :::
-
 
 ## Introduction
 

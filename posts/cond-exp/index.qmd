@@ -2,7 +2,7 @@
 title: "SigAlg II: Conditional expectations and $L^2$-spaces"
 toc: true
 draft: true
-jupyter: site-env
+jupyter: site
 categories: [Conditional expectations, Hilbert spaces, L2 spaces, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, Python]
 include-in-header: 
   - file: /Users/johnmyers/dev/site/aux-files/commands.tex

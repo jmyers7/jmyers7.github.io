@@ -8,7 +8,7 @@ image: "thumbnail.svg"
 open-graph:
     title: "Entropy & information"
     image: "thumbnail.png"
-jupyter: site-env
+jupyter: site
 # draft: true
 ---
 
@@ -17,8 +17,6 @@ $$
 {{< include /aux-files/custom.tex >}}
 $$
 :::
-
-
 
 ## Introduction
 
