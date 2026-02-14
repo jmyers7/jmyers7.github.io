@@ -25,6 +25,9 @@ website:
       - text: "Probabilistic Machine Learning"
         href: https://www.johnmyers-phd.com/book
         target: _blank
+      - text: "SigAlg"
+        href: https://www.johnmyers-phd.com/sigalg
+        target: _blank
       - icon: github
         href: https://github.com/jmyers7/
         target: _blank
