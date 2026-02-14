@@ -2,12 +2,12 @@
 title: "SigAlg II: Random variables and measurability"
 toc: true
 draft: true
-jupyter: blog-env
+jupyter: site-env
 categories: [Random variables, Random vectors, Probability theory, Sigma algebras, SigAlg, Python]
 include-in-header: 
-  - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
-bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
-csl: /Users/johnmyers/dev/johnmyers-phd/aux-files/american-mathematical-society-numeric.csl
+  - file: /Users/johnmyers/dev/site/aux-files/commands.tex
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
+csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
 ---
 
 ::: {.content-hidden}

@@ -2,11 +2,11 @@
 title: "Finite-dimensional operator theory"
 date: "2026-01-22"
 toc: true
-jupyter: blog-env
+jupyter: site-env
 categories: [Operator theory, Operator algebras, Functional analysis, C*-algebras, Spectral theorem, Hilbert spaces]
 draft: true
 include-in-header: 
-  - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
+  - file: /Users/johnmyers/dev/site/aux-files/commands.tex
 ---
 
 Perhaps in no other mathematical theory is the fusion of algebraic, analytic and topological techniques more distinctive than *operator theory*. In its concrete form, this is the theory of linear transformations on Hilbert spaces, which are called *(linear) operators*. But what sets operator theory apart from elementary linear algebra is that the base Hilbert spaces are infinite-dimensional in many of the most interesting cases, which accounts for the presence of topology and analysis in the theory.

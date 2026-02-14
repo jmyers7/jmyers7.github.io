@@ -1,14 +1,14 @@
 ---
 title: "Entropy & information"
 date: "2025-10-12"
-bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 toc: true
 categories: [Information theory, Probability theory, Entropy, Surprisal, KL divergence, Mutual information, Python, SciPy]
 image: "thumbnail.svg"
 open-graph:
     title: "Entropy & information"
     image: "thumbnail.png"
-jupyter: blog-env
+jupyter: site-env
 # draft: true
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Algebras & information"
 date: "2025-10-14"
-bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 toc: true
 categories: [Information theory, Probability theory, Measure theory, Entropy, Mutual information, Sigma-algebras, R]
 image: "thumbnail.png"
@@ -9,7 +9,7 @@ open-graph:
     title: "Algebras & information"
     image: "https://johnmyers-phd.com/posts/info-2/thumbnail.png"
 # draft: true
-# jupyter: blog-env
+# jupyter: site-env
 ---
 
 ::: {.content-hidden}
