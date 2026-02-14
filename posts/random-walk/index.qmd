@@ -391,11 +391,8 @@ Delta_X = 2 * B - 1
 # Note that its `name` parameter is set to the initial time t0=0.
 X0 = RandomVariable(domain=B.domain, name=0).from_constant(0)
 
-# Add the initial state to the increment process
-Delta_X.add_initial_state(X0)
-
 # Construct the random walk process by cumulative summation
-X = Delta_X.cumsum(name="X")
+X = Delta_X.cumsum().insert_rv(X0, 0).with_name("X")
 
 print(X)
 ```
