@@ -48,6 +48,11 @@ $dropdown-link-active-bg: $blue !default;
   opacity: 0.8;
 }
 
+.navbar-nav .nav-link[href*="sigalg"] {
+  color: $blue !important;
+  font-weight: 600 !important;
+}
+
 // Typography
 p, ol, ul {
   font-family: $font-family-sans-serif;
