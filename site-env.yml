@@ -1,4 +1,4 @@
-name: blog-env
+name: site-env
 channels:
   - conda-forge
   - defaults
