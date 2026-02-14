@@ -316,7 +316,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="probability-spaces">Probability spaces</h2>
 <p>To set the scene, we first recall that a <em>probability space</em> is an ordered triple <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> consisting of a set <span class="math inline">\(\Omega\)</span> called the <em>sample space</em>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> of subsets of <span class="math inline">\(\Omega\)</span> called <em>events</em>, and a probability measure <span class="math inline">\(P\)</span> defined on <span class="math inline">\(\mathcal{F}\)</span>.</p>
 <p>All three objects making up a probability space are modeled in SigAlg as instances of the <code>SampleSpace</code>, <code>SigmaAlgebra</code>, and <code>ProbabilityMeasure</code> classes, respectively. Here is an example:</p>
-<div id="4f940097" class="cell" data-execution_count="1">
+<div id="27fba378" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> ProbabilityMeasure, ProbabilitySpace, SampleSpace, SigmaAlgebra</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a sample space Omega = {1, 2, 3, 4}</span></span>
@@ -373,7 +373,7 @@ sample
 </div>
 <p>The code is reasonably self-explanatory, except for (possibly) the definition of the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>. In SigAlg, <span class="math inline">\(\sigma\)</span>-algebras are implemented by tracking the atom identifier for each sample point in <span class="math inline">\(\Omega\)</span>, where an <em>atom</em> of a <span class="math inline">\(\sigma\)</span>-algebra is a minimal non-empty subset in the <span class="math inline">\(\sigma\)</span>-algebra. It is a general result that <span class="math inline">\(\sigma\)</span>-algebras on finite sets are completely determined by their atoms (which partition the sample space), and so this implementation is sufficient to model the concept. In our case, the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> has three atoms, <span class="math inline">\(A_0 = \{1,2\}\)</span>, <span class="math inline">\(A_1 = \{3\}\)</span>, and <span class="math inline">\(A_2 = \{4\}\)</span>, which are identified by the atom identifiers <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span>, respectively.</p>
 <p>Probability measures, as functions, are implemented in SigAlg as callable objects. They may be called on individual sample points, functioning as probability mass functions, and also on subsets as instances of <code>Event</code>:</p>
-<div id="2170ebce" class="cell" data-execution_count="2">
+<div id="aed8f173" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Omega.get_event([<span class="dv">1</span>, <span class="dv">2</span>])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"P(1) ="</span>, <span class="bu">round</span>(P(<span class="dv">1</span>), <span class="dv">2</span>))</span>
@@ -385,7 +385,7 @@ P({1,2}) = 0.3</code></pre>
 </div>
 <p>Technically, the probability measure of a probability space is only supposed to be defined on events in the associated <span class="math inline">\(\sigma\)</span>-algebra, but we do not enforce this requirement in SigAlg. Indeed, we can see this in the printout, since the singleton <span class="math inline">\(\{1\}\)</span> is not an event in <span class="math inline">\(\mathcal{F}\)</span>, yet the probability measure <span class="math inline">\(P\)</span> is still defined at this point.</p>
 <p>Furthermore, SigAlg does not enforce the requirement that an <em>event</em> be a set in the <span class="math inline">\(\sigma\)</span>-algebra. For example, the subset <span class="math inline">\(B = \{2,3\}\)</span> is not in <span class="math inline">\(\mathcal{F}\)</span>, and so according to the strict mathematical definition, it is not an event in the probability space <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span>. However, in SigAlg, <span class="math inline">\(B\)</span> is an event, and the probability measure <span class="math inline">\(P\)</span> is defined on it:</p>
-<div id="e62416b8" class="cell" data-execution_count="3">
+<div id="9198ae1d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> Omega.get_event([<span class="dv">2</span>, <span class="dv">3</span>])</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is B = {2,3} in F?"</span>, B <span class="kw">in</span> F)</span>
@@ -397,7 +397,7 @@ P({2,3}) = 0.5</code></pre>
 </div>
 <p>Given two <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathcal{G}\)</span> on the same sample space <span class="math inline">\(\Omega\)</span>, it is important to be able to compare the information they encode. This comparison is captured by the notion of subset containment. Specifically, the containment <span class="math inline">\(\mathcal{G}\subset \mathcal{F}\)</span> corresponds to a <em>refinement</em> of information in passing from the smaller <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{G}\)</span> to the larger <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>. In this case, we also say that <span class="math inline">\(\mathcal{F}\)</span> is <em>finer</em> than <span class="math inline">\(\mathcal{G}\)</span>, or that <span class="math inline">\(\mathcal{G}\)</span> is <em>coarser</em> than <span class="math inline">\(\mathcal{F}\)</span>.</p>
 <p>One may show that <span class="math inline">\(\mathcal{F}\)</span> is finer than <span class="math inline">\(\mathcal{G}\)</span> if and only if every atom of <span class="math inline">\(\mathcal{G}\)</span> is a union of atoms of <span class="math inline">\(\mathcal{F}\)</span>. In turn, this is equivalent to the condition that every atom of <span class="math inline">\(\mathcal{F}\)</span> is contained in a unique atom of <span class="math inline">\(\mathcal{G}\)</span>. In SigAlg, we can check these conditions through the <code>&lt;=</code> operator and its cousins:</p>
-<div id="7e11ab60" class="cell" data-execution_count="4">
+<div id="677f0847" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> SigmaAlgebra(sample_space<span class="op">=</span>Omega, name<span class="op">=</span><span class="st">"G"</span>).from_dict(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>: <span class="dv">0</span>,</span>
@@ -456,7 +456,7 @@ X(\omega) = \begin{cases}
 \end{cases}
 \]</span></p>
 <p>Then:</p>
-<div id="fb01eeac" class="cell" data-execution_count="5">
+<div id="a3a897d6" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> RandomVector</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> RandomVector(domain<span class="op">=</span>Omega, name<span class="op">=</span><span class="st">"X"</span>).from_dict(</span>
@@ -481,7 +481,7 @@ sample
 </div>
 <p>Notice that the only data required to construct a random vector are the domain and the function values. In particular, no <span class="math inline">\(\sigma\)</span>-algebra is required, as measurability of random vectors is not enforced in SigAlg.</p>
 <p>The printout shows the function values of <span class="math inline">\(X\)</span> at each sample point in <span class="math inline">\(\Omega\)</span>. The data columns are indexed by <code>X_0</code> and <code>X_1</code>, corresponding to the two component random variables of <span class="math inline">\(X\)</span>. These components are extracted through the appropriate method:</p>
-<div id="07cb246a" class="cell" data-execution_count="6">
+<div id="6c65f213" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X.get_component_rv(<span class="st">"X_0"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X.get_component_rv(<span class="st">"X_1"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -506,7 +506,7 @@ sample
 </div>
 </div>
 <p>Random vectors and variables are functions, which is reflected in their implementation in SigAlg as callable objects:</p>
-<div id="21e86241" class="cell" data-execution_count="7">
+<div id="dd676716" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Calling a random vector returns a feature vector:"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X(<span class="dv">1</span>))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Calling a random variable returns a scalar:"</span>)</span>
