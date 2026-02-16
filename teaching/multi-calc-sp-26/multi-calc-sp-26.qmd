@@ -35,6 +35,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Week 4 | 02.16 mon | Sec 7: Functions of multiple variables, part 3 | [Sec 7 Slides](./slides/07-functions-of-multiple-variables-part-3.qmd){target="_blank"} | Coming soon |
 | ↓ | 02.13 fri | Sec 6: Functions of multiple variables, part 2 | [Sec 6 Slides](./slides/06-functions-of-multiple-variables-part-2.qmd){target="_blank"} | Coming soon
 | ↓ | 02.12 thu | Sec 5: Functions of multiple variables, part 1 | [Sec 5 Slides](./slides/05-functions-of-multiple-variables-part-1.qmd){target="_blank"} | [Sec 5 Exercises](./exercises/05ex-functions-of-multiple-variables-part-1.qmd) | Quiz on Sec 2 and 3
 | ↓ | 02.11 wed | Sec 4: Planes and linear spaces, part 2 | [Sec 4 Slides](./slides/04-planes-and-linear-spaces-part-2.qmd){target="_blank"} | [Sec 4 Exercises](./exercises/04ex-planes-and-linear-spaces-part-2.qmd) |

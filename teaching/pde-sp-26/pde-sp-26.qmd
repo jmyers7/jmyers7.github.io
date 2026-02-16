@@ -37,6 +37,7 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Week 4 | 02.16 mon | Sec 5: A first look at Fourier series, part 1 | [Sec 5 Slides](./slides/05-a-first-look-at-fourier-series-part-1.qmd){target="_blank"} | Coming soon |
 | ↓ | 02.13 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 2 and 3
 | ↓ | 02.11 wed | Sec 4: General PDEs and boundary conditions | [Sec 4 Slides](./slides/04-general-pdes-and-boundary-conditions.qmd){target="_blank"} | Coming soon |
 | Week 3 | 02.09 mon | Sec 3: The Laplacian and Laplace's equation | [Sec 3 Slides](./slides/03-the-laplacian-and-laplaces-equation.qmd){target="_blank"} | [Sec 3 Exercises](./exercises/03ex-the-laplacian-and-laplaces-equation.qmd)
