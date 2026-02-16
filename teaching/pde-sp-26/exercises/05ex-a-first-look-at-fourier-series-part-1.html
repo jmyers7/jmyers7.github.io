@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Partial Differential Equations – john myers, ph.d.</title>
+<title>Partial Differential Equations: Exercises – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../img/fav.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-97adef9441ecd27f153d700f408aa3d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../img/fav.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-97adef9441ecd27f153d700f408aa3d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -82,35 +82,6 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -121,7 +92,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -131,15 +102,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../writings.html"> 
+    <a class="nav-link" href="../../../writings.html"> 
 <span class="menu-text">Writings</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -148,11 +119,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
         <li>
-    <a class="dropdown-item" href="../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
+    <a class="dropdown-item" href="../../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
  <span class="dropdown-text">Multivariable Calculus</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../teaching/pde-sp-26/pde-sp-26.html">
+    <a class="dropdown-item" href="../../../teaching/pde-sp-26/pde-sp-26.html">
  <span class="dropdown-text">Partial Differential Equations</span></a>
   </li>  
     </ul>
@@ -196,8 +167,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-information" id="toc-course-information" class="nav-link active" data-scroll-target="#course-information">Course information</a></li>
-  <li><a href="#schedule-slides-exercises-and-info" id="toc-schedule-slides-exercises-and-info" class="nav-link" data-scroll-target="#schedule-slides-exercises-and-info">Schedule, slides, exercises, and info</a></li>
+  <li><a href="#a-first-look-at-fourier-series-part-1" id="toc-a-first-look-at-fourier-series-part-1" class="nav-link active" data-scroll-target="#a-first-look-at-fourier-series-part-1">05 A first look at Fourier series, part 1</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-practice-computing-fourier-series" id="toc-exercise-1-practice-computing-fourier-series" class="nav-link" data-scroll-target="#exercise-1-practice-computing-fourier-series">Exercise 1: Practice computing Fourier series</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -206,7 +179,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Partial Differential Equations</h1>
+<h1 class="title">Partial Differential Equations: Exercises</h1>
 </div>
 
 
@@ -223,150 +196,44 @@ window.Quarto = {
 </header>
 
 
-<p>This course is an introduction to partial differential equations (PDEs) and Fourier analysis.</p>
-<ol type="1">
-<li>We will study the classical PDEs of mathematical physics: the heat equation, the wave equation, and Laplace’s equation.</li>
-<li>We will learn how to solve these equations using separation of variables and Fourier series.</li>
-<li>Complex variables will be introduced as tools to help us understand Fourier series.</li>
-<li>Properties of complex exponentials, sines, and cosines will be generalized to abstract properties of functions in <span class="math inline">\(L^2\)</span> spaces. Accordingly, will will study the notion of Hilbert spaces.</li>
-<li>An introduction to Sturm-Liouville theory will be given, including eigenvalue problems and orthogonal functions.</li>
-<li>If time permits, we will study additional topics such as Fourier and Laplace transforms.</li>
+<section id="a-first-look-at-fourier-series-part-1" class="level1">
+<h1>05 A first look at Fourier series, part 1</h1>
+<section id="exercise-1-practice-computing-fourier-series" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-practice-computing-fourier-series">Exercise 1: Practice computing Fourier series</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This exercise refers to the Fourier series listed in rows 1-20 of the file <a href="./img/fourier-series.pdf" target="_blank">here</a>.</p>
+<ol type="a">
+<li><p>Verify, by hand, that the Fourier series for the function in <strong>row 3</strong> of the table in the file above is the one shown.</p></li>
+<li><p>Verify, by hand, that the Fourier series for the function in <strong>row 4</strong> of the table in the file above is the one shown.</p></li>
+<li><p>Verify, by hand, that the Fourier series for the function in <strong>row 6</strong> of the table in the file above is the one shown.</p></li>
 </ol>
-<section id="course-information" class="level1">
-<h1>Course information</h1>
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-John Myers
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Marano 175
-</td>
-</tr>
-<tr>
-<td>
-Office hours:
-</td>
-<td>
-12-12:30 MWF, and by appointment
-</td>
-</tr>
-<tr>
-<td>
-Syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1jyt-sVqmOnAuJkmwycm6fxMa_3RQsxx3/view?usp=sharing" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Coming soon!</p>
+</div>
+</div>
+</div>
+
+
 </section>
-<section id="schedule-slides-exercises-and-info" class="level1">
-<h1>Schedule, slides, exercises, and info</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">week</th>
-<th style="text-align: center;">date</th>
-<th style="text-align: center;">topics</th>
-<th style="text-align: center;">slides</th>
-<th style="text-align: center;">exercises</th>
-<th style="text-align: center;">info</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Week 4</td>
-<td style="text-align: center;">02.16 mon</td>
-<td style="text-align: center;">Sec 5: A first look at Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/05-a-first-look-at-fourier-series-part-1.html" target="_blank">Sec 5 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/05ex-a-first-look-at-fourier-series-part-1.html">Sec 5 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">02.13 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 2 and 3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">02.11 wed</td>
-<td style="text-align: center;">Sec 4: General PDEs and boundary conditions</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/04-general-pdes-and-boundary-conditions.html" target="_blank">Sec 4 Slides</a></td>
-<td style="text-align: center;">Coming soon</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 3</td>
-<td style="text-align: center;">02.09 mon</td>
-<td style="text-align: center;">Sec 3: The Laplacian and Laplace’s equation</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/03-the-laplacian-and-laplaces-equation.html" target="_blank">Sec 3 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/03ex-the-laplacian-and-laplaces-equation.html">Sec 3 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">02.06 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">02.04 wed</td>
-<td style="text-align: center;">Sec 2: Separation of variables</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/02-separation-of-var.html" target="_blank">Sec 2 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/02ex-separation-of-var.html">Sec 2 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 2</td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">Sec 1: An introduction to PDEs</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/01-an-introduction-to-pdes.html" target="_blank">Sec 1 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">↓</td>
-<td style="text-align: center;">01.28 wed</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on Exercises 1-8.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 1</td>
-<td style="text-align: center;">01.26 mon</td>
-<td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=pdes#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=heat-equation#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=fourier-series#video-section" target="_blank">here</a>. Begin working on Exercises 1-8 (see link to the right).</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/01ex-an-introduction-to-pdes.html">Sec 1 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-
-
 </section>
 
 </main> <!-- /main -->
