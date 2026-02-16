@@ -37,13 +37,15 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-| Week 4 | 02.16 mon | Sec 5: A first look at Fourier series, part 1 | [Sec 5 Slides](./slides/05-a-first-look-at-fourier-series-part-1.qmd){target="_blank"} | [Sec 5 Exercises](./exercises/05ex-a-first-look-at-fourier-series-part-1.qmd) |
-|| 02.13 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 2 and 3
+| Week 4 | 02.20 fri |
+|| 02.18 wed |
+|| 02.16 mon | Sec 5: A first look at Fourier series, part 1 | [Sec 5 Slides](./slides/05-a-first-look-at-fourier-series-part-1.qmd){target="_blank"} | [Sec 5 Exercises](./exercises/05ex-a-first-look-at-fourier-series-part-1.qmd) |
+| Week 3 | 02.13 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 2 and 3
 || 02.11 wed | Sec 4: General PDEs and boundary conditions | [Sec 4 Slides](./slides/04-general-pdes-and-boundary-conditions.qmd){target="_blank"} | Coming soon |
-| Week 3 | 02.09 mon | Sec 3: The Laplacian and Laplace's equation | [Sec 3 Slides](./slides/03-the-laplacian-and-laplaces-equation.qmd){target="_blank"} | [Sec 3 Exercises](./exercises/03ex-the-laplacian-and-laplaces-equation.qmd)
-|| 02.06 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 1
+|| 02.09 mon | Sec 3: The Laplacian and Laplace's equation | [Sec 3 Slides](./slides/03-the-laplacian-and-laplaces-equation.qmd){target="_blank"} | [Sec 3 Exercises](./exercises/03ex-the-laplacian-and-laplaces-equation.qmd)
+| Week 2 | 02.06 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 1
 || 02.04 wed | Sec 2: Separation of variables | [Sec 2 Slides](./slides/02-separation-of-var.qmd){target="_blank"} | [Sec 2 Exercises](./exercises/02ex-separation-of-var.qmd) |
-| Week 2 | 02.02 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
-|| 01.30 fri | Sec 1: An introduction to PDEs | [Sec 1 Slides](./slides/01-an-introduction-to-pdes.qmd){target="_blank"} | Same as below ↓
+|| 02.02 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
+| Week 1 | 01.30 fri | Sec 1: An introduction to PDEs | [Sec 1 Slides](./slides/01-an-introduction-to-pdes.qmd){target="_blank"} | Same as below ↓
 || 01.28 wed | Another "remote day": Watch the videos below if you haven't already, continue working on Exercises 1-8. || Same as below ↓
-| Week 1 | 01.26 mon | "Remote day": Watch the videos [here](https://www.3blue1brown.com/?v=pdes#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=heat-equation#video-section){target="_blank"}, and [here](https://www.3blue1brown.com/?v=fourier-series#video-section){target="_blank"}. Begin working on Exercises 1-8 (see link to the right). || [Sec 1 Exercises](./exercises/01ex-an-introduction-to-pdes.qmd)
+|| 01.26 mon | "Remote day": Watch the videos [here](https://www.3blue1brown.com/?v=pdes#video-section){target="_blank"}, [here](https://www.3blue1brown.com/?v=heat-equation#video-section){target="_blank"}, and [here](https://www.3blue1brown.com/?v=fourier-series#video-section){target="_blank"}. Begin working on Exercises 1-8 (see link to the right). || [Sec 1 Exercises](./exercises/01ex-an-introduction-to-pdes.qmd)
