@@ -1,0 +1,209 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 07 Functions of multiple variables, part 3
+
+## Exercise 1: Matrix/vector representations of linear functions
+
+Consider the linear function $f: \mathbb{R}^2 \to \mathbb{R}^2$ given by
+
+$$
+f(x,y) = (2x - y + 4, x + 3y - 1).
+$$
+
+As I mentioned in class, this is called a *linear function* because it only contains terms of degrees $0$ and $1$.
+
+If we blur the distinction between a point $(x,y)$ and its position vector
+
+$$
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix},
+$$
+
+then we can rewrite the formula for $f$ as
+
+$$
+f\left( \begin{bmatrix}
+x \\
+y
+\end{bmatrix} \right) =
+\begin{bmatrix}
+2 & -1 \\
+1 & 3
+\end{bmatrix} \begin{bmatrix}
+x \\
+y
+\end{bmatrix} + \begin{bmatrix} 4 \\ -1 \end{bmatrix}.
+$$
+
+Check for yourself that if you multiply out the right-hand side, you will get
+
+$$
+f\left( \begin{bmatrix}
+x \\
+y
+\end{bmatrix} \right) = \begin{bmatrix}2x - y + 4 \\
+x + 3y - 1
+\end{bmatrix},
+$$
+
+which is the same as the original formula for $f$, but written in a different way.
+
+The same procedure works in higher dimensions, as you will discover in the following exercises:
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+In each of the following, convert the given formula for a linear function into a matrix/vector representation as shown above.
+
+a. $f: \mathbb{R}^2 \to \mathbb{R}^2$, $f(x,y) = (x + 2y - 3, 4x - y + 5)$
+b. $g: \mathbb{R}^2 \to \mathbb{R}^2$, $g(x,y) = (3x - 2y , -x + 5y - 4)$
+c. $h: \mathbb{R}^3 \to \mathbb{R}^3$, $h(x, y, z) = (x + 2y - z + 1, 3x - y + 4z - 2, -2x + 5y + z + 3)$
+d. $k: \mathbb{R}^2 \to \mathbb{R}^3$, $k(x, y) = (x - 4y + 2, -2x + 3y - 1, 3x - y)$
+
+Now go backwards. For each of the following, convert the given matrix/vector representation into a formula for a linear function.
+
+e. $r: \mathbb{R}^2 \to \mathbb{R}^2$, $r\left( \begin{bmatrix}x \\
+y
+\end{bmatrix} \right) =
+\begin{bmatrix}1 & 4 \\
+-2 & 3
+\end{bmatrix} \begin{bmatrix}x \\
+y
+\end{bmatrix} + \begin{bmatrix} -3 \\ 2 \end{bmatrix}$
+
+f. $s: \mathbb{R}^2 \to \mathbb{R}^2$, $s\left( \begin{bmatrix}x \\
+y
+\end{bmatrix} \right) =
+\begin{bmatrix}0 & 5 \\
+-1 & 2
+\end{bmatrix} \begin{bmatrix}x \\
+y
+\end{bmatrix} + \begin{bmatrix} 1 \\ -4 \end{bmatrix}$  
+
+g. $t: \mathbb{R}^3 \to \mathbb{R}^3$, $t\left( \begin{bmatrix}x \\
+y \\
+z
+\end{bmatrix} \right) =
+\begin{bmatrix}2 & -1 & 3 \\
+-4 & 5 & 0 \\
+1 & 2 & -2
+\end{bmatrix} \begin{bmatrix}x \\
+y \\
+z
+\end{bmatrix} + \begin{bmatrix} 0 \\ 1 \\ -1 \end{bmatrix}$
+
+h. $u: \mathbb{R}^2 \to \mathbb{R}^3$, $u\left( \begin{bmatrix}x \\ y\end{bmatrix} \right) =
+\begin{bmatrix}1 & -2 \\
+3 & 0 \\
+-1 & 4
+\end{bmatrix} \begin{bmatrix}x \\ y\end{bmatrix} + \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $f\left( \begin{bmatrix}x \\ y\end{bmatrix} \right) =
+\begin{bmatrix}1 & 2 \\
+4 & -1
+\end{bmatrix} \begin{bmatrix}x \\ y\end{bmatrix} + \begin{bmatrix} -3 \\ 5 \end{bmatrix}$
+
+b. $g\left( \begin{bmatrix}x \\ y\end{bmatrix} \right) =
+\begin{bmatrix}3 & -2 \\ -1 & 5
+\end{bmatrix} \begin{bmatrix}x \\ y\end{bmatrix} + \begin{bmatrix} 0 \\ -4 \end{bmatrix}$
+
+c. $h\left( \begin{bmatrix}x \\ y \\ z\end{bmatrix} \right) =
+\begin{bmatrix}1 & 2 & -1 \\ 3 & -1 & 4 \\ -2 & 5 & 1
+\end{bmatrix} \begin{bmatrix}x \\ y \\ z\end{bmatrix} + \begin{bmatrix} 1 \\ -2 \\ 3 \end{bmatrix}$
+
+d. $k\left( \begin{bmatrix}x \\ y\end{bmatrix} \right) =
+\begin{bmatrix}1 & -4 \\ -2 & 3 \\ 3 & -1
+\end{bmatrix} \begin{bmatrix}x \\ y\end{bmatrix} + \begin{bmatrix} 2 \\ -1 \\ 0 \end{bmatrix}$
+
+e. $r(x,y) = (x + 4y - 3, -2x + 3y + 2)$
+
+f. $s(x,y) = (5y + 1, -x + 2y - 4)$
+
+g. $t(x,y,z) = (2x - y + 3z, -4x + 5y +1, x + 2y - 2z - 1)$
+
+h. $u(x,y) = (x - 2y + 2, 3x - 1, -x + 4y + 3)$
+
+::: 
+
+## Exercise 2: Functions $\mathbb{R} \to \mathbb{R}$ as transformations
+
+The following exercise is meant to give you practice with the ideas in Exercise 1 of the [slides](../slides/07-functions-of-multiple-variables-part-3.qmd){target="_blank"}.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Describe the action of the following functions $\mathbb{R} \to \mathbb{R}$ as physical transformations of the real line into itself. Draw pictures!
+
+a. $f(x) = -x^2$
+b. $g(x) = -2x + 2$
+c. $h(x) = e^x$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+These are nearly impossible to plot on a computer. You'll have to catch me after class and show me your sketches to check your work.
+:::
+
+## Exercise 3: Functions $\mathbb{R} \to \mathbb{R}^2$ as transformations
+
+The following exercise is meant to give you practice with the ideas in Exercise 2 of the [slides](../slides/07-functions-of-multiple-variables-part-3.qmd){target="_blank"}.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Describe the action of the following functions $\mathbb{R} \to \mathbb{R}^2$ as physical transformations of the real line into the plane. Draw pictures!
+
+a. $f(t) = (-t^2, t)$
+b. $g(t) = (-2t + 2, 3t)$
+c. $h(t) = (e^t, t^2)$
+d. $k(t) = (\cos{t}, 2\sin{t})$
+
+:::
+
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. [Desmos](https://www.desmos.com/calculator/u7ocs4cjcm){target="_blank"}
+
+b. [Desmos](https://www.desmos.com/calculator/g8o8eeal9y){target="_blank"}
+
+c. [Desmos](https://www.desmos.com/calculator/lk1wxhvv7s){target="_blank"}
+
+d. [Desmos](https://www.desmos.com/calculator/oyggd6i7gk){target="_blank"}
+
+:::
+
+## Exercise 4: Functions $\mathbb{R}^2 \to \mathbb{R}^2$ as transformations
+
+The following exercise is meant to give you practice with the ideas in Exercises 4-6 of the [slides](../slides/07-functions-of-multiple-variables-part-3.qmd){target="_blank"}.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Describe the action of the following functions $\mathbb{R}^2 \to \mathbb{R}^2$ as physical transformations of the plane into itself. Draw pictures!
+
+a. $f(x, y) = (-x + 1, x+y)$
+b. $g(x, y) = (x, e^x + y)$
+c. $h(x,y) = (xy, x)$
+
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. ![](./img/07ex-4a.png)
+
+b. ![](./img/07ex-4b.png)
+
+c. ![](./img/07ex-4c.png)
+
+:::

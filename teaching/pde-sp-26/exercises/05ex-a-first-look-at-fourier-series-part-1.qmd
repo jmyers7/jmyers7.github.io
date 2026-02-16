@@ -1,0 +1,26 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 05 A first look at Fourier series, part 1
+
+## Exercise 1: Practice computing Fourier series
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+This exercise refers to the Fourier series listed in rows 1-20 of the file [here](./img/fourier-series.pdf){target="_blank"}.
+
+a. Verify, by hand, that the Fourier series for the function in **row 3** of the table in the file above is the one shown.
+
+b. Verify, by hand, that the Fourier series for the function in **row 4** of the table in the file above is the one shown.
+
+c. Verify, by hand, that the Fourier series for the function in **row 6** of the table in the file above is the one shown.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+Coming soon!
+:::

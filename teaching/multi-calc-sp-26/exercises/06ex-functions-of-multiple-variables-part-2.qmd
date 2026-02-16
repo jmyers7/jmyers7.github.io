@@ -1,0 +1,57 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 06 Functions of multiple variables, part 2
+
+## Exercise 1: Plotting using cross sections
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Plot the graphs of the following functions using cross sections.
+
+a. $f(x,y) =-x^2 - y^2$
+b. $g(x,y) = y^3 + xy$
+c. $h(x,y) = \sqrt{1-x^2-y^2}$
+d. $k(x,y) = e^{-x^2-y^2}$
+e. $m(x,y) = x^2$
+
+Check your plots using [Desmos](https://www.desmos.com/3d){target="_blank"}.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. [Desmos](https://www.desmos.com/3d/1mklgw6stm){target="_blank"}
+
+b. [Desmos](https://www.desmos.com/3d/4ig7pl3hrd){target="_blank"}
+
+c. [Desmos](https://www.desmos.com/3d/0bsgrsyfsj){target="_blank"}
+
+d. [Desmos](https://www.desmos.com/3d/ljz59ogknq){target="_blank"}
+
+e. [Desmos](https://www.desmos.com/3d/u6dthr4k7e){target="_blank"}
+
+::: 
+
+## Exercise 2: Plotting using contour diagrams
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Plot contour diagrams of the following functions.
+
+a. $f(x,y) =y-x^2$
+b. $g(x,y) = x^2+2y^2$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. ![](./img/06ex-2a.png){width=50%}
+
+b. ![](./img/06ex-2b.png){width=50%}
+
+::: 
