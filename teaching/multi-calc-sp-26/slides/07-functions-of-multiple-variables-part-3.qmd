@@ -24,11 +24,11 @@ format:
 
 Describe the action of the following functions $\mathbb{R} \to \mathbb{R}$ as physical transformations of the real line into itself. Draw pictures!
 
-1. $f(x) = x^2$
-2. $g(x) = 2x+1$
-3. $h(x) = -x-1$
-4. $k(x) = x^3$
-5. $j(x) = \sin{x}$
+a. $f(x) = x^2$
+b. $g(x) = 2x+1$
+c. $h(x) = -x-1$
+d. $k(x) = x^3$
+e. $j(x) = \sin{x}$
 
 :::
 
@@ -38,11 +38,11 @@ Describe the action of the following functions $\mathbb{R} \to \mathbb{R}$ as ph
 
 Describe the action of the following functions $\mathbb{R} \to \mathbb{R}^2$ as physical transformations of the real line into the plane. Draw pictures!
 
-1. $f(t) = (t, t^2)$
-2. $g(t) = (2t+1, -t)$
-3. $h(t) = (\cos{t}, \sin{t})$
-4. $k(t) = (\sin{t}, \cos{t})$
-5. $j(t) = (t^2, t^3)$
+a. $f(t) = (t, t^2)$
+b. $g(t) = (2t+1, -t)$
+c. $h(t) = (\cos{t}, \sin{t})$
+d. $k(t) = (\sin{t}, \cos{t})$
+e. $j(t) = (t^2, t^3)$
 
 :::
 
