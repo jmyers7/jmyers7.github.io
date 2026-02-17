@@ -31,6 +31,9 @@ website:
       - icon: github
         href: https://github.com/jmyers7/
         target: _blank
+      - icon: bluesky
+        href: https://bsky.app/profile/john-myers-phd.bsky.social
+        target: _blank
       - icon: linkedin
         href: https://www.linkedin.com/in/john-myers-phd
         target: _blank
