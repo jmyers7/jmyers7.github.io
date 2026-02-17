@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-02-03">
 
-<title>SigAlg I: IID processes and random walks – john myers, ph.d.</title>
+<title>Introducing SigAlg: Measure-Theoretic Probability in Python – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -177,7 +177,7 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="SigAlg I: IID processes and random walks">
+<meta property="og:title" content="Introducing SigAlg: Measure-Theoretic Probability in Python">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://johnmyers-phd.com/posts/random-walk/thumbnail.png">
 <meta property="og:site_name" content="john myers, ph.d.">
@@ -271,15 +271,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a>
-  <ul class="collapse">
-  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
-  <li><a href="#mathematics" id="toc-mathematics" class="nav-link" data-scroll-target="#mathematics">Mathematics</a></li>
-  </ul></li>
   <li><a href="#generalities-on-stochastic-processes" id="toc-generalities-on-stochastic-processes" class="nav-link" data-scroll-target="#generalities-on-stochastic-processes">Generalities on stochastic processes</a></li>
   <li><a href="#independent-and-identically-distributed-processes" id="toc-independent-and-identically-distributed-processes" class="nav-link" data-scroll-target="#independent-and-identically-distributed-processes">Independent and identically distributed processes</a></li>
   <li><a href="#random-walks" id="toc-random-walks" class="nav-link" data-scroll-target="#random-walks">Random walks</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
@@ -289,7 +283,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">SigAlg I: IID processes and random walks</h1>
+<h1 class="title">Introducing SigAlg: Measure-Theoretic Probability in Python</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Stochastic process</div>
     <div class="quarto-category">IID process</div>
@@ -326,34 +320,15 @@ window.Quarto = {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>SigAlg is a new open-source Python library for working with measure-theoretic probability theory and stochastic processes. Its name is derived from <em><span class="math inline">\(\sigma\)</span>-algebra</em>, the foundational structure through which modern probability theory encodes information. SigAlg provides an API that closely mirrors the underlying mathematics, with the goal of making probability spaces, random variables, <span class="math inline">\(\sigma\)</span>-algebras, filtrations, and stochastic processes programmable in a way that feels as natural as writing definitions and equations on a whiteboard.</p>
-<p>Many existing scientific computing tools designed for production environments place their emphasis on numerical simulation and speed. This is enormously valuable, of course, but this means these tools are not meant to explore the underlying mathematical structures in a faithful way. As a result, a gap emerges between the theory, which lives in textbooks and papers, and the code that implements or explores it. SigAlg is designed to close that gap.</p>
-<p>SigAlg is both a pedagogical and a research tool. Its central design principle is mathematical fidelity rather than computational efficiency. As you will begin to see in this introductory post, objects in SigAlg are meant to correspond directly to their mathematical counterparts, making SigAlg particularly well suited for:</p>
-<ol type="1">
-<li><p>Students and instructors learning or teaching measure-theoretic probability and stochastic processes.</p></li>
-<li><p>Researchers who work with abstract probabilistic constructions and want a computational sandbox for experimenting with ideas that are usually confined to paper.</p></li>
-</ol>
-<p>The author falls squarely into both categories. SigAlg grew out of the frustration of translating clean mathematical definitions into code that immediately discards the very structure those definitions are meant to emphasize.</p>
-<p>SigAlg is therefore not a replacement for production-grade Monte Carlo simulation libraries or high-performance statistical tools. Instead, it complements them by prioritizing clarity, inspectability, and conceptual alignment with the theory. It is aimed at users who want to <em>understand</em> why probabilistic constructions work, not merely apply them as black boxes.</p>
-<p>In this first post of a series on SigAlg, we explore two foundational objects in stochastic process theory: independent and identically distributed (IID) processes and random walks. Through concrete examples and executable code, we will see how SigAlg allows us to construct these processes, examine their probability measures and natural filtrations, visualize information flow over time, and simulate trajectories—all while staying close to the underlying mathematics. By the end, you should have a clear sense of how SigAlg can function both as a computational tool and as a conceptual aid for learning and working with stochastic processes.</p>
-</section>
-<section id="prerequisites" class="level2">
-<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<section id="software" class="level3">
-<h3 class="anchored" data-anchor-id="software">Software</h3>
-<p>At the time of writing, SigAlg has been released on PyPI as v.0.1.1. You can install it in the familiar way:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install sigalg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>SigAlg also has a <a href="https://github.com/jmyers7/sigalg" target="_blank">GitHub repository</a>.</p>
-<p>The body of this post will eventually be adapted to a tutorial in the official SigAlg documentation which—again, as of this writing—has not yet been published.</p>
-</section>
-<section id="mathematics" class="level3">
-<h3 class="anchored" data-anchor-id="mathematics">Mathematics</h3>
-<p>Though one of the target audiences of SigAlg is students and other practioners of probability and stochastic processes that might not be familiar with measure-theoretic concepts (probability measures, <span class="math inline">\(\sigma\)</span>-algebras, measurable functions, etc.), this post is pitched at a slightly higher level than might be typical for an introductory tutorial. This post—along with the few that follow—is designed to be an advertisement of sorts for SigAlg’s capabilities, and hence we flex its mathematical muscles a bit, without fully explaining all the underlying theory.</p>
-<p>Accordingly, we assume that the reader is familiar with the basics of stochastic processes and at least a modicum of measure-theoretic probability. For this background, one can hardly do better than the first three chapters of William’s brilliant text <span class="citation" data-cites="Williams1991">[<a href="#ref-Williams1991" role="doc-biblioref">1</a>]</span>.</p>
-</section>
+<p>For the past four-ish months, I’ve been working on a Python library called SigAlg (named after a <em><span class="math inline">\(\sigma\)</span>-algebra</em>, duh), designed to provide mathematically faithful implementations of measure-theoretic probability. I’ve recently made early versions available on <a href="https://pypi.org/project/sigalg/" target="_blank">PyPI</a>, made the <a href="https://github.com/jmyers7/sigalg" target="_blank">GitHub repo</a> public, and put up a <a href="https://johnmyers-phd.com/sigalg/" target="_blank">documentation site</a> that is around 90% done. I’m still very much in the early stages of development, but if I keep obsessing over perfection, it’ll never be released. So it’s time to kick this baby bird out of the nest and hope it doesn’t fall to its death.</p>
+<p>Where did this thing come from?</p>
+<p>I have recently taken a liking to mathematical finance. (To the extent that I now listen to finance-oriented podcasts and pay some attention to the markets. I know—as a recovering pure mathematician, I feel gross just saying that. No offense finance people.) The issue is, that I come from a <em>very</em> different mathematical upbringing, so I knew next to nothing about the deeper parts of stochastic process theory, stochastic calculus, and all that stuff. So, as I’m grinding my way through some textbooks playing catch-up, I found myself wanting to experiment with code, but I couldn’t find any libraries that implemented the concepts in a way that felt natural and mathematically faithful. There’s a really big jump between, say, a <span class="math inline">\(\sigma\)</span>-algebra that you manipulate in your head and push around on a sheet of paper, and the code that implements it using existing Python libraries. Sure, you can perform a <code>group_by</code> on a <code>pd.DataFrame</code> that will partition your “sample space” into the “atoms” of your <span class="math inline">\(\sigma\)</span>-algebra, but I wanted a semantically meaningful API that <em>feels</em> like you’re writing mathematics on paper. That leads us here. I give you SigAlg.</p>
+<hr>
+<p>I will introduce you to SigAlg in this post, which is mostly an extended version of the random walk example on the landing page of the <a href="https://johnmyers-phd.com/sigalg/" target="_blank">documentation site</a>. Future blog posts will cover more advanced topics.</p>
 </section>
 <section id="generalities-on-stochastic-processes" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="generalities-on-stochastic-processes">Generalities on stochastic processes</h2>
+<p>First, before any code, let’s make sure we agree on definitions and terminology. Allow me to put on my math professor hat.</p>
 <p>Given a nonempty set <span class="math inline">\(T\subset \mathbb{R}\)</span>, our definition of a stochastic process requires us to consider the function space <span class="math inline">\(\mathbb{R}^T\)</span>, which consists of all <span class="math inline">\(\mathbb{R}\)</span>-valued functions on <span class="math inline">\(T\)</span>.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
@@ -384,12 +359,12 @@ X(\omega)(t) = X_t(\omega), \quad \forall t \in T, \ \omega \in \Omega.
 X(\omega) : T \to \mathbb{R}
 \]</span></p>
 <p>is called a <em>trajectory</em> (or <em>sample path</em>) of the stochastic process. It is these trajectories that are often the central objects of study in applications of stochastic processes.</p>
-<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">Technically, in order for the law of <span class="math inline">\(X\)</span> to be well-defined, <span class="math inline">\(X\)</span> needs to be a measurable function with respect to a <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(U\)</span>. This is indeed the case. See, for example, Lemma 4.1 in <span class="citation" data-cites="Kallenberg2021">[<a href="#ref-Kallenberg2021" role="doc-biblioref">2</a>]</span>.</span></div></div>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">Technically, in order for the law of <span class="math inline">\(X\)</span> to be well-defined, <span class="math inline">\(X\)</span> needs to be a measurable function with respect to a <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(U\)</span>. This is indeed the case. See, for example, Lemma 4.1 in <span class="citation" data-cites="Kallenberg2021">[<a href="#ref-Kallenberg2021" role="doc-biblioref">1</a>]</span>.</span></div></div>
 <p>If <span class="math inline">\(X: \Omega \to U\)</span> is a random variable as in the definition above, and if <span class="math inline">\(P\)</span> is the probability measure on <span class="math inline">\(\Omega\)</span>, then <span class="math inline">\(X\)</span> has a well-defined <em>law</em>, which is a probability measure <span class="math inline">\(P_X\)</span> on <span class="math inline">\(U\)</span> given by</p>
 <p><span id="eq-big-law"><span class="math display">\[
 P_X(A) \stackrel{\text{def}}{=} P(X\in A),
 \tag{1}\]</span></span></p>
-<p>for all measurable sets <span class="math inline">\(A \subset U\)</span>. It is an important fact (see Proposition 4.2 in <span class="citation" data-cites="Kallenberg2021">[<a href="#ref-Kallenberg2021" role="doc-biblioref">2</a>]</span>) that this law is uniquely determined by the <em>finite-dimensional distributions</em> of <span class="math inline">\(X\)</span>, which are the probability measures on <span class="math inline">\(\mathbb{R}^n\)</span> of the form</p>
+<p>for all measurable sets <span class="math inline">\(A \subset U\)</span>. It is an important fact (see Proposition 4.2 in <span class="citation" data-cites="Kallenberg2021">[<a href="#ref-Kallenberg2021" role="doc-biblioref">1</a>]</span>) that this law is uniquely determined by the <em>finite-dimensional distributions</em> of <span class="math inline">\(X\)</span>, which are the probability measures on <span class="math inline">\(\mathbb{R}^n\)</span> of the form</p>
 <p><span class="math display">\[
 P_{X_{t_1}, \ldots, X_{t_n}}(B) \stackrel{\text{def}}{=} P\big((X_{t_1}, \ldots, X_{t_n}) \in B\big),
 \]</span></p>
@@ -421,25 +396,25 @@ P_{X_{t_1}, \ldots, X_{t_n}}(B) = \prod_{i=1}^n P(X_{t_i} \in B_i),
 <p>where we assume <span class="math inline">\(B = B_1 \times \cdots \times B_n \subset \mathbb{R}^n\)</span> is a product of Borel sets.</p>
 <p>A simple example of an IID process is a sequence of Bernoulli random variables indexed by a finite set <span class="math inline">\(T = \{1,2,\ldots,n\}\)</span>, which can be used to model a sequence of <span class="math inline">\(n\)</span> coin flips where <span class="math inline">\(X_t = 1\)</span> represents heads and <span class="math inline">\(X_t = 0\)</span> represents tails on the <span class="math inline">\(t\)</span>-th flip. Such a process can be implemented using the SigAlg library and its interface with SciPy:</p>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">In constructing the <code>Time</code> instance <code>T</code> modeling the index set <span class="math inline">\(T = \{1,2,3\}\)</span>, note that the <code>length</code> parameter is <code>2</code>, which is the length of <strong>time</strong> spanned by the interval from <code>1</code> to <code>3</code>. In particular, the <code>length</code> parameter is <strong>not</strong> the length in the sense of the Python magic method <code>len()</code>, which would return the number of time points, <code>3</code>.</span></div></div>
-<div id="bcd40488" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> bernoulli</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> IIDProcess</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct time index [1, 2, 3]. See the aside in the margin ---&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, length<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the parameters for the IID process</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> IIDProcess(</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    distribution<span class="op">=</span>bernoulli(p<span class="op">=</span><span class="fl">0.7</span>),</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    support<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>],</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>T,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate all possible trajectories</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>X.from_enumeration()</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6281fd23" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> bernoulli</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> IIDProcess</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct time index [1, 2, 3]. See the aside in the margin ---&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, length<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the parameters for the IID process</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> IIDProcess(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    distribution<span class="op">=</span>bernoulli(p<span class="op">=</span><span class="fl">0.7</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    support<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>],</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>T,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate all possible trajectories</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>X.from_enumeration()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Stochastic process 'X':
 time        1  2  3
@@ -455,8 +430,8 @@ trajectory
 </div>
 </div>
 <p>The printout shows an IID process <span class="math inline">\(X\)</span> on the index set <span class="math inline">\(T = \{1,2,3\}\)</span>, where each <span class="math inline">\(X_t\sim \mathcal{B}er(0.7)\)</span> is a Bernoulli random variable with parameter <span class="math inline">\(p=0.7\)</span>. The three time-indexed columns correspond to the values of the three random variables <span class="math inline">\(X_1, X_2, X_3\)</span>. SigAlg models the domain <span class="math inline">\(\Omega\)</span> as the trajectory indices, so <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>. This may be verified by checking the <code>domain</code> attribute of our process:</p>
-<div id="09bb5a07" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.domain)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0fc0d3f7" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.domain)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample space 'Omega':
 [0, 1, 2, 3, 4, 5, 6, 7]</code></pre>
@@ -472,10 +447,10 @@ X(\omega) = (X_1(\omega), X_2(\omega), X_3(\omega)) \in \{0,1\}^3
 P_X\big( (0, 1,1) \big) = P(X_1 = 0) P(X_2 = 1) P(X_3 = 1) = 0.3 \cdot 0.7^2 = 0.147.
 \]</span></p>
 <p>The probabilities of each trajectory can be accessed via the <code>probability_measure</code> attribute of the process. In this printout, note that trajectory <code>3</code> does indeed have the correct probability:</p>
-<div id="577758ca" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>P_X <span class="op">=</span> X.probability_measure.with_name(<span class="st">"P_X"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(P_X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="65d9d6c5" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>P_X <span class="op">=</span> X.probability_measure.with_name(<span class="st">"P_X"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(P_X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probability measure 'P_X':
             probability
@@ -502,20 +477,20 @@ trajectory
 <p>is the <span class="math inline">\(\sigma\)</span>-algebra generated by the random vector <span class="math inline">\((X_1, X_2, \ldots, X_t)\)</span>. This is the coarest <span class="math inline">\(\sigma\)</span>-algebra with respect to which <span class="math inline">\(X_1, X_2, \ldots, X_t\)</span> are all measurable. But, since <span class="math inline">\(\Omega\)</span> is finite, <span class="math inline">\(\sigma\)</span>-algebras can be completely described in terms of their <em>atoms</em>, which are the minimal non-empty sets in the <span class="math inline">\(\sigma\)</span>-algebra (and which partition <span class="math inline">\(\Omega\)</span>). The atoms of the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_t\)</span> are simply the level sets of the random vector <span class="math inline">\((X_1,X_2,\ldots,X_t)\)</span> as a function on <span class="math inline">\(\Omega\)</span>.</p>
 <p>In SigAlg, <span class="math inline">\(\sigma\)</span>-algebras are stored internally by associating to each sample point <span class="math inline">\(\omega\in \Omega\)</span> an atom identifier that specifies which atom the sample point belongs to. Since the atoms of the <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{F}_t\)</span> are the level sets of <span class="math inline">\((X_1,X_2,\ldots,X_t)\)</span>, a convenient set of atom IDs are the <em>values</em> of these random vectors themselves.</p>
 <p>For example, here are the atom IDs of <span class="math inline">\(\mathcal{F}_1\)</span>:</p>
-<div id="eec34e4c" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the natural filtration</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> X.natural_filtration</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab the F1 sigma-algebra</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>F1 <span class="op">=</span> F[<span class="dv">1</span>]</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the atom IDs alongside the process data.</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Almost all objects in SigAlg have `data` attributes that return Pandas objects.</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.concat([X.data, F1.data.rename(<span class="st">"F1 atom ID"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(display_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c0cc28e7" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the natural filtration</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> X.natural_filtration</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab the F1 sigma-algebra</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>F1 <span class="op">=</span> F[<span class="dv">1</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the atom IDs alongside the process data.</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Almost all objects in SigAlg have `data` attributes that return Pandas objects.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.concat([X.data, F1.data.rename(<span class="st">"F1 atom ID"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(display_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            1  2  3  F1 atom ID
 trajectory                     
@@ -531,11 +506,11 @@ trajectory
 </div>
 <p>Indeed, notice that the atom IDs are simply the values of the random variable <span class="math inline">\(X_1(\omega)\in \{0,1\}\)</span>, as <span class="math inline">\(\omega\)</span> ranges over <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>.</p>
 <p>Here are the atom IDs of <span class="math inline">\(\mathcal{F}_2\)</span>:</p>
-<div id="eb50c85f" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>F2 <span class="op">=</span> F[<span class="dv">2</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.concat([display_df, F2.data.rename(<span class="st">"F2 atom ID"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(display_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="61e3d26b" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>F2 <span class="op">=</span> F[<span class="dv">2</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.concat([display_df, F2.data.rename(<span class="st">"F2 atom ID"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(display_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            1  2  3  F1 atom ID F2 atom ID
 trajectory                                
@@ -551,11 +526,11 @@ trajectory
 </div>
 <p>Again, note that the atom IDs are the values of the random vector <span class="math inline">\((X_1,X_2)\)</span>, as <span class="math inline">\(\omega\)</span> ranges over <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>.</p>
 <p>For the third <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_3\)</span>, we have:</p>
-<div id="b4db01bd" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>F3 <span class="op">=</span> F[<span class="dv">3</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.concat([display_df, F3.data.rename(<span class="st">"F3 atom ID"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(display_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a04c07ae" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>F3 <span class="op">=</span> F[<span class="dv">3</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.concat([display_df, F3.data.rename(<span class="st">"F3 atom ID"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(display_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            1  2  3  F1 atom ID F2 atom ID F3 atom ID
 trajectory                                           
@@ -577,36 +552,36 @@ trajectory
 <p>Now, at time <span class="math inline">\(t=2\)</span>, the observer sees the result of the second flip, <span class="math inline">\(X_2(\omega)\)</span>. With this additional information, combined with knowledge of the first flip, the observer would be able to identify which of the four atoms of <span class="math inline">\(\mathcal{F}_2\)</span> contains the sample point <span class="math inline">\(\omega\)</span>. But again, while this reduces more of the uncertainty about <span class="math inline">\(\omega\)</span>, it does not eliminate it entirely, for the observer still cannot distinguish between the trajectories <span class="math inline">\(X(\omega)\)</span> within each of the four atoms of <span class="math inline">\(\mathcal{F}_2\)</span>, given only the information in <span class="math inline">\(\mathcal{F}_2\)</span>.</p>
 <p>Finally, at time <span class="math inline">\(t=3\)</span>, the observer sees the result of the third flip, <span class="math inline">\(X_3(\omega)\)</span>. As in the previous two cases, with this new information, the observer can identify which of the eight atoms of <span class="math inline">\(\mathcal{F}_3\)</span> contains the sample point <span class="math inline">\(\omega\)</span>. But since <span class="math inline">\(\mathcal{F}_3\)</span> is the power set, this amounts to complete information on <span class="math inline">\(\omega\)</span>. The trajectory <span class="math inline">\(X(\omega)\)</span> is now fully determined.</p>
 <p>This “flow” of information, refining the observer’s knowledge over time, is precisely what a filtration models. This flow can be visualized through SigAlg’s interface with Plotly, to create a Sankey-style figure:</p>
-<div id="5897a04a" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These two lines are only necessary to render in Quarto markdown.</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The reader may remove them.</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>pio.renderers.default <span class="op">=</span> <span class="st">"plotly_mimetype+notebook_connected"</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> plot_information_flow</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reusable plotting parameters</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plot_config <span class="op">=</span> <span class="bu">dict</span>(</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    node_color<span class="op">=</span><span class="st">"#FFC300"</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    font_color<span class="op">=</span><span class="st">"#FAF9F6"</span>,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    link_color<span class="op">=</span><span class="st">"rgba(168, 165, 159, 0.5)"</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    background_color<span class="op">=</span><span class="st">"#121212"</span>,</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    font_family<span class="op">=</span><span class="st">"monospace"</span>,</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plot_information_flow(</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    filtration<span class="op">=</span>F,</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Natural filtration of 'X'"</span>,</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    show_atom_counts<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>plot_config,</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5b560fcb" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These two lines are only necessary to render in Quarto markdown.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The reader may remove them.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pio.renderers.default <span class="op">=</span> <span class="st">"plotly_mimetype+notebook_connected"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> plot_information_flow</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reusable plotting parameters</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plot_config <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    node_color<span class="op">=</span><span class="st">"#FFC300"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    font_color<span class="op">=</span><span class="st">"#FAF9F6"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    link_color<span class="op">=</span><span class="st">"rgba(168, 165, 159, 0.5)"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    background_color<span class="op">=</span><span class="st">"#121212"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    font_family<span class="op">=</span><span class="st">"monospace"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plot_information_flow(</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    filtration<span class="op">=</span>F,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Natural filtration of 'X'"</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    show_atom_counts<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>plot_config,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="ab67d97c-44b7-4d23-a0a4-5321e44b3d54" class="plotly-graph-div" style="height:400px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("ab67d97c-44b7-4d23-a0a4-5321e44b3d54")) {                    Plotly.newPlot(                        "ab67d97c-44b7-4d23-a0a4-5321e44b3d54",                        [{"link":{"color":"rgba(168, 165, 159, 0.5)","hoverinfo":"skip","source":[0,0,1,1,2,2,3,3,4,4,5,5],"target":[2,3,4,5,6,7,8,9,10,11,12,13],"value":[2,2,2,2,1,1,1,1,1,1,1,1]},"node":{"color":"#FFC300","hoverinfo":"skip","label":["Atom 0","Atom 1","Atom (0, 0)","Atom (0, 1)","Atom (1, 0)","Atom (1, 1)","Atom (0, 0, 0)","Atom (0, 0, 1)","Atom (0, 1, 0)","Atom (0, 1, 1)","Atom (1, 0, 0)","Atom (1, 0, 1)","Atom (1, 1, 0)","Atom (1, 1, 1)"],"line":{"color":"black","width":2}},"type":"sankey"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"margin":{"t":40,"b":80,"l":40,"r":40},"font":{"family":"monospace","size":14,"color":"#FAF9F6"},"title":{"font":{"family":"monospace","size":20,"color":"#FAF9F6"},"text":"Natural filtration of 'X'"},"height":400,"paper_bgcolor":"#121212","plot_bgcolor":"#121212","annotations":[{"font":{"color":"#FAF9F6","family":"monospace","size":16},"showarrow":false,"text":"t=1","x":0.0,"xanchor":"center","xref":"paper","y":-0.15,"yref":"paper"},{"font":{"color":"#FAF9F6","family":"monospace","size":16},"showarrow":false,"text":"t=2","x":0.5,"xanchor":"center","xref":"paper","y":-0.15,"yref":"paper"},{"font":{"color":"#FAF9F6","family":"monospace","size":16},"showarrow":false,"text":"t=3","x":1.0,"xanchor":"center","xref":"paper","y":-0.15,"yref":"paper"}]},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="3d8abd5b-9223-4ce4-be45-79dec6aae695" class="plotly-graph-div" style="height:400px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("3d8abd5b-9223-4ce4-be45-79dec6aae695")) {                    Plotly.newPlot(                        "3d8abd5b-9223-4ce4-be45-79dec6aae695",                        [{"link":{"color":"rgba(168, 165, 159, 0.5)","hoverinfo":"skip","source":[0,0,1,1,2,2,3,3,4,4,5,5],"target":[2,3,4,5,6,7,8,9,10,11,12,13],"value":[2,2,2,2,1,1,1,1,1,1,1,1]},"node":{"color":"#FFC300","hoverinfo":"skip","label":["Atom 0","Atom 1","Atom (0, 0)","Atom (0, 1)","Atom (1, 0)","Atom (1, 1)","Atom (0, 0, 0)","Atom (0, 0, 1)","Atom (0, 1, 0)","Atom (0, 1, 1)","Atom (1, 0, 0)","Atom (1, 0, 1)","Atom (1, 1, 0)","Atom (1, 1, 1)"],"line":{"color":"black","width":2}},"type":"sankey"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"margin":{"t":40,"b":80,"l":40,"r":40},"font":{"family":"monospace","size":14,"color":"#FAF9F6"},"title":{"font":{"family":"monospace","size":20,"color":"#FAF9F6"},"text":"Natural filtration of 'X'"},"height":400,"paper_bgcolor":"#121212","plot_bgcolor":"#121212","annotations":[{"font":{"color":"#FAF9F6","family":"monospace","size":16},"showarrow":false,"text":"t=1","x":0.0,"xanchor":"center","xref":"paper","y":-0.15,"yref":"paper"},{"font":{"color":"#FAF9F6","family":"monospace","size":16},"showarrow":false,"text":"t=2","x":0.5,"xanchor":"center","xref":"paper","y":-0.15,"yref":"paper"},{"font":{"color":"#FAF9F6","family":"monospace","size":16},"showarrow":false,"text":"t=3","x":1.0,"xanchor":"center","xref":"paper","y":-0.15,"yref":"paper"}]},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('ab67d97c-44b7-4d23-a0a4-5321e44b3d54');
+var gd = document.getElementById('3d8abd5b-9223-4ce4-be45-79dec6aae695');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -633,26 +608,26 @@ if (outputEl) {{
 </div>
 <p>As we read the figure from left to right through time, notice that each atom is split into a union of atoms in the next <span class="math inline">\(\sigma\)</span>-algebra. This illustrates how the observer’s knowledge is refined over time as more information becomes available. If earlier atoms were <em>not</em> unions of later atoms, then one of the containments <span class="math inline">\(\mathcal{F}_1 \subset \mathcal{F}_2\)</span> or <span class="math inline">\(\mathcal{F}_2 \subset \mathcal{F}_3\)</span> would be violated, which means that the three <span class="math inline">\(\sigma\)</span>-algebras would not form a filtration. (Recall the most recent margin note above.)</p>
 <p>The trajectories of our process <span class="math inline">\(X\)</span> are short. Longer trajectories can be generated by increasing the <code>length</code> parameter in the <code>Time</code> instance, though care must be taken since the number of possible trajectories grows exponentially with the length of the trajectories. For long trajectories, it is often more practical to work with Monte Carlo simulations rather than exhaustive enumerations. In the next code block, we simulate a single trajectory of length 100 from the same IID Bernoulli process above and plot it:</p>
-<div id="ce3186a1" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The reader may remove this line, or set their own custom style</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the time index of the process to a longer length</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, length<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>X.time <span class="op">=</span> T</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate a single trajectory</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>X.from_simulation(</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    n_trajectories<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the trajectory</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">2</span>))</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e42cf10a" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The reader may remove this line, or set their own custom style</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"../../aux-files/custom-theme.mplstyle"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the time index of the process to a longer length</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, length<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>X.time <span class="op">=</span> T</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate a single trajectory</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>X.from_simulation(</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    n_trajectories<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the trajectory</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">2</span>))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -701,33 +676,32 @@ X_t = X_{t_0} + \sum_{s=t_0+1}^t \Delta X_s.
 \Delta X_t = 2B_t -1
 \]</span></p>
 <p>for <span class="math inline">\(1 \leq t \leq 10\)</span>, where <span class="math inline">\(B_t \sim \mathcal{B}er(0.7)\)</span>. Thus, in SigAlg, we write:</p>
-<div id="4b33445e" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> RandomVariable</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The increments start at time t=1 and stop at t=10</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, stop<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the IID Bernoulli process</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> IIDProcess(</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    distribution<span class="op">=</span>bernoulli(p<span class="op">=</span><span class="fl">0.7</span>),</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>T,</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"B"</span>,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>).from_simulation(</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    n_trajectories<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the increment process</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>Delta_X <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> B <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># The initial state is a constant random variable X0=x0=0.</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that its `name` parameter is set to the initial time t0=0.</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>X0 <span class="op">=</span> RandomVariable(domain<span class="op">=</span>B.domain, name<span class="op">=</span><span class="dv">0</span>).from_constant(<span class="dv">0</span>)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the random walk process by cumulative summation</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Delta_X.cumsum().insert_rv(X0, <span class="dv">0</span>).with_name(<span class="st">"X"</span>)</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b6eeb452" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> RandomVariable</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The increments start at time t=1 and stop at t=10</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(start<span class="op">=</span><span class="dv">1</span>, stop<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the IID Bernoulli process</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> IIDProcess(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    distribution<span class="op">=</span>bernoulli(p<span class="op">=</span><span class="fl">0.7</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>T,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"B"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>).from_simulation(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    n_trajectories<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the increment process</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>Delta_X <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> B <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the random walk process by cumulative summation</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Delta_X.cumsum().with_name(<span class="st">"X"</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert the initial state</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>X.insert_rv(state<span class="op">=</span><span class="dv">0</span>, time<span class="op">=</span><span class="dv">0</span>, in_place<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Stochastic process 'X':
 time        0   1   2   3   4   5   6   7   8   9   10
@@ -745,11 +719,11 @@ trajectory
 </div>
 </div>
 <p>We have simulated ten trajectories of the random walk. We see that the final position of trajectory <code>3</code> is <code>6</code>, while the final position of trajectory <code>9</code> is <code>8</code>. A plot of these simulated trajectories is shown below:</p>
-<div id="66b07885" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], plot_kwargs<span class="op">=</span>{<span class="st">"alpha"</span>: <span class="fl">0.7</span>})</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="36783fb8" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], plot_kwargs<span class="op">=</span>{<span class="st">"alpha"</span>: <span class="fl">0.7</span>})</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -759,18 +733,18 @@ trajectory
 </div>
 </div>
 <p>Longer trajectories reveal the “drift” that we mentioned above. To make these longer trajectories, we use the built-in <code>RandomWalk</code> class in SigAlg, which (essentially) internally implements the same construction as above. The following code simulates ten trajectories of length 100 with the same parameters as our original random walk:</p>
-<div id="309517e2" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> RandomWalk</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> RandomWalk(p<span class="op">=</span><span class="fl">0.7</span>, time<span class="op">=</span>T).from_simulation(</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    n_trajectories<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], plot_kwargs<span class="op">=</span>{<span class="st">"alpha"</span>: <span class="fl">0.7</span>})</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3e8ddeb0" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.processes <span class="im">import</span> RandomWalk</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> RandomWalk(p<span class="op">=</span><span class="fl">0.7</span>, time<span class="op">=</span>T).from_simulation(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    n_trajectories<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>X.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], plot_kwargs<span class="op">=</span>{<span class="st">"alpha"</span>: <span class="fl">0.7</span>})</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -784,11 +758,6 @@ trajectory
 E(\Delta X_t) = 2E(B_t) - 1 = 2 \cdot 0.7 - 1 = 0.4 &gt; 0.
 \]</span></p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>In this post, we’ve explored how SigAlg enables a natural and mathematically faithful approach to working with stochastic processes in Python. Starting from the general definition of a stochastic process, we constructed IID processes and random walks, examining their trajectories, probability measures, and natural filtrations. Throughout these examples, we saw how SigAlg’s API closely mirrors the mathematical notation and concepts: defining a process feels like writing its mathematical definition.</p>
-<p>The examples with Bernoulli random variables and random walks demonstrate SigAlg’s versatility in both exhaustive enumeration (for small state spaces and short trajectories) and Monte Carlo simulation. As we continue this series, we’ll build on these foundations to explore other topics in stochastic process and probability theory. The consistent mathematical framework provided by SigAlg will allow us to navigate these increasingly sophisticated topics while maintaining the same intuitive, paper-and-pencil feel evident in this post.</p>
-</section>
 <section id="bibliography" class="level2">
 
 
@@ -797,11 +766,8 @@ E(\Delta X_t) = 2E(B_t) - 1 = 2 \cdot 0.7 - 1 = 0.4 &gt; 0.
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-Williams1991" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Williams, D., <em>Probability with martingales</em>, Cambridge mathematical textbooks, Cambridge University Press, 1991.</div>
-</div>
 <div id="ref-Kallenberg2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Kallenberg, O., <em>Foundations of modern probability</em>, third, vol. 99, Probability theory and stochastic modelling, Springer, 2021.</div>
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Kallenberg, O., <em>Foundations of modern probability</em>, third, vol. 99, Probability theory and stochastic modelling, Springer, 2021.</div>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
