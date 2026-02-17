@@ -6,10 +6,10 @@ jupyter: site
 categories: [Stochastic process, IID process, Random walk, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, SciPy, Python]
 bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
-image: "thumbnail.png"
+image: "sigalg-logo.png"
 open-graph:
     title: "Introducing SigAlg: Measure-Theoretic Probability in Python"
-    image: "https://johnmyers-phd.com/posts/random-walk/thumbnail.png"
+    image: "https://johnmyers-phd.com/posts/sigalg/sigalg-logo.png"
 ---
 
 ::: {.content-hidden}
