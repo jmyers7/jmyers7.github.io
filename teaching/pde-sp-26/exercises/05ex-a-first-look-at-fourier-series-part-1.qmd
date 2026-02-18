@@ -7,9 +7,9 @@ toc: true
 
 ## Exercise 1: Practice computing Fourier series
 
-::: {.callout-note icon="false" appearance="minimal"}
-
 This exercise refers to the Fourier series listed in rows 1-20 of the file [here](./img/fourier-series.pdf){target="_blank"}.
+
+::: {.callout-note icon="false" appearance="minimal"}
 
 a. Verify, by hand, that the Fourier series for the function in **row 3** of the table in the file above is the one shown.
 
@@ -22,5 +22,5 @@ c. Verify, by hand, that the Fourier series for the function in **row 6** of the
 ::: {.callout-note collapse="true" icon="false"}
 ## Solutions.
 
-Coming soon!
+The solutions are given in the PDF itself! Make sure your calculations match the Fourier series shown in the table.
 :::

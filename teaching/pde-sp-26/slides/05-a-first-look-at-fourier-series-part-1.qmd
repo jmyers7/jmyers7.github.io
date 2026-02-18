@@ -145,3 +145,58 @@ $$
 
 Define the function $f(\theta) = |\theta|$ for $\theta \in [-\pi, \pi]$, and extend it to a function on $\mathbb{R}$ with period $2\pi$. Compute the Fourier coefficients and series of $f$.
 :::
+
+::: {.fragment}
+
+```{python}
+
+# | fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+blue = "#3399FF"
+white = "#FAF9F6"
+theta_range = np.linspace(-4 * np.pi, 4 * np.pi, 400)
+
+
+def f(theta):
+    theta_wrapped = ((theta + np.pi) % (2 * np.pi)) - np.pi
+    return np.abs(theta_wrapped)
+
+
+def f_n(k, theta):
+    return np.cos((2 * k - 1) * theta) / (2 * k - 1) ** 2
+
+
+def f_approx(theta, n):
+    return np.pi / 2 - (4 / np.pi) * sum(f_n(k, theta) for k in range(1, n + 1))
+
+
+fig, axes = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=True)
+fig.set_facecolor(white)
+
+
+axes[0, 0].plot(theta_range, f(theta_range), color=blue)
+axes[0, 0].set_title(r"$f(\theta) = |\theta|$ extended periodically")
+
+n = 1
+axes[0, 1].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[0, 1].set_title(r"$S_1(\theta)$")
+
+n = 2
+axes[1, 0].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[1, 0].set_title(r"$S_2(\theta)$")
+
+n = 5
+axes[1, 1].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[1, 1].set_title(r"$S_5(\theta)$")
+
+for ax in axes.flatten():
+    ax.set_facecolor(white)
+
+plt.tight_layout()
+plt.show()
+```
+
+:::

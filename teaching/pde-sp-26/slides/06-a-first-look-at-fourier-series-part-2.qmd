@@ -1,0 +1,221 @@
+---
+title: "06 A first look at Fourier series, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## Exercise 1: Computing another Fourier series {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Define the function $f(\theta) = \theta$ for $\theta \in [-\pi, \pi]$, and extend it to a function on $\mathbb{R}$ with period $2\pi$. Compute the Fourier coefficients and series of $f$.
+:::
+
+::: {.fragment}
+
+```{python}
+
+# | fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+blue = "#3399FF"
+white = "#FAF9F6"
+theta_range = np.linspace(-5 * np.pi, 5 * np.pi, 400)
+
+
+def f(theta):
+    theta_wrapped = ((theta + np.pi) % (2 * np.pi)) - np.pi
+    y = theta_wrapped.copy()
+    # Insert NaN at discontinuities
+    jumps = np.abs(np.diff(y)) > np.pi
+    y[1:][jumps] = np.nan
+    return y
+
+
+def f_n(k, theta):
+    return (-1) ** (k + 1) / k * np.sin(k * theta)
+
+
+def f_approx(theta, n):
+    return 2 * sum(f_n(k, theta) for k in range(1, n + 1))
+
+
+fig, axes = plt.subplots(nrows=3, ncols=2, sharex=True, sharey=True)
+fig.set_facecolor(white)
+
+
+axes[0, 0].plot(theta_range, f(theta_range), color=blue)
+axes[0, 0].set_title(r"$f(\theta) = \theta$ extended periodically")
+
+n = 1
+axes[0, 1].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[0, 1].set_title(r"$S_1(\theta)$")
+
+n = 2
+axes[1, 0].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[1, 0].set_title(r"$S_2(\theta)$")
+
+n = 5
+axes[1, 1].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[1, 1].set_title(r"$S_5(\theta)$")
+
+n = 10
+axes[2, 0].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[2, 0].set_title(r"$S_{10}(\theta)$")
+
+n = 20
+axes[2, 1].plot(theta_range, f_approx(theta_range, n), color=blue)
+axes[2, 1].set_title(r"$S_{20}(\theta)$")
+
+for ax in axes.flatten():
+    ax.set_facecolor(white)
+
+plt.tight_layout()
+plt.show()
+```
+
+:::
+
+
+## Bessel's inequality: statement {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Bessel's inequality — $c$-version).
+
+If $f:\mathbb{R} \to \mathbb{C}$ is a $2\pi$-periodic function, integrable on $[-\pi, \pi]$, and if $c_n$ are its Fourier coefficients, then
+
+$$
+\sum_{n=-\infty}^\infty |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+$$
+
+:::
+
+## Bessel's inequality: context {.scrollable}
+
+- For the moment, consider a familiar column vector, say in $\mathbf{x} \in \mathbb{C}^3$ for simplicity:
+$$
+\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}.
+$$
+- If we consider the standard basis vectors
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad
+\mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad
+\mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix},
+$$
+then can consider the three inner products (dot products):
+$$
+\langle \mathbf{x}, \mathbf{e}_1 \rangle = x_1, \quad
+\langle \mathbf{x}, \mathbf{e}_2 \rangle = x_2, \quad
+\langle \mathbf{x}, \mathbf{e}_3 \rangle = x_3.
+$$
+- Then we obviously have
+$$
+\sum_{n=1}^3 |\langle \mathbf{x}, \mathbf{e}_n \rangle|^2 = |x_1|^2 + |x_2|^2 + |x_3|^2 = \|\mathbf{x}\|^2.
+$$
+- In particular, we have
+$$
+\sum_{n=1}^3 |x_n|^2 = \sum_{n=1}^3 |\langle \mathbf{x}, \mathbf{e}_n \rangle|^2 \leq \|\mathbf{x}\|^2.
+$$
+
+## Bessel's inequality: more context {.scrollable}
+
+- Now, consider two functions $f,g: \mathbb{R} \to \mathbb{C}$ that are $2\pi$-periodic and integrable on $[-\pi, \pi]$. Suppose we define an inner product on such functions by
+$$
+\langle f, g \rangle = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) \overline{g(\theta)} \, d\theta.
+$$
+- Then, in complete analogy with the case of column vectors, it is natural to define
+$$
+\|f\|^2 = \langle f, f \rangle = \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+$$
+- Notice also that
+$$
+\langle f, e^{in\theta} \rangle = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) e^{-in\theta} \, d\theta = c_n,
+$$
+for each integer $n$.
+- In other words, the Fourier coefficients of $f$ are precisely the inner products of $f$ with the complex exponentials $e^{in\theta}$.
+- From the previous slide, we have
+$$
+\sum_{n=1}^3 |x_n|^2 =  \sum_{n=1}^3 |\langle \mathbf{x}, \mathbf{e}_n \rangle|^2 \leq \|\mathbf{x}\|^2.
+$$
+- Arguing by analogy, we might expect that
+$$
+\sum_{n=-\infty}^\infty |c_n|^2 = \sum_{n=-\infty}^\infty |\langle f, e^{in\theta} \rangle|^2 \leq \|f\|^2 = \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta,
+$$
+which is precisely Bessel's inequality.
+- In fact, in the case of column vectors, we have an equality, which suggests by analogy that (maybe?) we have an equality in the case of functions as well. This is indeed the case!
+
+
+## Bessel's inequality: proof {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Bessel's inequality — $c$-version).
+
+If $f:\mathbb{R} \to \mathbb{C}$ is a $2\pi$-periodic function, integrable on $[-\pi, \pi]$, and if $c_n$ are its Fourier coefficients, then
+
+$$
+\sum_{n=-\infty}^\infty |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+$$
+
+:::
+
+- Begin with the basic observation that $|z|^2 = z \overline{z}$ for any complex number $z$.
+
+- Applying this to $z = f(\theta) - \sum_{n=-N}^N c_n e^{in\theta}$, we have
+$$
+\left| f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right|^2 = \left( f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right) \overline{\left( f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right)} = \left( f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right) \left( \overline{f(\theta)} - \sum_{n=-N}^N \overline{c_n} e^{-in\theta}\right).
+$$
+
+- Expanding the right-hand side, we have
+$$
+\left| f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right|^2 = |f(\theta)|^2 - \sum_{n=-N}^N c_n \overline{f(\theta)} e^{in\theta}  - \sum_{n=-N}^N \overline{c_n} f(\theta) e^{-in\theta}  + \sum_{n=-N}^N \sum_{m=-N}^N c_n \overline{c_m} e^{i(n-m)\theta}.
+$$
+- Divide both sides by $2\pi$, integrate from $-\pi$ to $\pi$, and recall that:
+$$
+\frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) e^{-in\theta} \, d\theta = c_n, \quad \text{and} \quad \frac{1}{2\pi} \int_{-\pi}^\pi e^{i(n-m)\theta} \, d\theta = \begin{cases}
+1 & : n=m, \\
+0 & : n \neq m.
+\end{cases}
+$$
+
+- We get
+$$
+\begin{align*}
+\frac{1}{2\pi} \int_{-\pi}^\pi \left| f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right|^2 \, d\theta &= \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta - \sum_{n=-N}^N \left( c_n \overline{c_n} + \overline{c_n} c_n \right) + \sum_{n=-N}^N c_n \overline{c_n} \\
+&= \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta - \sum_{n=-N}^N |c_n|^2.
+\end{align*}
+$$
+
+- But the left-hand side is non-negative, so we have
+$$
+\sum_{n=-N}^N |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta,
+$$
+for each $N$. Now let $N\to \infty$. Q.E.D.
+
+## Bessel's inequality: "$ab$-version" {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Bessel's inequality — $ab$-version).
+If $f:\mathbb{R} \to \mathbb{C}$ is a $2\pi$-periodic function, integrable on $[-\pi, \pi]$, and if $a_n$ and $b_n$ are its Fourier coefficients, then
+$$
+\frac{|a_0|^2}{4} + \frac{1}{2}\sum_{n=1}^\infty \left( |a_n|^2 + |b_n|^2 \right) \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+$$
+
+:::
+
+## Riemann-Lebesgue lemma {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Theorem (Riemann-Lebesgue lemma).
+If $f:\mathbb{R} \to \mathbb{C}$ is a $2\pi$-periodic function, integrable on $[-\pi, \pi]$, and if $a_n$, $b_n$, and $c_n$ are its Fourier coefficients, then
+$$
+\lim_{n\to \infty} a_n = \lim_{n\to \infty} b_n = \lim_{n\to \pm \infty} c_n = 0.
+$$
+:::
