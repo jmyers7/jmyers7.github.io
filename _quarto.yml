@@ -34,6 +34,9 @@ website:
       - icon: bluesky
         href: https://bsky.app/profile/john-myers-phd.bsky.social
         target: _blank
+      - icon: mastodon
+        href: https://mathstodon.xyz/@jmyers7
+        target: _blank
       - icon: linkedin
         href: https://www.linkedin.com/in/john-myers-phd
         target: _blank
