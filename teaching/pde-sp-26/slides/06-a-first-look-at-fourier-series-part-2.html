@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>john myers, ph.d. – 05 A first look at Fourier series, part 1</title>
+  <title>john myers, ph.d. – 06 A first look at Fourier series, part 2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,161 +136,167 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">05 A first look at Fourier series, part 1</h1>
+  <h1 class="title">06 A first look at Fourier series, part 2</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="the-fundamental-question" class="slide level2 scrollable">
-<h2>The fundamental question</h2>
-<ul>
-<li class="fragment">One of the fundamental questions raised when solving an initial-value problem via separation of variables is:</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>The Fourier question</strong></p>
-</div>
-<div class="callout-content">
-<p>Given a function <span class="math inline">\(f:\mathbb{R} \to \mathbb{R}\)</span>, when can we write it as a series of the form</p>
-<p><span class="math display">\[
-f(\theta) = \frac{a_0}{2} + \sum_{n=1}^\infty \left( a_n \cos{n\theta} + b_n \sin{n\theta}\right)?
-\]</span></p>
-<ol type="1">
-<li class="fragment">When does the series on the right converge?</li>
-<li class="fragment">If it does converge, does it converge to <span class="math inline">\(f\)</span>?</li>
-<li class="fragment">What are the coefficients <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span>?</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment"><p>Note we use the variable <span class="math inline">\(\theta\)</span>, rather than <span class="math inline">\(x\)</span>. No harm here.</p></li>
-<li class="fragment"><p>If the answer to (2) is <em>always</em>, then the function <span class="math inline">\(f\)</span> had better be periodic with period <span class="math inline">\(2\pi\)</span>, so we will focus always on these types of functions.</p></li>
-</ul>
-</section>
-<section id="exericse-1-bringing-in-complex-numbers" class="slide level2 scrollable">
-<h2>Exericse 1: Bringing in complex numbers</h2>
+<section id="exercise-1-computing-another-fourier-series" class="slide level2 scrollable">
+<h2>Exercise 1: Computing another Fourier series</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Recall that from Euler’s formula <span class="math inline">\(e^{i\theta} = \cos{\theta} + i\sin{\theta}\)</span>, we can express the sine and cosine functions in terms of complex exponentials as follows:</p>
-<p><span class="math display">\[
-\cos{\theta} = \frac{e^{i\theta} + e^{-i\theta}}{2}, \quad \sin{\theta} = \frac{e^{i\theta} - e^{-i\theta}}{2i}.
-\]</span></p>
-<ol type="a">
-<li><p>Express the series <span class="math display">\[
-\frac{a_0}{2} + \sum_{n=1}^\infty \left( a_n \cos{n\theta} + b_n \sin{n\theta}\right)
-\]</span> in terms of complex exponentials with coefficients <span class="math inline">\(c_n\)</span> for <span class="math inline">\(n\in \mathbb{Z}\)</span>.</p></li>
-<li><p>Conversely, starting from the series of complex exponentials that you found in part (1), express it back in terms of sines and cosines with coefficients <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span> for <span class="math inline">\(n\geq 0\)</span>.</p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="deriving-a-formula-for-c_n" class="slide level2 scrollable">
-<h2>Deriving a formula for <span class="math inline">\(c_n\)</span></h2>
-<ul>
-<li class="fragment"><p>Now, suppose we take for granted that <span class="math display">\[
-f(\theta) = \sum_{n=-\infty}^\infty c_n e^{in\theta}, \tag{1}
-\]</span> and that it is permissible to integrate term-by-term. (These are <strong>assumptions</strong>, not claims of fact!)</p></li>
-<li class="fragment"><p>How might we find a formula for the coefficients <span class="math inline">\(c_n\)</span>?</p></li>
-<li class="fragment"><p>Integrate both sides of (1) against <span class="math inline">\(e^{-ik\theta}\)</span> for some fixed integer <span class="math inline">\(k\)</span>, from <span class="math inline">\(-\pi\)</span> to <span class="math inline">\(\pi\)</span>: <span class="math display">\[
-\int_{-\pi}^\pi f(\theta) e^{-ik\theta} \, d\theta = \sum_{n=-\infty}^\infty c_n \int_{-\pi}^\pi  e^{i(n-k)\theta} \, d\theta.
-\]</span></p></li>
-<li class="fragment"><p>Now, compute the integrals on the right-hand side: <span class="math display">\[
-\int_{-\pi}^\pi  e^{i(n-k)\theta} \, d\theta = \begin{cases}
-2\pi &amp; : n=k, \\
-0 &amp; : n \neq k.
-\end{cases}
-\]</span></p></li>
-<li class="fragment"><p>Therefore, we have: <span class="math display">\[
-\int_{-\pi}^\pi f(\theta) e^{-ik\theta} \, d\theta = 2\pi c_k,
-\]</span> which is the same, after relabelling, as the formula <span class="math display">\[
-c_n = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) e^{-in\theta} \, d\theta.
-\]</span></p></li>
-</ul>
-</section>
-<section id="deriving-formulas-for-a_n-and-b_n" class="slide level2 scrollable">
-<h2>Deriving formulas for <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span></h2>
-<ul>
-<li class="fragment"><p>From Exercise 1, we know that <span class="math display">\[
-a_0 = 2c_0, \quad a_n = c_n + c_{-n}, \quad b_n = i(c_n - c_{-n})
-\]</span> for <span class="math inline">\(n\geq 1\)</span>.</p></li>
-<li class="fragment"><p>Therefore, we can express <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span> in terms of integrals of <span class="math inline">\(f\)</span> as follows: <span class="math display">\[
-a_0 = \frac{1}{\pi} \int_{-\pi}^\pi f(\theta) \, d\theta, \quad a_n = \frac{1}{\pi} \int_{-\pi}^\pi f(\theta) \cos{n\theta} \, d\theta, \quad b_n = \frac{1}{\pi} \int_{-\pi}^\pi f(\theta) \sin{n\theta} \, d\theta,
-\]</span> for <span class="math inline">\(n\geq 1\)</span>.</p></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Definition</strong></p>
-</div>
-<div class="callout-content">
-<p>Let <span class="math inline">\(f:\mathbb{R} \to \mathbb{R}\)</span> be an integrable function with period <span class="math inline">\(2\pi\)</span>.</p>
-<ul>
-<li class="fragment"><p>The numbers <span class="math inline">\(c_n\)</span> for <span class="math inline">\(n\in \mathbb{Z}\)</span>, <span class="math inline">\(a_n\)</span> for <span class="math inline">\(n\geq 0\)</span>, and <span class="math inline">\(b_n\)</span> for <span class="math inline">\(n\geq 1\)</span>, defined by <span class="math display">\[
-c_n = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) e^{-in\theta} \, d\theta, \quad a_n = \frac{1}{\pi} \int_{-\pi}^\pi f(\theta) \cos{n\theta} \, d\theta, \quad b_n = \frac{1}{\pi} \int_{-\pi}^\pi f(\theta) \sin{n\theta} \, d\theta,
-\]</span> are called the <strong>Fourier coefficients</strong> of <span class="math inline">\(f\)</span>.</p></li>
-<li class="fragment"><p>The series <span class="math display">\[
-\sum_{n=-\infty}^\infty c_n e^{in\theta} \quad \text{or} \quad \frac{a_0}{2} + \sum_{n=1}^\infty \left( a_n \cos{n\theta} + b_n \sin{n\theta}\right)
-\]</span> is called the <strong>Fourier series</strong> of <span class="math inline">\(f\)</span>.</p></li>
-</ul>
-</div>
+<p>Define the function <span class="math inline">\(f(\theta) = \theta\)</span> for <span class="math inline">\(\theta \in [-\pi, \pi]\)</span>, and extend it to a function on <span class="math inline">\(\mathbb{R}\)</span> with period <span class="math inline">\(2\pi\)</span>. Compute the Fourier coefficients and series of <span class="math inline">\(f\)</span>.</p>
 </div>
 </div>
 </div>
 <div class="fragment">
-<div class="callout callout-warning no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>WARNING!!!</strong></p>
-</div>
-<div class="callout-content">
-<p>Nothing has been claimed about the <strong>convergence</strong> of the Fourier series!</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-2-fourier-coefficients-of-even-and-odd-functions" class="slide level2 scrollable">
-<h2>Exercise 2: Fourier coefficients of even and odd functions</h2>
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>Let <span class="math inline">\(f:\mathbb{R} \to \mathbb{R}\)</span> be an integrable function with period <span class="math inline">\(2\pi\)</span>.</p>
-<ol type="a">
-<li><p>If <span class="math inline">\(f\)</span> is even, show that <span class="math inline">\(b_n=0\)</span> for all <span class="math inline">\(n\geq 1\)</span>, and that <span class="math display">\[
-a_n = \frac{2}{\pi} \int_0^\pi f(\theta) \cos{n\theta} \, d\theta.
-\]</span></p></li>
-<li><p>If <span class="math inline">\(f\)</span> is odd, show that <span class="math inline">\(a_n=0\)</span> for all <span class="math inline">\(n\geq 0\)</span>, and that <span class="math display">\[
-b_n = \frac{2}{\pi} \int_0^\pi f(\theta) \sin{n\theta} \, d\theta.
-\]</span></p></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-3-computing-a-fourier-series" class="slide level2 scrollable">
-<h2>Exercise 3: Computing a Fourier series</h2>
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>Define the function <span class="math inline">\(f(\theta) = |\theta|\)</span> for <span class="math inline">\(\theta \in [-\pi, \pi]\)</span>, and extend it to a function on <span class="math inline">\(\mathbb{R}\)</span> with period <span class="math inline">\(2\pi\)</span>. Compute the Fourier coefficients and series of <span class="math inline">\(f\)</span>.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div id="4583aefe" class="cell" data-execution_count="1">
+<div id="6efd571b" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="05-a-first-look-at-fourier-series-part-1_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="469"></p>
+<p><img data-src="06-a-first-look-at-fourier-series-part-2_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="469"></p>
 </figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="bessels-inequality-statement" class="slide level2 scrollable">
+<h2>Bessel’s inequality: statement</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Bessel’s inequality — <span class="math inline">\(c\)</span>-version).</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(f:\mathbb{R} \to \mathbb{C}\)</span> is a <span class="math inline">\(2\pi\)</span>-periodic function, integrable on <span class="math inline">\([-\pi, \pi]\)</span>, and if <span class="math inline">\(c_n\)</span> are its Fourier coefficients, then</p>
+<p><span class="math display">\[
+\sum_{n=-\infty}^\infty |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="bessels-inequality-context" class="slide level2 scrollable">
+<h2>Bessel’s inequality: context</h2>
+<ul>
+<li class="fragment">For the moment, consider a familiar column vector, say in <span class="math inline">\(\mathbf{x} \in \mathbb{C}^3\)</span> for simplicity: <span class="math display">\[
+\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}.
+\]</span></li>
+<li class="fragment">If we consider the standard basis vectors <span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad
+\mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad
+\mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix},
+\]</span> then can consider the three inner products (dot products): <span class="math display">\[
+\langle \mathbf{x}, \mathbf{e}_1 \rangle = x_1, \quad
+\langle \mathbf{x}, \mathbf{e}_2 \rangle = x_2, \quad
+\langle \mathbf{x}, \mathbf{e}_3 \rangle = x_3.
+\]</span></li>
+<li class="fragment">Then we obviously have <span class="math display">\[
+\sum_{n=1}^3 |\langle \mathbf{x}, \mathbf{e}_n \rangle|^2 = |x_1|^2 + |x_2|^2 + |x_3|^2 = \|\mathbf{x}\|^2.
+\]</span></li>
+<li class="fragment">In particular, we have <span class="math display">\[
+\sum_{n=1}^3 |x_n|^2 = \sum_{n=1}^3 |\langle \mathbf{x}, \mathbf{e}_n \rangle|^2 \leq \|\mathbf{x}\|^2.
+\]</span></li>
+</ul>
+</section>
+<section id="bessels-inequality-more-context" class="slide level2 scrollable">
+<h2>Bessel’s inequality: more context</h2>
+<ul>
+<li class="fragment">Now, consider two functions <span class="math inline">\(f,g: \mathbb{R} \to \mathbb{C}\)</span> that are <span class="math inline">\(2\pi\)</span>-periodic and integrable on <span class="math inline">\([-\pi, \pi]\)</span>. Suppose we define an inner product on such functions by <span class="math display">\[
+\langle f, g \rangle = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) \overline{g(\theta)} \, d\theta.
+\]</span></li>
+<li class="fragment">Then, in complete analogy with the case of column vectors, it is natural to define <span class="math display">\[
+\|f\|^2 = \langle f, f \rangle = \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+\]</span></li>
+<li class="fragment">Notice also that <span class="math display">\[
+\langle f, e^{in\theta} \rangle = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) e^{-in\theta} \, d\theta = c_n,
+\]</span> for each integer <span class="math inline">\(n\)</span>.</li>
+<li class="fragment">In other words, the Fourier coefficients of <span class="math inline">\(f\)</span> are precisely the inner products of <span class="math inline">\(f\)</span> with the complex exponentials <span class="math inline">\(e^{in\theta}\)</span>.</li>
+<li class="fragment">From the previous slide, we have <span class="math display">\[
+\sum_{n=1}^3 |x_n|^2 =  \sum_{n=1}^3 |\langle \mathbf{x}, \mathbf{e}_n \rangle|^2 \leq \|\mathbf{x}\|^2.
+\]</span></li>
+<li class="fragment">Arguing by analogy, we might expect that <span class="math display">\[
+\sum_{n=-\infty}^\infty |c_n|^2 = \sum_{n=-\infty}^\infty |\langle f, e^{in\theta} \rangle|^2 \leq \|f\|^2 = \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta,
+\]</span> which is precisely Bessel’s inequality.</li>
+<li class="fragment">In fact, in the case of column vectors, we have an equality, which suggests by analogy that (maybe?) we have an equality in the case of functions as well. This is indeed the case!</li>
+</ul>
+</section>
+<section id="bessels-inequality-proof" class="slide level2 scrollable">
+<h2>Bessel’s inequality: proof</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Bessel’s inequality — <span class="math inline">\(c\)</span>-version).</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(f:\mathbb{R} \to \mathbb{C}\)</span> is a <span class="math inline">\(2\pi\)</span>-periodic function, integrable on <span class="math inline">\([-\pi, \pi]\)</span>, and if <span class="math inline">\(c_n\)</span> are its Fourier coefficients, then</p>
+<p><span class="math display">\[
+\sum_{n=-\infty}^\infty |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><p>Begin with the basic observation that <span class="math inline">\(|z|^2 = z \overline{z}\)</span> for any complex number <span class="math inline">\(z\)</span>.</p></li>
+<li class="fragment"><p>Applying this to <span class="math inline">\(z = f(\theta) - \sum_{n=-N}^N c_n e^{in\theta}\)</span>, we have <span class="math display">\[
+\left| f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right|^2 = \left( f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right) \overline{\left( f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right)} = \left( f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right) \left( \overline{f(\theta)} - \sum_{n=-N}^N \overline{c_n} e^{-in\theta}\right).
+\]</span></p></li>
+<li class="fragment"><p>Expanding the right-hand side, we have <span class="math display">\[
+\left| f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right|^2 = |f(\theta)|^2 - \sum_{n=-N}^N c_n \overline{f(\theta)} e^{in\theta}  - \sum_{n=-N}^N \overline{c_n} f(\theta) e^{-in\theta}  + \sum_{n=-N}^N \sum_{m=-N}^N c_n \overline{c_m} e^{i(n-m)\theta}.
+\]</span></p></li>
+<li class="fragment"><p>Divide both sides by <span class="math inline">\(2\pi\)</span>, integrate from <span class="math inline">\(-\pi\)</span> to <span class="math inline">\(\pi\)</span>, and recall that: <span class="math display">\[
+\frac{1}{2\pi} \int_{-\pi}^\pi f(\theta) e^{-in\theta} \, d\theta = c_n, \quad \text{and} \quad \frac{1}{2\pi} \int_{-\pi}^\pi e^{i(n-m)\theta} \, d\theta = \begin{cases}
+1 &amp; : n=m, \\
+0 &amp; : n \neq m.
+\end{cases}
+\]</span></p></li>
+<li class="fragment"><p>We get <span class="math display">\[
+\begin{align*}
+\frac{1}{2\pi} \int_{-\pi}^\pi \left| f(\theta) - \sum_{n=-N}^N c_n e^{in\theta} \right|^2 \, d\theta &amp;= \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta - \sum_{n=-N}^N \left( c_n \overline{c_n} + \overline{c_n} c_n \right) + \sum_{n=-N}^N c_n \overline{c_n} \\
+&amp;= \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta - \sum_{n=-N}^N |c_n|^2.
+\end{align*}
+\]</span></p></li>
+<li class="fragment"><p>But the left-hand side is non-negative, so we have <span class="math display">\[
+\sum_{n=-N}^N |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta,
+\]</span> for each <span class="math inline">\(N\)</span>. Now let <span class="math inline">\(N\to \infty\)</span>. Q.E.D.</p></li>
+</ul>
+</section>
+<section id="bessels-inequality-ab-version" class="slide level2 scrollable">
+<h2>Bessel’s inequality: “<span class="math inline">\(ab\)</span>-version”</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Bessel’s inequality — <span class="math inline">\(ab\)</span>-version).</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(f:\mathbb{R} \to \mathbb{C}\)</span> is a <span class="math inline">\(2\pi\)</span>-periodic function, integrable on <span class="math inline">\([-\pi, \pi]\)</span>, and if <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span> are its Fourier coefficients, then <span class="math display">\[
+\frac{|a_0|^2}{4} + \frac{1}{2}\sum_{n=1}^\infty \left( |a_n|^2 + |b_n|^2 \right) \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="riemann-lebesgue-lemma" class="slide level2 scrollable">
+<h2>Riemann-Lebesgue lemma</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Riemann-Lebesgue lemma).</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(f:\mathbb{R} \to \mathbb{C}\)</span> is a <span class="math inline">\(2\pi\)</span>-periodic function, integrable on <span class="math inline">\([-\pi, \pi]\)</span>, and if <span class="math inline">\(a_n\)</span>, <span class="math inline">\(b_n\)</span>, and <span class="math inline">\(c_n\)</span> are its Fourier coefficients, then <span class="math display">\[
+\lim_{n\to \infty} a_n = \lim_{n\to \infty} b_n = \lim_{n\to \pm \infty} c_n = 0.
+\]</span></p>
 </div>
 </div>
 </div>
