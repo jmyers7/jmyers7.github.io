@@ -1,0 +1,319 @@
+---
+title: "08 The definition of the derivative"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Exercise 1: Reminder on the derivative
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function $f:\mathbb{R} \to \mathbb{R}$ defined by $f(x) = x^2$.
+
+a. Use the derivative to approximate the change in the function $f(1.1) - f(1)$.
+b. Use the derivative to approximate the change in the function $f(0.9) - f(1)$.
+c. Use the derivative to approximate the function $f(x)$ for $x$ close to $1$.
+
+:::
+
+## From calculus I... {.scrollable}
+
+- The derivative of $f$ at $x_0$, as presented in single-variable calculus, is the number $f'(x_0)$ such that
+$$
+f'(x_0) = \lim_{h \to 0} \frac{f(x_0+h) - f(x_0)}{h}.
+$$
+
+
+- As long as $h$ is small, we can drop the limit, replace "$=$" with "$\approx$", and rearrange to get
+$$
+f(x_0 + h) - f(x_0) \approx f'(x_0)h.
+$$
+
+- In order for all of this to make sense, we need to think of $h$ as:
+$$
+h = (x_0 + h) - x_0.
+$$
+
+- In this way of thinking, $h$ is a "step vector" in the domain, i.e., a vector along the $x$-axis with its tail at the point $x_0$ and its head at the point $x_0 + h$.
+
+
+
+## ...to calculus III {.scrollable}
+
+- From the previous slide: $f(x_0 + h) - f(x_0) \approx f'(x_0)h$.
+
+::: {.callout-note icon="false" .fragment }
+### Single-variable calculus
+
+Let $f:\mathbb{R} \to \mathbb{R}$ be a function and let $x_0$ be a point in the domain of $f$. The derivative $f'(x_0)$ in single-variable calculus is:
+
+1. A **NUMBER** that...
+2. ...you **MULTIPLY** against a step vector $h$ in the domain...
+3. ...to approximate the change in the function in the direction of $h$, for which...
+3. ...the approximation becomes exact, as the length of the step vector $h$ goes to $0$.
+
+:::
+
+::: {.callout-note icon="false" .fragment }
+### Multi-variable calculus
+
+Let $f:\mathbb{R}^n \to \mathbb{R}^m$ be a function and let $\mathbf{v}_0$ be (the position vector of) a point in the domain of $f$. The derivative $f'(\mathbf{v}_0)$ in multivariable calculus is:
+
+1. A **MATRIX** that...
+2. ...you **MULTIPLY** against a step vector $\mathbf{h}$ in the domain...
+3. ...to approximate the change in the function in the direction of $\mathbf{h}$, for which...
+3. ...the approximation becomes exact, as the length of the step vector $\mathbf{h}$ goes to $0$.
+
+:::
+
+- So... does that mean $f(\mathbf{v}_0 + \mathbf{h}) - f(\mathbf{v}_0) \approx f'(\mathbf{v}_0)\mathbf{h}$?
+
+- **ABSOLUTELY!**
+
+## Derivatives: the official definition {.scrollable}
+
+- One clever way to make a step vector $\mathbf{h}$ go to $0$ is to consider a scalar multiple $\lambda\mathbf{h}$, and let $\lambda\to 0$.
+
+- Then, our approximation becomes
+$$
+f(\mathbf{v}_0 + \lambda\mathbf{h}) - f(\mathbf{v}_0) \approx f'(\mathbf{v}_0)(\lambda\mathbf{h}).
+$$
+
+- But, because $f'(\mathbf{v}_0)(\lambda\mathbf{h})$ is the product of a matrix and a scalar multiple of a vector, the $\lambda$ can be pulled out:
+$$
+f'(\mathbf{v}_0)(\lambda\mathbf{h}) = \lambda f'(\mathbf{v}_0)\mathbf{h}.
+$$
+
+- Then, our approximation becomes
+$$
+f(\mathbf{v}_0 + \lambda\mathbf{h}) - f(\mathbf{v}_0) \approx \lambda f'(\mathbf{v}_0)\mathbf{h}.
+$$
+
+- Dividing both sides by $\lambda$ and flipping sides gives
+$$
+f'(\mathbf{v}_0)\mathbf{h} \approx \frac{f(\mathbf{v}_0 + \lambda\mathbf{h}) - f(\mathbf{v}_0)}{\lambda}.
+$$
+
+- This approximation is supposed to become exact as $\lambda\to0$, which leads us to.
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f:\mathbb{R}^n \to \mathbb{R}^m$ be a function and let $\mathbf{v}_0$ be (the position vector of) a point in the domain of $f$. The **derivative** of $f$ at $\mathbf{v}_0$ is the $m\times n$ matrix $f'(\mathbf{v}_0)$ such that
+$$
+f'(\mathbf{v}_0)\mathbf{h} = \lim_{\lambda \to 0} \frac{f(\mathbf{v}_0 + \lambda\mathbf{h}) - f(\mathbf{v}_0)}{\lambda}
+$$
+for all vectors $\mathbf{h}$ in $\mathbb{R}^n$. (Provided the limit exists.)
+:::
+
+- A couple things:
+    a. The derivative is unique, if it exists.
+    b. We've defined the derivative to be a matrix. This doesn't quite follow the standard definition. Technically, our derivative is what most people call the **Jacobian matrix**.
+    c. The function $f$ will usually be given to you in terms of points, not vectors. You'll need to get used to switching back and forth between points and vectors.
+
+## Exercise 2: Computing the derivative of a function $\mathbb{R}^2 \to \mathbb{R}^2$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R}^2 \to \mathbb{R}^2, \quad f(x,y) = (y^2+x, y).
+$$
+
+Compute the derivative $f'(x,y)$ using the definition, following the steps below.
+
+a. Identify the size of the derivative matrix $f'(x,y)$.
+
+b. Identify the position vector $\mathbf{v}_0$ and its size.
+
+c. Identify the step vector $\mathbf{h}$ and its size.
+
+d. Now compute $f'(x,y)$ using the above information and the definition of the derivative.
+
+:::
+
+## Exercise 3: Computing the derivative of a function $\mathbb{R} \to \mathbb{R}^2$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R} \to \mathbb{R}^2, \quad f(t) = (t^2, t^3),
+$$
+
+Compute the derivative $f'(t)$ using the definition, following the steps below.
+
+a. Identify the size of the derivative matrix $f'(t)$.
+
+b. Identify the position vector $\mathbf{v}_0$ and its size.
+
+c. Identify the step vector $\mathbf{h}$ and its size.
+
+d. Now compute $f'(t)$ using the above information and the definition of the derivative.
+
+
+:::
+
+## Exercise 4: Computing the derivative of another function $\mathbb{R} \to \mathbb{R}^2$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R} \to \mathbb{R}^2, \quad f(t) = (\cos{t}, \sin{t}),
+$$
+
+Compute the derivative $f'(t)$ using the definition, following the steps below.
+
+a. Identify the size of the derivative matrix $f'(t)$.
+
+b. Identify the position vector $\mathbf{v}_0$ and its size.
+
+c. Identify the step vector $\mathbf{h}$ and its size.
+
+d. Now compute $f'(t)$ using the above information and the definition of the derivative.
+
+:::
+
+## Exercise 5: Computing the derivative of a function $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R}^2 \to \mathbb{R}, \quad f(x,y) = x^2 + y^2,
+$$
+
+Compute the derivative $f'(x,y)$ using the definition, following the steps below.
+
+a. Identify the size of the derivative matrix $f'(x,y)$.
+
+b. Identify the position vector $\mathbf{v}_0$ and its size.
+
+c. Identify the step vector $\mathbf{h}$ and its size.
+
+d. Now compute $f'(x,y)$ using the above information and the definition of the derivative.
+
+:::
+
+## Tangent approximations {.scrollable}
+
+- Let $f:\mathbb{R}^n \to \mathbb{R}^m$ be a function and let $\mathbf{v}_0$ be (the position vector of) a point in the domain of $f$.
+
+- As long as the step vector $\mathbf{h}$ is small, the derivative $f'(\mathbf{v}_0)$ was designed so that
+$$
+f(\mathbf{v}_0 + \mathbf{h}) \approx f'(\mathbf{v}_0)\mathbf{h} + f(\mathbf{v}_0).
+$$
+
+- Now, if $\mathbf{v}$ is the position vector of a (variable) point in the domain of $f$ that is close to $\mathbf{v}_0$, then we can write $\mathbf{v} = \mathbf{v}_0 + \mathbf{h}$ for some small step vector $\mathbf{h}$.
+
+- Then, we can write
+$$
+f(\mathbf{v}) \approx f'(\mathbf{v}_0)(\mathbf{v} - \mathbf{v}_0) + f(\mathbf{v}_0).
+$$
+
+- The right-hand side of this approximation has a name:
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f:\mathbb{R}^n \to \mathbb{R}^m$ be a differentiable function and let $\mathbf{v}_0$ be (the position vector of) a point in the domain of $f$. The **tangent approximation** to $f$ at $\mathbf{v}_0$ is the function
+
+$$
+L_{\mathbf{v}_0}(\mathbf{v}) = f'(\mathbf{v}_0)(\mathbf{v} - \mathbf{v}_0) + f(\mathbf{v}_0),
+$$
+
+where $\mathbf{v}$ is the position vector of a (variable) point in the domain of $f$.
+
+:::
+
+- This supposes that the derivative $f'(\mathbf{v}_0)$ exists, i.e., that $f$ is **differentiable** at $\mathbf{v}_0$.
+
+## Tangent spaces {.scrollable}
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f:\mathbb{R}^n \to \mathbb{R}^m$ be a differentiable function and let $\mathbf{v}_0$ be (the position vector of) a point in the domain of $f$. The **tangent space** to $f$ at $\mathbf{v}_0$ is the range of the tangent approximation $L_{\mathbf{v}_0}$.
+
+:::
+
+- A couple concrete cases to keep in mind:
+
+    1. If $f: \mathbb{R} \to \mathbb{R}$ and you plot the graph of $f$ in the $xy$-plane, then the tangent space is nothing but the tangent line to the graph from single-variable calculus.
+    2. If $f: \mathbb{R}^2 \to \mathbb{R}$ and you plot the graph of $f$ in $xyz$-space, then the tangent space is the tangent plane to the graph.
+    3. If $f: \mathbb{R} \to \mathbb{R}^2$ and you visualize the action of $f$ as a physical transformation embedding the $t$-line into the $xy$-plane (like in the previous section!), then the tangent space is the tangent line to the curve at the point $f(\mathbf{v}_0)$.
+    
+    
+## Exercise 6: A tangent plane {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R}^2 \to \mathbb{R}, \quad f(x,y) = x^2 + y^2,
+$$
+
+a. Compute the tangent approximation to $f$ at the point $(x_0,y_0) = (1,1)$.
+
+b. Plot the graph of $f$ along with its tangent plane at the point $(x_0,y_0) = (1,1)$.
+
+:::
+
+## Exercise 7: A tangent line {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R} \to \mathbb{R}^2, \quad f(t) = (t^2, t^3),
+$$
+
+a. Compute the tangent approximation to $f$ at the point $t_0 = 1$.
+
+b. Visualizing $f$ as a physical transformation embedding the $t$-line into the $xy$-plane, plot the tangent line to the curve at the point $t_0 = 1$.
+
+:::
+
+## Exercise 8: Another tangent line {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R} \to \mathbb{R}^2, \quad f(t) = (\cos{t}, \sin{t}),
+$$
+
+a. Compute the tangent approximation to $f$ at the point $t_0 = 1$.
+
+b. Visualizing $f$ as a physical transformation embedding the $t$-line into the $xy$-plane, plot the tangent line to the curve at the point $t_0 = 1$.
+
+:::
+
+## Exercise 8: A strange tangent space {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:\mathbb{R}^2 \to \mathbb{R}, \quad f(x,y) = (y^3 +x, y),
+$$
+
+a. Compute the tangent approximation to $f$ at the point $(x_0,y_0) = (1,1)$.
+
+b. What is the tangent space to $f$ at the point $(x_0,y_0) = (1,1)$? Is it a line, a plane, or something else?
+
+:::
