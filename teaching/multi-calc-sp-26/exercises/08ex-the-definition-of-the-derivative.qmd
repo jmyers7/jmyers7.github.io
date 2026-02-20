@@ -187,3 +187,49 @@ $$
 The graph is [here](https://www.desmos.com/3d/yginexykos){target="_blank"}.
 
 :::
+
+## Exercise 4: Using derivatives to approximate changes
+
+Recall from the class that the derivative of a function $f: \mathbb{R}^n \to \mathbb{R}^m$ at a point $\mathbf{v}_0$ can be used to approximate changes in the value of $f$ near $\mathbf{v}_0$. Specifically, for $\mathbf{h}$ small, we have
+$$
+f(\mathbf{v}_0 + \mathbf{h}) - f(\mathbf{v}_0) \approx f'(\mathbf{v}_0) \mathbf{h}.
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For each of the six functions in Exercise 1, use the derivative to approximate the following changes in function values. Compare your approximations to the true values.
+
+a. $f: \mathbb{R}^2 \to \mathbb{R}$ given by $f(x,y) = x^2 - y^2$. Compute $f'(x,y)$.
+b. $g: \mathbb{R}^2 \to \mathbb{R}$ given by $g(x,y) = 4-x^2-4y^2$. Compute $g'(x,y)$.
+c. $q: \mathbb{R} \to \mathbb{R}^2$ given by $q(t) = (t + 2t^2, -t^3)$. Compute $q'(t)$.
+d. $r: \mathbb{R} \to \mathbb{R}^3$ given by $r(t) = (e^t, \sin{t}, \cos{t})$. Compute $r'(t)$.
+e. $u:\mathbb{R}^3 \to \mathbb{R}$ given by $u(x,y,z) = x^2 + y^2 + z^2$. Compute $u'(x,y,z)$.
+f. $p: \mathbb{R}^2 \to \mathbb{R}^3$ given by $p(x,y) = (x^2, 3y, y^2)$. Compute $p'(x,y)$.
+
+---
+
+a. $f(1.2,0.98) - f(1.1,1.0)$.
+b. $g(1.17,0.98) - g(1.15,1.01)$.
+c. $q(1.24) - q(1.2)$.
+d. $r(5.35) - r(5.26)$.
+e. $u(4.2,0.32,18.5) - u(4.13,0.42,18.3)$.
+f. $p(-21.2,0.34) - p(-21.8,0.33)$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. True value: $0.2696$. Approximation: $0.26$.
+
+b. True value: $0.1924$. Approximation: $0.1964$.
+
+c. True value: $\begin{bmatrix} 0.2352 \\ -0.178624\end{bmatrix}$. Approximation: $\begin{bmatrix} 0.232 \\ -0.1728 \end{bmatrix}$.
+
+d. True value: $\begin{bmatrix}18.1268 \\ 0.0502506 \\ 0.0746285\end{bmatrix}$. Approximation: $\begin{bmatrix} 17.3233 \\ 0.0468584 \\ 0.0768394 \end{bmatrix}$.
+
+e. True value: $7.8691$. Approximation: $7.8142$.
+
+f. True value: $\begin{bmatrix}-25.8 \\ 0.03 \\ 0.0067\end{bmatrix}$. Approximation: $\begin{bmatrix}-26.16 \\ 0.03 \\ 0.0066\end{bmatrix}$.
+
+:::
