@@ -136,6 +136,8 @@ c. Identify the step vector $\mathbf{h}$ and its size.
 
 d. Now compute $f'(x,y)$ using the above information and the definition of the derivative.
 
+e. Use your answer to approximate the change in the function $f(1.1, 0.9) - f(1,1)$.
+
 :::
 
 ## Exercise 3: Computing the derivative of a function $\mathbb{R} \to \mathbb{R}^2$ {.scrollable}
@@ -157,6 +159,8 @@ b. Identify the position vector $\mathbf{v}_0$ and its size.
 c. Identify the step vector $\mathbf{h}$ and its size.
 
 d. Now compute $f'(t)$ using the above information and the definition of the derivative.
+
+e. Use your answer to approximate the change in the function $f(1.9) - f(2)$.
 
 
 :::
@@ -181,6 +185,8 @@ c. Identify the step vector $\mathbf{h}$ and its size.
 
 d. Now compute $f'(t)$ using the above information and the definition of the derivative.
 
+e. Use your answer to approximate the change in the function $f(1.7) - f(1.8)$.
+
 :::
 
 ## Exercise 5: Computing the derivative of a function $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
@@ -202,6 +208,8 @@ b. Identify the position vector $\mathbf{v}_0$ and its size.
 c. Identify the step vector $\mathbf{h}$ and its size.
 
 d. Now compute $f'(x,y)$ using the above information and the definition of the derivative.
+
+e. Use your answer to approximate the change in the function $f(10.2, -4.3) - f(10.05,-4.15)$.
 
 :::
 
