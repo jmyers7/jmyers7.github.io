@@ -120,9 +120,9 @@ a. In Exercise 2(a), you computed the tangent plane to the function $f$ at the s
 
 b. In Exercise 2(b), you computed the tangent plane to the function $g$ at the specified point. Compute an upward-pointing unit normal vector. Check your answer using [Desmos](https://www.desmos.com/3d){target="_blank"}.
 
-c. In Exercise 2(c), you computed the tangent line to the function $q$ at the specified points. Compute positively-oriented unit tangent vectors. ("Tangent vector" means it lies in the tangent line, and "positively-oriented" means that the vector points in the direction that the curve is traced out as $t$ increases.) Check your answer using [Desmos](https://www.desmos.com/calculator){target="_blank"}.
+c. In Exercise 2(c), you computed the tangent line to the function $q$ at the specified points. Compute a positively-oriented unit tangent vector at the point. ("Tangent vector" means it lies in the tangent line, and "positively-oriented" means that the vector points in the direction that the curve is traced out as $t$ increases.) Check your answer using [Desmos](https://www.desmos.com/calculator){target="_blank"}.
 
-d. In Exercise 2(d), you computed the tangent line to the function $r$ at the specified points. Compute positively-oriented unit tangent vectors. Check your answer using [Desmos](https://www.desmos.com/3d){target="_blank"}.
+d. In Exercise 2(d), you computed the tangent line to the function $r$ at the specified points. Compute a positively-oriented unit tangent vector at the point. Check your answer using [Desmos](https://www.desmos.com/3d){target="_blank"}.
 
 :::
 
