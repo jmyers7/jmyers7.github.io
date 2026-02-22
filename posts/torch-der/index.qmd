@@ -1,0 +1,305 @@
+---
+title: "PyTorch and derivatives: A mathematical perspective"
+toc: true
+date: "2026-02-03"
+jupyter: site
+categories: []
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
+csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
+# image: "sigalg-logo.png"
+open-graph:
+    title: "PyTorch and derivatives: A mathematical perspective"
+    # image: "https://johnmyers-phd.com/posts/torch-der/torch-der-logo.png"
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+## Tensor spaces as Hilbert spaces
+
+## Derivatives, Jacobians, and gradients
+
+::: {#def-derivative}
+Let $\mathcal{H}$ and $\mathcal{K}$ be two finite-dimensional Hilbert spaces. The *derivative* of a function $f: \mathcal{H} \to \mathcal{K}$ at a point $x \in \mathcal{H}$ and in the direction $v \in \mathcal{H}$ is defined as
+$$
+f'(x)(v) = \lim_{t \to 0} \frac{f(x + tv) - f(x)}{t},
+$$
+provided the limit exists. If the derivative exists for all $x \in \mathcal{H}$ and $v \in \mathcal{H}$, we say that $f$ is *differentiable*.
+:::
+
+Technically, the type of differentiability I've defined here is called [*Gateaux differentiability*](https://en.wikipedia.org/wiki/Gateaux_derivative){target="_blank"}, and it is a weaker condition than the more commonly used notion of [*Fréchet differentiability*](https://en.wikipedia.org/wiki/Fr%C3%A9chet_derivative){target="_blank"}. Roughly speaking, a function is Fréchet differentiable at a point if it can be well approximated by a linear function in a neighborhood of that point, whereas Gateaux differentiability only requires the existence of directional derivatives. However, for our purposes in this post, we will implicitly assume that all our functions are Fréchet differentiable, in which case the derivative (as defined above) of a differentiable function yields a linear map $f'(x): \mathcal{H} \to \mathcal{K}$ with $v \mapsto f'(x)(v)$.[There are conditions that, when added to Gateaux differentiability, ensure that the function is also Fréchet differentiable. For example, if the *partial derivatives* of a Gateaux differentiable function are continuous (see below), then the function is also Fréchet differentiable.]{.aside}
+
+It is always the case in applications that fixed orthonormal bases of the Hilbert spaces $\mathcal{H}$ and $\mathcal{K}$ are at hand. If $\{\epsilon_i\}$ is the fixed basis for $\mathcal{K}$, and if $f: \mathcal{H} \to \mathcal{K}$ is a function, then we have real-valued *component functions*
+
+$$
+f_i: \mathcal{H} \to \mathbb{R}, \quad f_i(x) = \langle f(x), \epsilon_i \rangle,
+$$
+
+one for each basis vector $\epsilon_i$. One may show that if $f$ is differentiable, then so too are each of the component functions $f_i$, and moreover, we have the fundamental link between the derivative of $f$ and the derivatives of its component functions:
+
+$$
+f_i'(x)(v) = \langle f'(x)(v), \epsilon_i \rangle,
+$$ {#eq-component-derivative}
+
+for all $x, v \in \mathcal{H}$ and all $i$. This leads us to the following central definition:
+
+::: {#def-partial-derivative}
+Let $f: \mathcal{H} \to \mathcal{K}$ be a differentiable function between two finite-dimensional Hilbert spaces, and let $\{e_j\}$ and $\{\epsilon_i\}$ be orthonormal bases for $\mathcal{H}$ and $\mathcal{K}$, respectively. The *partial derivative* of the $i$-th component function $f_i$ at a point $x \in \mathcal{H}$ with respect to the basis vector $e_j$ is defined as
+$$
+\frac{\partial f_i}{\partial e_j}(x) = f_i'(x)(e_j).
+$$
+:::
+
+Invoking equation ([-@eq-component-derivative]), we see that the partial derivative can be equivalently expressed as
+
+$$
+\frac{\partial f_i}{\partial e_j}(x) = \left\langle f'(x)(e_j), \epsilon_i \right\rangle.
+$$
+
+In the case that $f$ is real-valued, so that $\mathcal{K} = \mathbb{R}$, we will *always* take the basis of $\mathbb{R}$ to be $\{1\}$, and so the partial derivatives of a real-valued function $f$ at a point $x$ with respect to the basis vectors $\{e_j\}$ of $\mathcal{H}$ are given by
+
+$$
+\frac{\partial f}{\partial e_j}(x) = \langle f'(x)(e_j), 1 \rangle = f'(x)(e_j).
+$$
+
+The importance of the partial derivatives is that they are the entries in matrix representations of derivatives:
+
+::: {#def-jacobian}
+Let $f: \mathcal{H} \to \mathcal{K}$ be a differentiable function between two finite-dimensional Hilbert spaces, and let $\{e_j\}$ and $\{\epsilon_i\}$ be orthonormal bases for $\mathcal{H}$ and $\mathcal{K}$, respectively. The *Jacobian matrix* of $f$ at a point $x \in \mathcal{H}$ is the matrix
+$$
+Jf(x)_{ij} = \frac{\partial f_i}{\partial e_j}(x).
+$$
+:::
+
+One must take care in interpreting a Jacobian "matrix" as a matrix in the usual way, since the index sets for the bases $\{e_j\}$ and $\{\epsilon_i\}$ may be more complicated than just $\{1, \ldots, n\}$ and $\{1, \ldots, m\}$, as is the case when $\mathcal{H}$ and $\mathcal{K}$ are tensor spaces like $\mathbb{R}^{m\times n}$ or $\mathbb{R}^{m\times n \times p}$.
+
+The sense in which the Jacobian matrix $Jf(x)$ represents the derivative $f'(x)$ may be described as follows. Suppose given a vector $v\in \mathcal{H}$, and perform a Fourier expansion relative to the basis $\{e_j\}$:
+
+$$
+v = \sum_j \langle v, e_j \rangle e_j = \sum_j v_j e_j,
+$$
+
+where $v_j = \langle v, e_j \rangle$. Then, for each $j$, we also have the Fourier expansion of $f'(x)(e_j)$ relative to the basis $\{\epsilon_i\}$:
+
+$$
+f'(x)(e_j) = \sum_i \langle f'(x)(e_j), \epsilon_i \rangle \epsilon_i = \sum_i \frac{\partial f_i}{\partial e_j}(x) \epsilon_i.
+$$
+
+Thus:
+
+$$
+f'(x)(v) = \sum_j v_j f'(x)(e_j) = \sum_i \left[ \sum_j v_j \frac{\partial f_i}{\partial e_j}(x) \right] \epsilon_i.
+$$ {#eq-jacobian-representation}
+
+The reader will notice the familiar matrix multiplication pattern in the square brackets. If, in particular, the indices $i$ and $j$ range over $\{1, \ldots, m\}$ and $\{1, \ldots, n\}$, respectively, then the Jacobian matrix $Jf(x)$ is an $m\times n$ matrix, and the expression in the square brackets is just the $i$-th entry of the column vector
+
+$$
+\begin{bmatrix}
+\sum_j v_j \frac{\partial f_1}{\partial e_j}(x) \\
+\vdots \\
+\sum_j v_j \frac{\partial f_m}{\partial e_j}(x)
+\end{bmatrix}=\begin{bmatrix} \frac{\partial f_1}{\partial e_1}(x) & \cdots & \frac{\partial f_1}{\partial e_n}(x) \\ \vdots & \ddots & \vdots \\ \frac{\partial f_m}{\partial e_1}(x) & \cdots & \frac{\partial f_m}{\partial e_n}(x) \end{bmatrix} \begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix}.
+$$
+
+With derivatives and Jacobians in hand, we now move toward defining the gradient, which requires the Riesz Representation Theorem. To state it, however, we need to first introduce the notion of the *dual* of a (finite-dimensional) Hilbert space. This is the vector space $\mathcal{H}^*$ of all linear functionals $\phi: \mathcal{H} \to \mathbb{R}$, where a *linear functional* is a linear map from $\mathcal{H}$ to $\mathbb{R}$. Its vector space structure is given by pointwise addition and scalar multiplication, so that for $\phi, \psi \in \mathcal{H}^*$ and $a\in \mathbb{R}$, we have that
+
+$$
+(\phi + \psi)(v) = \phi(v) + \psi(v)
+$$
+
+and
+
+$$(a\phi)(v) = a\phi(v)
+$$
+
+for all $v \in \mathcal{H}$. In fact, these definitions work for *any* vector space, not just Hilbert spaces. But the interest in Hilbert spaces is that they have a built-in mechanism for producing linear functionals from vectors. Indeed, for each $v \in \mathcal{H}$, we can define a linear functional
+
+$$
+v^\ast: \mathcal{H} \to \mathbb{R}, \quad v^\ast(w) = \langle v, w \rangle,
+$$
+
+which is sometimes called the *covector* associated to $v$. Linearity of the inner product in the second argument ensures that the covector is a linear functional, and so $v^\ast \in \mathcal{H}^*$. Moreover, the mapping $v \mapsto v^\ast$ is a linear map from $\mathcal{H}$ to $\mathcal{H}^*$, in the sense that it preserves vector addition and scalar multiplication.
+
+The Riesz Representation Theorem states that *every* linear functional on a finite-dimensional Hilbert space arises as an inner product against a unique vector, called its *Riesz representation*:
+
+::: {#thm-riesz}
+### Riesz Representation Theorem — finite-dimensional version
+Let $\mathcal{H}$ be a finite-dimensional Hilbert space. For every linear functional $\phi: \mathcal{H} \to \mathbb{R}$, there exists a unique vector $v_\phi \in \mathcal{H}$ such that $\phi = v_\phi^\ast$. In particular, the mapping $v\mapsto v^\ast$ is a linear isomorphism from $\mathcal{H}$ to $\mathcal{H}^*$.
+:::
+
+Using the Riesz isomorphism from $\mathcal{H}$ to $\mathcal{H}^\ast$, we can transport the inner product from $\mathcal{H}$ to $\mathcal{H}^*$, and thus equip $\mathcal{H}^*$ with the structure of a Hilbert space. In particular, for $\phi, \psi \in \mathcal{H}^*$, we can define their inner product as
+
+$$
+\langle \phi, \psi \rangle = \langle v_\phi, v_\psi \rangle.
+$$
+
+When the dual space $\mathcal{H}^\ast$ is equipped with this inner product, we call it the *dual Hilbert space* of $\mathcal{H}$. The Riesz isomorphism is then an *isometric* isomorphism between the Hilbert space $\mathcal{H}$ and its dual Hilbert space $\mathcal{H}^*$.
+
+We have the mapping $(-)^\ast: \mathcal{H} \to \mathcal{H}^*$ that acts on vectors by sending $v$ to the covector $v^\ast$. A similar mapping acts on a linear map $T: \mathcal{H} \to \mathcal{K}$, where $\mathcal{H}$ and $\mathcal{K}$ are finite-dimensional Hilbert spaces. This is the *adjoint* of $T$, denoted by $T^\ast: \mathcal{K} \to \mathcal{H}$, and it is defined as the unique linear map such that
+
+$$
+\langle T(v), w \rangle = \langle v, T^\ast(w) \rangle,
+$$
+
+for all $v\in \mathcal{H}$ and $w \in \mathcal{K}$. Notice, in particular, that if we have orthonormal bases $\{e_j\}$ and $\{\epsilon_i\}$ for $\mathcal{H}$ and $\mathcal{K}$, respectively, then
+
+$$
+\langle T(e_j), \epsilon_i \rangle = \langle e_j, T^\ast(\epsilon_i) \rangle,
+$$
+
+so that the $ij$-th entry of the "matrix" representation of $T$ relative to these bases is equal to the $ji$-th entry of the "matrix" representation of $T^\ast$ relative to the same bases. Again, we must take care in interpreting these "matrices" as matrices in the usual way—just as above when we discussed Jacobian matrices—since the index sets for the bases $\{e_j\}$ and $\{\epsilon_i\}$ may be more complicated than just $\{1, \ldots, n\}$ and $\{1, \ldots, m\}$.
+
+We now obtain the *gradient* by smacking the derivative with the Riesz theorem:
+
+::: {#def-gradient}
+Let $\mathcal{H}$ be a finite-dimensional Hilbert space, and let $f: \mathcal{H} \to \mathbb{R}$ be a differentiable function. The *gradient* of $f$ at a point $x\in \mathcal{H}$ is the Riesz representation of the linear functional $f'(x)\in \mathcal{H}^\ast$, denoted by $\nabla f(x) \in \mathcal{H}$. In particular, we have that
+$$
+f'(x)(v) = \left\langle \nabla f(x), v \right\rangle,
+$$
+for all $v \in \mathcal{H}$.
+:::
+
+Do notice that the gradient is only defined for real-valued functions, not functions with values in a general Hilbert space.
+
+Existence and uniqueness of the gradient follow from the general [Riesz representation theorem](https://en.wikipedia.org/wiki/Riesz_representation_theorem){target="_blank"}, though in the present finite-dimensional setting, both can be demonstrated easily by direct construction. Indeed, if $\{e_j\}$ is an orthonormal basis for $\mathcal{H}$, and if we *assume* that $\nabla f(x)$ exists with the stated property, then for each $e_j$, we have that
+
+$$
+\nabla f(x) = \sum_j \langle \nabla f(x), e_j \rangle e_j = \sum_j f'(x)(e_j) e_j,
+$$
+
+which shows that the gradient is unique if it exists. To *prove* that it exists, we can simply define $\nabla f(x)$ to be the vector given by the right-hand side of the above equation, and then verify that it satisfies the required property. (By the way, this argument is essentially the standard proof of the Riesz representation theorem as stated above.) Furthermore, since $f'(x)(e_j) = \frac{\partial f}{\partial e_j}(x)$, the Fourier expansion of the gradient relative to the basis $\{e_j\}$ is given by
+
+$$
+\nabla f(x) = \sum_j \frac{\partial f}{\partial e_j}(x) e_j,
+$$
+
+which should be familiar to anyone who has taken a course in multivariable calculus.
+
+One of the most useful properties of the gradient is that it "points" in the direction of greatest increase of the function. This is made precise in the following result:
+
+::: {#thm-gradient-max-increase}
+Let $\mathcal{H}$ be a finite-dimensional Hilbert space, let $f: \mathcal{H} \to \mathbb{R}$ be a differentiable function, and suppose the gradient $\nabla f(x)$ is nonzero at a point $x\in \mathcal{H}$. Suppose we consider the value of the derivative $f'(x)(v)$ as a function of unit vectors $v \in \mathcal{H}$. Then:[Note that this statement of the extremizing property of the gradient makes no reference to any "angles" between vectors, that are often invoked in the usual geometric explanation of this property.]{.aside}
+
+1. The derivative is maximized at $v = \nabla f(x)/\|\nabla f(x)\|$, and the maximum value is $\|\nabla f(x)\|$.
+
+2. The derivative is minimized at $v = -\nabla f(x)/\|\nabla f(x)\|$, and the minimum value is $-\|\nabla f(x)\|$.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+The proof uses the [Cauchy-Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality){target="_blank"}, which states that for all $v, w \in \mathcal{H}$, we have that
+$$
+|\langle v, w \rangle| \leq \|v\| \|w\|,
+$$
+
+with equality if and only if $v$ and $w$ are linearly dependent. Applying this to the inner product $\langle \nabla f(x), v \rangle$, where $v$ is a unit vector, we get that
+
+$$
+|f'(x)(v)| = |\langle \nabla f(x), v \rangle| \leq \|\nabla f(x)\| \|v\| = \|\nabla f(x)\|,
+$$
+
+which may be written as the compound inequality
+
+$$
+- \|\nabla f(x)\| \leq f'(x)(v) \leq \|\nabla f(x)\|,
+$$
+
+with equality at one of the two ends if and only if $v$ is a scalar multiple of $\nabla f(x)$. It remains only to note that
+
+$$
+f'(x)(\pm \nabla f(x)) = \langle \nabla f(x), \pm\nabla f(x) \rangle = \pm \|\nabla f(x)\|^2,
+$$
+
+which finishes the proof.
+:::
+
+The gradient may be obtained through the adjoint action of the derivative, as stated in the following important result:
+
+::: {#thm-gradient-adjoint}
+Let $\mathcal{H}$ be a finite-dimensional Hilbert space, and let $f: \mathcal{H} \to \mathbb{R}$ be a differentiable function. Then the gradient of $f$ at a point $x\in \mathcal{H}$ is given by the adjoint of the derivative of $f$ at $x$ applied to the scalar $1$:
+$$
+\nabla f(x) = f'(x)^\ast(1).
+$$
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+The proof is a one-liner. For any $v \in \mathcal{H}$, we first observe that
+
+$$
+f'(x)(v) = \langle 1, f'(x)(v) \rangle =  \langle f'(x)^\ast(1), v \rangle,
+$$
+
+and then we invoke the uniqueness of the Riesz representation to conclude that $\nabla f(x) = f'(x)^\ast(1)$.
+:::
+
+We work toward ending this long section by studying how the adjoint and derivative operations interact with function composition. Fortunately, both stories could not be simpler. For the adjoint, we have that
+
+$$
+(S\circ T)^\ast = T^\ast \circ S^\ast,
+$$
+
+for linear maps $\mathcal{H} \xrightarrow{T} \mathcal{K} \xrightarrow{S} \mathcal{L}$ on finite-dimensional Hilbert spaces. The proof uses the uniqueness of the adjoint. For any $v \in \mathcal{H}$ and $w \in \mathcal{L}$, we have that
+
+$$
+\langle (S\circ T)(v), w \rangle = \langle S(T(v)), w \rangle = \langle T(v), S^\ast(w) \rangle = \langle v, T^\ast(S^\ast(w)) \rangle,
+$$
+
+so that $(S\circ T)^\ast(w) = T^\ast(S^\ast(w))$, and thus $(S\circ T)^\ast = T^\ast \circ S^\ast$.
+
+For derivatives and composition, we have:
+
+::: {#thm-chain-rule}
+### Chain Rule
+Let $\mathcal{H} \xrightarrow{f} \mathcal{K} \xrightarrow{g} \mathcal{L}$ be differentiable functions on finite-dimensional Hilbert spaces. Then the composition $g\circ f: \mathcal{H} \to \mathcal{L}$ is differentiable, and its derivative at a point $x\in \mathcal{H}$ is given by the composition of the derivatives of $f$ and $g$ at the appropriate points: [We do not prove the Chain Rule here. The interested reader may consult Section 2.3 of @Coleman2012.]{.aside}
+$$
+(g\circ f)'(x) = g'(f(x)) \circ f'(x).
+$$
+:::
+
+
+## Enter PyTorch: Computational examples of derivatives
+
+Wowza. A hearty slap on the back for ya', if you endured the previous section and have made it this far. That was all very abstract, very theoretical, and very *mathematical* (some of you might not view that last adjective as a compliment). But while it's important for a person to have a solid grasp on the theory, it's pretty useless if they cannot apply it in practice. In this section, I'll show you how all that theory can be beautifully illuminated by working through concrete examples using PyTorch.
+
+Let's consider a differentiable function
+$$
+f: \bbr^{m\times n} \to \bbr^{p\times q}.
+$$
+
+Given two vectors $x$ and $v$ in $\mathbb{R}^{m\times n}$, we can express the vector $f'(x)(v)\in \bbr^{p\times q}$ as a Fourier expansion relative to the standard orthonormal basis vectors $\epsilon_{ij}\in \mathbb{R}^{p\times q}$ identified in the previous section:
+
+$$
+f'(x)(v) = \sum_{i,j} \left\langle f'(x)(v), \epsilon_{ij} \right\rangle \epsilon_{ij}.  \tag*{$\begin{Bmatrix} 0\leq i < p \\ 0 \leq j < q \end{Bmatrix}$}
+$$
+
+Similarly, we can write
+
+$$
+v = \sum_{k,l} \left\langle v, e_{kl} \right\rangle e_{kl} = \sum_{k,l} v_{kl} e_{kl}, \tag*{$\begin{Bmatrix} 0\leq k < m \\ 0 \leq l < n \end{Bmatrix}$}
+$$
+
+where $e_{kl}$ are the standard orthonormal basis vectors of $\mathbb{R}^{m\times n}$ and $v_{kl} = \langle v, e_{kl} \rangle$. Substituting this into the expression for $f'(x)(v)$ and using linearity, we get that:
+
+$$
+f'(x)(v) = \sum_{k,l} v_{kl} f'(x)(e_{kl}). \tag*{$\begin{Bmatrix} 0\leq k < m \\ 0 \leq l < n \end{Bmatrix}$}
+$$
+
+Therefore, we can write
+
+$$
+f'(x)(v) = \sum_{i,j} \left[ \sum_{k,l}  v_{kl} \left\langle f'(x)(e_{kl}), \epsilon_{ij} \right\rangle \right]\epsilon_{ij}. \tag*{$\begin{Bmatrix} 0\leq i < p \\ 0 \leq j < q \\ 0 \leq k < m \\ 0 \leq l < n \end{Bmatrix}$}
+$$
+
+But
+
+$$
+\left\langle f'(x)(e_{kl}), \epsilon_{ij} \right\rangle = \frac{\partial f_{ij}}{\partial x_{kl}}(x),
+$$
+
+and so this last equation becomes
+
+$$
+f'(x)(v) = \sum_{i,j} \left[ \sum_{k,l}  v_{kl} \frac{\partial f_{ij}}{\partial x_{kl}}(x) \right]\epsilon_{ij}.  \tag*{$\begin{Bmatrix} 0\leq i < p \\ 0 \leq j < q \\ 0 \leq k < m \\ 0 \leq l < n \end{Bmatrix}$}
+$$
