@@ -37,6 +37,9 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Week 5 | 02.27 fri
+|| 02.25 wed |
+|| 02.23 mon | Same as below ↓ | Same as below ↓ | Same as below ↓ |
 | Week 4 | 02.20 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 4 and 5
 || 02.18 wed | Sec 6: A first look at Fourier series, part 2 | [Sec 6 Slides](./slides/06-a-first-look-at-fourier-series-part-2.qmd){target="_blank"} | [Sec 6 Exercises](./exercises/06ex-a-first-look-at-fourier-series-part-2.qmd)
 || 02.16 mon | Sec 5: A first look at Fourier series, part 1 | [Sec 5 Slides](./slides/05-a-first-look-at-fourier-series-part-1.qmd){target="_blank"} | [Sec 5 Exercises](./exercises/05ex-a-first-look-at-fourier-series-part-1.qmd) |
