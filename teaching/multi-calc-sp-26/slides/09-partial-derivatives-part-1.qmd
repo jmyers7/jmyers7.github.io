@@ -1,0 +1,184 @@
+---
+title: "09 Partial derivatives, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Partial derivatives of functions $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
+
+- In the following definition, recall the two standard basis vectors of $\mathbb{R}^2$:
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \quad \text{and} \quad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+$$
+
+- Remember that $\mathbf{e}_1$ is a unit vector that points along the $x$-axis, while $\mathbf{e}_2$ is a unit vector that points along the $y$-axis.
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f:\mathbb{R}^2 \to \mathbb{R}$ be a differentiable function and $(x_0,y_0)$ fixed point in $\mathbb{R}^2$.
+
+1. The **partial derivative of $f$ with respect to $x$ at $(x_0,y_0)$** is defined as
+$$
+\frac{\partial f}{\partial x}(x_0,y_0) = f'(x_0,y_0)\mathbf{e}_1.
+$$
+2. The **partial derivative of $f$ with respect to $y$ at $(x_0,y_0)$** is defined as
+$$
+\frac{\partial f}{\partial y}(x_0,y_0) = f'(x_0,y_0)\mathbf{e}_2.
+$$
+3. If we replace $(x_0,y_0)$ with a variable point $(x,y)$, we get the **partial derivative functions**
+$$
+z = \frac{\partial f}{\partial x}(x,y) \quad \text{and} \quad z = \frac{\partial f}{\partial y}(x,y).
+$$
+:::
+
+::: {.callout-note icon="false" .fragment }
+### What do partial derivatives measure?
+
+1. The partial derivative $\frac{\partial f}{\partial x}(x_0,y_0)$ measures the rate of change of $f$ at $(x_0,y_0)$ in the direction of the $x$-axis.
+2. The partial derivative $\frac{\partial f}{\partial y}(x_0,y_0)$ measures the rate of change of $f$ at $(x_0,y_0)$ in the direction of the $y$-axis.
+
+:::
+
+## How do you compute partial derivatives? {.scrollable}
+
+- Let's talk about $\displaystyle\frac{\partial f}{\partial x}(x,y)$ first. First, remember the general definition of the derivative:
+$$
+f'(\mathbf{v})\mathbf{h} =\lim_{\lambda \to 0} \frac{f(\mathbf{v} + \lambda\mathbf{h}) - f(\mathbf{v})}{\lambda}.
+$$
+
+- Substituting $\mathbf{v} = \begin{bmatrix} x \\ y \end{bmatrix}$ and $\mathbf{h} = \mathbf{e}_1$ into the above definition, we get
+$$
+\frac{\partial f}{\partial x}(x,y) = \lim_{\lambda \to 0} \frac{f(x+\lambda, y) - f(x,y)}{\lambda}.
+$$
+
+- Similarly, we have
+$$
+\frac{\partial f}{\partial y}(x,y) = \lim_{\lambda \to 0} \frac{f(x, y+\lambda) - f(x,y)}{\lambda}.
+$$
+
+::: {.callout-note icon="false" .fragment }
+### How do you compute partial derivatives?
+
+The above equations show that the partial derivatives are just single-variable derivatives with one of the two variables fixed! So:
+
+1. To compute $\displaystyle\frac{\partial f}{\partial x}(x,y)$, we treat $y$ as a constant and differentiate $f$ with respect to $x$.
+2. To compute $\displaystyle\frac{\partial f}{\partial y}(x,y)$, we treat $x$ as a constant and differentiate $f$ with respect to $y$.
+:::
+
+::: {.callout-note icon="false" .fragment }
+### Alternate notation
+
+1. Sometimes we write $f_x(x,y)$ instead of $\displaystyle\frac{\partial f}{\partial x}(x,y)$.
+2. Sometimes we write $f_y(x,y)$ instead of $\displaystyle\frac{\partial f}{\partial y}(x,y)$.
+:::
+
+## Exercise 1: Practice computing partial derivatives of functions $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute both partial derivatives of the following functions:
+
+a. $f(x,y) = 3x - x^2y^2+2x^3y$
+b. $g(x,y) = xe^{x^2y}$
+c. $h(x,y) = \ln(x^2+y^2)$
+d. $k(x,y) = \sin(xy^2)$
+
+:::
+
+## Partial derivatives and (total) derivatives, part 1 {.scrollable}
+
+- What is the relationship between the partial derivatives
+$$
+\frac{\partial f}{\partial x}(x,y) \quad \text{and} \quad \frac{\partial f}{\partial y}(x,y)
+$$
+of a differentiable function $f:\mathbb{R}^2\to\mathbb{R}$ and its (total) derivative $f'(x,y)$?
+
+- Remember that
+$$
+\frac{\partial f}{\partial x}(x,y) = f'(x,y)\mathbf{e}_1 \quad \text{and} \quad \frac{\partial f}{\partial y}(x,y) = f'(x,y)\mathbf{e}_2.
+$$
+
+- Given a general step vector $\mathbf{h} = \begin{bmatrix} h_1 \\ h_2 \end{bmatrix}$, we can write resolve it into the standard basis as $\mathbf{h} = h_1\mathbf{e}_1 + h_2\mathbf{e}_2$.
+
+- Then, if $f'(x,y) = \begin{bmatrix} a & b \end{bmatrix}$, we have
+$$
+f'(x,y)\mathbf{h} = \begin{bmatrix} a & b \end{bmatrix} \begin{bmatrix} h_1 \\ h_2 \end{bmatrix} = ah_1 + bh_2.
+$$
+
+- However, we also have
+$$
+f'(x,y)\mathbf{e}_1 = \begin{bmatrix} a & b \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = a
+$$
+and
+$$
+f'(x,y)\mathbf{e}_2 = \begin{bmatrix} a & b \end{bmatrix} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = b.
+$$
+
+- Putting everything together, we get
+$$
+f'(x,y)\mathbf{h} = \frac{\partial f}{\partial x}(x,y)h_1 + \frac{\partial f}{\partial y}(x,y)h_2.
+$$
+
+## Partial derivatives and (total) derivatives, part 2 {.scrollable}
+
+::: {.callout-note icon="false" .fragment }
+### Relation between partial derivatives and (total) derivatives (for $\mathbb{R}^2 \to \mathbb{R}$)
+
+Suppose that $f: \mathbb{R}^2\to \mathbb{R}$ is a differentiable function. Then, as a $1\times 2$ matrix, we have
+$$
+f'(x,y) = \begin{bmatrix} \displaystyle\frac{\partial f}{\partial x}(x,y) & \displaystyle\frac{\partial f}{\partial y}(x,y) \end{bmatrix}.
+$$
+
+:::
+
+## Exercise 2: Practice computing (total) derivatives of functions $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute the (total) derivatives of the following functions:
+
+a. $f(x,y) = 3x - x^2y^2+2x^3y$
+b. $g(x,y) = xe^{x^2y}$
+c. $h(x,y) = \ln(x^2+y^2)$
+d. $k(x,y) = \sin(xy^2)$
+:::
+
+## Visualizing partial derivatives of functions $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
+
+- In the **very, very, very** special case of functions of the form $f: \mathbb{R}^2 \to \mathbb{R}$, we can draw the graph of $f$ as a surface in $\mathbb{R}^3$.
+
+- If $f$ is differentiable at a point $(x_0,y_0)$ then its tangent plane is the graph of the function
+$$
+\begin{align*}
+L(x,y) &= f'(x_0,y_0) \begin{bmatrix} x-x_0 \\ y-y_0 \end{bmatrix} + f(x_0,y_0) \\
+&= \begin{bmatrix} \displaystyle\frac{\partial f}{\partial x}(x_0,y_0) & \displaystyle\frac{\partial f}{\partial y}(x_0,y_0) \end{bmatrix} \begin{bmatrix} x-x_0 \\ y-y_0 \end{bmatrix} + f(x_0,y_0) \\
+&= \frac{\partial f}{\partial x}(x_0,y_0)(x-x_0) + \frac{\partial f}{\partial y}(x_0,y_0)(y-y_0) + f(x_0,y_0).
+\end{align*}
+$$
+
+- Thus, the slope of the tangent plane in the $x$-direction is $\displaystyle\frac{\partial f}{\partial x}(x_0,y_0)$, while the slope in the $y$-direction is $\displaystyle\frac{\partial f}{\partial y}(x_0,y_0)$.
+
+## Exercise 3: Plotting tangent planes of functions $\mathbb{R}^2 \to \mathbb{R}$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute and plot the tangent approximations and tangent planes of the following functions at the given points:
+
+a. $f(x,y) = 3x - x^2y^2+2x^3y$ at $(-1,0)$
+b. $g(x,y) = xe^{x^2y}$ at $(-2,0)$
+:::
+
+
+## Exercise 4: Plotting tangent lines of cross sections {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function $f:\mathbb{R}^2 \to \mathbb{R}$ defined by $f(x,y)=x^2+y^2$. Compute and plot the tangent line to the cross section with $x=1$, at the point $y=1$. Interpret your answer visually.
+
+:::

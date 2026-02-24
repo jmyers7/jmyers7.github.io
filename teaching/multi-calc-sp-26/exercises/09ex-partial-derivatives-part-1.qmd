@@ -1,0 +1,149 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 09 Partial derivatives, part 1
+
+## Exercise 1: Conceptual questions
+
+Let's mix it up a little and start off with some foundational questions about partial derivatives. I want to make sure you understand *what* all this stuff means before you start computing things.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Answer all the following questions in your own words.
+
+a. Explain what all of the symbols in the definition
+$$
+\frac{\partial f}{\partial x}(x_0,y_0) = f'(x_0,y_0)\mathbf{e}_1
+$$ {#eq-partial-derivative-x}
+mean. What type of mathematical objects are these? Numbers? Matrices? Vectors? Functions? Apples? Bananas? Something else? And when we write $f'(x_0,y_0)$ and $\mathbf{e}_1$ next to each other on the right-hand side, what sort of multiplication are we doing?
+
+b. The partial derivative $\frac{\partial f}{\partial x}(x_0,y_0)$ is **defined** according to ([-@eq-partial-derivative-x]). But I showed you in class that the partial derivative can also be computed using a limit formula. What is that formula?
+
+c. I said in class that the partial derivative $\frac{\partial f}{\partial x}(x_0,y_0)$ measures the rate of change of $f$ in the direction of the $x$-axis. Why? What is it about the definition of the partial derivative that makes this true?
+
+d. If I told you that $\frac{\partial f}{\partial y}(1,1)=2$, what does that tell you about the tangent plane of $f$ at $(1,1)$?
+
+e. True or false: If $\frac{\partial f}{\partial x}(x_0,y_0)=0$ and $\frac{\partial f}{\partial y}(x_0,y_0)=0$, then the tangent plane of $f$ at $(1,1)$ is horizontal. Explain your answer.
+
+f. We know that the partial derivatives of $f$ at a point $(x_0,y_0)$ give us the rate of change of $f$ in the directions of the $x$- and $y$-axes. But what if we wanted to know the rate of change of $f$ at $(x_0,y_0)$ in some other direction, say the direction of the vector $\mathbf{v}$? How would we compute that?
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+Nope! You *really, really* need to struggle through these on your own. But if you want to make sure your thoughts are headed in the right direction, you can always come talk to me during office hours or after class.
+:::
+
+## Exercise 2: Computing partial derivatives of functions $f:\mathbb{R}^2\to \mathbb{R}$
+
+Given a differentiable function $f:\mathbb{R}^2\to \mathbb{R}$, recall that you can compute the partial derivatives
+
+$$
+\frac{\partial f}{\partial x}(x,y) \quad \text{and} \quad \frac{\partial f}{\partial y}(x,y)
+$$
+
+by holding one variable constant and differentiating the other, just like in single-variable calculus.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute both partial derivatives of the following functions:
+
+a. $f(x,y) = 2x-3y+5$
+b. $f(x,y) = y\sqrt{x}$
+c. $f(x,y) = e^{xy}$
+d. $f(x,y) = \displaystyle\ln \left( \frac{x+y}{x-y} \right)$
+e. $f(x,y) = e^y \sin{(xy)}$
+f. $f(x,y) = \displaystyle\frac{xy}{x^2+y^2}$
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $\displaystyle\frac{\partial f}{\partial x}(x,y) = 2$ and $\displaystyle\frac{\partial f}{\partial y}(x,y) = -3$
+
+b. $\displaystyle\frac{\partial f}{\partial x}(x,y) = \displaystyle\frac{y}{2\sqrt{x}}$ and $\displaystyle\frac{\partial f}{\partial y}(x,y) = \sqrt{x}$
+
+c. $\displaystyle\frac{\partial f}{\partial x}(x,y) = ye^{xy}$ and $\displaystyle\frac{\partial f}{\partial y}(x,y) = xe^{xy}$
+
+d. $\displaystyle\frac{\partial f}{\partial x}(x,y) = \displaystyle\frac{2y}{y^2-x^2}$ and $\displaystyle\frac{\partial f}{\partial y}(x,y) = \displaystyle\frac{2x}{x^2-y^2}$
+
+e. $\displaystyle\frac{\partial f}{\partial x}(x,y) = ye^y \cos{(xy)}$ and $\displaystyle\frac{\partial f}{\partial y}(x,y) = e^y \sin{(xy)} + xe^y \cos{(xy)}$
+
+f. $\displaystyle\frac{\partial f}{\partial x}(x,y) = \displaystyle\frac{y(y^2-x^2)}{(x^2+y^2)^2}$ and $\displaystyle\frac{\partial f}{\partial y}(x,y) = \displaystyle\frac{x(x^2-y^2)}{(x^2+y^2)^2}$
+
+:::
+
+## Exercise 3: Computing total derivatives of functions $f:\mathbb{R}^2\to \mathbb{R}$
+
+If $f:\mathbb{R}^2\to \mathbb{R}$ is a differentiable function, then as we saw in class, the (total) derivative of $f$ at a point $(x,y)$ is given by the formula
+
+$$
+f'(x,y) = \begin{bmatrix} \displaystyle\frac{\partial f}{\partial x}(x,y) & \displaystyle\frac{\partial f}{\partial y}(x,y) \end{bmatrix}.
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the total derivatives of each of the functions in the previous exercise:
+
+a. $f(x,y) = 2x-3y+5$
+b. $f(x,y) = y\sqrt{x}$
+c. $f(x,y) = e^{xy}$
+d. $f(x,y) = \displaystyle\ln \left( \frac{x+y}{x-y} \right)$
+e. $f(x,y) = e^y \sin{(xy)}$
+f. $f(x,y) = \displaystyle\frac{xy}{x^2+y^2}$
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $f'(x,y) = \begin{bmatrix} 2 & -3 \end{bmatrix}$
+
+b. $f'(x,y) = \begin{bmatrix} \displaystyle\frac{y}{2\sqrt{x}} & \sqrt{x} \end{bmatrix}$
+
+c. $f'(x,y) = \begin{bmatrix} ye^{xy} & xe^{xy} \end{bmatrix}$
+
+d. $f'(x,y) = \begin{bmatrix} \displaystyle\frac{2y}{y^2-x^2} & \displaystyle\frac{2x}{x^2-y^2} \end{bmatrix}$
+
+e. $f'(x,y) = \begin{bmatrix} ye^y \cos{(xy)} & e^y \sin{(xy)} + xe^y \cos{(xy)} \end{bmatrix}$
+
+f. $f'(x,y) = \begin{bmatrix} \displaystyle\frac{y(y^2-x^2)}{(x^2+y^2)^2} & \displaystyle\frac{x(x^2-y^2)}{(x^2+y^2)^2} \end{bmatrix}$
+
+:::
+
+## Exercise 4: Computing tangent planes
+
+Given a differentiable function $f:\mathbb{R}^2\to \mathbb{R}$, the tangent plane to the graph of $f$ at a point $(x_0,y_0)$ is the graph of the function
+
+$$
+L(x,y) = \frac{\partial f}{\partial x}(x_0,y_0)(x-x_0) + \frac{\partial f}{\partial y}(x_0,y_0)(y-y_0) + f(x_0,y_0).
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the tangent planes of each of the functions in the previous exercise at the given point and plot your results using [Desmos](https://www.desmos.com/3d){target="_blank"}:
+
+a. $f(x,y) = 2x-3y+5$, at the point $(1,2)$
+b. $f(x,y) = y\sqrt{x}$, at the point $(4,3)$
+c. $f(x,y) = e^{xy}$, at the point $(0,1)$
+d. $f(x,y) = \displaystyle\ln \left( \frac{x+y}{x-y} \right)$, at the point $(2,1)$
+e. $f(x,y) = e^y \sin{(xy)}$, at the point $\left( \displaystyle\frac{\pi}{2},1 \right)$
+f. $f(x,y) = \displaystyle\frac{xy}{x^2+y^2}$, at the point $(1,1)$
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $L(x,y) = 2x - 3y + 5$
+
+b. $L(x,y) = \displaystyle\frac{3}{4}x + 2y - 3$
+
+c. $L(x,y) = x-3$
+
+d. $L(x,y) = -\displaystyle\frac{2}{3}x + \displaystyle\frac{4}{3}y + \ln{3} - \frac{4}{3}$
+
+e. $L(x,y) = ey-2e$
+
+f. $L(x,y) = \displaystyle\frac{1}{2}$
+
+:::
