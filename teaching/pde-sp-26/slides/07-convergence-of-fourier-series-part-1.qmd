@@ -1,0 +1,142 @@
+---
+title: "07 Convergence of Fourier series, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## Classes of functions {.scrollable}
+
+- Our main convergence theorem for Fourier series will require the function $f$ to not only be $2\pi$-periodid and integrable, but it must also satisfy some additional regularity conditions.
+
+::: {.callout-note icon="false" .fragment}
+### Definition.
+
+A function $f: [a,b] \to \mathbb{R}$ is called **piecewise continuous** if it is continuous on $[a,b]$ except possibly at finitely many points $x_1,x_2,\ldots,x_k$. At each of these points, we require that the left- and right-hand limits of $f$ exist. If one these points happens to be an endpoint of the interval, we only require that the appropriate one-sided limit exists.
+
+We will write $PC(a,b)$ for the set of piecewise continuous functions on $[a,b]$.
+:::
+
+
+::: {.callout-note icon="false" .fragment}
+### Definition.
+
+A function $f: [a,b] \to \mathbb{R}$ is called **piecewise smooth** if $f$ and its first derivative $f'$ are piecewise continuous on $[a,b]$. 
+
+We will write $PS(a,b)$ for the set of piecewise smooth functions on $[a,b]$.
+:::
+
+- A function $f$ is piecewise continuous or smooth on $\mathbb{R}$ if it is so on every interval of the form $[a,b]$. We write $PC(\mathbb{R})$ and $PS(\mathbb{R})$ for the corresponding sets of functions.
+
+## Partial sums of Fourier series {.scrollable}
+
+- Return to a $2\pi$-periodic and integrable function $f: \mathbb{R} \to \mathbb{R}$.
+
+- Recall the $ab$- and $c$-versions of its Fourier series are
+$$
+\frac{a_0}{2} + \sum_{n=1}^\infty \left( a_n \cos(n\theta) + b_n \sin(n\theta) \right) = \sum_{n=-\infty}^\infty c_n e^{i n \theta}.
+$$
+
+- The coefficients are given by
+$$
+a_n = \frac{1}{\pi} \int_{-\pi}^\pi f(\psi) \cos(n\psi) \, d\psi, \quad b_n = \frac{1}{\pi} \int_{-\pi}^\pi f(\psi) \sin(n\psi) \, d\psi, \quad c_n = \frac{1}{2\pi} \int_{-\pi}^\pi f(\psi) e^{-i n \psi} \, d\psi.
+$$
+where we use $\psi$ instead of $\theta$ to avoid a conflict of notation later.
+
+- What should the partial sums of the Fourier series look like? It's easy, for the $ab$-version. The $N$-th partial sum is
+$$
+S_N^f(\theta) = \frac{a_0}{2} + \sum_{n=1}^N \left( a_n \cos(n\theta) + b_n \sin(n\theta) \right).
+$$
+
+- For the $c$-version, the $N$-th partial sum is
+$$
+S_N^f(\theta) = \sum_{n=-N}^N c_n e^{i n \theta}.
+$$
+
+- To say that the Fourier series of $f$ converges to $f$ at a point $\theta$ means that
+$$
+\lim_{N \to \infty} S_N^f(\theta) = f(\theta).
+$$
+This is **pointwise convergence**.
+
+## The Dirichlet kernel: definition {.scrollable}
+
+- Inserting the formula for $c_n$ into the $c$-version of the partial sum, we have
+$$
+S_N^f(\theta) = \frac{1}{2\pi} \sum_{n=-N}^N \int_{-\pi}^\pi f(\psi) e^{i(\theta-\psi) n } \, d\psi = \frac{1}{2\pi} \sum_{n=-N}^N \int_{-\pi}^\pi f(\psi) e^{i(\psi-\theta) n } \, d\psi.
+$$
+Note that we have switched the order of $\theta$ and $\psi$ in the exponent in the second step. This is permissible because the sum ranges from $n=-N$ to $n=N$.
+
+- Now change variables by setting $\phi = \psi - \theta$:
+$$
+S_N^f(\theta) = \frac{1}{2\pi} \sum_{n=-N}^N \int_{-\pi-\theta}^{\pi-\theta} f(\theta + \phi) e^{i\phi n } \, d\phi.
+$$
+
+- But the integrand of the function is $2\pi$-periodic in $\phi$, so we can shift the limits of integration without changing the value of the integral. In particular, we can shift the limits back to $[-\pi, \pi]$:
+$$
+S_N^f(\theta) = \frac{1}{2\pi} \sum_{n=-N}^N \int_{-\pi}^{\pi} f(\theta + \phi) e^{i\phi n } \, d\phi.
+$$
+
+- We can then write
+$$
+S_N^f(\theta) = \int_{-\pi}^{\pi} f(\theta + \phi) D_N(\phi) \, d\phi,
+$$
+where
+$$
+D_N(\phi) = \frac{1}{2\pi} \sum_{n=-N}^N e^{i n \phi}
+$$
+is called the **$N$-th Dirichlet kernel**.
+
+## The Dirichlet kernel: sine formula {.scrollable}
+
+- Note that
+$$
+\begin{align*}
+D_N(\phi) &= \frac{1}{2\pi} ( e^{i (-N) \phi} + e^{i (-N+1) \phi} + \cdots + e^{i (N-1) \phi} + e^{i N \phi} ) \\
+&= \frac{1}{2\pi} e^{-iN\phi} ( 1 + e^{i \phi} + e^{2 i \phi} + \cdots + e^{2N i \phi} ) \\
+&= \frac{1}{2\pi} e^{-iN\phi} \frac{e^{i (2N+1) \phi} - 1}{e^{i \phi} - 1} \\
+&= \frac{1}{2\pi} \frac{e^{i (N+1) \phi} - e^{-iN\phi} }{e^{i \phi} - 1 }.
+\end{align*}
+$$
+since the expression in parentheses is a geometric series.
+
+- But, after multiplying top and bottom by $e^{-i\phi/2}$, we have
+$$
+D_N(\phi) = \frac{1}{2\pi} \frac{e^{i (N+1/2) \phi} - e^{-i(N+1/2)\phi} }{e^{i \phi/2} - e^{-i \phi/2} } = \frac{1}{2\pi} \frac{\sin((N+1/2)\phi)}{\sin(\phi/2)}.
+$$
+
+- This formula lends insight into what the Dirichlet kernel [looks like](https://www.desmos.com/calculator/3qmxwbfslw){target="_blank"}.
+
+## Dirichlet kernel: a lemma {.scrollable}
+
+- The following lemma will be useful in the proof of our main convergence theorem for Fourier series.
+
+::: {.callout-note icon="false" .fragment}
+### Lemma.
+For each $N$, we have
+$$
+\int_{-\pi}^0 D_N(\phi) \, d\phi = \int_0^\pi D_N(\phi) \, d\phi =  \frac{1}{2}.
+$$
+
+:::
+
+- For the proof, first recall
+$$
+D_N(\phi) = \frac{1}{2\pi} \sum_{n=-N}^N e^{i n \phi}.
+$$
+
+- But $2\cos(n\phi) = e^{i n \phi} + e^{-i n \phi}$, so we can write
+$$
+D_N(\phi) = \frac{1}{2\pi} + \frac{1}{\pi}\sum_{n=1}^N \cos(n\phi).
+$$
+
+- Then
+$$
+\int_0^\pi D_N(\phi) \, d\phi = \left[ \frac{\phi}{2\pi} + \frac{1}{\pi}\sum_{n=1}^N \frac{\sin(n\phi)}{n} \right]_0^\pi = \frac{1}{2},
+$$
+and similarly for the other integral.
