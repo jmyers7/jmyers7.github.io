@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -225,7 +260,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tensor-spaces-as-hilbert-spaces" id="toc-tensor-spaces-as-hilbert-spaces" class="nav-link active" data-scroll-target="#tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</a></li>
+  <li><a href="#sets-of-tensors" id="toc-sets-of-tensors" class="nav-link active" data-scroll-target="#sets-of-tensors">Sets of tensors</a></li>
+  <li><a href="#tensor-spaces-as-hilbert-spaces" id="toc-tensor-spaces-as-hilbert-spaces" class="nav-link" data-scroll-target="#tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</a></li>
   <li><a href="#derivatives-jacobians-and-gradients" id="toc-derivatives-jacobians-and-gradients" class="nav-link" data-scroll-target="#derivatives-jacobians-and-gradients">Derivatives, Jacobians, and gradients</a></li>
   <li><a href="#enter-pytorch-computational-examples-of-derivatives" id="toc-enter-pytorch-computational-examples-of-derivatives" class="nav-link" data-scroll-target="#enter-pytorch-computational-examples-of-derivatives">Enter PyTorch: Computational examples of derivatives</a></li>
   </ul>
@@ -259,6 +295,103 @@ window.Quarto = {
 </header>
 
 
+<section id="sets-of-tensors" class="level2">
+<h2 class="anchored" data-anchor-id="sets-of-tensors">Sets of tensors</h2>
+<p>The reader is familiar with the first two types of tensors: vectors and matrices. In mathematics, we typically express a vector as a column vector, such as</p>
+<p><span class="math display">\[
+x = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \in \mathbb{R}^3,
+\]</span></p>
+<p>and of course a matrix is expressed as a rectangular array of numbers, such as</p>
+<p><span class="math display">\[
+a = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{bmatrix} \in \mathbb{R}^{2\times 3}.
+\]</span></p>
+<p>But really, these are just examples of singly- and doubly-indexed collections of numbers:</p>
+<p><span class="math display">\[
+x = [ x_i : i = 0, 1, 2 ], \quad a = [ a_{ij} : i = 0, 1; \; j = 0, 1, 2 ].
+\]</span></p>
+<p>Our choice to write <span class="math inline">\(x\)</span> as a column vector, rather than a row vector, and to write <span class="math inline">\(a\)</span> as a rectangular array with two rows of length <span class="math inline">\(3\)</span>, rather than three rows of length <span class="math inline">\(2\)</span>, is purely a matter of convention.</p>
+<p>Thinking of vectors and matrices as indexed collections of numbers, rather than things we write in a particular way on a piece of paper, frees us to consider more general types of collections of numbers, such as triply-indexed collections</p>
+<p><span class="math display">\[
+b = [ b_{ijk} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3 ],
+\]</span></p>
+<p>or even quadruply-indexed collections</p>
+<p><span class="math display">\[
+c = [ c_{ijkl} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3; \; l = 0, 1, 2, 3, 4 ].
+\]</span></p>
+<p>If we agreed on which of the indices corresponds to the height, width, and depth dimensions, then we could envision <span class="math inline">\(b\)</span> as a 3D array of numbers. But again, this correspondence between indices and dimensions is just a matter of convention. And clearly there is no convention that would allow us to visualize a quadruply-indexed collection of numbers as a 4D array since you, me, and everyone else would struggle to imagine four spatial dimensions. The point is that we can still work with these collections of numbers, even if we cannot visualize them on a piece of paper or in space.</p>
+<p>What we’re referring to here—these multiply-index collections of numbers—are what we call <em>tensors</em>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-tensor" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> A <em>tensor</em> of <em>shape</em> <span class="math inline">\((m_1, m_2, \ldots, m_k)\)</span> is a <span class="math inline">\(k\)</span>-indexed collection <span class="math display">\[
+t = [ t_{i_1 i_2 \cdots i_k}],
+\]</span> of real numbers, where <span class="math inline">\(m_1,m_2,\ldots,m_k\)</span> are positive integers, and the index <span class="math inline">\(i_j\)</span> ranges over <span class="math inline">\(\{0, \ldots, m_j-1\}\)</span> for each <span class="math inline">\(j = 1, \ldots, k\)</span>. The number <span class="math inline">\(k\)</span> is called the <em>order</em> or <em>rank</em> of the tensor. We write <span class="math inline">\(\mathbb{R}^{m_1 \times m_2 \times \cdots \times m_k}\)</span> for the set of all tensors of shape <span class="math inline">\((m_1, m_2, \ldots, m_k)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>So, for example, <span class="math inline">\(\mathbb{R}^{3}\)</span> is the set of all rank-<span class="math inline">\(1\)</span> tensors (i.e., vectors) of length <span class="math inline">\(3\)</span>, <span class="math inline">\(\mathbb{R}^{2\times 3}\)</span> is the set of all rank-<span class="math inline">\(2\)</span> tensors (i.e., matrices) of size <span class="math inline">\(2\times 3\)</span>, <span class="math inline">\(\mathbb{R}^{2\times 3 \times 4}\)</span> is the set of all rank-<span class="math inline">\(3\)</span> tensors of shape <span class="math inline">\((2, 3, 4)\)</span>, and <span class="math inline">\(\mathbb{R}^{2\times 3 \times 4 \times 5}\)</span> is the set of all rank-<span class="math inline">\(4\)</span> tensors with shape <span class="math inline">\((2, 3, 4, 5)\)</span>.</p>
+<p>Random tensors of various shapes with integer values are easily generated in PyTorch using the <code>torch.randint</code> function. For example, the following code generates a random rank-<span class="math inline">\(4\)</span> tensor of shape <span class="math inline">\((2, 3, 4, 5)\)</span> with integer values between <span class="math inline">\(0\)</span> and <span class="math inline">\(9\)</span>:</p>
+<div id="af7d8b97" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> torch.randint(<span class="dv">0</span>, <span class="dv">10</span>, (<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([[[[2, 7, 6, 4, 6],
+          [5, 0, 4, 0, 3],
+          [8, 4, 0, 4, 1],
+          [2, 5, 5, 7, 6]],
+
+         [[9, 6, 3, 1, 9],
+          [3, 1, 9, 7, 9],
+          [2, 0, 5, 9, 3],
+          [4, 9, 6, 2, 0]],
+
+         [[6, 2, 7, 9, 7],
+          [3, 3, 4, 3, 7],
+          [0, 9, 0, 9, 6],
+          [9, 5, 4, 8, 8]]],
+
+
+        [[[6, 0, 0, 0, 0],
+          [1, 3, 0, 1, 1],
+          [7, 9, 4, 3, 8],
+          [9, 3, 7, 8, 1]],
+
+         [[4, 1, 6, 3, 2],
+          [0, 9, 8, 5, 3],
+          [7, 7, 5, 9, 1],
+          [5, 1, 9, 1, 4]],
+
+         [[0, 3, 7, 5, 7],
+          [1, 5, 7, 5, 8],
+          [5, 4, 1, 1, 0],
+          [9, 0, 9, 1, 8]]]])</code></pre>
+</div>
+</div>
+<p>PyTorch makes an admirable effort in the printout to display the entries of the tensor in a way that makes it easy to read. But it’s important to remember that this is just a convention, and that the tensor itself is really just a collection of numbers indexed by four indices. The six <span class="math inline">\(4\times 5\)</span> matrices in the printout are, in order, the matrices</p>
+<p><span class="math display">\[
+c_{0,0,:,:}, \quad c_{0,1,:,:}, \quad c_{0,2,:,:}, \quad c_{1,0,:,:}, \quad c_{1,1,:,:}, \quad c_{1,2,:,:},
+\]</span></p>
+<p>where we use the colon notation to indicate that the last two indices vary over their full range of values.</p>
+<p>The rank of a tensor is accessible in PyTorch as the <code>ndim</code> attribute, and the shape of a tensor is accessible as the <code>shape</code> attribute:</p>
+<div id="ec08377d" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The rank of the tensor is:"</span>, c.ndim)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The shape of the tensor is:"</span>, c.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The rank of the tensor is: 4
+
+The shape of the tensor is: torch.Size([2, 3, 4, 5])</code></pre>
+</div>
+</div>
+</section>
 <section id="tensor-spaces-as-hilbert-spaces" class="level2">
 <h2 class="anchored" data-anchor-id="tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</h2>
 </section>
@@ -271,7 +404,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <div id="def-derivative" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span> be two finite-dimensional Hilbert spaces. The <em>derivative</em> of a function <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> and in the direction <span class="math inline">\(v \in \mathcal{H}\)</span> is defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span> be two finite-dimensional Hilbert spaces. The <em>derivative</em> of a function <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> and in the direction <span class="math inline">\(v \in \mathcal{H}\)</span> is defined as <span class="math display">\[
 f'(x)(v) = \lim_{t \to 0} \frac{f(x + tv) - f(x)}{t},
 \]</span> provided the limit exists. If the derivative exists for all <span class="math inline">\(x \in \mathcal{H}\)</span> and <span class="math inline">\(v \in \mathcal{H}\)</span>, we say that <span class="math inline">\(f\)</span> is <em>differentiable</em>.</p>
 </div>
@@ -295,7 +428,7 @@ f_i'(x)(v) = \langle f'(x)(v), \epsilon_i \rangle,
 </div>
 <div class="callout-body-container">
 <div id="def-partial-derivative" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>partial derivative</em> of the <span class="math inline">\(i\)</span>-th component function <span class="math inline">\(f_i\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> with respect to the basis vector <span class="math inline">\(e_j\)</span> is defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>partial derivative</em> of the <span class="math inline">\(i\)</span>-th component function <span class="math inline">\(f_i\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> with respect to the basis vector <span class="math inline">\(e_j\)</span> is defined as <span class="math display">\[
 \frac{\partial f_i}{\partial e_j}(x) = f_i'(x)(e_j).
 \]</span></p>
 </div>
@@ -318,7 +451,7 @@ f_i'(x)(v) = \langle f'(x)(v), \epsilon_i \rangle,
 </div>
 <div class="callout-body-container">
 <div id="def-jacobian" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>Jacobian matrix</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> is the matrix <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>Jacobian matrix</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> is the matrix <span class="math display">\[
 Jf(x)_{ij} = \frac{\partial f_i}{\partial e_j}(x).
 \]</span></p>
 </div>
@@ -393,7 +526,7 @@ v^\ast: \mathcal{H} \to \mathbb{R}, \quad v^\ast(w) = \langle v, w \rangle,
 </div>
 <div class="callout-body-container">
 <div id="def-gradient" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> be a finite-dimensional Hilbert space, and let <span class="math inline">\(f: \mathcal{H} \to \mathbb{R}\)</span> be a differentiable function. The <em>gradient</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x\in \mathcal{H}\)</span> is the Riesz representation of the linear functional <span class="math inline">\(f'(x)\in \mathcal{H}^\ast\)</span>, denoted by <span class="math inline">\(\nabla f(x) \in \mathcal{H}\)</span>. In particular, we have that <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 5</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> be a finite-dimensional Hilbert space, and let <span class="math inline">\(f: \mathcal{H} \to \mathbb{R}\)</span> be a differentiable function. The <em>gradient</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x\in \mathcal{H}\)</span> is the Riesz representation of the linear functional <span class="math inline">\(f'(x)\in \mathcal{H}^\ast\)</span>, denoted by <span class="math inline">\(\nabla f(x) \in \mathcal{H}\)</span>. In particular, we have that <span class="math display">\[
 f'(x)(v) = \left\langle \nabla f(x), v \right\rangle,
 \]</span> for all <span class="math inline">\(v \in \mathcal{H}\)</span>.</p>
 </div>
