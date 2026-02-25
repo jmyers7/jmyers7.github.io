@@ -18,7 +18,82 @@ $$
 $$
 :::
 
+## Sets of tensors
+
+The reader is familiar with the first two types of tensors: vectors and matrices. In mathematics, we typically express a vector as a column vector, such as
+
+$$
+x = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \in \mathbb{R}^3,
+$$
+
+and of course a matrix is expressed as a rectangular array of numbers, such as
+
+$$
+a = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \in \mathbb{R}^{2\times 3}.
+$$
+
+But really, these are just examples of singly- and doubly-indexed collections of numbers:
+
+$$
+x = [ x_i : i = 0, 1, 2 ], \quad a = [ a_{ij} : i = 0, 1; \; j = 0, 1, 2 ].
+$$
+
+Our choice to write $x$ as a column vector, rather than a row vector, and to write $a$ as a rectangular array with two rows of length $3$, rather than three rows of length $2$, is purely a matter of convention.
+
+Thinking of vectors and matrices as indexed collections of numbers, rather than things we write in a particular way on a piece of paper, frees us to consider more general types of collections of numbers, such as triply-indexed collections
+
+$$
+b = [ b_{ijk} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3 ],
+$$
+
+or even quadruply-indexed collections
+
+$$
+c = [ c_{ijkl} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3; \; l = 0, 1, 2, 3, 4 ].
+$$
+
+If we agreed on which of the indices corresponds to the height, width, and depth dimensions, then we could envision $b$ as a 3D array of numbers. But again, this correspondence between indices and dimensions is just a matter of convention. And clearly there is no convention that would allow us to visualize a quadruply-indexed collection of numbers as a 4D array since you, me, and everyone else would struggle to imagine four spatial dimensions. The point is that we can still work with these collections of numbers, even if we cannot visualize them on a piece of paper or in space.
+
+What we're referring to here—these multiply-index collections of numbers—are what we call *tensors*.
+
+::: {#def-tensor}
+A *tensor* of *shape* $(m_1, m_2, \ldots, m_k)$ is a $k$-indexed collection
+$$
+t = [ t_{i_1 i_2 \cdots i_k}],
+$$
+of real numbers, where $m_1,m_2,\ldots,m_k$ are positive integers, and the index $i_j$ ranges over $\{0, \ldots, m_j-1\}$ for each $j = 1, \ldots, k$. The number $k$ is called the *order* or *rank* of the tensor. We write $\mathbb{R}^{m_1 \times m_2 \times \cdots \times m_k}$ for the set of all tensors of shape $(m_1, m_2, \ldots, m_k)$.
+:::
+
+So, for example, $\mathbb{R}^{3}$ is the set of all rank-$1$ tensors (i.e., vectors) of length $3$, $\mathbb{R}^{2\times 3}$ is the set of all rank-$2$ tensors (i.e., matrices) of size $2\times 3$, $\mathbb{R}^{2\times 3 \times 4}$ is the set of all rank-$3$ tensors of shape $(2, 3, 4)$, and $\mathbb{R}^{2\times 3 \times 4 \times 5}$ is the set of all rank-$4$ tensors with shape $(2, 3, 4, 5)$.
+
+Random tensors of various shapes with integer values are easily generated in PyTorch using the `torch.randint` function. For example, the following code generates a random rank-$4$ tensor of shape $(2, 3, 4, 5)$ with integer values between $0$ and $9$:
+
+```{python}
+import torch
+
+torch.manual_seed(42)
+
+c = torch.randint(0, 10, (2, 3, 4, 5))
+print(c)
+```
+
+PyTorch makes an admirable effort in the printout to display the entries of the tensor in a way that makes it easy to read. But it's important to remember that this is just a convention, and that the tensor itself is really just a collection of numbers indexed by four indices. The six $4\times 5$ matrices in the printout are, in order, the matrices
+
+$$
+c_{0,0,:,:}, \quad c_{0,1,:,:}, \quad c_{0,2,:,:}, \quad c_{1,0,:,:}, \quad c_{1,1,:,:}, \quad c_{1,2,:,:},
+$$
+
+where we use the colon notation to indicate that the last two indices vary over their full range of values.
+
+The rank of a tensor is accessible in PyTorch as the `ndim` attribute, and the shape of a tensor is accessible as the `shape` attribute:
+
+```{python}
+print("The rank of the tensor is:", c.ndim)
+print("\nThe shape of the tensor is:", c.shape)
+```
+
 ## Tensor spaces as Hilbert spaces
+
 
 ## Derivatives, Jacobians, and gradients
 
