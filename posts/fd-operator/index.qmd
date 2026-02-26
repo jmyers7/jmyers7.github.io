@@ -80,17 +80,35 @@ Though we don't get into the heavy infinite-dimensional theory in this post, it 
 
 ## Representation theorems
 
-We begin the theory with a pair of fundamental theorems that allow us to *represent* linear functionals defined on Hilbert spaces and spaces of continuous functions. The first representation theorem will be used to construct adjoint operators, while the second representation theorem will be used in the latter measure-theoretic part of this post.
+Throughout these notes, we work with a finite-dimensional Hilbert space $\calh$, which for us just means that $\calh$ is a finite-dimensional vector space over the field $\mathbb{C}$, with an inner product
+
+$$
+\langle -, - \rangle : \calh \times \calh \to \mathbb{C}
+$$
+
+that is linear in the first argument and conjugate-linear in the second argument. Note that this is the *opposite* of the usual convention in physics, where the inner product is conjugate-linear in the first argument.
+
+The *algebraic dual* of $\calh$, denoted $\calh^\ast$, is the $\bbc$-vector space of all linear functionals $\varphi: \calh\to \bbc$. Since $\calh$ is finite-dimensional, we need not be careful with the distinction between linear functionals and *continuous* linear functionals. The vector space operations in $\calh^\ast$ are the usual pointwise ones.
+
+Every vector $w\in \calh$ defines a linear functional $w^\ast \in \calh^\ast$ by the formula
+
+$$
+w^\ast(v) = \ang{v,w}, \quad \forall v\in \calh.
+$$
+
+This yields a transformation
+
+$$
+\Phi: \calh \to \calh^\ast, \quad w\mapsto w^\ast,
+$$
+
+that we call the *Riesz transformation*. The reader may check that $\Phi$ is $\bbc$-linear. In fact, it is an isomorphism of vector spaces, as the following theorem shows:
 
 
 ::: {#thm-riesz}
-## Riesz Representation Theorem (Finite-Dimensional Version)
+## Riesz Representation Theorem — Finite-Dimensional Version
 
-Let $\varphi$ be a linear functional on a finite-dimensional Hilbert space $\calh$. Then there is a unique vector $w_\varphi\in \calh$ such that
-
-$$
-\varphi(v) = \ang{v,w_\varphi}, \quad \forall v\in \calh.
-$$
+Let $\varphi$ be a linear functional on a finite-dimensional Hilbert space $\calh$. Then there is a unique vector $w_\varphi\in \calh$ such that $w_\varphi^\ast = \varphi$. In particular, the Riesz transformation is an isomorphism of vector spaces between $\calh$ and its dual $\calh^\ast$.
 :::
 ::: {.callout-note collapse="true" icon="false"}
 ## Proof.
@@ -115,18 +133,27 @@ $$
 
 :::
 
+Since the Riesz transformation is an isomorphism, we may use it to transport the inner product from $\calh$ to $\calh^\ast$ by defining
+
+$$
+\langle \varphi, \psi \rangle = \langle w_\varphi, w_\psi \rangle, \quad \forall \varphi, \psi \in \calh^\ast.
+$$
+
+Equipped with this inner product, $\calh^\ast$ becomes a Hilbert space in its own right, and the Riesz transformation $\Phi$ becomes an *isometric* isomorphism.
+
+
 For the second representation theorem, we need to set up some notation and terminology. Let $\calx$ be a nonempty finite set.
 
 1. We write $C(\calx)$ for the set of all $\bbc$-valued functions on $\calx$. The motivation for this notation comes from the observation that if $\calx$ is equipped with the discrete topology, then $C(\calx)$ coincides with the set of all *continuous* $\bbc$-valued functions on $\calx$. Notice that $C(\calx)$ is a finite-dimensional unital $\bbc$-algebra (it's even a $C^\ast$-algebra, but we'll come to this later).
 
 2. We write $P(\calx)$ for the power set of $\calx$. Notice that $P(\calx)$ coincides with the Borel algebra of $\calx$, if the latter is equipped with the discrete topology.
 
-2. A linear functional $\varphi: C(\calx) \to \bbc$ is called *positive* if $\varphi(f) \geq 0$ whenever $f\in C(\calx)$ is a function with its image in $[0,\infty)$. It is called *normalized* if $\varphi(\id)=1$, where $\id: \calx \to \bbc$ is the constant function that sends all of $\calx$ to $1\in \bbc$.
+3. A linear functional $\varphi: C(\calx) \to \bbc$ is called *positive* if $\varphi(f) \geq 0$ whenever $f\in C(\calx)$ is a function with its image in $[0,\infty)$; it is called *normalized* if $\varphi(\id)=1$, where $\id: \calx \to \bbc$ is the constant function that sends all of $\calx$ to $1\in \bbc$.
 
 The following fundamental theorem has multiple names; sometimes it is called the Riesz Representation Theorem---and thus is easily confused with the theorem above---while other times it is called the Riesz-Markov Theorem or the Riesz-Kakutani Theorem. I've decided to follow the convention of the [Wikipedia article](https://en.wikipedia.org/wiki/Riesz%E2%80%93Markov%E2%80%93Kakutani_representation_theorem){target="_blank"} and combine all three mathematicians' names.
 
 ::: {#thm-riesz-markov-kakutani}
-## Riesz-Markov-Kakutani Representation Theorem (Finite-Dimensional Version)
+## Riesz-Markov-Kakutani Representation Theorem — Finite-Dimensional Version
 
 Let $\calx$ be a nonempty finite set. Then there is a bijective correspondence between all complex measures $\mu$ on $P(\calx)$ and all $\bbc$-linear functionals $\varphi$ on $C(\calx)$:
 
