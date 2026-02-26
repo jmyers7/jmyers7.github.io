@@ -1,0 +1,160 @@
+---
+title: "11 Partial derivatives, part 3"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Exercise 1: Identifying coordinate functions {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Each of the following functions has more than one output. Identify the "coordinate functions" of each.
+
+a. $f: \mathbb{R} \to \mathbb{R}^3$,  $f(t) = (2t^2, t^4, e^t\sin{t})$
+b. $g: \mathbb{R}^2 \to \mathbb{R}^2$, $g(x,y) = (2x^2y, x-y)$
+c. $h: \mathbb{R}^3 \to \mathbb{R}^4$, $h(x,y,z) = (x^2+y^2+z^2, xyz, x+y+z, x-y+z)$
+:::
+
+## Coordinate functions
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f: \mathbb{R}^n \to \mathbb{R}^m$ be a function with
+$$
+(y_1,y_2,\ldots,y_m) = f(x_1,x_2,\ldots,x_n).
+$$
+
+For each $i=1,2,\ldots,m$, the **$i$-th coordinate function** of $f$ is the function
+$$
+f_i: \mathbb{R}^n \to \mathbb{R}, \quad y_i = f_i(x_1,x_2,\ldots,x_n).
+$$
+
+:::
+
+## Coordinate functions and derivatives, part 1 {.scrollable}
+
+- Suppose that $f: \mathbb{R}^2 \to \mathbb{R}^3$ is a differentiable function. Then its derivative $f'(x,y)$ is a $2 \times 3$ matrix, which we suppose has the form
+$$
+f'(x,y) = \begin{bmatrix}
+d_{11} & d_{12} \\
+d_{21} & d_{22} \\
+d_{31} & d_{32}
+\end{bmatrix},
+$$
+where the $d_{ij}$ are unknowns that (untill now) we had to find using the limit definition of the derivative.
+
+- The goal is to relate the $d_{ij}$ to something easier to compute.
+
+- To do this, suppose that we write $f$ in terms of its coordinate functions:
+$$
+f(x,y) = (f_1(x,y), f_2(x,y), f_3(x,y)).
+$$
+
+- Then, with $\mathbf{v} = \begin{bmatrix} x \\ y \end{bmatrix}$, we have
+$$
+f'(x,y) \mathbf{e}_1 = \lim_{\lambda \to 0} \frac{f\left( \begin{bmatrix} x + \lambda \\ y \end{bmatrix} \right) - f\left( \begin{bmatrix} x \\ y \end{bmatrix} \right)}{\lambda} =\begin{bmatrix}
+\lim\limits_{\lambda \to 0} \displaystyle\frac{f_1(x + \lambda, y) - f_1(x,y)}{\lambda} \\
+\lim\limits_{\lambda \to 0} \displaystyle\frac{f_2(x + \lambda, y) - f_2(x,y)}{\lambda} \\
+\lim\limits_{\lambda \to 0} \displaystyle\frac{f_3(x + \lambda, y) - f_3(x,y)}{\lambda}
+\end{bmatrix} =\begin{bmatrix}
+\displaystyle\frac{\partial f_1}{\partial x}(x,y) \\
+\displaystyle\frac{\partial f_2}{\partial x}(x,y) \\
+\displaystyle\frac{\partial f_3}{\partial x}(x,y)
+\end{bmatrix}.
+$$
+
+- On the other hand, we have
+$$
+f'(x,y)\mathbf{e}_1 = \begin{bmatrix}
+d_{11} & d_{12} \\
+d_{21} & d_{22} \\
+d_{31} & d_{32}
+\end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} d_{11} \\ d_{21} \\ d_{31} \end{bmatrix}.
+$$
+
+- We conclude that
+$$
+\begin{bmatrix} d_{11} \\ d_{21} \\ d_{31} \end{bmatrix} = \begin{bmatrix}
+\displaystyle\frac{\partial f_1}{\partial x}(x,y) \\
+\displaystyle\frac{\partial f_2}{\partial x}(x,y) \\
+\displaystyle\frac{\partial f_3}{\partial x}(x,y)
+\end{bmatrix}.
+$$
+
+## Coordinate functions and derivatives, part 2 {.scrollable}
+
+- If we repeat the same argument with $\mathbf{e}_2$, we find that
+$$
+\begin{bmatrix} d_{12} \\ d_{22} \\ d_{32} \end{bmatrix} = \begin{bmatrix}
+\displaystyle\frac{\partial f_1}{\partial y}(x,y) \\
+\displaystyle\frac{\partial f_2}{\partial y}(x,y) \\
+\displaystyle\frac{\partial f_3}{\partial y}(x,y)
+\end{bmatrix}.
+$$
+
+- Thus, we have shown that
+$$
+f'(x,y) = \begin{bmatrix}
+\displaystyle\frac{\partial f_1}{\partial x}(x,y) & \displaystyle\frac{\partial f_1}{\partial y}(x,y) \\
+\displaystyle\frac{\partial f_2}{\partial x}(x,y) & \displaystyle\frac{\partial f_2}{\partial y}(x,y) \\
+\displaystyle\frac{\partial f_3}{\partial x}(x,y) & \displaystyle\frac{\partial f_3}{\partial y}(x,y)
+\end{bmatrix}.
+$$
+
+- If instead we considered a function $g: \mathbb{R}^4 \to \mathbb{R}^2$, we would find that
+$$
+g'(x,y,z,w) = \begin{bmatrix}
+\displaystyle\frac{\partial g_1}{\partial x}(x,y,z,w) & \displaystyle\frac{\partial g_1}{\partial y}(x,y,z,w) & \displaystyle\frac{\partial g_1}{\partial z}(x,y,z,w) & \displaystyle\frac{\partial g_1}{\partial w}(x,y,z,w) \\
+\displaystyle\frac{\partial g_2}{\partial x}(x,y,z,w) & \displaystyle\frac{\partial g_2}{\partial y}(x,y,z,w) & \displaystyle\frac{\partial g_2}{\partial z}(x,y,z,w) & \displaystyle\frac{\partial g_2}{\partial w}(x,y,z,w)
+\end{bmatrix}.
+$$
+
+- Do you see the pattern?
+
+## Coordinate functions and derivatives, part 3 {.scrollable}
+
+::: {.callout-note icon="false" .fragment }
+### Theorem.
+Suppose that $f: \mathbb{R}^n \to \mathbb{R}^m$ is a differentiable function with coordinate functions $f_1,f_2,\ldots,f_m$. Then, the derivative of $f$ is given by
+$$
+f'(x_1,x_2,\ldots,x_n) = \begin{bmatrix}
+\displaystyle\frac{\partial f_1}{\partial x_1}(x_1,x_2,\ldots,x_n) & \displaystyle\frac{\partial f_1}{\partial x_2}(x_1,x_2,\ldots,x_n) & \cdots & \displaystyle\frac{\partial f_1}{\partial x_n}(x_1,x_2,\ldots,x_n) \\
+\displaystyle\frac{\partial f_2}{\partial x_1}(x_1,x_2,\ldots,x_n) & \displaystyle\frac{\partial f_2}{\partial x_2}(x_1,x_2,\ldots,x_n) & \cdots & \displaystyle\frac{\partial f_2}{\partial x_n}(x_1,x_2,\ldots,x_n) \\
+\vdots & \vdots & \ddots & \vdots \\
+\displaystyle\frac{\partial f_m}{\partial x_1}(x_1,x_2,\ldots,x_n) & \displaystyle\frac{\partial f_m}{\partial x_2}(x_1,x_2,\ldots,x_n) & \cdots & \displaystyle\frac{\partial f_m}{\partial x_n}(x_1,x_2,\ldots,x_n)
+\end{bmatrix}.
+$$
+
+:::
+
+## Exercise 2: Practice computing derivatives of functions {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Find the derivative of each of the following functions:
+
+a. $f: \mathbb{R} \to \mathbb{R}^3$,  $f(t) = (2t^2, t^4, e^t\sin{t})$
+b. $g: \mathbb{R}^2 \to \mathbb{R}^2$, $g(x,y) = (2x^2y, x-y)$
+c. $h: \mathbb{R}^3 \to \mathbb{R}^4$, $h(x,y,z) = (x^2+y^2+z^2, xyz, x+y+z, x-y+z)$
+:::
+
+## Exercise 3: A special function {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f: \mathbb{R}^2 \to \mathbb{R}^2, \quad (x,y) =f(r,\theta) = (r\cos{\theta}, r\sin{\theta}).
+$$
+
+a. Describe the action of this function on the portion of the $r\theta$-plane where $r>0$ and $0\leq \theta < 2\pi$.
+b. Find the derivative of this function.
+
+:::

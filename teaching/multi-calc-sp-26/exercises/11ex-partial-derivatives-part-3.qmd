@@ -1,0 +1,220 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 11 Partial derivatives, part 3
+
+## Exercise 1: Computing derivatives
+
+Recall from the class that the derivative of a function $f: \mathbb{R}^n \to \mathbb{R}^m$ may be computed as the $m\times n$ matrix
+
+$$
+f'(\mathbf{v}) = \begin{bmatrix}
+\displaystyle\frac{\partial f_1}{\partial x_1}(\mathbf{v}) & \displaystyle\frac{\partial f_1}{\partial x_2}(\mathbf{v}) & \cdots & \displaystyle\frac{\partial f_1}{\partial x_n}(\mathbf{v}) \\
+\displaystyle\frac{\partial f_2}{\partial x_1}(\mathbf{v}) & \displaystyle\frac{\partial f_2}{\partial x_2}(\mathbf{v}) & \cdots & \displaystyle\frac{\partial f_2}{\partial x_n}(\mathbf{v}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\displaystyle\frac{\partial f_m}{\partial x_1}(\mathbf{v}) & \displaystyle\frac{\partial f_m}{\partial x_2}(\mathbf{v}) & \cdots & \displaystyle\frac{\partial f_m}{\partial x_n}(\mathbf{v})
+\end{bmatrix},
+$$
+
+where $f_1,f_2,\ldots,f_m$ are the coordinate functions of $f$ and I've put the variables into a vector to shorten the notation:
+
+$$
+\mathbf{v} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}.
+$$
+
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the derivatives of the following functions:
+
+a. $$f:\mathbb{R}^2 \to \mathbb{R}^3, \quad f(x,y) = (x^2+y^2, xy^2, x+y)$$
+b. $$g:\mathbb{R}^3 \to \mathbb{R}^2, \quad g(x,y,z) = \left(\frac{3xz}{x+y}, x^2+y^2+z^2\right)$$
+c. $$h:\mathbb{R}^3 \to \mathbb{R}^3, \quad h(x,y,z) = (\sin(x+2y+3z), e^{x+y+z}, x^2+y^2+z^2)$$
+d. $$k:\mathbb{R} \to \mathbb{R}^4, \quad k(t) = (t, t^2, t^3, t^4)$$
+e. $$u:\mathbb{R}^3 \to \mathbb{R}^4, \quad u(x,y,z) = (x\cos{y}, x\sin{y}, y\cos{z}, y\sin{z})$$
+f. $$v:\mathbb{R}^4 \to \mathbb{R}^3, \quad v(x,y,z,w) = (x+y+z+w, xyzw, x^2+y^2+z^2+w^2)$$
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. The derivative is
+$$
+f'(x,y) = \begin{bmatrix}
+2x & 2y \\
+y^2 & 2xy \\
+1 & 1
+\end{bmatrix}.
+$$
+
+b. The derivative is
+$$
+g'(x,y,z) = \begin{bmatrix}
+\displaystyle\frac{3yz}{(x+y)^2} & \displaystyle\frac{-3xz}{(x+y)^2} & \displaystyle\frac{3x}{x+y} \\
+2x & 2y & 2z
+\end{bmatrix}.
+$$
+
+c. The derivative is
+$$
+h'(x,y,z) = \begin{bmatrix}
+\cos(x+2y+3z) & 2\cos(x+2y+3z) & 3\cos(x+2y+3z) \\
+e^{x+y+z} & e^{x+y+z} & e^{x+y+z} \\
+2x & 2y & 2z
+\end{bmatrix}.
+$$
+
+d. The derivative is
+$$
+k'(t) = \begin{bmatrix}
+1 \\
+2t \\
+3t^2 \\
+4t^3
+\end{bmatrix}.
+$$
+
+e. The derivative is
+$$
+u'(x,y,z) = \begin{bmatrix}
+\cos{y} & -x\sin{y} & 0 \\
+\sin{y} & x\cos{y} & 0 \\
+0 & \cos{z} & -y\sin{z} \\
+0 & \sin{z} & y\cos{z}
+\end{bmatrix}.
+$$
+
+f. The derivative is
+$$
+v'(x,y,z,w) = \begin{bmatrix}
+1 & 1 & 1 & 1 \\
+yzw & xzw & xyw & xyz \\
+2x & 2y & 2z & 2w
+\end{bmatrix}.
+$$
+
+
+:::
+
+## Exercise 2: Tangent approximations
+
+Recall that the tangent approximation of a function $f: \mathbb{R}^n \to \mathbb{R}^m$ at a point $\mathbf{v}_0$ is given by
+$$
+L(\mathbf{v}) = f'(\mathbf{v}_0)(\mathbf{v}-\mathbf{v}_0) + f(\mathbf{v}_0),
+$$
+
+where $\mathbf{v}$ is a variable position vector.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Consider the function
+
+$$
+f: \mathbb{R}^3 \to \mathbb{R}^2, \quad f(x,y,z) = (x^2+y^2, xy+yz-2xz).
+$$
+
+a. Compute the derivative $f'(x,y,z)$.
+b. Compute the tangent approximation of $f$ at the point $(1,0,-1)$.
+c. Find all points $\mathbf{v_0}$ where the tangent approximation of $f$ is constant.
+d. At the point that you found in part (c), what does a constant tangent approximation tell you about the function $f$ near that point?
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. The derivative is
+$$
+f'(x,y,z) = \begin{bmatrix}
+2x & 2y & 0 \\
+y-2z & x+z & y-2x
+\end{bmatrix}.
+$$
+
+b. The tangent approximation at $(1,0,-1)$ is
+$$
+L(x,y,z) = \begin{bmatrix}
+2 & 0 & 0 \\
+2 & 0 & -2
+\end{bmatrix} \begin{bmatrix}
+x-1 \\
+y \\
+z+1
+\end{bmatrix} + \begin{bmatrix}
+1 \\
+2
+\end{bmatrix} = \begin{bmatrix}
+2x-1 \\ 
+2x-2z - 2
+\end{bmatrix}
+$$
+
+c. Points $\mathbf{v}_0$ at which the tangent approximation is constant are those for which the derivative $f'(\mathbf{v}_0)$ is the zero matrix. Do you understand why? This is because if $f'(\mathbf{v}_0)$ is the zero matrix, then $L(\mathbf{v}) = f(\mathbf{v}_0)$ for all $\mathbf{v}$, which is a constant function. So we need to solve the system of equations
+$$
+\begin{bmatrix}
+2x_0 & 2y_0 & 0 \\
+y_0-2z_0 & x_0+z_0 & y_0-2x_0
+\end{bmatrix} = \begin{bmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}.
+$$
+But we have $2x_0 = 0$ and $2y_0 = 0$, which implies that $x_0 = 0$ and $y_0 = 0$. Then the second row of the matrix gives us the equations
+$$
+y_0 - 2z_0 = 0, \quad x_0 + z_0 = 0, \quad y_0 - 2x_0 = 0.
+$$
+However, we know that $x_0 = 0$ and $y_0 = 0$, so these equations tell us $z_0 = 0$. Therefore, the only point at which the tangent approximation is constant is $\mathbf{v}_0 = (0,0,0)$.
+
+d. We know that, for small step vectors $\mathbf{h}$, we have
+$$
+f(\mathbf{v}_0 + \mathbf{h}) - f(\mathbf{v}_0) \approx f'(\mathbf{v}_0)\mathbf{h}.
+$$
+But if $f'(\mathbf{v}_0)$ is the zero matrix, then $f(\mathbf{v}_0 + \mathbf{h}) - f(\mathbf{v}_0) \approx 0$, which means that $f(\mathbf{v}_0 + \mathbf{h}) \approx f(\mathbf{v}_0)$ for small $\mathbf{h}$. In other words, the function $f$ is approximately constant near the point $\mathbf{v}_0 = (0,0,0)$.
+:::
+
+## Exercise 3: Application problem
+
+We've been focusing so much on the mechanics of computing derivatives that we haven't had much time to discuss applications. Let's fix that with a simple application problem.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+A factory produces two products. The production outputs depend on labor $L$ and capital $K$ according to:
+$$
+P(L,K) = (20L^{0.6}K^{0.4}, \, 15L^{0.5}K^{0.5})
+$$
+where the coordinate functions $P_1$ and $P_2$ are the quantities of products 1 and 2 produced.
+
+Currently, the factory employs $L=100$ units of labor and $K=50$ units of capital.
+
+a. Find the derivative $P'(100, 50)$. 
+b. If the factory increases labor by 2 units and capital by 1 unit, approximately how much does the production of each product increase?
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. After rounding, the derivative is
+$$
+P'(100,50) \approx \begin{bmatrix}
+9.0943 & 12.1257 \\
+5.3033 & 10.6066 \\
+\end{bmatrix}.
+$$
+
+b. We have
+$$
+P(102,51) - P(100,50) \approx P'(100,50) \begin{bmatrix} 2 \\ 1 \end{bmatrix} \approx \begin{bmatrix}
+9.0943 & 12.1257 \\
+5.3033 & 10.6066 \\
+\end{bmatrix} \begin{bmatrix} 2 \\ 1 \end{bmatrix} = \begin{bmatrix}
+30.3143 \\
+21.2132 \\
+\end{bmatrix}.
+$$
+Thus, the production of product 1 increases by approximately 30.31 units and the production of product 2 increases by approximately 21.21 units.
+
+
+:::
