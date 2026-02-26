@@ -1,0 +1,145 @@
+---
+title: "10 Partial derivatives, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Partial derivatives of functions $\mathbb{R}^n \to \mathbb{R}$ {.scrollable}
+
+- In the following definition, recall the standard basis vectors of $\mathbb{R}^n$:
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}, \quad
+\mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{bmatrix}, \quad \ldots, \quad
+\mathbf{e}_n = \begin{bmatrix} 0 \\ 0 \\ 0 \\ \vdots \\ 1 \end{bmatrix}.
+$$
+
+- Suppose we write the variables in $\mathbb{R}^n$ as $x_1,x_2,\ldots,x_n$, so a function $f:\mathbb{R}^n \to \mathbb{R}$ takes the form $z = f(x_1,x_2,\ldots,x_n)$.
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f:\mathbb{R}^n \to \mathbb{R}$ be a differentiable function and $(a_1,a_2,\ldots,a_n)$ a fixed point in $\mathbb{R}^n$.
+
+1. The **partial derivative of $f$ with respect to $x_j$ at $(a_1,a_2,\ldots,a_n)$** is defined as
+$$
+\frac{\partial f}{\partial x_j}(a_1,a_2,\ldots,a_n) = f'(a_1,a_2,\ldots,a_n)\mathbf{e}_j.
+$$
+2. If we replace $(a_1,a_2,\ldots,a_n)$ with a variable point $(x_1,x_2,\ldots,x_n)$, we get the **partial derivative functions**
+$$
+\frac{\partial f}{\partial x_j}: \mathbb{R}^n \to \mathbb{R}.
+$$
+:::
+
+::: {.callout-note icon="false" .fragment }
+### How do you compute partial derivatives?
+
+To compute the partial derivative of a function $f:\mathbb{R}^n \to \mathbb{R}$ with respect to $x_j$, we treat all other variables as constants and differentiate with respect to $x_j$ using the usual rules of differentiation.
+:::
+
+
+## Exercise 1: Practice computing partial derivatives {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute all partial derivatives of the following functions:
+
+a. $f(x,y,z) = xy + yz^2 + xz$
+b. $g(x,y,z) = z\sin{(xy^2+2z)}$
+c. $h(x,y,z,w) = \displaystyle\frac{x+y+z}{w}$
+
+:::
+
+## Partial derivatives and (total) derivatives {.scrollable}
+
+::: {.callout-note icon="false" .fragment }
+### Theorem.
+
+Suppose that $f: \mathbb{R}^n\to \mathbb{R}$ is a differentiable function. Then, as a $1\times n$ matrix, we have
+$$
+f'(x_1,x_2,\ldots,x_n) = \begin{bmatrix} \displaystyle\frac{\partial f}{\partial x_1}(x_1,x_2,\ldots,x_n) & \displaystyle\frac{\partial f}{\partial x_2}(x_1,x_2,\ldots,x_n) & \cdots & \displaystyle\frac{\partial f}{\partial x_n}(x_1,x_2,\ldots,x_n) \end{bmatrix}.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment }
+### Theorem.
+
+Suppose that $f: \mathbb{R}^n\to \mathbb{R}$ is a differentiable function and $(a_1,a_2,\ldots,a_n)$ is a fixed point in $\mathbb{R}^n$. Then, the tangent approximation to the function at this point is given by
+
+$$
+L(x_1,x_2,\ldots,x_n) = \sum_{j=1}^n \frac{\partial f}{\partial x_j}(a_1,a_2,\ldots,a_n)(x_j-a_j) + f(a_1,a_2,\ldots,a_n).
+$$
+
+:::
+
+## Exercise 2: Practice computing derivatives and tangent approximations {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+### (a) Computing derivatives
+
+Compute the (total) derivatives of the following functions:
+
+i. $f(x,y,z) = xy + yz^2 + xz$
+ii. $g(x,y,z) = z\sin{(xy^2+2z)}$
+iii. $h(x,y,z,w) = \displaystyle\frac{x+y+z}{w}$
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+### (b) Computing tangent approximations
+
+Comput the tangent approximation of the function $f$ in part (a) at the point $(1,1,1)$.
+:::
+
+## Higher-order partial derivatives {.scrollable}
+
+- If $f: \mathbb{R}^n \to \mathbb{R}$ is a differentiable function, then we have the partial derivative functions
+$$
+\frac{\partial f}{\partial x_j}: \mathbb{R}^n \to \mathbb{R}, \quad j=1,2,\ldots,n.
+$$
+
+- These functions may themselves be differentiable, in which case we can take their partial derivatives.
+
+::: {.callout-note icon="false" .fragment }
+### Definition.
+
+Let $f:\mathbb{R}^n \to \mathbb{R}$ be a differentiable function. The **second-order partial derivatives** of $f$ are the partial derivatives of the first-order partial derivatives, i.e.
+$$
+\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial}{\partial x_i}\left(\frac{\partial f}{\partial x_j}\right).
+$$
+
+These may or may not exist.
+:::
+
+- A **mixed second-order partial derivative** is a second-order partial derivative of the form $\displaystyle\frac{\partial^2 f}{\partial x_i \partial x_j}$ with $i \neq j$.
+
+- A **pure second-order partial derivative** is a second-order partial derivative of the form $\displaystyle\frac{\partial^2 f}{\partial x_j^2}$.
+
+::: {.callout-note icon="false" .fragment }
+### Theorem (Equality of mixed second-order partial derivatives).
+
+Suppose that $f:\mathbb{R}^n \to \mathbb{R}$ is a function whose second-order partial derivatives are continuous. Then, for all $i,j = 1,2,\ldots,n$, we have
+
+$$
+\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i}.
+$$
+
+:::
+
+- Third and higher order partial derivatives are defined analogously, and the equality of mixed partial derivatives holds for all orders, provided that the relevant partial derivatives are continuous.
+
+## Exercise 3: Practice computing higher-order partial derivatives {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute all third-order partial derivatives of the function
+
+$$
+f: \mathbb{R}^2 \to \mathbb{R}, \quad f(x,y) = 3xy^2-2y+5x^2y^2.
+$$
+
+:::

@@ -1,0 +1,178 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 10 Partial derivatives, part 2
+
+## Exercise 1: Computing partial derivatives of functions
+
+Given a differentiable function $f:\mathbb{R}^n \to \mathbb{R}$, recall that you can compute the partial derivatives
+
+$$
+\frac{\partial f}{\partial x_1}(x_1,x_2,\ldots,x_n), \quad \frac{\partial f}{\partial x_2}(x_1,x_2,\ldots,x_n), \quad \ldots, \quad \frac{\partial f}{\partial x_n}(x_1,x_2,\ldots,x_n)
+$$
+
+by holding one variable constant and differentiating the other, just like in single-variable calculus.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the partial derivatives of the following functions:
+
+a. $f(x,y,z) = \sqrt{x^2+y^2+z^2}$
+b. $f(x,y,z) =\displaystyle\frac{3xz}{x+y}$
+c. $f(x,y,z) = \sin{(x+2y+3z)}$
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Answers:
+$$
+\begin{align*}
+\frac{\partial f}{\partial x}(x,y,z) &= \frac{x}{\sqrt{x^2+y^2+z^2}}, \\
+\frac{\partial f}{\partial y}(x,y,z) &= \frac{y}{\sqrt{x^2+y^2+z^2}}, \\
+\frac{\partial f}{\partial z}(x,y,z) &= \frac{z}{\sqrt{x^2+y^2+z^2}}.
+\end{align*}
+$$
+
+b. Answers:
+$$
+\begin{align*}
+\frac{\partial f}{\partial x}(x,y,z) &= \frac{3yz}{(x+y)^2}, \\
+\frac{\partial f}{\partial y}(x,y,z) &= -\frac{3xz}{(x+y)^2}, \\
+\frac{\partial f}{\partial z}(x,y,z) &= \frac{3x}{x+y}.
+\end{align*}
+$$
+
+c. Answers:
+$$
+\begin{align*}
+\frac{\partial f}{\partial x}(x,y,z) &= \cos{(x+2y+3z)}, \\
+\frac{\partial f}{\partial y}(x,y,z) &= 2\cos{(x+2y+3z)}, \\
+\frac{\partial f}{\partial z}(x,y,z) &= 3\cos{(x+2y+3z)}.
+\end{align*}
+$$
+:::
+
+## Exercise 2: Computing higher-order partial derivatives of functions
+
+Remember that the second-order partial derivatives of a function are the partial derivatives of the first-order partial derivatives. Similarly, the third-order partial derivatives are the partial derivatives of the second-order partial derivatives, and so on.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute all third-order partial derivatives of the function
+$$
+f: \mathbb{R}^2 \to \mathbb{R}, \quad f(x,y) = x^2y^3 + 3xy + 5y^2.
+$$
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+First-order:
+
+$$
+\begin{align*}
+\frac{\partial f}{\partial x}(x,y) &= 2xy^3 + 3y, \\
+\frac{\partial f}{\partial y}(x,y) &= 3x^2y^2 + 3x + 10y.
+\end{align*}
+$$
+
+Second-order:
+
+$$
+\begin{align*}
+\frac{\partial^2 f}{\partial x^2}(x,y) &= 2y^3, \\
+\frac{\partial^2 f}{\partial y \partial x}(x,y) &= \frac{\partial^2 f}{\partial x \partial y}(x,y) = 6xy^2 + 3, \\
+\frac{\partial^2 f}{\partial y^2}(x,y) &= 6x^2y + 10.
+\end{align*}
+$$
+
+Third-order:
+
+$$
+\begin{align*}
+\frac{\partial^3 f}{\partial x^3}(x,y) &= 0, \\
+\frac{\partial^3 f}{\partial y \partial x^2}(x,y) &= \frac{\partial^3 f}{\partial x^2 \partial y}(x,y) = \frac{\partial^3f}{\partial x \partial y \partial x}(x,y) = 6y^2, \\
+\frac{\partial^3 f}{\partial y^2 \partial x}(x,y) &= \frac{\partial^3 f}{\partial x \partial y^2}(x,y) = \frac{\partial^3 f}{\partial y \partial x \partial y}(x,y) = 12xy, \\
+\frac{\partial^3 f}{\partial y^3}(x,y) &= 6x^2.
+\end{align*}
+$$
+
+:::
+
+## Exercise 3: Computing total derivatives of functions
+
+If $f:\mathbb{R}^n\to \mathbb{R}$ is a differentiable function, then as we saw in class, the (total) derivative of $f$ at a point $(x_1, x_2, \ldots, x_n)$ is given by the formula
+
+$$
+f'(x_1, x_2, \ldots, x_n) = \begin{bmatrix} \displaystyle\frac{\partial f}{\partial x_1}(x_1, x_2, \ldots, x_n) & \displaystyle\frac{\partial f}{\partial x_2}(x_1, x_2, \ldots, x_n) & \cdots & \displaystyle\frac{\partial f}{\partial x_n}(x_1, x_2, \ldots, x_n) \end{bmatrix}.
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the total derivatives of each of the functions in the first exercise:
+
+a. $f(x,y,z) = \sqrt{x^2+y^2+z^2}$
+b. $f(x,y,z) =\displaystyle\frac{3xz}{x+y}$
+c. $f(x,y,z) = \sin{(x+2y+3z)}$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $f'(x,y,z) = \begin{bmatrix} \displaystyle\frac{x}{\sqrt{x^2+y^2+z^2}} & \displaystyle\frac{y}{\sqrt{x^2+y^2+z^2}} & \displaystyle\frac{z}{\sqrt{x^2+y^2+z^2}} \end{bmatrix}$
+
+b. $f'(x,y,z) = \begin{bmatrix} \displaystyle\frac{3yz}{(x+y)^2} & -\displaystyle\frac{3xz}{(x+y)^2} & \displaystyle\frac{3x}{x+y} \end{bmatrix}$
+
+c. $f'(x,y,z) = \begin{bmatrix} \cos{(x+2y+3z)} & 2\cos{(x+2y+3z)} & 3\cos{(x+2y+3z)} \end{bmatrix}$
+
+:::
+
+## Exercise 4: Concavity and partial derivatives
+
+Let $f: \mathbb{R}^2\to \mathbb{R}$ be a differentiable function. Recall from class that the partial derivative $\frac{\partial f}{\partial x}(x_0,y_0)$ can be thought of as the slope of the tangent line at $x=x_0$ to the cross section of the graph of $f$ with the plane $y=y_0$. And similarly for $\frac{\partial f}{\partial y}(x_0,y_0)$. Use this idea, along with your knowledge about the link between concavity and second-derivatives from single-variable calculus, to answer the following questions.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Is the graph of the function $z=f(x,y) = x^2-y^2$ concave up or concave down in the $x$-direction at the point $(0,0)$? How about in the $y$-direction?
+b. Is the graph of the function $z=f(x,y) = 3xy^2-2y + 5x^2y^2$ concave up or concave down in the $x$-direction at the point $(1,1)$? How about in the $y$-direction?
+c. I give you a differentiable function $f:\mathbb{R}^2\to \mathbb{R}$, a fixed point $(x_0,y_0)$, and I tell you that
+$$
+\frac{\partial f}{\partial x}(x_0,y_0) = \frac{\partial f}{\partial y}(x_0,y_0) = 0
+$$
+and
+$$
+\frac{\partial^2 f}{\partial x^2}(x_0,y_0) > 0, \quad \frac{\partial^2 f}{\partial y^2}(x_0,y_0) > 0.
+$$
+Tell me what you might believe about the graph of $f$ at the point $(x_0,y_0)$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. In the $x$-direction, we have
+$$
+\frac{\partial^2 f}{\partial x^2}(0,0) = 2 > 0,
+$$
+so the graph is concave up in the $x$-direction at $(0,0)$. In the $y$-direction, we have
+$$
+\frac{\partial^2 f}{\partial y^2}(0,0) = -2 < 0,
+$$
+so the graph is concave down in the $y$-direction at $(0,0)$.
+
+b. In the $x$-direction, we have
+$$
+\frac{\partial^2 f}{\partial x^2}(1,1) = 10 > 0,
+$$
+so the graph is concave up in the $x$-direction at $(1,1)$. In the $y$-direction, we have
+$$
+\frac{\partial^2 f}{\partial y^2}(1,1) = 16 > 0,
+$$
+so the graph is concave up in the $y$-direction at $(1,1)$.
+
+c. Since the first-order partial derivatives are both zero, you know that the tangent plane to the graph of $f$ at $(x_0,y_0)$ is horizontal. Since the second-order partial derivatives are both positive, you also know that the graph of $f$ is concave up in both the $x$-direction and the $y$-direction at $(x_0,y_0)$. So you might believe that the graph of $f$ has a local minimum at $(x_0,y_0)$. Congratulations if you got this far. However, you'd be wrong! It's not enough to check the concavity in the $x$- and $y$-directions, you need to check the concavity in **all** directions. For that, however, you need the so-called Hessian matrix, which we'll get to later.
+
+:::
