@@ -18,81 +18,152 @@ $$
 $$
 :::
 
-## Sets of tensors
+## Tensor spaces as Hilbert spaces
 
-The reader is familiar with the first two types of tensors: vectors and matrices. In mathematics, we typically express a vector as a column vector, such as
-
-$$
-x = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \in \mathbb{R}^3,
-$$
-
-and of course a matrix is expressed as a rectangular array of numbers, such as
-
-$$
-a = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \in \mathbb{R}^{2\times 3}.
-$$
-
-But really, these are just examples of singly- and doubly-indexed collections of numbers:
-
-$$
-x = [ x_i : i = 0, 1, 2 ], \quad a = [ a_{ij} : i = 0, 1; \; j = 0, 1, 2 ].
-$$
-
-Our choice to write $x$ as a column vector, rather than a row vector, and to write $a$ as a rectangular array with two rows of length $3$, rather than three rows of length $2$, is purely a matter of convention.
-
-Thinking of vectors and matrices as indexed collections of numbers, rather than things we write in a particular way on a piece of paper, frees us to consider more general types of collections of numbers, such as triply-indexed collections
-
-$$
-b = [ b_{ijk} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3 ],
-$$
-
-or even quadruply-indexed collections
-
-$$
-c = [ c_{ijkl} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3; \; l = 0, 1, 2, 3, 4 ].
-$$
-
-If we agreed on which of the indices corresponds to the height, width, and depth dimensions, then we could envision $b$ as a 3D array of numbers. But again, this correspondence between indices and dimensions is just a matter of convention. And clearly there is no convention that would allow us to visualize a quadruply-indexed collection of numbers as a 4D array since you, me, and everyone else would struggle to imagine four spatial dimensions. The point is that we can still work with these collections of numbers, even if we cannot visualize them on a piece of paper or in space.
-
-What we're referring to here—these multiply-index collections of numbers—are what we call *tensors*.
 
 ::: {#def-tensor}
-A *tensor* of *shape* $(m_1, m_2, \ldots, m_k)$ is a $k$-indexed collection
+Let $I$ be a non-empty finite set that we call an *index set*, with elements $i\in I$ called *indices*. An *$I$-indexed tensor* is a function
 $$
-t = [ t_{i_1 i_2 \cdots i_k}],
+a : I \to \mathbb{R}, \quad i \mapsto a_i.
 $$
-of real numbers, where $m_1,m_2,\ldots,m_k$ are positive integers, and the index $i_j$ ranges over $\{0, \ldots, m_j-1\}$ for each $j = 1, \ldots, k$. The number $k$ is called the *order* or *rank* of the tensor. We write $\mathbb{R}^{m_1 \times m_2 \times \cdots \times m_k}$ for the set of all tensors of shape $(m_1, m_2, \ldots, m_k)$.
+We write $\mathbb{R}^I$ for the set of all $I$-indexed tensors, and we call it the *tensor space* of $I$-indexed tensors.
 :::
 
-So, for example, $\mathbb{R}^{3}$ is the set of all rank-$1$ tensors (i.e., vectors) of length $3$, $\mathbb{R}^{2\times 3}$ is the set of all rank-$2$ tensors (i.e., matrices) of size $2\times 3$, $\mathbb{R}^{2\times 3 \times 4}$ is the set of all rank-$3$ tensors of shape $(2, 3, 4)$, and $\mathbb{R}^{2\times 3 \times 4 \times 5}$ is the set of all rank-$4$ tensors with shape $(2, 3, 4, 5)$.
+For example, if $I = \{0,1,2\}$, then an $I$-indexed tensor $a$ is just a selection of three real numbers:
 
-Random tensors of various shapes with integer values are easily generated in PyTorch using the `torch.randint` function. For example, the following code generates a random rank-$4$ tensor of shape $(2, 3, 4, 5)$ with integer values between $0$ and $9$:
+$$
+0 \mapsto a_0, \quad 1 \mapsto a_1, \quad 2 \mapsto a_2,
+$$
+[Notice the use of "$0$-based indexing" here, which is standard in Python, but somewhat confusing for those accustomed to "$1$-based indexing" in mathematics.]{.aside}
+
+which we may write in vector form:
+
+$$
+a = \begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix}.
+$$
+
+If $I = \{0,1\}\times \{0,1,2\}$, then an $I$-indexed tensor $b$ is a selection of six real numbers:
+
+$$
+(0,0) \mapsto b_{00}, \quad (0,1) \mapsto b_{01}, \quad (0,2) \mapsto b_{02}, \quad (1,0) \mapsto b_{10}, \quad (1,1) \mapsto b_{11}, \quad (1,2) \mapsto b_{12},
+$$
+
+which we may write in matrix form:
+
+$$
+b = \begin{bmatrix} b_{00} & b_{01} & b_{02} \\ b_{10} & b_{11} & b_{12} \end{bmatrix}.
+$$
+
+Note that the decision to express the tensor $a$ as a column vector, rather than a row vector, and to express $b$ as a $2\times 3$ matrix, rather than a $3\times 2$ matrix, is a just matter of convention. The tensors themselves are just collections of numbers indexed by the elements of the index set $I$, independent of any particular visual representation.
+
+Tensors are $\bbr$-valued **functions** first and foremost, and any sort of function space like $\mathbb{R}^I$ carries a vector space structure over $\mathbb{R}$. Indeed, the operations are defined pointwise: for $a, b \in \mathbb{R}^I$ and $c \in \mathbb{R}$, we define
+
+$$
+(a + b)_i = a_i + b_i, \quad (c a)_i = c a_i,
+$$
+
+for all $i \in I$. The zero tensor $0 \in \mathbb{R}^I$ is defined by $0_i = 0$ for all $i \in I$.
+
+But more than this, tensor spaces also carry a natural inner product structure, which is also defined pointwise:
+
+::: {#def-tensor-hilbert}
+Let $I$ be a non-empty finite index set, and consider the tensor space $\mathbb{R}^i$. The *inner product* of two tensors $a, b \in \mathbb{R}^I$ is defined as
+$$
+\langle a, b \rangle = \sum_{i\in I} a_i b_i.
+$$
+:::
+
+When $I$ is a set of the form $I = \{1,2,\ldots,m\}$, so that tensors in $\bbr^I$ may be represented as column vectors, the inner product is the familiar dot product of two vectors.
+
+One can show easily that the inner product defined above really is an inner product in the precise mathematical sense: it is positive definite, symmetric, and bilinear. Thus, the tensor space $\mathbb{R}^I$ is a finite-dimensional Hilbert space.
+
+The tensor spaces that one works with in practice—and in PyTorch in particular—have index sets of the form
+
+$$
+I = \{0,1,\ldots,m_1-1\} \times \{0,1,\ldots,m_2-1\} \times \cdots \times \{0,1,\ldots,m_k-1\},
+$$
+
+for some $k$ called the *rank* of the tensor, and some positive integers $m_1, m_2, \ldots, m_k$. In this case, we will often write
+
+$$
+\mathbb{R}^{m_1 \times m_2 \times \cdots \times m_k}
+$$
+
+to stand for $\mathbb{R}^I$, where $I$ is the index set above. The rank of a tensor is the number of indices required to specify its entries, and the *shape* of a tensor is the tuple $(m_1, m_2, \ldots, m_k)$ that specifies the range of values for each index.
+
+For example, we would write $\mathbb{R}^3$ to stand for $\mathbb{R}^{\{0,1,2\}}$, which consists of rank-$1$ tensors of shape $(3)$, i.e., column vectors with three entries. Similarly, we would write $\mathbb{R}^{2\times 3}$ to stand for $\mathbb{R}^{\{0,1\}\times \{0,1,2\}}$, which consists of rank-$2$ tensors of shape $(2,3)$, i.e., $2\times 3$ matrices. And so on.
+
+Random integer-valued tensors of various shapes are easily generated in PyTorch using the `torch.randint` function. For example, the following code generates a random rank-$4$ tensor of shape $(2, 3, 4, 5)$ with integer values between $0$ and $9$:
 
 ```{python}
 import torch
 
 torch.manual_seed(42)
 
-c = torch.randint(0, 10, (2, 3, 4, 5))
-print(c)
+a = torch.randint(low=0, high=10, size=(2, 3, 4, 5))
+
 ```
-
-PyTorch makes an admirable effort in the printout to display the entries of the tensor in a way that makes it easy to read. But it's important to remember that this is just a convention, and that the tensor itself is really just a collection of numbers indexed by four indices. The six $4\times 5$ matrices in the printout are, in order, the matrices
-
-$$
-c_{0,0,:,:}, \quad c_{0,1,:,:}, \quad c_{0,2,:,:}, \quad c_{1,0,:,:}, \quad c_{1,1,:,:}, \quad c_{1,2,:,:},
-$$
-
-where we use the colon notation to indicate that the last two indices vary over their full range of values.
 
 The rank of a tensor is accessible in PyTorch as the `ndim` attribute, and the shape of a tensor is accessible as the `shape` attribute:
 
 ```{python}
-print("The rank of the tensor is:", c.ndim)
-print("\nThe shape of the tensor is:", c.shape)
+print("The rank of the tensor is:", a.ndim)
+print("The shape of the tensor is:", a.shape)
 ```
 
-## Tensor spaces as Hilbert spaces
+The inner product on tensors spaces is implemented in PyTorch as the `torch.tensordot` function. For example, the following code block generates two random rank-$2$ tensors of shapce $(2,3)$, and then forms their inner product:
+
+```{python}
+a = torch.randint(low=0, high=10, size=(2, 3))
+b = torch.randint(low=0, high=10, size=(2, 3))
+inner_product = torch.tensordot(a, b, dims=a.ndim)
+
+print("The first tensor is:\n", a)
+print("The second tensor is:\n", b)
+print("The inner product of the two tensors is:", inner_product)
+```
+
+Just to check, let's compute the inner product manually, and see if it mathches the result from `torch.tensordot`:
+
+```{python}
+from itertools import product
+
+I = product(range(2), range(3))
+manual_inner_product = sum(a[i, j] * b[i, j] for i, j in I)
+
+print("The manually computed inner product is:", manual_inner_product)
+```
+
+The reader may have noticed the parameter `dims=a.ndim` in the call to `torch.tensordot`. Its usage is explained well in the [PyTorch documentation](https://docs.pytorch.org/docs/stable/generated/torch.tensordot.html){target="_blank"}: If $a$ and $b$ are tensors of rank $m$ and $n$, respectively, then `torch.tensordot(a, b, dims=d)` produces a tensor $r$ of rank $m+n-2d$ by summing over the last $d$ indices of $a$ and the first $d$ indices of $b$:
+
+$$
+r_{i_0,\ldots,i_{m+n-2d-1}} = \sum_{k_0,\ldots,k_{d-1}} a_{i_0,i_1,\ldots,i_{m-d-1},k_0,k_1,\ldots,k_{d-1}} b_{k_0,k_1,\ldots,k_{d-1},i_{m-d},\ldots,i_{m+n-2d-1}}.
+$$
+[Of course, in order for this to be well-defined, the last $d$ indices of $a$ and the first $d$ indices of $b$ must have the same range of values.]{.aside}
+
+To produce the inner product of $a$ and $b$, as specified above, we must sum the tensors over *all* their indices, which explains the use of `dims=a.ndim` in our call to `torch.tensordot`. In this case, $m=n=2$ and $d=2$, so that the rank of the resulting tensor is $m+n-2d = 0$, i.e., a scalar.
+
+## The `torch.einsum` function
+
+An even more flexible and general way to compute tensors of the form $r$ described above is to use the `torch.einsum` function, which implements a form of [Einstein summation notation](https://en.wikipedia.org/wiki/Einstein_notation){target="_blank"}. For example, lets suppose that we have two tensors of the form
+
+$$
+a_{ijk} \quad \text{and} \quad b_{pqrs},
+$$
+
+by which we mean that $a$ is rank $3$ and $b$ is rank $4$. We suppose further that the range of values of $i$ matches the range of values of $q$, and the range of values of $j$ matches the range of values of $s$. For example, the following code block produces two random integer-valued tensors with these properties:
+
+```{python}
+# The following index ranges match: i ↔ q and j ↔ s
+a = torch.randint(low=0, high=10, size=(5, 3, 4))  # indices = (i,j,k)
+b = torch.randint(low=0, high=10, size=(2, 5, 4, 3))  # indices = (p,q,r,s)
+```
+
+```{python}
+
+einsum_result = torch.einsum("ijk,pirj", a, b)
+print("The result of the Einstein summation is:\n", einsum_result)
+```
 
 
 ## Derivatives, Jacobians, and gradients
