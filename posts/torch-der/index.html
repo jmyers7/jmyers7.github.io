@@ -137,6 +137,7 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -176,7 +177,7 @@ window.Quarto = {
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -361,7 +362,7 @@ I = \{0,1,\ldots,m_1-1\} \times \{0,1,\ldots,m_2-1\} \times \cdots \times \{0,1,
 <p>to stand for <span class="math inline">\(\mathbb{R}^I\)</span>, where <span class="math inline">\(I\)</span> is the index set above. The rank of a tensor is the number of indices required to specify its entries, and the <em>shape</em> of a tensor is the tuple <span class="math inline">\((m_1, m_2, \ldots, m_k)\)</span> that specifies the range of values for each index.</p>
 <p>For example, we would write <span class="math inline">\(\mathbb{R}^3\)</span> to stand for <span class="math inline">\(\mathbb{R}^{\{0,1,2\}}\)</span>, which consists of rank-<span class="math inline">\(1\)</span> tensors of shape <span class="math inline">\((3)\)</span>, i.e., column vectors with three entries. Similarly, we would write <span class="math inline">\(\mathbb{R}^{2\times 3}\)</span> to stand for <span class="math inline">\(\mathbb{R}^{\{0,1\}\times \{0,1,2\}}\)</span>, which consists of rank-<span class="math inline">\(2\)</span> tensors of shape <span class="math inline">\((2,3)\)</span>, i.e., <span class="math inline">\(2\times 3\)</span> matrices. And so on.</p>
 <p>Random integer-valued tensors of various shapes are easily generated in PyTorch using the <code>torch.randint</code> function. For example, the following code generates a random rank-<span class="math inline">\(4\)</span> tensor of shape <span class="math inline">\((2, 3, 4, 5)\)</span> with integer values between <span class="math inline">\(0\)</span> and <span class="math inline">\(9\)</span>:</p>
-<div id="454cc91f" class="cell" data-execution_count="1">
+<div id="d8f656a6" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
@@ -369,7 +370,7 @@ I = \{0,1,\ldots,m_1-1\} \times \{0,1,\ldots,m_2-1\} \times \cdots \times \{0,1,
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The rank of a tensor is accessible in PyTorch as the <code>ndim</code> attribute, and the shape of a tensor is accessible as the <code>shape</code> attribute:</p>
-<div id="fa143ffe" class="cell" data-execution_count="2">
+<div id="6ff382cd" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The rank of the tensor is:"</span>, a.ndim)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The shape of the tensor is:"</span>, a.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -378,7 +379,7 @@ The shape of the tensor is: torch.Size([2, 3, 4, 5])</code></pre>
 </div>
 </div>
 <p>The inner product on tensors spaces is implemented in PyTorch as the <code>torch.tensordot</code> function. For example, the following code block generates two random rank-<span class="math inline">\(2\)</span> tensors of shapce <span class="math inline">\((2,3)\)</span>, and then forms their inner product:</p>
-<div id="7617241f" class="cell" data-execution_count="3">
+<div id="f4561eea" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>inner_product <span class="op">=</span> torch.tensordot(a, b, dims<span class="op">=</span>a.ndim)</span>
@@ -397,7 +398,7 @@ The inner product of the two tensors is: tensor(198)</code></pre>
 </div>
 </div>
 <p>Just to check, let’s compute the inner product manually, and see if it mathches the result from <code>torch.tensordot</code>:</p>
-<div id="8e806ff5" class="cell" data-execution_count="4">
+<div id="451c5257" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>I <span class="op">=</span> product(<span class="bu">range</span>(<span class="dv">2</span>), <span class="bu">range</span>(<span class="dv">3</span>))</span>
@@ -421,12 +422,12 @@ r_{i_0,\ldots,i_{m+n-2d-1}} = \sum_{k_0,\ldots,k_{d-1}} a_{i_0,i_1,\ldots,i_{m-d
 a_{ijk} \quad \text{and} \quad b_{pqrs},
 \]</span></p>
 <p>by which we mean that <span class="math inline">\(a\)</span> is rank <span class="math inline">\(3\)</span> and <span class="math inline">\(b\)</span> is rank <span class="math inline">\(4\)</span>. We suppose further that the range of values of <span class="math inline">\(i\)</span> matches the range of values of <span class="math inline">\(q\)</span>, and the range of values of <span class="math inline">\(j\)</span> matches the range of values of <span class="math inline">\(s\)</span>. For example, the following code block produces two random integer-valued tensors with these properties:</p>
-<div id="5bb92856" class="cell" data-execution_count="5">
+<div id="4874147c" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The following index ranges match: i ↔ q and j ↔ s</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>))  <span class="co"># indices = (i,j,k)</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># indices = (p,q,r,s)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="c8ed14fd" class="cell" data-execution_count="6">
+<div id="66356e16" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>einsum_result <span class="op">=</span> torch.einsum(<span class="st">"ijk,pirj"</span>, a, b)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The result of the Einstein summation is:</span><span class="ch">\n</span><span class="st">"</span>, einsum_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
