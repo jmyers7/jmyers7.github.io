@@ -19,7 +19,7 @@ $$
 $$
 :::
 
-## Tensor spaces as Hilbert spaces
+## Tensors as Hilbert spaces
 
 
 ::: {#def-tensor}
@@ -146,19 +146,27 @@ To produce the inner product of $a$ and $b$, as specified above, we must sum the
 
 ## The `torch.einsum` function
 
-An even more flexible and general way to compute tensors of the form $r$ described above is to use the `torch.einsum` function, which implements a form of [Einstein summation notation](https://en.wikipedia.org/wiki/Einstein_notation){target="_blank"}. For example, lets suppose that we have two tensors of the form
+An even more flexible and general way to compute tensors of the form $r$ produced by the `torch.tensordot` function described above is to use the `torch.einsum` function, which implements a form of [Einstein summation notation](https://en.wikipedia.org/wiki/Einstein_notation){target="_blank"}.
+
+For a simple example, let's suppose that we have two tensors of the form
 
 $$
 a_{ijk} \quad \text{and} \quad b_{pqrs},
 $$
 
-by which we mean that $a$ is rank $3$ and $b$ is rank $4$. We suppose further that the range of values of $i$ matches the range of values of $q$, and the range of values of $j$ matches the range of values of $s$. For example, the following code block produces two random integer-valued tensors with these properties:
+by which we mean that $a$ is rank-$3$ and $b$ is rank-$4$. We suppose further that the range of values of $i$ matches the range of values of $q$, and the range of values of $j$ matches the range of values of $s$. For example, the following code block produces two random integer-valued tensors with these properties:
 
 ```{python}
 # The following index ranges match: i ↔ q and j ↔ s
-a = torch.randint(low=0, high=10, size=(5, 3, 4))  # indices = (i,j,k)
-b = torch.randint(low=0, high=10, size=(2, 5, 4, 3))  # indices = (p,q,r,s)
+a = torch.randint(low=0, high=10, size=(5, 3, 4))  # indices = i,j,k
+b = torch.randint(low=0, high=10, size=(2, 5, 4, 3))  # indices = p,q,r,s
 ```
+
+In this case, we may compute the rank-$3$ tensor $u$ with entries
+
+$$
+u_{kpr} = \sum_{i,j} a_{ijk}b_{pirj}.
+$$
 
 ```{python}
 
