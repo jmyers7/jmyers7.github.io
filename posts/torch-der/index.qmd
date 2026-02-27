@@ -4,6 +4,7 @@ toc: true
 date: "2026-02-03"
 jupyter: site
 categories: []
+draft: true
 bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
 # image: "sigalg-logo.png"

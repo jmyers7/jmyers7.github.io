@@ -35,7 +35,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-| Week 5 | 02.27 fri |
+| Week 5 | 02.27 fri | Sec 11: Partial derivatives, part 3 | [Sec 11 Slides](./slides/11-partial-derivatives-part-3.qmd){target="_blank"} | [Sec 11 Exercises](./exercises/11ex-partial-derivatives-part-3.qmd)
 || 02.26 thu | Sec 10: Partial derivatives, part 2 | [Sec 10 Slides](./slides/10-partial-derivatives-part-2.qmd){target="_blank"} | [Sec 10 Exercises](./exercises/10ex-partial-derivatives-part-2.qmd) | Quiz on Sec 8
 || 02.25 wed | Sec 9: Partial derivatives, part 1 | [Sec 9 Slides](./slides/09-partial-derivatives-part-1.qmd){target="_blank"} | [Sec 9 Exercises](./exercises/09ex-partial-derivatives-part-1.qmd)
 || 02.23 mon | Same as below ↓ | Same as below ↓ | Same as below ↓ |
