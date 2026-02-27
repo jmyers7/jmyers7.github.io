@@ -260,8 +260,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sets-of-tensors" id="toc-sets-of-tensors" class="nav-link active" data-scroll-target="#sets-of-tensors">Sets of tensors</a></li>
-  <li><a href="#tensor-spaces-as-hilbert-spaces" id="toc-tensor-spaces-as-hilbert-spaces" class="nav-link" data-scroll-target="#tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</a></li>
+  <li><a href="#tensor-spaces-as-hilbert-spaces" id="toc-tensor-spaces-as-hilbert-spaces" class="nav-link active" data-scroll-target="#tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</a></li>
+  <li><a href="#the-torch.einsum-function" id="toc-the-torch.einsum-function" class="nav-link" data-scroll-target="#the-torch.einsum-function">The <code>torch.einsum</code> function</a></li>
   <li><a href="#derivatives-jacobians-and-gradients" id="toc-derivatives-jacobians-and-gradients" class="nav-link" data-scroll-target="#derivatives-jacobians-and-gradients">Derivatives, Jacobians, and gradients</a></li>
   <li><a href="#enter-pytorch-computational-examples-of-derivatives" id="toc-enter-pytorch-computational-examples-of-derivatives" class="nav-link" data-scroll-target="#enter-pytorch-computational-examples-of-derivatives">Enter PyTorch: Computational examples of derivatives</a></li>
   </ul>
@@ -295,31 +295,8 @@ window.Quarto = {
 </header>
 
 
-<section id="sets-of-tensors" class="level2">
-<h2 class="anchored" data-anchor-id="sets-of-tensors">Sets of tensors</h2>
-<p>The reader is familiar with the first two types of tensors: vectors and matrices. In mathematics, we typically express a vector as a column vector, such as</p>
-<p><span class="math display">\[
-x = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \in \mathbb{R}^3,
-\]</span></p>
-<p>and of course a matrix is expressed as a rectangular array of numbers, such as</p>
-<p><span class="math display">\[
-a = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{bmatrix} \in \mathbb{R}^{2\times 3}.
-\]</span></p>
-<p>But really, these are just examples of singly- and doubly-indexed collections of numbers:</p>
-<p><span class="math display">\[
-x = [ x_i : i = 0, 1, 2 ], \quad a = [ a_{ij} : i = 0, 1; \; j = 0, 1, 2 ].
-\]</span></p>
-<p>Our choice to write <span class="math inline">\(x\)</span> as a column vector, rather than a row vector, and to write <span class="math inline">\(a\)</span> as a rectangular array with two rows of length <span class="math inline">\(3\)</span>, rather than three rows of length <span class="math inline">\(2\)</span>, is purely a matter of convention.</p>
-<p>Thinking of vectors and matrices as indexed collections of numbers, rather than things we write in a particular way on a piece of paper, frees us to consider more general types of collections of numbers, such as triply-indexed collections</p>
-<p><span class="math display">\[
-b = [ b_{ijk} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3 ],
-\]</span></p>
-<p>or even quadruply-indexed collections</p>
-<p><span class="math display">\[
-c = [ c_{ijkl} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3; \; l = 0, 1, 2, 3, 4 ].
-\]</span></p>
-<p>If we agreed on which of the indices corresponds to the height, width, and depth dimensions, then we could envision <span class="math inline">\(b\)</span> as a 3D array of numbers. But again, this correspondence between indices and dimensions is just a matter of convention. And clearly there is no convention that would allow us to visualize a quadruply-indexed collection of numbers as a 4D array since you, me, and everyone else would struggle to imagine four spatial dimensions. The point is that we can still work with these collections of numbers, even if we cannot visualize them on a piece of paper or in space.</p>
-<p>What we’re referring to here—these multiply-index collections of numbers—are what we call <em>tensors</em>.</p>
+<section id="tensor-spaces-as-hilbert-spaces" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</h2>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -327,73 +304,146 @@ c = [ c_{ijkl} : i = 0, 1; \; j = 0, 1, 2; \; k = 0, 1, 2, 3; \; l = 0, 1, 2, 3,
 </div>
 <div class="callout-body-container">
 <div id="def-tensor" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> A <em>tensor</em> of <em>shape</em> <span class="math inline">\((m_1, m_2, \ldots, m_k)\)</span> is a <span class="math inline">\(k\)</span>-indexed collection <span class="math display">\[
-t = [ t_{i_1 i_2 \cdots i_k}],
-\]</span> of real numbers, where <span class="math inline">\(m_1,m_2,\ldots,m_k\)</span> are positive integers, and the index <span class="math inline">\(i_j\)</span> ranges over <span class="math inline">\(\{0, \ldots, m_j-1\}\)</span> for each <span class="math inline">\(j = 1, \ldots, k\)</span>. The number <span class="math inline">\(k\)</span> is called the <em>order</em> or <em>rank</em> of the tensor. We write <span class="math inline">\(\mathbb{R}^{m_1 \times m_2 \times \cdots \times m_k}\)</span> for the set of all tensors of shape <span class="math inline">\((m_1, m_2, \ldots, m_k)\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Let <span class="math inline">\(I\)</span> be a non-empty finite set that we call an <em>index set</em>, with elements <span class="math inline">\(i\in I\)</span> called <em>indices</em>. An <em><span class="math inline">\(I\)</span>-indexed tensor</em> is a function <span class="math display">\[
+a : I \to \mathbb{R}, \quad i \mapsto a_i.
+\]</span> We write <span class="math inline">\(\mathbb{R}^I\)</span> for the set of all <span class="math inline">\(I\)</span>-indexed tensors, and we call it the <em>tensor space</em> of <span class="math inline">\(I\)</span>-indexed tensors.</p>
 </div>
 </div>
 </div>
 </div>
-<p>So, for example, <span class="math inline">\(\mathbb{R}^{3}\)</span> is the set of all rank-<span class="math inline">\(1\)</span> tensors (i.e., vectors) of length <span class="math inline">\(3\)</span>, <span class="math inline">\(\mathbb{R}^{2\times 3}\)</span> is the set of all rank-<span class="math inline">\(2\)</span> tensors (i.e., matrices) of size <span class="math inline">\(2\times 3\)</span>, <span class="math inline">\(\mathbb{R}^{2\times 3 \times 4}\)</span> is the set of all rank-<span class="math inline">\(3\)</span> tensors of shape <span class="math inline">\((2, 3, 4)\)</span>, and <span class="math inline">\(\mathbb{R}^{2\times 3 \times 4 \times 5}\)</span> is the set of all rank-<span class="math inline">\(4\)</span> tensors with shape <span class="math inline">\((2, 3, 4, 5)\)</span>.</p>
-<p>Random tensors of various shapes with integer values are easily generated in PyTorch using the <code>torch.randint</code> function. For example, the following code generates a random rank-<span class="math inline">\(4\)</span> tensor of shape <span class="math inline">\((2, 3, 4, 5)\)</span> with integer values between <span class="math inline">\(0\)</span> and <span class="math inline">\(9\)</span>:</p>
-<div id="af7d8b97" class="cell" data-execution_count="1">
+<p>For example, if <span class="math inline">\(I = \{0,1,2\}\)</span>, then an <span class="math inline">\(I\)</span>-indexed tensor <span class="math inline">\(a\)</span> is just a selection of three real numbers:</p>
+<div class="page-columns page-full"><p><span class="math display">\[
+0 \mapsto a_0, \quad 1 \mapsto a_1, \quad 2 \mapsto a_2,
+\]</span> </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Notice the use of “<span class="math inline">\(0\)</span>-based indexing” here, which is standard in Python, but somewhat confusing for those accustomed to “<span class="math inline">\(1\)</span>-based indexing” in mathematics.</span></div></div>
+<p>which we may write in vector form:</p>
+<p><span class="math display">\[
+a = \begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix}.
+\]</span></p>
+<p>If <span class="math inline">\(I = \{0,1\}\times \{0,1,2\}\)</span>, then an <span class="math inline">\(I\)</span>-indexed tensor <span class="math inline">\(b\)</span> is a selection of six real numbers:</p>
+<p><span class="math display">\[
+(0,0) \mapsto b_{00}, \quad (0,1) \mapsto b_{01}, \quad (0,2) \mapsto b_{02}, \quad (1,0) \mapsto b_{10}, \quad (1,1) \mapsto b_{11}, \quad (1,2) \mapsto b_{12},
+\]</span></p>
+<p>which we may write in matrix form:</p>
+<p><span class="math display">\[
+b = \begin{bmatrix} b_{00} &amp; b_{01} &amp; b_{02} \\ b_{10} &amp; b_{11} &amp; b_{12} \end{bmatrix}.
+\]</span></p>
+<p>Note that the decision to express the tensor <span class="math inline">\(a\)</span> as a column vector, rather than a row vector, and to express <span class="math inline">\(b\)</span> as a <span class="math inline">\(2\times 3\)</span> matrix, rather than a <span class="math inline">\(3\times 2\)</span> matrix, is a just matter of convention. The tensors themselves are just collections of numbers indexed by the elements of the index set <span class="math inline">\(I\)</span>, independent of any particular visual representation.</p>
+<p>Tensors are <span class="math inline">\(\mathbb{R}\)</span>-valued <strong>functions</strong> first and foremost, and any sort of function space like <span class="math inline">\(\mathbb{R}^I\)</span> carries a vector space structure over <span class="math inline">\(\mathbb{R}\)</span>. Indeed, the operations are defined pointwise: for <span class="math inline">\(a, b \in \mathbb{R}^I\)</span> and <span class="math inline">\(c \in \mathbb{R}\)</span>, we define</p>
+<p><span class="math display">\[
+(a + b)_i = a_i + b_i, \quad (c a)_i = c a_i,
+\]</span></p>
+<p>for all <span class="math inline">\(i \in I\)</span>. The zero tensor <span class="math inline">\(0 \in \mathbb{R}^I\)</span> is defined by <span class="math inline">\(0_i = 0\)</span> for all <span class="math inline">\(i \in I\)</span>.</p>
+<p>But more than this, tensor spaces also carry a natural inner product structure, which is also defined pointwise:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-tensor-hilbert" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(I\)</span> be a non-empty finite index set, and consider the tensor space <span class="math inline">\(\mathbb{R}^i\)</span>. The <em>inner product</em> of two tensors <span class="math inline">\(a, b \in \mathbb{R}^I\)</span> is defined as <span class="math display">\[
+\langle a, b \rangle = \sum_{i\in I} a_i b_i.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>When <span class="math inline">\(I\)</span> is a set of the form <span class="math inline">\(I = \{1,2,\ldots,m\}\)</span>, so that tensors in <span class="math inline">\(\mathbb{R}^I\)</span> may be represented as column vectors, the inner product is the familiar dot product of two vectors.</p>
+<p>One can show easily that the inner product defined above really is an inner product in the precise mathematical sense: it is positive definite, symmetric, and bilinear. Thus, the tensor space <span class="math inline">\(\mathbb{R}^I\)</span> is a finite-dimensional Hilbert space.</p>
+<p>The tensor spaces that one works with in practice—and in PyTorch in particular—have index sets of the form</p>
+<p><span class="math display">\[
+I = \{0,1,\ldots,m_1-1\} \times \{0,1,\ldots,m_2-1\} \times \cdots \times \{0,1,\ldots,m_k-1\},
+\]</span></p>
+<p>for some <span class="math inline">\(k\)</span> called the <em>rank</em> of the tensor, and some positive integers <span class="math inline">\(m_1, m_2, \ldots, m_k\)</span>. In this case, we will often write</p>
+<p><span class="math display">\[
+\mathbb{R}^{m_1 \times m_2 \times \cdots \times m_k}
+\]</span></p>
+<p>to stand for <span class="math inline">\(\mathbb{R}^I\)</span>, where <span class="math inline">\(I\)</span> is the index set above. The rank of a tensor is the number of indices required to specify its entries, and the <em>shape</em> of a tensor is the tuple <span class="math inline">\((m_1, m_2, \ldots, m_k)\)</span> that specifies the range of values for each index.</p>
+<p>For example, we would write <span class="math inline">\(\mathbb{R}^3\)</span> to stand for <span class="math inline">\(\mathbb{R}^{\{0,1,2\}}\)</span>, which consists of rank-<span class="math inline">\(1\)</span> tensors of shape <span class="math inline">\((3)\)</span>, i.e., column vectors with three entries. Similarly, we would write <span class="math inline">\(\mathbb{R}^{2\times 3}\)</span> to stand for <span class="math inline">\(\mathbb{R}^{\{0,1\}\times \{0,1,2\}}\)</span>, which consists of rank-<span class="math inline">\(2\)</span> tensors of shape <span class="math inline">\((2,3)\)</span>, i.e., <span class="math inline">\(2\times 3\)</span> matrices. And so on.</p>
+<p>Random integer-valued tensors of various shapes are easily generated in PyTorch using the <code>torch.randint</code> function. For example, the following code generates a random rank-<span class="math inline">\(4\)</span> tensor of shape <span class="math inline">\((2, 3, 4, 5)\)</span> with integer values between <span class="math inline">\(0\)</span> and <span class="math inline">\(9\)</span>:</p>
+<div id="454cc91f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> torch.randint(<span class="dv">0</span>, <span class="dv">10</span>, (<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tensor([[[[2, 7, 6, 4, 6],
-          [5, 0, 4, 0, 3],
-          [8, 4, 0, 4, 1],
-          [2, 5, 5, 7, 6]],
-
-         [[9, 6, 3, 1, 9],
-          [3, 1, 9, 7, 9],
-          [2, 0, 5, 9, 3],
-          [4, 9, 6, 2, 0]],
-
-         [[6, 2, 7, 9, 7],
-          [3, 3, 4, 3, 7],
-          [0, 9, 0, 9, 6],
-          [9, 5, 4, 8, 8]]],
-
-
-        [[[6, 0, 0, 0, 0],
-          [1, 3, 0, 1, 1],
-          [7, 9, 4, 3, 8],
-          [9, 3, 7, 8, 1]],
-
-         [[4, 1, 6, 3, 2],
-          [0, 9, 8, 5, 3],
-          [7, 7, 5, 9, 1],
-          [5, 1, 9, 1, 4]],
-
-         [[0, 3, 7, 5, 7],
-          [1, 5, 7, 5, 8],
-          [5, 4, 1, 1, 0],
-          [9, 0, 9, 1, 8]]]])</code></pre>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<p>PyTorch makes an admirable effort in the printout to display the entries of the tensor in a way that makes it easy to read. But it’s important to remember that this is just a convention, and that the tensor itself is really just a collection of numbers indexed by four indices. The six <span class="math inline">\(4\times 5\)</span> matrices in the printout are, in order, the matrices</p>
-<p><span class="math display">\[
-c_{0,0,:,:}, \quad c_{0,1,:,:}, \quad c_{0,2,:,:}, \quad c_{1,0,:,:}, \quad c_{1,1,:,:}, \quad c_{1,2,:,:},
-\]</span></p>
-<p>where we use the colon notation to indicate that the last two indices vary over their full range of values.</p>
 <p>The rank of a tensor is accessible in PyTorch as the <code>ndim</code> attribute, and the shape of a tensor is accessible as the <code>shape</code> attribute:</p>
-<div id="ec08377d" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The rank of the tensor is:"</span>, c.ndim)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The shape of the tensor is:"</span>, c.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fa143ffe" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The rank of the tensor is:"</span>, a.ndim)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The shape of the tensor is:"</span>, a.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The rank of the tensor is: 4
-
 The shape of the tensor is: torch.Size([2, 3, 4, 5])</code></pre>
 </div>
 </div>
+<p>The inner product on tensors spaces is implemented in PyTorch as the <code>torch.tensordot</code> function. For example, the following code block generates two random rank-<span class="math inline">\(2\)</span> tensors of shapce <span class="math inline">\((2,3)\)</span>, and then forms their inner product:</p>
+<div id="7617241f" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>inner_product <span class="op">=</span> torch.tensordot(a, b, dims<span class="op">=</span>a.ndim)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The first tensor is:</span><span class="ch">\n</span><span class="st">"</span>, a)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The second tensor is:</span><span class="ch">\n</span><span class="st">"</span>, b)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The inner product of the two tensors is:"</span>, inner_product)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The first tensor is:
+ tensor([[9, 6, 7],
+        [6, 0, 9]])
+The second tensor is:
+ tensor([[5, 2, 9],
+        [1, 7, 8]])
+The inner product of the two tensors is: tensor(198)</code></pre>
+</div>
+</div>
+<p>Just to check, let’s compute the inner product manually, and see if it mathches the result from <code>torch.tensordot</code>:</p>
+<div id="8e806ff5" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>I <span class="op">=</span> product(<span class="bu">range</span>(<span class="dv">2</span>), <span class="bu">range</span>(<span class="dv">3</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>manual_inner_product <span class="op">=</span> <span class="bu">sum</span>(a[i, j] <span class="op">*</span> b[i, j] <span class="cf">for</span> i, j <span class="kw">in</span> I)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The manually computed inner product is:"</span>, manual_inner_product)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The manually computed inner product is: tensor(198)</code></pre>
+</div>
+</div>
+<p>The reader may have noticed the parameter <code>dims=a.ndim</code> in the call to <code>torch.tensordot</code>. Its usage is explained well in the <a href="https://docs.pytorch.org/docs/stable/generated/torch.tensordot.html" target="_blank">PyTorch documentation</a>: If <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are tensors of rank <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>, respectively, then <code>torch.tensordot(a, b, dims=d)</code> produces a tensor <span class="math inline">\(r\)</span> of rank <span class="math inline">\(m+n-2d\)</span> by summing over the last <span class="math inline">\(d\)</span> indices of <span class="math inline">\(a\)</span> and the first <span class="math inline">\(d\)</span> indices of <span class="math inline">\(b\)</span>:</p>
+<div class="page-columns page-full"><p><span class="math display">\[
+r_{i_0,\ldots,i_{m+n-2d-1}} = \sum_{k_0,\ldots,k_{d-1}} a_{i_0,i_1,\ldots,i_{m-d-1},k_0,k_1,\ldots,k_{d-1}} b_{k_0,k_1,\ldots,k_{d-1},i_{m-d},\ldots,i_{m+n-2d-1}}.
+\]</span> </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Of course, in order for this to be well-defined, the last <span class="math inline">\(d\)</span> indices of <span class="math inline">\(a\)</span> and the first <span class="math inline">\(d\)</span> indices of <span class="math inline">\(b\)</span> must have the same range of values.</span></div></div>
+<p>To produce the inner product of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, as specified above, we must sum the tensors over <em>all</em> their indices, which explains the use of <code>dims=a.ndim</code> in our call to <code>torch.tensordot</code>. In this case, <span class="math inline">\(m=n=2\)</span> and <span class="math inline">\(d=2\)</span>, so that the rank of the resulting tensor is <span class="math inline">\(m+n-2d = 0\)</span>, i.e., a scalar.</p>
 </section>
-<section id="tensor-spaces-as-hilbert-spaces" class="level2">
-<h2 class="anchored" data-anchor-id="tensor-spaces-as-hilbert-spaces">Tensor spaces as Hilbert spaces</h2>
+<section id="the-torch.einsum-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-torch.einsum-function">The <code>torch.einsum</code> function</h2>
+<p>An even more flexible and general way to compute tensors of the form <span class="math inline">\(r\)</span> described above is to use the <code>torch.einsum</code> function, which implements a form of <a href="https://en.wikipedia.org/wiki/Einstein_notation" target="_blank">Einstein summation notation</a>. For example, lets suppose that we have two tensors of the form</p>
+<p><span class="math display">\[
+a_{ijk} \quad \text{and} \quad b_{pqrs},
+\]</span></p>
+<p>by which we mean that <span class="math inline">\(a\)</span> is rank <span class="math inline">\(3\)</span> and <span class="math inline">\(b\)</span> is rank <span class="math inline">\(4\)</span>. We suppose further that the range of values of <span class="math inline">\(i\)</span> matches the range of values of <span class="math inline">\(q\)</span>, and the range of values of <span class="math inline">\(j\)</span> matches the range of values of <span class="math inline">\(s\)</span>. For example, the following code block produces two random integer-valued tensors with these properties:</p>
+<div id="5bb92856" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The following index ranges match: i ↔ q and j ↔ s</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>))  <span class="co"># indices = (i,j,k)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># indices = (p,q,r,s)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c8ed14fd" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>einsum_result <span class="op">=</span> torch.einsum(<span class="st">"ijk,pirj"</span>, a, b)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The result of the Einstein summation is:</span><span class="ch">\n</span><span class="st">"</span>, einsum_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The result of the Einstein summation is:
+ tensor([[[248, 424, 403, 309],
+         [290, 411, 310, 289]],
+
+        [[234, 352, 317, 162],
+         [136, 315, 323, 302]],
+
+        [[232, 301, 296, 205],
+         [162, 281, 209, 236]],
+
+        [[298, 408, 379, 265],
+         [265, 451, 311, 303]]])</code></pre>
+</div>
+</div>
 </section>
 <section id="derivatives-jacobians-and-gradients" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="derivatives-jacobians-and-gradients">Derivatives, Jacobians, and gradients</h2>
@@ -404,7 +454,7 @@ The shape of the tensor is: torch.Size([2, 3, 4, 5])</code></pre>
 </div>
 <div class="callout-body-container">
 <div id="def-derivative" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span> be two finite-dimensional Hilbert spaces. The <em>derivative</em> of a function <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> and in the direction <span class="math inline">\(v \in \mathcal{H}\)</span> is defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span> be two finite-dimensional Hilbert spaces. The <em>derivative</em> of a function <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> and in the direction <span class="math inline">\(v \in \mathcal{H}\)</span> is defined as <span class="math display">\[
 f'(x)(v) = \lim_{t \to 0} \frac{f(x + tv) - f(x)}{t},
 \]</span> provided the limit exists. If the derivative exists for all <span class="math inline">\(x \in \mathcal{H}\)</span> and <span class="math inline">\(v \in \mathcal{H}\)</span>, we say that <span class="math inline">\(f\)</span> is <em>differentiable</em>.</p>
 </div>
@@ -428,7 +478,7 @@ f_i'(x)(v) = \langle f'(x)(v), \epsilon_i \rangle,
 </div>
 <div class="callout-body-container">
 <div id="def-partial-derivative" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>partial derivative</em> of the <span class="math inline">\(i\)</span>-th component function <span class="math inline">\(f_i\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> with respect to the basis vector <span class="math inline">\(e_j\)</span> is defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>partial derivative</em> of the <span class="math inline">\(i\)</span>-th component function <span class="math inline">\(f_i\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> with respect to the basis vector <span class="math inline">\(e_j\)</span> is defined as <span class="math display">\[
 \frac{\partial f_i}{\partial e_j}(x) = f_i'(x)(e_j).
 \]</span></p>
 </div>
@@ -451,7 +501,7 @@ f_i'(x)(v) = \langle f'(x)(v), \epsilon_i \rangle,
 </div>
 <div class="callout-body-container">
 <div id="def-jacobian" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>Jacobian matrix</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> is the matrix <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 5</strong></span> Let <span class="math inline">\(f: \mathcal{H} \to \mathcal{K}\)</span> be a differentiable function between two finite-dimensional Hilbert spaces, and let <span class="math inline">\(\{e_j\}\)</span> and <span class="math inline">\(\{\epsilon_i\}\)</span> be orthonormal bases for <span class="math inline">\(\mathcal{H}\)</span> and <span class="math inline">\(\mathcal{K}\)</span>, respectively. The <em>Jacobian matrix</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x \in \mathcal{H}\)</span> is the matrix <span class="math display">\[
 Jf(x)_{ij} = \frac{\partial f_i}{\partial e_j}(x).
 \]</span></p>
 </div>
@@ -526,7 +576,7 @@ v^\ast: \mathcal{H} \to \mathbb{R}, \quad v^\ast(w) = \langle v, w \rangle,
 </div>
 <div class="callout-body-container">
 <div id="def-gradient" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> be a finite-dimensional Hilbert space, and let <span class="math inline">\(f: \mathcal{H} \to \mathbb{R}\)</span> be a differentiable function. The <em>gradient</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x\in \mathcal{H}\)</span> is the Riesz representation of the linear functional <span class="math inline">\(f'(x)\in \mathcal{H}^\ast\)</span>, denoted by <span class="math inline">\(\nabla f(x) \in \mathcal{H}\)</span>. In particular, we have that <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 6</strong></span> Let <span class="math inline">\(\mathcal{H}\)</span> be a finite-dimensional Hilbert space, and let <span class="math inline">\(f: \mathcal{H} \to \mathbb{R}\)</span> be a differentiable function. The <em>gradient</em> of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(x\in \mathcal{H}\)</span> is the Riesz representation of the linear functional <span class="math inline">\(f'(x)\in \mathcal{H}^\ast\)</span>, denoted by <span class="math inline">\(\nabla f(x) \in \mathcal{H}\)</span>. In particular, we have that <span class="math display">\[
 f'(x)(v) = \left\langle \nabla f(x), v \right\rangle,
 \]</span> for all <span class="math inline">\(v \in \mathcal{H}\)</span>.</p>
 </div>
