@@ -1,0 +1,121 @@
+---
+title: "08 Convergence of Fourier series, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## The convergence theorem
+
+- In the following, recall the two versions of the partial sums of the Fourier series of a function $f$:
+$$
+S_N^f(\theta) = \frac{a_0}{2} + \sum_{n=1}^N \left( a_n \cos{n\theta} + b_n \sin{n\theta} \right), \quad S_N^f(\theta) = \sum_{n=-N}^N c_n e^{i n \theta}.
+$$
+
+::: {.callout-note icon="false" .fragment}
+### The Fourier Convergence Theorem
+
+Suppose $f: \mathbb{R} \to \mathbb{R}$ is $2\pi$-periodic and piecewise smooth. Then, for each $\theta \in \mathbb{R}$, we have
+$$
+\lim_{N\to\infty} S_N^f(\theta) = \frac{\lim\limits_{\psi \to \theta^+} f(\psi) + \lim\limits_{\psi \to \theta^-} f(\psi)}{2},
+$$
+where the limits are the right- and left-hand limits of $f$ at $\theta$. In particular, if $f$ is continuous at $\theta$, then
+$$
+\lim_{N\to\infty} S_N^f(\theta) = f(\theta).
+$$
+:::
+
+## The convergence theorem {.scrollable}
+
+- For simplicity, we will only prove the theorem in the case that $f$ is actually smooth.
+
+- We define an auxiliary function $g$ by setting
+$$
+g(\phi) = \frac{f(\theta + \phi) - f(\theta)}{e^{i\phi}-1}
+$$
+for all $\phi\neq 0$. Note that $g(0)$ is not defined.
+
+- However, by l'Hôpital's rule, we have that
+$$
+\lim_{\phi \to 0} g(\phi) = \lim_{\phi\to 0} \frac{f'(\theta + \phi)}{i e^{i\phi}} = -i f'(\theta).
+$$
+
+- This is where smoothness of $f$ is used! Hence, we can extend $g$ to a smooth function on all of $\mathbb{R}$ by defining $g(0) = -i f'(\theta)$.
+
+- Notice that $g$ is now $2\pi$-periodic and smooth. Hence, it is integrable and it has Fourier coefficients
+$$
+C_N = \frac{1}{2\pi} \int_{-\pi}^\pi g(\phi) e^{-i N \phi} \, d\phi.
+$$
+
+- By the the Riemann-Lebesgue lemma, we have
+$$
+\lim_{N\to \infty} \left( C_{-(N+1)} - C_{-N} \right) = 0,
+$$
+since both $C_{-(N+1)}$ and $C_{-N}$ tend to zero as $N\to \infty$.
+
+- However, we have
+$$
+C_{-(N+1)} - C_{N} = \frac{1}{2\pi} \int_{-\pi}^\pi g(\phi) \left( e^{i(N+1)\phi} - e^{-i N \phi} \right) \, d\phi.
+$$
+
+- Recall our expression for the $N$-th Dirichlet kernel and the $N$-th partial sum of the Fourier series:
+$$
+D_N(\phi) = \frac{1}{2\pi} \frac{e^{i(N+1)\phi} - e^{-i N \phi}}{e^{i\phi}-1}, \quad S_N^f(\theta) = \frac{1}{2\pi} \int_{-\pi}^\pi f(\theta + \phi) D_N(\phi) \, d\phi.
+$$
+
+- Thus:
+$$
+\begin{align*}
+C_{-(N+1)} - C_{N} &= \int_{-\pi}^\pi \left[f(\theta + \phi) - f(\theta)\right] D_N(\phi) \, d\phi \\
+&= \int_{-\pi}^\pi f(\theta + \phi) D_N(\phi) \, d\phi - f(\theta) \int_{-\pi}^\pi D_N(\phi) \, d\phi \\
+&= S_N^f(\theta) - f(\theta).
+\end{align*}
+$$
+
+- But we know that $\lim_{N\to \infty} \left( C_{-(N+1)} - C_{-N} \right) = 0$, so we conclude that
+$$
+\lim_{N\to \infty} S_N^f(\theta) = f(\theta).
+$$
+
+## Exercise 1: Convergence of a Fourier series {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Recall the $2\pi$-periodic extension of the function $f(\theta) = \theta$ for $\theta \in [-\pi, \pi]$. We discovered that its Fourier series is given by
+$$
+2 \sum_{n=1}^\infty \frac{(-1)^{n+1}}{n} \sin{n\theta}.
+$$
+
+a. Is $f$ piecewise smooth on all of $\mathbb{R}$?
+b. At its points of discontinuity, what is the value of the Fourier series?
+c. What function does the Fourier series converge to on all of $\mathbb{R}$?
+d. Use the Fourier series to compute the sum of the series
+$$
+\sum_{n=1}^\infty \frac{(-1)^{n+1}}{2n-1}.
+$$
+
+:::
+
+## Exercise 2: Convergence of another Fourier series {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Recall the $2\pi$-periodic extension of the function $f(\theta) = |\theta|$ for $\theta \in [-\pi, \pi]$. We discovered that its Fourier series is given by
+$$
+\frac{\pi}{2} - \frac{4}{\pi} \sum_{n=1}^\infty \frac{\cos{\left[(2n-1)\theta\right]}}{(2n-1)^2}.
+$$
+
+a. Is $f$ piecewise smooth on all of $\mathbb{R}$?
+b. At its points of discontinuity, what is the value of the Fourier series?
+c. What function does the Fourier series converge to on all of $\mathbb{R}$?
+d. Use the Fourier series to compute the sum of the series
+$$
+\sum_{n=1}^\infty \frac{1}{(2n-1)^2}.
+$$
+
+:::
