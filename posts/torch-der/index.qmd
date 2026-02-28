@@ -21,7 +21,6 @@ $$
 
 ## Tensors as Hilbert spaces
 
-
 ::: {#def-tensor}
 Let $I$ be a non-empty finite set that we call an *index set*, with elements $i\in I$ called *indices*. An *$I$-indexed tensor* is a function
 $$
@@ -457,38 +456,4 @@ and so this last equation becomes
 
 $$
 f'(x)(v) = \sum_{i,j} \left[ \sum_{k,l}  v_{kl} \frac{\partial f_{ij}}{\partial x_{kl}}(x) \right]\epsilon_{ij}.  \tag*{$\begin{Bmatrix} 0\leq i < p \\ 0 \leq j < q \\ 0 \leq k < m \\ 0 \leq l < n \end{Bmatrix}$}
-$$
-
-## Bonus: Tensors in differential geometry
-
-In machine learning, tensors are simply multi-dimensional arrays of numbers. In differential geometry, such arrays would be viewed as the components of a *tensor field* on a smooth manifold relative to some particular choice of local coordinates near a point. In this section, we want to unpack this statement a bit.
-
-To begin, we need to think of tensors as $\mathbb{R}$-valued multilinear maps defined on vectors and covectors in a (finite-dimensional, real) vector space $V$. A *covector* is just a linear functional in the dual space $V^\ast$. The latter is isomorphic to $V$ itself, via the mapping
-
-$$
-V \to V^\ast, \quad v \mapsto v^\ast,
-$$
-
-where $v^\ast(w) = \langle v, w \rangle$ for all $w \in V$. In particular, if $\{e_i\}$ is a basis for $V$, then the dual basis $\{\epsilon^i\}$ for $V^\ast$ is defined by setting $\epsilon^i = e_i^\ast$. Then, a *tensor of type $(r,s)$* on $V$ is a multilinear map
-
-$$
-T: \underbrace{V^\ast \times \cdots \times V^\ast}_{r\text{ times}} \times \underbrace{V \times \cdots \times V}_{s\text{ times}} \to \mathbb{R}.
-$$
-
-For a concrete example, let's suppose that $V = \mathbb{R}^2$, equipped with its standard ordered basis $\{e_1, e_2\}$. Then, a rank-$2$ tensor, as we've been working with them, would be representable as a $2\times 2$ matrix
-
-$$
-A = \begin{bmatrix} A^1_1 & A^1_2 \\ A^2_1 & A^2_2 \end{bmatrix}.
-$$
-
-But this matrix can be viewed as the components of a tensor of type $(1,1)$ on $\mathbb{R}^2$, which is a bilinear map
-
-$$
-T: \mathbb{R}^2 \times (\mathbb{R}^2)^\ast \to \mathbb{R}.
-$$
-
-Indeed, if $v = v^1 e_1 + v^2 e_2 \in \mathbb{R}^2$ and $\phi = \phi_1 \epsilon^1 + \phi_2 \epsilon^2 \in (\mathbb{R}^2)^\ast$, then we have that
-
-$$
-T(v, \phi) = \sum_{i,j} A^i_j v^j \phi_i.
 $$
