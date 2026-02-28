@@ -1,0 +1,180 @@
+---
+title: "Integration on manifolds"
+toc: true
+date: "2026-02-03"
+jupyter: site
+categories: []
+draft: true
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
+csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
+# image: "sigalg-logo.png"
+open-graph:
+    title: "PyTorch and derivatives: A mathematical perspective"
+    # image: "https://johnmyers-phd.com/posts/torch-der/torch-der-logo.png"
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+## Volumes of parallelotopes
+
+::: {#def-volume-parallelotope}
+
+Consider vectors $v_1,v_2,\ldots,v_m$ in $\mathbb{R}^n$.
+
+1. If $m=2$, the area of the parallelogram spanned by $v_1$ and $v_2$ is given by the formula
+$$
+\Vol(v_1,v_2) = \|v_1\|\|v_2^\perp\|,
+$$
+where $v_2^\perp$ is the component of $v_2$ orthogonal to $v_1$.
+2. If $m>2$, the volume of the parallelotope spanned by $v_1,\ldots,v_m$ is given by the formula
+$$
+\Vol(v_1,v_2,\ldots,v_m) = \Vol(v_1,v_2,\ldots,v_{m-1})\|v_m^\perp\|,
+$$
+where $v_m^\perp$ is the component of $v_m$ orthogonal to the subspace spanned by $v_1,\ldots,v_{m-1}$.
+
+:::
+
+Given $v_1,\ldots,v_m \in \mathbb{R}^n$, we can form the $m\times m$ *Gram matrix*
+
+$$
+G = [\langle v_i, v_j \rangle]_{ij}.
+$$
+
+This matrix is clearly symmetric, and it is also positive semidefinite. To see this, note that for any vector $c \in \mathbb{R}^m$, we have
+
+$$
+c^\top G c = \sum_{i,j=1}^m c_i c_j \langle v_i, v_j \rangle = \left\langle \sum_{i=1}^m c_i v_i, \sum_{j=1}^m c_j v_j \right\rangle = \left\|\sum_{i=1}^m c_i v_i\right\|^2 \geq 0.
+$$
+
+This also shows that $G$ is invertible if and only if $v_1,\ldots,v_m$ are linearly independent.
+
+Provided that it is invertible, one of the important functions of the Gram matrix is that it may be used to compute the orthogonal projection $p$ of a vector $w$ onto the subspace spanned by $v_1,\ldots,v_m$. To see how, suppose that we first write
+
+$$
+p = \sum_{i=1}^m c_i v_i,
+$$
+
+for some unknown coefficients $c_1,\ldots,c_m$. The defining property of $p$ is that
+$$
+\langle w- p, v_j \rangle = 0, \quad j=1,\ldots,m.
+$$
+
+For each $j$, we then have
+
+$$
+\langle w,v_j \rangle = \sum_{i=1}^m c_i \langle v_i, v_j \rangle.
+$$
+
+This is a system of $m$ linear equations in the $m$ unknowns $c_1,\ldots,c_m$, which we can write in matrix form as
+
+$$
+\begin{bmatrix}
+\langle v_1, v_1 \rangle & \cdots & \langle v_1, v_m \rangle \\
+\vdots & \ddots & \vdots \\
+\langle v_m, v_1 \rangle & \cdots & \langle v_m, v_m \rangle
+\end{bmatrix}
+\begin{bmatrix}
+c_1 \\ \vdots \\ c_m
+\end{bmatrix}
+=
+\begin{bmatrix}
+\langle w, v_1 \rangle \\ \vdots \\ \langle w, v_m \rangle
+\end{bmatrix}.
+$$
+
+But the matrix on the left is exactly the Gram matrix $G$. If $G$ is invertible, we can solve for the (unique) coefficients $c_1,\ldots,c_m$ and thus compute the projection $p$.
+
+
+
+::: {#thm-volume-gram}
+
+Let $v_1,\ldots,v_m \in \mathbb{R}^n$. The volume of the parallelotope spanned by $v_1,\ldots,v_m$ is given by the formula
+
+$$
+\Vol(v_1,\ldots,v_m) = \sqrt{\det(G)}.
+$$
+
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+
+The proof is by induction on $m$, beginning with $m=2$. In this case, we have
+
+$$
+\det(G) = \det\begin{bmatrix}
+\langle v_1, v_1 \rangle & \langle v_1, v_2 \rangle \\
+\langle v_2, v_1 \rangle & \langle v_2, v_2 \rangle
+\end{bmatrix} = \|v_1\|^2\|v_2\|^2 - \langle v_1, v_2 \rangle^2.
+$$
+
+However, we also have $v_2^\perp = v_2 - p$, where $p$ is the projection of $v_2$ onto $v_1$. Since $p$ and $v_2^\perp$ are orthogonal, we get that
+
+$$
+\|v_2^\perp\|^2 = \|v_2\|^2 - \|p\|^2.
+$$
+
+But $p = \displaystyle\frac{\langle v_1, v_2 \rangle}{\|v_1\|^2}v_1$, so that
+
+$$
+\|p\|^2 = \left\|\frac{\langle v_1, v_2 \rangle}{\|v_1\|^2}v_1\right\|^2 = \frac{\langle v_1, v_2 \rangle^2}{\|v_1\|^2}.
+$$
+
+Thus, we have
+
+$$
+\Vol(v_1,v_2)^2 = \|v_1\|^2\|v_2^\perp\|^2 = \|v_1\|^2\|v_2\|^2 - \langle v_1, v_2 \rangle^2 = \det(G),
+$$
+
+as desired.
+
+Now, suppose that $m>2$ and that the result holds for $m-1$. Then we have
+
+$$
+\Vol(v_1,\ldots,v_m) = \Vol(v_1,\ldots,v_{m-1})\|v_m^\perp\| = \sqrt{\det(G_{m-1})\|v_m^\perp\|^2},
+$$
+
+where $G_{m-1}$ is the Gram matrix of $v_1,\ldots,v_{m-1}$. We can write $G$ in block form as
+
+$$
+G = \begin{bmatrix}
+G_{m-1} & a \\
+a^\top & \|v_m\|^2
+\end{bmatrix},
+$$
+
+where
+
+$$
+a^\top = \begin{bmatrix} \langle v_m, v_1 \rangle & \cdots & \langle v_m, v_{m-1} \rangle \end{bmatrix}.
+$$
+
+But then we have that
+
+$$
+\det{G} = \det(G_{m-1})\left(\|v_m\|^2 - a^\top G_{m-1}^{-1} a\right).
+$$
+
+We will be done if we can show that $\|v_m^\perp\|^2 = \|v_m\|^2 - a^\top G_{m-1}^{-1} a$. To see this, let $p$ be the orthogonal projection of $v_m$ onto the subspace spanned by $v_1,\ldots,v_{m-1}$, so that $v_m^\perp = v_m - p$. Then, since the Gram matrix $G_{m-1}$ is invertible, by our previous discussion we have that
+
+$$
+p = \sum_{i=1}^{m-1} c_i v_i,
+$$
+
+where the $c_i$'s are the entries in the vector $c = G_{m-1}^{-1} a$. Thus, we have
+
+$$
+\|p\|^2 = \langle p, p \rangle = \sum_{i,j=1}^{m-1} c_i c_j \langle v_i, v_j \rangle = c^\top G_{m-1} c = a^\top G_{m-1}^{-1} a.
+$$
+
+It then follows since $p$ and $v_m^\perp$ are orthogonal that
+
+$$
+\|v_m^\perp\|^2 = \|v_m\|^2 - \|p\|^2 = \|v_m\|^2 - a^\top G_{m-1}^{-1} a,
+$$
+
+as desired.
+:::
