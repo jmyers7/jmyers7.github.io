@@ -143,8 +143,6 @@ $$
 
 To produce the inner product of $a$ and $b$, as specified above, we must sum the tensors over *all* their indices, which explains the use of `dims=a.ndim` in our call to `torch.tensordot`. In this case, $m=n=2$ and $d=2$, so that the rank of the resulting tensor is $m+n-2d = 0$, i.e., a scalar.
 
-## The `torch.einsum` function
-
 An even more flexible and general way to compute tensors of the form $r$ produced by the `torch.tensordot` function described above is to use the `torch.einsum` function, which implements a form of [Einstein summation notation](https://en.wikipedia.org/wiki/Einstein_notation){target="_blank"}.
 
 For a simple example, let's suppose that we have two tensors of the form
@@ -174,19 +172,133 @@ print("The result of the Einstein summation is:\n", einsum_result)
 ```
 
 
-## Derivatives, Jacobians, and gradients
+## Derivatives
 
-::: {#def-derivative}
-Let $\mathcal{H}$ and $\mathcal{K}$ be two finite-dimensional Hilbert spaces. The *derivative* of a function $f: \mathcal{H} \to \mathcal{K}$ at a point $x \in \mathcal{H}$ and in the direction $v \in \mathcal{H}$ is defined as
+The general type of derivative that I define below for a function $f: \calh \to \calk$ between two normed vector spaces relies on a special case of the derivative of a function of the form $g: \bbr \to \calk$. But this latter type of derivative is defined exactly how one would expect, given by the following limit:
+
 $$
-f'(x)(v) = \lim_{t \to 0} \frac{f(x + tv) - f(x)}{t},
+g'(t) = \lim_{h \to 0} \frac{g(t+h) - g(t)}{h}.
+$$ {#eq-t-derivative}
+
+If the limit exists, then $g$ is said to be *differentiable* at $t$. Even though this is the same definition as we saw in our first calculus course, note that the numerator of the difference quotient is a vector in $\calk$.
+
+The following convenient theorem allows us to compute derivatives of certain special types of functions $g: \bbr \to \calk$ using familiar rules from single-variable calculus:
+
+::: {#thm-der-rules}
+Let $g: \bbr \to \calk$ be a function of the form
+
 $$
-provided the limit exists. If the derivative exists for all $x \in \mathcal{H}$ and $v \in \mathcal{H}$, we say that $f$ is *differentiable*.
+g(t) = w_0 + w_1 f_1(t) + \cdots + w_n f_n(t),
+$$
+
+where the $f_i: \bbr \to \bbr$ are real-valued, differentiable functions (in the usual sense), and the $w_i \in \calk$ are fixed vectors. Then $g$ is differentiable, and its derivative is given by
+
+$$
+g'(t) = w_1 f_1'(t) + \cdots + w_n f_n'(t),
+$$
+
+for all $t\in \bbr$.
 :::
 
-Technically, the type of differentiability I've defined here is called [*Gateaux differentiability*](https://en.wikipedia.org/wiki/Gateaux_derivative){target="_blank"}, and it is a weaker condition than the more commonly used notion of [*Fréchet differentiability*](https://en.wikipedia.org/wiki/Fr%C3%A9chet_derivative){target="_blank"}. Roughly speaking, a function is Fréchet differentiable at a point if it can be well approximated by a linear function in a neighborhood of that point, whereas Gateaux differentiability only requires the existence of directional derivatives. However, for our purposes in this post, we will implicitly assume that all our functions are Fréchet differentiable, in which case the derivative (as defined above) of a differentiable function yields a linear map $f'(x): \mathcal{H} \to \mathcal{K}$ with $v \mapsto f'(x)(v)$.[There are conditions that, when added to Gateaux differentiability, ensure that the function is also Fréchet differentiable. For example, if the *partial derivatives* of a Gateaux differentiable function are continuous (see below), then the function is also Fréchet differentiable.]{.aside}
+For example, suppose that $g: \bbr \to \calk$ is a polynomial function with coefficients in $\calk$:
 
-It is always the case in applications that fixed orthonormal bases of the Hilbert spaces $\mathcal{H}$ and $\mathcal{K}$ are at hand. If $\{\epsilon_i\}$ is the fixed basis for $\mathcal{K}$, and if $f: \mathcal{H} \to \mathcal{K}$ is a function, then we have real-valued *component functions*
+$$
+g(t) = w_0 + w_1 t + w_2 t^2 + \cdots + w_n t^n,
+$$
+
+where $w_0, w_1, \ldots, w_n \in \calk$ are fixed vectors. Then the theorem tells us that $g$ is differentiable, and that its derivative is given by the familiar formula
+
+$$
+g'(t) = w_1 + 2 w_2 t + \cdots + n w_n t^{n-1}.
+$$
+
+Returning to $f$, our goal is to understand how the value of the function $f(x)$ changes on small changes in the input $x \in \calh$. To this end, we consider a small perturbation of $x$ in the direction of a vector $v \in \calh$, which is given by $x + tv$ for small values of $t \in \bbr$. We then have the function
+
+$$
+g: \bbr \to \calk, \quad g(t) = f(x + tv),
+$$
+
+which is of the type that we just discussed. As the limit of a difference quotient, its derivative at $t=0$ (if it exists) looks like
+
+$$
+g'(0) = \lim_{h\to 0} \frac{f(x + hv) - f(x)}{h}.
+$$
+
+This leads us to:
+
+::: {#def-derivative}
+Let $f: \calh \to \calk$ be a function between two normed vector spaces. The *derivative of $f$ at a point $x \in \calh$, in the direction $v \in \calh$*, is defined as
+
+$$
+f'(x)(v) = \frac{d}{dt} f(x + tv)\Big|_{t=0},
+$$ {#eq-derivative}
+provided the $t$-derivative exists. If the derivative exists for all $x,v \in \mathcal{H}$, we say that $f$ is *differentiable*.
+:::
+
+Very often, you will see the $t$-derivative in the definition of $f'(x)(v)$ expressed as a limit of a difference quotient:
+
+$$
+\frac{d}{dt} f(x + tv)\Big|_{t=0} = \lim_{t\to 0} \frac{f(x + tv) - f(x)}{t}.
+$$
+
+This can be somewhat confusing, however, because the variable $t$ is playing different roles on the two sides of the equation.
+
+Strictly speaking, the type of differentiability I've defined here is called [*Gâteaux differentiability*](https://en.wikipedia.org/wiki/Gateaux_derivative){target="_blank"}, and it is a weaker condition than the more commonly used notion of [*Fréchet differentiability*](https://en.wikipedia.org/wiki/Fr%C3%A9chet_derivative){target="_blank"}. Roughly speaking, a function is Fréchet differentiable at a point if it can be well approximated by a linear function in a neighborhood of that point, whereas Gâteaux differentiability only requires the existence of directional derivatives. There are some regularity conditions under which Gâteaux differentiability implies Fréchet differentiability, but I will mostly ignore them. For my purposes, I will assume that all differentiable functions in the above sense are also Fréchet differentiable, and so the derivative of a differentiable function yields a linear map $f'(x): \mathcal{H} \to \mathcal{K}$ with $v \mapsto f'(x)(v)$.
+
+The reader may have noticed a potential ambiguity: If $g: \bbr\to \calk$ is a function, then it has a derivative *vector* $g'(t)\in \calk$ computed according to ([-@eq-t-derivative]), but it also has a derivative *function* $g'(t):\mathbb{R} \to \calk$ computed according to ([-@eq-derivative]) (provided that the derivatives exist, of course). What's the relationship between these two derivatives? The answer is given by the equation
+
+$$
+g'(t)(v) = g'(t)v,
+$$
+
+where the $g'(t)$ on the left side of the equation is the *function* defined by ([-@eq-derivative]), while the $g'(t)$ on the right side is the *vector* computed by ([-@eq-t-derivative]). This is a very easy consequence of the chain rule that we will study later, but it can also be proved directly in the standard analytic style using $\epsilon$-$\delta$ arguments. Admittedly, having a single piece of notation standing for two different things is a bit confusing. I hope the reader will not be too bothered by it, and will be able to discern from context which meaning is intended when there's possibility of ambiguity.
+
+## Example: Least-squares
+
+A concrete example is in order. Let $A$ be a fixed $m\times n$ matrix, $b\in \bbr^m$ a fixed vector, and consider the function
+
+$$
+f: \bbr^n \to \bbr, \quad f(x) = \|Ax - b\|^2.
+$$
+
+This function, of course, is extremely relevant in applications, since its minimizers are the solutions to the least-squares problem $Ax = b$. We will compute the derivative $f'(x)$, where the domain $\bbr^n$ is equipped with the standard inner product $\langle x, y \rangle = x^\top y$ and induced norm. The first step is to rewrite
+
+$$
+f(x) = \langle Ax - b, Ax - b \rangle = (x^\top A^\top - b^\top)(Ax - b) = x^\top A^\top Ax - 2b^\top Ax + b^\top b.
+$$ {#eq-fx-expansion}
+
+Then, for fixed $x,v\in \bbr^n$, we define the function $g: \bbr \to \bbr$ by setting
+
+$$
+g(t) = f(x + tv) = (x^\top + tv^\top)A^\top A(x + tv) - 2b^\top A(x + tv) + b^\top b.
+$$
+
+Expanding the right-hand side, we have
+
+$$
+g(t) = (x^\top A^\top Ax- 2b^\top Ax  + b^\top b) + 2v^\top( A^\top Ax - A^\top b)t + (v^\top A^\top Av)t^2,
+$$ {#eq-gx-expansion}
+
+which reveals $g$ as a quadratic polynomial in the variable $t$ with real coefficients. Its derivative is
+
+$$
+g'(t) = 2v^\top(A^\top Ax-  A^\top b) + 2 (v^\top A^\top Av) t,
+$$
+[The reader might have noticed that in the expression ([-@eq-fx-expansion]), $f(x)$ appears as a *product* of the two terms $(x^\top A^\top - b^\top)$ and $(Ax - b)$. The reader may well have wondered if there was some sort of product rule for derivatives which would be relevant here. This is indeed the case, and we leave the interested reader to formulate it, prove it, and apply it on their own.]{.aside}
+
+which gives us
+
+$$
+f'(x)(v) = g'(0) = 2v^\top(A^\top Ax-  A^\top b).
+$$
+
+The condition for stationarity of $f$ at a point $x$ is that its derivative $f'(x)(v)$ vanishes identically in $v$, which is equivalent to the condition that $A^\top Ax - A^\top b = 0$, i.e., that $x$ is a solution to the familiar normal equations $A^\top Ax = A^\top b$.
+
+As the reader might imagine, the coefficient $v^\top A^\top Av$ of the $t^2$-term in the expansion ([-@eq-gx-expansion]) of $g(t)$ is related to the second derivative of $f$. We will explore this below.
+
+## Partial derivatives and Jacobians
+
+For the applications I have in mind, it is always the case that the normed vector spaces $\calh$ and $\calk$ are finite-dimensional Hilbert spaces equipped with fixed choices of orthonormal bases. If $\{\epsilon_i\}$ is such a basis for $\mathcal{K}$, and if $f: \mathcal{H} \to \mathcal{K}$ is a function, then we have real-valued *component functions*
 
 $$
 f_i: \mathcal{H} \to \mathbb{R}, \quad f_i(x) = \langle f(x), \epsilon_i \rangle,
@@ -257,6 +369,8 @@ $$
 \sum_j v_j \frac{\partial f_m}{\partial e_j}(x)
 \end{bmatrix}=\begin{bmatrix} \frac{\partial f_1}{\partial e_1}(x) & \cdots & \frac{\partial f_1}{\partial e_n}(x) \\ \vdots & \ddots & \vdots \\ \frac{\partial f_m}{\partial e_1}(x) & \cdots & \frac{\partial f_m}{\partial e_n}(x) \end{bmatrix} \begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix}.
 $$
+
+## Dual spaces and gradients
 
 With derivatives and Jacobians in hand, we now move toward defining the gradient, which requires the Riesz Representation Theorem. To state it, however, we need to first introduce the notion of the *dual* of a (finite-dimensional) Hilbert space. This is the vector space $\mathcal{H}^*$ of all linear functionals $\phi: \mathcal{H} \to \mathbb{R}$, where a *linear functional* is a linear map from $\mathcal{H}$ to $\mathbb{R}$. Its vector space structure is given by pointwise addition and scalar multiplication, so that for $\phi, \psi \in \mathcal{H}^*$ and $a\in \mathbb{R}$, we have that
 
@@ -402,6 +516,8 @@ $$
 
 so that $(S\circ T)^\ast(w) = T^\ast(S^\ast(w))$, and thus $(S\circ T)^\ast = T^\ast \circ S^\ast$.
 
+## The chain rule
+
 For derivatives and composition, we have:
 
 ::: {#thm-chain-rule}
@@ -411,6 +527,35 @@ $$
 (g\circ f)'(x) = g'(f(x)) \circ f'(x).
 $$
 :::
+
+## Higher-order derivatives and Hessian tensors
+
+Suppose that $f: \calh \to \calk$ is a differentiable function between two normed vector spaces. Given points $x,u\in \calh$, we have the derivative $f'(x)(u) \in \calk$. We may wonder how this value changes as we vary $x$, which leads us to consider the function
+
+$$
+t\mapsto f'(x+tv)(u)
+$$
+
+of the real variable $t$, where $v$ is a second direction vector in $\calh$ along with the first direction vector $u$. If this function were differentiable, then we could take its derivative at $t=0$, resulting in
+
+$$
+\frac{d}{dt} f'(x+tv)(u)\Big|_{t=0} = \frac{d}{dt} \left[ \frac{d}{ds} f(x + su + tv)\Big|_{s=0} \right]\Big|_{t=0} = \frac{\partial^2}{\partial t \partial s} f(x + su + tv)\Big|_{s=t=0}.
+$$
+
+This inspires the following general definition:
+
+::: {#def-second-derivative}
+
+Let $f: \calh \to \calk$ be a function between two normed vector spaces. The *second derivative of $f$ at a point $\in \calh$, in the directions of $u,v\in \calh$,* is defined as
+
+$$
+f''(x)(u,v) = \frac{\partial^2}{\partial t \partial s} f(x + su + tv)\Big|_{s=t=0},
+$$
+
+provided that the partial derivatives exist. If the second derivative exists for all $x,u,v\in \calh$, we say that $f$ is *twice differentiable*.
+:::
+
+Just like in the case of the first derivative, nothing in the definition guarantees that the dependence of the second derivative on the direction vectors $v$ and $u$ has any sort of desirable properties. What I have defined here is called the [*second-order Gâteaux derivative*](https://en.wikipedia.org/wiki/Gateaux_derivative#Higher_derivatives){target="_blank"}, which is the weaker of the two common notions of second-order differentiability. In the presence of some regularity conditions—that I mostly ignore—the second-order Gâteaux derivative is equivalent to the stronger notion of the [*second-order Fréchet derivative*](https://en.wikipedia.org/wiki/Fr%C3%A9chet_derivative#Higher_derivatives){target="_blank"}. In particular, if $f$ is twice Fréchet differentiable, then the second derivative $f''(x)$ is a symmetric bilinear map from $\calh \times \calh$ to $\calk$. I shall sidestep the technicalities of these regularity conditions, and simply assume that all our functions are twice Fréchet differentiable, so that the second derivative as defined above is a symmetric bilinear map $f''(x): \calh \times \calh \to \calk$ with $(u,v) \mapsto f''(x)(u,v)$.
 
 
 ## Enter PyTorch: Computational examples of derivatives
