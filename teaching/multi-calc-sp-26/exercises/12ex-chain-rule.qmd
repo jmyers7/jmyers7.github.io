@@ -1,0 +1,316 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 12 Chain rule
+
+## Exercise 1: Practice with matrix multiplication
+
+In this exercise, you'll get some warm-up practice with matrix multiplication to prepare for the chain rule.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Compute the product
+$$
+\begin{bmatrix} 2 & 1 & 3 \end{bmatrix} \begin{bmatrix}
+1 & 0 \\
+2 & -1 \\
+0 & 4
+\end{bmatrix}.
+$$
+
+b. Compute the product
+$$
+\begin{bmatrix}
+3 & -1 \\
+2 & 0 \\
+1 & 4
+\end{bmatrix} \begin{bmatrix}
+2 & 1 & 0 & -1 \\
+1 & 3 & 2 & 1
+\end{bmatrix}.
+$$
+
+c. Compute the product
+$$
+\begin{bmatrix}
+1 & 2 \\
+0 & -1
+\end{bmatrix} \begin{bmatrix}
+3 \\
+-2
+\end{bmatrix}.
+$$
+
+d. Compute the product
+$$
+\begin{bmatrix}
+x & y & z
+\end{bmatrix} \begin{bmatrix}
+2 \\
+-1 \\
+3
+\end{bmatrix}.
+$$
+
+e. Compute the product
+$$
+\begin{bmatrix}
+\cos{\theta} & -\sin{\theta} & 0 \\
+0 & 1 & 0
+\end{bmatrix} \begin{bmatrix}
+1 & 2 \\
+3 & 0 \\
+-1 & 4
+\end{bmatrix}.
+$$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Answer:
+$$
+\begin{bmatrix} 4 & 11 \end{bmatrix}
+$$
+
+b. Answer:
+$$
+\begin{bmatrix}
+5 & 0 & -2 & -4 \\
+4 & 2 & 0 & -2 \\
+6 & 13 & 8 & 3
+\end{bmatrix}
+$$
+
+c. Answer:
+$$
+\begin{bmatrix}
+-1 \\
+2
+\end{bmatrix}
+$$
+
+d. Answer:
+$$
+\begin{bmatrix} 2x - y + 3z \end{bmatrix}
+$$
+
+e. Answer:
+$$
+\begin{bmatrix}
+\cos{\theta} - 3\sin{\theta} & 2\cos{\theta} \\
+3 & 0
+\end{bmatrix}
+$$
+
+:::
+
+## Exercise 2: Practice with the chain rule
+
+Now that you've seen how the chain rule works by computing both sides, let's practice using it directly to compute derivatives of compositions.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Consider the functions
+$$
+\mathbb{R}^2 \xrightarrow{f} \mathbb{R}^3 \xrightarrow{g} \mathbb{R}
+$$
+where
+$$
+f(x,y) = (x^2, xy, y^2), \quad g(u,v,w) = u + 2v + 3w.
+$$
+Compute the derivative $(g\circ f)'(x,y)$ using the chain rule.
+
+b. Consider the functions
+$$
+\mathbb{R} \xrightarrow{h} \mathbb{R}^2 \xrightarrow{k} \mathbb{R}^3
+$$
+where
+$$
+h(t) = (\cos{t}, \sin{t}), \quad k(u,v) = (u^2v, u-v, v^3).
+$$
+Compute the derivative $(k\circ h)'(t)$ using the chain rule.
+
+c. Consider the functions
+$$
+\mathbb{R}^3 \xrightarrow{p} \mathbb{R}^2 \xrightarrow{q} \mathbb{R}^2
+$$
+where
+$$
+p(x,y,z) = (x+y+z, xyz), \quad q(r,s) = (r^2s, e^{rs}).
+$$
+Compute the derivative $(q\circ p)'(1,1,1)$ using the chain rule.
+
+d. Consider the functions
+$$
+\mathbb{R}^2 \xrightarrow{f} \mathbb{R}^2 \xrightarrow{g} \mathbb{R}^3
+$$
+where
+$$
+f(x,y) = (e^x\cos{y}, e^x\sin{y}), \quad g(u,v) = (u, v, u^2+v^2).
+$$
+Compute the derivative $(g\circ f)'(0, \pi/4)$ using the chain rule.
+
+e. Consider the function
+$$
+\mathbb{R}^4 \xrightarrow{h} \mathbb{R}^2 \xrightarrow{k} \mathbb{R}
+$$
+where
+$$
+h(x,y,z,w) = (x^2 + w^2, y^2 + z^2), \quad k(u,v) = uv.
+$$
+Compute the derivative $(k\circ h)'(1, -1, 0, 1)$ using the chain rule.
+
+f. Consider the functions
+$$
+\mathbb{R} \xrightarrow{\alpha} \mathbb{R}^3 \xrightarrow{\beta} \mathbb{R}
+$$
+where
+$$
+\alpha(t) = (t, t^2, t^3), \quad \beta(x,y,z) = x^2y + yz^2.
+$$
+Compute the derivative $(\beta\circ \alpha)'(2)$ using the chain rule.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Answer:
+$$
+(g\circ f)'(x,y) = \begin{bmatrix} 2x + 2y & 2x + 6y \end{bmatrix}
+$$
+
+b. Answer:
+$$
+(k\circ h)'(t) = \begin{bmatrix}
+-2\cos{t}\sin^2{t} + \cos^3{t} \\
+-\sin{t} - \cos{t} \\
+3\sin^2{t}\cos{t}
+\end{bmatrix}
+$$
+
+c. Answer:
+$$
+(q\circ p)'(1,1,1) = \begin{bmatrix}
+15 & 15 & 15 \\
+4e^3 & 4e^3 & 4e^3
+\end{bmatrix}
+$$
+
+d. Answer:
+$$
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \\
+2 & 0
+\end{bmatrix}
+$$
+
+e. Answer:
+$$
+\begin{bmatrix} 2 & -4 & 0 & 2 \end{bmatrix}
+$$
+
+f. Answer: $1056$.
+
+:::
+
+## Exercise 3: The chain rule and partial derivatives
+
+Recall that when we write the chain rule in terms of partial derivatives, it takes the form
+$$
+\frac{\partial (g\circ f)_i}{\partial x_j}(\mathbf{x}) = \sum_{p=1}^m \frac{\partial g_i}{\partial u_p}(f(\mathbf{x}))\frac{\partial f_p}{\partial x_j}(\mathbf{x}),
+$$
+where the $u_p$ are the variables in the domain of $g$. Very often, we use a shorthand notation that omits the evaluations and lets the $u_p$ play a double role as both coordinate functions of $f$ and variables in the domain of $g$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Let $z = u^3 + uv^2$, where $u = x^2y$ and $v = xy^2$. Compute $\displaystyle\frac{\partial z}{\partial x}$ and $\displaystyle\frac{\partial z}{\partial y}$ using the chain rule.
+
+b. Let $w(s,t) = s^2\cos{t} + e^{st}$, where $s = r + 2\theta$ and $t = r\theta$. Compute $\displaystyle\frac{\partial w}{\partial r}$ and $\displaystyle\frac{\partial w}{\partial \theta}$ using the chain rule.
+
+c. Let $f(u,v,w) = (u^2v, vw^2, u+v+w)$, where $u = x+y$, $v = xy$, and $w = x-y$. Compute all six partial derivatives
+$$
+\frac{\partial f_1}{\partial x}, \quad \frac{\partial f_1}{\partial y}, \quad \frac{\partial f_2}{\partial x}, \quad \frac{\partial f_2}{\partial y}, \quad \frac{\partial f_3}{\partial x}, \quad \frac{\partial f_3}{\partial y}
+$$
+using the chain rule.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Answers:
+$$
+\begin{align*}
+\frac{\partial z}{\partial x} &= 6x^5y^3 + 4x^3y^5 \\
+\frac{\partial z}{\partial y} &= 3x^6y^2 + 5x^4y^4
+\end{align*}
+$$
+
+b. Answers:
+$$
+\begin{align*}
+\frac{\partial w}{\partial r} &= 2 (2 \theta +r) \cos (\theta  r)-\theta  (2 \theta +r)^2 \sin (\theta  r) \\
+\frac{\partial w}{\partial \theta} &= 4 (2 \theta +r) \cos (\theta  r)-r (2 \theta +r)^2 \sin (\theta  r)
+\end{align*}
+$$
+
+
+c. Answers:
+$$
+\begin{align*}
+\frac{\partial f_1}{\partial x} &= 3x^2y + 4xy^2 + y^3 \\
+\frac{\partial f_1}{\partial y} &= x^3 + 4x^2y + 3xy^2 \\
+\frac{\partial f_2}{\partial x} &= 3x^2y - 4xy^2 + y^3 \\
+\frac{\partial f_2}{\partial y} &= x^3 - 4x^2y + 3xy^2 \\
+\frac{\partial f_3}{\partial x} &= 2 + y \\
+\frac{\partial f_3}{\partial y} &= x
+\end{align*}
+$$
+
+:::
+
+## Exercise 4: Application problems
+
+The chain rule is particularly useful for solving related rates problems, where we need to understand how different quantities change with respect to time.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. A rectangular box has dimensions that are all changing with time. At a particular moment, the length is $5$ m and increasing at $0.3$ m/s, the width is $4$ m and decreasing at $0.2$ m/s, and the height is $3$ m and increasing at $0.5$ m/s. Is the volume of the box increasing or decreasing at this moment, and at what rate?
+
+b. The position of a particle at time $t$ is given by $x=t^2$ and $y=2t-1$. The temperature at a point $(x,y)$ in the plane is given by $T(x,y) = x^2 + xy + y^2$. Find the rate of change of temperature experienced by the particle at time $t=2$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. The volume of a rectangular box is $V = \ell wh$. We are given that $\ell = 5$ m, $w = 4$ m, $h = 3$ m, $\displaystyle\frac{d\ell}{dt} = 0.3$ m/s, $\displaystyle\frac{dw}{dt} = -0.2$ m/s, and $\displaystyle\frac{dh}{dt} = 0.5$ m/s. Using the chain rule:
+$$
+\frac{dV}{dt} = \frac{\partial V}{\partial \ell}\frac{d\ell}{dt} + \frac{\partial V}{\partial w}\frac{dw}{dt} + \frac{\partial V}{\partial h}\frac{dh}{dt} = (wh)(0.3) + (\ell h)(-0.2) + (\ell w)(0.5).
+$$
+Substituting the given values:
+$$
+\frac{dV}{dt} = (4)(3)(0.3) + (5)(3)(-0.2) + (5)(4)(0.5) = 3.6 - 3 + 10 = 10.6 \text{ m}^3\text{/s}.
+$$
+
+b. The rate of change of temperature is $\displaystyle\frac{dT}{dt}$. Using the chain rule:
+$$
+\frac{dT}{dt} = \frac{\partial T}{\partial x}\frac{dx}{dt} + \frac{\partial T}{\partial y}\frac{dy}{dt}.
+$$
+We have:
+$$
+\frac{\partial T}{\partial x} = 2x + y, \quad \frac{\partial T}{\partial y} = x + 2y, \quad \frac{dx}{dt} = 2t, \quad \frac{dy}{dt} = 2.
+$$
+At $t = 2$, we have $(x,y) = (4, 3)$. Therefore:
+$$
+\frac{dT}{dt}\bigg|_{t=2} = (2(4) + 3)(2(2)) + (4 + 2(3))(2) = (11)(4) + (10)(2) = 44 + 20 = 64 \text{ degrees per second}.
+$$
+
+:::
+

@@ -1,0 +1,176 @@
+---
+title: "12 Chain rule"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Exercise 1: Practice with composition and differentiation {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+a. Consider the functions
+$$
+\mathbb{R}^2 \xrightarrow{f} \mathbb{R}^2 \xrightarrow{g} \mathbb{R}
+$$
+where
+$$
+f(x,y) = (x^2y, x+y), \quad g(u,v) = u^2 + v^2.
+$$
+    i. Compute a formula for the composition $(g\circ f)(x,y)$.
+    ii. Identify the sizes of the derivatives $f'(x,y)$, $g'(u,v)$, and $(g\circ f)'(x,y)$.
+    iii. Compute the derivatives $f'(x,y)$ and $g'(u,v)$.
+    iv. Compute $g'(f(x,y))$.
+    v. Compute the derivative $(g\circ f)'(x,y)$.
+    vi. Compute the product $g'(f(x,y))f'(x,y)$ and compare it to $(g\circ f)'(x,y)$.
+
+b. Consider the functions
+$$
+\mathbb{R}^2 \xrightarrow{r} \mathbb{R}^3 \xrightarrow{s} \mathbb{R}^2
+$$
+where
+$$
+r(x,y) = (x^2y, x+y, xy), \quad s(u,v,w) = (u^2 + v^2, w^3).
+$$
+    i. Compute a formula for the composition $(s\circ r)(x,y)$.
+    ii. Identify the sizes of the derivatives $r'(x,y)$, $s'(u,v,w)$, and $(s\circ r)'(x,y)$.
+    iii. Compute the derivatives $r'(x,y)$ and $s'(u,v,w)$.
+    iv. Compute $s'(r(x,y))$.
+    v. Compute the derivative $(s\circ r)'(x,y)$.
+    vi. Compute the product $s'(r(x,y))r'(x,y)$ and compare it to $(s\circ r)'(x,y)$.
+:::
+
+## Statement
+
+::: {.callout-note icon="false" .fragment }
+### Chain Rule
+
+Let
+
+$$
+\mathbb{R}^n \xrightarrow{f} \mathbb{R}^m \xrightarrow{g} \mathbb{R}^k
+$$
+
+be differentiable functions. Then the composition $g\circ f$ is differentiable and
+
+$$
+(g\circ f)'(x_1,\dots,x_n) = g'(f(x_1,\dots,x_n))f'(x_1,\dots,x_n).
+$$
+
+:::
+
+- The product on the right hand side of the equation is of a $k\times m$ matrix and an $m\times n$ matrix, which produces a $k\times n$ matrix, which is the size of the derivative $(g\circ f)'(x_1,\dots,x_n)$.
+
+- To shorten notation, we often load the variables $x_1,\dots,x_n$ into a vector $\mathbf{x}$ and write the chain rule as
+$$
+(g\circ f)'(\mathbf{x}) = g'(f(\mathbf{x}))f'(\mathbf{x}).
+$$  
+
+## Exercise 2: Practice with the chain rule {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+a. Consider the functions
+$$
+\mathbb{R}^3 \xrightarrow{f} \mathbb{R} \xrightarrow{g} \mathbb{R}^2
+$$
+where
+$$
+f(x,y,z) = x^2z\sin{y}, \quad g(u) = (u^2, 3u^3).
+$$
+Compute the derivative $(g\circ f)'(x,y,z)$ using the chain rule.
+
+b. Consider the functions
+$$
+\mathbb{R} \xrightarrow{h} \mathbb{R}^3 \xrightarrow{k} \mathbb{R}^2
+$$
+where
+$$
+h(t) = (e^t, t, 2t^2-t), \quad k(\alpha,\beta,\gamma) = (\alpha^2 + \beta^2, \gamma^3).
+$$
+Compute the derivative $(k\circ h)'(t)$ using the chain rule.
+
+:::
+
+## The chain rule and partial derivatives, part 1 {.scrollable}
+
+- Recall the chain rule:
+
+::: {.callout-note icon="false" .fragment }
+### Chain Rule
+
+Let
+
+$$
+\mathbb{R}^n \xrightarrow{f} \mathbb{R}^m \xrightarrow{g} \mathbb{R}^k
+$$
+
+be differentiable functions. Then the composition $g\circ f$ is differentiable and
+
+$$
+(g\circ f)'(\mathbf{x}) = g'(f(\mathbf{x}))f'(\mathbf{x}).
+$$
+:::
+
+- The $(i,j)$-th entry of the derivative $(g\circ f)'(\mathbf{x})$ is the partial derivative
+$$
+\frac{\partial (g\circ f)_i}{\partial x_j}(\mathbf{x}).
+$$
+
+- If you compute the $(i,j)$-th entry of the product $g'(f(\mathbf{x}))f'(\mathbf{x})$, you will find that it is equal to
+$$
+\sum_{p=1}^m \frac{\partial g_i}{\partial u_p}(f(\mathbf{x}))\frac{\partial f_p}{\partial x_j}(\mathbf{x}),
+$$
+where $u_1,\dots,u_m$ are the variables in the codomain of $f$.
+
+## The chain rule and partial derivatives, part 2 {.scrollable}
+
+::: {.callout-note icon="false" .fragment }
+### Chain Rule (partial derivatives)
+
+Let
+
+$$
+\mathbb{R}^n \xrightarrow{f} \mathbb{R}^m \xrightarrow{g} \mathbb{R}^k
+$$
+
+be differentiable functions. Then, for each $i=1,\dots,k$ and $j=1,\dots,n$, we have
+$$
+\frac{\partial (g\circ f)_i}{\partial x_j}(\mathbf{x}) = \sum_{p=1}^m \frac{\partial g_i}{\partial u_p}(f(\mathbf{x}))\frac{\partial f_p}{\partial x_j}(\mathbf{x}),
+$$
+where $u_1,\dots,u_m$ are the variables in the domain of $g$.
+
+:::
+
+- Very often, the variables $u_1,\ldots,u_m$ play a double role as both the variables in the domain of $g$ and the component functions $f_1,\ldots,f_m$ of $f$. Also, the evaluations of the partial derivatives are often omitted as well, so that the chain rule can be written as
+$$
+\frac{\partial g}{\partial x_j} = \sum_{p=1}^m \frac{\partial g_i}{\partial u_p} \frac{\partial u_p}{\partial x_j}.
+$$
+This is **not** proper mathematical notation, but it is a common shorthand that is often used in practice.
+
+## Exercise 3: Practice with the chain rule and partial derivatives {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+a. Let $g(u,v) = u^2v - v^2$, where $u = y\sin{x}$ and $v = xe^y$. Compute $\displaystyle\frac{\partial g}{\partial x}$ and $\displaystyle\frac{\partial g}{\partial y}$ using the chain rule.
+
+b. Let $h(x,y) = x\sin{x} + y^2$, where $x = t^2 + 1$ and $y = e^t$. Compute $\displaystyle\frac{dh}{dt}$ using the chain rule.
+
+c. Let $\theta(r,s) = (r^2 + s^2, rs)$, where $r = \alpha\beta$ and $s = \alpha^2 - \beta^2$. Compute all four partial derivatives
+$$
+\frac{\partial \theta_1}{\partial \alpha}, \quad \frac{\partial \theta_1}{\partial \beta}, \quad \frac{\partial \theta_2}{\partial \alpha}, \quad \frac{\partial \theta_2}{\partial \beta}
+$$
+using the chain rule.
+:::
+
+## Exercise 4: An application problem {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+The radius of a right circular cylinder is increasing at a rate of $6$ inches per minute, and the height is decreasing at a rate of $4$ inches per minute. What are the rates of change of the volume and surface area of the cylinder when the radius is $12$ inches and the height is $36$ inches?
+
+:::
