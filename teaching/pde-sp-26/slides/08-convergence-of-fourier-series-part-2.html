@@ -181,8 +181,8 @@ g(\phi) = \frac{f(\theta + \phi) - f(\theta)}{e^{i\phi}-1}
 C_N = \frac{1}{2\pi} \int_{-\pi}^\pi g(\phi) e^{-i N \phi} \, d\phi.
 \]</span></p></li>
 <li class="fragment"><p>By the the Riemann-Lebesgue lemma, we have <span class="math display">\[
-\lim_{N\to \infty} \left( C_{-(N+1)} - C_{-N} \right) = 0,
-\]</span> since both <span class="math inline">\(C_{-(N+1)}\)</span> and <span class="math inline">\(C_{-N}\)</span> tend to zero as <span class="math inline">\(N\to \infty\)</span>.</p></li>
+\lim_{N\to \infty} \left( C_{-(N+1)} - C_{N} \right) = 0,
+\]</span> since both <span class="math inline">\(C_{-(N+1)}\)</span> and <span class="math inline">\(C_{N}\)</span> tend to zero as <span class="math inline">\(N\to \infty\)</span>.</p></li>
 <li class="fragment"><p>However, we have <span class="math display">\[
 C_{-(N+1)} - C_{N} = \frac{1}{2\pi} \int_{-\pi}^\pi g(\phi) \left( e^{i(N+1)\phi} - e^{-i N \phi} \right) \, d\phi.
 \]</span></p></li>
