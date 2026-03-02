@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Partial Differential Equations – john myers, ph.d.</title>
+<title>Multivariable calculus: Exercises – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../img/fav.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-4853ac07ca6a7896c17d72d590de6080.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../img/fav.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-367851019e9ccd243b94edaf001a4bfd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-4853ac07ca6a7896c17d72d590de6080.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,7 +121,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -131,15 +131,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../writings.html"> 
+    <a class="nav-link" href="../../../writings.html"> 
 <span class="menu-text">Writings</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -148,11 +148,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-teaching">    
         <li>
-    <a class="dropdown-item" href="../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
+    <a class="dropdown-item" href="../../../teaching/multi-calc-sp-26/multi-calc-sp-26.html">
  <span class="dropdown-text">Multivariable Calculus</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../teaching/pde-sp-26/pde-sp-26.html">
+    <a class="dropdown-item" href="../../../teaching/pde-sp-26/pde-sp-26.html">
  <span class="dropdown-text">Partial Differential Equations</span></a>
   </li>  
     </ul>
@@ -201,8 +201,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-information" id="toc-course-information" class="nav-link active" data-scroll-target="#course-information">Course information</a></li>
-  <li><a href="#schedule-slides-exercises-and-info" id="toc-schedule-slides-exercises-and-info" class="nav-link" data-scroll-target="#schedule-slides-exercises-and-info">Schedule, slides, exercises, and info</a></li>
+  <li><a href="#chain-rule" id="toc-chain-rule" class="nav-link active" data-scroll-target="#chain-rule">12 Chain rule</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-practice-with-matrix-multiplication" id="toc-exercise-1-practice-with-matrix-multiplication" class="nav-link" data-scroll-target="#exercise-1-practice-with-matrix-multiplication">Exercise 1: Practice with matrix multiplication</a></li>
+  <li><a href="#exercise-2-practice-with-the-chain-rule" id="toc-exercise-2-practice-with-the-chain-rule" class="nav-link" data-scroll-target="#exercise-2-practice-with-the-chain-rule">Exercise 2: Practice with the chain rule</a></li>
+  <li><a href="#exercise-3-the-chain-rule-and-partial-derivatives" id="toc-exercise-3-the-chain-rule-and-partial-derivatives" class="nav-link" data-scroll-target="#exercise-3-the-chain-rule-and-partial-derivatives">Exercise 3: The chain rule and partial derivatives</a></li>
+  <li><a href="#exercise-4-application-problems" id="toc-exercise-4-application-problems" class="nav-link" data-scroll-target="#exercise-4-application-problems">Exercise 4: Application problems</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -211,7 +216,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Partial Differential Equations</h1>
+<h1 class="title">Multivariable calculus: Exercises</h1>
 </div>
 
 
@@ -228,246 +233,308 @@ window.Quarto = {
 </header>
 
 
-<p>This course is an introduction to partial differential equations (PDEs) and Fourier analysis.</p>
-<ol type="1">
-<li>We will study the classical PDEs of mathematical physics: the heat equation, the wave equation, and Laplace’s equation.</li>
-<li>We will learn how to solve these equations using separation of variables and Fourier series.</li>
-<li>Complex variables will be introduced as tools to help us understand Fourier series.</li>
-<li>Properties of complex exponentials, sines, and cosines will be generalized to abstract properties of functions in <span class="math inline">\(L^2\)</span> spaces. Accordingly, will will study the notion of Hilbert spaces.</li>
-<li>An introduction to Sturm-Liouville theory will be given, including eigenvalue problems and orthogonal functions.</li>
-<li>If time permits, we will study additional topics such as Fourier and Laplace transforms.</li>
+<section id="chain-rule" class="level1">
+<h1>12 Chain rule</h1>
+<section id="exercise-1-practice-with-matrix-multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-practice-with-matrix-multiplication">Exercise 1: Practice with matrix multiplication</h2>
+<p>In this exercise, you’ll get some warm-up practice with matrix multiplication to prepare for the chain rule.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Compute the product <span class="math display">\[
+\begin{bmatrix} 2 &amp; 1 &amp; 3 \end{bmatrix} \begin{bmatrix}
+1 &amp; 0 \\
+2 &amp; -1 \\
+0 &amp; 4
+\end{bmatrix}.
+\]</span></p></li>
+<li><p>Compute the product <span class="math display">\[
+\begin{bmatrix}
+3 &amp; -1 \\
+2 &amp; 0 \\
+1 &amp; 4
+\end{bmatrix} \begin{bmatrix}
+2 &amp; 1 &amp; 0 &amp; -1 \\
+1 &amp; 3 &amp; 2 &amp; 1
+\end{bmatrix}.
+\]</span></p></li>
+<li><p>Compute the product <span class="math display">\[
+\begin{bmatrix}
+1 &amp; 2 \\
+0 &amp; -1
+\end{bmatrix} \begin{bmatrix}
+3 \\
+-2
+\end{bmatrix}.
+\]</span></p></li>
+<li><p>Compute the product <span class="math display">\[
+\begin{bmatrix}
+x &amp; y &amp; z
+\end{bmatrix} \begin{bmatrix}
+2 \\
+-1 \\
+3
+\end{bmatrix}.
+\]</span></p></li>
+<li><p>Compute the product <span class="math display">\[
+\begin{bmatrix}
+\cos{\theta} &amp; -\sin{\theta} &amp; 0 \\
+0 &amp; 1 &amp; 0
+\end{bmatrix} \begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 0 \\
+-1 &amp; 4
+\end{bmatrix}.
+\]</span></p></li>
 </ol>
-<section id="course-information" class="level1">
-<h1>Course information</h1>
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-John Myers
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Marano 175
-</td>
-</tr>
-<tr>
-<td>
-Office hours:
-</td>
-<td>
-12-12:30 MWF, and by appointment
-</td>
-</tr>
-<tr>
-<td>
-Syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1jyt-sVqmOnAuJkmwycm6fxMa_3RQsxx3/view?usp=sharing" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix} 4 &amp; 11 \end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix}
+5 &amp; 0 &amp; -2 &amp; -4 \\
+4 &amp; 2 &amp; 0 &amp; -2 \\
+6 &amp; 13 &amp; 8 &amp; 3
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix}
+-1 \\
+2
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix} 2x - y + 3z \end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix}
+\cos{\theta} - 3\sin{\theta} &amp; 2\cos{\theta} \\
+3 &amp; 0
+\end{bmatrix}
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
 </section>
-<section id="schedule-slides-exercises-and-info" class="level1">
-<h1>Schedule, slides, exercises, and info</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">week</th>
-<th style="text-align: center;">date</th>
-<th style="text-align: center;">topics</th>
-<th style="text-align: center;">slides</th>
-<th style="text-align: center;">exercises</th>
-<th style="text-align: center;">info</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Week 8</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Spring break</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 7</td>
-<td style="text-align: center;">03.13 fri</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Exam 1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.11 wed</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.09 mon</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 6</td>
-<td style="text-align: center;">03.06 fri</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.04 wed</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.02 mon</td>
-<td style="text-align: center;">Sec 9: Differentiation and integration of Fourier series</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/09-differentiation-and-integration-of-fourier-series.html" target="_blank">Sec 9 Slides</a></td>
-<td style="text-align: center;">Coming soon</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 5</td>
-<td style="text-align: center;">02.27 fri</td>
-<td style="text-align: center;">Sec 8: Convergence of Fourier series, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/08-convergence-of-fourier-series-part-2.html" target="_blank">Sec 8 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/08ex-convergence-of-fourier-series-part-2.html">Sec 8 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.25 wed</td>
-<td style="text-align: center;">Sec 7: Convergence of Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/07-convergence-of-fourier-series-part-1.html" target="_blank">Sec 7 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/07ex-convergence-of-fourier-series-part-1.html">Sec 7 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.23 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 4</td>
-<td style="text-align: center;">02.20 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 4 and 5</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.18 wed</td>
-<td style="text-align: center;">Sec 6: A first look at Fourier series, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/06-a-first-look-at-fourier-series-part-2.html" target="_blank">Sec 6 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/06ex-a-first-look-at-fourier-series-part-2.html">Sec 6 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.16 mon</td>
-<td style="text-align: center;">Sec 5: A first look at Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/05-a-first-look-at-fourier-series-part-1.html" target="_blank">Sec 5 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/05ex-a-first-look-at-fourier-series-part-1.html">Sec 5 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 3</td>
-<td style="text-align: center;">02.13 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 2 and 3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.11 wed</td>
-<td style="text-align: center;">Sec 4: General PDEs and boundary conditions</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/04-general-pdes-and-boundary-conditions.html" target="_blank">Sec 4 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/04ex-general-pdes-and-boundary-conditions.html">Sec 4 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.09 mon</td>
-<td style="text-align: center;">Sec 3: The Laplacian and Laplace’s equation</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/03-the-laplacian-and-laplaces-equation.html" target="_blank">Sec 3 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/03ex-the-laplacian-and-laplaces-equation.html">Sec 3 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 2</td>
-<td style="text-align: center;">02.06 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.04 wed</td>
-<td style="text-align: center;">Sec 2: Separation of variables</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/02-separation-of-var.html" target="_blank">Sec 2 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/02ex-separation-of-var.html">Sec 2 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 1</td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">Sec 1: An introduction to PDEs</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/01-an-introduction-to-pdes.html" target="_blank">Sec 1 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.28 wed</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on Exercises 1-8.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.26 mon</td>
-<td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=pdes#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=heat-equation#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=fourier-series#video-section" target="_blank">here</a>. Begin working on Exercises 1-8 (see link to the right).</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/01ex-an-introduction-to-pdes.html">Sec 1 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<section id="exercise-2-practice-with-the-chain-rule" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-practice-with-the-chain-rule">Exercise 2: Practice with the chain rule</h2>
+<p>Now that you’ve seen how the chain rule works by computing both sides, let’s practice using it directly to compute derivatives of compositions.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Consider the functions <span class="math display">\[
+\mathbb{R}^2 \xrightarrow{f} \mathbb{R}^3 \xrightarrow{g} \mathbb{R}
+\]</span> where <span class="math display">\[
+f(x,y) = (x^2, xy, y^2), \quad g(u,v,w) = u + 2v + 3w.
+\]</span> Compute the derivative <span class="math inline">\((g\circ f)'(x,y)\)</span> using the chain rule.</p></li>
+<li><p>Consider the functions <span class="math display">\[
+\mathbb{R} \xrightarrow{h} \mathbb{R}^2 \xrightarrow{k} \mathbb{R}^3
+\]</span> where <span class="math display">\[
+h(t) = (\cos{t}, \sin{t}), \quad k(u,v) = (u^2v, u-v, v^3).
+\]</span> Compute the derivative <span class="math inline">\((k\circ h)'(t)\)</span> using the chain rule.</p></li>
+<li><p>Consider the functions <span class="math display">\[
+\mathbb{R}^3 \xrightarrow{p} \mathbb{R}^2 \xrightarrow{q} \mathbb{R}^2
+\]</span> where <span class="math display">\[
+p(x,y,z) = (x+y+z, xyz), \quad q(r,s) = (r^2s, e^{rs}).
+\]</span> Compute the derivative <span class="math inline">\((q\circ p)'(1,1,1)\)</span> using the chain rule.</p></li>
+<li><p>Consider the functions <span class="math display">\[
+\mathbb{R}^2 \xrightarrow{f} \mathbb{R}^2 \xrightarrow{g} \mathbb{R}^3
+\]</span> where <span class="math display">\[
+f(x,y) = (e^x\cos{y}, e^x\sin{y}), \quad g(u,v) = (u, v, u^2+v^2).
+\]</span> Compute the derivative <span class="math inline">\((g\circ f)'(0, \pi/4)\)</span> using the chain rule.</p></li>
+<li><p>Consider the function <span class="math display">\[
+\mathbb{R}^4 \xrightarrow{h} \mathbb{R}^2 \xrightarrow{k} \mathbb{R}
+\]</span> where <span class="math display">\[
+h(x,y,z,w) = (x^2 + w^2, y^2 + z^2), \quad k(u,v) = uv.
+\]</span> Compute the derivative <span class="math inline">\((k\circ h)'(1, -1, 0, 1)\)</span> using the chain rule.</p></li>
+<li><p>Consider the functions <span class="math display">\[
+\mathbb{R} \xrightarrow{\alpha} \mathbb{R}^3 \xrightarrow{\beta} \mathbb{R}
+\]</span> where <span class="math display">\[
+\alpha(t) = (t, t^2, t^3), \quad \beta(x,y,z) = x^2y + yz^2.
+\]</span> Compute the derivative <span class="math inline">\((\beta\circ \alpha)'(2)\)</span> using the chain rule.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Answer: <span class="math display">\[
+(g\circ f)'(x,y) = \begin{bmatrix} 2x + 2y &amp; 2x + 6y \end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+(k\circ h)'(t) = \begin{bmatrix}
+-2\cos{t}\sin^2{t} + \cos^3{t} \\
+-\sin{t} - \cos{t} \\
+3\sin^2{t}\cos{t}
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+(q\circ p)'(1,1,1) = \begin{bmatrix}
+15 &amp; 15 &amp; 15 \\
+4e^3 &amp; 4e^3 &amp; 4e^3
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} &amp; -\frac{\sqrt{2}}{2} \\
+\frac{\sqrt{2}}{2} &amp; \frac{\sqrt{2}}{2} \\
+2 &amp; 0
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math display">\[
+\begin{bmatrix} 2 &amp; -4 &amp; 0 &amp; 2 \end{bmatrix}
+\]</span></p></li>
+<li><p>Answer: <span class="math inline">\(1056\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-the-chain-rule-and-partial-derivatives" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-the-chain-rule-and-partial-derivatives">Exercise 3: The chain rule and partial derivatives</h2>
+<p>Recall that when we write the chain rule in terms of partial derivatives, it takes the form <span class="math display">\[
+\frac{\partial (g\circ f)_i}{\partial x_j}(\mathbf{x}) = \sum_{p=1}^m \frac{\partial g_i}{\partial u_p}(f(\mathbf{x}))\frac{\partial f_p}{\partial x_j}(\mathbf{x}),
+\]</span> where the <span class="math inline">\(u_p\)</span> are the variables in the domain of <span class="math inline">\(g\)</span>. Very often, we use a shorthand notation that omits the evaluations and lets the <span class="math inline">\(u_p\)</span> play a double role as both coordinate functions of <span class="math inline">\(f\)</span> and variables in the domain of <span class="math inline">\(g\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>Let <span class="math inline">\(z = u^3 + uv^2\)</span>, where <span class="math inline">\(u = x^2y\)</span> and <span class="math inline">\(v = xy^2\)</span>. Compute <span class="math inline">\(\displaystyle\frac{\partial z}{\partial x}\)</span> and <span class="math inline">\(\displaystyle\frac{\partial z}{\partial y}\)</span> using the chain rule.</p></li>
+<li><p>Let <span class="math inline">\(w(s,t) = s^2\cos{t} + e^{st}\)</span>, where <span class="math inline">\(s = r + 2\theta\)</span> and <span class="math inline">\(t = r\theta\)</span>. Compute <span class="math inline">\(\displaystyle\frac{\partial w}{\partial r}\)</span> and <span class="math inline">\(\displaystyle\frac{\partial w}{\partial \theta}\)</span> using the chain rule.</p></li>
+<li><p>Let <span class="math inline">\(f(u,v,w) = (u^2v, vw^2, u+v+w)\)</span>, where <span class="math inline">\(u = x+y\)</span>, <span class="math inline">\(v = xy\)</span>, and <span class="math inline">\(w = x-y\)</span>. Compute all six partial derivatives <span class="math display">\[
+\frac{\partial f_1}{\partial x}, \quad \frac{\partial f_1}{\partial y}, \quad \frac{\partial f_2}{\partial x}, \quad \frac{\partial f_2}{\partial y}, \quad \frac{\partial f_3}{\partial x}, \quad \frac{\partial f_3}{\partial y}
+\]</span> using the chain rule.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Answers: <span class="math display">\[
+\begin{align*}
+\frac{\partial z}{\partial x} &amp;= 6x^5y^3 + 4x^3y^5 \\
+\frac{\partial z}{\partial y} &amp;= 3x^6y^2 + 5x^4y^4
+\end{align*}
+\]</span></p></li>
+<li><p>Answers: <span class="math display">\[
+\begin{align*}
+\frac{\partial w}{\partial r} &amp;= 2 (2 \theta +r) \cos (\theta  r)-\theta  (2 \theta +r)^2 \sin (\theta  r) \\
+\frac{\partial w}{\partial \theta} &amp;= 4 (2 \theta +r) \cos (\theta  r)-r (2 \theta +r)^2 \sin (\theta  r)
+\end{align*}
+\]</span></p></li>
+<li><p>Answers: <span class="math display">\[
+\begin{align*}
+\frac{\partial f_1}{\partial x} &amp;= 3x^2y + 4xy^2 + y^3 \\
+\frac{\partial f_1}{\partial y} &amp;= x^3 + 4x^2y + 3xy^2 \\
+\frac{\partial f_2}{\partial x} &amp;= 3x^2y - 4xy^2 + y^3 \\
+\frac{\partial f_2}{\partial y} &amp;= x^3 - 4x^2y + 3xy^2 \\
+\frac{\partial f_3}{\partial x} &amp;= 2 + y \\
+\frac{\partial f_3}{\partial y} &amp;= x
+\end{align*}
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-application-problems" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4-application-problems">Exercise 4: Application problems</h2>
+<p>The chain rule is particularly useful for solving related rates problems, where we need to understand how different quantities change with respect to time.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ol type="a">
+<li><p>A rectangular box has dimensions that are all changing with time. At a particular moment, the length is <span class="math inline">\(5\)</span> m and increasing at <span class="math inline">\(0.3\)</span> m/s, the width is <span class="math inline">\(4\)</span> m and decreasing at <span class="math inline">\(0.2\)</span> m/s, and the height is <span class="math inline">\(3\)</span> m and increasing at <span class="math inline">\(0.5\)</span> m/s. Is the volume of the box increasing or decreasing at this moment, and at what rate?</p></li>
+<li><p>The position of a particle at time <span class="math inline">\(t\)</span> is given by <span class="math inline">\(x=t^2\)</span> and <span class="math inline">\(y=2t-1\)</span>. The temperature at a point <span class="math inline">\((x,y)\)</span> in the plane is given by <span class="math inline">\(T(x,y) = x^2 + xy + y^2\)</span>. Find the rate of change of temperature experienced by the particle at time <span class="math inline">\(t=2\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solutions.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>The volume of a rectangular box is <span class="math inline">\(V = \ell wh\)</span>. We are given that <span class="math inline">\(\ell = 5\)</span> m, <span class="math inline">\(w = 4\)</span> m, <span class="math inline">\(h = 3\)</span> m, <span class="math inline">\(\displaystyle\frac{d\ell}{dt} = 0.3\)</span> m/s, <span class="math inline">\(\displaystyle\frac{dw}{dt} = -0.2\)</span> m/s, and <span class="math inline">\(\displaystyle\frac{dh}{dt} = 0.5\)</span> m/s. Using the chain rule: <span class="math display">\[
+\frac{dV}{dt} = \frac{\partial V}{\partial \ell}\frac{d\ell}{dt} + \frac{\partial V}{\partial w}\frac{dw}{dt} + \frac{\partial V}{\partial h}\frac{dh}{dt} = (wh)(0.3) + (\ell h)(-0.2) + (\ell w)(0.5).
+\]</span> Substituting the given values: <span class="math display">\[
+\frac{dV}{dt} = (4)(3)(0.3) + (5)(3)(-0.2) + (5)(4)(0.5) = 3.6 - 3 + 10 = 10.6 \text{ m}^3\text{/s}.
+\]</span></p></li>
+<li><p>The rate of change of temperature is <span class="math inline">\(\displaystyle\frac{dT}{dt}\)</span>. Using the chain rule: <span class="math display">\[
+\frac{dT}{dt} = \frac{\partial T}{\partial x}\frac{dx}{dt} + \frac{\partial T}{\partial y}\frac{dy}{dt}.
+\]</span> We have: <span class="math display">\[
+\frac{\partial T}{\partial x} = 2x + y, \quad \frac{\partial T}{\partial y} = x + 2y, \quad \frac{dx}{dt} = 2t, \quad \frac{dy}{dt} = 2.
+\]</span> At <span class="math inline">\(t = 2\)</span>, we have <span class="math inline">\((x,y) = (4, 3)\)</span>. Therefore: <span class="math display">\[
+\frac{dT}{dt}\bigg|_{t=2} = (2(4) + 3)(2(2)) + (4 + 2(3))(2) = (11)(4) + (10)(2) = 44 + 20 = 64 \text{ degrees per second}.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

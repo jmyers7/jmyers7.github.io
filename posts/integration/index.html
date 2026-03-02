@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-02-03">
 
-<title>Partial Differential Equations – john myers, ph.d.</title>
+<title>Integration on manifolds – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,6 +82,7 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -112,12 +114,15 @@ window.Quarto = {
 };
 </script>
 
+<meta property="og:title" content="PyTorch and derivatives: A mathematical perspective">
+<meta property="og:description" content="">
+<meta property="og:site_name" content="john myers, ph.d.">
 </head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -201,8 +206,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-information" id="toc-course-information" class="nav-link active" data-scroll-target="#course-information">Course information</a></li>
-  <li><a href="#schedule-slides-exercises-and-info" id="toc-schedule-slides-exercises-and-info" class="nav-link" data-scroll-target="#schedule-slides-exercises-and-info">Schedule, slides, exercises, and info</a></li>
+  <li><a href="#volumes-of-parallelotopes" id="toc-volumes-of-parallelotopes" class="nav-link active" data-scroll-target="#volumes-of-parallelotopes">Volumes of parallelotopes</a></li>
   </ul>
 </nav>
     </div>
@@ -211,7 +215,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Partial Differential Equations</h1>
+<h1 class="title">Integration on manifolds</h1>
 </div>
 
 
@@ -219,6 +223,12 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 3, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -228,244 +238,146 @@ window.Quarto = {
 </header>
 
 
-<p>This course is an introduction to partial differential equations (PDEs) and Fourier analysis.</p>
+<section id="volumes-of-parallelotopes" class="level2">
+<h2 class="anchored" data-anchor-id="volumes-of-parallelotopes">Volumes of parallelotopes</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-volume-parallelotope" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> Consider vectors <span class="math inline">\(v_1,v_2,\ldots,v_m\)</span> in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
 <ol type="1">
-<li>We will study the classical PDEs of mathematical physics: the heat equation, the wave equation, and Laplace’s equation.</li>
-<li>We will learn how to solve these equations using separation of variables and Fourier series.</li>
-<li>Complex variables will be introduced as tools to help us understand Fourier series.</li>
-<li>Properties of complex exponentials, sines, and cosines will be generalized to abstract properties of functions in <span class="math inline">\(L^2\)</span> spaces. Accordingly, will will study the notion of Hilbert spaces.</li>
-<li>An introduction to Sturm-Liouville theory will be given, including eigenvalue problems and orthogonal functions.</li>
-<li>If time permits, we will study additional topics such as Fourier and Laplace transforms.</li>
+<li>If <span class="math inline">\(m=2\)</span>, the area of the parallelogram spanned by <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> is given by the formula <span class="math display">\[
+\textnormal{Vol}(v_1,v_2) = \|v_1\|\|v_2^\perp\|,
+\]</span> where <span class="math inline">\(v_2^\perp\)</span> is the component of <span class="math inline">\(v_2\)</span> orthogonal to <span class="math inline">\(v_1\)</span>.</li>
+<li>If <span class="math inline">\(m&gt;2\)</span>, the volume of the parallelotope spanned by <span class="math inline">\(v_1,\ldots,v_m\)</span> is given by the formula <span class="math display">\[
+\textnormal{Vol}(v_1,v_2,\ldots,v_m) = \textnormal{Vol}(v_1,v_2,\ldots,v_{m-1})\|v_m^\perp\|,
+\]</span> where <span class="math inline">\(v_m^\perp\)</span> is the component of <span class="math inline">\(v_m\)</span> orthogonal to the subspace spanned by <span class="math inline">\(v_1,\ldots,v_{m-1}\)</span>.</li>
 </ol>
-<section id="course-information" class="level1">
-<h1>Course information</h1>
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-John Myers
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Marano 175
-</td>
-</tr>
-<tr>
-<td>
-Office hours:
-</td>
-<td>
-12-12:30 MWF, and by appointment
-</td>
-</tr>
-<tr>
-<td>
-Syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1jyt-sVqmOnAuJkmwycm6fxMa_3RQsxx3/view?usp=sharing" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
-</section>
-<section id="schedule-slides-exercises-and-info" class="level1">
-<h1>Schedule, slides, exercises, and info</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">week</th>
-<th style="text-align: center;">date</th>
-<th style="text-align: center;">topics</th>
-<th style="text-align: center;">slides</th>
-<th style="text-align: center;">exercises</th>
-<th style="text-align: center;">info</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Week 8</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Spring break</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 7</td>
-<td style="text-align: center;">03.13 fri</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Exam 1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.11 wed</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.09 mon</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 6</td>
-<td style="text-align: center;">03.06 fri</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.04 wed</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.02 mon</td>
-<td style="text-align: center;">Sec 9: Differentiation and integration of Fourier series</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/09-differentiation-and-integration-of-fourier-series.html" target="_blank">Sec 9 Slides</a></td>
-<td style="text-align: center;">Coming soon</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 5</td>
-<td style="text-align: center;">02.27 fri</td>
-<td style="text-align: center;">Sec 8: Convergence of Fourier series, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/08-convergence-of-fourier-series-part-2.html" target="_blank">Sec 8 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/08ex-convergence-of-fourier-series-part-2.html">Sec 8 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.25 wed</td>
-<td style="text-align: center;">Sec 7: Convergence of Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/07-convergence-of-fourier-series-part-1.html" target="_blank">Sec 7 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/07ex-convergence-of-fourier-series-part-1.html">Sec 7 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.23 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 4</td>
-<td style="text-align: center;">02.20 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 4 and 5</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.18 wed</td>
-<td style="text-align: center;">Sec 6: A first look at Fourier series, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/06-a-first-look-at-fourier-series-part-2.html" target="_blank">Sec 6 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/06ex-a-first-look-at-fourier-series-part-2.html">Sec 6 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.16 mon</td>
-<td style="text-align: center;">Sec 5: A first look at Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/05-a-first-look-at-fourier-series-part-1.html" target="_blank">Sec 5 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/05ex-a-first-look-at-fourier-series-part-1.html">Sec 5 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 3</td>
-<td style="text-align: center;">02.13 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 2 and 3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.11 wed</td>
-<td style="text-align: center;">Sec 4: General PDEs and boundary conditions</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/04-general-pdes-and-boundary-conditions.html" target="_blank">Sec 4 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/04ex-general-pdes-and-boundary-conditions.html">Sec 4 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.09 mon</td>
-<td style="text-align: center;">Sec 3: The Laplacian and Laplace’s equation</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/03-the-laplacian-and-laplaces-equation.html" target="_blank">Sec 3 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/03ex-the-laplacian-and-laplaces-equation.html">Sec 3 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 2</td>
-<td style="text-align: center;">02.06 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.04 wed</td>
-<td style="text-align: center;">Sec 2: Separation of variables</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/02-separation-of-var.html" target="_blank">Sec 2 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/02ex-separation-of-var.html">Sec 2 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 1</td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">Sec 1: An introduction to PDEs</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/01-an-introduction-to-pdes.html" target="_blank">Sec 1 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.28 wed</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on Exercises 1-8.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.26 mon</td>
-<td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=pdes#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=heat-equation#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=fourier-series#video-section" target="_blank">here</a>. Begin working on Exercises 1-8 (see link to the right).</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/01ex-an-introduction-to-pdes.html">Sec 1 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+</div>
+</div>
+</div>
+</div>
+<p>Given <span class="math inline">\(v_1,\ldots,v_m \in \mathbb{R}^n\)</span>, we can form the <span class="math inline">\(m\times m\)</span> <em>Gram matrix</em></p>
+<p><span class="math display">\[
+G = [\langle v_i, v_j \rangle]_{ij}.
+\]</span></p>
+<p>This matrix is clearly symmetric, and it is also positive semidefinite. To see this, note that for any vector <span class="math inline">\(c \in \mathbb{R}^m\)</span>, we have</p>
+<p><span class="math display">\[
+c^\top G c = \sum_{i,j=1}^m c_i c_j \langle v_i, v_j \rangle = \left\langle \sum_{i=1}^m c_i v_i, \sum_{j=1}^m c_j v_j \right\rangle = \left\|\sum_{i=1}^m c_i v_i\right\|^2 \geq 0.
+\]</span></p>
+<p>This also shows that <span class="math inline">\(G\)</span> is invertible if and only if <span class="math inline">\(v_1,\ldots,v_m\)</span> are linearly independent.</p>
+<p>Provided that it is invertible, one of the important functions of the Gram matrix is that it may be used to compute the orthogonal projection <span class="math inline">\(p\)</span> of a vector <span class="math inline">\(w\)</span> onto the subspace spanned by <span class="math inline">\(v_1,\ldots,v_m\)</span>. To see how, suppose that we first write</p>
+<p><span class="math display">\[
+p = \sum_{i=1}^m c_i v_i,
+\]</span></p>
+<p>for some unknown coefficients <span class="math inline">\(c_1,\ldots,c_m\)</span>. The defining property of <span class="math inline">\(p\)</span> is that <span class="math display">\[
+\langle w- p, v_j \rangle = 0, \quad j=1,\ldots,m.
+\]</span></p>
+<p>For each <span class="math inline">\(j\)</span>, we then have</p>
+<p><span class="math display">\[
+\langle w,v_j \rangle = \sum_{i=1}^m c_i \langle v_i, v_j \rangle.
+\]</span></p>
+<p>This is a system of <span class="math inline">\(m\)</span> linear equations in the <span class="math inline">\(m\)</span> unknowns <span class="math inline">\(c_1,\ldots,c_m\)</span>, which we can write in matrix form as</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\langle v_1, v_1 \rangle &amp; \cdots &amp; \langle v_1, v_m \rangle \\
+\vdots &amp; \ddots &amp; \vdots \\
+\langle v_m, v_1 \rangle &amp; \cdots &amp; \langle v_m, v_m \rangle
+\end{bmatrix}
+\begin{bmatrix}
+c_1 \\ \vdots \\ c_m
+\end{bmatrix}
+=
+\begin{bmatrix}
+\langle w, v_1 \rangle \\ \vdots \\ \langle w, v_m \rangle
+\end{bmatrix}.
+\]</span></p>
+<p>But the matrix on the left is exactly the Gram matrix <span class="math inline">\(G\)</span>. If <span class="math inline">\(G\)</span> is invertible, we can solve for the (unique) coefficients <span class="math inline">\(c_1,\ldots,c_m\)</span> and thus compute the projection <span class="math inline">\(p\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-volume-gram" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(v_1,\ldots,v_m \in \mathbb{R}^n\)</span>. The volume of the parallelotope spanned by <span class="math inline">\(v_1,\ldots,v_m\)</span> is given by the formula</p>
+<p><span class="math display">\[
+\textnormal{Vol}(v_1,\ldots,v_m) = \sqrt{\det(G)}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The proof is by induction on <span class="math inline">\(m\)</span>, beginning with <span class="math inline">\(m=2\)</span>. In this case, we have</p>
+<p><span class="math display">\[
+\det(G) = \det\begin{bmatrix}
+\langle v_1, v_1 \rangle &amp; \langle v_1, v_2 \rangle \\
+\langle v_2, v_1 \rangle &amp; \langle v_2, v_2 \rangle
+\end{bmatrix} = \|v_1\|^2\|v_2\|^2 - \langle v_1, v_2 \rangle^2.
+\]</span></p>
+<p>However, we also have <span class="math inline">\(v_2^\perp = v_2 - p\)</span>, where <span class="math inline">\(p\)</span> is the projection of <span class="math inline">\(v_2\)</span> onto <span class="math inline">\(v_1\)</span>. Since <span class="math inline">\(p\)</span> and <span class="math inline">\(v_2^\perp\)</span> are orthogonal, we get that</p>
+<p><span class="math display">\[
+\|v_2^\perp\|^2 = \|v_2\|^2 - \|p\|^2.
+\]</span></p>
+<p>But <span class="math inline">\(p = \displaystyle\frac{\langle v_1, v_2 \rangle}{\|v_1\|^2}v_1\)</span>, so that</p>
+<p><span class="math display">\[
+\|p\|^2 = \left\|\frac{\langle v_1, v_2 \rangle}{\|v_1\|^2}v_1\right\|^2 = \frac{\langle v_1, v_2 \rangle^2}{\|v_1\|^2}.
+\]</span></p>
+<p>Thus, we have</p>
+<p><span class="math display">\[
+\textnormal{Vol}(v_1,v_2)^2 = \|v_1\|^2\|v_2^\perp\|^2 = \|v_1\|^2\|v_2\|^2 - \langle v_1, v_2 \rangle^2 = \det(G),
+\]</span></p>
+<p>as desired.</p>
+<p>Now, suppose that <span class="math inline">\(m&gt;2\)</span> and that the result holds for <span class="math inline">\(m-1\)</span>. Then we have</p>
+<p><span class="math display">\[
+\textnormal{Vol}(v_1,\ldots,v_m) = \textnormal{Vol}(v_1,\ldots,v_{m-1})\|v_m^\perp\| = \sqrt{\det(G_{m-1})\|v_m^\perp\|^2},
+\]</span></p>
+<p>where <span class="math inline">\(G_{m-1}\)</span> is the Gram matrix of <span class="math inline">\(v_1,\ldots,v_{m-1}\)</span>. We can write <span class="math inline">\(G\)</span> in block form as</p>
+<p><span class="math display">\[
+G = \begin{bmatrix}
+G_{m-1} &amp; a \\
+a^\top &amp; \|v_m\|^2
+\end{bmatrix},
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+a^\top = \begin{bmatrix} \langle v_m, v_1 \rangle &amp; \cdots &amp; \langle v_m, v_{m-1} \rangle \end{bmatrix}.
+\]</span></p>
+<p>But then we have that</p>
+<p><span class="math display">\[
+\det{G} = \det(G_{m-1})\left(\|v_m\|^2 - a^\top G_{m-1}^{-1} a\right).
+\]</span></p>
+<p>We will be done if we can show that <span class="math inline">\(\|v_m^\perp\|^2 = \|v_m\|^2 - a^\top G_{m-1}^{-1} a\)</span>. To see this, let <span class="math inline">\(p\)</span> be the orthogonal projection of <span class="math inline">\(v_m\)</span> onto the subspace spanned by <span class="math inline">\(v_1,\ldots,v_{m-1}\)</span>, so that <span class="math inline">\(v_m^\perp = v_m - p\)</span>. Then, since the Gram matrix <span class="math inline">\(G_{m-1}\)</span> is invertible, by our previous discussion we have that</p>
+<p><span class="math display">\[
+p = \sum_{i=1}^{m-1} c_i v_i,
+\]</span></p>
+<p>where the <span class="math inline">\(c_i\)</span>’s are the entries in the vector <span class="math inline">\(c = G_{m-1}^{-1} a\)</span>. Thus, we have</p>
+<p><span class="math display">\[
+\|p\|^2 = \langle p, p \rangle = \sum_{i,j=1}^{m-1} c_i c_j \langle v_i, v_j \rangle = c^\top G_{m-1} c = a^\top G_{m-1}^{-1} a.
+\]</span></p>
+<p>It then follows since <span class="math inline">\(p\)</span> and <span class="math inline">\(v_m^\perp\)</span> are orthogonal that</p>
+<p><span class="math display">\[
+\|v_m^\perp\|^2 = \|v_m\|^2 - \|p\|^2 = \|v_m\|^2 - a^\top G_{m-1}^{-1} a,
+\]</span></p>
+<p>as desired.</p>
+</div>
+</div>
+</div>
 
 
 </section>
