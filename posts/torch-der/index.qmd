@@ -296,7 +296,7 @@ The condition for stationarity of $f$ at a point $x$ is that its derivative $f'(
 
 As the reader might imagine, the coefficient $v^\top A^\top Av$ of the $t^2$-term in the expansion ([-@eq-gx-expansion]) of $g(t)$ is related to the second derivative of $f$. We will explore this below.
 
-## Partial derivatives and Jacobians
+## Orthonormal bases and partial derivatives
 
 For the applications I have in mind, it is always the case that the normed vector spaces $\calh$ and $\calk$ are finite-dimensional Hilbert spaces equipped with fixed choices of orthonormal bases. If $\{\epsilon_i\}$ is such a basis for $\mathcal{K}$, and if $f: \mathcal{H} \to \mathcal{K}$ is a function, then we have real-valued *component functions*
 
@@ -331,7 +331,7 @@ $$
 \frac{\partial f}{\partial e_j}(x) = \langle f'(x)(e_j), 1 \rangle = f'(x)(e_j).
 $$
 
-The importance of the partial derivatives is that they are the entries in matrix representations of derivatives:
+The importance of the partial derivatives is that they appear as the entries in matrix representations of derivatives:
 
 ::: {#def-jacobian}
 Let $f: \mathcal{H} \to \mathcal{K}$ be a differentiable function between two finite-dimensional Hilbert spaces, and let $\{e_j\}$ and $\{\epsilon_i\}$ be orthonormal bases for $\mathcal{H}$ and $\mathcal{K}$, respectively. The *Jacobian matrix* of $f$ at a point $x \in \mathcal{H}$ is the matrix
@@ -364,11 +364,78 @@ The reader will notice the familiar matrix multiplication pattern in the square 
 
 $$
 \begin{bmatrix}
-\sum_j v_j \frac{\partial f_1}{\partial e_j}(x) \\
+\displaystyle\sum_j v_j \frac{\partial f_1}{\partial e_j}(x) \\
 \vdots \\
-\sum_j v_j \frac{\partial f_m}{\partial e_j}(x)
-\end{bmatrix}=\begin{bmatrix} \frac{\partial f_1}{\partial e_1}(x) & \cdots & \frac{\partial f_1}{\partial e_n}(x) \\ \vdots & \ddots & \vdots \\ \frac{\partial f_m}{\partial e_1}(x) & \cdots & \frac{\partial f_m}{\partial e_n}(x) \end{bmatrix} \begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix}.
+\displaystyle\sum_j v_j \frac{\partial f_m}{\partial e_j}(x)
+\end{bmatrix}=\begin{bmatrix} \displaystyle\frac{\partial f_1}{\partial e_1}(x) & \cdots & \displaystyle\frac{\partial f_1}{\partial e_n}(x) \\ \vdots & \ddots & \vdots \\ \displaystyle\frac{\partial f_m}{\partial e_1}(x) & \cdots & \displaystyle\frac{\partial f_m}{\partial e_n}(x) \end{bmatrix} \begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix}.
 $$
+
+## Direct sums and partial derivatives
+
+The construction of the partial derivatives in the previous section is a special case of a more general construction described in this section. To set up, suppose that $\calh = \bigoplus_j \calh_j$ and $\calk = \bigoplus_i \calk_i$ are orthogonal direct sums of finite-dimensional Hilbert spaces, where the indices range over finite sets. Write
+
+$$
+\iota_j^\calh: \calh_j \to \calh, \quad \pi_i^\calk: \calk \to \calk_i
+$$
+
+and
+
+$$
+\pi_i^\calh: \calh \to \calh_i, \quad \iota_i^\calk: \calk_i \to \calk,
+$$
+
+for the natural inclusion and projection maps, respectively. If $f: \calh \to \calk$ is a function, then we may define the component functions
+
+$$
+f_{ij}: \calh_j \to \calk_i, \quad f_{ij} = \pi_i^\calk \circ f \circ \iota_j^\calh,
+$$
+
+for each $i$ and $j$. Note then that
+
+$$
+f = \sum_{i,j} \iota_i^\calk \circ f_{ij} \circ \pi_j^\calh.
+$$
+
+Function composition then becomes a form of "matrix multiplication":
+
+::: {#thm-composition}
+Suppose that we have a pair of functions
+
+$$
+\bigoplus_j \calh_j \xrightarrow{f} \bigoplus_i \calk_i \xrightarrow{g} \bigoplus_k \mathcal{L}_k,
+$$
+
+between (finite) orthogonal direct sums of finite-dimensional Hilbert spaces. Then the component functions of the composition $g\circ f$ are given by
+
+$$
+(g\circ f)_{kj} = \sum_i g_{ki} \circ f_{ij},
+$$
+
+for all $j$ and $k$.
+:::
+
+Continuing with our function $f: \calh \to \calk$, one may prove that if $f$ is differentiable, then so too are each of the component functions $f_{ij}$, and moreover, we have the fundamental link between the derivative of $f$ and the derivatives of its component functions:
+
+::: {#thm-component-derivative}
+Let $f: \bigoplus_j \calh_j \to \bigoplus_i \calk_i$ be a differentiable function between (finite) orthogonal direct sums of finite-dimensional Hilbert spaces. Then each component function $f_{ij}$ is differentiable, and the derivative of $f$ is given by
+
+$$
+f'(x) = \sum_{i,j} \iota_i^\calk \circ f_{ij}'(x) \circ \pi_j^\calh,
+$$
+
+for all $x \in \calh$.
+:::
+
+This leads us to the following generalization of the definition of partial derivatives:
+
+::: {#def-partial-derivative-direct-sum}
+Let $f: \bigoplus_j \calh_j \to \bigoplus_i \calk_i$ be a differentiable function between (finite) orthogonal direct sums of finite-dimensional Hilbert spaces. For each $i$ and $j$, we define the *(i,j)-th partial derivative* of $f$ at a point $x \in \calh$ to be the linear map
+
+$$
+\frac{\partial f_i}{\partial \calh_j}(x) = f_{ij}'(x): \calh_j \to \calk_i.
+$$
+:::
+
 
 ## Dual spaces and gradients
 
@@ -528,7 +595,7 @@ $$
 $$
 :::
 
-## Higher-order derivatives and Hessian tensors
+## Higher-order derivatives and Hessians
 
 Suppose that $f: \calh \to \calk$ is a differentiable function between two normed vector spaces. Given points $x,u\in \calh$, we have the derivative $f'(x)(u) \in \calk$. We may wonder how this value changes as we vary $x$, which leads us to consider the function
 
