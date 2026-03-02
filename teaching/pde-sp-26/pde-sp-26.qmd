@@ -37,6 +37,13 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Week 8 || Spring break
+| Week 7 | 03.13 fri |||| Exam 1
+|| 03.11 wed |
+|| 03.09 mon |
+| Week 6 | 03.06 fri |
+|| 03.04 wed |
+|| 03.02 mon | Sec 9: Differentiation and integration of Fourier series | [Sec 9 Slides](./slides/09-differentiation-and-integration-of-fourier-series.qmd){target="_blank"} | Coming soon
 | Week 5 | 02.27 fri | Sec 8: Convergence of Fourier series, part 2 | [Sec 8 Slides](./slides/08-convergence-of-fourier-series-part-2.qmd){target="_blank"} | [Sec 8 Exercises](./exercises/08ex-convergence-of-fourier-series-part-2.qmd) | Quiz on Sec 6
 || 02.25 wed | Sec 7: Convergence of Fourier series, part 1 | [Sec 7 Slides](./slides/07-convergence-of-fourier-series-part-1.qmd){target="_blank"} | [Sec 7 Exercises](./exercises/07ex-convergence-of-fourier-series-part-1.qmd) |
 || 02.23 mon | Same as below ↓ | Same as below ↓ | Same as below ↓ |

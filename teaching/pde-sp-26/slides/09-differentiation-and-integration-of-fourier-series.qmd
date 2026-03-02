@@ -1,0 +1,114 @@
+---
+title: "09 Differentiation and integration of Fourier series"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Differentiation, part 1 {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Theorem
+Suppose $f: \mathbb{R} \to \mathbb{R}$ is $2\pi$-periodic, continuous, and piecewise smooth. Let $a_n$, $b_n$, and $c_n$ be its Fourier coefficients, and let $a_n'$, $b_n'$, and $c_n'$ be the Fourier coefficients of its derivative $f'$. Then
+$$
+a_n' = n b_n, \quad b_n' = -n a_n, \quad c_n' = i n c_n.
+$$
+:::
+
+- Let's examine $c_n'$, to see why this is true, which is given by the standard formula:
+$$
+c_n' = \frac{1}{2\pi} \int_{-\pi}^{\pi} f'(\theta) e^{-i n \theta} \, d\theta.
+$$
+
+- Then, using integration by parts, we get that
+$$
+c_n' = \frac{1}{2\pi} f(\theta) e^{-i n \theta} \Big|_{-\pi}^{\pi} + \frac{in}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{-i n \theta} \, d\theta = i n c_n,
+$$
+since the first term vanishes because $f$ is periodic and $e^{-in\pi} - e^{in\pi} = 2i \sin{n\pi} = 0$.
+
+## Differentiation, part 2 {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Differentiation Theorem
+Suppose $f: \mathbb{R} \to \mathbb{R}$ is $2\pi$-periodic, continuous, and piecewise smooth, and suppose that its derivative $f'$ is also piecewise smooth. If $a_n$, $b_n$, and $c_n$ are the Fourier coefficients of $f$, then
+
+$$
+f'(\theta) = \sum_{n=1}^{\infty} \left(n b_n \cos{n\theta} - n a_n \sin{n\theta}\right) = \sum_{n=-\infty}^{\infty} i n c_n e^{i n \theta}.
+$$
+
+for all $\theta$ at which $f'$ is continuous. At discontinuities of $f'$, the Fourier series on the right converge to the average of the left- and right-hand limits of $f'$.
+:::
+
+- Since $f'$ is piecewise smooth, our main convergence theorem applies and tells us that $f'$ converges to its Fourier series at all points of continuity, and to the average of the left- and right-hand limits at discontinuities.
+
+- But the Fourier coefficients of $f'$ were computed on the previous slide. The result follows.
+
+- Notice that the Fourier series of $f'$ is obtained by term-by-term differentiation of the Fourier series of $f$:
+$$
+f(\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{n\theta} + b_n \sin{n\theta}\right) = \sum_{n=-\infty}^{\infty} c_n e^{i n \theta}.
+$$
+
+## Exercise 1: Term-by-term differentiation {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the $2\pi$-periodic function $f$ with $f(\theta) = |\theta|$ for $\theta \in (-\pi, \pi)$. We know its Fourier series is given by
+$$
+f(\theta) = \frac{\pi}{2} - \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\cos{\left[(2n-1)\theta\right]}}{(2n-1)^2} .
+$$
+
+Using this, obtain the Fourier series of the function
+$$
+g(\theta) = \begin{cases}
+1 & : 0 < \theta < \pi, \\
+-1 & : -\pi < \theta < 0.
+\end{cases}
+$$
+:::
+
+## Exercise 2: Term-by-term differentiation doesn't always work {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the $2\pi$-periodic function $f$ with $f(\theta) = \theta$ for $\theta \in (-\pi, \pi)$. We know its Fourier series is given by
+$$
+f(\theta) = 2 \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \sin{n\theta}.
+$$
+
+Then the term-by-term differentiated series is
+$$
+2 \sum_{n=1}^{\infty} (-1)^{n+1} \cos{n\theta}.
+$$
+
+Does this converge to $f'(\theta) = 1$? Discuss.
+:::
+
+## Integration {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Integration Theorem
+Suppose $f$ is $2\pi$-periodic and piecewise continuous, and let $a_n$, $b_n$, and $c_n$ be its Fourier coefficients. Define
+$$
+F(\theta) = \int_0^{\theta} f(\phi) \, d\phi.
+$$
+
+Then for all $\theta$ we have
+$$
+F(\theta) = \frac{a_0}{2}\theta + \sum_{n=1}^{\infty} \left(\frac{a_n}{n} \sin{n\theta} - \frac{b_n}{n} \cos{n\theta}\right) =  c_0\theta + \sum_{n\neq 0} \frac{c_n}{i n} e^{i n \theta} . \tag{1}
+$$
+
+:::
+
+- Notice that $f$ is not assumed piecewise smooth, so we cannot apply our convergence theorem to guarantee that it converges to its Fourier series. However, the theorem is still true!
+
+- Notice also that the series on the right-hand side is obtained by term-by-term integration of the Fourier series of $f$,
+$$
+\frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{n\theta} + b_n \sin{n\theta}\right) = \sum_{n=-\infty}^{\infty} c_n e^{i n \theta},
+$$
+by first replacing $\theta$ with $\phi$ and then integrating from $0$ to $\theta$.
+
+- Finally, notice that the series on the right-hand side of (1) is not a Fourier series, because of the $a_0 \theta / 2$ and $c_0 \theta$ terms. However, it is a Fourier series if $f$ has mean value zero, i.e., if $a_0 = 0$.
