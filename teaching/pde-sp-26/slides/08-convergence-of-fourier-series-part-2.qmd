@@ -54,9 +54,9 @@ $$
 
 - By the the Riemann-Lebesgue lemma, we have
 $$
-\lim_{N\to \infty} \left( C_{-(N+1)} - C_{-N} \right) = 0,
+\lim_{N\to \infty} \left( C_{-(N+1)} - C_{N} \right) = 0,
 $$
-since both $C_{-(N+1)}$ and $C_{-N}$ tend to zero as $N\to \infty$.
+since both $C_{-(N+1)}$ and $C_{N}$ tend to zero as $N\to \infty$.
 
 - However, we have
 $$
