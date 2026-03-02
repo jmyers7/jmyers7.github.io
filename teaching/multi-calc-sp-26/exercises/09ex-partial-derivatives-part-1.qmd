@@ -138,9 +138,9 @@ a. $L(x,y) = 2x - 3y + 5$
 
 b. $L(x,y) = \displaystyle\frac{3}{4}x + 2y - 3$
 
-c. $L(x,y) = x-3$
+c. $L(x,y) = x+1$
 
-d. $L(x,y) = -\displaystyle\frac{2}{3}x + \displaystyle\frac{4}{3}y + \ln{3} - \frac{4}{3}$
+d. $L(x,y) = -\displaystyle\frac{2}{3}x + \displaystyle\frac{4}{3}y + \ln{3}$
 
 e. $L(x,y) = ey-2e$
 
