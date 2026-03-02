@@ -370,6 +370,10 @@ $$
 \end{bmatrix}=\begin{bmatrix} \displaystyle\frac{\partial f_1}{\partial e_1}(x) & \cdots & \displaystyle\frac{\partial f_1}{\partial e_n}(x) \\ \vdots & \ddots & \vdots \\ \displaystyle\frac{\partial f_m}{\partial e_1}(x) & \cdots & \displaystyle\frac{\partial f_m}{\partial e_n}(x) \end{bmatrix} \begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix}.
 $$
 
+## Example: Linear regression
+
+
+
 ## Direct sums and partial derivatives
 
 The construction of the partial derivatives in the previous section is a special case of a more general construction described in this section. To set up, suppose that $\calh = \bigoplus_j \calh_j$ and $\calk = \bigoplus_i \calk_i$ are orthogonal direct sums of finite-dimensional Hilbert spaces, where the indices range over finite sets. Write
