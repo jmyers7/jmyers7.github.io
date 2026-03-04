@@ -151,7 +151,7 @@
 <p><strong>Theorem</strong></p>
 </div>
 <div class="callout-content">
-<p>Suppose <span class="math inline">\(f: \mathbb{R} \to \mathbb{R}\)</span> is <span class="math inline">\(2\pi\)</span>-periodic, continuous, and piecewise smooth. Let <span class="math inline">\(a_n\)</span>, <span class="math inline">\(b_n\)</span>, and <span class="math inline">\(c_n\)</span> be its Fourier coefficients, and let <span class="math inline">\(a_n'\)</span>, <span class="math inline">\(b_n'\)</span>, and <span class="math inline">\(c_n'\)</span> be the Fourier coefficients of its derivative <span class="math inline">\(f'\)</span>. Then <span class="math display">\[
+<p>Suppose <span class="math inline">\(f: \mathbb{R} \to \mathbb{R}\)</span> is <span class="math inline">\(2\pi\)</span>-periodic, continuous, and piecewise smooth. Let <span class="math inline">\(a_n\)</span>, <span class="math inline">\(b_n\)</span>, and <span class="math inline">\(c_n\)</span> be its Fourier coefficients, and let <span class="math inline">\(a_n'\)</span>, <span class="math inline">\(b_n'\)</span>, and <span class="math inline">\(c_n'\)</span> be the Fourier coefficients of its derivative <span class="math inline">\(f'\)</span>. Then <span class="math inline">\(a_0' = c_0' = 0\)</span>, and for <span class="math inline">\(n \geq 1\)</span> we have <span class="math display">\[
 a_n' = n b_n, \quad b_n' = -n a_n, \quad c_n' = i n c_n.
 \]</span></p>
 </div>
@@ -186,11 +186,14 @@ f'(\theta) = \sum_{n=1}^{\infty} \left(n b_n \cos{n\theta} - n a_n \sin{n\theta}
 </div>
 </div>
 <ul>
-<li class="fragment"><p>Since <span class="math inline">\(f'\)</span> is piecewise smooth, our main convergence theorem applies and tells us that <span class="math inline">\(f'\)</span> converges to its Fourier series at all points of continuity, and to the average of the left- and right-hand limits at discontinuities.</p></li>
-<li class="fragment"><p>But the Fourier coefficients of <span class="math inline">\(f'\)</span> were computed on the previous slide. The result follows.</p></li>
-<li class="fragment"><p>Notice that the Fourier series of <span class="math inline">\(f'\)</span> is obtained by term-by-term differentiation of the Fourier series of <span class="math inline">\(f\)</span>: <span class="math display">\[
+<li class="fragment">Why is the theorem true?
+<ul>
+<li class="fragment">Since <span class="math inline">\(f'\)</span> is piecewise smooth, our main convergence theorem applies and tells us that <span class="math inline">\(f'\)</span> converges to its Fourier series at all points of continuity, and to the average of the left- and right-hand limits at discontinuities.</li>
+<li class="fragment">But the Fourier coefficients of <span class="math inline">\(f'\)</span> were computed on the previous slide. Q.E.D.</li>
+</ul></li>
+<li class="fragment">Notice that the Fourier series of <span class="math inline">\(f'\)</span> is obtained by term-by-term differentiation of the Fourier series of <span class="math inline">\(f\)</span>: <span class="math display">\[
 f(\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{n\theta} + b_n \sin{n\theta}\right) = \sum_{n=-\infty}^{\infty} c_n e^{i n \theta}.
-\]</span></p></li>
+\]</span></li>
 </ul>
 </section>
 <section id="exercise-1-term-by-term-differentiation" class="slide level2 scrollable">
@@ -238,21 +241,90 @@ f(\theta) = 2 \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \sin{n\theta}.
 <div class="callout-content">
 <p>Suppose <span class="math inline">\(f\)</span> is <span class="math inline">\(2\pi\)</span>-periodic and piecewise continuous, and let <span class="math inline">\(a_n\)</span>, <span class="math inline">\(b_n\)</span>, and <span class="math inline">\(c_n\)</span> be its Fourier coefficients. Define <span class="math display">\[
 F(\theta) = \int_0^{\theta} f(\phi) \, d\phi.
-\]</span></p>
-<p>Then for all <span class="math inline">\(\theta\)</span> we have <span class="math display">\[
-F(\theta) = \frac{a_0}{2}\theta + \sum_{n=1}^{\infty} \left(\frac{a_n}{n} \sin{n\theta} - \frac{b_n}{n} \cos{n\theta}\right) =  c_0\theta + \sum_{n\neq 0} \frac{c_n}{i n} e^{i n \theta} . \tag{1}
+\]</span> Then, for all <span class="math inline">\(\theta\)</span>, we have <span class="math display">\[
+F(\theta) - c_0\theta = \frac{A_0}{2} + \sum_{n=1}^{\infty} \left(\frac{a_n}{n} \sin{n\theta} - \frac{b_n}{n} \cos{n\theta}\right) = C_0  + \sum_{n\neq 0} \frac{c_n}{i n} e^{i n \theta}, \tag{1}
+\]</span> where <span class="math display">\[
+C_0 = \frac{A_0}{2} = \frac{1}{2\pi} \int_{-\pi}^{\pi} F(\theta) \, d\theta.
 \]</span></p>
 </div>
 </div>
 </div>
 </div>
 <ul>
-<li class="fragment"><p>Notice that <span class="math inline">\(f\)</span> is not assumed piecewise smooth, so we cannot apply our convergence theorem to guarantee that it converges to its Fourier series. However, the theorem is still true!</p></li>
-<li class="fragment"><p>Notice also that the series on the right-hand side is obtained by term-by-term integration of the Fourier series of <span class="math inline">\(f\)</span>, <span class="math display">\[
-\frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{n\theta} + b_n \sin{n\theta}\right) = \sum_{n=-\infty}^{\infty} c_n e^{i n \theta},
-\]</span> by first replacing <span class="math inline">\(\theta\)</span> with <span class="math inline">\(\phi\)</span> and then integrating from <span class="math inline">\(0\)</span> to <span class="math inline">\(\theta\)</span>.</p></li>
-<li class="fragment"><p>Finally, notice that the series on the right-hand side of (1) is not a Fourier series, because of the <span class="math inline">\(a_0 \theta / 2\)</span> and <span class="math inline">\(c_0 \theta\)</span> terms. However, it is a Fourier series if <span class="math inline">\(f\)</span> has mean value zero, i.e., if <span class="math inline">\(a_0 = 0\)</span>.</p></li>
+<li class="fragment">Why is the theorem true?
+<ul>
+<li class="fragment">Define <span class="math inline">\(g(\theta) = f(\theta) - c_0\)</span>, and set <span class="math display">\[
+  G(\theta) = \int_0^{\theta} g(\phi) \, d\phi = F(\theta) - c_0\theta.
+  \]</span> Then <span class="math inline">\(G\)</span> is continuous and piecewise smooth, since <span class="math inline">\(g\)</span> is piecewise continuous.</li>
+<li class="fragment">But <span class="math inline">\(G\)</span> is also <span class="math inline">\(2\pi\)</span>-periodic, because: <span class="math display">\[
+  G(\theta+ 2\pi) - G(\theta) = \int_\theta^{\theta + 2\pi} g(\phi) \, d\phi = \int_{-\pi}^{\pi} f(\phi) \, d\phi - \int_{\theta}^{\theta+2\pi}c_0 \, d\phi = 2\pi c_0 - 2\pi c_0 = 0.
+  \]</span> for all <span class="math inline">\(\theta\)</span>.</li>
+<li class="fragment">Thus, our Fourier Convergence Theorem applies and tells us that <span class="math inline">\(G\)</span> converges to its Fourier series everywhere. Suppose its Fourier coefficients are <span class="math inline">\(A_n\)</span>, <span class="math inline">\(B_n\)</span>, and <span class="math inline">\(C_n\)</span>.</li>
+<li class="fragment">The Fourier coefficients of <span class="math inline">\(g\)</span> are the same as those of <span class="math inline">\(f\)</span>, except that <span class="math inline">\(c_0 = 0\)</span> for <span class="math inline">\(g\)</span>.</li>
+<li class="fragment">Since <span class="math inline">\(G'(\theta) = g(\theta)\)</span> wherever <span class="math inline">\(g\)</span> is continuous, we know that <span class="math display">\[
+  a_n = nB_n, \quad b_n = -nA_n, \quad c_n = i n C_n.
+  \]</span></li>
+<li class="fragment">Substituting these into the Fourier series of <span class="math inline">\(G\)</span> gives the desired result. Note that <span class="math inline">\(C_0\)</span> and <span class="math inline">\(A_0\)</span> are just the usual Fourier coefficients of <span class="math inline">\(G\)</span>. Q.E.D.</li>
+</ul></li>
+<li class="fragment">A few additional things to notice:
+<ul>
+<li class="fragment">Note <span class="math inline">\(f\)</span> is not assumed piecewise smooth, so we cannot apply our convergence theorem to guarantee that it converges to its Fourier series. However, the theorem is still true!</li>
+<li class="fragment">Provided that <span class="math inline">\(c_0=a_0=0\)</span>, note that the series in (1) are obtained by term-by-term integration of the Fourier series of <span class="math inline">\(f\)</span> from <span class="math inline">\(0\)</span> to <span class="math inline">\(\theta\)</span> (after first replacing <span class="math inline">\(\theta\)</span> with <span class="math inline">\(\phi\)</span>).</li>
+</ul></li>
 </ul>
+</section>
+<section id="exercise-1-term-by-term-integration" class="slide level2 scrollable">
+<h2>Exercise 1: Term-by-term integration</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Consider the <span class="math inline">\(2\pi\)</span>-periodic function <span class="math inline">\(f\)</span> with</p>
+<p><span class="math display">\[
+f(\theta) = \begin{cases}
+-1 &amp; : -\pi &lt; \theta &lt; 0, \\
+1 &amp; : 0 &lt; \theta &lt; \pi.
+\end{cases}
+\]</span></p>
+<p>Then we know that</p>
+<p><span class="math display">\[
+f(\theta) = \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{[(2n-1)\theta]}}{2n-1}
+\]</span></p>
+<p>at all points of continuity. Identify the function <span class="math inline">\(F(\theta) = \int_0^{\theta} f(\phi) \, d\phi\)</span>, and use the integration theorem to obtain its Fourier series.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="uniform-and-absolute-convergence-of-fourier-series" class="slide level2 scrollable">
+<h2>Uniform and absolute convergence of Fourier series</h2>
+<ul>
+<li class="fragment">Our Fourier Convergence Theorem only guarnatees pointwise convergence of the Fourier series of a piecewise smooth function <span class="math inline">\(f\)</span>. That is, for each fixed <span class="math inline">\(\theta\)</span> at which <span class="math inline">\(f\)</span> is continuous, we have <span class="math display">\[
+f(\theta) = \lim_{N\to \infty} S_N^f(\theta),
+\]</span> where <span class="math inline">\(S_N^f\)</span> is the <span class="math inline">\(N\)</span>-th partial sum of the Fourier series of <span class="math inline">\(f\)</span>.</li>
+<li class="fragment">But the manner in which this limit approaches <span class="math inline">\(f(\theta)\)</span> can be vary from point to point. This can make it difficult to work with Fourier series.</li>
+<li class="fragment">Instead, we seek a stronger notion of convergence, called <strong>uniform and absolute convergence</strong>, which says intuitively that the Fourier series converges to <span class="math inline">\(f\)</span> “in the same way” for all <span class="math inline">\(\theta\)</span>. (Hence the term “uniform”.)
+<ul>
+<li class="fragment">This buys us things like:
+<ul>
+<li class="fragment">Continuity of <span class="math inline">\(f\)</span> is guaranteed. The uniform limit of continuous functions is known to be continuous.</li>
+<li class="fragment">An integral sign <span class="math inline">\(\int_a^b\)</span> can be pulled past the <span class="math inline">\(\sum_{n=1}^\infty\)</span> sign. The uniform limit of integrable functions is known to be integrable, and the integral of the limit is the limit of the integrals.</li>
+<li class="fragment">If the Fourier series of <span class="math inline">\(f'\)</span> converges uniformly, then the Fourier series of <span class="math inline">\(f\)</span> can be differentiated term-by-term to obtain the Fourier series of <span class="math inline">\(f'\)</span>.</li>
+<li class="fragment">We may rearrange the terms of the Fourier series of <span class="math inline">\(f\)</span> without changing its sum.</li>
+</ul></li>
+</ul></li>
+<li class="fragment">When can we guarantee uniform and absolute convergence of the Fourier series of a function <span class="math inline">\(f\)</span>? By what we said above, <strong>if</strong> this type of convergece held, then <span class="math inline">\(f\)</span> must be continuous. It turns out that, along with piecewise smoothness, this is also sufficient:</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Absolute and Uniform Convergence Theorem</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose <span class="math inline">\(f: \mathbb{R} \to \mathbb{R}\)</span> is <span class="math inline">\(2\pi\)</span>-periodic, continuous, and piecewise smooth. Then the Fourier series of <span class="math inline">\(f\)</span> converges uniformly and absolutely to <span class="math inline">\(f\)</span> on all of <span class="math inline">\(\mathbb{R}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
