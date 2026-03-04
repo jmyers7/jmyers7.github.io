@@ -148,7 +148,7 @@ where $u_1,\dots,u_m$ are the variables in the domain of $g$.
 
 - Very often, the variables $u_1,\ldots,u_m$ play a double role as both the variables in the domain of $g$ and the component functions $f_1,\ldots,f_m$ of $f$. Also, the evaluations of the partial derivatives are often omitted as well, so that the chain rule can be written as
 $$
-\frac{\partial g}{\partial x_j} = \sum_{p=1}^m \frac{\partial g_i}{\partial u_p} \frac{\partial u_p}{\partial x_j}.
+\frac{\partial g_i}{\partial x_j} = \sum_{p=1}^m \frac{\partial g_i}{\partial u_p} \frac{\partial u_p}{\partial x_j}.
 $$
 This is **not** proper mathematical notation, but it is a common shorthand that is often used in practice.
 

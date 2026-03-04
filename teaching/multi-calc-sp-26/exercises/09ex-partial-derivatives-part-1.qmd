@@ -25,7 +25,7 @@ c. I said in class that the partial derivative $\frac{\partial f}{\partial x}(x_
 
 d. If I told you that $\frac{\partial f}{\partial y}(1,1)=2$, what does that tell you about the tangent plane of $f$ at $(1,1)$?
 
-e. True or false: If $\frac{\partial f}{\partial x}(x_0,y_0)=0$ and $\frac{\partial f}{\partial y}(x_0,y_0)=0$, then the tangent plane of $f$ at $(1,1)$ is horizontal. Explain your answer.
+e. True or false: If $\frac{\partial f}{\partial x}(1,1)=0$ and $\frac{\partial f}{\partial y}(1,1)=0$, then the tangent plane of $f$ at $(1,1)$ is horizontal. Explain your answer.
 
 f. We know that the partial derivatives of $f$ at a point $(x_0,y_0)$ give us the rate of change of $f$ in the directions of the $x$- and $y$-axes. But what if we wanted to know the rate of change of $f$ at $(x_0,y_0)$ in some other direction, say the direction of the vector $\mathbf{v}$? How would we compute that?
 :::
