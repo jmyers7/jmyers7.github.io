@@ -41,8 +41,8 @@ This course is an introduction to multivariable calculus. We will cover the foll
 || 03.11 wed |
 || 03.09 mon |
 | Week 6 | 03.06 fri |
-|| 03.05 thu |
-|| 03.04 wed |
+|| 03.05 thu |||| Quiz on Secs 9-12
+|| 03.04 wed | Same as below ↓ | Same as below ↓ | Same as below ↓
 || 03.02 mon | Sec 12: Chain rule | [Sec 12 Slides](./slides/12-chain-rule.qmd){target="_blank"} | [Sec 12 Exercises](./exercises/12ex-chain-rule.qmd) |
 | Week 5 | 02.27 fri | Sec 11: Partial derivatives, part 3 | [Sec 11 Slides](./slides/11-partial-derivatives-part-3.qmd){target="_blank"} | [Sec 11 Exercises](./exercises/11ex-partial-derivatives-part-3.qmd)
 || 02.26 thu | Sec 10: Partial derivatives, part 2 | [Sec 10 Slides](./slides/10-partial-derivatives-part-2.qmd){target="_blank"} | [Sec 10 Exercises](./exercises/10ex-partial-derivatives-part-2.qmd) | Quiz on Sec 8

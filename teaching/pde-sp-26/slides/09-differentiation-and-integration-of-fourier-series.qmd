@@ -13,7 +13,7 @@ format:
 
 ::: {.callout-note icon="false" .fragment}
 ### Theorem
-Suppose $f: \mathbb{R} \to \mathbb{R}$ is $2\pi$-periodic, continuous, and piecewise smooth. Let $a_n$, $b_n$, and $c_n$ be its Fourier coefficients, and let $a_n'$, $b_n'$, and $c_n'$ be the Fourier coefficients of its derivative $f'$. Then
+Suppose $f: \mathbb{R} \to \mathbb{R}$ is $2\pi$-periodic, continuous, and piecewise smooth. Let $a_n$, $b_n$, and $c_n$ be its Fourier coefficients, and let $a_n'$, $b_n'$, and $c_n'$ be the Fourier coefficients of its derivative $f'$. Then $a_0' = c_0' = 0$, and for $n \geq 1$ we have
 $$
 a_n' = n b_n, \quad b_n' = -n a_n, \quad c_n' = i n c_n.
 $$
@@ -43,9 +43,9 @@ $$
 for all $\theta$ at which $f'$ is continuous. At discontinuities of $f'$, the Fourier series on the right converge to the average of the left- and right-hand limits of $f'$.
 :::
 
-- Since $f'$ is piecewise smooth, our main convergence theorem applies and tells us that $f'$ converges to its Fourier series at all points of continuity, and to the average of the left- and right-hand limits at discontinuities.
-
-- But the Fourier coefficients of $f'$ were computed on the previous slide. The result follows.
+- Why is the theorem true?
+    - Since $f'$ is piecewise smooth, our main convergence theorem applies and tells us that $f'$ converges to its Fourier series at all points of continuity, and to the average of the left- and right-hand limits at discontinuities.
+    - But the Fourier coefficients of $f'$ were computed on the previous slide. Q.E.D.
 
 - Notice that the Fourier series of $f'$ is obtained by term-by-term differentiation of the Fourier series of $f$:
 $$
@@ -95,20 +95,81 @@ Suppose $f$ is $2\pi$-periodic and piecewise continuous, and let $a_n$, $b_n$, a
 $$
 F(\theta) = \int_0^{\theta} f(\phi) \, d\phi.
 $$
+Then, for all $\theta$, we have
+$$
+F(\theta) - c_0\theta = \frac{A_0}{2} + \sum_{n=1}^{\infty} \left(\frac{a_n}{n} \sin{n\theta} - \frac{b_n}{n} \cos{n\theta}\right) = C_0  + \sum_{n\neq 0} \frac{c_n}{i n} e^{i n \theta}, \tag{1}
+$$
+where
+$$
+C_0 = \frac{A_0}{2} = \frac{1}{2\pi} \int_{-\pi}^{\pi} F(\theta) \, d\theta.
+$$
+:::
 
-Then for all $\theta$ we have
+- Why is the theorem true?
+    - Define $g(\theta) = f(\theta) - c_0$, and set
+    $$
+    G(\theta) = \int_0^{\theta} g(\phi) \, d\phi = F(\theta) - c_0\theta.
+    $$
+    Then $G$ is continuous and piecewise smooth, since $g$ is piecewise continuous.
+    - But $G$ is also $2\pi$-periodic, because:
+    $$
+    G(\theta+ 2\pi) - G(\theta) = \int_\theta^{\theta + 2\pi} g(\phi) \, d\phi = \int_{-\pi}^{\pi} f(\phi) \, d\phi - \int_{\theta}^{\theta+2\pi}c_0 \, d\phi = 2\pi c_0 - 2\pi c_0 = 0.
+    $$
+    for all $\theta$.
+    - Thus, our Fourier Convergence Theorem applies and tells us that $G$ converges to its Fourier series everywhere. Suppose its Fourier coefficients are $A_n$, $B_n$, and $C_n$.
+    - The Fourier coefficients of $g$ are the same as those of $f$, except that $c_0 = 0$ for $g$.
+    - Since $G'(\theta) = g(\theta)$ wherever $g$ is continuous, we know that
+    $$
+    a_n = nB_n, \quad b_n = -nA_n, \quad c_n = i n C_n.
+    $$
+    - Substituting these into the Fourier series of $G$ gives the desired result. Note that $C_0$ and $A_0$ are just the usual Fourier coefficients of $G$. Q.E.D.
+
+- A few additional things to notice:
+    - Note $f$ is not assumed piecewise smooth, so we cannot apply our convergence theorem to guarantee that it converges to its Fourier series. However, the theorem is still true!
+    - Provided that $c_0=a_0=0$, note that the series in (1) are obtained by term-by-term integration of the Fourier series of $f$ from $0$ to $\theta$ (after first replacing $\theta$ with $\phi$).
+
+## Exercise 1: Term-by-term integration {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the $2\pi$-periodic function $f$ with
+
 $$
-F(\theta) = \frac{a_0}{2}\theta + \sum_{n=1}^{\infty} \left(\frac{a_n}{n} \sin{n\theta} - \frac{b_n}{n} \cos{n\theta}\right) =  c_0\theta + \sum_{n\neq 0} \frac{c_n}{i n} e^{i n \theta} . \tag{1}
+f(\theta) = \begin{cases}
+-1 & : -\pi < \theta < 0, \\
+1 & : 0 < \theta < \pi.
+\end{cases}
 $$
+
+Then we know that
+
+$$
+f(\theta) = \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{[(2n-1)\theta]}}{2n-1}
+$$
+
+at all points of continuity. Identify the function $F(\theta) = \int_0^{\theta} f(\phi) \, d\phi$, and use the integration theorem to obtain its Fourier series.
 
 :::
 
-- Notice that $f$ is not assumed piecewise smooth, so we cannot apply our convergence theorem to guarantee that it converges to its Fourier series. However, the theorem is still true!
+## Uniform and absolute convergence of Fourier series {.scrollable}
 
-- Notice also that the series on the right-hand side is obtained by term-by-term integration of the Fourier series of $f$,
+- Our Fourier Convergence Theorem only guarnatees pointwise convergence of the Fourier series of a piecewise smooth function $f$. That is, for each fixed $\theta$ at which $f$ is continuous, we have
 $$
-\frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos{n\theta} + b_n \sin{n\theta}\right) = \sum_{n=-\infty}^{\infty} c_n e^{i n \theta},
+f(\theta) = \lim_{N\to \infty} S_N^f(\theta),
 $$
-by first replacing $\theta$ with $\phi$ and then integrating from $0$ to $\theta$.
+where $S_N^f$ is the $N$-th partial sum of the Fourier series of $f$.
+- But the manner in which this limit approaches $f(\theta)$ can be vary from point to point. This can make it difficult to work with Fourier series.
+- Instead, we seek a stronger notion of convergence, called **uniform and absolute convergence**, which says intuitively that the Fourier series converges to $f$ "in the same way" for all $\theta$. (Hence the term "uniform".)
+    - This buys us things like: 
+        - Continuity of $f$ is guaranteed. The uniform limit of continuous functions is known to be continuous.
+        - An integral sign $\int_a^b$ can be pulled past the $\sum_{n=1}^\infty$ sign. The uniform limit of integrable functions is known to be integrable, and the integral of the limit is the limit of the integrals.
+        - If the Fourier series of $f'$ converges uniformly, then the Fourier series of $f$ can be differentiated term-by-term to obtain the Fourier series of $f'$.
+        - We may rearrange the terms of the Fourier series of $f$ without changing its sum.
+- When can we guarantee uniform and absolute convergence of the Fourier series of a function $f$? By what we said above, **if** this type of convergece held, then $f$ must be continuous. It turns out that, along with piecewise smoothness, this is also sufficient:
 
-- Finally, notice that the series on the right-hand side of (1) is not a Fourier series, because of the $a_0 \theta / 2$ and $c_0 \theta$ terms. However, it is a Fourier series if $f$ has mean value zero, i.e., if $a_0 = 0$.
+::: {.callout-note icon="false" .fragment}
+### Absolute and Uniform Convergence Theorem
+
+Suppose $f: \mathbb{R} \to \mathbb{R}$ is $2\pi$-periodic, continuous, and piecewise smooth. Then the Fourier series of $f$ converges uniformly and absolutely to $f$ on all of $\mathbb{R}$.
+
+:::
