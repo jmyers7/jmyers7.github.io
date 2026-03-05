@@ -1,0 +1,158 @@
+---
+title: "13 Second derivatives"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Exercise 1: Transposition of matrices {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+## (a) Computing the transpose of a matrix
+
+Let $A$ be an $m\times n$ matrix with entry $a_{ij}$ in the $i$-th row and the $j$-th column. The **transpose** of $A$, denoted $A^\top$, is the $n\times m$ matrix with entry $a_{ji}$ in the $i$-th row and the $j$-th column. In other words, the rows of $A$ become the columns of $A^\top$ (equivalently, the columns of $A$ become the rows of $A^\top$).
+
+Compute the transpose of the following matrices:
+
+i. $\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$
+ii. $\begin{bmatrix} -1 & 0 & 1 \\ 8 & 2 & 3 \end{bmatrix}$
+iii. $\begin{bmatrix} 1 \\ -3 \\ 5 \end{bmatrix}$
+iv. $\begin{bmatrix} -10 & 2 & 0 & 4 \end{bmatrix}$
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+## (b) Computing matrix products with transposes
+
+Suppose that
+
+$$
+A = \begin{bmatrix} -1 & 3 \\ 3 & 4 \end{bmatrix}, \quad \mathbf{u} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad \mathbf{v} = \begin{bmatrix} 0 \\ -2 \end{bmatrix}.
+$$
+
+i. Compute $\mathbf{u}^\top \mathbf{v}$. (What is this the same as?)
+ii. Compute $\mathbf{u}^\top A \mathbf{v}$.
+iii. Compute $\mathbf{v}^\top A \mathbf{v}$.
+
+:::
+
+## Quadratic forms {.scrollable}
+
+- A square matrix $A$ is called **symmetric** if $A^\top = A$. In other words, the entries of $A$ satisfy $a_{ij} = a_{ji}$ for all $i,j$.
+
+::: {.callout-note icon="false" .fragment }
+### Definition
+
+Given a symmetric $n\times n$ matrix $A$, the function
+$$
+q: \mathbb{R}^n \to \mathbb{R}, \quad q(\mathbf{x}) = \mathbf{x}^\top A \mathbf{x}
+$$
+
+is called a **quadratic form**. The matrix $A$ is called the **matrix of the quadratic form**.
+
+:::
+
+- If you expand the product $\mathbf{x}^\top A \mathbf{x}$, you will see that $q(\mathbf{x})$ is a polynomial of degree 2 in the entries of $\mathbf{x}$:
+$$
+q(\mathbf{x}) = \sum_{i=1}^n\sum_{j=1}^n a_{ij} x_i x_j.
+$$
+
+- You can use this formula to reverse engineer a quadratic form to find is matrix.
+
+
+## Exercise 2: Reverse engineering a quadratic form {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Find the matrices of the following quadratic forms.
+
+a. $\mathbf{x}^\top A \mathbf{x} = 3 x_1^2 + 4 x_1 x_2 + 5 x_2^2$
+b. $\mathbf{x}^\top B \mathbf{x} = 2 x_1^2 + 3 x_1 x_2 + 4 x_1 x_3 + 5 x_2^2 + 6 x_2 x_3 + 7 x_3^2$
+c. $\mathbf{x}^\top C \mathbf{x} = 2 x_1^2 + 3 x_1 x_2 + 4 x_1 x_3 + 5 x_2^2 + 6 x_2 x_3 + 7 x_3^2 + 8 x_1 x_4 + 9 x_2 x_4 + 10 x_3 x_4 + 11 x_4^2$
+
+:::
+
+
+## Another view on the derivative
+
+- Let's suppose for simplicity that $f: \mathbb{R}^2 \to \mathbb{R}$, so that we may visualize the graph of $f$ embedded in $\mathbb{R}^3$.
+
+- Given a position vector $\mathbf{v} = \begin{bmatrix} x \\ y \end{bmatrix}$ and a step vector $\mathbf{h}$, the **definition** of the derivative $f'(\mathbf{v})$ is
+$$
+f'(\mathbf{v}) \mathbf{h} = \lim_{\lambda \to 0} \frac{f(\mathbf{v} + \lambda \mathbf{h}) - f(\mathbf{v})}{\lambda}.
+$$
+
+- On the other hand, we may consider the function
+$$
+g: \mathbb{R} \to \mathbb{R}, \quad g(t) = f(\mathbf{v} + t \mathbf{h})
+$$
+
+- The graph of $g$ is a cross section obtained by slicing the graph of $f$ with a vertical plane containing the step vector $\mathbf{h}$.
+
+- Note that
+$$
+g'(0) = \lim_{t \to 0} \frac{g(t) - g(0)}{t} = \lim_{t \to 0} \frac{f(\mathbf{v} + t \mathbf{h}) - f(\mathbf{v})}{t}.
+$$
+
+- But if you replace $t$ with $\lambda$ in the previous limit, you see that $g'(0) = f'(\mathbf{v}) \mathbf{h}$.
+
+::: {.callout-note icon="false" .fragment }
+### Theorem
+
+Suppose $f: \mathbb{R}^n \to \mathbb{R}$ is differentiable at $\mathbf{v} \in \mathbb{R}^n$. Then for any step vector $\mathbf{h} \in \mathbb{R}^n$, we have
+
+$$
+f'(\mathbf{v}) \mathbf{h} = \frac{d}{d\lambda} f(\mathbf{v} + \lambda \mathbf{h}) \Big|_{\lambda = 0}.
+$$
+
+:::
+
+## Exercise 3: Confirming the theorem {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute the derivatives of the following functions using the theorem on the previous slide. Check your answer by computing the derivatives using partial derivatives.
+
+a. $f: \mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = xy + x^2$
+b. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = x^3 + y^3 + z^3$
+
+:::
+
+## The second derivative
+
+- This new view on the derivative of a function $f: \mathbb{R}^n \to \mathbb{R}$ suggests the following:
+
+::: {.callout-note icon="false" .fragment }
+### Definition
+
+Let $f: \mathbb{R}^n \to \mathbb{R}$ be a function. The **second derivative** of $f$ at a point $\mathbf{v} \in \mathbb{R}^n$ with step vector $\mathbf{h}$ is the $n\times n$ matrix $f''(\mathbf{v})$ such that
+
+$$
+\mathbf{h}^\top f''(\mathbf{v}) \mathbf{h} = \frac{d^2}{d\lambda^2} f(\mathbf{v} + \lambda \mathbf{h}) \Big|_{\lambda = 0},
+$$
+
+provided that the derivative on the right hand side exists.
+
+:::
+
+- In all of our examples, the second derivative will be a symmetric matrix, so it is the matrix of a quadratic form. This matrix is often called the **Hessian matrix** of $f$ at $\mathbf{v}$. 
+- In order to compute the second derivative, we need to "reverse engineer" the quadratic form, similar to what we did in Exercise 2. We will see later that there is a very nice formula for the Hessian matrix in terms of partial derivatives.
+- Our definition only applies to real-valued functions, i.e., functions with only one output. This definition can be generalized to functions with multiple outputs, but then the second derivative is a more complicated object called a **tensor**.
+- Technicalities, only so I can sleep at night:
+    - The second derivative is supposed to be a "bilinear form" defined on *two* step vectors, but we won't pursue this.
+    - Also, this is a "weaker" form of the second derivative than is often encountered in a fully rigorous treatment of multivariable calculus. (This is the second ["Gâteaux derivative"](https://en.wikipedia.org/wiki/Gateaux_derivative){target="_blank"} rather than the second ["Fréchet derivative"](https://en.wikipedia.org/wiki/Fr%C3%A9chet_derivative){target="_blank"}.)
+
+
+## Exercise 4: Computing second derivatives {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Compute the second derivatives of the following functions using the definition of the second derivative.
+
+a. $f: \mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = xy + x^2$
+b. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = x^3 + y^3 + z^3$
+
+:::

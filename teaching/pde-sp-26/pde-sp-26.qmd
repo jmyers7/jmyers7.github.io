@@ -43,7 +43,7 @@ This course is an introduction to partial differential equations (PDEs) and Four
 || 03.09 mon |
 | Week 6 | 03.06 fri | | | | Quiz on Secs 7-9
 || 03.04 wed | Same as below ↓ | Same as below ↓ | Same as below ↓
-|| 03.02 mon | Sec 9: Differentiation and integration of Fourier series | [Sec 9 Slides](./slides/09-differentiation-and-integration-of-fourier-series.qmd){target="_blank"} | Coming soon
+|| 03.02 mon | Sec 9: Differentiation and integration of Fourier series | [Sec 9 Slides](./slides/09-differentiation-and-integration-of-fourier-series.qmd){target="_blank"} | [Sec 9 Exercises](./exercises/09ex-differentiation-and-integration-of-fourier-series.qmd) |
 | Week 5 | 02.27 fri | Sec 8: Convergence of Fourier series, part 2 | [Sec 8 Slides](./slides/08-convergence-of-fourier-series-part-2.qmd){target="_blank"} | [Sec 8 Exercises](./exercises/08ex-convergence-of-fourier-series-part-2.qmd) | Quiz on Sec 6
 || 02.25 wed | Sec 7: Convergence of Fourier series, part 1 | [Sec 7 Slides](./slides/07-convergence-of-fourier-series-part-1.qmd){target="_blank"} | [Sec 7 Exercises](./exercises/07ex-convergence-of-fourier-series-part-1.qmd) |
 || 02.23 mon | Same as below ↓ | Same as below ↓ | Same as below ↓ |
