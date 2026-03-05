@@ -145,14 +145,37 @@ provided that the derivative on the right hand side exists.
     - The second derivative is supposed to be a "bilinear form" defined on *two* step vectors, but we won't pursue this.
     - Also, this is a "weaker" form of the second derivative than is often encountered in a fully rigorous treatment of multivariable calculus. (This is the second ["Gâteaux derivative"](https://en.wikipedia.org/wiki/Gateaux_derivative){target="_blank"} rather than the second ["Fréchet derivative"](https://en.wikipedia.org/wiki/Fr%C3%A9chet_derivative){target="_blank"}.)
 
+## What does the second derivative measure?
+
+::: {.callout-note icon="false" .fragment }
+## Theorem/Definition
+
+Let $f: \mathbb{R}^n \to \mathbb{R}$ be a function, and let $\mathbf{v} \in \mathbb{R}^n$ be a point.
+
+- If $\mathbf{h}$ is a **unit** step vector, then the number $\mathbf{h}^\top f''(\mathbf{v}) \mathbf{h}$ measures the **curvature** of the graph of $f$ in the direction of $\mathbf{h}$ at the point $\mathbf{v}$.
+    - If the curvature is positive, then the graph of $f$ is concave up in the direction of $\mathbf{h}$ at the point $\mathbf{v}$.
+    - If the curvature is negative, then the graph of $f$ is concave down in the direction of $\mathbf{h}$ at the point $\mathbf{v}$.
+- The magnitude of the curvature tells us how "curved" the graph of $f$ is in the direction of $\mathbf{h}$ at the point $\mathbf{v}$. Big magnitude means very curved, small magnitude means almost flat.
+
+:::
+
 
 ## Exercise 4: Computing second derivatives {.scrollable}
 
 ::: {.callout-note icon="false" .nonincremental appearance="minimal"}
-
+## (a) Computing second derivatives
 Compute the second derivatives of the following functions using the definition of the second derivative.
 
-a. $f: \mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = xy + x^2$
-b. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = x^3 + y^3 + z^3$
+i. $f: \mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = xy + x^2$
+ii. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = x^3 + y^3 + z^3$
+
+:::
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+## (b) Computing curvatures
+Now compute the curvatures of the functions in part (a) at the following points and in the following directions.
+
+i. At $(1,1)$, in the direction of $\mathbf{h} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$.
+ii. At $(1,0,1)$, in the direction of $\mathbf{h} = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$.
 
 :::
