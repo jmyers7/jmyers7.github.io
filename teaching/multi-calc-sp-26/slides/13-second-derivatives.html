@@ -300,15 +300,55 @@ f'(\mathbf{v}) \mathbf{h} = \frac{d}{d\lambda} f(\mathbf{v} + \lambda \mathbf{h}
 </ul></li>
 </ul>
 </section>
+<section id="what-does-the-second-derivative-measure" class="slide level2">
+<h2>What does the second derivative measure?</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem/Definition</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(f: \mathbb{R}^n \to \mathbb{R}\)</span> be a function, and let <span class="math inline">\(\mathbf{v} \in \mathbb{R}^n\)</span> be a point.</p>
+<ul>
+<li class="fragment">If <span class="math inline">\(\mathbf{h}\)</span> is a <strong>unit</strong> step vector, then the number <span class="math inline">\(\mathbf{h}^\top f''(\mathbf{v}) \mathbf{h}\)</span> measures the <strong>curvature</strong> of the graph of <span class="math inline">\(f\)</span> in the direction of <span class="math inline">\(\mathbf{h}\)</span> at the point <span class="math inline">\(\mathbf{v}\)</span>.
+<ul>
+<li class="fragment">If the curvature is positive, then the graph of <span class="math inline">\(f\)</span> is concave up in the direction of <span class="math inline">\(\mathbf{h}\)</span> at the point <span class="math inline">\(\mathbf{v}\)</span>.</li>
+<li class="fragment">If the curvature is negative, then the graph of <span class="math inline">\(f\)</span> is concave down in the direction of <span class="math inline">\(\mathbf{h}\)</span> at the point <span class="math inline">\(\mathbf{v}\)</span>.</li>
+</ul></li>
+<li class="fragment">The magnitude of the curvature tells us how “curved” the graph of <span class="math inline">\(f\)</span> is in the direction of <span class="math inline">\(\mathbf{h}\)</span> at the point <span class="math inline">\(\mathbf{v}\)</span>. Big magnitude means very curved, small magnitude means almost flat.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="exercise-4-computing-second-derivatives" class="slide level2 scrollable">
 <h2>Exercise 4: Computing second derivatives</h2>
-<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
 <div class="callout-body">
+<div class="callout-title">
+<p><strong>(a) Computing second derivatives</strong></p>
+</div>
 <div class="callout-content">
 <p>Compute the second derivatives of the following functions using the definition of the second derivative.</p>
-<ol type="a">
+<ol type="i">
 <li><span class="math inline">\(f: \mathbb{R}^2 \to \mathbb{R}\)</span>, <span class="math inline">\(f(x,y) = xy + x^2\)</span></li>
 <li><span class="math inline">\(f: \mathbb{R}^3 \to \mathbb{R}\)</span>, <span class="math inline">\(f(x,y,z) = x^3 + y^3 + z^3\)</span></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>(b) Computing curvatures</strong></p>
+</div>
+<div class="callout-content">
+<p>Now compute the curvatures of the functions in part (a) at the following points and in the following directions.</p>
+<ol type="i">
+<li>At <span class="math inline">\((1,1)\)</span>, in the direction of <span class="math inline">\(\mathbf{h} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\)</span>.</li>
+<li>At <span class="math inline">\((1,0,1)\)</span>, in the direction of <span class="math inline">\(\mathbf{h} = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}\)</span>.</li>
 </ol>
 </div>
 </div>
