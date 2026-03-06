@@ -1,0 +1,116 @@
+---
+title: "10 Fourier series on different intervals, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Summary so far {.scrollable}
+
+- Till now, we have focused on Fourier series of $2\pi$-periodic functions $f: \mathbb{R} \to \mathbb{R}$, and restricted our attention to the interval $[-\pi, \pi]$.
+
+- Often, we begin with a function defined only on $[-\pi,\pi]$ and form its $2\pi$-periodic extension to all of $\mathbb{R}$.
+
+- Technically, this only works if $f(-\pi) = f(\pi)$. If this is not the case, then the extension is not well-defined.
+
+- So, we should really only be considering $2\pi$-periodic extensions of functions defined on $(-\pi,\pi]$ or $[-\pi, \pi)$.
+
+## Functions defined on $[0,\pi]$, part 1 {.scrollable}
+
+- This all leads us to a method for computing Fourier series of functions defined on the interval $[0,\pi]$:
+    1. We extend the function to $(-\pi, \pi]$ in some manner.
+    2. We then extend again to a $2\pi$-periodic function on all of $\mathbb{R}$.
+    3. Compute the Fourier series of the resulting $2\pi$-periodic function.
+
+- Provided the original function was piecewise smooth, so too will be the resulting $2\pi$-periodic function, and so the Fourier series will converge to the original function on $[0,\pi]$ at all points of continuity.
+
+- How do we complete step (1)? There are two natural ways to do this:
+
+::: {.callout-note icon="false" .fragment}
+### Definition
+Let $f: [0,\pi] \to \mathbb{R}$ be a function.
+
+a. The **even extension** of $f$ to $(-\pi, \pi]$ is the function $f_{\text{even}}: [-\pi, \pi] \to \mathbb{R}$ defined by
+$$
+f_{\text{even}}(\theta) = \begin{cases}
+f(\theta) & : \theta \in [0, \pi], \\
+f(-\theta) & : \theta \in [-\pi, 0].
+\end{cases}
+$$
+Notice that the even extension is in fact defined on $[-\pi, \pi]$, and that $f_{\text{even}}(-\pi) = f_\text{even}(\pi)$.
+
+b. The **odd extension** of $f$ to $(-\pi, \pi]$ is the function $f_{\text{odd}}: (-\pi, \pi] \to \mathbb{R}$ defined by
+$$
+f_{\text{odd}}(\theta) = \begin{cases}
+f(\theta) & : \theta \in (0, \pi], \\
+-f(-\theta) & : \theta \in (-\pi, 0), \\
+0 & : \theta = 0.
+\end{cases}
+$$
+
+:::
+
+- If $f$ is piecewise smooth or piecewise continuous, then so too are its even and odd extensions.
+
+## Functions defined on $[0,\pi]$, part 2 {.scrollable}
+
+- Suppose we continue with a function $f: [0, \pi] \to \mathbb{R}$, assumed to be integrable.
+
+- The Fourier series of the even extension $f_{\text{even}}$ has
+$$
+a_n = \frac{2}{\pi} \int_{0}^{\pi} f(\theta) \cos{n\theta} \, d\theta \quad \text{and} \quad b_n = 0,
+$$
+since $f_{\text{even}}$ is (of course) even. Thus its Fourier series is given by
+$$
+\frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos{n\theta}.
+$$
+
+- The Fourier series of the odd extension $f_{\text{odd}}$ has
+$$
+a_n = 0 \quad \text{and} \quad b_n = \frac{2}{\pi} \int_{0}^{\pi} f(\theta) \sin{n\theta} \, d\theta,
+$$
+since $f_{\text{odd}}$ is (of course) odd. Thus its Fourier series is given by
+$$
+\sum_{n=1}^{\infty} b_n \sin{n\theta}.
+$$
+
+- This leads us to:
+
+
+::: {.callout-note icon="false" .fragment}
+### Definition/Theorem
+
+Let $f: [0, \pi] \to \mathbb{R}$ be a piecewise smooth function. Its **Fourier cosine series** is given by
+
+$$
+\frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos{n\theta}, \quad a_n = \frac{2}{\pi} \int_{0}^{\pi} f(\theta) \cos{n\theta} \, d\theta,
+$$
+
+and its Fourier sine series is given by
+
+$$
+\sum_{n=1}^{\infty} b_n \sin{n\theta}, \quad b_n = \frac{2}{\pi} \int_{0}^{\pi} f(\theta) \sin{n\theta} \, d\theta.
+$$
+
+These series both converge pointwise to $f$ at all points of continuity.
+
+:::
+
+## Exercise 1: Fourier series on $[0,\pi]$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the function
+
+$$
+f:[0, \pi] \to \mathbb{R}, \quad f(\theta) = \theta.
+$$
+
+a. Compute the even and odd extensions of $f$.
+b. Compute the Fourier cosine and sine series of $f$.
+
+:::

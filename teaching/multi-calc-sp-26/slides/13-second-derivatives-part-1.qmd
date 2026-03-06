@@ -1,5 +1,5 @@
 ---
-title: "13 Second derivatives"
+title: "13 Second derivatives, part 1"
 format:
     revealjs:
         incremental: true
