@@ -1,5 +1,5 @@
 ---
-title: "10 Fourier series on different intervals, part 1"
+title: "10 Fourier series on different intervals"
 format:
     revealjs:
         incremental: true
@@ -113,4 +113,34 @@ $$
 a. Compute the even and odd extensions of $f$.
 b. Compute the Fourier cosine and sine series of $f$.
 
+:::
+
+## Functions on general intervals {.scrollable}
+
+- Suppose we have an integrable function $f(x)$ defined on an interval $(t, t+L]$ (or $[t, t+L)$) of length $L>0$. If we make the change of variables $x = \frac{L\theta}{\pi} + t$, then the function $g(\theta)$ is defined on the interval $(0, \pi]$ (or $[0, \pi)$).
+
+- Thus $g$ has its Fourier cosine and sine series
+$$
+\frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos{n\theta} \quad \text{and} \quad \sum_{n=1}^\infty b_n \sin{n\theta}
+$$
+where the coefficients are given by
+$$
+a_n = \frac{2}{\pi} \int_0^\pi g(\theta) \cos{n\theta} \, d\theta, \quad b_n = \frac{2}{\pi} \int_0^\pi g(\theta) \sin{n\theta} \, d\theta.
+$$
+
+- Thus $f$ has Fourier cosine and sine series
+$$
+\frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos{\left(\frac{n\pi(x-t)}{L}\right)} \quad \text{and} \quad \sum_{n=1}^\infty b_n \sin{\left(\frac{n\pi(x-t)}{L}\right)},
+$$
+where the coefficients are given by
+$$
+a_n = \frac{2}{L} \int_{t}^{t+L} f(x) \cos{\left(\frac{n\pi(x-t)}{L}\right)} \, dx, \quad b_n = \frac{2}{L} \int_{t}^{t+L} f(x) \sin{\left(\frac{n\pi(x-t)}{L}\right)} \, dx.
+$$
+
+## Exercise 2: Fourier series of a function on a different interval {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+a. Compute the Fourier cosine and sine series of the function $f(x) = x$ on the interval $(0, 4]$.
+b. Compute the Fourier cosine and sine series of the function $f(x) = x$ on the interval $(1, 3]$.
 :::

@@ -1,0 +1,88 @@
+---
+title: "14 Second derivatives, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Computing second derivatives, part 1 {.scrollable}
+
+- Letting $f: \mathbb{R}^n \to \mathbb{R}$ be a function, recall that its second derivative at a point $\mathbf{v}$ in the direction of $\mathbf{h}$ (if it exists) is given by
+$$
+f''(\mathbf{v})\mathbf{h} = \frac{d^2}{d\lambda^2} f(\mathbf{v} + \lambda \mathbf{h})\Big|_{\lambda = 0}.
+$$
+
+- This is kind of a pain to use—is there a quicker way to compute second derivatives? Yes!
+
+- For simplicity, suppose $n=2$, so that $\mathbf{v}^\top = \begin{bmatrix} x_1 & x_2 \end{bmatrix}$ and $\mathbf{h}^\top = \begin{bmatrix} h_1 & h_2 \end{bmatrix}$. Then the second derivative $f''(x_1,x_2)\mathbf{h}$ is the derivative of the function
+$$
+g: \mathbb{R} \to \mathbb{R}, \quad g(\lambda) = f(\mathbf{v}+\lambda \mathbf{h}) = f(x_1 + \lambda h_1, x_2 + \lambda h_2)
+$$
+evaluated at $\lambda=0$.
+
+- But notice that $g$ is the same thing as the composite function
+$$
+\mathbb{R} \xrightarrow{r} \mathbb{R}^2 \xrightarrow{f} \mathbb{R},
+$$
+where $r(\lambda) = \mathbf{v}+\lambda \mathbf{h} =  (x_1 + \lambda h_1, x_2 + \lambda h_2)$.
+
+- The chain rule says that
+$$
+g'(\lambda) = (f\circ r)'(\lambda) = f'(r(\lambda)) r'(\lambda).
+$$
+
+- But
+$$
+r'(\lambda) = \begin{bmatrix} h_1 \\ h_2 \end{bmatrix}, \quad f'(r(\lambda)) = \begin{bmatrix} \displaystyle\frac{\partial f}{\partial x_1}(\mathbf{v}+\lambda \mathbf{h}) & \displaystyle\frac{\partial f}{\partial x_2}(\mathbf{v}+\lambda \mathbf{h}) \end{bmatrix},
+$$
+so that
+$$
+g'(\lambda) = h_1 \frac{\partial f}{\partial x_1}(\mathbf{v}+\lambda \mathbf{h}) + h_2 \frac{\partial f}{\partial x_2}(\mathbf{v}+\lambda \mathbf{h}).
+$$
+
+- This shows $g'$ is the composite function
+$$
+\mathbb{R} \xrightarrow{r} \mathbb{R}^2 \xrightarrow{d} \mathbb{R}
+$$
+where $d(\mathbf{v}) = h_1 \displaystyle\frac{\partial f}{\partial x_1}(\mathbf{v}) + h_2 \frac{\partial f}{\partial x_2}(\mathbf{v})$.
+
+- Then **another** application of the chain rule gives
+$$
+\begin{align*}
+g''(\lambda) &= d'(r(\lambda)) r'(\lambda) \\
+&= \begin{bmatrix} h_1 \displaystyle\frac{\partial^2 f}{\partial x_1^2}(r(\lambda)) + h_2 \frac{\partial^2 f}{\partial x_1 \partial x_2}(r(\lambda)) & h_1 \displaystyle\frac{\partial^2 f}{\partial x_2 \partial x_1}(r(\lambda)) + h_2 \frac{\partial^2 f}{\partial x_2^2}(r(\lambda)) \end{bmatrix} \begin{bmatrix} h_1 \\ h_2 \end{bmatrix} \\
+&= h_1^2 \frac{\partial^2 f}{\partial x_1^2}(r(\lambda)) + h_1 h_2 \frac{\partial^2 f}{\partial x_1 \partial x_2}(r(\lambda)) + h_2h_1 \frac{\partial^2f}{\partial x_2 \partial x_1}(r(\lambda)) + h_2^2 \frac{\partial^2 f}{\partial x_2^2}(r(\lambda)).
+\end{align*}
+$$
+
+- Evaluating the last expression at $\lambda=0$ and reverse engineering the quadratic form gives the second derivative:
+$$
+f''(x_1,x_2) = \begin{bmatrix}
+\displaystyle\frac{\partial^2 f}{\partial x_1^2}(x_1,x_2) & \displaystyle\frac{\partial^2 f}{\partial x_1 \partial x_2}(x_1,x_2) \\
+\displaystyle\frac{\partial^2 f}{\partial x_2 \partial x_1}(x_1,x_2) & \displaystyle\frac{\partial^2 f}{\partial x_2^2}(x_1,x_2)
+\end{bmatrix}.
+$$
+In this class we will always assume that the two mixed partial derivatives are equal, so that the second derivative is a symmetric matrix.
+
+## Computing second derivatives, part 1 {.scrollable}
+
+::: {.callout-note icon="false" .fragment }
+### Theorem
+
+Suppose $f: \mathbb{R}^n \to \mathbb{R}$ is a function whose second derivative exists at a point $\mathbf{v} \in \mathbb{R}^n$. Then the second derivative of $f$ at $\mathbf{v}$ is the $n\times n$ matrix whose entry in the $(i,j)$ position is the second partial derivative $\displaystyle\frac{\partial^2 f}{\partial x_i \partial x_j}(\mathbf{v})$.
+:::
+
+## Exercise 1: Computing second derivatives quickly {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+Compute the second derivatives of the following functions:
+
+i. $f: \mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = xy + x^2$
+ii. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = x^3 + y^3 + z^3$
+iii. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = z\sin{x} + xy$
+
+:::

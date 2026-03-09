@@ -168,6 +168,7 @@ Compute the second derivatives of the following functions using the definition o
 
 i. $f: \mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = xy + x^2$
 ii. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = x^3 + y^3 + z^3$
+iii. $f: \mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = z\sin{x} + xy$
 
 :::
 
@@ -177,5 +178,6 @@ Now compute the curvatures of the functions in part (a) at the following points 
 
 i. At $(1,1)$, in the direction of $\mathbf{h} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$.
 ii. At $(1,0,1)$, in the direction of $\mathbf{h} = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$.
+iii. At $(\pi/2,1,0)$, in the direction of $\mathbf{h} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$.
 
 :::

@@ -1,0 +1,97 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 10 Fourier series on different intervals
+
+## Exercise 1: Fourier cosine and sine series on $[0,\pi]$ {.scrollable}
+
+We again use the [table](./img/fourier-series.pdf){target="_blank"} for this exercise.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For each of the following functions, compute both the Fourier cosine and sine series on the interval $[0,\pi]$. (Attempt to use the table wherever possible!) To what values do these series converge when $\theta=0$ and $\theta=\pi$?
+
+a. $f(\theta) = 1$
+
+b. $f(\theta) = \pi - \theta$
+
+c. $f(\theta) = \theta^2$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. The even extension of $f$ is just the constant function $f(\theta) = 1$ on $[-\pi,\pi]$, so the Fourier cosine series is just $1$. The odd extension of $f$ is the function in entry 6 of the table, so the Fourier sine series is
+$$
+\frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[(2n-1)\theta\right]}}{2n-1}.
+$$
+The latter converges to $0$ at both $\theta=0$ and $\theta=\pi$.
+
+b. The odd extension of $f$ is the function in entry 3 of the table, so the Fourier sine series is
+$$
+2 \sum_{n=1}^{\infty} \frac{\sin{n\theta}}{n}.
+$$
+This converges to $\pi$ at $\theta=0$ and to $0$ at $\theta=\pi$. The even extension of $f$ is the function $-g(\theta) + \pi$, where $g(\theta)$ is function in entry 2 of the table. Thus the cosine series is
+$$
+\frac{\pi}{2} + \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\cos{\left[(2n-1)\theta\right]}}{(2n-1)^2}.
+$$
+This converges to $\pi$ at $\theta=0$ and to $0$ at $\theta=\pi$.
+
+c. The even extension of $f$ is the function in entry 16 of the table, so the cosine series is
+$$
+\frac{\pi^2}{3}+ 4 \sum_{n=1}^\infty \frac{(-1)^n}{n^2} \cos{n\theta}.
+$$
+This converges to $0$ at $\theta=0$ and to $\pi^2$ at $\theta=\pi$. I don't see a way to use the table for the odd extension of $f$, so we compute the Fourier sine series from scratch:
+$$
+b_n = \frac{2}{\pi} \int_0^\pi \theta^2 \sin{n\theta} \, d\theta = \frac{2}{\pi} \left( \frac{2-\pi^2n^2}{n^3}\cdot (-1)^n - \frac{2}{n^3} \right).
+$$
+Thus the sine series is
+$$
+\frac{2}{\pi} \sum_{n=1}^\infty \left( \frac{2-\pi^2n^2}{n^3}\cdot (-1)^n - \frac{2}{n^3} \right)\sin{n\theta}.
+$$
+This converges to $0$ at $\theta=0$ and to $\pi^2$ at $\theta=\pi$.
+
+
+:::
+
+## Exercise 2: Fourier cosine and sine series on different intervals {.scrollable}
+
+You know the drill. Try to make use of the [table](./img/fourier-series.pdf){target="_blank"} rather than working from scratch.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Expand each of the following functions as a series of the indicated type.
+
+a. $f(x)=1$ as a sine series on $(0,6\pi]$.
+
+b. The function
+$$
+f(x) = \begin{cases}
+1 & : 0 < x < 2, \\
+-1 & : 2 \leq x \leq 4, \\
+\end{cases}
+$$
+as a cosine series on $(0,4]$.
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. We make the change of variables $x = 6\theta$, so that the function
+$$
+g(\theta) = f(6\theta) = 1
+$$
+is defined on the interval $(0, \pi]$. Its odd extension is the function in entry 6 of the table, so the Fourier sine series is
+$$
+\frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[(2n-1)\theta\right]}}{2n-1},
+$$
+which converges to $0$ at $\theta=0$ and $\theta=\pi$. Substituting $\theta = x/6$ gives the sine series for $f$:
+$$
+\frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[\frac{(2n-1)x}{6}\right]}}{2n-1}.
+$$
+
+b. I still need to write up this solution. Check later!
+:::
