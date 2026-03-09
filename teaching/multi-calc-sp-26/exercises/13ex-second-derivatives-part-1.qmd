@@ -1,0 +1,157 @@
+---
+title: "Multivariable calculus: Exercises"
+toc: true
+---
+
+# 13 Second derivatives, part 1
+
+## Exercise 1: What is a second derivative?
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Let $f:\mathbb{R}^n \to \mathbb{R}$ be a function whose second derivative exists.
+
+a. State the precise, mathematical definition of the second derivative $\mathbf{h}^\top f''(\mathbf{v})\mathbf{h}$ at a point $\mathbf{v}$ in $\mathbb{R}^n$ in the direction of a step vector $\mathbf{h}$. What type of object is $f''(\mathbf{v})$?
+
+b. Given a position vector $\mathbf{v}$ and a unit step vector $\mathbf{h}$, what does the number $\mathbf{h}^\top f''(\mathbf{v})\mathbf{h}$ measure? What does it mean if this number is positive? Negative? Briefly explain in your own words.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+All the solutions are in your class notes and lecture slides. Look for them there.
+
+:::
+
+## Exercise 2: Practice computing second derivatives from the definition
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the second derivatives of the following functions using the definition of the second derivative.
+
+a. Given $f:\mathbb{R}^2 \to \mathbb{R}$, $f(x,y) = x^2 - y^2$, compute $f''(x,y)$.
+
+b. Given $g:\mathbb{R}^3 \to \mathbb{R}$, $g(x,y,z) = xy + z^3$, compute $g''(x,y,z)$.
+
+c. Given $h:\mathbb{R}^2 \to \mathbb{R}$, $h(x,y) = e^{x^2+y}$, compute $h''(1,1)$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Answer:
+$$
+f''(x,y) = \begin{bmatrix}
+2 & 0 \\
+0 & -2
+\end{bmatrix}
+$$
+
+b. Answer:
+$$
+g''(x,y,z) = \begin{bmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 6z
+\end{bmatrix}
+$$
+
+c. Answer:
+$$
+h''(1,1) = \begin{bmatrix}
+6e^2 & 2e^2 \\
+2e^2 & e^2
+\end{bmatrix}
+$$
+
+:::
+
+## Exercise 3: Practice computing second derivatives using partial derivatives
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Compute the second derivatives of the following functions using partial derivatives.
+
+a. Given $f:\mathbb{R}^3 \to \mathbb{R}$, $f(x,y,z) = e^z\cos{x} + xy$, compute $f''(x,y,z)$.
+
+b. Given $g:\mathbb{R}^2 \to \mathbb{R}$, $g(x,y) = 4x^2 + e^xx^2$, compute $g''(x,y)$.
+
+c. Given $h:\mathbb{R}^4 \to \mathbb{R}$, $h(x,y,z,w) = we^{x^2+y} + z^2$, compute $h''(x,y,z,w)$.
+
+Now find the curvatures of the functions at the following points in the direction of the given step vectors.
+
+d. At $(0,1,0)$ in the direction of $\mathbf{h}^\top = \begin{bmatrix} 1 & 0 & 0 \end{bmatrix}$ for $f$.
+
+e. At $(0,0)$ in the direction of $\mathbf{h}^\top = \begin{bmatrix} 1 & 1 \end{bmatrix}$ for $g$.
+
+f. At $(1,0,-1,0)$ in the direction of $\mathbf{h}^\top = \begin{bmatrix} 1 & 1 & 0 & 0 \end{bmatrix}$ for $h$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Answer:
+$$
+f''(x,y,z) = \begin{bmatrix}
+-e^z\cos{x} & 1 & -e^z\sin{x} \\
+1 & 0 & 0 \\
+-e^z\sin{x} & 0 & e^z\cos{x}
+\end{bmatrix}
+$$
+
+b. Answer:
+$$
+g''(x,y) = \begin{bmatrix}
+8 + 2e^x + 4e^xx+ e^x x^2 & 0 \\
+0 & 0
+\end{bmatrix}
+$$
+
+c. Answer:
+$$
+h''(x,y,z,w) = \begin{bmatrix}
+2we^{x^2+y} + 4x^2we^{x^2+y} & 2xwe^{x^2+y} & 0 & 2e^{x^2+y} \\
+2xwe^{x^2+y} & we^{x^2+y} & 0 & e^{x^2+y} \\
+0 & 0 & 2 & 0 \\
+2xe^{x^2+y} & e^{x^2+y} & 0 & 0
+\end{bmatrix}
+$$
+
+d. Answer: $-1$
+
+e. Answer: $5$
+
+f. Answer: $0$
+
+:::
+
+## Exercise 4: Visualizing curvature
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Consider [the graph](https://www.desmos.com/3d/ocidyzer7i){target="_blank"} of the function $f(x,y) = x^2 - y^2+4xy^2$.
+
+a. Find a **unit** step vector $\mathbf{h}$ at the point $(0,0)$ for which the curvature in that direction is positive. Confirm your answer by computing the curvature in that direction.
+
+b. Now find a **unit** step vector $\mathbf{h}$ at the point $(0,0)$ for which the curvature in that direction is negative. Confirm your answer by computing the curvature in that direction.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+The only part I will give you is the second derivative:
+
+$$
+f''(x,y) = \begin{bmatrix}
+2 & 8y \\
+8y & -2 + 8x
+\end{bmatrix}
+$$
+
+It's up to you to find the two unit step vectors.
+
+:::
