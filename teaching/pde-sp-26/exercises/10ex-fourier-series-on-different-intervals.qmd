@@ -5,13 +5,13 @@ toc: true
 
 # 10 Fourier series on different intervals
 
-## Exercise 1: Fourier cosine and sine series on $[0,\pi]$ {.scrollable}
+## Exercise 1: Fourier cosine and sine series on $(0,\pi]$ {.scrollable}
 
 We again use the [table](./img/fourier-series.pdf){target="_blank"} for this exercise.
 
 ::: {.callout-note icon="false" appearance="minimal"}
 
-For each of the following functions, compute both the Fourier cosine and sine series on the interval $[0,\pi]$. (Attempt to use the table wherever possible!) To what values do these series converge when $\theta=0$ and $\theta=\pi$?
+For each of the following functions, compute both the Fourier cosine and sine series on the interval $(0,\pi]$. (Attempt to use the table wherever possible!) To what values do these series converge when $\theta=0$ and $\theta=\pi$?
 
 a. $f(\theta) = 1$
 
@@ -24,7 +24,7 @@ c. $f(\theta) = \theta^2$
 ::: {.callout-note collapse="true" icon="false"}
 ## Solutions.
 
-a. The even extension of $f$ is just the constant function $f(\theta) = 1$ on $[-\pi,\pi]$, so the Fourier cosine series is just $1$. The odd extension of $f$ is the function in entry 6 of the table, so the Fourier sine series is
+a. The even extension of $f$ is just the constant function $f(\theta) = 1$ on $(-\pi,\pi]$, so the Fourier cosine series is just $1$. The odd extension of $f$ is the function in entry 6 of the table, so the Fourier sine series is
 $$
 \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[(2n-1)\theta\right]}}{2n-1}.
 $$
@@ -70,8 +70,8 @@ a. $f(x)=1$ as a sine series on $(0,6\pi]$.
 b. The function
 $$
 f(x) = \begin{cases}
-1 & : 0 < x < 2, \\
--1 & : 2 \leq x \leq 4, \\
+1 & : 0 < x \leq 2, \\
+-1 & : 2 < x \leq 4, \\
 \end{cases}
 $$
 as a cosine series on $(0,4]$.
@@ -88,10 +88,32 @@ is defined on the interval $(0, \pi]$. Its odd extension is the function in entr
 $$
 \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[(2n-1)\theta\right]}}{2n-1},
 $$
-which converges to $0$ at $\theta=0$ and $\theta=\pi$. Substituting $\theta = x/6$ gives the sine series for $f$:
+which converges to $g$ at all points except $\theta=\pi$ where it converges to $0$. Substituting $\theta = x/6$ gives the sine series for $f$:
 $$
 \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[\frac{(2n-1)x}{6}\right]}}{2n-1}.
 $$
+which converges to $f$ at all points except $x=6\pi$, where it converges to $0$. You may check this answer [here](https://www.desmos.com/calculator/bbjjs9xct3){target="_blank"}.
 
-b. I still need to write up this solution. Check later!
+b. Notice that if we make the change of variables $x = \frac{4\theta}{\pi}$ with $\theta \in (0,\pi]$, then the function
+$$
+g(\theta) = f\left(\frac{4\theta}{\pi}\right) = \begin{cases}
+1 & : 0 < \theta \leq \frac{\pi}{2}, \\
+-1 & : \frac{\pi}{2} < \theta \leq \pi, \\
+\end{cases}
+$$
+is defined on the interval $(0, \pi]$. We compute the Fourier cosine series for $g$ from scratch:
+$$
+a_n = \frac{2}{\pi} \int_0^\pi g(\theta) \cos{n\theta} \, d\theta = \frac{4\sin{\left(\frac{n\pi}{2}\right)}}{\pi n}.
+$$
+Thus, since $\sin{\left( \frac{n\pi}{2}\right)}=0$ when $n$ is even and is otherwise equal to $\pm1$, the Fourier cosine series for $g$ is
+$$
+g(\theta) = \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^{n+1}\cos{[(2n-1)\theta]}}{2n-1},
+$$
+which converges $g$ at all points except $\theta=\pi/2$ and $\theta=\pi$, where it converges to $0$. Therefore, we substitute $\theta = \frac{\pi x}{4}$ to get the Fourier cosine series for $f$:
+$$
+f(x) = \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^{n+1}\cos{\left[\frac{(2n-1)\pi x}{4}\right]}}{2n-1},
+$$
+which converges to $f$ at all points except $x=2$ and $x=4$, where it converges to $0$. You may check this answer [here](https://www.desmos.com/calculator/cws8eb0qdn){target="_blank"}.
+
+
 :::
