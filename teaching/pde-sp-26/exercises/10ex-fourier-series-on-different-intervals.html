@@ -203,7 +203,7 @@ window.Quarto = {
   <ul>
   <li><a href="#fourier-series-on-different-intervals" id="toc-fourier-series-on-different-intervals" class="nav-link active" data-scroll-target="#fourier-series-on-different-intervals">10 Fourier series on different intervals</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-fourier-cosine-and-sine-series-on-0pi" id="toc-exercise-1-fourier-cosine-and-sine-series-on-0pi" class="nav-link" data-scroll-target="#exercise-1-fourier-cosine-and-sine-series-on-0pi">Exercise 1: Fourier cosine and sine series on <span class="math inline">\([0,\pi]\)</span></a></li>
+  <li><a href="#exercise-1-fourier-cosine-and-sine-series-on-0pi" id="toc-exercise-1-fourier-cosine-and-sine-series-on-0pi" class="nav-link" data-scroll-target="#exercise-1-fourier-cosine-and-sine-series-on-0pi">Exercise 1: Fourier cosine and sine series on <span class="math inline">\((0,\pi]\)</span></a></li>
   <li><a href="#exercise-2-fourier-cosine-and-sine-series-on-different-intervals" id="toc-exercise-2-fourier-cosine-and-sine-series-on-different-intervals" class="nav-link" data-scroll-target="#exercise-2-fourier-cosine-and-sine-series-on-different-intervals">Exercise 2: Fourier cosine and sine series on different intervals</a></li>
   </ul></li>
   </ul>
@@ -234,7 +234,7 @@ window.Quarto = {
 <section id="fourier-series-on-different-intervals" class="level1">
 <h1>10 Fourier series on different intervals</h1>
 <section id="exercise-1-fourier-cosine-and-sine-series-on-0pi" class="level2 scrollable">
-<h2 class="scrollable anchored" data-anchor-id="exercise-1-fourier-cosine-and-sine-series-on-0pi">Exercise 1: Fourier cosine and sine series on <span class="math inline">\([0,\pi]\)</span></h2>
+<h2 class="scrollable anchored" data-anchor-id="exercise-1-fourier-cosine-and-sine-series-on-0pi">Exercise 1: Fourier cosine and sine series on <span class="math inline">\((0,\pi]\)</span></h2>
 <p>We again use the <a href="./img/fourier-series.pdf" target="_blank">table</a> for this exercise.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -242,7 +242,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>For each of the following functions, compute both the Fourier cosine and sine series on the interval <span class="math inline">\([0,\pi]\)</span>. (Attempt to use the table wherever possible!) To what values do these series converge when <span class="math inline">\(\theta=0\)</span> and <span class="math inline">\(\theta=\pi\)</span>?</p>
+<p>For each of the following functions, compute both the Fourier cosine and sine series on the interval <span class="math inline">\((0,\pi]\)</span>. (Attempt to use the table wherever possible!) To what values do these series converge when <span class="math inline">\(\theta=0\)</span> and <span class="math inline">\(\theta=\pi\)</span>?</p>
 <ol type="a">
 <li><p><span class="math inline">\(f(\theta) = 1\)</span></p></li>
 <li><p><span class="math inline">\(f(\theta) = \pi - \theta\)</span></p></li>
@@ -264,7 +264,7 @@ window.Quarto = {
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="a">
-<li><p>The even extension of <span class="math inline">\(f\)</span> is just the constant function <span class="math inline">\(f(\theta) = 1\)</span> on <span class="math inline">\([-\pi,\pi]\)</span>, so the Fourier cosine series is just <span class="math inline">\(1\)</span>. The odd extension of <span class="math inline">\(f\)</span> is the function in entry 6 of the table, so the Fourier sine series is <span class="math display">\[
+<li><p>The even extension of <span class="math inline">\(f\)</span> is just the constant function <span class="math inline">\(f(\theta) = 1\)</span> on <span class="math inline">\((-\pi,\pi]\)</span>, so the Fourier cosine series is just <span class="math inline">\(1\)</span>. The odd extension of <span class="math inline">\(f\)</span> is the function in entry 6 of the table, so the Fourier sine series is <span class="math display">\[
 \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[(2n-1)\theta\right]}}{2n-1}.
 \]</span> The latter converges to <span class="math inline">\(0\)</span> at both <span class="math inline">\(\theta=0\)</span> and <span class="math inline">\(\theta=\pi\)</span>.</p></li>
 <li><p>The odd extension of <span class="math inline">\(f\)</span> is the function in entry 3 of the table, so the Fourier sine series is <span class="math display">\[
@@ -298,8 +298,8 @@ b_n = \frac{2}{\pi} \int_0^\pi \theta^2 \sin{n\theta} \, d\theta = \frac{2}{\pi}
 <li><p><span class="math inline">\(f(x)=1\)</span> as a sine series on <span class="math inline">\((0,6\pi]\)</span>.</p></li>
 <li><p>The function <span class="math display">\[
 f(x) = \begin{cases}
-1 &amp; : 0 &lt; x &lt; 2, \\
--1 &amp; : 2 \leq x \leq 4, \\
+1 &amp; : 0 &lt; x \leq 2, \\
+-1 &amp; : 2 &lt; x \leq 4, \\
 \end{cases}
 \]</span> as a cosine series on <span class="math inline">\((0,4]\)</span>.</p></li>
 </ol>
@@ -323,10 +323,21 @@ f(x) = \begin{cases}
 g(\theta) = f(6\theta) = 1
 \]</span> is defined on the interval <span class="math inline">\((0, \pi]\)</span>. Its odd extension is the function in entry 6 of the table, so the Fourier sine series is <span class="math display">\[
 \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[(2n-1)\theta\right]}}{2n-1},
-\]</span> which converges to <span class="math inline">\(0\)</span> at <span class="math inline">\(\theta=0\)</span> and <span class="math inline">\(\theta=\pi\)</span>. Substituting <span class="math inline">\(\theta = x/6\)</span> gives the sine series for <span class="math inline">\(f\)</span>: <span class="math display">\[
+\]</span> which converges to <span class="math inline">\(g\)</span> at all points except <span class="math inline">\(\theta=\pi\)</span> where it converges to <span class="math inline">\(0\)</span>. Substituting <span class="math inline">\(\theta = x/6\)</span> gives the sine series for <span class="math inline">\(f\)</span>: <span class="math display">\[
 \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{\sin{\left[\frac{(2n-1)x}{6}\right]}}{2n-1}.
-\]</span></p></li>
-<li><p>I still need to write up this solution. Check later!</p></li>
+\]</span> which converges to <span class="math inline">\(f\)</span> at all points except <span class="math inline">\(x=6\pi\)</span>, where it converges to <span class="math inline">\(0\)</span>. You may check this answer <a href="https://www.desmos.com/calculator/bbjjs9xct3" target="_blank">here</a>.</p></li>
+<li><p>Notice that if we make the change of variables <span class="math inline">\(x = \frac{4\theta}{\pi}\)</span> with <span class="math inline">\(\theta \in (0,\pi]\)</span>, then the function <span class="math display">\[
+g(\theta) = f\left(\frac{4\theta}{\pi}\right) = \begin{cases}
+1 &amp; : 0 &lt; \theta \leq \frac{\pi}{2}, \\
+-1 &amp; : \frac{\pi}{2} &lt; \theta \leq \pi, \\
+\end{cases}
+\]</span> is defined on the interval <span class="math inline">\((0, \pi]\)</span>. We compute the Fourier cosine series for <span class="math inline">\(g\)</span> from scratch: <span class="math display">\[
+a_n = \frac{2}{\pi} \int_0^\pi g(\theta) \cos{n\theta} \, d\theta = \frac{4\sin{\left(\frac{n\pi}{2}\right)}}{\pi n}.
+\]</span> Thus, since <span class="math inline">\(\sin{\left( \frac{n\pi}{2}\right)}=0\)</span> when <span class="math inline">\(n\)</span> is even and is otherwise equal to <span class="math inline">\(\pm1\)</span>, the Fourier cosine series for <span class="math inline">\(g\)</span> is <span class="math display">\[
+g(\theta) = \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^{n+1}\cos{[(2n-1)\theta]}}{2n-1},
+\]</span> which converges <span class="math inline">\(g\)</span> at all points except <span class="math inline">\(\theta=\pi/2\)</span> and <span class="math inline">\(\theta=\pi\)</span>, where it converges to <span class="math inline">\(0\)</span>. Therefore, we substitute <span class="math inline">\(\theta = \frac{\pi x}{4}\)</span> to get the Fourier cosine series for <span class="math inline">\(f\)</span>: <span class="math display">\[
+f(x) = \frac{4}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^{n+1}\cos{\left[\frac{(2n-1)\pi x}{4}\right]}}{2n-1},
+\]</span> which converges to <span class="math inline">\(f\)</span> at all points except <span class="math inline">\(x=2\)</span> and <span class="math inline">\(x=4\)</span>, where it converges to <span class="math inline">\(0\)</span>. You may check this answer <a href="https://www.desmos.com/calculator/cws8eb0qdn" target="_blank">here</a>.</p></li>
 </ol>
 </div>
 </div>
