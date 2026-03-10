@@ -2,7 +2,7 @@
 title: "Diffusion"
 toc: true
 draft: true
-jupyter: blog-env
+jupyter: site
 categories: [Stochastic processes, Random walk, Probability theory, Martingale, SigAlg, Python]
 include-in-header: 
   - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
@@ -48,8 +48,13 @@ This evolution may be observed experimentally in SigAlg, as shown in the followi
 # | fig-align: center
 # | code-fold: true
 
+import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
+from sigalg.core import Time
+from sigalg.processes import RandomWalk
+
+yellow = "#FFC300"
 blue = "#3399FF"
 purple = "#AA77CC"
 
