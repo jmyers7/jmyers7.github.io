@@ -13,12 +13,12 @@ format:
 
 - Letting $f: \mathbb{R}^n \to \mathbb{R}$ be a function, recall that its second derivative at a point $\mathbf{v}$ in the direction of $\mathbf{h}$ (if it exists) is given by
 $$
-f''(\mathbf{v})\mathbf{h} = \frac{d^2}{d\lambda^2} f(\mathbf{v} + \lambda \mathbf{h})\Big|_{\lambda = 0}.
+\mathbf{h}^\top f''(\mathbf{v})\mathbf{h} = \frac{d^2}{d\lambda^2} f(\mathbf{v} + \lambda \mathbf{h})\Big|_{\lambda = 0}.
 $$
 
 - This is kind of a pain to use—is there a quicker way to compute second derivatives? Yes!
 
-- For simplicity, suppose $n=2$, so that $\mathbf{v}^\top = \begin{bmatrix} x_1 & x_2 \end{bmatrix}$ and $\mathbf{h}^\top = \begin{bmatrix} h_1 & h_2 \end{bmatrix}$. Then the second derivative $f''(x_1,x_2)\mathbf{h}$ is the derivative of the function
+- For simplicity, suppose $n=2$, so that $\mathbf{v}^\top = \begin{bmatrix} x_1 & x_2 \end{bmatrix}$ and $\mathbf{h}^\top = \begin{bmatrix} h_1 & h_2 \end{bmatrix}$. Then the second derivative $\mathbf{h}^\top f''(x_1,x_2)\mathbf{h}$ is the derivative of the function
 $$
 g: \mathbb{R} \to \mathbb{R}, \quad g(\lambda) = f(\mathbf{v}+\lambda \mathbf{h}) = f(x_1 + \lambda h_1, x_2 + \lambda h_2)
 $$
