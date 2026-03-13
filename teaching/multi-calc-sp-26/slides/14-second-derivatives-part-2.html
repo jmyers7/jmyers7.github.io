@@ -149,7 +149,7 @@
 \mathbf{h}^\top f''(\mathbf{v})\mathbf{h} = \frac{d^2}{d\lambda^2} f(\mathbf{v} + \lambda \mathbf{h})\Big|_{\lambda = 0}.
 \]</span></p></li>
 <li class="fragment"><p>This is kind of a pain to use—is there a quicker way to compute second derivatives? Yes!</p></li>
-<li class="fragment"><p>For simplicity, suppose <span class="math inline">\(n=2\)</span>, so that <span class="math inline">\(\mathbf{v}^\top = \begin{bmatrix} x_1 &amp; x_2 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{h}^\top = \begin{bmatrix} h_1 &amp; h_2 \end{bmatrix}\)</span>. Then the second derivative <span class="math inline">\(f''(x_1,x_2)\mathbf{h}\)</span> is the derivative of the function <span class="math display">\[
+<li class="fragment"><p>For simplicity, suppose <span class="math inline">\(n=2\)</span>, so that <span class="math inline">\(\mathbf{v}^\top = \begin{bmatrix} x_1 &amp; x_2 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{h}^\top = \begin{bmatrix} h_1 &amp; h_2 \end{bmatrix}\)</span>. Then the second derivative <span class="math inline">\(\mathbf{h}^\top f''(x_1,x_2)\mathbf{h}\)</span> is the derivative of the function <span class="math display">\[
 g: \mathbb{R} \to \mathbb{R}, \quad g(\lambda) = f(\mathbf{v}+\lambda \mathbf{h}) = f(x_1 + \lambda h_1, x_2 + \lambda h_2)
 \]</span> evaluated at <span class="math inline">\(\lambda=0\)</span>.</p></li>
 <li class="fragment"><p>But notice that <span class="math inline">\(g\)</span> is the same thing as the composite function <span class="math display">\[
