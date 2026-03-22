@@ -1,17 +1,17 @@
 ---
-title: "Diffusion"
+title: "Scaling"
 toc: true
 draft: true
 jupyter: site
 categories: [Stochastic processes, Random walk, Probability theory, Martingale, SigAlg, Python]
-include-in-header: 
-  - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
-bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
+# include-in-header: 
+#   - file: /Users/johnmyers/dev/johnmyers-phd/aux-files/commands.tex
+# bibliography: /Users/johnmyers/dev/johnmyers-phd/aux-files/references.bib
 ---
 
 ## Scaled random walks
 
-We now construct a scaled random walk. First, we fix a position $x\in \bbr$ and a time $t>0$. We then have a spatial interval from the starting position $a$ to the position $x$, of length $|x - a|$, and also a time interval from $0$ to $t$, of length $t$. We chop these intervals into $m$ and $n$ subintervals of equal lengths
+We now construct a scaled random walk. First, we fix a position $x\in \mathbb{R}$ and a time $t>0$. We then have a spatial interval from the starting position $a$ to the position $x$, of length $|x - a|$, and also a time interval from $0$ to $t$, of length $t$. We chop these intervals into $m$ and $n$ subintervals of equal lengths
 
 $$
 h = \frac{|x - a|}{m} \quad \text{and} \quad \tau = \frac{t}{n},
@@ -78,92 +78,3 @@ p = \frac{1}{2} + \frac{1}{2m},
 $$
 
 and then let $m\to \infty$.
-
-```{python}
-# | fig-align: center
-# | code-fold: true
-
-def gen_random_walk(m, x, t, n_trajectories, random_state=None):
-    n = m**2  # number of time steps
-    h = x / m  # size of space step
-    tau = t / n  # size of time step
-    p = 0.5 + 1 / (2 * m)  # probability of up move
-
-    T = Time.continuous(start=tau, stop=t, num_points=n)
-
-    B = IIDProcess(
-        distribution=bernoulli(p=p),
-        time=T,
-        name="B",
-    ).from_simulation(
-        n_trajectories=n_trajectories,
-        random_state=random_state,
-    )
-
-    # Construct the increment processes
-    Delta_X = h * (2 * B - 1)
-
-    # Add the initial state
-    a = RandomVariable(domain=B.domain, name=0).from_constant(0)
-    Delta_X.add_initial_state(a)
-
-    # Construct the random walk processes by cumulative summation
-    X = Delta_X.cumsum(name="X")
-
-    return X
-
-
-# Number of space steps
-m1 = 10
-m2 = 30
-
-x = 30  # space endpoint
-t = 10  # time endpoint
-
-n_trajectories = 1
-
-X1 = gen_random_walk(m1, x, t, n_trajectories, random_state=42).with_name("X1")
-X2 = gen_random_walk(m2, x, t, n_trajectories, random_state=42).with_name("X2")
-
-_, ax = plt.subplots(figsize=(6, 5))
-X1.plot_trajectories(
-    ax=ax,
-    colors=[yellow],
-    plot_kwargs={"linewidth": 1},
-)
-X2.plot_trajectories(
-    ax=ax,
-    colors=[blue],
-    plot_kwargs={"linewidth": 1},
-)
-ax.set_title("Scaled random walks")
-plt.show()
-```
-
-
-```{python}
-# | fig-align: center
-# | code-fold: true
-
-n_trajectories = 50
-
-X1 = gen_random_walk(m1, x, t, n_trajectories, random_state=42).with_name("X1")
-X2 = gen_random_walk(m2, x, t, n_trajectories, random_state=42).with_name("X2")
-
-_, ax = plt.subplots(figsize=(6, 5))
-X1.plot_trajectories(
-    ax=ax,
-    colors=[yellow],
-    plot_kwargs={"linewidth": 1, "alpha": 0.3},
-)
-X2.plot_trajectories(
-    ax=ax,
-    colors=[blue],
-    plot_kwargs={"linewidth": 1, "alpha": 0.3},
-)
-ax.set_title("Scaled random walks")
-plt.show()
-```
-
-
-## Bibliography
