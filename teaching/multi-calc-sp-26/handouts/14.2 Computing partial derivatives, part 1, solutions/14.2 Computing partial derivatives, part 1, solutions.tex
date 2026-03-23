@@ -1,0 +1,103 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/jmyers7/GoogleDrive/tex/handout,/Users/jmyers7/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S14.2 Computing partial derivatives, part 1}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-39 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob Let
+	\[f(x,y) = x^2y-y^3.
+	\]
+Using the limit definition, compute $f_x(1,2)$.
+
+\medskip
+\textcolor{red}{We have
+\begin{align*}
+f_x(1,2) &= \lim_{h\to 0} \frac{f(1+h,2)-f(1,2)}{h} \\
+&= \lim_{h\to 0} \frac{ (1+h)^2\cdot 2 -2^3 -  ( 1^2\cdot 2 - 2^3)}{h} \\
+&= \lim_{h\to 0} \frac{  4h +2h^2}{h} \\
+&= \lim_{h\to 0} (4+2h) \\
+&= 4.
+\end{align*}}
+
+\medskip
+\prob 
+
+\begin{enumerate}
+\item Compute $f_x(x,y)$ and $f_y(x,y)$ if $f(x,y) = 5x^2y^3 + 8xy^2 -3x^2$.
+
+\bigskip
+\textcolor{red}{
+	\[f_x(x,y) = 10xy^3 + 8y^2  -6x
+	\]
+	\[f_y(x,y) = 15x^2y^2 + 16xy
+	\]}
+\bigskip
+
+\item Compute $\frac{\bd}{\bd y} ( 3x^5y^7 - 32x^4y^3 + 5xy)$.
+
+\bigskip
+\textcolor{red}{
+	\[21x^5y^6 -96x^4y^2 +5x
+	\]}
+\bigskip
+
+\item Compute $z_x$ if $z = \frac{1}{2x^2y} + \frac{3x^5 }{y}$.
+
+\bigskip
+\textcolor{red}{
+	\[z_x = - \frac{1}{x^3y} + \frac{15x^4}{y}
+	\]}
+\bigskip
+
+\item Compute $\frac{\bd}{\bd t} e^{\sin{(x+2t)}}$.
+
+\bigskip
+\textcolor{red}{
+	\[e^{\sin{(x+2t)}} \cos{(x+2t)} \cdot 2
+	\]}
+\bigskip
+
+\item Compute $\frac{\bd}{\bd x}( x e^{\sqrt{xy}})$.
+
+\bigskip
+\textcolor{red}{
+	\[e^{\sqrt{xy}} + xe^{\sqrt{xy}}\cdot \frac{1}{2}(xy)^{-1/2}y
+	\]}
+\bigskip
+\end{enumerate}
+
+\prob
+
+\begin{enumerate}
+\item The surface $S$ is given, for some constant $a$, by
+	\[z = 3x^2 + 4y^2 - axy.
+	\]
+Find the values of $a$ which ensure that $S$ is sloping upward when we move in the positive $x$-direction from the point $(1, 2)$.
+
+\bigskip
+\textcolor{red}{Slope in the positive $x$-direction is given by the partial derivative
+	\[z_x = 6x - ay.
+	\]
+At the point $(1,2)$ this derivative becomes $6-2a$. If we want to pick the $a$'s so that we move upward, then we want $6-2a>0$, or $a<3$.}
+\bigskip
+
+\item With the values of $a$ from part (a), if you move in the positive $y$-direction from the point $(1, 2)$, does the surface slope up or down? Explain.
+
+\bigskip
+\textcolor{red}{Slope in the positive $y$-direction is given by the partial derivative
+	\[z_y = 8y - ax.
+	\]
+At $(1,2)$ this derivative is $16-a$. We know that $a<3$ from part (a), which makes $16-a>13$. Hence the surface slopes upward.}
+
+\end{enumerate}
+
+\end{document}

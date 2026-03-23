@@ -1,0 +1,130 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S17.2 Motion, velocity, and acceleration}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-11 odd, 23-29 odd
+
+\bigskip
+\hrule
+
+\bigskip
+\prob A particle in the plane travels along the curve traced out by
+	\[\vec{r}(t) = t\vec{i} + (\cos{(t)}+3)\vec{j}.
+	\]
+Find:
+
+\medskip
+\begin{enumerate}
+\item The velocity function $\vec{v}(t)$.
+
+\bigskip
+\textcolor{red}{
+	\[\vec{v}(t) = \vec{r} \ '(t) = \vec{i}-\sin{(t)}\vec{j}.
+	\]}
+\bigskip
+
+\item The acceleration function $\vec{a}(t)$.
+
+\bigskip
+\textcolor{red}{
+	\[\vec{a}(t) = \vec{r}\ ''(t) = -\cos{(t)}\vec{j}.
+	\]}
+\bigskip
+
+\item The speed of the particle at time $t$.
+
+\bigskip
+\textcolor{red}{
+	\[\tn{speed} = ||\vec{v}(t)|| = \sqrt{1 + \sin^2{(t)}}.
+	\]}
+\bigskip
+\end{enumerate}
+
+\bigskip
+\prob A particle in space travels along the curve traced out by
+	\[\vec{r}(t) = t\vec{i}+t^3\vec{j}+3t\vec{k}.
+	\]
+Find:
+
+\medskip
+\begin{enumerate}
+\item The velocity function $\vec{v}(t)$.
+
+\bigskip
+\textcolor{red}{
+	\[\vec{v}(t) = \vec{r}\ '(t) = \vec{i}+3t^2\vec{j}+3\vec{k}.
+	\]}
+\bigskip
+
+\item The acceleration function $\vec{a}(t)$.
+
+\bigskip
+\textcolor{red}{
+	\[\vec{a}(t) = \vec{r}\ ''(t) = 6t\vec{j}.
+	\]}
+\bigskip
+
+\item The speed of the particle at time $t$.
+
+\bigskip
+\textcolor{red}{
+	\[\tn{speed} = ||\vec{v}(t)|| = \sqrt{10+9t^4}.
+	\]}
+\bigskip
+\end{enumerate}
+
+\bigskip
+\prob A particle starts at position $\vec{r}(0)=\vec{i}$ with initial velocity $\vec{v}(0) = \vec{i}-\vec{j}+\vec{k}$, and has acceleration $\vec{a}(t) = 4t\vec{i}+6t\vec{j}+\vec{k}$. Find its velocity and position at time $t$.
+
+\bigskip
+\textcolor{red}{Example 3, p. 911 in the Stewart text.}
+\bigskip
+
+\bigskip
+\prob The position of a particle is given by
+	\[\vec{r}(t) = t^2\vec{i}+5t\vec{j}+(t^2-16t)\vec{k}.
+	\]
+When is the speed of the particle a minimum?
+
+\bigskip
+\textcolor{red}{We have
+	\[\vec{v}(t) = 2t\vec{i}+5\vec{j}+(2t-16)\vec{k}.
+	\]
+Because speed is a nonnegative function of $t$, we may as well minimize speed squared. But this is:
+	\[4t^2 + 25 + (2t-16)^2 = 8t^2-64t+281.
+	\]
+From calculus I, we know that this has a local extrema (possibly) where its derivative is equal to zero. So we solve:
+	\[16t - 64 = 0
+	\]
+to get $t=4$. And we know that there is a global minimum at this $t$-value because the speed-squared function is a parabola opening upward. Hence our answer is $t=4$.}
+
+\bigskip
+\prob If a particle is moving according to
+	\[\vec{r}(t) = (t^2 - 6t)\vec{i}+ (t^3 - 3t)\vec{j},
+	\]
+then find all times when the particle is moving parallel to the $x$-axis. Then find the times when it's moving parallel to the $y$-axis.
+
+\bigskip
+\textcolor{red}{We first find
+	\[\vec{v}(t) = (2t-6)\vec{i}+(3t^2-3)\vec{j}.
+	\]
+It's moving parallel to the $x$-axis whenever $y=3t^2-3$ is zero, which gives you $t=\pm 1$. It's moving parallel to the $y$-axis when $x=2t-6$ is zero, which gives you $t=3$.}
+
+\bigskip
+\prob A particle moves according to
+	\[\vec{r}(t) = (1+t)\vec{i}+(5+2t)\vec{j}+(t-7)\vec{k}.
+	\]
+When and where does it hit the plane $x+y+z=1$?
+
+\bigskip
+\textcolor{red}{The particle will hit the plane when its $(x,y,z)$-coordinates satisfy the equation of the plane. But we have $x=1+t$, $y=5+2t$, $z=t-7$, so this occurs when
+	\[(1+t)+(5+2t)+(t-7) = 1.
+	\]
+Solving this for $t$ gives $t=1/2$. The location it hits the plane is $(3/2,6,-13/2)$.}
+
+
+\end{document}

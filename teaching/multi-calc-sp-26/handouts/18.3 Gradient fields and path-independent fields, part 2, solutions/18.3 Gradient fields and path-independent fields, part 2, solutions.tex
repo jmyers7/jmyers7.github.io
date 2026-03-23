@@ -1,0 +1,130 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S18.3 Gradient fields, part 2}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-29 odd
+
+\bigskip
+\hrule
+
+\bigskip
+\prob For parts (a)-(f), does the vector field appear to be conservative?
+
+\bigskip
+\begin{enumerate}
+\item \textcolor{white}{blank}\\
+\includegraphics[scale=1.4]{pic1.pdf} \textcolor{red}{Yes}\vfill
+\item \textcolor{white}{blank}\\
+\includegraphics[scale=1.4]{pic2.pdf} \textcolor{red}{No}\vfill
+\item \textcolor{white}{blank}\\
+\includegraphics[scale=1.4]{pic3.pdf} \textcolor{red}{Yes}\vfill
+\item \textcolor{white}{blank}\\
+\includegraphics[scale=1.4]{pic4.pdf} \textcolor{red}{Yes}\vfill
+\item \textcolor{white}{blank}\\
+\includegraphics[scale=1.4]{pic5.pdf} \textcolor{red}{No}\vfill
+\end{enumerate}
+
+\newpage
+\prob The figure below shows the vector field $\vec{F} = \ang{0,x}$. Find paths $C_1$, $C_2$, and $C_3$ from $P$ to $Q$ such that
+	\[\int_{C_1} \vec{F} \cdot d \vec{r}=0, \quad \int_{C_2} \vec{F} \cdot d \vec{r}>0, \quad \int_{C_3} \vec{F} \cdot d \vec{r}<0.
+	\]
+Is $\vec{F}$ a gradient field?
+
+\bigskip
+\includegraphics[scale=1.5]{pic6.pdf}
+
+\bigskip\textcolor{red}{See class notes}.
+
+\bigskip
+\prob Prove that $\vec{F}(x,y) = \ang{2xy,xy}$ is not conservative.
+
+\bigskip
+\textcolor{red}{The field is not conservative because it has nonzero curl:
+	\[\frac{\bd Q}{\bd x} - \frac{\bd P}{\bd y} = y - 2x \neq 0.
+	\]}
+\bigskip
+
+\prob Show that the field
+	\[\vec{F}(x,y) = \frac{\ang{-y,x}}{x^2+y^2}
+	\]
+has zero curl on its domain (the plane with the origin removed), but is \textit{not} conservative.
+
+\bigskip
+\textcolor{red}{The curl is
+\begin{align*}
+\frac{\bd Q}{\bd x} - \frac{\bd P}{\bd y} &= \frac{(x^2+y^2) -2x^2}{(x^2+y^2)^2} - \frac{2y^2-(x^2+y^2) }{(x^2+y^2)^2} \\
+&= \frac{y^2-x^2}{(x^2+y^2)^2} - \frac{y^2-x^2}{(x^2+y^2)^2} \\
+&=0.
+\end{align*}
+To show that $\vec{F}$ is not conservative, we will find a closed path $C$ over which $\oint \vec{F} \cdot d\vec{r}$ is not zero. The curve we will use is
+	\[\vec{r}(t) = \ang{\cos{(t)},\sin{(t)}}, \quad t\in [0,2\pi].
+	\]
+Then
+	\[\oint_C \vec{F} \cdot d \vec{r} = \int_0^{2\pi} dt = 2\pi.
+	\]}
+
+\newpage
+\prob Decide which of the following vector fields are conservative. For the ones that are conservative, find a potential function.
+
+\medskip
+\begin{enumerate}
+\item $\vec{F}(x,y) = \ang{y,-x}$
+
+\bigskip
+\textcolor{red}{We check the curl:
+	\[\frac{\bd Q}{\bd x} - \frac{\bd P}{\bd y} = -2.
+	\]
+Since this is nonzero, $\vec{F}$ is not conservative.}
+\bigskip
+
+\item $\vec{F}(x,y) = \ang{2xy,x^2}$
+
+\bigskip
+\textcolor{red}{We check the curl:
+	\[\frac{\bd Q}{\bd x} - \frac{\bd P}{\bd y} = 0.
+	\]
+Since the domain of $\vec{F}$ is simply connected, the Curl Test says that $\vec{F}$ is conservative. Then
+\begin{align*}
+\frac{\bd f}{\bd x} = 2xy \quad \Rightarrow \quad f(x,y) = x^2y + C_1(y), \\
+\frac{\bd f}{\bd y} = x^2 \quad \Rightarrow \quad f(x,y) = x^2y + C_2(x),
+\end{align*}
+so $f(x,y) = x^2y$.}
+\bigskip
+
+\item $\vec{F}(x,y) = \ang{2xy^3+y,3x^2y^2+x}$
+
+\bigskip
+\textcolor{red}{We check the curl:
+	\[\frac{\bd Q}{\bd x} - \frac{\bd P}{\bd y} = 0.
+	\]
+Since the domain of $\vec{F}$ is simply connected, the Curl Test says that $\vec{F}$ is conservative. Then
+\begin{align*}
+\frac{\bd f}{\bd x} = 2xy^3+y \quad \Rightarrow \quad f(x,y) = x^2y^3 + xy + C_1(y), \\
+\frac{\bd f}{\bd y} = 3x^2y^2+x \quad \Rightarrow \quad f(x,y) = x^2y^3 + xy + C_2(x),
+\end{align*}
+so $f(x,y) = x^2y^3+xy$.}
+\bigskip
+
+\item $\vec{F}(x,y) =\displaystyle \frac{\ang{x,y}}{x^2+y^2}$
+
+\bigskip
+\textcolor{red}{We check the curl:
+	\[\frac{\bd Q}{\bd x} - \frac{\bd P}{\bd y} = 0.
+	\]
+But since the domain of $\vec{F}$ is \textit{not} simply connected, the Curl Test does not apply. Hence $\vec{F}$ may be conservative, or may not be. So, we attempt to find a potential function anyways, not knowing whether or not it even exists. Note that:
+\begin{align*}
+\frac{\bd f}{\bd x} = \frac{x}{x^2+y^2} \quad \Rightarrow \quad f(x,y) = \frac{1}{2} \ln{(x^2+y^2)} + C_1(y), \\
+\frac{\bd f}{\bd y} = \frac{y}{x^2+y^2} \quad \Rightarrow \quad f(x,y) = \frac{1}{2} \ln{(x^2+y^2)} + C_2(x),
+\end{align*}
+so $f(x,y) = \frac{1}{2} \ln{(x^2+y^2)}$. One can check that $\nabla f = \vec{F}$, so $\vec{F}$ is indeed conservative.}
+\bigskip
+
+\end{enumerate}
+
+
+
+\end{document}

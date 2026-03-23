@@ -1,0 +1,68 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S18.3 Gradient fields, part 1}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-29 odd
+
+\bigskip
+\hrule
+
+\bigskip
+\prob If $\vec{F}(x,y) = \nabla (x^2+y^4)$, find $\int_C \vec{F} \cdot d\vec{r}$ where $C$ is the quarter of the circle $x^2+y^2=4$ in the first quadrant, oriented counterclockwise.
+
+\bigskip
+\textcolor{red}{Since $\vec{F}$ is conservative with potential function $f(x,y) = x^2+y^4$, by FTCLI:
+	\[\int_C \vec{F} \cdot d\vec{r} = \left[x^2+y^4\right]_{(2,0)}^{(0,2)} = 16 - 4 = 12.
+	\]}
+\bigskip
+
+\prob Compute $\int_C \vec{F} \cdot d \vec{r}$ for each of the following parts.
+
+\bigskip
+\begin{enumerate}
+\item $\vec{F}(x,y) = \ang{3x^2,4y^3}$ and $C$ is the top of the unit circle from $(1,0)$ to $(-1,0)$.
+
+\medskip
+\textcolor{red}{We first find a potential function $f$ of $\vec{F}$. We have
+\begin{align*}
+\frac{\bd f}{\bd x} &= 3x^2 \Rightarrow f(x,y) = x^3 + C_1(y), \\
+\frac{\bd f}{\bd y} &= 4y^3 \Rightarrow f(x,y) = y^4 + C_2(x).
+\end{align*}
+Thus $f(x,y) = x^3+y^4$ is a potential function for $\vec{F}$. By FTCLI:
+	\[\int_C \vec{F} \cdot d\vec{r} = \left[x^3+y^4 \right]_{(1,0)}^{(-1,0)} = -2.
+	\]}
+\medskip
+
+\item $\vec{F}(x,y) = y\sin{(xy)}\vec{i} + x\sin{(xy)}\vec{j}$ and $C$ is the parabola $y=x^2$ from $(1,1)$ to $(2,4)$.
+
+\medskip
+\textcolor{red}{We first find a potential function $f$ of $\vec{F}$. We have
+\begin{align*}
+\frac{\bd f}{\bd x} &= y\sin{(xy)} \Rightarrow f(x,y) = -\cos{(xy)}+C_1(y), \\
+\frac{\bd f}{\bd y} &= x\sin{(xy)} \Rightarrow f(x,y) = -\cos{(xy)} + C_2(x).
+\end{align*}
+Thus $f(x,y) = -\cos{(xy)}$ is a potential function for $\vec{F}$. By FTCLI:
+	\[\int_C \vec{F} \cdot d\vec{r} = \left[-\cos{(xy)} \right]_{(1,1)}^{(2,4)} = -\cos{(8)} + \cos{(1)}.
+	\]}
+
+
+\item $\vec{F}(x,y,z) = \ang{ye^{xy},x e^{xy}, \cos{(z)}}$ and $C$ consists of the line from $(0,0,\pi)$ to $(1,1,\pi)$ followed by the parabola $z=\pi x^2$ in the plane $y=1$ to the point $(3,1,9\pi)$.\vfill
+
+\textcolor{red}{We first find a potential function $f$ of $\vec{F}$. We have
+\begin{align*}
+\frac{\bd f}{\bd x} &= ye^{xy} \Rightarrow f(x,y) = e^{xy}+C_1(y,z), \\
+\frac{\bd f}{\bd y} &= xe^{xy} \Rightarrow f(x,y) = e^{xy} + C_2(x,z), \\
+\frac{\bd f}{\bd z} &= \cos{(z)} \Rightarrow f(x,y) = \sin{(z)} + C_3(x,y).
+\end{align*}
+Thus $f(x,y) = e^{xy} + \sin{(z)}$ is a potential function for $\vec{F}$. By FTCLI:
+	\[\int_C \vec{F} \cdot d\vec{r} = \left[e^{xy} + \sin{(z)} \right]_{(0,0,\pi)}^{(3,1,9\pi)} = e^3-1.
+	\]}
+\end{enumerate}
+
+
+
+\end{document}

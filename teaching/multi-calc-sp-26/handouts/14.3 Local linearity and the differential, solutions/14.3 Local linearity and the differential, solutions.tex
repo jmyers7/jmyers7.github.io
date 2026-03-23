@@ -1,0 +1,74 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S14.3 Local linearity and differentials}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-13 odd, 17, 21-25 odd
+
+\medskip
+\hrule
+
+\medskip
+
+\prob Find an equation for the tangent plane of
+	\[f(x,y) = -x^2-y^2+5
+	\]
+at the point $(1,1)$.
+
+\medskip
+\textcolor{red}{We have $f_x(x,y) = -2x$, $f_y(x,y) = -2y$. So an equation is
+	\[z = -2(x-1)-2(y-1) + 3.
+	\]}
+\medskip
+
+\prob Find an equation for the tangent plane of
+	\[z = x^2+x^3y-y^2
+	\]	
+at the point $(1,0)$.
+
+\medskip
+\textcolor{red}{We have $f_x(x,y) = 2x+3x^2y$, $f_y(x,y) = x^3-2y$. So an equation is
+	\[z = 2(x-1) + y + 1.
+	\]}
+\medskip
+
+\prob Find an equation of the tangent plane to
+	\[z = y e^{x/y}
+	\]
+at the point $(1,1)$.
+
+\medskip
+\textcolor{red}{We have $z_x = e^{x/y}$, $z_y = e^{x/y} - ye^{x/y}x/y^2$. So an equation is
+	\[z = e(x-1) + e.
+	\]}
+\medskip
+
+
+\prob Find the equation of the tangent plane to $g(x,y)=\sin{(xy)}$ at the point $(x_0,y_0) = (2,3\pi/2)$. Use it to estimate $g(1.9,4.7)$.
+
+\medskip
+\textcolor{red}{We have $g_x(x,y) = \cos{(xy)}y$, $g_y(x,y) = \cos{(xy)}x$. An equation of the tangent plane is
+	\[T(x,y) = -\frac{3\pi}{2}(x-2) -2\left(y-\frac{3\pi}{2} \right).
+	\]
+Thus
+	\[g(1.9,4.7) \approx T(1.9,4.7) \approx 0.496.
+	\]
+The true value of $g(1.9,4.7)$ is $\approx 0.475$.}
+
+\medskip
+\prob Find the differential of $f(x,y) = x^2 \sin{(2y)}$ at the point $(x_0,y_0) = (2,\pi/4)$. Use it to estimate the change $f(2.1,0.78)-f(2,\pi/4)$.
+
+\medskip
+\textcolor{red}{Since $f_x(x,y) = 2x\sin{(2y)}$ and $f_y(x,y) = 2x^2\cos{(2y)}$, we have
+	\[dz = 4(x-2).
+	\]
+Thus
+	\[f(2.1,0.78) - f(2,\pi/4) \approx dz = 4(2.1-1) = 0.4.
+	\]
+The actual change is $\approx 0.41$.}
+
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S15.3 Lagrange multipliers}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-17 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob The production, $P$, for a given manufacturing company, measured in thousands of units, is given by the function
+	\[P = f(x,y) = 2x^2y^3,
+	\]
+where $x$ is the cost of materials and $y$ is the cost of labor (both measured in thousands of dollars). Supposing that the company has a budget of \$2,000, find the maximum production.
+
+\bigskip
+\textcolor{red}{The maximum production will occur when we exhaust the entire budget, so we have the constraint equation
+	\[x+y=2.
+	\]
+By using Geogebra or some other graphing software, we notice that the maximum budget appears to occur at the point $(x,y)$ where the gradient $\nabla f(x,y)$ is orthogonal to the line $x+y=2$ in the $xy$-plane. Now, the key observation is that the line $x+y=2$ is the contour line of the function $g(x,y)=x+y$ when $z=2$. And since we know that $\nabla g(x,y)$ is \textit{always} orthogonal to contours, to say that we've found a point $(x,y)$ such that $\nabla f(x,y)$ is orthogonal to the line $x+y=2$ means that $\nabla f(x,y)$ is parallel to $\nabla g(x,y)$. But two vectors are parallel when one is a scalar multiple of the other, so we must solve the system of equations
+	\[\nabla f(x,y) = \lambda \nabla g(x,y), \quad g(x,y) = 2,
+	\] 
+where $\lambda$ is an unknown scalar. But the first equation is just
+	\[\ang{4xy^3,6x^2y^2} = \ang{ \lambda, \lambda},
+	\]
+from which it follows that $4y = 6x$. But the equation $x+y=2$ gives $y=2-x$, so we then have $x=0.8$ and $y=1.2$. Thus the maximum production is
+	\[f(0.8,1.2) = 2.21  \tn{ thousand of units.}
+	\]}
+\bigskip
+
+\vfill
+\prob Find the extrema of $f(x,y) = x+y$ subject to the constraint $x^2+y^2=1$.
+
+\bigskip
+\textcolor{red}{With $g(x,y) = x^2+y^2$, the equation $\nabla f = \lambda \nabla g$ is
+	\[\ang{1,1} = \lambda \ang{2x,2y}.
+	\]
+This implies $2\lambda x = 1$ and $2\lambda y =1$. Substituting these values into the constraint gives
+	\[\frac{1}{4\lambda^2} + \frac{1}{4\lambda^2} =1,
+	\]
+which has solutions $\lambda = \pm \frac{1}{\sqrt{2}}$. Hence we have
+	\[(x,y) = \left( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right), \ \left(- \frac{1}{\sqrt{2}},- \frac{1}{\sqrt{2}} \right).
+	\]
+Plug these back into $f$ to get
+	\[f \left( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right) = \frac{2}{\sqrt{2}}, \quad f\left(- \frac{1}{\sqrt{2}},- \frac{1}{\sqrt{2}} \right) = -\frac{2}{\sqrt{2}}.
+	\]
+Hence the max is $2/\sqrt{2}$ at $\left( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right)$, while the min is $-2/\sqrt{2}$ at $\left(- \frac{1}{\sqrt{2}},- \frac{1}{\sqrt{2}} \right)$.}
+\bigskip
+
+\newpage
+\prob Find the extrema of $f(x,y) = x^2+2y^2$ subject to the constraint $x^2+y^2 = 1$.
+
+\bigskip
+\textcolor{red}{With $g(x,y) = x^2+y^2$, the equation $\nabla f = \lambda \nabla g$ is
+	\[\ang{2x,4y} = \lambda \ang{2x,2y}.
+	\]
+This implies $2x = 2\lambda x$ and $4y = 2\lambda y$. The first equation has solution $x=0$, and when we substitute this value into the constraint, we get $y = \pm 1$. But if $x\neq 0$, then the first equation has solution $\lambda =1$, which means that the second equation reads as $4y = 2y$. This can only happen if $y=0$. Putting $y=0$ into the constraint gives $x=\pm 1$. Thus we have four points: $(1,0)$, $(-1,0)$, $(0,1)$, and $(0,-1)$. Since
+	\[f(1,0) =f(-1,0) =  1, \quad f(0,1) = f(0,-1) = 2,
+	\]
+we see that the max is $2$ at both $(0,\pm 1)$, and the min is $1$ at $(\pm 1,0)$.}
+\bigskip
+
+\prob Find the minimum value of
+	\[f(x,y,z) = 2x^2 + y^2 + 3z^2
+	\]
+subject to the constraint $2x-3y-4z=49$.
+
+\bigskip
+\textcolor{red}{With $g(x,y,z) = 2x-3y-4z$, the equation $\nabla f = \lambda \nabla g$ is
+	\[\ang{4x,2y,6z} = \lambda \ang{2,-3,-4}.
+	\]
+This implies $4x = 2\lambda$, $2y = -3\lambda$, and $6z = -4\lambda$. Substituting these into the constraint gives
+	\[\lambda + \frac{9}{2}\lambda + \frac{8}{3} \lambda = 49,
+	\]
+which has solution $\lambda = 6$. This means $x = 3$, $y = -9$, and $z = -4$. There has to be a minimum at $(3,-9,-4)$, since $f$ grows unbounded on the constraint. Hence the minimum is $f(3,-9,-4)=147$.}
+
+
+
+\end{document}

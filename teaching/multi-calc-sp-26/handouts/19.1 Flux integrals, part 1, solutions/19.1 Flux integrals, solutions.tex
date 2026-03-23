@@ -1,0 +1,82 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S19.1 Flux integrals}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-9 odd, 13-25 odd, 31-47 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob Suppose $\vec{F}(x,y,z) = \ang{4,0, 5}$ and $S$ is the square of side length $3$ perpendicular to the $z$-axis, centered at $(0,0,-2)$, and oriented toward the origin. Compute the flux of $\vec{F}$ through $S$.
+
+\bigskip
+\textcolor{red}{We have that $\vec{n} = \vec{k}$, and the area of the square $S$ is $9$. Hence the flux is
+	\[(\vec{F} \cdot \vec{n})(\tn{area of $S$}) = (\ang{4,0,5}\cdot \ang{0,0,1})9 = 45.
+	\]}
+\bigskip
+
+\prob Suppose $\vec{F}(x,y,z) = \ang{2,0 ,3}$ and $S$ is the disk of radius $4$ perpendicular to the $x$-axis, centered at $(5,0,0)$, and oriented toward the origin. Compute the flux of $\vec{F}$ through $S$.
+
+\bigskip
+\textcolor{red}{We have that $\vec{n} = -\vec{i}$, and the area of the disk $S$ is $16\pi$. Hence the flux is
+	\[(\vec{F} \cdot \vec{n})(\tn{area of $S$}) = (\ang{2,0,3}\cdot \ang{-1,0,0})16\pi = -32\pi.
+	\]}
+\bigskip
+
+
+\newpage
+\prob Let $\vec{F}(x,y,z) = \ang{z,0,0}$. For each of the oriented surfaces below, decide whether the flux of $\vec{F}$ is positive, negative, or zero.
+
+\bigskip
+\begin{enumerate}
+\item\textcolor{white}{blank}\\
+\includegraphics[scale=1.25]{pic1.pdf} \textcolor{red}{positive}
+\item\textcolor{white}{blank}\\
+\includegraphics[scale=1.25]{pic2.pdf} \textcolor{red}{negative}
+\item\textcolor{white}{blank}\\
+\includegraphics[scale=1.25]{pic3.pdf} \textcolor{red}{zero}
+\item\textcolor{white}{blank}\\
+\includegraphics[scale=1.25]{pic4.pdf} \textcolor{red}{zero}
+\item\textcolor{white}{blank}\\
+\includegraphics[scale=1.25]{pic5.pdf} \textcolor{red}{zero}
+\end{enumerate}
+
+
+\vfill
+\newpage
+\prob Suppose $\vec{F}(x,y,z) = \ang{1,2,-3}$ and that $S$ is the oriented surface below. Compute the flux of $F$ through $S$.
+
+\bigskip
+\includegraphics[scale=1.5]{pic6.pdf}
+
+\bigskip
+\textcolor{red}{We have
+	\[\vec{n} = \frac{1}{\sqrt{13}} \ang{3,0,2}.
+	\]
+The surface is a rectangle of side lengths $2$ and $\sqrt{13}$. Hence
+	\[(\vec{F} \cdot \vec{n})(\tn{area of $S$}) = \left(\ang{1,2,-3}\cdot \frac{1}{\sqrt{13}}\ang{3,0,2}\right)\cdot 2\sqrt{13} = -6.
+	\]}
+
+\prob Let $\vec{F}(x,y,z) = \ang{1,-2,z}$, and suppose $S$ is the part of the graph of $f(x,y)=xy$ lying above the region $D$ which is $0 \leq x \leq 10$ and $0 \leq y \leq 10$. Compute $\int_S \vec{F} \cdot d \vec{A}$.
+
+\bigskip
+\textcolor{red}{We have
+	\[\int_S \vec{F} \cdot d \vec{A} = \int_0^{10} \int_0^{10} \ang{1,-2,xy} \cdot \ang{-y,-x,1} \ dxdy = 3000.
+	\]}
+\bigskip
+
+\prob Let $\vec{F}(x,y,z) = \ang{x, 0 ,z}$, and suppose $S$ is the part of the graph of $f(x,y)=x+y+2$ lying above the region $D$ which is the triangle with vertices $(0,0,0)$, $(1,0,0)$, and $(0,1,0)$. Compute $\int_S \vec{F} \cdot d\vec{A}$.
+
+\bigskip
+\textcolor{red}{We have
+	\[\int_S \vec{F} \cdot d \vec{A} = \int_0^1\int_0^{-x+1} \ang{x,0,x+y+2} \cdot \ang{ -1, -1, 1} \ dy dx = \frac{7}{6}.
+	\]}
+
+
+\end{document}

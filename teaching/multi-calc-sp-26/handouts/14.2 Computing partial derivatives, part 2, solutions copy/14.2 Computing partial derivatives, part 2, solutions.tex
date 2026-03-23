@@ -1,0 +1,41 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/jmyers7/GoogleDrive/tex/handout,/Users/jmyers7/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S14.2 Computing partial derivatives, part 2}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-39 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob The following surfaces, labeled $a$, $b$, and $c$, are graphs of a function $f$ and its partial derivatives $f_x$ and $f_y$ . Identify each surface and give reasons for your choices.
+
+\begin{center}
+\includegraphics[scale=1]{pic1.pdf}
+\end{center}
+
+\textcolor{red}{We have $c=f$, $a = f_y$, and $b=f_x$.}
+
+\newpage
+\prob The temperature at a point $(x,y)$ on a flat metal plate is given by
+	\[T(x,y) = \frac{60}{1+x^2+y^2},
+	\]
+where $T$ is measured in $^\circ$C and $x$ and $y$ in meters. Find the rate of change of temperature with respect to distance at the point $(2,1)$ in the $x$-direction and the $y$-direction.
+
+\bigskip
+\textcolor{red}{We have
+	\[T_x(x,y) = -\frac{120x}{(1+x^2+y^2)^2} \quad \tn{and} \quad T_y(x,y) = -\frac{120y}{(1+x^2+y^2)^2}.
+	\]
+The rate of change in the $x$-direction is then
+	\[T_x(2,1) = -20/3 \approx - 6.66 \tn{ $^\circ$C per meter}
+	\]
+and in the $y$-direction
+	\[T_y(2,1) = -10/3 \approx -3.33\tn{ $^\circ$C per meter}.
+	\]}
+
+\end{document}

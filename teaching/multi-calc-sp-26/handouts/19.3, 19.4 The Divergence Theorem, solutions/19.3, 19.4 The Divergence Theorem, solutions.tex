@@ -1,0 +1,140 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S\S19.3, 19.4 The Divergence Theorem}
+
+\begin{document}
+
+\textbf{Suggested problems \S19.3:} 3-9 odd \medskip
+
+\textbf{Suggested problems \S19.4:} 1-19 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob Using the diagrams below, compute the vector area element $d\vec{A}$ for cylindrical and spherical surfaces. Assume the cylinder and sphere have radius $R$.
+
+\bigskip
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=1.25]{pic7.pdf}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=1.25]{pic8.pdf}
+\end{center}
+\end{minipage}
+
+\bigskip
+\textcolor{red}{For the cylinder we have
+	\[d\vec{A} = \ang{\cos{(\theta)},\sin{(\theta)},0} \ Rd\theta dz,
+	\]
+while for the sphere we have
+	\[d\vec{A} = \ang{\sin{(\phi)} \cos{(\theta)},\sin{(\phi)}\sin{(\theta)},\cos{(\phi)}}\ R^2\sin{(\phi)}d\theta d \phi.
+	\]}
+\bigskip
+
+\prob Compute the flux of
+	\[\vec{F}(x,y,z) = \ang{x ,y, 3xz^2}
+	\]
+through the surface $S$ of a cylinder of radius 10, centered on the $z$-axis, oriented outward, with $0 \leq z \leq 5$.
+
+\bigskip
+\textcolor{red}{We have
+\begin{align*}
+\int_S \ang{x,y,3xz^2} \cdot d\vec{A} &= \int_0^5 \int_0^{2\pi} \ang{10\cos{(\theta)},10\sin{(\theta)},30\cos{(\theta)}\cdot 10^2}\cdot \ang{\cos{(\theta)},\sin{(\theta)},0} \ 10 d\theta dz \\
+&= 100 \int_0^5 \int_0^{2\pi} \ d\theta dz \\
+&= 1000\pi.
+\end{align*}}
+
+\newpage
+\prob Compute the flux of
+	\[\vec{F}(x,y,z) = \ang{0,0,z}
+	\]
+through the sphere $S$ of radius 5, centered at the origin, and oriented outward.
+
+\bigskip
+\textcolor{red}{We have
+\begin{align*}
+\int_S \ang{0,0,z} \cdot d\vec{A} &= \int_0^{2\pi} \int_0^\pi \ang{0,0,5\cos{(\varphi)}} \cdot \ang{\sin{(\varphi)}\cos{(\theta)},\sin{(\varphi)}\sin{(\theta)},\cos{(\varphi)}} \cdot 25\sin{(\varphi)} d\varphi d\theta \\
+&= 125 \int_0^{2\pi} \int_0^\pi \cos^2{(\varphi)}\sin{(\varphi)} \ d\varphi d \theta \\
+&= \frac{500\pi}{3}.
+\end{align*}}
+\bigskip
+
+\prob Compute the divergence $\nabla \cdot \vec{F}$ for the following vector fields.
+
+\begin{enumerate}
+\item $\vec{F}(x,y,z) = \ang{-x+y,y+z,-z + x}$
+
+\bigskip
+\textcolor{red}{
+	\[\nabla \cdot \vec{F} = -1 +1-1 = -1.
+	\]}
+\bigskip
+
+\item $\vec{F}(x,y,z) = 3x^2 \vec{i} - \sin{(xz)} \vec{j}+3x^2yz^2\vec{k}$
+
+\bigskip
+\textcolor{red}{
+	\[\nabla \cdot \vec{F} = 6x +6x^2yz.
+	\]}
+\bigskip
+\end{enumerate}
+
+
+\prob Compute the flux of the vector field
+	\[\vec{F}(x,y,z) = (x^2+y^2) \vec{i} + (y^2 + z^2) \vec{j} + (x^2+z^2) \vec{k}
+	\]
+through the surface $S$ of the cube below (oriented outward).
+
+\begin{flushright}
+\includegraphics[scale=1.5]{pic1.pdf}
+\end{flushright}
+
+\bigskip
+\textcolor{red}{Letting $W$ be the solid cube, by the Divergence Theorem we have
+\begin{align*}
+\int_S \vec{F} \cdot d\vec{A} &= \int_W \nabla \cdot \vec{F} \ dV \\
+&=  2 \int_0^1 \int_0^1 \int_0^1  (x+y+z) \ dxdydz \\
+&= 3.
+\end{align*} }
+\bigskip
+
+\prob Compute the flux of $\vec{F}(x,y,z) = \ang{xy,yz,xz}$ through the sphere $S$ of radius $1$ centered at the origin (oriented outward).
+
+\bigskip
+\textcolor{red}{We let $W$ be the solid sphere whose boundary is $S$. Then the Divergence Theorem gives us
+\begin{align*}
+\int_S \vec{F} \cdot d\vec{A} &= \int_W \nabla \cdot \vec{F} \ dV \\
+&= \int_W (x+y+z) \ dV \\
+&=  \int_0^\pi\int_0^{2\pi} \int_0^1 (\rho \sin{(\varphi)}\sin{(\theta)} + \rho \cos{(\varphi)} + \rho \sin{(\varphi)}\cos{(\theta)} ) \rho^2 \sin{(\varphi)} \ d\rho d\theta d\varphi \\
+&= \frac{1}{4}  \int_0^\pi\int_0^{2\pi} (\sin^2{(\varphi)}\sin{(\theta)} + \sin{(\varphi)} \cos{(\varphi)} + \sin^2{(\varphi)}\cos{(\theta)} ) \ d\theta d\varphi \\
+&= \frac{\pi}{2}  \int_0^\pi  \sin{(\varphi)} \cos{(\varphi)}\ d\varphi \\
+&= 0.
+\end{align*}}
+\bigskip
+
+
+\prob Let $S$ be an outward-oriented closed cylinder of height $2$ with its base a disk of radius $2$ in the $xy$-plane centered at the origin. Compute the flux of $\vec{F}(x,y,z) = \ang{0,y,0}$ through $S$ in two different ways.
+
+\bigskip
+\textcolor{red}{
+We first compute the flux directly as $\int_S \vec{F}\cdot d\vec{A}$. Since the cylinder has a top and bottom, we have to break the flux integral into three integrals:
+\begin{align*}
+\int_S \vec{F} \cdot d\vec{A} &= \int_\tn{cylinder wall} \vec{F} \cdot d\vec{A} + \int_\tn{top} \vec{F} \cdot d\vec{A} + \int_\tn{bottom} \vec{F} \cdot d\vec{A} \\
+&= 4 \int_0^2 \int_0^{2\pi} \ang{0,\sin{(\theta)},0} \cdot \ang{\cos{(\theta)},\sin{(\theta)},0} \ d\theta dz + \int_\tn{top} \vec{F} \cdot d\vec{A} + \int_\tn{bottom} \vec{F} \cdot d\vec{A} \\
+&= 4 \int_0^2 \int_0^{2\pi} \sin^2{(\theta)} \ d\theta dz + \int_\tn{top} \vec{F} \cdot d\vec{A} + \int_\tn{bottom} \vec{F} \cdot d\vec{A} \\
+&= 8\pi + \int_\tn{top} \vec{F} \cdot d\vec{A} + \int_\tn{bottom} \vec{F} \cdot d\vec{A} \\
+&= 8\pi + \iint_\tn{disk} \ang{0,y,0} \cdot \ang{0,0,1}\ dxdy + \iint_\tn{disk} \ang{0,y,0} \cdot \ang{0,0,-1} \ dxdy \\
+&= 8\pi.
+\end{align*}
+We now compute the flux by using the Divergence Theorem. Let $W$ be the solid cylinder of which $S$ is the boundary. Then
+	\[\int_W \nabla\cdot \vec{F} \ dV = \int_W \ dV = \pi\cdot 2^2 \cdot 2 = 8\pi.
+	\]}
+
+\end{document}

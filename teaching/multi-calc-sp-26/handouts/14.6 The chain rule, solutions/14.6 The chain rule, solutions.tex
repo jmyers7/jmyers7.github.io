@@ -1,0 +1,96 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S14.6 The chain rule}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-15 odd
+
+\medskip
+\hrule
+
+\bigskip
+
+\prob Find $dz/dt$.
+
+\begin{enumerate}
+\item $z = x^2y-y^2$, $x = \sin{(t)}$, $y = e^t$
+
+\bigskip
+\textcolor{red}{
+	\[\frac{dz}{dt} = 2e^t\sin{(t)}\cos{(t)} + (\sin^2{(t)}-2e^t)e^t
+	\]}
+\bigskip
+
+\item $z=xy^2$, $x=e^{-t}$, $y=\sin{(t)}$
+
+\bigskip
+\textcolor{red}{
+	\[\frac{dz}{dt}  = -\sin^2{(t)} e^{-t} + 2e^{-t}\sin{(t)}\cos{(t)}
+	\]}
+\bigskip
+
+\item $z= x\sin{(y)} + y\sin{(x)}$, $x=t^2$, $y=\ln{(t)}$
+
+\bigskip
+\textcolor{red}{
+	\[\frac{dz}{dt}  = ( \sin{(\ln{(t)})}+\ln{(t)}\cos{(t^2)})2t + (t^2\cos{(\ln{(t)})}+\sin{(t^2)})\cdot \frac{1}{t}
+	\]}
+\bigskip
+
+\end{enumerate}
+
+\bigskip
+\prob Let $z=f(x,y)$ where $x=g(t)$ and $y=h(t)$. Given the information below, find $dz/dt|_{t=1}$.
+
+\medskip
+\includegraphics[scale=1.25]{pic1.pdf}
+
+\bigskip
+\textcolor{red}{
+	\[\frac{dz}{dt}\bigg|_{t=1}  = 100\cdot 4 + \frac{1}{10} \cdot 11.
+	\]}
+\bigskip
+
+\prob A steel bar with square cross sections $5$ cm by $5$ cm and length $3$ meters is being heated. For each dimension, the bar expands $13 \times 10^{-6}$ meters for each $1^\circ$C rise in temperature. What is the rate of change in the volume of the steel bar?
+
+\bigskip
+\textcolor{red}{Let $x$ denote the side length of a square cross section, and $y$ the length of the beam. Then the volume is
+	\[V(x,y) = x^2y.
+	\]
+Thus
+	\[\frac{dV}{dt} = \frac{\bd V}{\bd x} \frac{dx}{dt} + \frac{\bd V}{\bd y} \frac{dy}{dt} = 2xy \frac{dx}{dt} + x^2 \frac{dy}{dt}.
+	\]
+We are told that $dx / dt = dy/dt = 13 \times 10^{-6}$ when $x = 0.05$ and $y=3$. Thus we have
+	\[\frac{dV}{dt} = 2(0.05)(3)(13 \times 10^{-6}) + (0.05)^2(13 \times 10^{-6}) = 3.9325 \times 10^{-6},
+	\]
+which has units equal to cubic meters per $1^\circ $C.}
+
+\bigskip
+\prob Find $\bd z/\bd u$ and $\bd z/\bd v$.
+
+\begin{enumerate}
+\item $z = 2xy$, $x = u^2+v^2$, $y = u/v$
+
+\bigskip
+\textcolor{red}{
+\begin{align*}
+\frac{\bd z}{\bd u} &= 2\cdot \frac{u}{v} \cdot 2u + 2 (u^2+v^2) \cdot \frac{1}{v} \\
+\frac{\bd z}{\bd v} &= 2 \cdot \frac{u}{v} \cdot 2v + 2(u^2+v^2) \left( -\frac{u}{v^2} \right)
+\end{align*}}
+\bigskip
+
+\item $z = x^2 e^y$, $x = 4u$, $y = 3u^2-2v$
+
+\bigskip
+\textcolor{red}{
+\begin{align*}
+\frac{\bd z}{\bd u} &= 2\cdot 4ue^{3u^2-2v}\cdot 4 + 16u^2 e^{3u^2-2v} \cdot 6u \\
+\frac{\bd z}{\bd v} &= 16u^2e^{3u^2-2v}(-2)
+\end{align*}}
+
+\end{enumerate}
+
+\end{document}

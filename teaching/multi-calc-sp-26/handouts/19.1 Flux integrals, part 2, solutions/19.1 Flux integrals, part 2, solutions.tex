@@ -1,0 +1,51 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S19.1 Flux integrals, part 2}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-9 odd, 13-25 odd, 31-47 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob Compute
+	\[\int_S \ang{x,y,z} \cdot d \vec{A}
+	\]
+where $S$ is the part of the surface $z=x^2+y^2$ above the disk $x^2+y^2 \leq 1$, with downward orientation.
+
+\bigskip
+\textcolor{red}{The surface is part of the graph of $f(x,y) = x^2+y^2$. Since we have \textbf{downward} orientation, our vector area element is
+	\[d\vec{A} = \ang{f_x,f_y,-1} \ dy dx = \ang{2x,2y,-1} \ dydx.
+	\]
+Thus
+\begin{align*}
+\int_S \ang{x,y,z} \cdot d \vec{A} &= \int_\tn{disk} \ang{x,y,x^2+y^2} \cdot \ang{2x,2y,-1} \ dy dx \\
+&= \int_\tn{disk} (x^2+y^2) \ dydx \\
+&= \int_0^{2\pi} \int_0^1 r^3 \ dr d\theta \\
+&= \frac{\pi}{2}.
+\end{align*}}
+\bigskip
+
+\prob Compute
+	\[\int_S \ang{\ln{(x^2)}, e^x, \cos{(1-z)}} \cdot d\vec{A}
+	\]
+where $S$ is the part of the surface $z=-y+1$ above the square $0 \leq x\leq 1$, $0\leq y \leq 1$, oriented upward.
+
+\bigskip
+\textcolor{red}{The surface is part of the graph of $f(x,y) = -y+1$. The area vector element (with the usual upward orientation) is
+	\[d\vec{A} = \ang{0,1,1} \ dy dx.
+	\]
+Thus
+\begin{align*}
+\int_S \ang{\ln{(x^2)}, e^x, \cos{(1-z)}} \cdot d\vec{A} &= \int_0^1 \int_0^1 \ang{\ln{(x^2)} , e^x, \cos{(y)}} \cdot \ang{0,1,1} \ dydx \\
+&= \int_0^1 \int_0^1 (e^x + \cos{(y)}) \ dy dx \\
+&= \int_0^1 ( e^x + \sin{(1)}) \ dx \\
+&= e+\sin{(1)}-1.
+\end{align*}}
+
+\end{document}

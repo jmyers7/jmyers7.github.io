@@ -1,0 +1,75 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S18.4 Green's Theorem}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-15 odd, 19, 21
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob Compute 
+	\[\oint_C y^2\ dx+x\ dy
+	\]
+where $C$ is the counterclockwise path around the perimeter of the rectangle $R$ with $0 \leq x \leq 2$, $0 \leq y \leq 3$.
+
+\bigskip
+\textcolor{red}{By Green's Theorem:
+	\[\oint_C y^2\ dx+x\ dy = \int_0^2 \int_0^3 \left( 1-2y \right )  \ dy dx = -12.
+	\]}
+\bigskip
+
+\prob Compute
+	\[\oint_C \ang{y,-x} \cdot d\vec{r}
+	\]
+where $C$ is the unit circle oriented clockwise.
+
+\bigskip
+\textcolor{red}{Let $R$ be the unit disk (the interior of $C$). By Green's Theorem (watch out for the orientation!):
+	\[\oint_C \ang{y,-x} \cdot d\vec{r} = 2 \int_R \ dA = 2\pi.
+	\]}
+\bigskip
+
+\prob Compute
+	\[\oint_C y^3 \ dx + (x^3+3xy^2) \ dy
+	\]
+where $C$ is the path from $(0,0)$ to $(1,1)$ along the graph of $y=x^3$ and from $(1,1)$ to $(0,0)$ along the graph of $y=x$.
+
+\bigskip
+\textcolor{red}{By Green's Theorem:
+	\[\oint_C y^3 \ dx + (x^3+3xy^2) \ dy = \int_0^1 \int_{x^3}^x 3x^2 \ dy dx = \frac{1}{4}.
+	\]}
+\bigskip
+
+\prob Compute
+	\[\oint_C \ang{y^3,3xy^2} \cdot d\vec{r}
+	\]
+where $C$ is the unit circle oriented counterclockwise.
+
+\bigskip
+\textcolor{red}{The field is conservative, so the integral is zero. Had you used Green's Theorem, you would have gotten the same result since the field (necessarily) is curl free.}
+\bigskip
+
+\prob Compute
+	\[\oint_C \left( \arctan{(x)}+y^2 \right) \ dx + (e^y-x^2) \ dy
+	\]
+where $C$ is the curve shown below.
+
+\bigskip
+\includegraphics[scale=1]{1.pdf}
+
+\bigskip
+\textcolor{red}{By Green's Theorem:
+\begin{align*}
+\oint_C \left( \arctan{(x)}+y^2 \right) \ dx + (e^y-x^2) \ dy &= -2 \int_R (x+y) \ dA \\
+&= -2 \int_0^\pi \int_1^3 ( r\cos{(\theta)} + r\sin{(\theta)}) r \ drd\theta \\
+&= - \frac{104}{3}.
+\end{align*}}
+
+
+\end{document}

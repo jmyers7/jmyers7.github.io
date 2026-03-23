@@ -1,0 +1,77 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S13.1 Displacement vectors}
+
+\begin{document}
+
+\textbf{Suggested problems:} 1-33 odd
+
+\bigskip
+\hrule
+
+\bigskip
+\prob Resolve the following vectors into the basis vectors.
+
+\medskip
+\includegraphics[scale=1.5]{1.pdf}
+
+\textcolor{red}{
+\begin{align*}
+\vec{a} &= 2\vec{i}+\vec{j} \\
+\vec{b} &= 2\vec{i} \\
+\vec{c} &= -2\vec{i} \\
+\vec{d} &= -2\vec{i} + 2\vec{j}\\
+\vec{e} &= -2\vec{i}-\vec{j}
+\end{align*}}
+
+\vfill
+\prob Resolve the following vectors into the basis vectors.
+
+\medskip
+\includegraphics[scale=1.5]{2.pdf}
+
+\textcolor{red}{
+\begin{align*}
+\vec{a} &= 3\vec{k}\\
+\vec{b} &= 3\vec{k}\\
+\vec{c} &= 3\vec{k}\\
+\vec{d} &= 2\vec{i}+3\vec{k}\\
+\vec{e} &= \vec{j}\\
+\vec{f} &= -2\vec{i}
+\end{align*}}
+
+\prob Perform the following operations.
+
+\medskip
+\begin{enumerate}
+\item $-4(\vec{i}-2\vec{j}) +(-3)(2\vec{i} + \vec{j})$
+
+\textcolor{red}{
+	\[-10\vec{i}+5\vec{j}
+	\]}
+
+\item $\frac{1}{2}(2\vec{i} -\vec{j} +3\vec{k}) +3(\vec{i} - \frac{1}{6} \vec{j} + \frac{1}{2}\vec{k})$
+
+\textcolor{red}{
+	\[4\vec{i} -\vec{j} + 3\vec{k}
+	\]}
+
+\end{enumerate}
+
+\prob Find a vector with length $2$ which points in the same direction as $\vec{v} = \vec{i} - \vec{j} +2\vec{k}$.
+
+\textcolor{red}{
+	\[2\cdot \frac{\vec{v}}{||\vec{v}||} = \frac{2}{\sqrt{1+1+4}}(\vec{i} - \vec{j} +2\vec{k}) = \frac{2}{\sqrt{6}} \vec{i} - \frac{2}{\sqrt{6}}\vec{j} +\frac{4}{\sqrt{6}}\vec{k}
+	\]}
+
+\prob Find the values of $a$ making $\vec{v} = 5a\vec{i} -3\vec{j}$ parallel to $\vec{w} = a^2 \vec{i} +6\vec{j}$.
+
+\bigskip
+\textcolor{red}{We need to find a number $\lambda$ such that $\lambda \vec{v} = \vec{w}$. This would mean
+	\[5\lambda a \vec{i} - 3\lambda \vec{j} = \lambda a^2 \vec{i} +6\lambda \vec{j},
+	\]
+so that $5\lambda a = a^2$ and $-3\lambda = 6$. The second equation says that $\lambda=-2$, so the first equation becomes $-10a = a^2$. Solving for $a$ gives $a( a+10)=0$, so that $a=0,-10$.}
+
+\end{document}

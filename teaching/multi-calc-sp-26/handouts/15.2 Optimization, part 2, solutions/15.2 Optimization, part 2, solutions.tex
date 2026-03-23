@@ -1,0 +1,53 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/GoogleDrive/tex/handout,/Users/johnmyers/GoogleDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S15.2 Optimization, part 2}
+
+\begin{document}
+
+\textbf{Suggested problems:} 15, 17
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob A rectangular box without a lid is to be made from $12$ m$^2$ of cardboard. Find the maximum volume of such a box.
+
+\bigskip
+\textcolor{red}{Let the length and width of the box be $x$ and $y$, respectively, and let its height be $z$. Then the volume is
+	\[V = xyz.
+	\]
+Now, since the surface area (without the lid) must be $12$ m$^2$, we have
+	\[xy + 2yz + 2xz = 12.
+	\]
+Solving this for $z$ gives
+	\[z = \frac{12-xy}{2x+2y},
+	\]
+and putting this into $V$ gives
+	\[V(x,y) = \frac{12xy - x^2y^2}{2x+2y}.
+	\]
+If either $x=0$ or $y=0$, then $V=0$, so we know that a maximum cannot occur in either of these cases. To find critical points, we solve
+	\[\nabla V(x,y) = \ang{0,0},
+	\]
+which amounts to solving
+	\[\frac{y^2(12-x^2-2xy)}{2(x+y)^2} = 0 \quad \tn{and} \quad \frac{x^2(12-y^2-2xy)}{2(x+y)^2} = 0.
+	\]
+This turns into
+	\[12-x^2-2xy = 0 \quad \tn{and} \quad 12-y^2-2xy = 0,
+	\]
+and subtracting the second equation from the first gives
+	\[x^2=y^2,
+	\]
+which gives $x=y$ since both $x$ and $y$ must be positive. Then substituting $x=y$ into $12-x^2-2xy=0$ gives
+	\[12-3x^2=0,
+	\]
+which implies that $x=2$. But since $x=y$, we must then have $y=2$, too. Hence $(2,2)$ is the only critical point of $V$ that we are interested in. We now use the Second Derivative Test to make sure that a maximum actually occurs here. Using technology, we get that:
+	\[V_{xx}(2,2)V_{yy}(2,2) - V_{xy}(2,2) = (-1)(-1)-(-1/2) = 3/2>0.
+	\]
+Since $V_{xx}(2,2)<0$ as well, this means that there is indeed a maximum at $(2,2)$, and the maximum volume is thus $V(2,2) = 4$ m$^3$.}
+
+
+
+\end{document}

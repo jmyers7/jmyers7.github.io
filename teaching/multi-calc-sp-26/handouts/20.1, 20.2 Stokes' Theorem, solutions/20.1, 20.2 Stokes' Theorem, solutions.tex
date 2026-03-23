@@ -1,0 +1,143 @@
+\documentclass[12pt,reqno]{amsart}
+\usepackage{/Users/johnmyers/myDrive/tex/handout,/Users/johnmyers/myDrive/tex/customcommands,polynom}
+\usepackage{caption}
+
+\hdr{MAT 240}{\S\S20.1, 20.2 Stokes' Theorem}
+
+\begin{document}
+
+\textbf{Suggested problems \S20.1:} 3-9 odd\medskip
+
+\textbf{Suggested problems \S20.2:} 1-11 odd
+
+\bigskip
+\hrule
+
+\bigskip
+
+\prob Compute the curl $\nabla \times \vec{F}$ for each of the following vector fields.
+
+\medskip
+\begin{enumerate}
+\item $\vec{F}(x,y,z) = 3x \vec{i} - 5z \vec{j} + y \vec{k}$
+
+\bigskip
+\textcolor{red}{
+	\[\nabla \times \vec{F} = \begin{vmatrix}
+	\vec{i} & \vec{j} & \vec{k} \\
+	\bd/\bd x & \bd / \bd y & \bd / \bd z \\
+	3x & -5z & y
+	\end{vmatrix} = \ang{6,0,0}
+	\]}
+\bigskip
+
+
+\item $\vec{F}(x,y,z) = \ang{e^x , z\cos{y}  , e^{y^2}}$
+
+\bigskip
+\textcolor{red}{
+	\[\nabla \times \vec{F} = \begin{vmatrix}
+	\vec{i} & \vec{j} & \vec{k} \\
+	\bd/\bd x & \bd / \bd y & \bd / \bd z \\
+	e^x & z\cos{y} & e^{y^2}
+	\end{vmatrix} = \ang{2ye^{y^2}-\cos{y},0,0}
+	\]}
+\bigskip
+
+\end{enumerate}
+
+
+\prob The figure to the right shows an open cylindrical can $S$ standing on the $xy$-plane. ($S$ has a bottom and sides, but no top.) If $S$ is oriented outward and downward, compute
+	\[\int_S \nabla \times \ang{ -y  , x , z} \cdot d\vec{A}.
+	\]
+
+\begin{flushright}
+\textcolor{white}{blank}
+\includegraphics[scale=1.5]{pic1.pdf}
+\end{flushright}
+
+\bigskip
+\textcolor{red}{We use Stokes' Theorem, where $C$ is the boundary curve. The curve is parameterized by
+	\[\vec{r}(t) = \ang{3\sin{t},3\cos{t},2}
+	\]
+for $t\in [0,2\pi]$. Then
+\begin{align*}
+\int_S (\nabla \times \ang{ -y  , x , z}) \cdot d\vec{A} &= \oint_C \ang{ -y  , x , z} \cdot d \vec{r} \\
+&= \int_0^{2\pi} \ang{ - 3\cos{t}, 3\sin{t},2}\cdot \ang{ 3\cos{t}, -3\sin{t},0} \ dt \\
+&= -9 \int_0^{2\pi} \ dt \\
+&= -18\pi.
+\end{align*}}
+
+
+\prob Compute
+	\[\oint_C (-z \vec{i} + y \vec{j} + x\vec{k}) \cdot d\vec{r}
+	\]
+where $C$ is the circle of radius $2$ shown to the right.
+
+\begin{flushright}
+\includegraphics[scale=1.5]{pic2.pdf}
+\end{flushright}
+
+\bigskip
+\textcolor{red}{We use Stokes' Theorem, where $S$ is the solid disk bounded by $C$. We first compute the curl:
+	\[\nabla \times \vec{F} = \begin{vmatrix}
+	\vec{i} & \vec{j} & \vec{k} \\
+	\bd/\bd x & \bd / \bd y & \bd / \bd z \\
+	-z & y & x
+	\end{vmatrix} = \ang{0,-2,0}.
+	\]
+Stokes' Theorem then gives us
+	\[\oint_C (-z \vec{i} + y \vec{j} + x\vec{k}) \cdot d\vec{r} = \int_S \ang{0,-2,0} \cdot d \vec{A},
+	\]
+where $S$ is oriented away from the origin. But since $S$ is flat and $\ang{0,-2,0}$ is constant, we have
+	\[\int_S \ang{0,-2,0} \cdot d \vec{A} = \ang{0,-2,0} \cdot \vec{A} = \ang{0,-2,0} \cdot \ang{0,4\pi,0,} = -8\pi,
+	\]
+where $\vec{A} = \ang{0,4\pi,0}$ is the area vector of $S$.}
+
+
+
+
+\bigskip
+\prob Compute
+	\[\oint_C \ang{x^2 , y^2 , z^2 } \cdot d\vec{r}
+	\]
+where $C$ is the unit circle in the $xz$-plane, oriented counterclockwise when viewed from the positive $y$-axis.
+
+\bigskip
+\textcolor{red}{Let $S$ be the solid disk bounded by $C$. We first compute the curl:
+	\[\nabla \times \vec{F} = \begin{vmatrix}
+	\vec{i} & \vec{j} & \vec{k} \\
+	\bd/\bd x & \bd / \bd y & \bd / \bd z \\
+	x^2 & y^2 & z^2
+	\end{vmatrix} = \ang{0,0,0}.
+	\]
+Thus if we use Stokes' Theorem, where $S$ is oriented toward the negative $y$-axis, then we have
+	\[\oint_C \ang{x^2 , y^2 , z^2 } \cdot d\vec{r} = \int_S (\nabla \times \vec{F}) \cdot d \vec{A} = 0.
+	\]}
+
+\newpage
+\prob Compute
+	\[\oint_C (-y \vec{i} + x\vec{j} + z\vec{k}) \cdot d\vec{r}
+	\]
+where $C$ is the circle of radius $2$ in the plane $x+y+z=3$, centered at $(1,1,1)$ and oriented clockwise when viewed from the origin.
+
+\bigskip
+\textcolor{red}{Let $S$ be the solid disk bounded by $C$. We first compute the curl:
+	\[\nabla \times \vec{F} = \begin{vmatrix}
+	\vec{i} & \vec{j} & \vec{k} \\
+	\bd/\bd x & \bd / \bd y & \bd / \bd z \\
+	-y & x & z
+	\end{vmatrix} = \ang{0,0,2}.
+	\]
+Stokes' Theorem then gives us
+	\[\oint_C (-y \vec{i} + x \vec{j} + z\vec{k}) \cdot d\vec{r} = \int_S \ang{0,0,2} \cdot d \vec{A},
+	\]
+where $S$ is oriented away from the origin. But since $S$ is flat and $\ang{0,0,2}$ is constant, we have 
+	\[\int_S \ang{0,0,2} \cdot d \vec{A} = \ang{0,0,2} \cdot \vec{A} = \ang{0,0,2} \cdot \frac{4\pi\ang{1,1,1}}{\sqrt{3}} = \frac{8\pi}{3},
+	\]
+where
+	\[\vec{A} = \frac{4\pi\ang{1,1,1}}{\sqrt{3}}
+	\]
+is the area vector of $S$.}
+
+\end{document}
