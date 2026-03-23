@@ -1,0 +1,150 @@
+---
+title: "11 Vectors and inner products"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+## Complex vectors {.scrollable}
+
+- A **complex $k$-dimensional vector** is an ordered $k$-tuple of complex numbers:
+$$
+\mathbf{a} = (a_1, a_2, \ldots, a_k).
+$$
+Sometimes we will write $\mathbf{a}$ as a column vector:
+$$
+\mathbf{a} = \begin{bmatrix}a_1 \\ a_2 \\ \vdots \\ a_k\end{bmatrix}.
+$$
+
+- The set of all complex $k$-dimensional vectors is denoted $\mathbb{C}^k$.
+
+- We can add vectors componentwise:
+$$
+\mathbf{a} + \mathbf{b} = (a_1 + b_1, a_2 + b_2, \ldots, a_k + b_k),
+$$
+
+- We can also multiply a vector by a complex scalar $c$:
+$$
+c \mathbf{a} = (c a_1, c a_2, \ldots, c a_k).
+$$
+
+- The zero vector is $\mathbf{0} = (0, 0, \ldots, 0)$.
+
+- All these operations satisfy the usual properties of vector addition and scalar multiplication, making $\mathbb{C}^k$ a **vector space**.
+
+## Inner products and norms {.scrollable}
+
+- The **inner product** of two vectors is defined by
+$$
+\langle \mathbf{a}, \mathbf{b} \rangle = a_1 \overline{b_1} + a_2 \overline{b_2} + \cdots + a_k \overline{b_k},
+$$
+where $\overline{b_j}$ denotes the complex conjugate of $b_j$.
+
+- The **norm** of a vector is defined by
+$$
+\| \mathbf{a} \| = \sqrt{\langle \mathbf{a}, \mathbf{a} \rangle} = \sqrt{|a_1|^2 + |a_2|^2 + \cdots + |a_k|^2}.
+$$
+
+::: {.callout-note icon="false" .fragment}
+### Properties of inner products and norms
+
+The inner product has the following properties:
+
+a. **Linearity in the first argument**: For all $\mathbf{a}, \mathbf{b}, \mathbf{c} \in \mathbb{C}^k$ and $c, d \in \mathbb{C}$, we have
+$$
+\langle c\mathbf{a} + d\mathbf{b}, \mathbf{c} \rangle = c \langle \mathbf{a}, \mathbf{c} \rangle + d \langle \mathbf{b}, \mathbf{c} \rangle.
+$$
+
+b. **Conjugate linearity in the second argument**: For all $\mathbf{a}, \mathbf{b}, \mathbf{c} \in \mathbb{C}^k$ and $c, d \in \mathbb{C}$, we have
+$$
+\langle \mathbf{a}, c\mathbf{b} + d\mathbf{c} \rangle = \overline{c} \langle \mathbf{a}, \mathbf{b} \rangle + \overline{d} \langle \mathbf{a}, \mathbf{c} \rangle.
+$$
+
+c. **Conjugate symmetry**: For all $\mathbf{a}, \mathbf{b} \in \mathbb{C}^k$, we have
+$$
+\langle \mathbf{a}, \mathbf{b} \rangle = \overline{\langle \mathbf{b}, \mathbf{a} \rangle}.
+$$
+
+The norm has the following properties:
+
+a. **Positive definiteness**: For all $\mathbf{a} \in \mathbb{C}^k$, we have $\| \mathbf{a} \| \geq 0$, and $\| \mathbf{a} \| = 0$ if and only if $\mathbf{a} = \mathbf{0}$.
+
+b. **Homogeneity**: For all $\mathbf{a} \in \mathbb{C}^k$ and $c \in \mathbb{C}$, we have $\| c\mathbf{a} \| = |c| \| \mathbf{a} \|$.
+
+:::
+
+## Properties of inner products and norms {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Lemma 3.1 (Polarization Identity)
+
+For any $\mathbf{a}, \mathbf{b} \in \mathbb{C}^k$, we have
+$$
+\| \mathbf{a} + \mathbf{b} \|^2 = \| \mathbf{a} \|^2 + 2\operatorname{Re}{\langle \mathbf{a}, \mathbf{b} \rangle} + \| \mathbf{b} \|^2,
+$$
+where $\operatorname{Re}{z}$ denotes the real part of a complex number $z$.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Cauchy-Schwarz Inequality
+
+For any $\mathbf{a}, \mathbf{b} \in \mathbb{C}^k$, we have
+$$
+|\langle \mathbf{a}, \mathbf{b} \rangle| \leq \| \mathbf{a} \| \| \mathbf{b} \|.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Triangle Inequality
+
+For any $\mathbf{a}, \mathbf{b} \in \mathbb{C}^k$, we have
+$$
+\| \mathbf{a} + \mathbf{b} \| \leq \| \mathbf{a} \| + \| \mathbf{b} \|.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Pythagorean Theorem
+
+If $\mathbf{a}_1,\mathbf{a}_2, \ldots, \mathbf{a}_n$ are mutually orthogonal vectors in $\mathbb{C}^k$, then
+$$
+\| \mathbf{a}_1 + \mathbf{a}_2 + \cdots + \mathbf{a}_n \|^2 = \| \mathbf{a}_1 \|^2 + \| \mathbf{a}_2 \|^2 + \cdots + \| \mathbf{a}_n \|^2.
+$$
+
+:::
+
+## Orthogonal vectors {.scrollable}
+
+- A vector $\mathbf{u}$ is **normalized**, or is a **unit vector** if $\| \mathbf{u}\|=1$.
+
+- A collection of nonzero vectors $\{\mathbf{a}_1, \mathbf{a}_2, \ldots, \mathbf{a}_n\}$ is an **orthogonal set** if $\langle \mathbf{a}_j, \mathbf{a}_k \rangle = 0$ for all $j \neq k$. It is an **orthonormal set** if it is an orthogonal set and each $\mathbf{a}_j$ is a unit vector.
+
+::: {.callout-note icon="false" .fragment}
+### Theorem
+
+All orthogonal sets of nonzero vectors are linearly independent.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem 3.1
+
+Let $\{\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_k\}$ be an orthonormal set of vectors in $\mathbb{C}^k$. Then for any $\mathbf{a} \in \mathbb{C}^k$, we have
+
+$$
+\mathbf{a} = \langle \mathbf{a}, \mathbf{u}_1 \rangle \mathbf{u}_1 + \langle \mathbf{a}, \mathbf{u}_2 \rangle \mathbf{u}_2 + \cdots + \langle \mathbf{a}, \mathbf{u}_k \rangle \mathbf{u}_k,
+$$
+
+and
+$$
+\| \mathbf{a} \|^2 = |\langle \mathbf{a}, \mathbf{u}_1 \rangle|^2 + |\langle \mathbf{a}, \mathbf{u}_2 \rangle|^2 + \cdots + |\langle \mathbf{a}, \mathbf{u}_k \rangle|^2.
+$$
+:::
