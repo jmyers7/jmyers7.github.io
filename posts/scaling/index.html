@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Partial Differential Equations – john myers, ph.d.</title>
+<title>Scaling – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,6 +81,7 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -117,7 +118,7 @@ window.Quarto = {
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -201,8 +202,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-information" id="toc-course-information" class="nav-link active" data-scroll-target="#course-information">Course information</a></li>
-  <li><a href="#schedule-slides-exercises-and-info" id="toc-schedule-slides-exercises-and-info" class="nav-link" data-scroll-target="#schedule-slides-exercises-and-info">Schedule, slides, exercises, and info</a></li>
+  <li><a href="#scaled-random-walks" id="toc-scaled-random-walks" class="nav-link active" data-scroll-target="#scaled-random-walks">Scaled random walks</a></li>
   </ul>
 </nav>
     </div>
@@ -211,8 +211,16 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Partial Differential Equations</h1>
-</div>
+<h1 class="title">Scaling</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Stochastic processes</div>
+    <div class="quarto-category">Random walk</div>
+    <div class="quarto-category">Probability theory</div>
+    <div class="quarto-category">Martingale</div>
+    <div class="quarto-category">SigAlg</div>
+    <div class="quarto-category">Python</div>
+  </div>
+  </div>
 
 
 
@@ -228,268 +236,52 @@ window.Quarto = {
 </header>
 
 
-<p>This course is an introduction to partial differential equations (PDEs) and Fourier analysis.</p>
-<ol type="1">
-<li>We will study the classical PDEs of mathematical physics: the heat equation, the wave equation, and Laplace’s equation.</li>
-<li>We will learn how to solve these equations using separation of variables and Fourier series.</li>
-<li>Complex variables will be introduced as tools to help us understand Fourier series.</li>
-<li>Properties of complex exponentials, sines, and cosines will be generalized to abstract properties of functions in <span class="math inline">\(L^2\)</span> spaces. Accordingly, will will study the notion of Hilbert spaces.</li>
-<li>An introduction to Sturm-Liouville theory will be given, including eigenvalue problems and orthogonal functions.</li>
-<li>If time permits, we will study additional topics such as Fourier and Laplace transforms.</li>
-</ol>
-<section id="course-information" class="level1">
-<h1>Course information</h1>
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-John Myers
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Marano 175
-</td>
-</tr>
-<tr>
-<td>
-Office hours:
-</td>
-<td>
-12-12:30 MWF, and by appointment
-</td>
-</tr>
-<tr>
-<td>
-Syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1jyt-sVqmOnAuJkmwycm6fxMa_3RQsxx3/view?usp=sharing" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
-</section>
-<section id="schedule-slides-exercises-and-info" class="level1">
-<h1>Schedule, slides, exercises, and info</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">week</th>
-<th style="text-align: center;">date</th>
-<th style="text-align: center;">topics</th>
-<th style="text-align: center;">slides</th>
-<th style="text-align: center;">exercises</th>
-<th style="text-align: center;">info</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Week 9</td>
-<td style="text-align: center;">03.27 fri</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.25 wed</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.23 mon</td>
-<td style="text-align: center;">Sec 11: Vectors and inner products</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/11-vectors-inner-products.html" target="_blank">Sec 11 Slides</a></td>
-<td style="text-align: center;">Coming soon</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 8</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Spring break</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 7</td>
-<td style="text-align: center;">03.13 fri</td>
-<td style="text-align: center;">Exam 1</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.11 wed</td>
-<td style="text-align: center;">Review for Exam 1</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.09 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 6</td>
-<td style="text-align: center;">03.06 fri</td>
-<td style="text-align: center;">Sec 10: Fourier series on different intervals</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/10-fourier-series-on-different-intervals.html" target="_blank">Sec 10 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/10ex-fourier-series-on-different-intervals.html">Sec 10 Exercises</a></td>
-<td style="text-align: center;">Quiz on Secs 7-9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.04 wed</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.02 mon</td>
-<td style="text-align: center;">Sec 9: Differentiation and integration of Fourier series</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/09-differentiation-and-integration-of-fourier-series.html" target="_blank">Sec 9 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/09ex-differentiation-and-integration-of-fourier-series.html">Sec 9 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 5</td>
-<td style="text-align: center;">02.27 fri</td>
-<td style="text-align: center;">Sec 8: Convergence of Fourier series, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/08-convergence-of-fourier-series-part-2.html" target="_blank">Sec 8 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/08ex-convergence-of-fourier-series-part-2.html">Sec 8 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.25 wed</td>
-<td style="text-align: center;">Sec 7: Convergence of Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/07-convergence-of-fourier-series-part-1.html" target="_blank">Sec 7 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/07ex-convergence-of-fourier-series-part-1.html">Sec 7 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.23 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 4</td>
-<td style="text-align: center;">02.20 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 4 and 5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.18 wed</td>
-<td style="text-align: center;">Sec 6: A first look at Fourier series, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/06-a-first-look-at-fourier-series-part-2.html" target="_blank">Sec 6 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/06ex-a-first-look-at-fourier-series-part-2.html">Sec 6 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.16 mon</td>
-<td style="text-align: center;">Sec 5: A first look at Fourier series, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/05-a-first-look-at-fourier-series-part-1.html" target="_blank">Sec 5 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/05ex-a-first-look-at-fourier-series-part-1.html">Sec 5 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 3</td>
-<td style="text-align: center;">02.13 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 2 and 3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.11 wed</td>
-<td style="text-align: center;">Sec 4: General PDEs and boundary conditions</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/04-general-pdes-and-boundary-conditions.html" target="_blank">Sec 4 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/04ex-general-pdes-and-boundary-conditions.html">Sec 4 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.09 mon</td>
-<td style="text-align: center;">Sec 3: The Laplacian and Laplace’s equation</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/03-the-laplacian-and-laplaces-equation.html" target="_blank">Sec 3 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/03ex-the-laplacian-and-laplaces-equation.html">Sec 3 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 2</td>
-<td style="text-align: center;">02.06 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.04 wed</td>
-<td style="text-align: center;">Sec 2: Separation of variables</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/02-separation-of-var.html" target="_blank">Sec 2 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/02ex-separation-of-var.html">Sec 2 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 1</td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">Sec 1: An introduction to PDEs</td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/slides/01-an-introduction-to-pdes.html" target="_blank">Sec 1 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.28 wed</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on Exercises 1-8.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.26 mon</td>
-<td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=pdes#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=heat-equation#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=fourier-series#video-section" target="_blank">here</a>. Begin working on Exercises 1-8 (see link to the right).</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/pde-sp-26/exercises/01ex-an-introduction-to-pdes.html">Sec 1 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<section id="scaled-random-walks" class="level2">
+<h2 class="anchored" data-anchor-id="scaled-random-walks">Scaled random walks</h2>
+<p>We now construct a scaled random walk. First, we fix a position <span class="math inline">\(x\in \mathbb{R}\)</span> and a time <span class="math inline">\(t&gt;0\)</span>. We then have a spatial interval from the starting position <span class="math inline">\(a\)</span> to the position <span class="math inline">\(x\)</span>, of length <span class="math inline">\(|x - a|\)</span>, and also a time interval from <span class="math inline">\(0\)</span> to <span class="math inline">\(t\)</span>, of length <span class="math inline">\(t\)</span>. We chop these intervals into <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span> subintervals of equal lengths</p>
+<p><span id="eq-step-sizes"><span class="math display">\[
+h = \frac{|x - a|}{m} \quad \text{and} \quad \tau = \frac{t}{n},
+\tag{1}\]</span></span></p>
+<p>respectively. Note that as <span class="math inline">\(m,n\to \infty\)</span>, the step sizes <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> both shrink to zero. The goal is to understand what happens to as these step sizes vanish.</p>
+<p>For each integer <span class="math inline">\(k=1,2,\ldots,n\)</span>, we define the increments</p>
+<p><span class="math display">\[
+\Delta X_{k\tau}^{(h,\tau)} = h(2B_k - 1),
+\]</span></p>
+<p>so that each increment is a random variable that takes the value <span class="math inline">\(h\)</span> with probability <span class="math inline">\(p\)</span> and the value <span class="math inline">\(-h\)</span> with probability <span class="math inline">\(1-p\)</span>. Then, we define</p>
+<p><span class="math display">\[
+X_t^{(h,\tau)} = a + \sum_{k=1}^n \Delta X_{k\tau}^{(h,\tau)}
+\]</span></p>
+<p>and compute</p>
+<p><span class="math display">\[
+E\big(X_t^{(h,\tau)}\big) = a + t\cdot   \frac{h}{\tau} (p - q),
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+V\big(X_t^{(h,\tau)}\big) = t\cdot 4\frac{h^2}{\tau} p q.
+\]</span></p>
+<p>Now, let the step sizes <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> go to <span class="math inline">\(0\)</span>. From these formulas, it is clear that we need to do this in a controlled way, otherwise the expectations and variances will either blow up to infinity or vanish. In particular, if <span class="math inline">\(h^2\)</span> goes to zero faster than <span class="math inline">\(\tau\)</span>, then the variance will shrink to zero, and the random variable <span class="math inline">\(X_t^{(h,\tau)}\)</span> will be deterministic in the limit. Conversely, if <span class="math inline">\(\tau\)</span> goes to zero faster than <span class="math inline">\(h^2\)</span>, then the variance will blow up to infinity, and the random walk will become wildly erratic in the limit. To avoid these extremes, we impose a <em>scaling condition</em> that <span class="math inline">\(h^2\)</span> and <span class="math inline">\(\tau\)</span> go to zero at the same rate; that is, we require that there exists a positive constant <span class="math inline">\(D&gt;0\)</span> such that</p>
+<p><span class="math display">\[
+\frac{h^2}{\tau} = D
+\]</span></p>
+<p>as <span class="math inline">\(h,\tau \to 0\)</span>. This constant (which has units of squared length over time) is known as a <em>diffusion coefficient</em>.</p>
+<p>However, note that this scaling condition creates a problem in the expectation. Indeed, unless <span class="math inline">\(p=q=1/2\)</span>, the expectation will still blow up to either positive or negative infinity as <span class="math inline">\(h,\tau \to 0\)</span>. To avoid this, we need to also impose a second condition that <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> depend on <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> in such a way that there is a constant <span class="math inline">\(\mu \in \mathbb{R}\)</span> such that</p>
+<p><span class="math display">\[
+D\cdot \frac{p-q}{h} = \mu
+\]</span></p>
+<p>as <span class="math inline">\(h,\tau\to 0\)</span>. Note that this condition indeed implies that <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> both approach <span class="math inline">\(1/2\)</span> as <span class="math inline">\(h,\tau \to 0\)</span>. This constant (which has units of length over time) is known as a <em>drift coefficient</em>.</p>
+<p>Putting all this together, we find that under these scaling conditions, the expectations and variances of the scaled random walk converge to</p>
+<p><span class="math display">\[
+E(X_t^{(h,\tau)}) \to a + \mu t,
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+V(X_t^{(h,\tau)}) \to Dt.
+\]</span></p>
+<p>Now, is it actually possible to have <span class="math inline">\(h\)</span> and <span class="math inline">\(\tau\)</span> go to <span class="math inline">\(0\)</span> while satisfying these scaling conditions? Yes! For example, we can set <span class="math inline">\(n=m^2\)</span> and</p>
+<p><span class="math display">\[
+p = \frac{1}{2} + \frac{1}{2m},
+\]</span></p>
+<p>and then let <span class="math inline">\(m\to \infty\)</span>.</p>
 
 
 </section>
