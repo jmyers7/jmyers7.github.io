@@ -36,7 +36,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
 | Week 9 | 03.27 fri | 
-|| 03.26 thu | | | | Quiz on Sec 15
+|| 03.26 thu | Sec 16: Optimization | | | Quiz on Sec 15
 || 03.25 wed | Same as below ↓ | Same as below ↓ | Same as below ↓
 || 03.23 mon | Sec 15: Gradients | [Sec 15 Slides](./slides/15-gradients.qmd){target="_blank"} | [Sec 15 Exercises](./exercises/15ex-gradients.qmd){target="_blank"}
 | Week 8 || Spring break
