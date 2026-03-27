@@ -1,0 +1,155 @@
+---
+title: "12 Functions and inner products"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## Inner products and norms {.scrollable}
+
+- Recall the space $PC(a,b)$ of piecewise continuous functions on the interval $(a,b)$. There is a strong analogy between $PC(a,b)$ and $\mathbb{C}^k$, if we think of functions $f \in PC(a,b)$ as infinite-dimensional vectors.
+
+- The **inner product** of two functions $f, g \in PC(a,b)$ is defined by
+$$
+\langle f, g \rangle = \int_a^b f(x) \overline{g(x)} \, dx,
+$$
+where $\overline{g(x)}$ denotes the complex conjugate of $g(x)$.
+
+- The **norm** of a function is defined by
+$$
+\| f \| = \sqrt{\langle f, f \rangle} = \sqrt{\int_a^b |f(x)|^2 \, dx}.
+$$
+
+::: {.callout-note icon="false" .fragment}
+### Properties of inner products and norms
+
+The inner product has the following properties:
+
+a. **Linearity in the first argument**: For all $f, g, h \in PC(a,b)$ and $c, d \in \mathbb{C}$, we have
+$$
+\langle cf + dg, h \rangle = c \langle f, h \rangle + d \langle g, h \rangle.
+$$
+
+b. **Conjugate linearity in the second argument**: For all $f, g, h \in PC(a,b)$ and $c, d \in \mathbb{C}$, we have
+$$
+\langle f, cg + dh \rangle = \overline{c} \langle f, g \rangle + \overline{d} \langle f, h \rangle.
+$$
+
+c. **Conjugate symmetry**: For all $f, g \in PC(a,b)$, we have
+$$
+\langle f, g \rangle = \overline{\langle g, f \rangle}.
+$$
+
+The norm has the following properties:
+
+a. **Positive definiteness**: For all $f \in PC(a,b)$, we have $\| f \| \geq 0$, and $\| f \| = 0$ if and only if $f = 0$.
+
+b. **Homogeneity**: For all $f \in PC(a,b)$ and $c \in \mathbb{C}$, we have $\| cf \| = |c| \| f \|$.
+
+:::
+
+- Technically, the second part in positive definiteness should be stated as: $\| f \| = 0$ if and only if $f(x) = 0$ for "almost every" $x \in (a,b)$, but we will ignore this technicality.
+
+## Properties of inner products and norms {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+### Lemma 3.1 (Polarization Identity)
+
+For any $f, g \in PC(a,b)$, we have
+$$
+\| f + g \|^2 = \| f \|^2 + 2\operatorname{Re}{\langle f, g \rangle} + \| g \|^2,
+$$
+where $\operatorname{Re}{z}$ denotes the real part of a complex number $z$.
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Cauchy-Schwarz Inequality
+
+For any $f, g \in PC(a,b)$, we have
+$$
+|\langle f, g \rangle| \leq \| f \| \| g \|.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Triangle Inequality
+
+For any $f, g \in PC(a,b)$, we have
+$$
+\| f + g \| \leq \| f \| + \| g \|.
+$$
+
+:::
+
+::: {.callout-note icon="false" .fragment}
+### Pythagorean Theorem
+
+If $f_1,f_2, \ldots, f_n$ are mutually orthogonal functions in $PC(a,b)$, then
+$$
+\| f_1 + f_2 + \cdots + f_n \|^2 = \| f_1 \|^2 + \| f_2 \|^2 + \cdots + \| f_n \|^2.
+$$
+
+:::
+
+## Orthogonal vectors {.scrollable}
+
+- A function $f$ is **normalized**, or is a **unit vector** if $\| f\|=1$.
+
+- A collection of nonzero functions $\{f_1, f_2, \ldots\}$ is an **orthogonal set** if $\langle f_j, f_k \rangle = 0$ for all $j \neq k$. It is an **orthonormal set** if it is an orthogonal set and each $f_j$ is a unit vector.
+
+- Recall Theorem 3.1 for vectors, from the previous section:
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem 3.1
+
+Let $\{\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_k\}$ be an orthonormal set of vectors in $\mathbb{C}^k$. Then for any $\mathbf{a} \in \mathbb{C}^k$, we have
+
+$$
+\mathbf{a} = \langle \mathbf{a}, \mathbf{u}_1 \rangle \mathbf{u}_1 + \langle \mathbf{a}, \mathbf{u}_2 \rangle \mathbf{u}_2 + \cdots + \langle \mathbf{a}, \mathbf{u}_k \rangle \mathbf{u}_k,
+$$
+
+and
+$$
+\| \mathbf{a} \|^2 = |\langle \mathbf{a}, \mathbf{u}_1 \rangle|^2 + |\langle \mathbf{a}, \mathbf{u}_2 \rangle|^2 + \cdots + |\langle \mathbf{a}, \mathbf{u}_k \rangle|^2.
+$$
+:::
+
+- Is there an analogue of Theorem 3.1 for functions in $PC(a,b)$?
+
+- We must be careful here, because $PC(a,b)$ is an infinite-dimensional vector space.
+
+## Exercise 1: Orthonormal sets in $PC(-\pi,\pi)$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the functions
+
+$$
+\phi_n(x) = \frac{1}{\sqrt{2\pi}} e^{inx}, \quad n \in \mathbb{Z}.
+$$
+
+Discuss an analog of Theorem 3.1 for the set $\{\phi_n\}_{n \in \mathbb{Z}}$ in $PC(-\pi,\pi)$.
+
+:::
+
+## Exercise 2: Orthonormal sets in $PC(0,\pi)$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the functions
+
+$$
+\psi_0(x) = \frac{1}{\sqrt{\pi}}, \quad \psi_n(x) = \sqrt{\frac{2}{\pi}} \cos{nx}, \quad n \in \mathbb{N}.
+$$
+
+Discuss an analog of Theorem 3.1 for the set $\{\psi_n\}_{n=0}^{\infty}$ in $PC(0,\pi)$.
+
+:::

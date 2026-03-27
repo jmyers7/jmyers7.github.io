@@ -37,7 +37,7 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-| Week 9 | 03.27 fri
+| Week 9 | 03.27 fri | Sec 12: Functions and inner products | [Sec 12 Slides](./slides/12-functions-inner-products.qmd){target="_blank"} | Coming soon | Quiz on Sec 11
 || 03.25 wed | Same as below ↓ | Same as below ↓ | Same as below ↓ |
 || 03.23 mon | Sec 11: Vectors and inner products | [Sec 11 Slides](./slides/11-vectors-inner-products.qmd){target="_blank"} | [Sec 11 Exercises](./exercises/11ex-vectors-inner-products.qmd) |
 | Week 8 || Spring break
