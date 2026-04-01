@@ -1,0 +1,143 @@
+---
+title: "13 Convergence and completeness, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## Convergence in norm {.scrollable}
+
+- If $\mathbf{a}$ and $\mathbf{b}$ are two finite-dimensional complex (or real) vectors, the distance between them is precisely $\| \mathbf{a}-\mathbf{b}\|$.
+
+- This suggests that a good notion of convergence of a sequence of a sequence of vectors is:
+
+::: {.callout-note icon="false" .fragment}
+### Definition (Norm convergence of vectors)
+
+Let $(\mathbf{a}_n)_{n=1}^\infty$ be a sequence of vectors and $\mathbf{a}$ a fixed vector in $\mathbb{C}^k$. Then the sequence converges to $\mathbf{a}$ **in norm**, written
+$$
+\lim_{n\to \infty} \mathbf{a}_n = \mathbf{a},
+$$
+if
+$$
+\lim_{n\to \infty} \|\mathbf{a}_n - \mathbf{a}\|=0.
+$$
+
+:::
+
+- Now, our space $PC(a,b)$ of functions **also** has a norm. This means that we have an analog of the definition above for functions:
+
+::: {.callout-note icon="false" .fragment}
+### Definition (Norm convergence of functions)
+
+Let $(f_n)_{n=1}^\infty$ be a sequence of functions and $f$ a fixed function in $PC(a,b)$. Then the sequence converges to $f$ **in norm**, written
+$$
+\lim_{n\to \infty} f_n = f,
+$$
+if
+$$
+\lim_{n\to \infty} \|f_n - f\|=0.
+$$
+
+:::
+
+- So, we have $f_n \to f$ in norm if and only if
+$$
+\int_a^b |f_n(x) - f(x) | ^2 \, dx \to 0
+$$
+as $n\to \infty$.
+
+## Exercise 1: Norm convergence versus pointwise convergence {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Pointwise and norm convergence are completely different modes of convergence.
+
+a. Given the sequence of functions
+$$
+f_n(x) = \begin{cases}
+1 & : 0 \leq x \leq 1/n, \\
+0 & : 1/n < x \leq 0,
+\end{cases}
+$$
+on $[0,1]$, prove that $f_n\to 0$ in norm, but that the $f_n$'s do **not** converge to $0$ pointwise.
+
+
+b. Conversely, given the sequence of functions
+$$
+g_n(x) = \begin{cases}
+n & : 0 < x < 1/n, \\
+0 & : x=0, \, \text{or} \, 1/n \leq x \leq 1,
+\end{cases}
+$$
+on $[0,1]$, prove that $g_n\to 0$ pointwise, but that the $g_n$'s do **not** converge to $0$ in norm.
+:::
+
+## Norm convergence versus uniform convergence {.scrollable}
+
+- However! We do have the following simple result.
+
+- To state it, recall that a sequence of functions $f_n\to f$ **uniformly** (on $[a,b]$) if there is a sequence of real constants $(M_n)_{n=1}^\infty$ such that
+$$
+|f_n(x) - f(x)| \leq M_n
+$$
+for all $x\in [a,b]$ and $M_n \to 0$.
+
+::: {.callout-note icon="false" .fragment}
+### Theorem 3.2
+
+If $f_n\to f$ uniformly on $[a,b]$, then $f_n\to f$ in norm.
+
+:::
+
+## A problem with $PC(a,b)$: it's not complete {.scrollable}
+
+- The main technique in calculus and analysis is to construct objects by "passing to the limit." This is how derivatives are constructed, for example, as well as integrals.
+
+- This only works if the limit actually exists!
+
+- In this respect, the space of functions $PC(a,b)$ is not ideal. There are sequences of functions in this space that "look like" they should converge, but don't.
+
+- This is captured by saying that $PC(a,b)$ is **not complete**.
+
+- To explain what this means, we need the following:
+
+::: {.callout-note icon="false" .fragment}
+### Definition
+
+A sequence of functions $(f_n)_{n=1}^\infty$ is called a **Cauchy sequence** if
+$$
+\|f_m - f_n\| \to 0
+$$
+as $m,n\to \infty$.
+
+:::
+
+- The same definition applies to other vector spaces with norms, like $\mathbb{C}^k$.
+
+- Intuitively, this means that the functions in the sequence get closer and closer together the further one goes out in the sequence.
+
+::: {.callout-note icon="false" .fragment}
+### Definition
+
+A vector space with a norm (like $\mathbb{C}^k$, or $PC(a,b)$) is called **complete** if all Cauchy sequences converge (in norm).
+:::
+
+## Exercise 3: Proving $PC(a,b)$ is not complete {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+By examining the sequence of functions
+$$
+f_n(x) = \begin{cases}
+0 & : 0 \leq x \leq 1/n, \\
+x^{-1/4} & : 1/n < x \leq 1,
+\end{cases}
+$$
+on $[0,1]$, prove that $PC(0,1)$ is not complete.
+:::

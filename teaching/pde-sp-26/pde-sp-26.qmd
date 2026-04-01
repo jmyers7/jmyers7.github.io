@@ -37,6 +37,9 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Week 10 | 04.03 fri |||| Quiz on Sec 12 
+|| 04.01 wed | Sec 13: Convergence and completeness, part 1 | [Sec 13 Slides](./slides/13-convergence-completeness-part-1.qmd){target="_blank"} | Coming soon
+|| 03.30 mon | Same as below ↓ | Same as below ↓ | Same as below ↓ |
 | Week 9 | 03.27 fri | Sec 12: Functions and inner products | [Sec 12 Slides](./slides/12-functions-inner-products.qmd){target="_blank"} | [Sec 12 Exercises](./exercises/12ex-functions-inner-products.qmd) | Quiz on Sec 11
 || 03.25 wed | Same as below ↓ | Same as below ↓ | Same as below ↓ |
 || 03.23 mon | Sec 11: Vectors and inner products | [Sec 11 Slides](./slides/11-vectors-inner-products.qmd){target="_blank"} | [Sec 11 Exercises](./exercises/11ex-vectors-inner-products.qmd) |
