@@ -24,7 +24,7 @@ format:
 We write $L^2(a,b)$ for the space of all integrable functions $f:[a,b] \to \mathbb{C}$ for which
 
 $$
-\int_a^b |f(x)| \, dx < \infty. \tag{1}
+\int_a^b |f(x)|^2 \, dx < \infty. \tag{1}
 $$
 
 :::
