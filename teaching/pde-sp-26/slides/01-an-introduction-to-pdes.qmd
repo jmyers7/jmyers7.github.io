@@ -119,7 +119,7 @@ where $u(x,t)$ is a two-variable function and $a$ is a known constant. It models
 ```{python}
 import sys
 
-sys.path.append("/Users/johnmyers/dev/johnmyers-phd/teaching/aux-files")
+sys.path.append("/Users/johnmyers/dev/site/teaching/aux-files")
 import numpy as np
 from plotting import plot_curve_animation, plot_surface
 

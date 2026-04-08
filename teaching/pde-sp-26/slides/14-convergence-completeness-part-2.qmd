@@ -1,0 +1,141 @@
+---
+title: "14 Convergence and completeness, part 2"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## From $PC(a,b)$ to $L^2(a,b)$ {.scrollable}
+
+- So, we know that $PC(a,b)$ is incomplete. This means that it is "missing" the limits of some sequences of functions.
+
+- We search for a bigger space of functions containing $PC(a,b)$.
+
+- This leads us to:
+
+::: {.callout-note icon="false" .fragment}
+### Definition
+
+We write $L^2(a,b)$ for the space of all integrable functions $f:[a,b] \to \mathbb{C}$ for which
+
+$$
+\int_a^b |f(x)| \, dx < \infty. \tag{1}
+$$
+
+:::
+
+- Notice that there are **no** continuity or smoothness requirements for $f$ to be in $L^2(a,b)$. The only requirements are:
+
+    - That (1) holds.
+
+    - That $f$ is **measurable**. (This is a technical requirement that is covered in more advanced classes.)
+
+- Related to the "measurability" requirement is that the integral in (1) is technically a **Lebesgue integral**, which is an extension of the familiar Riemann integral. Again, this is covered in more advanced classes.
+
+::: {.callout-note icon="false" .fragment}
+### Theorem
+
+- The space $L^2(a,b)$ contains $PC(a,b)$.
+
+- The inner product and norm on $PC(a,b)$ extend to an inner product and norm on $L^2(a,b)$.
+
+- The space $L^2(a,b)$ is complete.
+
+:::
+
+- In fact, $L^2(a,b)$ is the "smallest" complete space of functions containing $PC(a,b)$.
+
+## Orthonormal expansions $L^2(a,b)$, part 1 {.scrollable}
+
+- Remember the following:
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem 3.1
+
+Let $\{\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_k\}$ be an orthonormal set of vectors in $\mathbb{C}^k$. Then for any $\mathbf{a} \in \mathbb{C}^k$, we have
+
+$$
+\mathbf{a} = \langle \mathbf{a}, \mathbf{u}_1 \rangle \mathbf{u}_1 + \langle \mathbf{a}, \mathbf{u}_2 \rangle \mathbf{u}_2 + \cdots + \langle \mathbf{a}, \mathbf{u}_k \rangle \mathbf{u}_k,
+$$
+
+and
+$$
+\| \mathbf{a} \|^2 = |\langle \mathbf{a}, \mathbf{u}_1 \rangle|^2 + |\langle \mathbf{a}, \mathbf{u}_2 \rangle|^2 + \cdots + |\langle \mathbf{a}, \mathbf{u}_k \rangle|^2.
+$$
+:::
+
+- We asked: Is there an analog of this theorem for spaces of functions? We will see that the answer is *yes* for $L^2(a,b)$.
+
+- This will involve an *infinite* orthonormal set $\{\phi_n\}_{n=1}^\infty$ of functions, and the expansion will look like
+$$
+f = \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n.
+$$
+
+- We have to do two things: Establish that the series on the right converges (in what mode?) and that the series converges to $f$.
+
+## Orthonormal expansions $L^2(a,b)$, part 2 {.scrollable}
+
+- We begin working toward an analog of Theorem 3.1 with an old friend in a new context:
+
+::: {.callout-note icon="false" .fragment}
+
+### Bessel's Inequality
+
+If $\{\phi_n\}_{n=1}^\infty$ is an orthonormal set in $L^2(a,b)$ and $f\in L^2(a,b)$, then
+
+$$
+\sum_{n=1}^\infty |\langle f,\phi_n \rangle|^2 \leq \|f\|^2.
+$$
+
+:::
+
+- Then, another very useful result:
+
+::: {.callout-note icon="false" .fragment}
+
+### Lemma 3.2
+
+If $f$ is in $L^2(a,b)$ and $\{\phi_n\}_{n=1}^\infty$ is any orthonormal set in $L^2(a,b)$, then the series $\sum_{n=1}^\infty \langle f,\phi_n \rangle \phi_n$ converges in norm and
+
+$$
+\left\| \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n \right\| \leq \|f\|.
+$$
+
+:::
+
+## Orthonormal expansions $L^2(a,b)$, part 3 {.scrollable}
+
+- We now have the main theorem:
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem 3.4
+
+Let $\{\phi_n\}_{n=1}^\infty$ be an orthonormal set in $L^2(a,b)$. The following statements are equivalent:
+
+a. If $\langle f,\phi_n\rangle =0$ for all $n$, then $f=0$.
+
+b. For every $f$ in $L^2(a,b)$, we have $f = \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n$ in norm.
+
+c. For every $f$ in $L^2(a,b)$, we have
+$$
+\|f\|^2 = \sum_{n=1}^\infty |\langle f, \phi_n \rangle|^2.
+$$
+
+:::
+
+- The equality in part (c) is called **Parseval's equation**. It is a version of the Pythagorean Theorem.
+
+::: {.callout-note icon="false" .fragment}
+
+### Definition
+
+If an orthonormal set $\{\phi_n\}_{n=1}^\infty$ in $L^2(a,b)$ has the (equivalent) properties listed in Theorem 3.4, then it is called a **complete orthonormal set** or an **orthonormal basis**.
+
+:::
