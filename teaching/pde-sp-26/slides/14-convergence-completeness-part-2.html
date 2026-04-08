@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>john myers, ph.d. – 13 Convergence and completeness, part 1</title>
+  <title>john myers, ph.d. – 14 Convergence and completeness, part 2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,112 +136,158 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">13 Convergence and completeness, part 1</h1>
+  <h1 class="title">14 Convergence and completeness, part 2</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="convergence-in-norm" class="slide level2 scrollable">
-<h2>Convergence in norm</h2>
+<section id="from-pcab-to-l2ab" class="slide level2 scrollable">
+<h2>From <span class="math inline">\(PC(a,b)\)</span> to <span class="math inline">\(L^2(a,b)\)</span></h2>
 <ul>
-<li class="fragment"><p>If <span class="math inline">\(\mathbf{a}\)</span> and <span class="math inline">\(\mathbf{b}\)</span> are two finite-dimensional complex (or real) vectors, the distance between them is precisely <span class="math inline">\(\| \mathbf{a}-\mathbf{b}\|\)</span>.</p></li>
-<li class="fragment"><p>This suggests that a good notion of convergence of a sequence of a sequence of vectors is:</p></li>
+<li class="fragment"><p>So, we know that <span class="math inline">\(PC(a,b)\)</span> is incomplete. This means that it is “missing” the limits of some sequences of functions.</p></li>
+<li class="fragment"><p>We search for a bigger space of functions containing <span class="math inline">\(PC(a,b)\)</span>.</p></li>
+<li class="fragment"><p>This leads us to:</p></li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Definition (Norm convergence of vectors)</strong></p>
+<p><strong>Definition</strong></p>
 </div>
 <div class="callout-content">
-<p>Let <span class="math inline">\((\mathbf{a}_n)_{n=1}^\infty\)</span> be a sequence of vectors and <span class="math inline">\(\mathbf{a}\)</span> a fixed vector in <span class="math inline">\(\mathbb{C}^k\)</span>. Then the sequence converges to <span class="math inline">\(\mathbf{a}\)</span> <strong>in norm</strong>, written <span class="math display">\[
-\lim_{n\to \infty} \mathbf{a}_n = \mathbf{a},
-\]</span> if <span class="math display">\[
-\lim_{n\to \infty} \|\mathbf{a}_n - \mathbf{a}\|=0.
+<p>We write <span class="math inline">\(L^2(a,b)\)</span> for the space of all integrable functions <span class="math inline">\(f:[a,b] \to \mathbb{C}\)</span> for which</p>
+<p><span class="math display">\[
+\int_a^b |f(x)| \, dx &lt; \infty. \tag{1}
 \]</span></p>
 </div>
 </div>
 </div>
 </div>
 <ul>
-<li class="fragment">Now, our space <span class="math inline">\(PC(a,b)\)</span> of functions <strong>also</strong> has a norm. This means that we have an analog of the definition above for functions:</li>
+<li class="fragment"><p>Notice that there are <strong>no</strong> continuity or smoothness requirements for <span class="math inline">\(f\)</span> to be in <span class="math inline">\(L^2(a,b)\)</span>. The only requirements are:</p>
+<ul>
+<li class="fragment"><p>That (1) holds.</p></li>
+<li class="fragment"><p>That <span class="math inline">\(f\)</span> is <strong>measurable</strong>. (This is a technical requirement that is covered in more advanced classes.)</p></li>
+</ul></li>
+<li class="fragment"><p>Related to the “measurability” requirement is that the integral in (1) is technically a <strong>Lebesgue integral</strong>, which is an extension of the familiar Riemann integral. Again, this is covered in more advanced classes.</p></li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Definition (Norm convergence of functions)</strong></p>
+<p><strong>Theorem</strong></p>
 </div>
 <div class="callout-content">
-<p>Let <span class="math inline">\((f_n)_{n=1}^\infty\)</span> be a sequence of functions and <span class="math inline">\(f\)</span> a fixed function in <span class="math inline">\(PC(a,b)\)</span>. Then the sequence converges to <span class="math inline">\(f\)</span> <strong>in norm</strong>, written <span class="math display">\[
-\lim_{n\to \infty} f_n = f,
-\]</span> if <span class="math display">\[
-\lim_{n\to \infty} \|f_n - f\|=0.
-\]</span></p>
+<ul>
+<li class="fragment"><p>The space <span class="math inline">\(L^2(a,b)\)</span> contains <span class="math inline">\(PC(a,b)\)</span>.</p></li>
+<li class="fragment"><p>The inner product and norm on <span class="math inline">\(PC(a,b)\)</span> extend to an inner product and norm on <span class="math inline">\(L^2(a,b)\)</span>.</p></li>
+<li class="fragment"><p>The space <span class="math inline">\(L^2(a,b)\)</span> is complete.</p></li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <ul>
-<li class="fragment">So, we have <span class="math inline">\(f_n \to f\)</span> in norm if and only if <span class="math display">\[
-\int_a^b |f_n(x) - f(x) | ^2 \, dx \to 0
-\]</span> as <span class="math inline">\(n\to \infty\)</span>.</li>
+<li class="fragment">In fact, <span class="math inline">\(L^2(a,b)\)</span> is the “smallest” complete space of functions containing <span class="math inline">\(PC(a,b)\)</span>.</li>
 </ul>
 </section>
-<section id="exercise-1-norm-convergence-versus-pointwise-convergence" class="slide level2 scrollable">
-<h2>Exercise 1: Norm convergence versus pointwise convergence</h2>
-<div class="callout callout-note no-icon callout-style-simple">
+<section id="orthonormal-expansions-l2ab-part-1" class="slide level2 scrollable">
+<h2>Orthonormal expansions <span class="math inline">\(L^2(a,b)\)</span>, part 1</h2>
+<ul>
+<li class="fragment">Remember the following:</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem 3.1</strong></p>
+</div>
 <div class="callout-content">
-<p>Pointwise and norm convergence are completely different modes of convergence.</p>
+<p>Let <span class="math inline">\(\{\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_k\}\)</span> be an orthonormal set of vectors in <span class="math inline">\(\mathbb{C}^k\)</span>. Then for any <span class="math inline">\(\mathbf{a} \in \mathbb{C}^k\)</span>, we have</p>
+<p><span class="math display">\[
+\mathbf{a} = \langle \mathbf{a}, \mathbf{u}_1 \rangle \mathbf{u}_1 + \langle \mathbf{a}, \mathbf{u}_2 \rangle \mathbf{u}_2 + \cdots + \langle \mathbf{a}, \mathbf{u}_k \rangle \mathbf{u}_k,
+\]</span></p>
+<p>and <span class="math display">\[
+\| \mathbf{a} \|^2 = |\langle \mathbf{a}, \mathbf{u}_1 \rangle|^2 + |\langle \mathbf{a}, \mathbf{u}_2 \rangle|^2 + \cdots + |\langle \mathbf{a}, \mathbf{u}_k \rangle|^2.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><p>We asked: Is there an analog of this theorem for spaces of functions? We will see that the answer is <em>yes</em> for <span class="math inline">\(L^2(a,b)\)</span>.</p></li>
+<li class="fragment"><p>This will involve an <em>infinite</em> orthonormal set <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> of functions, and the expansion will look like <span class="math display">\[
+f = \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n.
+\]</span></p></li>
+<li class="fragment"><p>We have to do two things: Establish that the series on the right converges (in what mode?) and that the series converges to <span class="math inline">\(f\)</span>.</p></li>
+</ul>
+</section>
+<section id="orthonormal-expansions-l2ab-part-2" class="slide level2 scrollable">
+<h2>Orthonormal expansions <span class="math inline">\(L^2(a,b)\)</span>, part 2</h2>
+<ul>
+<li class="fragment">We begin working toward an analog of Theorem 3.1 with an old friend in a new context:</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bessel’s Inequality</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> is an orthonormal set in <span class="math inline">\(L^2(a,b)\)</span> and <span class="math inline">\(f\in L^2(a,b)\)</span>, then</p>
+<p><span class="math display">\[
+\sum_{n=1}^\infty |\langle f,\phi_n \rangle|^2 \leq \|f\|^2.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Then, another very useful result:</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Lemma 3.2</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^2(a,b)\)</span> and <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> is any orthonormal set in <span class="math inline">\(L^2(a,b)\)</span>, then the series <span class="math inline">\(\sum_{n=1}^\infty \langle f,\phi_n \rangle \phi_n\)</span> converges in norm and</p>
+<p><span class="math display">\[
+\left\| \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n \right\| \leq \|f\|.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="orthonormal-expansions-l2ab-part-3" class="slide level2 scrollable">
+<h2>Orthonormal expansions <span class="math inline">\(L^2(a,b)\)</span>, part 3</h2>
+<ul>
+<li class="fragment">We now have the main theorem:</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem 3.4</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> be an orthonormal set in <span class="math inline">\(L^2(a,b)\)</span>. The following statements are equivalent:</p>
 <ol type="a">
-<li><p>Given the sequence of functions <span class="math display">\[
-f_n(x) = \begin{cases}
-1 &amp; : 0 \leq x \leq 1/n, \\
-0 &amp; : 1/n &lt; x \leq 0,
-\end{cases}
-\]</span> on <span class="math inline">\([0,1]\)</span>, prove that <span class="math inline">\(f_n\to 0\)</span> in norm, but that the <span class="math inline">\(f_n\)</span>’s do <strong>not</strong> converge to <span class="math inline">\(0\)</span> pointwise.</p></li>
-<li><p>Conversely, given the sequence of functions <span class="math display">\[
-g_n(x) = \begin{cases}
-n &amp; : 0 &lt; x &lt; 1/n, \\
-0 &amp; : x=0, \, \text{or} \, 1/n \leq x \leq 1,
-\end{cases}
-\]</span> on <span class="math inline">\([0,1]\)</span>, prove that <span class="math inline">\(g_n\to 0\)</span> pointwise, but that the <span class="math inline">\(g_n\)</span>’s do <strong>not</strong> converge to <span class="math inline">\(0\)</span> in norm.</p></li>
+<li class="fragment"><p>If <span class="math inline">\(\langle f,\phi_n\rangle =0\)</span> for all <span class="math inline">\(n\)</span>, then <span class="math inline">\(f=0\)</span>.</p></li>
+<li class="fragment"><p>For every <span class="math inline">\(f\)</span> in <span class="math inline">\(L^2(a,b)\)</span>, we have <span class="math inline">\(f = \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n\)</span> in norm.</p></li>
+<li class="fragment"><p>For every <span class="math inline">\(f\)</span> in <span class="math inline">\(L^2(a,b)\)</span>, we have <span class="math display">\[
+\|f\|^2 = \sum_{n=1}^\infty |\langle f, \phi_n \rangle|^2.
+\]</span></p></li>
 </ol>
 </div>
 </div>
 </div>
-</section>
-<section id="norm-convergence-versus-uniform-convergence" class="slide level2 scrollable">
-<h2>Norm convergence versus uniform convergence</h2>
+</div>
 <ul>
-<li class="fragment"><p>However! We do have the following simple result.</p></li>
-<li class="fragment"><p>To state it, recall that a sequence of functions <span class="math inline">\(f_n\to f\)</span> <strong>uniformly</strong> (on <span class="math inline">\([a,b]\)</span>) if there is a sequence of real constants <span class="math inline">\((M_n)_{n=1}^\infty\)</span> such that <span class="math display">\[
-|f_n(x) - f(x)| \leq M_n
-\]</span> for all <span class="math inline">\(x\in [a,b]\)</span> and <span class="math inline">\(M_n \to 0\)</span>.</p></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Theorem 3.2</strong></p>
-</div>
-<div class="callout-content">
-<p>If <span class="math inline">\(f_n\to f\)</span> uniformly on <span class="math inline">\([a,b]\)</span>, then <span class="math inline">\(f_n\to f\)</span> in norm.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="a-problem-with-pcab-its-not-complete" class="slide level2 scrollable">
-<h2>A problem with <span class="math inline">\(PC(a,b)\)</span>: it’s not complete</h2>
-<ul>
-<li class="fragment"><p>The main technique in calculus and analysis is to construct objects by “passing to the limit.” This is how derivatives are constructed, for example, as well as integrals.</p></li>
-<li class="fragment"><p>This only works if the limit actually exists!</p></li>
-<li class="fragment"><p>In this respect, the space of functions <span class="math inline">\(PC(a,b)\)</span> is not ideal. There are sequences of functions in this space that “look like” they should converge, but don’t.</p></li>
-<li class="fragment"><p>This is captured by saying that <span class="math inline">\(PC(a,b)\)</span> is <strong>not complete</strong>.</p></li>
-<li class="fragment"><p>To explain what this means, we need the following:</p></li>
+<li class="fragment">The equality in part (c) is called <strong>Parseval’s equation</strong>. It is a version of the Pythagorean Theorem.</li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -250,25 +296,7 @@ n &amp; : 0 &lt; x &lt; 1/n, \\
 <p><strong>Definition</strong></p>
 </div>
 <div class="callout-content">
-<p>A sequence of functions <span class="math inline">\((f_n)_{n=1}^\infty\)</span> is called a <strong>Cauchy sequence</strong> if <span class="math display">\[
-\|f_m - f_n\| \to 0
-\]</span> as <span class="math inline">\(m,n\to \infty\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment"><p>The same definition applies to other vector spaces with norms, like <span class="math inline">\(\mathbb{C}^k\)</span>.</p></li>
-<li class="fragment"><p>Intuitively, this means that the functions in the sequence get closer and closer together the further one goes out in the sequence.</p></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Definition</strong></p>
-</div>
-<div class="callout-content">
-<p>A vector space with a norm (like <span class="math inline">\(\mathbb{C}^k\)</span>, or <span class="math inline">\(PC(a,b)\)</span>) is called <strong>complete</strong> if all Cauchy sequences converge (in norm).</p>
+<p>If an orthonormal set <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> in <span class="math inline">\(L^2(a,b)\)</span> has the (equivalent) properties listed in Theorem 3.4, then it is called a <strong>complete orthonormal set</strong> or an <strong>orthonormal basis</strong>.</p>
 </div>
 </div>
 </div>

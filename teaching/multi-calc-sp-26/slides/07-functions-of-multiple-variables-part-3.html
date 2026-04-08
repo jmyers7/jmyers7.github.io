@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #e5e5e5; background-color: #1e1e1e; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #c98fc9; } /* BaseN */
+    code span.bu { color: #5ab6b6; } /* BuiltIn */
+    code span.cf { color: #e0aa2b; } /* ControlFlow */
+    code span.ch { color: #d98657; } /* Char */
+    code span.cn { color: #c98fc9; font-weight: bold; } /* Constant */
+    code span.co { color: #4a7faf; } /* Comment */
+    code span.cv { color: #4a7faf; font-weight: bold; } /* CommentVar */
+    code span.do { color: #4a7faf; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #c98fc9; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c98fc9; } /* Float */
+    code span.fu { color: #e0aa2b; } /* Function */
+    code span.im { color: #5ab6b6; } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #e0aa2b; } /* Keyword */
+    code span.op { color: #e0aa2b; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #e0aa2b; } /* SpecialChar */
+    code span.ss { color: #e0aa2b; } /* SpecialString */
+    code span.st { color: #e0aa2b; } /* String */
+    code span.va { color: #5ab6b6; } /* Variable */
+    code span.vs { color: #e0aa2b; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ef15015c55411e66095fc5ea36de96ae.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VWK3RHBGT2"></script>
@@ -206,11 +270,69 @@
 </div>
 </div>
 <div class="fragment">
-<div id="a1025891" class="cell" data-execution_count="1">
+<div id="8facde86" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a></span>
+<span id="cb1-5"><a></a>blue <span class="op">=</span> <span class="st">"#3399FF"</span></span>
+<span id="cb1-6"><a></a>light_gray <span class="op">=</span> <span class="st">"#D3D3D3"</span></span>
+<span id="cb1-7"><a></a>x_range <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">300</span>)</span>
+<span id="cb1-8"><a></a>y_range <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">300</span>)</span>
+<span id="cb1-9"><a></a></span>
+<span id="cb1-10"><a></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">5</span>))</span>
+<span id="cb1-11"><a></a>fig.set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb1-12"><a></a>axes[<span class="dv">0</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb1-13"><a></a>axes[<span class="dv">1</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb1-14"><a></a></span>
+<span id="cb1-15"><a></a><span class="cf">for</span> y <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb1-16"><a></a>    u <span class="op">=</span> x_range</span>
+<span id="cb1-17"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb1-18"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-19"><a></a></span>
+<span id="cb1-20"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb1-21"><a></a></span>
+<span id="cb1-22"><a></a>    u <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> x_range <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-23"><a></a>    v <span class="op">=</span> x_range <span class="op">-</span> y <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-24"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-25"><a></a></span>
+<span id="cb1-26"><a></a></span>
+<span id="cb1-27"><a></a><span class="cf">for</span> x <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb1-28"><a></a>    u <span class="op">=</span> [x] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb1-29"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb1-30"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-31"><a></a></span>
+<span id="cb1-32"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb1-33"><a></a></span>
+<span id="cb1-34"><a></a>    u <span class="op">=</span> [<span class="dv">2</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">1</span>] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb1-35"><a></a>    v <span class="op">=</span> x <span class="op">-</span> y_range <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-36"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-37"><a></a></span>
+<span id="cb1-38"><a></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb1-39"><a></a>    ax.set_xlim(<span class="op">-</span><span class="fl">5.9</span>, <span class="fl">5.9</span>)</span>
+<span id="cb1-40"><a></a>    ax.set_ylim(<span class="op">-</span><span class="fl">5.9</span>, <span class="fl">5.9</span>)</span>
+<span id="cb1-41"><a></a></span>
+<span id="cb1-42"><a></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb1-43"><a></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb1-44"><a></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb1-45"><a></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb1-46"><a></a>    ax.set_xticks([])</span>
+<span id="cb1-47"><a></a>    ax.set_yticks([])</span>
+<span id="cb1-48"><a></a></span>
+<span id="cb1-49"><a></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb1-50"><a></a>    ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb1-51"><a></a></span>
+<span id="cb1-52"><a></a>axes[<span class="dv">0</span>].text(<span class="fl">6.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb1-53"><a></a>axes[<span class="dv">0</span>].text(<span class="dv">0</span>, <span class="fl">6.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb1-54"><a></a>axes[<span class="dv">1</span>].text(<span class="fl">6.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">u</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb1-55"><a></a>axes[<span class="dv">1</span>].text(<span class="dv">0</span>, <span class="fl">6.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">v</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb1-56"><a></a></span>
+<span id="cb1-57"><a></a>plt.tight_layout(w_pad<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1-58"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="471"></p>
+<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="471"></p>
 </figure>
 </div>
 </div>
@@ -229,11 +351,60 @@
 </div>
 </div>
 <div class="fragment">
-<div id="2b4ae182" class="cell" data-execution_count="2">
+<div id="c1e07aff" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">5</span>))</span>
+<span id="cb2-2"><a></a>fig.set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb2-3"><a></a>axes[<span class="dv">0</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb2-4"><a></a>axes[<span class="dv">1</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a><span class="cf">for</span> y <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb2-7"><a></a>    u <span class="op">=</span> x_range</span>
+<span id="cb2-8"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb2-9"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-10"><a></a></span>
+<span id="cb2-11"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-12"><a></a></span>
+<span id="cb2-13"><a></a>    u <span class="op">=</span> x_range</span>
+<span id="cb2-14"><a></a>    v <span class="op">=</span> x_range<span class="op">**</span><span class="dv">3</span> <span class="op">+</span> y</span>
+<span id="cb2-15"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-16"><a></a></span>
+<span id="cb2-17"><a></a></span>
+<span id="cb2-18"><a></a><span class="cf">for</span> x <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb2-19"><a></a>    u <span class="op">=</span> [x] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb2-20"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb2-21"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-22"><a></a></span>
+<span id="cb2-23"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-24"><a></a></span>
+<span id="cb2-25"><a></a>    u <span class="op">=</span> [x] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb2-26"><a></a>    v <span class="op">=</span> x<span class="op">**</span><span class="dv">3</span> <span class="op">+</span> y_range</span>
+<span id="cb2-27"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-28"><a></a></span>
+<span id="cb2-29"><a></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb2-30"><a></a>    ax.set_xlim(<span class="op">-</span><span class="fl">2.9</span>, <span class="fl">2.9</span>)</span>
+<span id="cb2-31"><a></a>    ax.set_ylim(<span class="op">-</span><span class="fl">2.9</span>, <span class="fl">2.9</span>)</span>
+<span id="cb2-32"><a></a></span>
+<span id="cb2-33"><a></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-34"><a></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-35"><a></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-36"><a></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-37"><a></a>    ax.set_xticks([])</span>
+<span id="cb2-38"><a></a>    ax.set_yticks([])</span>
+<span id="cb2-39"><a></a></span>
+<span id="cb2-40"><a></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb2-41"><a></a>    ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb2-42"><a></a></span>
+<span id="cb2-43"><a></a>axes[<span class="dv">0</span>].text(<span class="fl">3.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb2-44"><a></a>axes[<span class="dv">0</span>].text(<span class="dv">0</span>, <span class="fl">3.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb2-45"><a></a>axes[<span class="dv">1</span>].text(<span class="fl">3.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">u</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb2-46"><a></a>axes[<span class="dv">1</span>].text(<span class="dv">0</span>, <span class="fl">3.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">v</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb2-47"><a></a></span>
+<span id="cb2-48"><a></a>plt.tight_layout(w_pad<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb2-49"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="856" height="472"></p>
+<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="856" height="472"></p>
 </figure>
 </div>
 </div>
@@ -252,11 +423,60 @@
 </div>
 </div>
 <div class="fragment">
-<div id="fc8edb84" class="cell" data-execution_count="3">
+<div id="05e25373" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">5</span>))</span>
+<span id="cb3-2"><a></a>fig.set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb3-3"><a></a>axes[<span class="dv">0</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb3-4"><a></a>axes[<span class="dv">1</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb3-5"><a></a></span>
+<span id="cb3-6"><a></a><span class="cf">for</span> y <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb3-7"><a></a>    u <span class="op">=</span> x_range</span>
+<span id="cb3-8"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb3-9"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-10"><a></a></span>
+<span id="cb3-11"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-12"><a></a></span>
+<span id="cb3-13"><a></a>    u <span class="op">=</span> y<span class="op">**</span><span class="dv">2</span>  <span class="op">+</span> x_range</span>
+<span id="cb3-14"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb3-15"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-16"><a></a></span>
+<span id="cb3-17"><a></a></span>
+<span id="cb3-18"><a></a><span class="cf">for</span> x <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb3-19"><a></a>    u <span class="op">=</span> [x] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb3-20"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb3-21"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-22"><a></a></span>
+<span id="cb3-23"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-24"><a></a></span>
+<span id="cb3-25"><a></a>    u <span class="op">=</span> y_range<span class="op">**</span><span class="dv">2</span>  <span class="op">+</span> x</span>
+<span id="cb3-26"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb3-27"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-28"><a></a></span>
+<span id="cb3-29"><a></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb3-30"><a></a>    ax.set_xlim(<span class="op">-</span><span class="fl">5.9</span>, <span class="fl">5.9</span>)</span>
+<span id="cb3-31"><a></a>    ax.set_ylim(<span class="op">-</span><span class="fl">5.9</span>, <span class="fl">5.9</span>)</span>
+<span id="cb3-32"><a></a></span>
+<span id="cb3-33"><a></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb3-34"><a></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb3-35"><a></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb3-36"><a></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb3-37"><a></a>    ax.set_xticks([])</span>
+<span id="cb3-38"><a></a>    ax.set_yticks([])</span>
+<span id="cb3-39"><a></a></span>
+<span id="cb3-40"><a></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb3-41"><a></a>    ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb3-42"><a></a></span>
+<span id="cb3-43"><a></a>axes[<span class="dv">0</span>].text(<span class="fl">6.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb3-44"><a></a>axes[<span class="dv">0</span>].text(<span class="dv">0</span>, <span class="fl">6.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb3-45"><a></a>axes[<span class="dv">1</span>].text(<span class="fl">6.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">u</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb3-46"><a></a>axes[<span class="dv">1</span>].text(<span class="dv">0</span>, <span class="fl">6.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">v</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb3-47"><a></a></span>
+<span id="cb3-48"><a></a>plt.tight_layout(w_pad<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb3-49"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="471"></p>
+<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="471"></p>
 </figure>
 </div>
 </div>
@@ -269,11 +489,63 @@
 <li class="fragment">Return to the function <span class="math inline">\(k(x,y) = (y^2 + x, y)\)</span>, and focus on a point in the <span class="math inline">\(xy\)</span>-plane, say <span class="math inline">\((1,1)\)</span>, and look at its image in the <span class="math inline">\(uv\)</span>-plane, which is <span class="math inline">\((2,1)\)</span>:</li>
 </ul>
 <div class="fragment">
-<div id="1de850d1" class="cell" data-execution_count="4">
+<div id="957595c6" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">5</span>))</span>
+<span id="cb4-2"><a></a>fig.set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb4-3"><a></a>axes[<span class="dv">0</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb4-4"><a></a>axes[<span class="dv">1</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a><span class="cf">for</span> y <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb4-7"><a></a>    u <span class="op">=</span> x_range</span>
+<span id="cb4-8"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb4-9"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-10"><a></a></span>
+<span id="cb4-11"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-12"><a></a></span>
+<span id="cb4-13"><a></a>    u <span class="op">=</span> y<span class="op">**</span><span class="dv">2</span>  <span class="op">+</span> x_range</span>
+<span id="cb4-14"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb4-15"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-16"><a></a></span>
+<span id="cb4-17"><a></a></span>
+<span id="cb4-18"><a></a><span class="cf">for</span> x <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb4-19"><a></a>    u <span class="op">=</span> [x] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb4-20"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb4-21"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-22"><a></a></span>
+<span id="cb4-23"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-24"><a></a></span>
+<span id="cb4-25"><a></a>    u <span class="op">=</span> y_range<span class="op">**</span><span class="dv">2</span>  <span class="op">+</span> x</span>
+<span id="cb4-26"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb4-27"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-28"><a></a></span>
+<span id="cb4-29"><a></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb4-30"><a></a>    ax.set_xlim(<span class="op">-</span><span class="fl">3.9</span>, <span class="fl">3.9</span>)</span>
+<span id="cb4-31"><a></a>    ax.set_ylim(<span class="op">-</span><span class="fl">3.9</span>, <span class="fl">3.9</span>)</span>
+<span id="cb4-32"><a></a></span>
+<span id="cb4-33"><a></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-34"><a></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-35"><a></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-36"><a></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-37"><a></a>    ax.set_xticks([])</span>
+<span id="cb4-38"><a></a>    ax.set_yticks([])</span>
+<span id="cb4-39"><a></a></span>
+<span id="cb4-40"><a></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb4-41"><a></a>    ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb4-42"><a></a></span>
+<span id="cb4-43"><a></a>axes[<span class="dv">0</span>].text(<span class="fl">4.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb4-44"><a></a>axes[<span class="dv">0</span>].text(<span class="dv">0</span>, <span class="fl">4.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb4-45"><a></a>axes[<span class="dv">1</span>].text(<span class="fl">4.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">u</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb4-46"><a></a>axes[<span class="dv">1</span>].text(<span class="dv">0</span>, <span class="fl">4.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">v</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb4-47"><a></a></span>
+<span id="cb4-48"><a></a>axes[<span class="dv">0</span>].plot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="st">'ko'</span>, markersize<span class="op">=</span><span class="dv">4</span>) </span>
+<span id="cb4-49"><a></a>axes[<span class="dv">1</span>].plot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="st">'ko'</span>, markersize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb4-50"><a></a></span>
+<span id="cb4-51"><a></a>plt.tight_layout(w_pad<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb4-52"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="472"></p>
+<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="472"></p>
 </figure>
 </div>
 </div>
@@ -283,11 +555,63 @@
 <li class="fragment">Now consider the linear function <span class="math inline">\(L:\mathbb{R}^2 \to \mathbb{R}^2\)</span> defined by <span class="math inline">\(L(x,y) = (x+2y-1,y)\)</span>, and focus on the same points:</li>
 </ul>
 <div class="fragment">
-<div id="06d7b85c" class="cell" data-execution_count="5">
+<div id="9a028fce" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>fig, axes <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">5</span>))</span>
+<span id="cb5-2"><a></a>fig.set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb5-3"><a></a>axes[<span class="dv">0</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb5-4"><a></a>axes[<span class="dv">1</span>].set_facecolor(<span class="st">"#FAF9F6"</span>)</span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a><span class="cf">for</span> y <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb5-7"><a></a>    u <span class="op">=</span> x_range</span>
+<span id="cb5-8"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb5-9"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-10"><a></a></span>
+<span id="cb5-11"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-12"><a></a></span>
+<span id="cb5-13"><a></a>    u <span class="op">=</span> x_range <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb5-14"><a></a>    v <span class="op">=</span> [y] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb5-15"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-16"><a></a></span>
+<span id="cb5-17"><a></a></span>
+<span id="cb5-18"><a></a><span class="cf">for</span> x <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">10</span>, <span class="dv">11</span>):</span>
+<span id="cb5-19"><a></a>    u <span class="op">=</span> [x] <span class="op">*</span> <span class="dv">300</span></span>
+<span id="cb5-20"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb5-21"><a></a>    axes[<span class="dv">0</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-22"><a></a></span>
+<span id="cb5-23"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>light_gray, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-24"><a></a></span>
+<span id="cb5-25"><a></a>    u <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y_range</span>
+<span id="cb5-26"><a></a>    v <span class="op">=</span> y_range</span>
+<span id="cb5-27"><a></a>    axes[<span class="dv">1</span>].plot(u, v, color<span class="op">=</span>blue, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-28"><a></a></span>
+<span id="cb5-29"><a></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb5-30"><a></a>    ax.set_xlim(<span class="op">-</span><span class="fl">3.9</span>, <span class="fl">3.9</span>)</span>
+<span id="cb5-31"><a></a>    ax.set_ylim(<span class="op">-</span><span class="fl">3.9</span>, <span class="fl">3.9</span>)</span>
+<span id="cb5-32"><a></a></span>
+<span id="cb5-33"><a></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-34"><a></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-35"><a></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-36"><a></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-37"><a></a>    ax.set_xticks([])</span>
+<span id="cb5-38"><a></a>    ax.set_yticks([])</span>
+<span id="cb5-39"><a></a></span>
+<span id="cb5-40"><a></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb5-41"><a></a>    ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb5-42"><a></a></span>
+<span id="cb5-43"><a></a>axes[<span class="dv">0</span>].text(<span class="fl">4.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb5-44"><a></a>axes[<span class="dv">0</span>].text(<span class="dv">0</span>, <span class="fl">4.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb5-45"><a></a>axes[<span class="dv">1</span>].text(<span class="fl">4.15</span>, <span class="dv">0</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">u</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb5-46"><a></a>axes[<span class="dv">1</span>].text(<span class="dv">0</span>, <span class="fl">4.15</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">v</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>)</span>
+<span id="cb5-47"><a></a></span>
+<span id="cb5-48"><a></a>axes[<span class="dv">0</span>].plot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="st">'ko'</span>, markersize<span class="op">=</span><span class="dv">4</span>) </span>
+<span id="cb5-49"><a></a>axes[<span class="dv">1</span>].plot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="st">'ko'</span>, markersize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb5-50"><a></a></span>
+<span id="cb5-51"><a></a>plt.tight_layout(w_pad<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb5-52"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="472"></p>
+<p><img data-src="07-functions-of-multiple-variables-part-3_files/figure-html/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="855" height="472"></p>
 </figure>
 </div>
 </div>
