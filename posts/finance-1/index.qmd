@@ -1,0 +1,35 @@
+---
+title: "Finance 1"
+toc: true
+date: "2026-04-09"
+jupyter: site
+categories: []
+draft: true
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
+csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
+# image: "sigalg-logo.png"
+open-graph:
+    title: "Finance 1"
+    # image: "https://johnmyers-phd.com/posts/torch-der/torch-der-logo.png"
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+## Binomial model
+
+```{python}
+
+from sigalg.finance import BinomialPricingModel
+
+S_0 = 100
+u = 1.1
+d = 0.9
+r = 0.05
+p = 0.7
+
+S = BinomialPricingModel()
+```
