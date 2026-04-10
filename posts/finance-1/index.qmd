@@ -1,5 +1,5 @@
 ---
-title: "Finance with SigAlg I: Discrete asset pricing models"
+title: "Finance with SigAlg I: discrete asset pricing models"
 toc: true
 date: "2026-04-09"
 jupyter: site
@@ -9,7 +9,7 @@ bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
 # image: "sigalg-logo.png"
 open-graph:
-    title: "Finance 1"
+    title: "Finance with SigAlg I: discrete asset pricing models"
     # image: "https://johnmyers-phd.com/posts/torch-der/torch-der-logo.png"
 ---
 
@@ -19,9 +19,13 @@ $$
 $$
 :::
 
-One of the core problems in mathematical finance is the construction of models of prices of financial assets, whether these be commodity assets like agricultural goods or precious metals, or equity assets like stocks. Price models serve multiple purposes, including practical ones like forecasting future prices, allowing a firm to hedge their position (i.e., protect themselves) against an undesirable price movement of a crucial asset. From a scientific perspective, an accurate price model can help lend insight into some of the underlying economic mechanisms that drive prices.
+One of the core problems in mathematical finance is the construction of models of prices of financial assets, whether these be commodity assets like agricultural goods or precious metals, equity assets like stocks, or practically anything traded on a market. Price models serve multiple purposes, including forecasting future prices, allowing investors to (attempt to) turn a profit through speculation, or allowing a firm to hedge its position against an undesirable movement in the price of a business-critical asset. They may also be used to price a contract written on the asset from which it *derives* its value—such contracts are known, naturally, as *derivative* contracts. (We will explore these contracts in the next post in this series.) From a scientific perspective, an accurate price model can help lend insight into some of the underlying economic mechanisms that drive prices.
 
-The ultimate driver of an asset price is "the market" itself, by which we mean the relative levels of supply and demand of the asset. But the supply and demand curves are themselves shaped by an innumerable amount of factors, all connected and interacting in unimaginably complex ways. There is an analogy here with statistical physics: Though we might understand the individual microscopic mechanics of an isolated molecule of a gas, and how it would interact with another (single) molecule, when that molecule is included in a container of the gas, the number of inter-molecular interactions is so large that the state of the gas must be modeled probabilistically. 
+Of course, the ultimate driver of an asset price is "the market" itself, by which we mean the relative levels of supply and demand of the asset. But the supply and demand curves are themselves shaped by innumerable forces, all connected and interacting in unimaginably complex ways. There is an analogy here with statistical physics: Though we might understand the individual microscopic mechanics of an isolated molecule of a gas, and how it would interact with another (single) molecule, when that molecule is included in a container of the gas, the number of inter-molecular interactions is so large that the state of the gas must be modeled probabilistically. Indeed, one might, in principle, determine the exact future state of every molecule of the gas, but the lesson taught to us by statistical physics is that is more advantageous to treat the movements of the individual molecules as *random*, and then familiar macroscopic properties of the gas (like temperature) emerge as statistical measures derived from the underlying probability distributions.
+
+Thus, through analogy, we might imagine that if we had access to complete information on the forces that shape the supply and demand curves, then we could predict with exact precision the price movements of all the assets traded on a financial market. But this is obviously not possible, and so we resort to modeling the price movements as random, just as a physicist does with the molecules of their gas. To complete the analogy, "macroscopic properties" of the assets and the contracts written on them (like *risk-neutral prices*) emerge as statisical measures derived from the underlying probabilisity distributions.
+
+
 
 ## The binomial model
 
