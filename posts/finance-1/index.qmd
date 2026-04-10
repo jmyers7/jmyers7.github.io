@@ -1,5 +1,5 @@
 ---
-title: "Finance 1"
+title: "Discrete asset pricing models in SigAlg"
 toc: true
 date: "2026-04-09"
 jupyter: site
@@ -19,9 +19,13 @@ $$
 $$
 :::
 
-## Binomial model
+One of the core problems in mathematical finance is the construction of models of prices of financial assets, whether these be commodity assets like agricultural goods or precious metals, or equity assets like stocks. Price models serve multiple purposes, including practical ones like forecasting future prices, allowing a firm to hedge their position (i.e., protect themselves) against an undesirable price movement of a crucial asset. From a scientific perspective, an accurate price model can help lend insight into some of the underlying economic mechanisms that drive prices.
 
-## Trinomial model
+The ultimate driver of an asset price is "the market" itself, by which we mean the relative levels of supply and demand of the asset. But the supply and demand curves are themselves shaped by an innumerable amount of factors, all connected and interacting in unimaginably complex ways. There is an analogy here with statistical physics: Though we might understand the individual microscopic mechanics of an isolated molecule of a gas, and how it would interact with another (single) molecule, when that molecule is included in a container of the gas, the number of inter-molecular interactions is so large that the state of the gas must be modeled probabilistically. 
+
+## The binomial model
+
+## The trinomial model
 
 ## Equivalent martingale measures; the Fundamental Theorem of Asset Pricing
 
