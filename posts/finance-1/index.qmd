@@ -19,15 +19,266 @@ $$
 $$
 :::
 
+```{python}
+# | echo: false
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
+plt.style.use("../../aux-files/custom-theme.mplstyle")
+```
+
 One of the core problems in mathematical finance is the construction of models of prices of financial assets, whether these be commodity assets like agricultural goods or precious metals, equity assets like stocks, or practically anything traded on a market. Price models serve multiple purposes, including forecasting future prices, allowing investors to (attempt to) turn a profit through speculation, or allowing a firm to hedge its position against an undesirable movement in the price of a business-critical asset. They may also be used to price a contract written on the asset from which it *derives* its value—such contracts are known, naturally, as *derivative* contracts. (We will explore these contracts in the next post in this series.) From a scientific perspective, an accurate price model can help lend insight into some of the underlying economic mechanisms that drive prices.
 
-Of course, the ultimate driver of an asset price is "the market" itself, by which we mean the relative levels of supply and demand of the asset. But the supply and demand curves are themselves shaped by innumerable forces, all connected and interacting in unimaginably complex ways. There is an analogy here with statistical physics: Though we might understand the individual microscopic mechanics of an isolated molecule of a gas, and how it would interact with another (single) molecule, when that molecule is included in a container of the gas, the number of inter-molecular interactions is so large that the state of the gas must be modeled probabilistically. Indeed, one might, in principle, determine the exact future state of every molecule of the gas, but the lesson taught to us by statistical physics is that is more advantageous to treat the movements of the individual molecules as *random*, and then familiar macroscopic properties of the gas (like temperature) emerge as statistical measures derived from the underlying probability distributions.
+Of course, the ultimate driver of an asset price is "the market" itself, by which we mean the relative levels of supply and demand of the asset. But the supply and demand curves are themselves shaped by innumerable forces, all connected and interacting in unimaginably complex ways. There is an analogy here with statistical physics: Though we might understand the individual microscopic mechanics of an isolated molecule of a gas, and how it would interact with another (single) molecule, when that molecule is included in a container of the gas, the number of inter-molecular interactions is so large that the state of the gas must be modeled probabilistically. Indeed, one might, in principle, determine the exact future state of every molecule of the gas, but the lesson taught to us by statistical physics is that it is more advantageous to treat the movements of the individual molecules as *random*, and then familiar macroscopic properties of the gas (like temperature) emerge as statistical measures derived from the underlying probability distributions.
 
-Thus, through analogy, we might imagine that if we had access to complete information on the forces that shape the supply and demand curves, then we could predict with exact precision the price movements of all the assets traded on a financial market. But this is obviously not possible, and so we resort to modeling the price movements as random, just as a physicist does with the molecules of their gas. To complete the analogy, "macroscopic properties" of the assets and the contracts written on them (like *risk-neutral prices*) emerge as statisical measures derived from the underlying probabilisity distributions.
+Thus, through analogy, we might imagine that if we had access to complete information on the forces that shape the supply and demand curves, then we could predict with exact precision the price movements of all the assets traded on a financial market. But this is obviously not possible, and so we resort to modeling the price movements as random, just as a physicist does with the molecules of their gas. To complete the analogy, "macroscopic properties" of the assets and the contracts written on them (like *risk-neutral prices*) emerge as statistical measures derived from the underlying probability distributions.
 
+As with mathematical modeling of any sort, there is a trade-off between real-world accuracy and parsimony: Usually, the more accurate a model, the more complex it is, perhaps with many more parameters than a simpler but less accurate model. The two types of price models discussed in this post—*binomial* and *trinomial pricing models*—have extremely simple structure, depending on only a handful of parameters. But this doesn't mean that they are not useful. In fact, as expert readers know, many of the intricate structures used in more complex price models are present in these basic models in simplified form, so a prior study of these models is beneficial.
 
+This post introduces these two models through the new `finance` module of the [SigAlg](https://johnmyers-phd.com/sigalg/) Python package for measure-theoretic probability. SigAlg is designed to be an interface between abstract mathematics and concrete code. Mathematical objects that one manipulates with pen and paper—probability measures, $\sigma$-algebras, expectations and the like—all have representations in SigAlg, which differentiates it from purely computational Python libraries in which the underlying mathematical structures are left implicit. SigAlg directly exposes these structures.
+
+### Prerequisites
+
+On the coding side, the prerequisites are minimal: The SigAlg API is written with fidelity to the mathematics as a core design principle, so as long as the reader can understand very basic Python and they have a good command of the mathematics, they should have little trouble following along with the code in this post.
+
+On the mathematical side, the prerequisites are a bit steeper: We will freely use the language of basic measure-theoretic probability theory and stochastic process theory. We expect the reader to be familiar with probability measures, (filtered) $\sigma$-algebras, (conditional) expectations, Radon-Nikodym derivatives, martingales, *etc*.
 
 ## The binomial model
+
+The *binomial* and *trinomial price models* in this post are both examples of *geometric processes*, by which we mean the following. Suppose that $S_t$ is a discrete-state stochastic process, with indices drawn from the discrete set $t\in \{0,1,\ldots,T\}$, where $T$ is the *time horizon*. We imagine that $S_t$ is the price of an asset at time $t$, with $S_0$ being the initial price. Then $S_t$ is a *geometric process* if there is a second process $Z_t$ such that, for each time $t\geq 1$, we have
+
+$$
+S_t = S_{t-1}Z_t.
+$$ {#eq-geo-model}
+
+The stochastic process $Z_t$ is called the *driving process* and it is required to be an IID process, which means that the random variables $Z_1,Z_2,\ldots,Z_T$ are independent and identically distributed. If we remember that a sequence of real numbers $s_0,s_1,\ldots,s_T$ is called a *geometric sequence* if there is a constant $z$ such that
+
+$$
+s_t = s_{t-1}z
+$$ {#eq-geo-seq}
+
+for each $t\geq 1$, then the reason $S_t$ is called a *geometric* process is clear upon comparison of ([-@eq-geo-model]) and ([-@eq-geo-seq]). (The random variable $Z_t$ is "constant" in the sense that it is drawn from an IID sequence.) Both the binomial model described in this section, and the trinomial model described in the next, are of the form ([-@eq-geo-model])—they only differ in the identity of the driving process $Z_t$.
+
+A geometric model may be contrasted with an *arithmetic process*, in which ([-@eq-geo-model]) is replaced with
+
+$$
+S_t = S_{t-1} + Z_t,
+$$ {#eq-arith-model}
+
+where $Z_t$ is again an IID driving process. Of course, arithmetic processes are more commonly known as *random walks*.
+
+Through a log transform, a geometric process satisfying ([-@eq-geo-model]) may be converted into an arithmetic process:
+
+$$
+\log{S_t} = \log{S_{t-1}} + \log{Z_t}.
+$$
+
+Thus, if asset prices follow a geometric process, then the log prices are a random walk. This has financial implications, because analysts are often interested in the per-period *return* $(S_t-S_{t-1})/S_{t-1}$ of an asset price. Using the usual tangent line approximation, we have
+
+$$
+\frac{S_t -S_{t-1}}{S_{t-1}} \approx \log{(S_t/S_{t-1})} = \log{S_t} - \log{S_{t-1}},
+$$
+
+and so returns are (approximately) the (backward) difference of a random walk process. But such differences are just IID processes:
+
+$$
+\log{(S_t/S_{t-1})} = \log{Z_t}.
+$$
+
+All of this leads us to our first definition:
+
+::: {#def-binomial}
+Let $S_t$ be a geometric process, with driving process $Z_t$, and let $u$ and $d$ be two positive real numbers with $d < u$. Then $S_t$ is called a *binomial model* with *up-factor* $u$ and *down-factor* $d$ if the range of each $Z_t$ is $\{u,d\}$.
+:::
+
+Thus, besides the initial price $S_0$ and the time horizon $T$, a binomial model is parametrized by its up- and down-factors $u$ and $d$. But there's a fifth parameter hidden in the driving process: Indeed, by the IID assumption, there is a parameter $p$, with $0 < p < 1$, such that $Z_t = u$ with probability $p$, and $Z_t = d$ with probability $1-p$ (for all $t$). In the context of pricing, the probability $p$ is often called the *real-world probability*.
+
+An example of a price trajectory (i.e., sample path) of a binomial model would be a sequence of prices of the form
+
+$$
+S_0 \xrightarrow{u} S_0u \xrightarrow{d} S_0 ud \xrightarrow{u} S_0u^2d.
+$$
+
+Thus, the complete set of *all* price trajectories of a binomial model with time horizon $T$ is in one-to-one correspondence with the set of all $T$-tuples drawn from the set $\{u,d\}$, and hence there are $2^T$ possible price trajectories. (For example, the trajectory above is identifed with the $3$-tuple $(u,d,u)$.) These price trajectories are often visualized as paths through a (sideways) binary tree. For example, suppose that we consider a binomial model with the parameters
+
+$$
+S_0 = 100, \quad u = 1.3, \quad d = 0.9, \quad T=3.
+$$
+
+Then there are two possible prices at $t=1$, either
+
+$$
+S_0u = 130.00 \quad \text{or} \quad S_0d = 90.00.
+$$
+
+Similarly, there are three possible prices at $t=2$, either
+
+$$
+S_0u^2 = 169.00, \quad S_0ud = 117.00, \quad \text{or} \quad S_0d^2 = 81.00.
+$$
+
+All $2^3=8$ possible price trajectories may be displayed as paths in the following tree, with an upward sloping edge corresponding to an up move (multiplication by $u$), and a downward sloping edge corresponding to a down move (multiplication by $d$).
+
+```{python}
+# | fig-align: center
+# | echo: false
+
+
+S0 = 100.0
+u = 1.3
+d = 0.9
+n = 3
+
+
+def price(t, j):
+    return S0 * (u**j) * (d ** (t - j))
+
+
+def coords(t, j):
+    return t, j - t / 2
+
+
+fig, ax = plt.subplots(figsize=(5, 9))
+ax.set_aspect("equal")
+ax.axis("off")
+
+# Draw edges
+for t in range(n):
+    for j in range(t + 1):
+        x0, y0 = coords(t, j)
+
+        # up-move: (t, j) -> (t+1, j+1)
+        x1, y1 = coords(t + 1, j + 1)
+        ax.annotate(
+            "",
+            xy=(x1, y1),
+            xytext=(x0, y0),
+            arrowprops=dict(arrowstyle="-", lw=1.8, color="#FFC300"),
+            annotation_clip=False,
+        )
+
+        # down-move: (t, j) -> (t+1, j)
+        x2, y2 = coords(t + 1, j)
+        ax.annotate(
+            "",
+            xy=(x2, y2),
+            xytext=(x0, y0),
+            arrowprops=dict(arrowstyle="-", lw=1.8, color="#FFC300"),
+            annotation_clip=False,
+        )
+
+# Draw nodes
+for t in range(n + 1):
+    for j in range(t + 1):
+        x, y = coords(t, j)
+        p = price(t, j)
+        ax.text(
+            x,
+            y,
+            f"{p:.2f}",
+            ha="center",
+            va="center",
+            fontsize=12,
+            zorder=4,
+            bbox=dict(
+                boxstyle="square,pad=0.3",
+                facecolor="#121212",
+                edgecolor="none",
+            ),
+        )
+
+
+# Column labels
+for t in range(n + 1):
+    ax.text(
+        t,
+        (n / 2) + 0.55,
+        f"$t={t}$",
+        ha="center",
+        va="top",
+        fontsize=12,
+    )
+
+ax.set_title(f"Price process 'S'", fontsize=13, pad=140)
+
+ax.set_xlim(-0.5, n + 0.5)
+ax.set_ylim(-n / 2 + 0.9, n / 2 - 0.9)
+
+plt.tight_layout()
+plt.show()
+```
+
+The mapping from price trajectories to terminal prices is many-to-one. For example, there are three trajectories leading to the price $152.10$, namely
+
+$$
+(u, u, d), \quad (u, d, u), \quad \text{and} \quad (d, u, u).
+$$
+
+The probability distribution of the process is easily described in terms of the real-world probability $p$. For example, the probability of the trajectory corresponding to $(u,u,d)$ is
+
+$$
+P\left( S_1 = S_0u, \, S_2 = S_0u^2, \, S_3 = S_0u^2d\right) = p^2(1-p),
+$$ {#eq-prob-binomial}
+
+since the probability of an up-move is $p$, while the probability of a down-move is $1-p$. For the terminal price $S_T$ specifically, the marginal probabilities are given by
+
+$$
+P\left( S_T = S_0u^{k}d^{T-k}\right) = \binom{T}{k} p^k (1-p)^{T-k},
+$$
+
+for $k=0,1,\ldots,T$.
+
+Turning to SigAlg, a binomial model is represented as an instance of the [`BinomialPricingModel`](https://johnmyers-phd.com/sigalg/api/finance/#sigalg.finance.BinomialPricingModel){target="_blank"} class. Such an object is built using the parameters identified above, along with a parameter called `risk_free_rate`. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.
+
+```{python}
+
+from sigalg.core import Time
+from sigalg.finance import BinomialPricingModel
+
+S_0 = 100  # initial price
+r = 0.05  # risk-free rate
+p = 0.7  # real-world probability
+u = 1.3  # up-factor
+d = 0.9  # down-factor
+T = 10  # time horizon
+
+# Instantiate a time index
+time = Time.discrete(length=T)
+
+# Instantiate a binomial model
+S = BinomialPricingModel(
+    initial_price=S_0,
+    risk_free_rate=r,
+    up_prob=p,
+    up_factor=u,
+    down_factor=d,
+    time=time,
+    name="S",
+)
+```
+
+The class `BinomialPricingModel` is a subclass of [`StochasticProcess`](https://johnmyers-phd.com/sigalg/api/processes/#sigalg.processes.StochasticProcess){target="_blank"}, and as such, each binomial pricing model carries two methods to generate price trajectories (i.e., sample paths), namely `from_enumeration` and `from_simulation`. The former method exhaustively enumerates all trajectories, while the latter provides Monte Carlo simulations. We invoke this second method to simulate three price trajectories, and use SigAlg's interface with Matplotlib to visualize them:
+
+```{python}
+# | fig-align: center
+
+import matplotlib.pyplot as plt
+
+_, ax = plt.subplots(figsize=(6, 3))
+yellow = "#FFC300"
+
+S.from_simulation(n_trajectories=3, random_state=42)
+S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
+plt.show()
+```
+
+For this model, the real-world probability of an up-move is $p=0.7$, which reveals itself in the upward trend of the prices. The corresponding trajectories of the driving process for these three price trajectories is obtained as follows:
+
+```{python}
+
+print(S.driving_process)
+```
 
 ## The trinomial model
 
