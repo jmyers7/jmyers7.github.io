@@ -1,0 +1,324 @@
+---
+title: "Finance with SigAlg II: Incomplete markets and trinomial pricing models"
+toc: true
+date: "2026-04-09"
+jupyter: site
+categories: [Finance, Pricing models, Trinomial pricing models, Incomplete markets, Probability theory, Measure theory, Stochastic processes, Martingales, SigAlg, Python]
+draft: true
+bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
+csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
+# image: "sigalg-logo.png"
+open-graph:
+    title: "Finance with SigAlg II: Incomplete markets and trinomial pricing models"
+    # image: "https://johnmyers-phd.com/posts/torch-der/torch-der-logo.png"
+---
+
+::: {.content-hidden}
+$$
+{{< include /aux-files/custom.tex >}}
+$$
+:::
+
+```{python}
+# | echo: false
+
+import matplotlib.pyplot as plt
+
+plt.style.use("../../aux-files/custom-theme.mplstyle")
+yellow = "#FFC300"
+```
+
+```{python}
+# | echo: false
+
+fig, ax = plt.subplots(figsize=(8, 6))
+
+ax.plot([0, 2], [0, 2], color=yellow)
+ax.plot([0, 2], [0, 0], color=yellow)
+ax.plot([0, 2], [0, -2], color=yellow)
+
+ax.plot([2, 4], [2, 5], color=yellow)
+ax.plot([2, 4], [2, 3], color=yellow)
+ax.plot([2, 4], [2, -1], color=yellow)
+
+ax.plot([2, 4], [0, 3], color=yellow)
+ax.plot([2, 4], [0, 1], color=yellow)
+ax.plot([2, 4], [0, -3], color=yellow)
+
+ax.plot([2, 4], [-2, -1], color=yellow)
+ax.plot([2, 4], [-2, -3], color=yellow)
+ax.plot([2, 4], [-2, -5], color=yellow)
+
+ax.text(
+    0,
+    0,
+    "100.00",
+    ha="right",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    2,
+    2,
+    "130.00",
+    ha="center",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    2,
+    0,
+    "110.00",
+    ha="center",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    2,
+    -2,
+    "90.00",
+    ha="center",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    4,
+    5,
+    r"$169.00 = S_0u^2$",
+    ha="left",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    4,
+    3,
+    r"$143.00 = {S_0=um}$",
+    ha="left",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    4,
+    1,
+    r"$121.00 = S_0m^2$",
+    ha="left",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    4,
+    -1,
+    r"$117.00 = S_0ud$",
+    ha="left",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    4,
+    -3,
+    r"$99.00 = S_0md$",
+    ha="left",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    4,
+    -5,
+    r"$81.00 = S_0 d^2$",
+    ha="left",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="square,pad=0.3",
+        facecolor="#121212",
+        edgecolor="none",
+    ),
+)
+
+ax.text(
+    0,
+    6,
+    r"$t=0$",
+    ha="right",
+    va="center",
+    fontsize=12,
+)
+
+ax.text(
+    2,
+    6,
+    r"$t=1$",
+    ha="center",
+    va="center",
+    fontsize=12,
+)
+
+ax.text(
+    4,
+    6,
+    r"$t=2$",
+    ha="left",
+    va="center",
+    fontsize=12,
+)
+
+fig.suptitle("Price process 'S'")
+ax.axis("off")
+plt.tight_layout()
+plt.show()
+```
+
+## Equivalent martingale measures; the Fundamental Theorem of Asset Pricing
+
+::: {#thm-ftap}
+## Fundamental Theorem of Asset Pricing
+A model is arbitrage-free if and only if there exists an equivalent martingale measure.
+:::
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+
+The proof for the binomial model was presented above, so we give a proof for the trinomial model.
+
+First, suppose that $Q$ is an EMM for the trinomial model with risk-free gross return $R$, up-factor $u$, middle-factor $m$, and down-factor $d$. Then $Q$ is determined by three probabilities $q_u$, $q_m$, and $q_d$ which are solutions to the system of linear equations
+
+$$
+\begin{align*}
+q_u + q_m + q_d &= 1 \\
+uq_u + mq_m + dq_d &= R.
+\end{align*}
+$$ {#eq-system}
+
+Indeed, the necessity of the first equation is obvious, while the second equation guarantees the martingale property for the discounted prices. In addition to the linear system, we also have the constraints
+
+$$
+0 \leq q_u, q_m, q_d \leq 1.
+$$ {#eq-constraint}
+
+We solve the linear system to obtain
+
+$$
+\begin{align*}
+q_u &= \frac{m-d}{u-m} q_d + \frac{R-m}{u-m}, \\
+q_m &= \frac{d-u}{u-m} q_d + \frac{u-R}{u-m},
+\end{align*}
+$$ {#eq-system-sol}
+
+expressing $q_u$ and $q_m$ in terms of the free parameter $q_d$. Using these formulas, the reader may show that, provided
+
+$$
+\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{m-d},
+$$ {#eq-first}
+
+we have $0 \leq q_u \leq 1$. Likewise, provided that
+
+$$
+\frac{m-R}{u-d} \leq q_d \leq \frac{u-R}{u-d},
+$$ {#eq-second}
+
+we have $0 \leq q_m \leq 1$. Since $m < u$, the single set of inequalities
+
+$$
+\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{u-d}
+$$ {#eq-third}
+
+implies both ([-@eq-first]) and ([-@eq-second]). But we must have $0 \leq q_d \leq 1$ as well, and so we must have both
+
+$$
+\frac{m-R}{m-d} \leq 1 \quad \text{and} \quad 0 \leq \frac{u-R}{u-d}.
+$$
+
+The first inequality implies $R\geq d$, while the second implies $R \leq u$. Thus, the model is arbitrage-free.
+
+Conversely, suppose that the model is arbitrage-free, so that $d\leq R \leq u$. Then we may select a parameter $q_d$ so that
+
+$$
+\max \left( \frac{m-R}{m-d}, 0 \right) \leq q_d \leq \frac{u-R}{u-d}.
+$$
+
+The no-arbitrage condition guarantees that $0 \leq q_d \leq 1$. Then the inequalties ([-@eq-third]) are satisfied, and hence so too are the inequalities ([-@eq-first]) and ([-@eq-second]). If we then define $q_u$ and $q_m$ by ([-@eq-system-sol]), we obtain solutions to the system ([-@eq-system]) satisfying the constraints ([-@eq-constraint]). Thus, we have shown that an EMM exists.
+
+:::
+
+For the reader who did not read the proof, the gist is this. Let $R$ be the risk-free gross return of an arbitrage-free trinomial model, and let $u$, $m$, and $d$ be the up-, middle-, an down-factors, respectively. Then the no-arbitrage condition $d\leq R \leq u$ implies the second two inequalities in
+
+$$
+0 \leq \max \left( \frac{m-R}{m-d}, 0 \right) \leq \frac{u-R}{u-d} \leq 1.
+$$ {#eq-emm-param-int}
+
+Then, the proof shows that there is a one-parameter family of EMMs for the trinomial model, parametrized by a number $q$ between the middle two numbers in ([-@eq-emm-param-int]), namely
+
+$$
+\max \left( \frac{m-R}{m-d}, 0 \right) \leq q \leq \frac{u-R}{u-d}.
+$$
+
+If we write $a$ for the left-hand side of this interval, and $b$ for the right-hand side, then we may reparametrize using the map
+
+$$
+\theta \mapsto q= (b-a)\theta + a,
+$$
+
+and so our family of EMMs is parametrized by $\theta\in [0,1]$.
