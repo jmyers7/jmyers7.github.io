@@ -3,7 +3,7 @@ title: "Introducing SigAlg: Measure-Theoretic Probability in Python"
 toc: true
 date: "2026-02-03"
 jupyter: site
-categories: [Stochastic process, IID process, Random walk, Probability theory, Sigma algebras, Filtrations, Information theory, SigAlg, SciPy, Python]
+categories: [Stochastic processes, IID processes, Random walks, Probability theory, Sigma-algebras, Information theory, SigAlg, SciPy, Python]
 bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
 image: "sigalg-logo.png"
