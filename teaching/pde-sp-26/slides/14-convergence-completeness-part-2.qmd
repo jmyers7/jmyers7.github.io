@@ -136,6 +136,42 @@ $$
 
 ### Definition
 
-If an orthonormal set $\{\phi_n\}_{n=1}^\infty$ in $L^2(a,b)$ has the (equivalent) properties listed in Theorem 3.4, then it is called a **complete orthonormal set** or an **orthonormal basis**.
+- If an orthonormal set $\{\phi_n\}_{n=1}^\infty$ in $L^2(a,b)$ has the (equivalent) properties listed in Theorem 3.4, then it is called a **complete orthonormal set** or an **orthonormal basis**.
+
+- More generally, suppose that $\{\psi_n\}_{n=1}^\infty$ is an orthogonal set in $L^2(a,b)$. We shall say that this set is a **complete orthogonal set** or an **orthogonal basis** if the set $\{\phi_n\}_{n=1}^\infty$ with $\phi_n = \psi_n / \|\psi_n\|$ is an orthonormal basis.
 
 :::
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem 3.5
+
+The set $\{e^{inx}\}_{n=-\infty}^\infty$ is an orthogonal basis of $L^2(-\pi,\pi)$.
+
+:::
+
+- We will not prove this; it requires a bit more "analysis" style techniques than is appropriate for this course.
+
+## Exercise 1: Fourier series in $L^2(-\pi,\pi)$ {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Given $f\in L^2(a,b)$, explain why the Fourier series of $f$ converges to $f$ in norm.
+
+:::
+
+## Summary of convergence of Fourier series {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+Let $f:[-\pi,\pi] \to \mathbb{R}$ be an integrable function, and consider its Fourier series.
+
+- If $f$ is continuous and piecewise smooth, then the Fourier series converges to $f$ uniformly, pointwise, and in norm.
+
+- If $f$ is piecewise smooth, then the Fourier series converges to $f$ pointwise and in norm.
+
+- If $f$ is in $L^2(-\pi,\pi)$, then the Fourier series converges to $f$ in norm.
+
+:::
+
+- In the second bullet point, we are ignoring the (finitely many) points of discontinuity of $f$.

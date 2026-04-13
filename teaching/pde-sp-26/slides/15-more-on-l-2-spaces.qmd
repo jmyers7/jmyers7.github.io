@@ -1,0 +1,55 @@
+---
+title: "15 More on $L^2$-spaces"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## Weighted $L^2$-spaces {.scrollable}
+
+- Consider the usual space $L^2(a,b)$ of (measurable) functions $f:[a,b] \to \mathbb{C}$ such that
+$$
+\int_a^b |f(x)|^2 \, dx < \infty,
+$$
+and with inner product given by
+$$
+\langle f,g \rangle = \int_a^b f(x) \overline{g(x)} \, dx.
+$$
+
+- This space may be generalized by including a "weight function":
+
+::: {.callout-note icon="false" .fragment}
+
+### Definition
+
+Let $w:[a,b] \to \mathbb{R}$ be a continuous function with $w(x)>0$ for each $x\in [a,b]$. Define $L^2_w(a,b)$ to be the space of all (measurable) functions $f:[a,b]\to \mathbb{C}$ such that
+
+$$
+\int_a^b |f(x)|^2 w(x) \, dx < \infty.
+$$
+
+This space has an inner product given by
+
+$$
+\langle f,g \rangle_w = \int_a^b f(x) \overline{g(x)} w(x) \, dx,
+$$
+
+which induces the norm $\|f\|_w = \sqrt{\langle f, f \rangle_w}$. The space $L^2_w(a,b)$ is called a **weighted $L^2$-space**.
+:::
+
+## Exercise 1: Orthogonality in weighted $L^2$-spaces {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+a. Consider the function $\psi_1(x) = x$ in the space $L^2_w(0,1)$ with weight function $w(x)=x$. Find a polynomial of the form $\psi_2(x) = x^2 + bx + c$ such that $\psi_1$ and $\psi_2$ are orthogonal.
+
+b. Compute the norms of the two functions in part (a) and thus construct an orthonormal set $\{\phi_1,\phi_2\}$ from these two functions.
+
+c. Compute the orthogonal projection of the function $f(x)=x^3$ onto the subspace of $L^2_w(0,1)$ spanned by $\phi_1$ and $\phi_2$.
+
+:::
