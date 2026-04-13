@@ -10,7 +10,7 @@
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e70e373d709ee9d216e9a1aea6657d26.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>john myers, ph.d. – 14 Convergence and completeness, part 2</title>
+  <title>john myers, ph.d. – 15 More on L^2-spaces</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -136,18 +136,21 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">14 Convergence and completeness, part 2</h1>
+  <h1 class="title">15 More on <span class="math inline">\(L^2\)</span>-spaces</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="from-pcab-to-l2ab" class="slide level2 scrollable">
-<h2>From <span class="math inline">\(PC(a,b)\)</span> to <span class="math inline">\(L^2(a,b)\)</span></h2>
+<section id="weighted-l2-spaces" class="slide level2 scrollable">
+<h2>Weighted <span class="math inline">\(L^2\)</span>-spaces</h2>
 <ul>
-<li class="fragment"><p>So, we know that <span class="math inline">\(PC(a,b)\)</span> is incomplete. This means that it is “missing” the limits of some sequences of functions.</p></li>
-<li class="fragment"><p>We search for a bigger space of functions containing <span class="math inline">\(PC(a,b)\)</span>.</p></li>
-<li class="fragment"><p>This leads us to:</p></li>
+<li class="fragment"><p>Consider the usual space <span class="math inline">\(L^2(a,b)\)</span> of (measurable) functions <span class="math inline">\(f:[a,b] \to \mathbb{C}\)</span> such that <span class="math display">\[
+\int_a^b |f(x)|^2 \, dx &lt; \infty,
+\]</span> and with inner product given by <span class="math display">\[
+\langle f,g \rangle = \int_a^b f(x) \overline{g(x)} \, dx.
+\]</span></p></li>
+<li class="fragment"><p>This space may be generalized by including a “weight function”:</p></li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -156,202 +159,33 @@
 <p><strong>Definition</strong></p>
 </div>
 <div class="callout-content">
-<p>We write <span class="math inline">\(L^2(a,b)\)</span> for the space of all integrable functions <span class="math inline">\(f:[a,b] \to \mathbb{C}\)</span> for which</p>
+<p>Let <span class="math inline">\(w:[a,b] \to \mathbb{R}\)</span> be a continuous function with <span class="math inline">\(w(x)&gt;0\)</span> for each <span class="math inline">\(x\in [a,b]\)</span>. Define <span class="math inline">\(L^2_w(a,b)\)</span> to be the space of all (measurable) functions <span class="math inline">\(f:[a,b]\to \mathbb{C}\)</span> such that</p>
 <p><span class="math display">\[
-\int_a^b |f(x)|^2 \, dx &lt; \infty. \tag{1}
+\int_a^b |f(x)|^2 w(x) \, dx &lt; \infty.
 \]</span></p>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment"><p>Notice that there are <strong>no</strong> continuity or smoothness requirements for <span class="math inline">\(f\)</span> to be in <span class="math inline">\(L^2(a,b)\)</span>. The only requirements are:</p>
-<ul>
-<li class="fragment"><p>That (1) holds.</p></li>
-<li class="fragment"><p>That <span class="math inline">\(f\)</span> is <strong>measurable</strong>. (This is a technical requirement that is covered in more advanced classes.)</p></li>
-</ul></li>
-<li class="fragment"><p>Related to the “measurability” requirement is that the integral in (1) is technically a <strong>Lebesgue integral</strong>, which is an extension of the familiar Riemann integral. Again, this is covered in more advanced classes.</p></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Theorem</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li class="fragment"><p>The space <span class="math inline">\(L^2(a,b)\)</span> contains <span class="math inline">\(PC(a,b)\)</span>.</p></li>
-<li class="fragment"><p>The inner product and norm on <span class="math inline">\(PC(a,b)\)</span> extend to an inner product and norm on <span class="math inline">\(L^2(a,b)\)</span>.</p></li>
-<li class="fragment"><p>The space <span class="math inline">\(L^2(a,b)\)</span> is complete.</p></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">In fact, <span class="math inline">\(L^2(a,b)\)</span> is the “smallest” complete space of functions containing <span class="math inline">\(PC(a,b)\)</span>.</li>
-</ul>
-</section>
-<section id="orthonormal-expansions-l2ab-part-1" class="slide level2 scrollable">
-<h2>Orthonormal expansions <span class="math inline">\(L^2(a,b)\)</span>, part 1</h2>
-<ul>
-<li class="fragment">Remember the following:</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Theorem 3.1</strong></p>
-</div>
-<div class="callout-content">
-<p>Let <span class="math inline">\(\{\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_k\}\)</span> be an orthonormal set of vectors in <span class="math inline">\(\mathbb{C}^k\)</span>. Then for any <span class="math inline">\(\mathbf{a} \in \mathbb{C}^k\)</span>, we have</p>
+<p>This space has an inner product given by</p>
 <p><span class="math display">\[
-\mathbf{a} = \langle \mathbf{a}, \mathbf{u}_1 \rangle \mathbf{u}_1 + \langle \mathbf{a}, \mathbf{u}_2 \rangle \mathbf{u}_2 + \cdots + \langle \mathbf{a}, \mathbf{u}_k \rangle \mathbf{u}_k,
+\langle f,g \rangle_w = \int_a^b f(x) \overline{g(x)} w(x) \, dx,
 \]</span></p>
-<p>and <span class="math display">\[
-\| \mathbf{a} \|^2 = |\langle \mathbf{a}, \mathbf{u}_1 \rangle|^2 + |\langle \mathbf{a}, \mathbf{u}_2 \rangle|^2 + \cdots + |\langle \mathbf{a}, \mathbf{u}_k \rangle|^2.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment"><p>We asked: Is there an analog of this theorem for spaces of functions? We will see that the answer is <em>yes</em> for <span class="math inline">\(L^2(a,b)\)</span>.</p></li>
-<li class="fragment"><p>This will involve an <em>infinite</em> orthonormal set <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> of functions, and the expansion will look like <span class="math display">\[
-f = \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n.
-\]</span></p></li>
-<li class="fragment"><p>We have to do two things: Establish that the series on the right converges (in what mode?) and that the series converges to <span class="math inline">\(f\)</span>.</p></li>
-</ul>
-</section>
-<section id="orthonormal-expansions-l2ab-part-2" class="slide level2 scrollable">
-<h2>Orthonormal expansions <span class="math inline">\(L^2(a,b)\)</span>, part 2</h2>
-<ul>
-<li class="fragment">We begin working toward an analog of Theorem 3.1 with an old friend in a new context:</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bessel’s Inequality</strong></p>
-</div>
-<div class="callout-content">
-<p>If <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> is an orthonormal set in <span class="math inline">\(L^2(a,b)\)</span> and <span class="math inline">\(f\in L^2(a,b)\)</span>, then</p>
-<p><span class="math display">\[
-\sum_{n=1}^\infty |\langle f,\phi_n \rangle|^2 \leq \|f\|^2.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">Then, another very useful result:</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Lemma 3.2</strong></p>
-</div>
-<div class="callout-content">
-<p>If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^2(a,b)\)</span> and <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> is any orthonormal set in <span class="math inline">\(L^2(a,b)\)</span>, then the series <span class="math inline">\(\sum_{n=1}^\infty \langle f,\phi_n \rangle \phi_n\)</span> converges in norm and</p>
-<p><span class="math display">\[
-\left\| \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n \right\| \leq \|f\|.
-\]</span></p>
+<p>which induces the norm <span class="math inline">\(\|f\|_w = \sqrt{\langle f, f \rangle_w}\)</span>. The space <span class="math inline">\(L^2_w(a,b)\)</span> is called a <strong>weighted <span class="math inline">\(L^2\)</span>-space</strong>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="orthonormal-expansions-l2ab-part-3" class="slide level2 scrollable">
-<h2>Orthonormal expansions <span class="math inline">\(L^2(a,b)\)</span>, part 3</h2>
-<ul>
-<li class="fragment">We now have the main theorem:</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+<section id="exercise-1-orthogonality-in-weighted-l2-spaces" class="slide level2 scrollable">
+<h2>Exercise 1: Orthogonality in weighted <span class="math inline">\(L^2\)</span>-spaces</h2>
+<div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
-<div class="callout-title">
-<p><strong>Theorem 3.4</strong></p>
-</div>
 <div class="callout-content">
-<p>Let <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> be an orthonormal set in <span class="math inline">\(L^2(a,b)\)</span>. The following statements are equivalent:</p>
 <ol type="a">
-<li class="fragment"><p>If <span class="math inline">\(\langle f,\phi_n\rangle =0\)</span> for all <span class="math inline">\(n\)</span>, then <span class="math inline">\(f=0\)</span>.</p></li>
-<li class="fragment"><p>For every <span class="math inline">\(f\)</span> in <span class="math inline">\(L^2(a,b)\)</span>, we have <span class="math inline">\(f = \sum_{n=1}^\infty \langle f, \phi_n \rangle \phi_n\)</span> in norm.</p></li>
-<li class="fragment"><p>For every <span class="math inline">\(f\)</span> in <span class="math inline">\(L^2(a,b)\)</span>, we have <span class="math display">\[
-\|f\|^2 = \sum_{n=1}^\infty |\langle f, \phi_n \rangle|^2.
-\]</span></p></li>
+<li><p>Consider the function <span class="math inline">\(\psi_1(x) = x\)</span> in the space <span class="math inline">\(L^2_w(0,1)\)</span> with weight function <span class="math inline">\(w(x)=x\)</span>. Find a polynomial of the form <span class="math inline">\(\psi_2(x) = x^2 + bx + c\)</span> such that <span class="math inline">\(\psi_1\)</span> and <span class="math inline">\(\psi_2\)</span> are orthogonal.</p></li>
+<li><p>Compute the norms of the two functions in part (a) and thus construct an orthonormal set <span class="math inline">\(\{\phi_1,\phi_2\}\)</span> from these two functions.</p></li>
+<li><p>Compute the orthogonal projection of the function <span class="math inline">\(f(x)=x^3\)</span> onto the subspace of <span class="math inline">\(L^2_w(0,1)\)</span> spanned by <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span>.</p></li>
 </ol>
 </div>
 </div>
 </div>
-</div>
-<ul>
-<li class="fragment">The equality in part (c) is called <strong>Parseval’s equation</strong>. It is a version of the Pythagorean Theorem.</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Definition</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li class="fragment"><p>If an orthonormal set <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> in <span class="math inline">\(L^2(a,b)\)</span> has the (equivalent) properties listed in Theorem 3.4, then it is called a <strong>complete orthonormal set</strong> or an <strong>orthonormal basis</strong>.</p></li>
-<li class="fragment"><p>More generally, suppose that <span class="math inline">\(\{\psi_n\}_{n=1}^\infty\)</span> is an orthogonal set in <span class="math inline">\(L^2(a,b)\)</span>. We shall say that this set is a <strong>complete orthogonal set</strong> or an <strong>orthogonal basis</strong> if the set <span class="math inline">\(\{\phi_n\}_{n=1}^\infty\)</span> with <span class="math inline">\(\phi_n = \psi_n / \|\psi_n\|\)</span> is an orthonormal basis.</p></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Theorem 3.5</strong></p>
-</div>
-<div class="callout-content">
-<p>The set <span class="math inline">\(\{e^{inx}\}_{n=-\infty}^\infty\)</span> is an orthogonal basis of <span class="math inline">\(L^2(-\pi,\pi)\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">We will not prove this; it requires a bit more “analysis” style techniques than is appropriate for this course.</li>
-</ul>
-</section>
-<section id="exercise-1-fourier-series-in-l2-pipi" class="slide level2 scrollable">
-<h2>Exercise 1: Fourier series in <span class="math inline">\(L^2(-\pi,\pi)\)</span></h2>
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>Given <span class="math inline">\(f\in L^2(a,b)\)</span>, explain why the Fourier series of <span class="math inline">\(f\)</span> converges to <span class="math inline">\(f\)</span> in norm.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="summary-of-convergence-of-fourier-series" class="slide level2 scrollable">
-<h2>Summary of convergence of Fourier series</h2>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Let <span class="math inline">\(f:[-\pi,\pi] \to \mathbb{R}\)</span> be an integrable function, and consider its Fourier series.</p>
-<ul>
-<li class="fragment"><p>If <span class="math inline">\(f\)</span> is continuous and piecewise smooth, then the Fourier series converges to <span class="math inline">\(f\)</span> uniformly, pointwise, and in norm.</p></li>
-<li class="fragment"><p>If <span class="math inline">\(f\)</span> is piecewise smooth, then the Fourier series converges to <span class="math inline">\(f\)</span> pointwise and in norm.</p></li>
-<li class="fragment"><p>If <span class="math inline">\(f\)</span> is in <span class="math inline">\(L^2(-\pi,\pi)\)</span>, then the Fourier series converges to <span class="math inline">\(f\)</span> in norm.</p></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">In the second bullet point, we are ignoring the (finitely many) points of discontinuity of <span class="math inline">\(f\)</span>.</li>
-</ul>
 
 
 </section>

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-04-09">
 
-<title>Multivariable Calculus – john myers, ph.d.</title>
+<title>Finance with SigAlg II: Incomplete markets and trinomial pricing models – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,6 +82,7 @@ gtag('config', 'G-VWK3RHBGT2', { 'anonymize_ip': true});
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -112,12 +114,18 @@ window.Quarto = {
 };
 </script>
 
+<meta property="og:title" content="Finance with SigAlg II: Incomplete markets and trinomial pricing models">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://johnmyers-phd.com/posts/finance-2/index_files/figure-html/cell-3-output-1.png">
+<meta property="og:site_name" content="john myers, ph.d.">
+<meta property="og:image:height" content="1186">
+<meta property="og:image:width" content="1579">
 </head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -201,8 +209,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-information" id="toc-course-information" class="nav-link active" data-scroll-target="#course-information">Course information</a></li>
-  <li><a href="#schedule-slides-exercises-and-info" id="toc-schedule-slides-exercises-and-info" class="nav-link" data-scroll-target="#schedule-slides-exercises-and-info">Schedule, slides, exercises, and info</a></li>
+  <li><a href="#equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing" id="toc-equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing" class="nav-link active" data-scroll-target="#equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing">Equivalent martingale measures; the Fundamental Theorem of Asset Pricing</a></li>
   </ul>
 </nav>
     </div>
@@ -211,14 +218,32 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multivariable Calculus</h1>
-</div>
+<h1 class="title">Finance with SigAlg II: Incomplete markets and trinomial pricing models</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Finance</div>
+    <div class="quarto-category">Pricing models</div>
+    <div class="quarto-category">Trinomial pricing models</div>
+    <div class="quarto-category">Incomplete markets</div>
+    <div class="quarto-category">Probability theory</div>
+    <div class="quarto-category">Measure theory</div>
+    <div class="quarto-category">Stochastic processes</div>
+    <div class="quarto-category">Martingales</div>
+    <div class="quarto-category">SigAlg</div>
+    <div class="quarto-category">Python</div>
+  </div>
+  </div>
 
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 9, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -228,418 +253,98 @@ window.Quarto = {
 </header>
 
 
-<p>This course is an introduction to multivariable calculus. We will cover the following topics:</p>
-<ol type="1">
-<li>Vectors and matrices: We will learn about vector algebra, dot products, matrix operations, and determinants.</li>
-<li>Calculus of functions of several variables: We will study limits, continuity, derivatives, and applications of all these concepts.</li>
-<li>Multiple integrals: We will explore double and triple integrals, as well as applications such as volume and surface area.</li>
-<li>Vector calculus: We will cover vector fields, line integrals, surface integrals, Green’s theorem, Stokes’ theorem, and the divergence theorem.</li>
-</ol>
-<section id="course-information" class="level1">
-<h1>Course information</h1>
-<table style="width:75%; margin-left:auto; margin-right:auto; margin-bottom: 50px;">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-John Myers
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Marano 175
-</td>
-</tr>
-<tr>
-<td>
-Office hours:
-</td>
-<td>
-12-12:30 MWF, and by appointment
-</td>
-</tr>
-<tr>
-<td>
-Syllabus:
-</td>
-<td>
-<a href="https://drive.google.com/file/d/1z4ctWQjU2zq9zx1-rrIpdGhqS-efvWWo/view?usp=sharing" target="_blank">link</a>
-</td>
-</tr>
-</tbody></table>
-</section>
-<section id="schedule-slides-exercises-and-info" class="level1">
-<h1>Schedule, slides, exercises, and info</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">week</th>
-<th style="text-align: center;">date</th>
-<th style="text-align: center;">topics</th>
-<th style="text-align: center;">slides</th>
-<th style="text-align: center;">exercises</th>
-<th style="text-align: center;">info</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Week 10</td>
-<td style="text-align: center;">04.17 fri</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.16 thu</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.15 wed</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.13 mon</td>
-<td style="text-align: center;">Sec 21: Triple integrals, part 2</td>
-<td style="text-align: center;"><a href="./handouts/21-triple-integrals-part-2/21-triple-integrals-part-2.pdf" target="_blank">Sec 21 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 11</td>
-<td style="text-align: center;">04.10 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.09 thu</td>
-<td style="text-align: center;">Sec 20: Triple integrals, part 1</td>
-<td style="text-align: center;"><a href="./handouts/20-triple-integrals-part-1/20-triple-integrals-part-1.pdf" target="_blank">Sec 20 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/20ex-triple-integrals-part-1.html">Sec 20 Exercises</a></td>
-<td style="text-align: center;">Quiz on Secs 18 and 19</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.08 wed</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 10</td>
-<td style="text-align: center;">04.03 fri</td>
-<td style="text-align: center;">Sec 19: Iterated integrals</td>
-<td style="text-align: center;"><a href="./handouts/19 Iterated integrals/19 Iterated integrals.pdf" target="_blank">Sec 19 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/19ex-iterated-integrals.html">Sec 19 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.02 thu</td>
-<td style="text-align: center;">Sec 18: The definite integral of a function of two variables</td>
-<td style="text-align: center;"><a href="./handouts/18 The definite integral of a function of two variables/18 The definite integral of a function of two variables.pdf" target="_blank">Sec 18 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/18ex-the-definite-integral-of-a-function-of-two-variables.html">Sec 18 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 16</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">04.01 wed</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.30 mon</td>
-<td style="text-align: center;">Sec 17: Lagrange multipliers</td>
-<td style="text-align: center;"><a href="./handouts/17 Lagrange multipliers/17 Lagrange multipliers.pdf" target="_blank">Sec 17 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/17ex-lagrange-multipliers.html">Sec 17 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 9</td>
-<td style="text-align: center;">03.27 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.26 thu</td>
-<td style="text-align: center;">Sec 16: Optimization</td>
-<td style="text-align: center;"><a href="./handouts/16 Optimization/16 Optimization.pdf" target="_blank">Sec 16 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/16ex-optimization.html">Sec 16 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 15</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.25 wed</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.23 mon</td>
-<td style="text-align: center;">Sec 15: Gradients</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/15-gradients.html" target="_blank">Sec 15 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/15ex-gradients.html">Sec 15 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Week 8</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Spring break</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 7</td>
-<td style="text-align: center;">03.13 fri</td>
-<td style="text-align: center;">Sec 14: Second derivatives, part 2</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.12 thu</td>
-<td style="text-align: center;">Exam 1</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.11 wed</td>
-<td style="text-align: center;">Review for Exam 1</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.09 mon</td>
-<td style="text-align: center;">Sec 14: Second derivatives, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/14-second-derivatives-part-2.html" target="_blank">Sec 14 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 6</td>
-<td style="text-align: center;">03.06 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.05 thu</td>
-<td style="text-align: center;">Sec 13: Second derivatives, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/13-second-derivatives-part-1.html" target="_blank">Sec 13 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/13ex-second-derivatives-part-1.html">Sec 13 Exercises</a></td>
-<td style="text-align: center;">Quiz on Secs 9-12</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.04 wed</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">03.02 mon</td>
-<td style="text-align: center;">Sec 12: Chain rule</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/12-chain-rule.html" target="_blank">Sec 12 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/12ex-chain-rule.html">Sec 12 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 5</td>
-<td style="text-align: center;">02.27 fri</td>
-<td style="text-align: center;">Sec 11: Partial derivatives, part 3</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/11-partial-derivatives-part-3.html" target="_blank">Sec 11 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/11ex-partial-derivatives-part-3.html">Sec 11 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.26 thu</td>
-<td style="text-align: center;">Sec 10: Partial derivatives, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/10-partial-derivatives-part-2.html" target="_blank">Sec 10 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/10ex-partial-derivatives-part-2.html">Sec 10 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.25 wed</td>
-<td style="text-align: center;">Sec 9: Partial derivatives, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/09-partial-derivatives-part-1.html" target="_blank">Sec 9 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/09ex-partial-derivatives-part-1.html">Sec 9 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.23 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 4</td>
-<td style="text-align: center;">02.20 fri</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.19 thu</td>
-<td style="text-align: center;">Sec 8: The definition of the derivative</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/08-the-definition-of-the-derivative.html" target="_blank">Sec 8 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/08ex-the-definition-of-the-derivative.html">Sec 8 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 5, 6, and 7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.18 wed</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.16 mon</td>
-<td style="text-align: center;">Sec 7: Functions of multiple variables, part 3</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/07-functions-of-multiple-variables-part-3.html" target="_blank">Sec 7 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/07ex-functions-of-multiple-variables-part-3.html">Sec 7 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 3</td>
-<td style="text-align: center;">02.13 fri</td>
-<td style="text-align: center;">Sec 6: Functions of multiple variables, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/06-functions-of-multiple-variables-part-2.html" target="_blank">Sec 6 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/06ex-functions-of-multiple-variables-part-2.html">Sec 6 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.12 thu</td>
-<td style="text-align: center;">Sec 5: Functions of multiple variables, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/05-functions-of-multiple-variables-part-1.html" target="_blank">Sec 5 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/05ex-functions-of-multiple-variables-part-1.html">Sec 5 Exercises</a></td>
-<td style="text-align: center;">Quiz on Sec 2 and 3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.11 wed</td>
-<td style="text-align: center;">Sec 4: Planes and linear spaces, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/04-planes-and-linear-spaces-part-2.html" target="_blank">Sec 4 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/04ex-planes-and-linear-spaces-part-2.html">Sec 4 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.09 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 2</td>
-<td style="text-align: center;">02.06 fri</td>
-<td style="text-align: center;">Sec 3: Planes and linear spaces, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/03-planes-and-linear-spaces-part-1.html" target="_blank">Sec 3 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/03ex-planes-and-linear-spaces-part-1.html">Sec 3 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.05 thu</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Quiz on Sec 1<br>Just vectors in <span class="math inline">\(\mathbb{R}^2\)</span> and <span class="math inline">\(\mathbb{R}^3\)</span>, no matrices</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.04 wed</td>
-<td style="text-align: center;">Sec 2: Vectors and matrices, part 2</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/02-vectors-and-matrices-part-2.html" target="_blank">Sec 2 Slides</a></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/02ex-vectors-and-matrices-part-2.html">Sec 2 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">02.02 mon</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Week 1</td>
-<td style="text-align: center;">01.30 fri</td>
-<td style="text-align: center;">Sec 1: Vectors and matrices, part 1</td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/slides/01-vectors-and-matrices-part-1.html" target="_blank">Sec 1 Slides</a></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.29 thu</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on exercises.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.28 wed</td>
-<td style="text-align: center;">Another “remote day”: Watch the videos below if you haven’t already, continue working on exercises.</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Same as below ↓</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">01.26 mon</td>
-<td style="text-align: center;">“Remote day”: Watch the videos <a href="https://www.3blue1brown.com/?v=vectors" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=linear-transformations#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=matrix-multiplication#video-section" target="_blank">here</a>, <a href="https://www.3blue1brown.com/?v=determinant#video-section" target="_blank">here</a>, and <a href="https://www.3blue1brown.com/?v=dot-products#video-section" target="_blank">here</a>. Complete the exercises (see the link to the right).</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><a href="../../teaching/multi-calc-sp-26/exercises/01ex-vectors-and-matrices-part-1.html">Sec 1 Exercises</a></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<div id="1f4c86bc" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" width="789" height="593" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing" class="level2">
+<h2 class="anchored" data-anchor-id="equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing">Equivalent martingale measures; the Fundamental Theorem of Asset Pricing</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-ftap" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Fundamental Theorem of Asset Pricing)</strong></span> A model is arbitrage-free if and only if there exists an equivalent martingale measure.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The proof for the binomial model was presented above, so we give a proof for the trinomial model.</p>
+<p>First, suppose that <span class="math inline">\(Q\)</span> is an EMM for the trinomial model with risk-free gross return <span class="math inline">\(R\)</span>, up-factor <span class="math inline">\(u\)</span>, middle-factor <span class="math inline">\(m\)</span>, and down-factor <span class="math inline">\(d\)</span>. Then <span class="math inline">\(Q\)</span> is determined by three probabilities <span class="math inline">\(q_u\)</span>, <span class="math inline">\(q_m\)</span>, and <span class="math inline">\(q_d\)</span> which are solutions to the system of linear equations</p>
+<p><span id="eq-system"><span class="math display">\[
+\begin{align*}
+q_u + q_m + q_d &amp;= 1 \\
+uq_u + mq_m + dq_d &amp;= R.
+\end{align*}
+\tag{1}\]</span></span></p>
+<p>Indeed, the necessity of the first equation is obvious, while the second equation guarantees the martingale property for the discounted prices. In addition to the linear system, we also have the constraints</p>
+<p><span id="eq-constraint"><span class="math display">\[
+0 \leq q_u, q_m, q_d \leq 1.
+\tag{2}\]</span></span></p>
+<p>We solve the linear system to obtain</p>
+<p><span id="eq-system-sol"><span class="math display">\[
+\begin{align*}
+q_u &amp;= \frac{m-d}{u-m} q_d + \frac{R-m}{u-m}, \\
+q_m &amp;= \frac{d-u}{u-m} q_d + \frac{u-R}{u-m},
+\end{align*}
+\tag{3}\]</span></span></p>
+<p>expressing <span class="math inline">\(q_u\)</span> and <span class="math inline">\(q_m\)</span> in terms of the free parameter <span class="math inline">\(q_d\)</span>. Using these formulas, the reader may show that, provided</p>
+<p><span id="eq-first"><span class="math display">\[
+\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{m-d},
+\tag{4}\]</span></span></p>
+<p>we have <span class="math inline">\(0 \leq q_u \leq 1\)</span>. Likewise, provided that</p>
+<p><span id="eq-second"><span class="math display">\[
+\frac{m-R}{u-d} \leq q_d \leq \frac{u-R}{u-d},
+\tag{5}\]</span></span></p>
+<p>we have <span class="math inline">\(0 \leq q_m \leq 1\)</span>. Since <span class="math inline">\(m &lt; u\)</span>, the single set of inequalities</p>
+<p><span id="eq-third"><span class="math display">\[
+\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{u-d}
+\tag{6}\]</span></span></p>
+<p>implies both (<a href="#eq-first" class="quarto-xref">4</a>) and (<a href="#eq-second" class="quarto-xref">5</a>). But we must have <span class="math inline">\(0 \leq q_d \leq 1\)</span> as well, and so we must have both</p>
+<p><span class="math display">\[
+\frac{m-R}{m-d} \leq 1 \quad \text{and} \quad 0 \leq \frac{u-R}{u-d}.
+\]</span></p>
+<p>The first inequality implies <span class="math inline">\(R\geq d\)</span>, while the second implies <span class="math inline">\(R \leq u\)</span>. Thus, the model is arbitrage-free.</p>
+<p>Conversely, suppose that the model is arbitrage-free, so that <span class="math inline">\(d\leq R \leq u\)</span>. Then we may select a parameter <span class="math inline">\(q_d\)</span> so that</p>
+<p><span class="math display">\[
+\max \left( \frac{m-R}{m-d}, 0 \right) \leq q_d \leq \frac{u-R}{u-d}.
+\]</span></p>
+<p>The no-arbitrage condition guarantees that <span class="math inline">\(0 \leq q_d \leq 1\)</span>. Then the inequalties (<a href="#eq-third" class="quarto-xref">6</a>) are satisfied, and hence so too are the inequalities (<a href="#eq-first" class="quarto-xref">4</a>) and (<a href="#eq-second" class="quarto-xref">5</a>). If we then define <span class="math inline">\(q_u\)</span> and <span class="math inline">\(q_m\)</span> by (<a href="#eq-system-sol" class="quarto-xref">3</a>), we obtain solutions to the system (<a href="#eq-system" class="quarto-xref">1</a>) satisfying the constraints (<a href="#eq-constraint" class="quarto-xref">2</a>). Thus, we have shown that an EMM exists.</p>
+</div>
+</div>
+</div>
+<p>For the reader who did not read the proof, the gist is this. Let <span class="math inline">\(R\)</span> be the risk-free gross return of an arbitrage-free trinomial model, and let <span class="math inline">\(u\)</span>, <span class="math inline">\(m\)</span>, and <span class="math inline">\(d\)</span> be the up-, middle-, an down-factors, respectively. Then the no-arbitrage condition <span class="math inline">\(d\leq R \leq u\)</span> implies the second two inequalities in</p>
+<p><span id="eq-emm-param-int"><span class="math display">\[
+0 \leq \max \left( \frac{m-R}{m-d}, 0 \right) \leq \frac{u-R}{u-d} \leq 1.
+\tag{7}\]</span></span></p>
+<p>Then, the proof shows that there is a one-parameter family of EMMs for the trinomial model, parametrized by a number <span class="math inline">\(q\)</span> between the middle two numbers in (<a href="#eq-emm-param-int" class="quarto-xref">7</a>), namely</p>
+<p><span class="math display">\[
+\max \left( \frac{m-R}{m-d}, 0 \right) \leq q \leq \frac{u-R}{u-d}.
+\]</span></p>
+<p>If we write <span class="math inline">\(a\)</span> for the left-hand side of this interval, and <span class="math inline">\(b\)</span> for the right-hand side, then we may reparametrize using the map</p>
+<p><span class="math display">\[
+\theta \mapsto q= (b-a)\theta + a,
+\]</span></p>
+<p>and so our family of EMMs is parametrized by <span class="math inline">\(\theta\in [0,1]\)</span>.</p>
 
 
 </section>
