@@ -359,13 +359,13 @@ $$
 P\left( S_1 = S_0u, \, S_2 = S_0u^2, \, S_3 = S_0u^2d\right) = p^2(1-p),
 $$ {#eq-prob-binomial}
 
-since the probability of an up-move is $p$, while the probability of a down-move is $1-p$. For the terminal price $S_T$ specifically, the marginal probabilities are given by
+since the probability of an up-move is $p$, while the probability of a down-move is $1-p$. For a specific price $S_t$, the marginal probabilities are given by
 
 $$
-P\left( S_T = S_0u^{k}d^{T-k}\right) = \binom{T}{k} p^k (1-p)^{T-k},
+P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
 $$
 
-for $k=0,1,\ldots,T$.
+for $k=0,1,\ldots,t$.
 
 Turning to SigAlg, a binomial model is represented as an instance of the [`BinomialPricingModel`](https://johnmyers-phd.com/sigalg/api/finance/#sigalg.finance.BinomialPricingModel){target="_blank"} class. Such an object is built using the parameters identified above, along with a parameter called `risk_free_rate`. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.
 
@@ -419,6 +419,10 @@ print(S.driving_process)
 ```
 
 
+## Probability measures
+
+## $\sigma$-algebras and filtrations
+
 ## Arbitrage
 
 In finance, the word *arbitrage* refers to an opportunity to turn a profit with no risk of loss. (More precisely, the probability of loss is $0$.) The types of arbitrage relevant to our discussion in this post seek to exploit the relative "mispricing" of two assets in the market. While from an investor's point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies. In this short section, we seek conditions on binomial pricing models in order to avoid arbitrages.
@@ -470,32 +474,73 @@ The inequalites ([-@eq-no-arbitrage]) are equivalent to the absence of arbitrage
 
 With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) together are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in @Bjork2020).
 
-## Martingale measures
+## Equivalent martingale measures
 
-The statement of the Fundamental Theorem of Asset Pricing (in @thm-no-arb) is referred to as "version 1". In this section we discuss the second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called *equivalent martingale measures*.
+The statement of the Fundamental Theorem of Asset Pricing (in @thm-no-arb) is referred to as "version 1". In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called *equivalent martingale measures*.
 
-By way of introduction, consider again the cash position held in the bank discussed in the previous section. Suppose that we deposit an initial amount $B_0$ at time $t=0$, and hold the position with no additional cash infusions or withdrawals. Then, at some future time $t$, the amount in the bank will have compounded to
-
-$$
-B_t = B_0 (1+r)^t,
-$$ {#eq-compound}
-
-where $r$ is the per-period interest rate. We say that $B_t$ is the *future value* of the amount $B_0$. Reciprocally, we have
+By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount $B_0$ at time $t=0$, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time $t$, say $B_t$, then we know the balance one time period later:
 
 $$
-B_0 = \frac{B_t}{(1+r)^t},
-$$ {#eq-discount}
-
-which shows that *if* we wanted to have an amount $B_t$ in the bank at time $t$, we would have had to initially deposit $B_0$. We say that $B_0$ is the *present value* of the amount $B_t$. Of course, the two equations ([-@eq-compound]) and ([-@eq-discount]) are mathematically equivalent; however, the first naturally has a "present $\to$ future" time orientation, while the second has the reverse orientation "future $\to$ present".
-
-The gist is that, under the interest rate $r$, present values of money can be "pushed into the future" by repeated multiplication by the factor $1+r$, while future values of money can be "pulled back into the present" by repeated multiplication by the reciprocal factor $(1+r)^{-1}$. The reciprocal process, going from future values to present values, is called *discounting*, and the number $v$, defined as the solution to the equation
-
-$$
-1 - v = \frac{1}{1+r},
+B_{t+1} = RB_t,
 $$
 
-is often called the *discount rate*.
+where $R$ is the risk-free gross return. Reciprocally, the current balance is the *present value* of the future balance, i.e.,
 
-All of this goes under the heading of the *time value of money*, and a proper accounting of the evolving value of money is crucial to valuing future cash flows
+$$
+B_t = \frac{1}{R} B_{t+1}.
+$$ {#eq-pv-bank}
+
+So, given the current balance $B_t$ at time $t$, *we know for certain what the balance will be one period into the future.* We ask: Is there something analogous that we could say about the price process $S_t$ of the risky asset?
+
+Working toward an answer to this question, suppose that a time $t$ is fixed, and that we observe the current price $S_t$ of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price $S_{t+1}$ with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation $E(S_{t+1} \mid S_t)$ is the best approximation of $S_{t+1}$, given $S_t$, in the sense that it is the closest $\sigma(S_t)$-measurable random variable to $S_{t+1}$ in mean squared error. So, with the expectation in place of $S_{t+1}$, and taking the time value of money into account, we then wonder if something analogous to ([-@eq-pv-bank]) holds—something like
+
+$$
+S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
+$$ {#eq-wrong}
+
+However, this obviously cannot hold, because the expectation is discounted via $R=1+r$, which is built from the risk-free rate $r$. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.
+
+Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
+
+$$
+P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
+$$
+
+for $k=0,1,\ldots,t$. The $\sigma$-algebra generated by $S_t$, namely $\sigma(S_t)$, has $t+1$ atoms given by the sets
+
+$$
+A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
+$$
+
+The vector space $L^2(\Omega, \sigma(S_t), P)$ then has a finite orthonormal basis given by the normalized indicator functions
+
+$$
+\frac{I_{A_k}}{\sqrt{P(A_k)}},
+$$
+
+one for each $k=0,1,\ldots,t$. Thus, the expectation $E(S_{t+1} \mid S_t)$ is given by its generalized Fourier series:
+
+$$
+E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
+$$
+
+For each $k=0,1,\ldots,t$, write $s_k = S_0 u^k d^{t-k}$, for brevity. Then, we have
+
+$$
+\begin{align*}
+\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
+&= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
+\end{align*}
+$$
+
+
+
+
+
+
+
+
+
+
 
 ## Bibliography
