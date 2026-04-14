@@ -47,7 +47,7 @@ On the mathematical side, the prerequisites are a bit steeper: We will freely us
 
 ## The binomial model
 
-The *binomial* and *trinomial price models* in this post are both examples of *geometric processes*, by which we mean the following. Suppose that $S_t$ is a discrete-state stochastic process, with indices drawn from the discrete set $t\in \{0,1,\ldots,T\}$, where $T$ is the *time horizon*. We imagine that $S_t$ is the price of an asset at time $t$, with $S_0$ being the initial price. Then $S_t$ is a *geometric process* if there is a second process $Z_t$ such that, for each time $t\geq 1$, we have
+The *binomial price models* in this post are examples of *geometric processes*, by which we mean the following. Suppose that $S_t$ is a discrete-state stochastic process, with indices drawn from the discrete set $t\in \{0,1,\ldots,T\}$, where $T$ is the *time horizon*. We imagine that $S_t$ is the price of an asset at time $t$, with $S_0$ being the initial (constant) price. Then $S_t$ is a *geometric process* if there is a second process $Z_t$ such that, for each time $t\geq 1$, we have
 
 $$
 S_t = S_{t-1}Z_t.
@@ -59,9 +59,9 @@ $$
 s_t = s_{t-1}z
 $$ {#eq-geo-seq}
 
-for each $t\geq 1$, then the reason $S_t$ is called a *geometric* process is clear upon comparison of ([-@eq-geo-model]) and ([-@eq-geo-seq]). (The random variable $Z_t$ is "constant" in the sense that it is drawn from an IID sequence.) Both the binomial model described in this section, and the trinomial model described in the next, are of the form ([-@eq-geo-model])—they only differ in the identity of the driving process $Z_t$.
+for each $t\geq 1$, then the reason $S_t$ is called a *geometric* process is clear upon comparison of ([-@eq-geo-model]) and ([-@eq-geo-seq]). (The random variable $Z_t$ is "constant" in the sense that it is drawn from an IID sequence.) Both the binomial models described in this post, and the trinomial models described in the next, are of the form ([-@eq-geo-model])—they only differ in the identity of their driving processes.
 
-A geometric model may be contrasted with an *arithmetic process*, in which ([-@eq-geo-model]) is replaced with
+A geometric process may be contrasted with an *arithmetic process*, in which ([-@eq-geo-model]) is replaced with the additive relation
 
 $$
 S_t = S_{t-1} + Z_t,
@@ -84,16 +84,18 @@ $$
 and so returns are (approximately) the (backward) difference of a random walk process. But such differences are just IID processes:
 
 $$
-\log{(S_t/S_{t-1})} = \log{Z_t}.
+\log{S_t} - \log{S_{t-1}} = \log{Z_t}.
 $$
 
-All of this leads us to our first definition:
+Hence, if asset prices are modeled as a geometric process, then returns are modeled as an IID process.
+
+Now, moving on to the central definition of this post:
 
 ::: {#def-binomial}
 Let $S_t$ be a geometric process, with driving process $Z_t$, and let $u$ and $d$ be two positive real numbers with $d < u$. Then $S_t$ is called a *binomial model* with *up-factor* $u$ and *down-factor* $d$ if the range of each $Z_t$ is $\{u,d\}$.
 :::
 
-Thus, besides the initial price $S_0$ and the time horizon $T$, a binomial model is parametrized by its up- and down-factors $u$ and $d$. But there's a fifth parameter hidden in the driving process: Indeed, by the IID assumption, there is a parameter $p$, with $0 < p < 1$, such that $Z_t = u$ with probability $p$, and $Z_t = d$ with probability $1-p$ (for all $t$). In the context of pricing, the probability $p$ is often called the *real-world probability*.
+Besides the initial price $S_0$ and the time horizon $T$, a binomial model is parametrized by its up- and down-factors $u$ and $d$. But there's a fifth parameter hidden in the driving process: Indeed, by the IID assumption, there is a parameter $p$, with $0 < p < 1$, such that $Z_t = u$ with probability $p$, and $Z_t = d$ with probability $1-p$ (for all $t$). In the context of pricing, the probability $p$ is often called the *real-world probability*.
 
 An example of a price trajectory (i.e., sample path) of a binomial model would be a sequence of prices of the form
 
@@ -101,7 +103,7 @@ $$
 S_0 \xrightarrow{u} S_0u \xrightarrow{d} S_0 ud \xrightarrow{u} S_0u^2d.
 $$
 
-Thus, the complete set of *all* price trajectories of a binomial model with time horizon $T$ is in one-to-one correspondence with the set of all $T$-tuples drawn from the set $\{u,d\}$, and hence there are $2^T$ possible price trajectories. (For example, the trajectory above is identifed with the $3$-tuple $(u,d,u)$.) These price trajectories are often visualized as paths through a (sideways) binary tree. For example, suppose that we consider a binomial model with the parameters
+Thus, the complete set of *all* price trajectories of a binomial model with time horizon $T$ is in one-to-one correspondence with the set of all $T$-tuples drawn from the set $\{u,d\}$, and hence there are $2^T$ possible price trajectories. These price trajectories are often visualized as paths through a (sideways) binary tree. For example, suppose that we consider a binomial model with the parameters
 
 $$
 S_0 = 100, \quad u = 1.3, \quad d = 0.9, \quad T=3.
@@ -125,7 +127,7 @@ All $2^3=8$ possible price trajectories may be displayed as paths in the followi
 # | fig-align: center
 # | echo: false
 
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(6, 4))
 
 ax.plot([0, 1], [0, 1], color=yellow)
 ax.plot([0, 1], [0, -1], color=yellow)
@@ -347,27 +349,13 @@ plt.tight_layout()
 plt.show()
 ```
 
-The mapping from price trajectories to terminal prices is many-to-one. For example, there are three trajectories leading to the price $152.10$, namely
+The mapping from price trajectories to terminal prices is many-to-one. For example, there are three trajectories leading to the final price $152.10$, namely, those corresponding to the following sequences of up and down moves:
 
 $$
 (u, u, d), \quad (u, d, u), \quad \text{and} \quad (d, u, u).
 $$
 
-The probability distribution of the process is easily described in terms of the real-world probability $p$. For example, the probability of the trajectory corresponding to $(u,u,d)$ is
-
-$$
-P\left( S_1 = S_0u, \, S_2 = S_0u^2, \, S_3 = S_0u^2d\right) = p^2(1-p),
-$$ {#eq-prob-binomial}
-
-since the probability of an up-move is $p$, while the probability of a down-move is $1-p$. For a specific price $S_t$, the marginal probabilities are given by
-
-$$
-P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
-$$
-
-for $k=0,1,\ldots,t$.
-
-Turning to SigAlg, a binomial model is represented as an instance of the [`BinomialPricingModel`](https://johnmyers-phd.com/sigalg/api/finance/#sigalg.finance.BinomialPricingModel){target="_blank"} class. Such an object is built using the parameters identified above, along with a parameter called `risk_free_rate`. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.
+Turning to SigAlg, a binomial model is represented as an instance of the `BinomialPricingModel` class. Such an object is built using the parameters identified above, along with a parameter called `risk_free_rate`. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.
 
 ```{python}
 
@@ -375,11 +363,11 @@ from sigalg.core import Time
 from sigalg.finance import BinomialPricingModel
 
 S_0 = 100  # initial price
-r = 0.05  # risk-free rate
+r = 0.05  # risk-free rate — ignore for now
 p = 0.7  # real-world probability
 u = 1.3  # up-factor
 d = 0.9  # down-factor
-T = 10  # time horizon
+T = 3  # time horizon
 
 # Instantiate a time index
 time = Time.discrete(length=T)
@@ -396,7 +384,7 @@ S = BinomialPricingModel(
 )
 ```
 
-The class `BinomialPricingModel` is a subclass of [`StochasticProcess`](https://johnmyers-phd.com/sigalg/api/processes/#sigalg.processes.StochasticProcess){target="_blank"}, and as such, each binomial pricing model carries two methods to generate price trajectories (i.e., sample paths), namely `from_enumeration` and `from_simulation`. The former method exhaustively enumerates all trajectories, while the latter provides Monte Carlo simulations. We invoke this second method to simulate three price trajectories, and use SigAlg's interface with Matplotlib to visualize them:
+The class `BinomialPricingModel` is a subclass of SigAlg's `StochasticProcess`, and as such, each binomial pricing model carries two methods to generate price trajectories, namely `from_enumeration` and `from_simulation`. The latter method generates Monte Carlo simulations of price trajectories, while the former exhaustively enumerates all trajectories. We invoke this first method, and use SigAlg's interface with Matplotlib to visualize the trajectories:
 
 ```{python}
 # | fig-align: center
@@ -406,18 +394,63 @@ import matplotlib.pyplot as plt
 _, ax = plt.subplots(figsize=(6, 3))
 yellow = "#FFC300"
 
-S.from_simulation(n_trajectories=3, random_state=42)
+S.from_enumeration()
 S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
 plt.show()
 ```
 
-For this model, the real-world probability of an up-move is $p=0.7$, which reveals itself in the upward trend of the prices. The corresponding trajectories of the driving process for these three price trajectories is obtained as follows:
+Notice that this printout is essentially the same as the binary tree displayed earlier, with four terminal prices. We can also print the price process itself:
 
 ```{python}
-
-print(S.driving_process)
+print(S)
 ```
 
+The printout shows the $2^3 = 8$ trajectories over the time period ending at $T=3$, all beginning at the initial price $S_0=100$. The trajectories are indexed by the set $\Omega = \{0,1,\ldots,7\}$, which serves as the domain of the process:
+
+```{python}
+print(S.domain)
+```
+
+The component random variables themselves $S_t: \Omega \to \mathbb{R}$ may be accessed via subscripting, which returns an instance of the `RandomVariable` class:
+
+```{python}
+print(S[2], "\n")  # Print the random variable S_2
+print(S[2].domain, "\n")  # Check its domain
+print(type(S[2]))  # Check its type
+```
+
+The cardinality of the sample space $\Omega$ is $2^T$, which scales exponentially with the time horizon. Obviously, this means that exhaustive enumeration of price trajectories is infeasible for large $T$. SigAlg provides two options that the user can leverage for longer time horizons. The first is to operate the `from_enumeration` method in `sparse` enumeration mode. This requires that the down-factor $d$ is equal to the reciprocal up-factor, $d = 1/u$, so that the binary tree is *recombining*. We make this adjustment in the next code block, and plot the sparsely enumerated trajectories over the same time horizon $T=3$ as before:
+
+```{python}
+# | fig-align: center
+
+S.down_factor = 1 / u  # Reset the down-factor
+S.from_enumeration(enum_mode="sparse")
+print(S)
+
+_, ax = plt.subplots(figsize=(6, 3))
+S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
+plt.show()
+```
+
+In `sparse` enumeration mode, the only price trajectories that are generated are those that consist first of a sequence entirely of down moves, followed by a sequence entirely of up moves. Every node/price in the binary tree is visited by one of these trajectories, and there are only $T+1$ of them, allowing one to generate all prices for large $T$. One of the downsides—as we shall see in a later post—is that we cannot use a binomial model in `sparse` enumeration mode to price path-dependent contingent claims.
+
+The other option available to the user for longer time horizons is to use the `from_simulation` method mentioned above, which randomly samples price trajectories according to the real-world probability measure (see the next section). The following code block gives an example of its usage over a (slightly) longer time horizon $T=10$:
+
+```{python}
+# | fig-align: center
+
+T = 10
+time = Time.discrete(length=T)
+
+S.down_factor = d  # Reset to the original down-factor
+S.time = time  # Reset to a longer time horizon
+S.from_simulation(n_trajectories=5, random_state=42)
+
+_, ax = plt.subplots(figsize=(6, 3))
+S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
+plt.show()
+```
 
 ## Probability measures
 
