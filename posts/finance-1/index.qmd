@@ -441,10 +441,9 @@ The other option available to the user for longer time horizons is to use the `f
 # | fig-align: center
 
 T = 10
-time = Time.discrete(length=T)
-
+S.time = Time.discrete(length=T)  # Set a longer time horizon
 S.down_factor = d  # Reset to the original down-factor
-S.time = time  # Reset to a longer time horizon
+
 S.from_simulation(n_trajectories=5, random_state=42)
 
 _, ax = plt.subplots(figsize=(6, 3))
@@ -453,6 +452,64 @@ plt.show()
 ```
 
 ## Probability measures
+
+We continue with our original binomial model from the previous section, with time horizon $T=3$; for the reader's convenience, we print its trajectories:
+
+```{python}
+T = 3
+S.time = Time.discrete(length=3)
+
+S.from_enumeration()
+print(S)
+```
+
+Using the real-world probability $p=0.7$, we define a probability measure $P$ on the sample space $\Omega = \{0,1,\ldots,7\}$ by setting
+
+$$
+P(\{\omega\}) = p^k (1-p)^{T-k}
+$$
+
+for each $\omega\in \Omega$, provided that $\omega$ corresponds to a trajectory with $k$ up moves and $T-k$ down moves. This probability measure is accessible using the `probability_measure` attribute of the binomial model, which returns an instance of SigAlg's `ProbabilityMeasure` class:
+
+```{python}
+P = S.probability_measure
+
+print(P, "\n")  # Print the measure
+print(type(P))  # Check its type
+```
+
+For easy comparison, we can print the probabilities next to the trajectories using a convenience method:
+
+```{python}
+S.print_trajectories_and_probabilities()
+```
+
+In the mathematical theory, probability measures are supposed to be defined only on the events inside a $\sigma$-algebra on the sample space $\Omega$; but in SigAlg, we do *not* enforce this requirement. In particular, a probability measure may be treated like a probability mass function, and evaluated on sample points $\omega \in \Omega$:
+
+```{python}
+print(round(P(2), 3))  # Print the probability P(2)
+```
+
+The component random variables of the process inherit the same probability measure. For example, we can check the probability measure of the random variable $S_2:\Omega \to \mathbb{R}$ by accessing its `probability_measure` attribute:
+
+```{python}
+
+print(S[2].probability_measure)
+
+```
+
+As we learned in our first course on probability theory, every random variable induces a *pushforward* (or *image*) *probability measure*. In the case of the component random variable $S_2$, this is the discrete measure $P_{S_2}$ on $\mathbb{R}$ defined by
+
+$$
+P_{S_2}(\{s\}) = P\left( \{\omega \in \Omega \mid S_2(\omega)=s\}\right),
+$$
+
+for each $s\in \mathbb{R}$. The support of this measure is the range of $S_2$, namely, the three-element set $\{169.00, 117.00, 81.00\}$. To obtain the pushforward measure $P_{S_2}$ in SigAlg, we first pass to the range of $S_2$:
+
+```{python}
+print(S[2].range, "\n")  # Print the range of S_2
+print(S[2].range.probability_measure)  # Print the measure P_{S_2}
+```
 
 ## $\sigma$-algebras and filtrations
 
