@@ -173,8 +173,8 @@ window.Quarto = {
 <meta property="og:description" content="">
 <meta property="og:image" content="https://johnmyers-phd.com/posts/finance-1/index_files/figure-html/cell-3-output-1.png">
 <meta property="og:site_name" content="john myers, ph.d.">
-<meta property="og:image:height" content="1186">
-<meta property="og:image:width" content="1576">
+<meta property="og:image:height" content="794">
+<meta property="og:image:width" content="1187">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -266,8 +266,10 @@ window.Quarto = {
   <ul>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#the-binomial-model" id="toc-the-binomial-model" class="nav-link" data-scroll-target="#the-binomial-model">The binomial model</a></li>
+  <li><a href="#sigma-algebras-and-filtrations" id="toc-sigma-algebras-and-filtrations" class="nav-link" data-scroll-target="#sigma-algebras-and-filtrations"><span class="math inline">\(\sigma\)</span>-algebras and filtrations</a></li>
+  <li><a href="#probability-measures" id="toc-probability-measures" class="nav-link" data-scroll-target="#probability-measures">Probability measures</a></li>
   <li><a href="#arbitrage" id="toc-arbitrage" class="nav-link" data-scroll-target="#arbitrage">Arbitrage</a></li>
-  <li><a href="#martingale-measures" id="toc-martingale-measures" class="nav-link" data-scroll-target="#martingale-measures">Martingale measures</a></li>
+  <li><a href="#equivalent-martingale-measures" id="toc-equivalent-martingale-measures" class="nav-link" data-scroll-target="#equivalent-martingale-measures">Equivalent martingale measures</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
@@ -323,7 +325,7 @@ window.Quarto = {
 </section>
 <section id="the-binomial-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-binomial-model">The binomial model</h2>
-<p>The <em>binomial</em> and <em>trinomial price models</em> in this post are both examples of <em>geometric processes</em>, by which we mean the following. Suppose that <span class="math inline">\(S_t\)</span> is a discrete-state stochastic process, with indices drawn from the discrete set <span class="math inline">\(t\in \{0,1,\ldots,T\}\)</span>, where <span class="math inline">\(T\)</span> is the <em>time horizon</em>. We imagine that <span class="math inline">\(S_t\)</span> is the price of an asset at time <span class="math inline">\(t\)</span>, with <span class="math inline">\(S_0\)</span> being the initial price. Then <span class="math inline">\(S_t\)</span> is a <em>geometric process</em> if there is a second process <span class="math inline">\(Z_t\)</span> such that, for each time <span class="math inline">\(t\geq 1\)</span>, we have</p>
+<p>The <em>binomial price models</em> in this post are examples of <em>geometric processes</em>, by which we mean the following. Suppose that <span class="math inline">\(S_t\)</span> is a discrete-state stochastic process, with indices drawn from the discrete set <span class="math inline">\(t\in \{0,1,\ldots,T\}\)</span>, where <span class="math inline">\(T\)</span> is the <em>time horizon</em>. We imagine that <span class="math inline">\(S_t\)</span> is the price of an asset at time <span class="math inline">\(t\)</span>, with <span class="math inline">\(S_0\)</span> being the initial (constant) price. Then <span class="math inline">\(S_t\)</span> is a <em>geometric process</em> if there is a second process <span class="math inline">\(Z_t\)</span> such that, for each time <span class="math inline">\(t\geq 1\)</span>, we have</p>
 <p><span id="eq-geo-model"><span class="math display">\[
 S_t = S_{t-1}Z_t.
 \tag{1}\]</span></span></p>
@@ -331,8 +333,8 @@ S_t = S_{t-1}Z_t.
 <p><span id="eq-geo-seq"><span class="math display">\[
 s_t = s_{t-1}z
 \tag{2}\]</span></span></p>
-<p>for each <span class="math inline">\(t\geq 1\)</span>, then the reason <span class="math inline">\(S_t\)</span> is called a <em>geometric</em> process is clear upon comparison of (<a href="#eq-geo-model" class="quarto-xref">1</a>) and (<a href="#eq-geo-seq" class="quarto-xref">2</a>). (The random variable <span class="math inline">\(Z_t\)</span> is “constant” in the sense that it is drawn from an IID sequence.) Both the binomial model described in this section, and the trinomial model described in the next, are of the form (<a href="#eq-geo-model" class="quarto-xref">1</a>)—they only differ in the identity of the driving process <span class="math inline">\(Z_t\)</span>.</p>
-<p>A geometric model may be contrasted with an <em>arithmetic process</em>, in which (<a href="#eq-geo-model" class="quarto-xref">1</a>) is replaced with</p>
+<p>for each <span class="math inline">\(t\geq 1\)</span>, then the reason <span class="math inline">\(S_t\)</span> is called a <em>geometric</em> process is clear upon comparison of (<a href="#eq-geo-model" class="quarto-xref">1</a>) and (<a href="#eq-geo-seq" class="quarto-xref">2</a>). (The random variable <span class="math inline">\(Z_t\)</span> is “constant” in the sense that it is drawn from an IID sequence.) Both the binomial models described in this post, and the trinomial models described in the next, are of the form (<a href="#eq-geo-model" class="quarto-xref">1</a>)—they only differ in the identity of their driving processes.</p>
+<p>A geometric process may be contrasted with an <em>arithmetic process</em>, in which (<a href="#eq-geo-model" class="quarto-xref">1</a>) is replaced with the additive relation</p>
 <p><span id="eq-arith-model"><span class="math display">\[
 S_t = S_{t-1} + Z_t,
 \tag{3}\]</span></span></p>
@@ -347,9 +349,10 @@ S_t = S_{t-1} + Z_t,
 \]</span></p>
 <p>and so returns are (approximately) the (backward) difference of a random walk process. But such differences are just IID processes:</p>
 <p><span class="math display">\[
-\log{(S_t/S_{t-1})} = \log{Z_t}.
+\log{S_t} - \log{S_{t-1}} = \log{Z_t}.
 \]</span></p>
-<p>All of this leads us to our first definition:</p>
+<p>Hence, if asset prices are modeled as a geometric process, then returns are modeled as an IID process.</p>
+<p>Now, moving on to the central definition of this post:</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -362,12 +365,12 @@ S_t = S_{t-1} + Z_t,
 </div>
 </div>
 </div>
-<p>Thus, besides the initial price <span class="math inline">\(S_0\)</span> and the time horizon <span class="math inline">\(T\)</span>, a binomial model is parametrized by its up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>. But there’s a fifth parameter hidden in the driving process: Indeed, by the IID assumption, there is a parameter <span class="math inline">\(p\)</span>, with <span class="math inline">\(0 &lt; p &lt; 1\)</span>, such that <span class="math inline">\(Z_t = u\)</span> with probability <span class="math inline">\(p\)</span>, and <span class="math inline">\(Z_t = d\)</span> with probability <span class="math inline">\(1-p\)</span> (for all <span class="math inline">\(t\)</span>). In the context of pricing, the probability <span class="math inline">\(p\)</span> is often called the <em>real-world probability</em>.</p>
+<p>Besides the initial price <span class="math inline">\(S_0\)</span> and the time horizon <span class="math inline">\(T\)</span>, a binomial model is parametrized by its up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>. But there’s a fifth parameter hidden in the driving process: Indeed, by the IID assumption, there is a parameter <span class="math inline">\(p\)</span>, with <span class="math inline">\(0 &lt; p &lt; 1\)</span>, such that <span class="math inline">\(Z_t = u\)</span> with probability <span class="math inline">\(p\)</span>, and <span class="math inline">\(Z_t = d\)</span> with probability <span class="math inline">\(1-p\)</span> (for all <span class="math inline">\(t\)</span>). In the context of pricing, the probability <span class="math inline">\(p\)</span> is often called the <em>real-world probability</em>.</p>
 <p>An example of a price trajectory (i.e., sample path) of a binomial model would be a sequence of prices of the form</p>
 <p><span class="math display">\[
 S_0 \xrightarrow{u} S_0u \xrightarrow{d} S_0 ud \xrightarrow{u} S_0u^2d.
 \]</span></p>
-<p>Thus, the complete set of <em>all</em> price trajectories of a binomial model with time horizon <span class="math inline">\(T\)</span> is in one-to-one correspondence with the set of all <span class="math inline">\(T\)</span>-tuples drawn from the set <span class="math inline">\(\{u,d\}\)</span>, and hence there are <span class="math inline">\(2^T\)</span> possible price trajectories. (For example, the trajectory above is identifed with the <span class="math inline">\(3\)</span>-tuple <span class="math inline">\((u,d,u)\)</span>.) These price trajectories are often visualized as paths through a (sideways) binary tree. For example, suppose that we consider a binomial model with the parameters</p>
+<p>Thus, the complete set of <em>all</em> price trajectories of a binomial model with time horizon <span class="math inline">\(T\)</span> is in one-to-one correspondence with the set of all <span class="math inline">\(T\)</span>-tuples drawn from the set <span class="math inline">\(\{u,d\}\)</span>, and hence there are <span class="math inline">\(2^T\)</span> possible price trajectories. These price trajectories are often visualized as paths through a (sideways) binary tree. For example, suppose that we consider a binomial model with the parameters</p>
 <p><span class="math display">\[
 S_0 = 100, \quad u = 1.3, \quad d = 0.9, \quad T=3.
 \]</span></p>
@@ -380,39 +383,30 @@ S_0u = 130.00 \quad \text{or} \quad S_0d = 90.00.
 S_0u^2 = 169.00, \quad S_0ud = 117.00, \quad \text{or} \quad S_0d^2 = 81.00.
 \]</span></p>
 <p>All <span class="math inline">\(2^3=8\)</span> possible price trajectories may be displayed as paths in the following tree, with an upward sloping edge corresponding to an up move (multiplication by <span class="math inline">\(u\)</span>), and a downward sloping edge corresponding to a down move (multiplication by <span class="math inline">\(d\)</span>).</p>
-<div id="f96435a5" class="cell" data-execution_count="2">
+<div id="c007a7e4" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="788" height="593"></p>
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="593" height="397"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The mapping from price trajectories to terminal prices is many-to-one. For example, there are three trajectories leading to the price <span class="math inline">\(152.10\)</span>, namely</p>
+<p>The mapping from price trajectories to terminal prices is many-to-one. For example, there are three trajectories leading to the final price <span class="math inline">\(152.10\)</span>, namely, those corresponding to the following sequences of up and down moves:</p>
 <p><span class="math display">\[
 (u, u, d), \quad (u, d, u), \quad \text{and} \quad (d, u, u).
 \]</span></p>
-<p>The probability distribution of the process is easily described in terms of the real-world probability <span class="math inline">\(p\)</span>. For example, the probability of the trajectory corresponding to <span class="math inline">\((u,u,d)\)</span> is</p>
-<p><span id="eq-prob-binomial"><span class="math display">\[
-P\left( S_1 = S_0u, \, S_2 = S_0u^2, \, S_3 = S_0u^2d\right) = p^2(1-p),
-\tag{4}\]</span></span></p>
-<p>since the probability of an up-move is <span class="math inline">\(p\)</span>, while the probability of a down-move is <span class="math inline">\(1-p\)</span>. For the terminal price <span class="math inline">\(S_T\)</span> specifically, the marginal probabilities are given by</p>
-<p><span class="math display">\[
-P\left( S_T = S_0u^{k}d^{T-k}\right) = \binom{T}{k} p^k (1-p)^{T-k},
-\]</span></p>
-<p>for <span class="math inline">\(k=0,1,\ldots,T\)</span>.</p>
-<p>Turning to SigAlg, a binomial model is represented as an instance of the <a href="https://johnmyers-phd.com/sigalg/api/finance/#sigalg.finance.BinomialPricingModel" target="_blank"><code>BinomialPricingModel</code></a> class. Such an object is built using the parameters identified above, along with a parameter called <code>risk_free_rate</code>. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.</p>
-<div id="b81c0c0a" class="cell" data-execution_count="3">
+<p>Turning to SigAlg, a binomial model is represented as an instance of the <code>BinomialPricingModel</code> class. Such an object is built using the parameters identified above, along with a parameter called <code>risk_free_rate</code>. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.</p>
+<div id="1dba2f9d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.finance <span class="im">import</span> BinomialPricingModel</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>S_0 <span class="op">=</span> <span class="dv">100</span>  <span class="co"># initial price</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># risk-free rate</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># risk-free rate — ignore for now</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fl">0.7</span>  <span class="co"># real-world probability</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="fl">1.3</span>  <span class="co"># up-factor</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="fl">0.9</span>  <span class="co"># down-factor</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span>  <span class="co"># time horizon</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">3</span>  <span class="co"># time horizon</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate a time index</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> Time.discrete(length<span class="op">=</span>T)</span>
@@ -428,14 +422,14 @@ P\left( S_T = S_0u^{k}d^{T-k}\right) = \binom{T}{k} p^k (1-p)^{T-k},
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"S"</span>,</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The class <code>BinomialPricingModel</code> is a subclass of <a href="https://johnmyers-phd.com/sigalg/api/processes/#sigalg.processes.StochasticProcess" target="_blank"><code>StochasticProcess</code></a>, and as such, each binomial pricing model carries two methods to generate price trajectories (i.e., sample paths), namely <code>from_enumeration</code> and <code>from_simulation</code>. The former method exhaustively enumerates all trajectories, while the latter provides Monte Carlo simulations. We invoke this second method to simulate three price trajectories, and use SigAlg’s interface with Matplotlib to visualize them:</p>
-<div id="ac5eb6fc" class="cell" data-execution_count="4">
+<p>The class <code>BinomialPricingModel</code> is a subclass of SigAlg’s <code>StochasticProcess</code>, and as such, each binomial pricing model carries two methods to generate price trajectories, namely <code>from_enumeration</code> and <code>from_simulation</code>. The latter method generates Monte Carlo simulations of price trajectories, while the former exhaustively enumerates all trajectories. We invoke this first method, and use SigAlg’s interface with Matplotlib to visualize the trajectories:</p>
+<div id="0ded506f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>yellow <span class="op">=</span> <span class="st">"#FFC300"</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>S.from_simulation(n_trajectories<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>S.from_enumeration()</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>S.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], y_label<span class="op">=</span><span class="st">"price"</span>)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -446,16 +440,255 @@ P\left( S_T = S_0u^{k}d^{T-k}\right) = \binom{T}{k} p^k (1-p)^{T-k},
 </div>
 </div>
 </div>
-<p>For this model, the real-world probability of an up-move is <span class="math inline">\(p=0.7\)</span>, which reveals itself in the upward trend of the prices. The corresponding trajectories of the driving process for these three price trajectories is obtained as follows:</p>
-<div id="ddebfa69" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.driving_process)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that this printout is essentially the same as the binary tree displayed earlier, with four terminal prices. We can also print the price process itself:</p>
+<div id="8b96b198" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Stochastic process 'driving_process':
-time         1    2    3    4    5    6    7    8    9    10
-trajectory                                                  
-0           0.9  1.3  0.9  1.3  1.3  0.9  0.9  0.9  1.3  1.3
-1           1.3  0.9  1.3  0.9  1.3  1.3  1.3  1.3  0.9  1.3
-2           0.9  1.3  0.9  0.9  0.9  1.3  1.3  1.3  1.3  1.3</code></pre>
+<pre><code>Stochastic process 'S':
+time          0      1      2      3
+trajectory                          
+0           100  130.0  169.0  219.7
+1           100  130.0  169.0  152.1
+2           100  130.0  117.0  152.1
+3           100  130.0  117.0  105.3
+4           100   90.0  117.0  152.1
+5           100   90.0  117.0  105.3
+6           100   90.0   81.0  105.3
+7           100   90.0   81.0   72.9</code></pre>
+</div>
+</div>
+<p>The printout shows the <span class="math inline">\(2^3 = 8\)</span> trajectories over the time period ending at <span class="math inline">\(T=3\)</span>, all beginning at the initial price <span class="math inline">\(S_0=100\)</span>. The trajectories are indexed by the set <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>, which serves as the domain of the process:</p>
+<div id="a67ee437" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.domain)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample space 'Omega':
+[0, 1, 2, 3, 4, 5, 6, 7]</code></pre>
+</div>
+</div>
+<p>The component random variables themselves <span class="math inline">\(S_t: \Omega \to \mathbb{R}\)</span> may be accessed via subscripting, which returns an instance of the <code>RandomVariable</code> class:</p>
+<div id="31394538" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Print the random variable S_2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].domain, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Check its domain</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(S[<span class="dv">2</span>]))  <span class="co"># Check its type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable 'S_2':
+              S_2
+trajectory       
+0           169.0
+1           169.0
+2           117.0
+3           117.0
+4           117.0
+5           117.0
+6            81.0
+7            81.0 
+
+Sample space 'Omega':
+[0, 1, 2, 3, 4, 5, 6, 7] 
+
+&lt;class 'sigalg.core.random_objects.random_variable.RandomVariable'&gt;</code></pre>
+</div>
+</div>
+<p>The cardinality of the sample space <span class="math inline">\(\Omega\)</span> is <span class="math inline">\(2^T\)</span>, which scales exponentially with the time horizon. Obviously, this means that exhaustive enumeration of price trajectories is infeasible for large <span class="math inline">\(T\)</span>. SigAlg provides two options that the user can leverage for longer time horizons. The first is to operate the <code>from_enumeration</code> method in <code>sparse</code> enumeration mode. This requires that the down-factor <span class="math inline">\(d\)</span> is equal to the reciprocal up-factor, <span class="math inline">\(d = 1/u\)</span>, so that the binary tree is <em>recombining</em>. We make this adjustment in the next code block, and plot the sparsely enumerated trajectories over the same time horizon <span class="math inline">\(T=3\)</span> as before:</p>
+<div id="7ff295b0" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>S.down_factor <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> u  <span class="co"># Reset the down-factor</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>S.from_enumeration(enum_mode<span class="op">=</span><span class="st">"sparse"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>S.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], y_label<span class="op">=</span><span class="st">"price"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stochastic process 'S':
+time            0           1           2           3
+trajectory                                           
+0           100.0  130.000000  169.000000  219.700000
+1           100.0   76.923077  100.000000  130.000000
+2           100.0   76.923077   59.171598   76.923077
+3           100.0   76.923077   59.171598   45.516614</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-2.png" class="quarto-figure quarto-figure-center figure-img" width="553" height="329"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In <code>sparse</code> enumeration mode, the only price trajectories that are generated are those that consist first of a sequence entirely of down moves, followed by a sequence entirely of up moves. Every node/price in the binary tree is visited by one of these trajectories, and there are only <span class="math inline">\(T+1\)</span> of them, allowing one to generate all prices for large <span class="math inline">\(T\)</span>. One of the downsides—as we shall see in a later post—is that we cannot use a binomial model in <code>sparse</code> enumeration mode to price path-dependent contingent claims.</p>
+<p>The other option available to the user for longer time horizons is to use the <code>from_simulation</code> method mentioned above, which randomly samples price trajectories according to the real-world probability measure (see the next section). The following code block gives an example of its usage over a (slightly) longer time horizon <span class="math inline">\(T=10\)</span>:</p>
+<div id="2a9b186f" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>S.time <span class="op">=</span> Time.discrete(length<span class="op">=</span>T)  <span class="co"># Set a longer time horizon</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>S.down_factor <span class="op">=</span> d  <span class="co"># Reset to the original down-factor</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>S.from_simulation(n_trajectories<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>S.plot_trajectories(ax<span class="op">=</span>ax, colors<span class="op">=</span>[yellow], y_label<span class="op">=</span><span class="st">"price"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="553" height="329"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sigma-algebras-and-filtrations" class="level2">
+<h2 class="anchored" data-anchor-id="sigma-algebras-and-filtrations"><span class="math inline">\(\sigma\)</span>-algebras and filtrations</h2>
+<p>Every stochastic process <span class="math inline">\(S_t\)</span> is defined on an ambient probability space <span class="math inline">\((\Omega, \mathcal{F},P)\)</span>, where <span class="math inline">\(\mathcal{F}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra of events in the sample space <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(P\)</span> is a probability measure defined on <span class="math inline">\(\mathcal{F}\)</span>. To be clear, this means that each function <span class="math inline">\(S_t:\Omega \to \mathbb{R}\)</span> is a random variable on this probability space.</p>
+<p>For the binomial models <span class="math inline">\(S_t\)</span> considered in this post, SigAlg automatically constructs the underlying probability space <span class="math inline">\((\Omega,\mathcal{F},P)\)</span>. The sample space <span class="math inline">\(\Omega\)</span> was described above: It consists simply of a finite index set <span class="math inline">\(\Omega = \{0,1,\ldots,n\}\)</span> up to some non-negative integer <span class="math inline">\(n\)</span>. As an example, the sample space for our first binomial model from the previous section is displayed in the first column of the following printout:</p>
+<div id="1b395df0" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>S.time <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>S.from_enumeration()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stochastic process 'S':
+time          0      1      2      3
+trajectory                          
+0           100  130.0  169.0  219.7
+1           100  130.0  169.0  152.1
+2           100  130.0  117.0  152.1
+3           100  130.0  117.0  105.3
+4           100   90.0  117.0  152.1
+5           100   90.0  117.0  105.3
+6           100   90.0   81.0  105.3
+7           100   90.0   81.0   72.9</code></pre>
+</div>
+</div>
+<p>The sample space is <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> is (by default) the power set on <span class="math inline">\(\Omega\)</span>:</p>
+<div id="d310170d" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra 'sigma(S)':
+                                 atom ID
+trajectory                              
+0           (100.0, 130.0, 169.0, 219.7)
+1           (100.0, 130.0, 169.0, 152.1)
+2           (100.0, 130.0, 117.0, 152.1)
+3           (100.0, 130.0, 117.0, 105.3)
+4            (100.0, 90.0, 117.0, 152.1)
+5            (100.0, 90.0, 117.0, 105.3)
+6             (100.0, 90.0, 81.0, 105.3)
+7              (100.0, 90.0, 81.0, 72.9)</code></pre>
+</div>
+</div>
+<p>To understand the printout, we recall that every <span class="math inline">\(\sigma\)</span>-algebra on a <em>finite</em> sample space <span class="math inline">\(\Omega\)</span> is determined by its <em>atoms</em>, which are the minimal non-empty events. The atoms <span class="math inline">\(\{A_i\}_{i\in I}\)</span> (indexed by some finite set <span class="math inline">\(I\)</span>) partition the sample space <span class="math display">\[
+\Omega = \bigcup_{i\in I} A_i.
+\]</span></p>
+<p>In SigAlg, <span class="math inline">\(\sigma\)</span>-algebras are represented by mappings <span class="math inline">\(\Omega \to I\)</span> from sample points <span class="math inline">\(\omega\)</span> to <em>atom identifiers</em> <span class="math inline">\(i\)</span>, where <span class="math inline">\(i\)</span> is the index of the unique atom <span class="math inline">\(A_i\)</span> that contains <span class="math inline">\(\omega\)</span>. In the printout above, the set <span class="math inline">\(I\)</span> of atom identifers is evidently the set of trajectories, and so the atoms of the default <span class="math inline">\(\sigma\)</span>-algebra are all eight singletons. In other words, the <span class="math inline">\(\sigma\)</span>-algebra is indeed the power set.</p>
+<p>Notice in the printout that the name of the default <span class="math inline">\(\sigma\)</span>-algebra is <span class="math inline">\(\sigma(S)\)</span>. The reader familiar with measure theory will recognize that this notation refers to the <span class="math inline">\(\sigma\)</span>-algebra <em>generated</em> by <span class="math inline">\(S\)</span>. In this context, we view the stochastic process as a <span class="math inline">\(4\)</span>-dimensional <em>random vector</em>:</p>
+<p><span class="math display">\[
+S: \Omega \to \mathbb{R}^4, \quad S(\omega) = (S_0(\omega),S_1(\omega), S_2(\omega), S_3(\omega)).
+\]</span></p>
+<p>Then <span class="math inline">\(S\)</span> (as a random vector) generates a <span class="math inline">\(\sigma\)</span>-algebra whose atoms are precisely its nonempty level sets:</p>
+<p><span class="math display">\[
+S^{-1}(s) = \{ \omega \in \Omega \mid S(\omega) = s \},
+\]</span></p>
+<p>for <span class="math inline">\(s\in \mathbb{R}^4\)</span>. Notice that these level sets are indeed naturally indexed by <span class="math inline">\(4\)</span>-tuples <span class="math inline">\(s\)</span>, i.e., trajectories of the stochastic process.</p>
+<div id="88fec4e4" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>S[<span class="dv">2</span>].sigma_algebra</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="431">
+<pre><code>Sigma algebra 'sigma(S_2)':
+            atom ID
+trajectory         
+0             169.0
+1             169.0
+2             117.0
+3             117.0
+4             117.0
+5             117.0
+6              81.0
+7              81.0</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-measures" class="level2">
+<h2 class="anchored" data-anchor-id="probability-measures">Probability measures</h2>
+<p>Using the real-world probability <span class="math inline">\(p=0.7\)</span>, we define a probability measure <span class="math inline">\(P\)</span> on the sample space <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span> by setting</p>
+<p><span class="math display">\[
+P(\{\omega\}) = p^k (1-p)^{T-k}
+\]</span></p>
+<p>for each <span class="math inline">\(\omega\in \Omega\)</span>, provided that <span class="math inline">\(\omega\)</span> corresponds to a trajectory with <span class="math inline">\(k\)</span> up moves and <span class="math inline">\(T-k\)</span> down moves. This probability measure is accessible using the <code>probability_measure</code> attribute of the binomial model, which returns an instance of SigAlg’s <code>ProbabilityMeasure</code> class:</p>
+<div id="c5e44172" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> S.probability_measure</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(P, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Print the measure</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(P))  <span class="co"># Check its type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Probability measure 'P':
+            probability
+trajectory             
+0                 0.343
+1                 0.147
+2                 0.147
+3                 0.063
+4                 0.147
+5                 0.063
+6                 0.063
+7                 0.027 
+
+&lt;class 'sigalg.core.probability_measures.probability_measure.ProbabilityMeasure'&gt;</code></pre>
+</div>
+</div>
+<p>For easy comparison, we can print the probabilities next to the trajectories:</p>
+<div id="9da9fd64" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>S.print_trajectories_and_probabilities()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              0      1      2      3  probability
+trajectory                                       
+0           100  130.0  169.0  219.7        0.343
+1           100  130.0  169.0  152.1        0.147
+2           100  130.0  117.0  152.1        0.147
+3           100  130.0  117.0  105.3        0.063
+4           100   90.0  117.0  152.1        0.147
+5           100   90.0  117.0  105.3        0.063
+6           100   90.0   81.0  105.3        0.063
+7           100   90.0   81.0   72.9        0.027</code></pre>
+</div>
+</div>
+<p>In the mathematical theory, probability measures are supposed to be defined only on the events inside a <span class="math inline">\(\sigma\)</span>-algebra on the sample space <span class="math inline">\(\Omega\)</span>; but in SigAlg, we do <em>not</em> enforce this requirement. In particular, a probability measure may be treated like a probability mass function, and evaluated on sample points <span class="math inline">\(\omega \in \Omega\)</span>:</p>
+<div id="3fd29699" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(P(<span class="dv">3</span>), <span class="dv">3</span>))  <span class="co"># Print the probability P(3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.063</code></pre>
+</div>
+</div>
+<p>The component random variables of the process inherit the same probability measure. For example, we can check the probability measure of the random variable <span class="math inline">\(S_2:\Omega \to \mathbb{R}\)</span> by accessing its <code>probability_measure</code> attribute:</p>
+<div id="73039454" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].probability_measure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Probability measure 'P':
+            probability
+trajectory             
+0                 0.343
+1                 0.147
+2                 0.147
+3                 0.063
+4                 0.147
+5                 0.063
+6                 0.063
+7                 0.027</code></pre>
+</div>
+</div>
+<p>As we learned in our first course on probability theory, every random variable induces a <em>pushforward</em> (or <em>image</em>) <em>probability measure</em>. In the case of the component random variable <span class="math inline">\(S_2\)</span>, this is the discrete measure <span class="math inline">\(P_{S_2}\)</span> on <span class="math inline">\(\mathbb{R}\)</span> defined by</p>
+<p><span class="math display">\[
+P_{S_2}(\{s\}) = P\left( \{\omega \in \Omega \mid S_2(\omega)=s\}\right),
+\]</span></p>
+<p>for each <span class="math inline">\(s\in \mathbb{R}\)</span>. The support of this measure is the range of <span class="math inline">\(S_2\)</span>, namely, the three-element set <span class="math inline">\(\{169.00, 117.00, 81.00\}\)</span>. To obtain the pushforward measure <span class="math inline">\(P_{S_2}\)</span> in SigAlg, we call the <code>pushforward</code> method:</p>
+<div id="f54cb2b0" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>S[<span class="dv">2</span>].pushforward()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="436">
+<pre><code>Probability measure 'P_S_2':
+        probability
+output             
+81.0           0.09
+117.0          0.42
+169.0          0.49</code></pre>
 </div>
 </div>
 </section>
@@ -466,11 +699,11 @@ trajectory
 <p>Now, assume that we hold a cash position in the bank, as well as either a short or long position in the other asset, which we assume has price process <span class="math inline">\(S_t\)</span>, measured in USD per unit (for example). Then at each time <span class="math inline">\(t\geq 0\)</span>, our two-asset portfolio would be valued at</p>
 <p><span id="eq-portfolio-value"><span class="math display">\[
 V_t = B_t + S_t \Delta_t,
-\tag{5}\]</span></span></p>
+\tag{4}\]</span></span></p>
 <p>where <span class="math inline">\(\Delta_t\)</span> is the number of units of the asset held with price process <span class="math inline">\(S_t\)</span>. A positive value of <span class="math inline">\(\Delta_t\)</span> represents a long position, while a negative value represents a short position. One time period later, the value of our portfolio will evolve to</p>
 <p><span id="eq-evolved-portfolio"><span class="math display">\[
 R B_t + S_{t+1} \Delta_t.
-\tag{6}\]</span></span></p>
+\tag{5}\]</span></span></p>
 <p>Relative to the cash position, the second asset is assumed to be <em>risky</em> (for example, an equity asset). This “risk-less vs.&nbsp;risky” difference has ramifications if, for example, we attempt to model <span class="math inline">\(S_t\)</span> using a binomial model and avoid arbitrage. Specifically, suppose that such a binomial model has up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one, in compensation for bearing risk. Thus, we would expect at least that <span class="math inline">\(R \leq u\)</span>. But, the risk-free gross return <span class="math inline">\(R\)</span> cannot be so small that <span class="math inline">\(R&lt;d\)</span>, for otherwise an arbitrage appears. Indeed, if <span class="math inline">\(R&lt;d\)</span>, then at time <span class="math inline">\(t\)</span> we could borrow <span class="math inline">\(S_t\)</span> from the bank (so that <span class="math inline">\(B_t = -S_t\)</span>) and then purchase one unit of the risky asset (so that <span class="math inline">\(\Delta_t=1\)</span>). Then our portfolio is valued at <span class="math inline">\(V_t=0\)</span> at the time of transaction, representing no initial net outlay of capital, while the value of the portfolio will evolve to</p>
 <p><span class="math display">\[
 R B_t + S_{t+1} \Delta_t = -RS_t + S_{t+1} \geq S_t(d-R) &gt;0
@@ -484,7 +717,7 @@ RB_t + S_{t+1} \Delta_t = RS_t - S_{t+1} \geq S_t(R- u) &gt;0.
 <p>Logically speaking, our arguments above show that, if there are no arbitrages in the binomial model, then we must have</p>
 <p><span id="eq-no-arbitrage"><span class="math display">\[
 d \leq R \leq u.
-\tag{7}\]</span></span></p>
+\tag{6}\]</span></span></p>
 <p>Interestingly, the converse is also true, which leads us to our first glimpse of one of the foundational results in mathematical finance:</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
@@ -493,31 +726,53 @@ d \leq R \leq u.
 </div>
 <div class="callout-body-container">
 <div id="thm-no-arb" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (First Fundamental Theorem of Asset Pricing — Binomial Model, v.1)</strong></span> The inequalites (<a href="#eq-no-arbitrage" class="quarto-xref">7</a>) are equivalent to the absence of arbitrages in the binomial model.</p>
+<p><span class="theorem-title"><strong>Theorem 1 (First Fundamental Theorem of Asset Pricing — Binomial Model, v.1)</strong></span> The inequalites (<a href="#eq-no-arbitrage" class="quarto-xref">6</a>) are equivalent to the absence of arbitrages in the binomial model.</p>
 </div>
 </div>
 </div>
 </div>
-<p>With the theorem as justification, the inequalities (<a href="#eq-no-arbitrage" class="quarto-xref">7</a>) together are called the <em>no-arbitrage condition</em>. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in <span class="citation" data-cites="Bjork2020">[<a href="#ref-Bjork2020" role="doc-biblioref">1</a>]</span>).</p>
+<p>With the theorem as justification, the inequalities (<a href="#eq-no-arbitrage" class="quarto-xref">6</a>) together are called the <em>no-arbitrage condition</em>. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in <span class="citation" data-cites="Bjork2020">[<a href="#ref-Bjork2020" role="doc-biblioref">1</a>]</span>).</p>
 </section>
-<section id="martingale-measures" class="level2">
-<h2 class="anchored" data-anchor-id="martingale-measures">Martingale measures</h2>
-<p>The statement of the Fundamental Theorem of Asset Pricing (in <a href="#thm-no-arb" class="quarto-xref">Theorem&nbsp;1</a>) is referred to as “version 1”. In this section we discuss the second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called <em>equivalent martingale measures</em>.</p>
-<p>By way of introduction, consider again the cash position held in the bank discussed in the previous section. Suppose that we deposit an initial amount <span class="math inline">\(B_0\)</span> at time <span class="math inline">\(t=0\)</span>, and hold the position with no additional cash infusions or withdrawals. Then, at some future time <span class="math inline">\(t\)</span>, the amount in the bank will have compounded to</p>
-<p><span id="eq-compound"><span class="math display">\[
-B_t = B_0 (1+r)^t,
-\tag{8}\]</span></span></p>
-<p>where <span class="math inline">\(r\)</span> is the per-period interest rate. We say that <span class="math inline">\(B_t\)</span> is the <em>future value</em> of the amount <span class="math inline">\(B_0\)</span>. Reciprocally, we have</p>
-<p><span id="eq-discount"><span class="math display">\[
-B_0 = \frac{B_t}{(1+r)^t},
-\tag{9}\]</span></span></p>
-<p>which shows that <em>if</em> we wanted to have an amount <span class="math inline">\(B_t\)</span> in the bank at time <span class="math inline">\(t\)</span>, we would have had to initially deposit <span class="math inline">\(B_0\)</span>. We say that <span class="math inline">\(B_0\)</span> is the <em>present value</em> of the amount <span class="math inline">\(B_t\)</span>. Of course, the two equations (<a href="#eq-compound" class="quarto-xref">8</a>) and (<a href="#eq-discount" class="quarto-xref">9</a>) are mathematically equivalent; however, the first naturally has a “present <span class="math inline">\(\to\)</span> future” time orientation, while the second has the reverse orientation “future <span class="math inline">\(\to\)</span> present”.</p>
-<p>The gist is that, under the interest rate <span class="math inline">\(r\)</span>, present values of money can be “pushed into the future” by repeated multiplication by the factor <span class="math inline">\(1+r\)</span>, while future values of money can be “pulled back into the present” by repeated multiplication by the reciprocal factor <span class="math inline">\((1+r)^{-1}\)</span>. The reciprocal process, going from future values to present values, is called <em>discounting</em>, and the number <span class="math inline">\(v\)</span>, defined as the solution to the equation</p>
+<section id="equivalent-martingale-measures" class="level2">
+<h2 class="anchored" data-anchor-id="equivalent-martingale-measures">Equivalent martingale measures</h2>
+<p>The statement of the Fundamental Theorem of Asset Pricing (in <a href="#thm-no-arb" class="quarto-xref">Theorem&nbsp;1</a>) is referred to as “version 1”. In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called <em>equivalent martingale measures</em>.</p>
+<p>By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount <span class="math inline">\(B_0\)</span> at time <span class="math inline">\(t=0\)</span>, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time <span class="math inline">\(t\)</span>, say <span class="math inline">\(B_t\)</span>, then we know the balance one time period later:</p>
 <p><span class="math display">\[
-1 - v = \frac{1}{1+r},
+B_{t+1} = RB_t,
 \]</span></p>
-<p>is often called the <em>discount rate</em>.</p>
-<p>All of this goes under the heading of the <em>time value of money</em>, and a proper accounting of the evolving value of money is crucial to valuing future cash flows</p>
+<p>where <span class="math inline">\(R\)</span> is the risk-free gross return. Reciprocally, the current balance is the <em>present value</em> of the future balance, i.e.,</p>
+<p><span id="eq-pv-bank"><span class="math display">\[
+B_t = \frac{1}{R} B_{t+1}.
+\tag{7}\]</span></span></p>
+<p>So, given the current balance <span class="math inline">\(B_t\)</span> at time <span class="math inline">\(t\)</span>, <em>we know for certain what the balance will be one period into the future.</em> We ask: Is there something analogous that we could say about the price process <span class="math inline">\(S_t\)</span> of the risky asset?</p>
+<p>Working toward an answer to this question, suppose that a time <span class="math inline">\(t\)</span> is fixed, and that we observe the current price <span class="math inline">\(S_t\)</span> of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price <span class="math inline">\(S_{t+1}\)</span> with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> is the best approximation of <span class="math inline">\(S_{t+1}\)</span>, given <span class="math inline">\(S_t\)</span>, in the sense that it is the closest <span class="math inline">\(\sigma(S_t)\)</span>-measurable random variable to <span class="math inline">\(S_{t+1}\)</span> in mean squared error. So, with the expectation in place of <span class="math inline">\(S_{t+1}\)</span>, and taking the time value of money into account, we then wonder if something analogous to (<a href="#eq-pv-bank" class="quarto-xref">7</a>) holds—something like</p>
+<p><span id="eq-wrong"><span class="math display">\[
+S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
+\tag{8}\]</span></span></p>
+<p>However, this obviously cannot hold, because the expectation is discounted via <span class="math inline">\(R=1+r\)</span>, which is built from the risk-free rate <span class="math inline">\(r\)</span>. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.</p>
+<p>Now, nothing has been mentioned so far about the dynamics of the price process <span class="math inline">\(S_t\)</span>. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> carefully, in the case that we use a binomial model with up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>, respectively, and real-world probability <span class="math inline">\(p\)</span>. We suppose that <span class="math inline">\(\Omega\)</span> is the sample space underlying the random variables <span class="math inline">\(S_t\)</span>, and that <span class="math inline">\(P\)</span> is the corresponding real-world measure on <span class="math inline">\(\Omega\)</span> built from <span class="math inline">\(p\)</span>. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula</p>
+<p><span class="math display">\[
+P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
+\]</span></p>
+<p>for <span class="math inline">\(k=0,1,\ldots,t\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra generated by <span class="math inline">\(S_t\)</span>, namely <span class="math inline">\(\sigma(S_t)\)</span>, has <span class="math inline">\(t+1\)</span> atoms given by the sets</p>
+<p><span class="math display">\[
+A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
+\]</span></p>
+<p>The vector space <span class="math inline">\(L^2(\Omega, \sigma(S_t), P)\)</span> then has a finite orthonormal basis given by the normalized indicator functions</p>
+<p><span class="math display">\[
+\frac{I_{A_k}}{\sqrt{P(A_k)}},
+\]</span></p>
+<p>one for each <span class="math inline">\(k=0,1,\ldots,t\)</span>. Thus, the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> is given by its generalized Fourier series:</p>
+<p><span class="math display">\[
+E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
+\]</span></p>
+<p>For each <span class="math inline">\(k=0,1,\ldots,t\)</span>, write <span class="math inline">\(s_k = S_0 u^k d^{t-k}\)</span>, for brevity. Then, we have</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &amp;= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
+&amp;= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
+\end{align*}
+\]</span></p>
 </section>
 <section id="bibliography" class="level2">
 

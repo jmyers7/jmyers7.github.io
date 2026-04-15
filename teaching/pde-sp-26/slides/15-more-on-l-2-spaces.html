@@ -186,6 +186,49 @@
 </div>
 </div>
 </div>
+</section>
+<section id="orthogonal-projections" class="slide level2 scrollable">
+<h2>Orthogonal projections</h2>
+<ul>
+<li class="fragment">In the following, with deal with orthonormal sets that we write as <span class="math inline">\(\{\phi_n\}\)</span>. We leave the index set implicit; it could either be finite or (countably) infinite.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem 3.8</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(H\)</span> be either a function space of the form <span class="math inline">\(L^2(a,b)\)</span> or <span class="math inline">\(L^2_w(a,b)\)</span>, let <span class="math inline">\(\{\phi_n\}\)</span> be an orthonormal set in <span class="math inline">\(H\)</span>, and let <span class="math inline">\(f\in H\)</span>. Then</p>
+<p><span class="math display">\[
+\left\| f - \sum \langle f, \phi_n \rangle \phi_n \right \| \leq \left \| f - \sum c_n \phi_n \right \|
+\]</span></p>
+<p>for all choices of scalars <span class="math inline">\(c_n\)</span> for which <span class="math inline">\(\sum \|c_n \|^2 &lt; \infty\)</span>. Equality holds only when <span class="math inline">\(c_n = \langle f, \phi_n \rangle\)</span> for each <span class="math inline">\(n\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">The sum <span class="math inline">\(\sum \langle f,\phi_n \rangle \phi_n\)</span> is called the <em>orthogonal projection</em> of <span class="math inline">\(f\)</span> onto the (closed) subspace spanned by the orthonormal set <span class="math inline">\(\{\phi_n\}\)</span>. Notice that this projection is equal to <span class="math inline">\(f\)</span> only when <span class="math inline">\(f\)</span> is already in the subspace.</li>
+</ul>
+</section>
+<section id="exercise-2-orthogonal-projections" class="slide level2 scrollable">
+<h2>Exercise 2: Orthogonal projections</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Consider the polynomials</p>
+<p><span class="math display">\[
+\phi_1(x) = 1, \quad \phi_2(x) = \sqrt{12}\left( x- \frac{1}{2}\right), \quad \phi_3(x) = \sqrt{180}\left( x^2-x+\frac{1}{6} \right).
+\]</span></p>
+<ol type="a">
+<li><p>Verify that <span class="math inline">\(\{\phi_1,\phi_2,\phi_3\}\)</span> is an orthonormal set in <span class="math inline">\(L^2(0,1)\)</span>.</p></li>
+<li><p>Compute the orthogonal projection of the function <span class="math inline">\(f(x)=x^3\)</span> onto the subspace spanned by the <span class="math inline">\(\phi_n\)</span>’s.</p></li>
+<li><p>Plot the projection and compare it to <span class="math inline">\(f\)</span>. What do you see?</p></li>
+</ol>
+</div>
+</div>
+</div>
 
 
 </section>
