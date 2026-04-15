@@ -35,9 +35,9 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-| Week 10 | 04.17 fri |
-|| 04.16 thu |
-|| 04.15 wed |
+| Week 12 | 04.17 fri |
+|| 04.16 thu | | | | Quiz on Secs 20 and 21
+|| 04.15 wed | Sec 22: Polar coordinates | [Sec 22 Slides](./handouts/22-polar-coordinates/22-polar-coordinates.pdf){target="_blank"} | [Sec 22 Exercises](./exercises/22ex-polar-coordinates.qmd)
 || 04.13 mon | Sec 21: Triple integrals, part 2 | [Sec 21 Slides](./handouts/21-triple-integrals-part-2/21-triple-integrals-part-2.pdf){target="_blank"} | Same as below ↓ |
 | Week 11 | 04.10 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ |
 || 04.09 thu | Sec 20: Triple integrals, part 1 | [Sec 20 Slides](./handouts/20-triple-integrals-part-1/20-triple-integrals-part-1.pdf){target="_blank"} | [Sec 20 Exercises](./exercises/20ex-triple-integrals-part-1.qmd) | Quiz on Secs 18 and 19

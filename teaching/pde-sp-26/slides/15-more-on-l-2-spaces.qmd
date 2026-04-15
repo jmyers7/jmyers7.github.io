@@ -53,3 +53,41 @@ b. Compute the norms of the two functions in part (a) and thus construct an orth
 c. Compute the orthogonal projection of the function $f(x)=x^3$ onto the subspace of $L^2_w(0,1)$ spanned by $\phi_1$ and $\phi_2$.
 
 :::
+
+## Orthogonal projections {.scrollable}
+
+- In the following, with deal with orthonormal sets that we write as $\{\phi_n\}$. We leave the index set implicit; it could either be finite or (countably) infinite.
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem 3.8
+
+Let $H$ be either a function space of the form $L^2(a,b)$ or $L^2_w(a,b)$, let $\{\phi_n\}$ be an orthonormal set in $H$, and let $f\in H$. Then
+
+$$
+\left\| f - \sum \langle f, \phi_n \rangle \phi_n \right \| \leq \left \| f - \sum c_n \phi_n \right \|
+$$
+
+for all choices of scalars $c_n$ for which $\sum \|c_n \|^2 < \infty$. Equality holds only when $c_n = \langle f, \phi_n \rangle$ for each $n$.
+
+:::
+
+- The sum $\sum \langle f,\phi_n \rangle \phi_n$ is called the *orthogonal projection* of $f$ onto the (closed) subspace spanned by the orthonormal set $\{\phi_n\}$. Notice that this projection is equal to $f$ only when $f$ is already in the subspace.
+
+## Exercise 2: Orthogonal projections {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+Consider the polynomials
+
+$$
+\phi_1(x) = 1, \quad \phi_2(x) = \sqrt{12}\left( x- \frac{1}{2}\right), \quad \phi_3(x) = \sqrt{180}\left( x^2-x+\frac{1}{6} \right).
+$$
+
+a. Verify that $\{\phi_1,\phi_2,\phi_3\}$ is an orthonormal set in $L^2(0,1)$.
+
+b. Compute the orthogonal projection of the function $f(x)=x^3$ onto the subspace spanned by the $\phi_n$'s.
+
+c. Plot the projection and compare it to $f$. What do you see?
+
+:::
