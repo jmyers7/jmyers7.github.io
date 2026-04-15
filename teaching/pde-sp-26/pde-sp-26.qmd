@@ -39,7 +39,7 @@ This course is an introduction to partial differential equations (PDEs) and Four
 |:-:|:-:|:--:|:-:|:-:|:-:|
 | Week 12 | 04.17 fri | | | | Quiz on Sec 15
 || 04.15 wed | Same as below ↓ | Same as below ↓ | Same as below ↓
-|| 04.13 mon | Sec 15: More on $L^2$-spaces | [Sec 15 Slides](./slides/15-more-on-l-2-spaces.qmd){target="_blank"} | Coming soon
+|| 04.13 mon | Sec 15: More on $L^2$-spaces | [Sec 15 Slides](./slides/15-more-on-l-2-spaces.qmd){target="_blank"} | [Sec 15 Exercises](./exercises/15ex-more-on-l-2-spaces.qmd)
 | Week 11 | 04.10 fri | Same as below ↓ | Same as below ↓ | Same as below ↓| Quiz on Sec 13 and 14
 || 04.08 wed | Sec 14: Convergence and completeness, part 2 | [Sec 14 Slides](./slides/14-convergence-completeness-part-2.qmd){target="_blank"} | Same as below ↓
 | Week 10 | 04.03 fri | Same as below ↓ | Same as below ↓ | Same as below ↓ | Quiz on Sec 12 
