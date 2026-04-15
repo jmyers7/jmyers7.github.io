@@ -451,9 +451,11 @@ S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
 plt.show()
 ```
 
-## Probability measures
+## $\sigma$-algebras and filtrations
 
-We continue with our original binomial model from the previous section, with time horizon $T=3$; for the reader's convenience, we print its trajectories:
+Every stochastic process $S_t$ is defined on an ambient probability space $(\Omega, \mathcal{F},P)$, where $\mathcal{F}$ is a $\sigma$-algebra of events in the sample space $\Omega$ and $P$ is a probability measure defined on $\mathcal{F}$. To be clear, this means that each function $S_t:\Omega \to \mathbb{R}$ is a random variable on this probability space.
+
+For the binomial models $S_t$ considered in this post, SigAlg automatically constructs the underlying probability space $(\Omega,\mathcal{F},P)$. The sample space $\Omega$ was described above: It consists simply of a finite index set $\Omega = \{0,1,\ldots,n\}$ up to some non-negative integer $n$. As an example, the sample space for our first binomial model from the previous section is displayed in the first column of the following printout:
 
 ```{python}
 T = 3
@@ -462,6 +464,47 @@ S.time = Time.discrete(length=3)
 S.from_enumeration()
 print(S)
 ```
+
+The sample space is $\Omega = \{0,1,\ldots,7\}$. The $\sigma$-algebra $\mathcal{F}$ is (by default) the power set on $\Omega$:
+
+```{python}
+# | echo: false
+
+S._data = S._data.round(2)
+```
+
+```{python}
+print(S.sigma_algebra)
+```
+
+To understand the printout, we recall that every $\sigma$-algebra on a *finite* sample space $\Omega$ is determined by its *atoms*, which are the minimal non-empty events. The atoms $\{A_i\}_{i\in I}$ (indexed by some finite set $I$) partition the sample space
+$$
+\Omega = \bigcup_{i\in I} A_i.
+$$
+
+In SigAlg, $\sigma$-algebras are represented by mappings $\Omega \to I$ from sample points $\omega$ to *atom identifiers* $i$, where $i$ is the index of the unique atom $A_i$ that contains $\omega$. In the printout above, the set $I$ of atom identifers is evidently the set of trajectories, and so the atoms of the default $\sigma$-algebra are all eight singletons. In other words, the $\sigma$-algebra is indeed the power set.
+
+Notice in the printout that the name of the default $\sigma$-algebra is $\sigma(S)$. The reader familiar with measure theory will recognize that this notation refers to the $\sigma$-algebra *generated* by $S$. In this context, we view the stochastic process as a $4$-dimensional *random vector*:
+
+$$
+S: \Omega \to \mathbb{R}^4, \quad S(\omega) = (S_0(\omega),S_1(\omega), S_2(\omega), S_3(\omega)).
+$$
+
+Then $S$ (as a random vector) generates a $\sigma$-algebra whose atoms are precisely its nonempty level sets:
+
+$$
+S^{-1}(s) = \{ \omega \in \Omega \mid S(\omega) = s \},
+$$
+
+for $s\in \mathbb{R}^4$. Notice that these level sets are indeed naturally indexed by $4$-tuples $s$, i.e., trajectories of the stochastic process.
+
+
+
+```{python}
+S[2].sigma_algebra
+```
+
+## Probability measures
 
 Using the real-world probability $p=0.7$, we define a probability measure $P$ on the sample space $\Omega = \{0,1,\ldots,7\}$ by setting
 
@@ -478,7 +521,7 @@ print(P, "\n")  # Print the measure
 print(type(P))  # Check its type
 ```
 
-For easy comparison, we can print the probabilities next to the trajectories using a convenience method:
+For easy comparison, we can print the probabilities next to the trajectories:
 
 ```{python}
 S.print_trajectories_and_probabilities()
@@ -487,7 +530,7 @@ S.print_trajectories_and_probabilities()
 In the mathematical theory, probability measures are supposed to be defined only on the events inside a $\sigma$-algebra on the sample space $\Omega$; but in SigAlg, we do *not* enforce this requirement. In particular, a probability measure may be treated like a probability mass function, and evaluated on sample points $\omega \in \Omega$:
 
 ```{python}
-print(round(P(2), 3))  # Print the probability P(2)
+print(round(P(3), 3))  # Print the probability P(3)
 ```
 
 The component random variables of the process inherit the same probability measure. For example, we can check the probability measure of the random variable $S_2:\Omega \to \mathbb{R}$ by accessing its `probability_measure` attribute:
@@ -504,14 +547,11 @@ $$
 P_{S_2}(\{s\}) = P\left( \{\omega \in \Omega \mid S_2(\omega)=s\}\right),
 $$
 
-for each $s\in \mathbb{R}$. The support of this measure is the range of $S_2$, namely, the three-element set $\{169.00, 117.00, 81.00\}$. To obtain the pushforward measure $P_{S_2}$ in SigAlg, we first pass to the range of $S_2$:
+for each $s\in \mathbb{R}$. The support of this measure is the range of $S_2$, namely, the three-element set $\{169.00, 117.00, 81.00\}$. To obtain the pushforward measure $P_{S_2}$ in SigAlg, we call the `pushforward` method:
 
 ```{python}
-print(S[2].range, "\n")  # Print the range of S_2
-print(S[2].range.probability_measure)  # Print the measure P_{S_2}
+S[2].pushforward()
 ```
-
-## $\sigma$-algebras and filtrations
 
 ## Arbitrage
 
