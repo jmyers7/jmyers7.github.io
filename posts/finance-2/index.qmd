@@ -1,15 +1,15 @@
 ---
-title: "Finance with SigAlg II: Incomplete markets and trinomial pricing models"
+title: "Finance with SigAlg II: Arbitrage and martingales"
 toc: true
 date: "2026-04-09"
 jupyter: site
-categories: [Finance, Pricing models, Trinomial pricing models, Incomplete markets, Probability theory, Measure theory, Stochastic processes, Martingales, SigAlg, Python]
+categories: [Finance, Pricing models, Binomial pricing models, Equivalent martingale measures, Arbitrage, Fundamental Theorem of Asset Pricing, Probability theory, Measure theory, Stochastic processes, Sigma-algebras, Filtrations, Conditional expectations, Information theory, SigAlg, Python]
 draft: true
 bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
 # image: "sigalg-logo.png"
 open-graph:
-    title: "Finance with SigAlg II: Incomplete markets and trinomial pricing models"
+    title: "Finance with SigAlg II: Arbitrage and martingales"
     # image: "https://johnmyers-phd.com/posts/torch-der/torch-der-logo.png"
 ---
 
@@ -29,25 +29,28 @@ yellow = "#FFC300"
 ```
 
 ```{python}
+# | fig-align: center
 # | echo: false
 
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(6, 4))
 
-ax.plot([0, 2], [0, 2], color=yellow)
-ax.plot([0, 2], [0, 0], color=yellow)
-ax.plot([0, 2], [0, -2], color=yellow)
+ax.plot([0, 1], [0, 1], color=yellow)
+ax.plot([0, 1], [0, -1], color=yellow)
 
-ax.plot([2, 4], [2, 5], color=yellow)
-ax.plot([2, 4], [2, 3], color=yellow)
-ax.plot([2, 4], [2, -1], color=yellow)
+ax.plot([1, 2], [1, 2], color=yellow)
+ax.plot([1, 2], [1, 0], color=yellow)
 
-ax.plot([2, 4], [0, 3], color=yellow)
-ax.plot([2, 4], [0, 1], color=yellow)
-ax.plot([2, 4], [0, -3], color=yellow)
+ax.plot([1, 2], [-1, 0], color=yellow)
+ax.plot([1, 2], [-1, -2], color=yellow)
 
-ax.plot([2, 4], [-2, -1], color=yellow)
-ax.plot([2, 4], [-2, -3], color=yellow)
-ax.plot([2, 4], [-2, -5], color=yellow)
+ax.plot([2, 3], [2, 3], color=yellow)
+ax.plot([2, 3], [2, 1], color=yellow)
+
+ax.plot([2, 3], [0, 1], color=yellow)
+ax.plot([2, 3], [0, -1], color=yellow)
+
+ax.plot([2, 3], [-2, -1], color=yellow)
+ax.plot([2, 3], [-2, -3], color=yellow)
 
 ax.text(
     0,
@@ -58,159 +61,169 @@ ax.text(
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    2,
-    2,
+    1,
+    1,
     "130.00",
     ha="center",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    2,
-    0,
-    "110.00",
-    ha="center",
-    va="center",
-    fontsize=12,
-    zorder=4,
-    bbox=dict(
-        boxstyle="square,pad=0.3",
-        facecolor="#121212",
-        edgecolor="none",
-    ),
-)
-
-ax.text(
-    2,
-    -2,
+    1,
+    -1,
     "90.00",
     ha="center",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    4,
-    5,
-    r"$169.00 = S_0u^2$",
-    ha="left",
+    2,
+    2,
+    "169.00",
+    ha="center",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    4,
+    2,
+    0,
+    "117.00",
+    ha="center",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="round,pad=0.3",
+        facecolor="#121212",
+        edgecolor="#FAF9F6",
+        linewidth=1,
+    ),
+)
+
+ax.text(
+    2,
+    -2,
+    "81.00",
+    ha="center",
+    va="center",
+    fontsize=12,
+    zorder=4,
+    bbox=dict(
+        boxstyle="round,pad=0.3",
+        facecolor="#121212",
+        edgecolor="#FAF9F6",
+        linewidth=1,
+    ),
+)
+
+ax.text(
     3,
-    r"$143.00 = {S_0=um}$",
+    3,
+    r"$219.70 = S_0 u^3$",
     ha="left",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    4,
+    3,
     1,
-    r"$121.00 = S_0m^2$",
+    r"$152.10 = S_0 u^2d$",
     ha="left",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    4,
+    3,
     -1,
-    r"$117.00 = S_0ud$",
+    r"$105.30 = S_0 ud^2$",
     ha="left",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
-    4,
+    3,
     -3,
-    r"$99.00 = S_0md$",
+    r"$72.90 = S_0 d^3$",
     ha="left",
     va="center",
     fontsize=12,
     zorder=4,
     bbox=dict(
-        boxstyle="square,pad=0.3",
+        boxstyle="round,pad=0.3",
         facecolor="#121212",
-        edgecolor="none",
-    ),
-)
-
-ax.text(
-    4,
-    -5,
-    r"$81.00 = S_0 d^2$",
-    ha="left",
-    va="center",
-    fontsize=12,
-    zorder=4,
-    bbox=dict(
-        boxstyle="square,pad=0.3",
-        facecolor="#121212",
-        edgecolor="none",
+        edgecolor="#FAF9F6",
+        linewidth=1,
     ),
 )
 
 ax.text(
     0,
-    6,
+    4,
     r"$t=0$",
-    ha="right",
+    ha="center",
     va="center",
     fontsize=12,
 )
 
 ax.text(
-    2,
-    6,
+    1,
+    4,
     r"$t=1$",
     ha="center",
     va="center",
@@ -218,9 +231,18 @@ ax.text(
 )
 
 ax.text(
+    2,
     4,
-    6,
     r"$t=2$",
+    ha="center",
+    va="center",
+    fontsize=12,
+)
+
+ax.text(
+    3,
+    4,
+    r"$t=3$",
     ha="left",
     va="center",
     fontsize=12,
@@ -232,14 +254,57 @@ plt.tight_layout()
 plt.show()
 ```
 
+```{python}
+
+from sigalg.core import Time
+from sigalg.finance import BinomialPricingModel
+
+S_0 = 100  # initial price
+r = 0.05  # risk-free rate
+p = 0.7  # real-world probability
+u = 1.3  # up-factor
+d = 0.9  # down-factor
+T = 3  # time horizon
+
+# Instantiate a time index
+time = Time.discrete(length=T)
+
+# Instantiate a binomial model
+S = BinomialPricingModel(
+    initial_price=S_0,
+    risk_free_rate=r,
+    up_prob=p,
+    up_factor=u,
+    down_factor=d,
+    time=time,
+    name="S",
+).from_enumeration()
+
+S._data = S._data.round(2)
+
+S.print_trajectories_and_probabilities()
+```
+
+```{python}
+
+from sigalg.l2 import L2
+
+F = S.natural_filtration
+P = S.probability_measure
+H = L2(S.domain, S.sigma_algebra, S.probability_measure)
+
+A_1, A_2 = F[1].to_atoms()
+
+H.integrate(rv=S[2], event=A_1)
+```
 
 ## Arbitrage
 
-In finance, the word *arbitrage* refers to an opportunity to turn a profit with no risk of loss. (More precisely, the probability of loss is $0$.) The types of arbitrage relevant to our discussion in this post seek to exploit the relative "mispricing" of two assets in the market. While from an investor's point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies. In this short section, we seek conditions on binomial pricing models in order to avoid arbitrages.
+In finance, the word *arbitrage* refers to an opportunity to turn a profit with no risk of loss. The types of arbitrage relevant to our discussion in this series of posts seek to exploit the relative "mispricing" of two assets in the market. While from an investor's point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies.
 
-So, we begin with two assets. One of them is like any of the assets we have discussed so far in this post, while the other is assumed to be *risk-less*, in the sense that its price process is fully deterministic. Specifically, we suppose that there is a positive real number $r$, called the *risk-free rate*, such that an amount $B_t$ invested in the asset at time $t$ will evolve to $(1+r)B_t$ at time $t+1$. For example, we might imagine that $B_t$ measures a cash position held in a bank that earns per-period interest at rate $r$. (The rate $r$ is assumed constant in time.) Crucially, we assume not only that we can hold cash in the bank, but that we can also borrow from the bank at the same rate. The difference between the two is signified by positive $B_t$ (holding cash in the bank, earning interest at rate $r$) versus negative $B_t$ (borrowing from the bank, paying interest at rate $r$). For future convenience, we set $R=1+r$, called the *risk-free gross return*.
+So, we begin with two assets. One of them is like any of the assets we discussed in the [previous post](../finance-1/index.qmd) on binomial pricing models, while the other is assumed to be *risk-less*, in the sense that its price process is fully deterministic. Specifically, we suppose that there is a positive real number $r$, called the *risk-free rate*, such that an amount $B_t$ invested in the risk-less asset at time $t$ will evolve to $(1+r)B_t$ at time $t+1$. For example, we might imagine that $B_t$ measures a cash position held in a bank that earns per-period interest at rate $r$. (The rate $r$ is assumed constant in time.) Crucially, we assume not only that we can hold cash in the bank, but that we can also borrow from the bank at the same rate. The difference between the two is signified by positive $B_t$ (holding cash in the bank, earning interest at rate $r$) versus negative $B_t$ (borrowing from the bank, paying interest at rate $r$). For future convenience, we set $R=1+r$, called the *risk-free gross return*.
 
-Now, assume that we hold a cash position in the bank, as well as either a short or long position in the other asset, which we assume has price process $S_t$, measured in USD per unit (for example). Then at each time $t\geq 0$, our two-asset portfolio would be valued at
+In addition to the cash position in the bank, we assume the existence of a second asset in which we hold either a short or long position, and which we assume has price process $S_t$, measured in USD per unit (for example). Then at each time $t\geq 0$, our two-asset portfolio is valued at
 
 $$
 V_t = B_t + S_t \Delta_t,
@@ -251,7 +316,7 @@ $$
 R B_t + S_{t+1} \Delta_t.
 $$ {#eq-evolved-portfolio}
 
-Relative to the cash position, the second asset is assumed to be *risky* (for example, an equity asset). This "risk-less vs. risky" difference has ramifications if, for example, we attempt to model $S_t$ using a binomial model and avoid arbitrage. Specifically, suppose that such a binomial model has up- and down-factors $u$ and $d$, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one, in compensation for bearing risk. Thus, we would expect at least that $R \leq u$. But, the risk-free gross return $R$ cannot be so small that $R<d$, for otherwise an arbitrage appears. Indeed, if $R<d$, then at time $t$ we could borrow $S_t$ from the bank (so that $B_t = -S_t$) and then purchase one unit of the risky asset (so that $\Delta_t=1$). Then our portfolio is valued at $V_t=0$ at the time of transaction, representing no initial net outlay of capital, while the value of the portfolio will evolve to
+Relative to the cash position, the second asset is assumed to be *risky* (for example, an equity asset). This "risk-less vs. risky" difference between the two assets has ramifications if, for example, we model the price process $S_t$ of the risky asset using a binomial model and we want to avoid arbitrage. To explain, suppose binomial model has up- and down-factors $u$ and $d$, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one in compensation for bearing risk. Thus, we would expect at least that $R \leq u$. But, the risk-free gross return $R$ cannot be so small that $R<d$, for otherwise an arbitrage appears. Indeed, if $R<d$, then at time $t$ we could borrow $S_t$ from the bank (so that $B_t = -S_t$) and then purchase one unit of the risky asset (so that $\Delta_t=1$). Then our portfolio is valued at $V_t=0$ at the time of transaction, representing no initial (net) outlay of capital, while the value of the portfolio will evolve to
 
 $$
 R B_t + S_{t+1} \Delta_t = -RS_t + S_{t+1} \geq S_t(d-R) >0
@@ -259,7 +324,7 @@ $$
 
 one time period later. This is an arbitrage, and in order to avoid it, we must assume that $R\geq d$.
 
-Similarly, while it is natural to assume that $R\leq u$ based on considerations of risk, we can confirm mathematically that if this were *not* true, then another aribtrage presents itself. For if $R>u$, then at time $t$ we could short one unit of the risky asset (so that $\Delta_t=-1$) and invest the proceeds in the bank (so that $B_t = S_t$). Again, our portfolio would be valued at $V_t=0$ at the time of transaction, while one time period later its value will evolve to
+While we said it is natural to assume $R\leq u$ based on considerations of risk, we can confirm mathematically that if this were *not* true, then another aribtrage presents itself. For if $R>u$, then at time $t$ we could short one unit of the risky asset (so that $\Delta_t=-1$) and invest the proceeds in the bank (so that $B_t = S_t$). Again, our portfolio would be valued at $V_t=0$ at the time of transaction, while one time period later its value will evolve to
 
 $$
 RB_t + S_{t+1} \Delta_t = RS_t - S_{t+1} \geq S_t(R- u) >0.
@@ -267,7 +332,7 @@ $$
 
 This is another arbitrage, and so we must assume $R \leq u$.
 
-Logically speaking, our arguments above show that, if there are no arbitrages in the binomial model, then we must have
+Our arguments above show the following: *If* there are no arbitrages in the binomial model, *then* we must have
 
 $$
 d \leq R \leq u.
@@ -282,7 +347,7 @@ Interestingly, the converse is also true, which leads us to our first glimpse of
 The inequalites ([-@eq-no-arbitrage]) are equivalent to the absence of arbitrages in the binomial model.
 :::
 
-With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) together are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in @Bjork2020).
+With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in @Bjork2020).
 
 ## Equivalent martingale measures
 
@@ -300,7 +365,7 @@ $$
 B_t = \frac{1}{R} B_{t+1}.
 $$ {#eq-pv-bank}
 
-So, given the current balance $B_t$ at time $t$, *we know for certain what the balance will be one period into the future.* We ask: Is there something analogous that we could say about the price process $S_t$ of the risky asset?
+So, given the current balance $B_t$ at time $t$, *we know for certain the balance one period into the future.* We ask: Is there something analogous that we could say about the price process $S_t$ of the risky asset?
 
 Working toward an answer to this question, suppose that a time $t$ is fixed, and that we observe the current price $S_t$ of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price $S_{t+1}$ with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation $E(S_{t+1} \mid S_t)$ is the best approximation of $S_{t+1}$, given $S_t$, in the sense that it is the closest $\sigma(S_t)$-measurable random variable to $S_{t+1}$ in mean squared error. So, with the expectation in place of $S_{t+1}$, and taking the time value of money into account, we then wonder if something analogous to ([-@eq-pv-bank]) holds—something like
 
@@ -342,94 +407,3 @@ $$
 &= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
 \end{align*}
 $$
-
-## Equivalent martingale measures; the Fundamental Theorem of Asset Pricing
-
-::: {#thm-ftap}
-## Fundamental Theorem of Asset Pricing
-A model is arbitrage-free if and only if there exists an equivalent martingale measure.
-:::
-::: {.callout-note collapse="true" icon="false"}
-## Proof.
-
-The proof for the binomial model was presented above, so we give a proof for the trinomial model.
-
-First, suppose that $Q$ is an EMM for the trinomial model with risk-free gross return $R$, up-factor $u$, middle-factor $m$, and down-factor $d$. Then $Q$ is determined by three probabilities $q_u$, $q_m$, and $q_d$ which are solutions to the system of linear equations
-
-$$
-\begin{align*}
-q_u + q_m + q_d &= 1 \\
-uq_u + mq_m + dq_d &= R.
-\end{align*}
-$$ {#eq-system}
-
-Indeed, the necessity of the first equation is obvious, while the second equation guarantees the martingale property for the discounted prices. In addition to the linear system, we also have the constraints
-
-$$
-0 \leq q_u, q_m, q_d \leq 1.
-$$ {#eq-constraint}
-
-We solve the linear system to obtain
-
-$$
-\begin{align*}
-q_u &= \frac{m-d}{u-m} q_d + \frac{R-m}{u-m}, \\
-q_m &= \frac{d-u}{u-m} q_d + \frac{u-R}{u-m},
-\end{align*}
-$$ {#eq-system-sol}
-
-expressing $q_u$ and $q_m$ in terms of the free parameter $q_d$. Using these formulas, the reader may show that, provided
-
-$$
-\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{m-d},
-$$ {#eq-first}
-
-we have $0 \leq q_u \leq 1$. Likewise, provided that
-
-$$
-\frac{m-R}{u-d} \leq q_d \leq \frac{u-R}{u-d},
-$$ {#eq-second}
-
-we have $0 \leq q_m \leq 1$. Since $m < u$, the single set of inequalities
-
-$$
-\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{u-d}
-$$ {#eq-third}
-
-implies both ([-@eq-first]) and ([-@eq-second]). But we must have $0 \leq q_d \leq 1$ as well, and so we must have both
-
-$$
-\frac{m-R}{m-d} \leq 1 \quad \text{and} \quad 0 \leq \frac{u-R}{u-d}.
-$$
-
-The first inequality implies $R\geq d$, while the second implies $R \leq u$. Thus, the model is arbitrage-free.
-
-Conversely, suppose that the model is arbitrage-free, so that $d\leq R \leq u$. Then we may select a parameter $q_d$ so that
-
-$$
-\max \left( \frac{m-R}{m-d}, 0 \right) \leq q_d \leq \frac{u-R}{u-d}.
-$$
-
-The no-arbitrage condition guarantees that $0 \leq q_d \leq 1$. Then the inequalties ([-@eq-third]) are satisfied, and hence so too are the inequalities ([-@eq-first]) and ([-@eq-second]). If we then define $q_u$ and $q_m$ by ([-@eq-system-sol]), we obtain solutions to the system ([-@eq-system]) satisfying the constraints ([-@eq-constraint]). Thus, we have shown that an EMM exists.
-
-:::
-
-For the reader who did not read the proof, the gist is this. Let $R$ be the risk-free gross return of an arbitrage-free trinomial model, and let $u$, $m$, and $d$ be the up-, middle-, an down-factors, respectively. Then the no-arbitrage condition $d\leq R \leq u$ implies the second two inequalities in
-
-$$
-0 \leq \max \left( \frac{m-R}{m-d}, 0 \right) \leq \frac{u-R}{u-d} \leq 1.
-$$ {#eq-emm-param-int}
-
-Then, the proof shows that there is a one-parameter family of EMMs for the trinomial model, parametrized by a number $q$ between the middle two numbers in ([-@eq-emm-param-int]), namely
-
-$$
-\max \left( \frac{m-R}{m-d}, 0 \right) \leq q \leq \frac{u-R}{u-d}.
-$$
-
-If we write $a$ for the left-hand side of this interval, and $b$ for the right-hand side, then we may reparametrize using the map
-
-$$
-\theta \mapsto q= (b-a)\theta + a,
-$$
-
-and so our family of EMMs is parametrized by $\theta\in [0,1]$.

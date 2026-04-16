@@ -3,7 +3,7 @@ title: "Finance with SigAlg I: Introduction and binomial pricing models"
 toc: true
 date: "2026-04-09"
 jupyter: site
-categories: [Finance, Pricing models, Binomial pricing models, Probability theory, Measure theory, Stochastic processes, Martingales, SigAlg, Python]
+categories: [Finance, Pricing models, Binomial pricing models, Probability theory, Measure theory, Stochastic processes, Sigma-algebras, Filtrations, Conditional expectations, Hilbert spaces, Information theory, SigAlg, Python]
 draft: true
 bibliography: /Users/johnmyers/dev/site/aux-files/references.bib
 csl: /Users/johnmyers/dev/site/aux-files/american-mathematical-society-numeric.csl
