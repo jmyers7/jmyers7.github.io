@@ -232,6 +232,117 @@ plt.tight_layout()
 plt.show()
 ```
 
+
+## Arbitrage
+
+In finance, the word *arbitrage* refers to an opportunity to turn a profit with no risk of loss. (More precisely, the probability of loss is $0$.) The types of arbitrage relevant to our discussion in this post seek to exploit the relative "mispricing" of two assets in the market. While from an investor's point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies. In this short section, we seek conditions on binomial pricing models in order to avoid arbitrages.
+
+So, we begin with two assets. One of them is like any of the assets we have discussed so far in this post, while the other is assumed to be *risk-less*, in the sense that its price process is fully deterministic. Specifically, we suppose that there is a positive real number $r$, called the *risk-free rate*, such that an amount $B_t$ invested in the asset at time $t$ will evolve to $(1+r)B_t$ at time $t+1$. For example, we might imagine that $B_t$ measures a cash position held in a bank that earns per-period interest at rate $r$. (The rate $r$ is assumed constant in time.) Crucially, we assume not only that we can hold cash in the bank, but that we can also borrow from the bank at the same rate. The difference between the two is signified by positive $B_t$ (holding cash in the bank, earning interest at rate $r$) versus negative $B_t$ (borrowing from the bank, paying interest at rate $r$). For future convenience, we set $R=1+r$, called the *risk-free gross return*.
+
+Now, assume that we hold a cash position in the bank, as well as either a short or long position in the other asset, which we assume has price process $S_t$, measured in USD per unit (for example). Then at each time $t\geq 0$, our two-asset portfolio would be valued at
+
+$$
+V_t = B_t + S_t \Delta_t,
+$$ {#eq-portfolio-value}
+
+where $\Delta_t$ is the number of units of the asset held with price process $S_t$. A positive value of $\Delta_t$ represents a long position, while a negative value represents a short position. One time period later, the value of our portfolio will evolve to
+
+$$
+R B_t + S_{t+1} \Delta_t.
+$$ {#eq-evolved-portfolio}
+
+Relative to the cash position, the second asset is assumed to be *risky* (for example, an equity asset). This "risk-less vs. risky" difference has ramifications if, for example, we attempt to model $S_t$ using a binomial model and avoid arbitrage. Specifically, suppose that such a binomial model has up- and down-factors $u$ and $d$, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one, in compensation for bearing risk. Thus, we would expect at least that $R \leq u$. But, the risk-free gross return $R$ cannot be so small that $R<d$, for otherwise an arbitrage appears. Indeed, if $R<d$, then at time $t$ we could borrow $S_t$ from the bank (so that $B_t = -S_t$) and then purchase one unit of the risky asset (so that $\Delta_t=1$). Then our portfolio is valued at $V_t=0$ at the time of transaction, representing no initial net outlay of capital, while the value of the portfolio will evolve to
+
+$$
+R B_t + S_{t+1} \Delta_t = -RS_t + S_{t+1} \geq S_t(d-R) >0
+$$
+
+one time period later. This is an arbitrage, and in order to avoid it, we must assume that $R\geq d$.
+
+Similarly, while it is natural to assume that $R\leq u$ based on considerations of risk, we can confirm mathematically that if this were *not* true, then another aribtrage presents itself. For if $R>u$, then at time $t$ we could short one unit of the risky asset (so that $\Delta_t=-1$) and invest the proceeds in the bank (so that $B_t = S_t$). Again, our portfolio would be valued at $V_t=0$ at the time of transaction, while one time period later its value will evolve to
+
+$$
+RB_t + S_{t+1} \Delta_t = RS_t - S_{t+1} \geq S_t(R- u) >0.
+$$
+
+This is another arbitrage, and so we must assume $R \leq u$.
+
+Logically speaking, our arguments above show that, if there are no arbitrages in the binomial model, then we must have
+
+$$
+d \leq R \leq u.
+$$ {#eq-no-arbitrage}
+
+Interestingly, the converse is also true, which leads us to our first glimpse of one of the foundational results in mathematical finance:
+
+::: {#thm-no-arb}
+
+### First Fundamental Theorem of Asset Pricing — Binomial Model, v.1
+
+The inequalites ([-@eq-no-arbitrage]) are equivalent to the absence of arbitrages in the binomial model.
+:::
+
+With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) together are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in @Bjork2020).
+
+## Equivalent martingale measures
+
+The statement of the Fundamental Theorem of Asset Pricing (in @thm-no-arb) is referred to as "version 1". In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called *equivalent martingale measures*.
+
+By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount $B_0$ at time $t=0$, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time $t$, say $B_t$, then we know the balance one time period later:
+
+$$
+B_{t+1} = RB_t,
+$$
+
+where $R$ is the risk-free gross return. Reciprocally, the current balance is the *present value* of the future balance, i.e.,
+
+$$
+B_t = \frac{1}{R} B_{t+1}.
+$$ {#eq-pv-bank}
+
+So, given the current balance $B_t$ at time $t$, *we know for certain what the balance will be one period into the future.* We ask: Is there something analogous that we could say about the price process $S_t$ of the risky asset?
+
+Working toward an answer to this question, suppose that a time $t$ is fixed, and that we observe the current price $S_t$ of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price $S_{t+1}$ with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation $E(S_{t+1} \mid S_t)$ is the best approximation of $S_{t+1}$, given $S_t$, in the sense that it is the closest $\sigma(S_t)$-measurable random variable to $S_{t+1}$ in mean squared error. So, with the expectation in place of $S_{t+1}$, and taking the time value of money into account, we then wonder if something analogous to ([-@eq-pv-bank]) holds—something like
+
+$$
+S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
+$$ {#eq-wrong}
+
+However, this obviously cannot hold, because the expectation is discounted via $R=1+r$, which is built from the risk-free rate $r$. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.
+
+Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
+
+$$
+P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
+$$
+
+for $k=0,1,\ldots,t$. The $\sigma$-algebra generated by $S_t$, namely $\sigma(S_t)$, has $t+1$ atoms given by the sets
+
+$$
+A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
+$$
+
+The vector space $L^2(\Omega, \sigma(S_t), P)$ then has a finite orthonormal basis given by the normalized indicator functions
+
+$$
+\frac{I_{A_k}}{\sqrt{P(A_k)}},
+$$
+
+one for each $k=0,1,\ldots,t$. Thus, the expectation $E(S_{t+1} \mid S_t)$ is given by its generalized Fourier series:
+
+$$
+E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
+$$
+
+For each $k=0,1,\ldots,t$, write $s_k = S_0 u^k d^{t-k}$, for brevity. Then, we have
+
+$$
+\begin{align*}
+\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
+&= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
+\end{align*}
+$$
+
 ## Equivalent martingale measures; the Fundamental Theorem of Asset Pricing
 
 ::: {#thm-ftap}

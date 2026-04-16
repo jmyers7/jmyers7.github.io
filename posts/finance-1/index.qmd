@@ -465,7 +465,7 @@ S.from_enumeration()
 print(S)
 ```
 
-The sample space is $\Omega = \{0,1,\ldots,7\}$. The $\sigma$-algebra $\mathcal{F}$ is (by default) the power set on $\Omega$:
+The sample space is $\Omega = \{0,1,\ldots,7\}$. The $\sigma$-algebra is the power set on $\Omega$:
 
 ```{python}
 # | echo: false
@@ -490,7 +490,15 @@ $$
 S: \Omega \to \mathbb{R}^4, \quad S(\omega) = (S_0(\omega),S_1(\omega), S_2(\omega), S_3(\omega)).
 $$
 
-Then $S$ (as a random vector) generates a $\sigma$-algebra whose atoms are precisely its nonempty level sets:
+Reflecting this view as a random vector, stochastic processes in SigAlg are actually callable; for example:
+
+```{python}
+print(S(2))
+```
+
+Note that this is precisely the trajectory $(S_0(2),S_1(2),S_2(2),S_3(2))$ corresponding to the sample point $2\in \Omega$.
+
+Now, $S$ (as a random vector) generates a $\sigma$-algebra whose atoms are precisely its nonempty level sets:
 
 $$
 S^{-1}(s) = \{ \omega \in \Omega \mid S(\omega) = s \},
@@ -525,19 +533,48 @@ F = S.natural_filtration
 print(F)
 ```
 
+The printout shows the time index and the four $\sigma$-algebras $\mathcal{F}_t$ (for $t=0,1,2,3$). Notice that $\mathcal{F}_3$ coincides with $\sigma(S)$, and that $\mathcal{F}_0$ is the *trivial $\sigma$-algebra* whose only atom is the whole sample space $\Omega$ itself. Notice also that the atom identifiers of $\mathcal{F}_t$ are the length-$t$ partial trajectories. So, two sample points $\omega,\omega'\in\Omega$ are in the same atom of $\mathcal{F}_t$ if and only if the full trajectories that they correspond to agree at all times up to (and including) time $t$, i.e.,
+
+$$
+S_r(\omega) = S_r(\omega')
+$$ {#eq-partial-traj}
+
+for each $r\leq t$. In view of ([-@eq-partial-traj]), the $\sigma$-algebra $\mathcal{F}_t$ is often written as
+
+$$
+\mathcal{F}_t = \sigma( S_0, S_1, \ldots, S_t),
+$$
+
+and it is called the $\sigma$-algebra *generated* by the random variables $S_0,S_1,\ldots, S_t$.
+
+The natural filtration is represented in SigAlg as an instance of the `Filtration` class. As such, it is subscriptable, allowing us to access the component $\sigma$-algebras:
+
+```{python}
+print(F[1])
+```
+
+Finally, note that the "information" encoded in the $\sigma$-algebra $\mathcal{F}_t$ only allows to distinguish between trajectories based on their paths up to time $t$. The $\sigma$-algebra $\mathcal{F}_t$ cannot "see into the future" beyond time $t$. At one end of the time interval, $\mathcal{F}_0$ has only one atom, and so it cannot be used to distinguish between *any* of the trajectories. At the other end, $\mathcal{F}_3$ corresponds to the power set $\sigma$-algebra, and so it contains enough information to distinguish between *all* of the trajectories.
+
 ## Probability measures
 
-Using the real-world probability $p=0.7$, we define a probability measure $P$ on the sample space $\Omega = \{0,1,\ldots,7\}$ by setting
+Having described the sample space $\Omega$ and the $\sigma$-algebra $\mathcal{F}$ underlying our binomial model, we now turn to the probability measure $P$. This will complete our description of the full probability space $(\Omega, \mathcal{F},P)$.
+
+Recall that our model was instantiated with a real-world probability $p=0.7$, which was the probability that the driving process takes the value $Z_t=u$, where $u$ is the up-factor. This probability is accessible via the `up_prob` attribute:
+
+```{python}
+print(S.up_prob)
+```
+
+Using the real-world probability $p$, we define a discrete probability measure $P$ on the sample space by setting
 
 $$
 P(\{\omega\}) = p^k (1-p)^{T-k}
 $$
 
-for each $\omega\in \Omega$, provided that $\omega$ corresponds to a trajectory with $k$ up moves and $T-k$ down moves. This probability measure is accessible using the `probability_measure` attribute of the binomial model, which returns an instance of SigAlg's `ProbabilityMeasure` class:
+for each $\omega\in \Omega$, provided that $\omega$ corresponds to a trajectory with $k$ up moves and $T-k$ down moves. (Recall $T$ is the time horizon.) This probability measure is accessible using the `probability_measure` attribute of the binomial model, which returns an instance of SigAlg's `ProbabilityMeasure` class:
 
 ```{python}
 P = S.probability_measure
-
 print(P, "\n")  # Print the measure
 print(type(P))  # Check its type
 ```
@@ -548,150 +585,237 @@ For easy comparison, we can print the probabilities next to the trajectories:
 S.print_trajectories_and_probabilities()
 ```
 
-In the mathematical theory, probability measures are supposed to be defined only on the events inside a $\sigma$-algebra on the sample space $\Omega$; but in SigAlg, we do *not* enforce this requirement. In particular, a probability measure may be treated like a probability mass function, and evaluated on sample points $\omega \in \Omega$:
+Thus, we see that the probability of the event $A = \{0,7\}$ is
+
+$$
+P(A) = 0.7^3 +0.3^3  = 0.37.
+$$
+
+We may perform the same computation in SigAlg:
 
 ```{python}
-print(round(P(3), 3))  # Print the probability P(3)
+A = S.domain.get_event([0, 7])  # A is an `Event` object
+print(round(P(A), 3))
 ```
 
-The component random variables of the process inherit the same probability measure. For example, we can check the probability measure of the random variable $S_2:\Omega \to \mathbb{R}$ by accessing its `probability_measure` attribute:
+Probability measures in SigAlg may also be treated like probability mass functions and called directly on sample points:
+
+```{python}
+print(round(P(0) + P(7), 3))
+```
+
+When we extract component random variables, we inherit the probability measure. For example:
+
+```{python}
+print(S[3].probability_measure)
+```
+
+As we learned in our first course on probability theory, every random variable induces a *pushforward* (or *image*) *probability measure* on its range. In the case of the component random variable $S_3$, this is the discrete measure $P_{S_3}$ on $\mathbb{R}$ defined by
+
+$$
+P_{S_3}(\{s\}) = P\left( \{\omega \in \Omega \mid S_3(\omega)=s\}\right),
+$$
+
+for each $s\in \mathbb{R}$. The support of this measure is the range of $S_3$, namely, the set of final prices $\{72.90, 105.30, 152.10, 219.70\}$. To obtain the pushforward measure $P_{S_3}$ in SigAlg, we call the `pushforward` method:
+
+```{python}
+S[3].pushforward()
+```
+
+## $L^2$-spaces
+
+The collection of all random variables on the probability space $(\Omega, \sigma(S), P)$ underlying our binomial model constitute a finite-dimensional real vector space denoted $L^2(\Omega,\sigma(S),P)$. Here, by a random variable "on the probability space," we mean that each random variable must be $\sigma(S)$-measurable.[If the reader recalls, $\sigma(S)$ is the power set $\sigma$-algebra, and so *every* function on $\Omega$ is $\sigma(S)$-measurable. But we will see examples below of $L^2$-spaces built from coarser $\sigma$-algebras, so we still prefer to explicitly state this condition.]{.aside} And, actually, in the general mathematical theory a function $X: \Omega \to \mathbb{R}$ must also be such that
+
+$$
+\int_\Omega X^2 \, dP < \infty
+$$ {#eq-square-integrable}
+
+in order to be in the $L^2$-space, in addition to measurability. However, all sample spaces in SigAlg are finite and probability measures are discrete, so the Lebesgue integral above turns into a finite sum:
+
+$$
+\int_\Omega X^2 \, dP = \sum_{\omega \in \Omega} X(\omega)^2P(\{\omega\}).
+$$
+
+But the right-hand side is always $<\infty$ in SigAlg, and hence this extra condition ([-@eq-square-integrable]) is superfluous.
+
+As the experienced reader knows, elements in an $L^2$-space are often taken to be equivalence classes of random variables, where the equivalence relation is given by *almost sure equality*, meaning that two random variables $X$ and $Y$ are identified in the $L^2$-space if they are equal everywhere except on an event of probability $0$. However, in SigAlg, elements in an $L^2$-space are actual random variables. For an example, let's build the $L^2$-space
+
+$$
+H = L^2(\Omega, \sigma(S),P)
+$$
+
+using the probability space from our binomial pricing model:
 
 ```{python}
 
-print(S[2].probability_measure)
+from sigalg.l2 import L2
 
+H = L2(
+    sample_space=S.domain,
+    sigma_algebra=S.sigma_algebra,
+    probability_measure=S.probability_measure,
+)
+
+# Check that S_3 is in H, for example
+print(S[3] in H)
 ```
 
-As we learned in our first course on probability theory, every random variable induces a *pushforward* (or *image*) *probability measure*. In the case of the component random variable $S_2$, this is the discrete measure $P_{S_2}$ on $\mathbb{R}$ defined by
+The Lebesgue integral
 
 $$
-P_{S_2}(\{s\}) = P\left( \{\omega \in \Omega \mid S_2(\omega)=s\}\right),
+\int_A X \, dP = \sum_{\omega \in A} X(\omega) P(\{\omega\})
 $$
 
-for each $s\in \mathbb{R}$. The support of this measure is the range of $S_2$, namely, the three-element set $\{169.00, 117.00, 81.00\}$. To obtain the pushforward measure $P_{S_2}$ in SigAlg, we call the `pushforward` method:
+of a random variable $X\in H$ over an event $A\in \sigma(S)$ is computable in SigAlg through an instance method of the `L2` class. For example, in the next code block we print out the trajectories of our binomial model along with the probability measure, and then compute $\int_A S_3 \, dP$, where $A = \{0,3\}$:
 
 ```{python}
-S[2].pushforward()
+
+S.print_trajectories_and_probabilities()
+
+A = S.domain.get_event([0, 3])
+integral = H.integrate(rv=S[3], event=A)
+print("The integral is", round(integral, 3))
 ```
 
-## Arbitrage
-
-In finance, the word *arbitrage* refers to an opportunity to turn a profit with no risk of loss. (More precisely, the probability of loss is $0$.) The types of arbitrage relevant to our discussion in this post seek to exploit the relative "mispricing" of two assets in the market. While from an investor's point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies. In this short section, we seek conditions on binomial pricing models in order to avoid arbitrages.
-
-So, we begin with two assets. One of them is like any of the assets we have discussed so far in this post, while the other is assumed to be *risk-less*, in the sense that its price process is fully deterministic. Specifically, we suppose that there is a positive real number $r$, called the *risk-free rate*, such that an amount $B_t$ invested in the asset at time $t$ will evolve to $(1+r)B_t$ at time $t+1$. For example, we might imagine that $B_t$ measures a cash position held in a bank that earns per-period interest at rate $r$. (The rate $r$ is assumed constant in time.) Crucially, we assume not only that we can hold cash in the bank, but that we can also borrow from the bank at the same rate. The difference between the two is signified by positive $B_t$ (holding cash in the bank, earning interest at rate $r$) versus negative $B_t$ (borrowing from the bank, paying interest at rate $r$). For future convenience, we set $R=1+r$, called the *risk-free gross return*.
-
-Now, assume that we hold a cash position in the bank, as well as either a short or long position in the other asset, which we assume has price process $S_t$, measured in USD per unit (for example). Then at each time $t\geq 0$, our two-asset portfolio would be valued at
+The `event` parameter of the `integrate` method is optional; if it is omitted, then the event defaults to the entire sample space $A=\Omega$, and the Lebesgue integral is the expectation:
 
 $$
-V_t = B_t + S_t \Delta_t,
-$$ {#eq-portfolio-value}
-
-where $\Delta_t$ is the number of units of the asset held with price process $S_t$. A positive value of $\Delta_t$ represents a long position, while a negative value represents a short position. One time period later, the value of our portfolio will evolve to
-
-$$
-R B_t + S_{t+1} \Delta_t.
-$$ {#eq-evolved-portfolio}
-
-Relative to the cash position, the second asset is assumed to be *risky* (for example, an equity asset). This "risk-less vs. risky" difference has ramifications if, for example, we attempt to model $S_t$ using a binomial model and avoid arbitrage. Specifically, suppose that such a binomial model has up- and down-factors $u$ and $d$, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one, in compensation for bearing risk. Thus, we would expect at least that $R \leq u$. But, the risk-free gross return $R$ cannot be so small that $R<d$, for otherwise an arbitrage appears. Indeed, if $R<d$, then at time $t$ we could borrow $S_t$ from the bank (so that $B_t = -S_t$) and then purchase one unit of the risky asset (so that $\Delta_t=1$). Then our portfolio is valued at $V_t=0$ at the time of transaction, representing no initial net outlay of capital, while the value of the portfolio will evolve to
-
-$$
-R B_t + S_{t+1} \Delta_t = -RS_t + S_{t+1} \geq S_t(d-R) >0
+E(X) = \int_\Omega X \, dP.
 $$
 
-one time period later. This is an arbitrage, and in order to avoid it, we must assume that $R\geq d$.
+In SigAlg:
 
-Similarly, while it is natural to assume that $R\leq u$ based on considerations of risk, we can confirm mathematically that if this were *not* true, then another aribtrage presents itself. For if $R>u$, then at time $t$ we could short one unit of the risky asset (so that $\Delta_t=-1$) and invest the proceeds in the bank (so that $B_t = S_t$). Again, our portfolio would be valued at $V_t=0$ at the time of transaction, while one time period later its value will evolve to
+```{python}
+expectation = H.integrate(rv=S[3])
+print("The expectation is", round(expectation, 3))
+```
 
-$$
-RB_t + S_{t+1} \Delta_t = RS_t - S_{t+1} \geq S_t(R- u) >0.
-$$
+Alternatively, the expectation may be computed via the `expectation` method on the random variable itself; however, this method returns an instance of the `RandomVariable` class, and not a number:
 
-This is another arbitrage, and so we must assume $R \leq u$.
+```{python}
+expectation_rv = S[3].expectation()
+print(expectation_rv)
+```
 
-Logically speaking, our arguments above show that, if there are no arbitrages in the binomial model, then we must have
+Note that this is the *constant* random variable whose unique value is equal to the expectation computed via the integral. The reason that this method yields a random variable is to make it consistent with *conditional* expectations $E(X\mid \mathcal{F})$ as random variables, where $\mathcal{F}$ is a $\sigma$-algebra contained in $\sigma(S)$; see below. The unconditional expectation $E(X)$ is then obtained as the unique value of the random variable $E(X \mid \{\emptyset, \Omega\})$, where the latter expectation is conditioned on the trivial $\sigma$-algebra.
 
-$$
-d \leq R \leq u.
-$$ {#eq-no-arbitrage}
-
-Interestingly, the converse is also true, which leads us to our first glimpse of one of the foundational results in mathematical finance:
-
-::: {#thm-no-arb}
-
-### First Fundamental Theorem of Asset Pricing — Binomial Model, v.1
-
-The inequalites ([-@eq-no-arbitrage]) are equivalent to the absence of arbitrages in the binomial model.
-:::
-
-With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) together are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in @Bjork2020).
-
-## Equivalent martingale measures
-
-The statement of the Fundamental Theorem of Asset Pricing (in @thm-no-arb) is referred to as "version 1". In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called *equivalent martingale measures*.
-
-By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount $B_0$ at time $t=0$, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time $t$, say $B_t$, then we know the balance one time period later:
+The theoretical interest in $L^2$-spaces stems primarily from the rich mathematical structure that they carry—indeed, they are examples of *Hilbert spaces* when equipped with the inner product given by:
 
 $$
-B_{t+1} = RB_t,
+\langle X, Y \rangle = \int_{\Omega} XY \, dP = \sum_{\omega \in \Omega} X(\omega)Y(\omega)P(\{\omega\}).
 $$
 
-where $R$ is the risk-free gross return. Reciprocally, the current balance is the *present value* of the future balance, i.e.,
+This inner product is implemented in SigAlg as an instance method of the `L2` class:
+
+```{python}
+# Compute the inner product of the random variables S_1 and S_2
+inner_product = H.inner(S[1], S[2])
+print(round(inner_product, 3))
+```
+
+The induced norm of a random variable is defined by the equation
 
 $$
-B_t = \frac{1}{R} B_{t+1}.
-$$ {#eq-pv-bank}
-
-So, given the current balance $B_t$ at time $t$, *we know for certain what the balance will be one period into the future.* We ask: Is there something analogous that we could say about the price process $S_t$ of the risky asset?
-
-Working toward an answer to this question, suppose that a time $t$ is fixed, and that we observe the current price $S_t$ of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price $S_{t+1}$ with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation $E(S_{t+1} \mid S_t)$ is the best approximation of $S_{t+1}$, given $S_t$, in the sense that it is the closest $\sigma(S_t)$-measurable random variable to $S_{t+1}$ in mean squared error. So, with the expectation in place of $S_{t+1}$, and taking the time value of money into account, we then wonder if something analogous to ([-@eq-pv-bank]) holds—something like
-
-$$
-S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
-$$ {#eq-wrong}
-
-However, this obviously cannot hold, because the expectation is discounted via $R=1+r$, which is built from the risk-free rate $r$. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.
-
-Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
-
-$$
-P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
+\|X\|^2 = \langle X, X \rangle.
 $$
 
-for $k=0,1,\ldots,t$. The $\sigma$-algebra generated by $S_t$, namely $\sigma(S_t)$, has $t+1$ atoms given by the sets
+This too is computable in SigAlg:
+
+```{python}
+# Compute the norm of the random variable S_1
+norm = H.norm(S[1])
+print(round(norm, 3))
+```
+
+A basis for the vector space $H$ is given by the set of indicator functions of the atoms of $\sigma(S)$. But recall that $\sigma(S)$ is the power set and $\Omega$ has cardinality $8$; therefore, the $L^2$-space has dimension $8$:
+
+```{python}
+print(H.dim)
+```
+
+An orthogonal basis of $H$ is given by the collection of indicator functions $I_A:\Omega \to \mathbb{R}$ of the atoms $A$ of the $\sigma$-algebra, where
 
 $$
-A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
+I_A(\omega) = \begin{cases}
+1 & : \omega \in A, \\
+0 & : \omega \notin A.
+\end{cases}
 $$
 
-The vector space $L^2(\Omega, \sigma(S_t), P)$ then has a finite orthonormal basis given by the normalized indicator functions
+So, an orthonormal basis of $H$ is given by the normalized indicator functions:
 
 $$
-\frac{I_{A_k}}{\sqrt{P(A_k)}},
+\frac{I_A}{\|I_A\|} = \frac{1}{\sqrt{P(A)}} I_A,
 $$
 
-one for each $k=0,1,\ldots,t$. Thus, the expectation $E(S_{t+1} \mid S_t)$ is given by its generalized Fourier series:
+where $A$ varies over all atoms of $\sigma(S)$.
+
+The same types of orthnormal bases exist if we change the $\sigma$-algebra of the $L^2$-space. For example, let's recall the $\sigma$-algebra $\mathcal{F}_1$ from the previous section, with two atoms:
+
+```{python}
+print(F[1])
+```
+
+We define a second $L^2$-space
 
 $$
-E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
+G = L^2(\Omega, \mathcal{F}_1, P)
 $$
 
-For each $k=0,1,\ldots,t$, write $s_k = S_0 u^k d^{t-k}$, for brevity. Then, we have
+using this $\sigma$-algebra:
+
+```{python}
+
+G = L2(
+    sample_space=S.domain,
+    sigma_algebra=F[1],
+    probability_measure=S.probability_measure,
+)
+```
+
+Since $\mathcal{F}_1$ has only two atoms, the orthonormal basis of $G$ described above consists of only two functions; they are accessible via the `basis` attribute, which returns a dictionary whose values are the normalized indicator functions:
+
+```{python}
+G_basis = list(G.basis.values())
+for indicator in G_basis:
+    print(indicator)
+```
+
+Note that the names of the random variables are the atom identifiers, i.e., the partial trajectories of length $1$.
+
+Now, because $\mathcal{F}_1$ is a sub-$\sigma$-algebra of $\sigma(S)$, the vector space $G$ is a subspace of $H$. In particular, the orthonormal basis of $G$ identified above is an orthonormal set in $H$. Therefore, given a random variable $X\in H$, its orthogonal projection $\widehat{X}$ onto $G$ is given by the familiar generalized Fourier expansion:
 
 $$
-\begin{align*}
-\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
-&= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
-\end{align*}
+\widehat{X} = \langle X, \phi_1 \rangle \phi_1 + \langle X, \phi_2 \rangle \phi_2,
 $$
 
+where $\phi_1$ and $\phi_2$ are the basis elements of $G$. For example, in SigAlg we may use this *exact* formula to compute the orthogonal projection of $S_3$ onto $G$:
 
+```{python}
+S_3_hat = sum(H.inner(S[3], phi) * phi for phi in G_basis)
+print(S_3_hat.with_name("S_3_hat"))
+```
 
+But the expert reader knows that orthogonal projections of random variables in $L^2$-spaces are *exactly* conditional expectations. In fact, the random variable $\widehat{S}_3$ that we just computed is precisely $E(S_3 \mid \mathcal{F}_1)$, the expectation of $S_3$ given $\mathcal{F}_1$. These conditional expectations are directly computable in SigAlg by passing a value to the `sigma_algebra` parameter of the `expectation` method from above:
 
+```{python}
+print(S[3].expectation(sigma_algebra=F[1]))
+```
 
+As we know from Hilbert space theory, the orthogonal projection $\hat{S}_3$ is the solution of an optimization problem:
 
+$$
+\widehat{S}_3 = \underset{Y \in G}{\operatorname{argmin}} \|Y - S_3\|^2.
+$$
 
+But a random variable is in $G$ if and only if it is $\mathcal{F}_1$-measurable, and the norm may be expressed in terms of an expectation—therefore, the conditional expectation $E(S_3 \mid \mathcal{F}_1)= \widehat{S}_3$ minimizes the mean squared error
 
+$$
+E\left[(Y - S_3)^2\right]
+$$
 
+over all $\mathcal{F}_1$-measurable random variables $Y$.
 
 
 ## Bibliography
+
