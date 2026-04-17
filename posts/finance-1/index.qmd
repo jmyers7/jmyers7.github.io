@@ -817,5 +817,20 @@ $$
 over all $\mathcal{F}_1$-measurable random variables $Y$.
 
 
+```{python}
+
+S.time = Time.discrete(length=20)
+
+S.from_simulation(n_trajectories=100_000, random_state=42)
+
+len(S.range.sample_space)
+
+```
+
+```{python}
+print(S.range.probability_measure.data.values)
+
+```
+
 ## Bibliography
 
