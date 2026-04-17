@@ -1,0 +1,47 @@
+---
+title: "16 Sturm-Liouville problems, part 1"
+format:
+    revealjs:
+        incremental: true
+        slide-number: true
+        theme:
+            - default
+            - "../../aux-files/custom-slides.scss"
+---
+
+
+## Orthogonal bases and differential equations {.scrollable}
+
+- Theorem 3.5 tells us that $\{e^{inx}\}_{n=-\infty}^\infty$ is an orthogonal basis of $L^2(-\pi,pi)$.
+
+- Similar arguments can be used to show that both $\{\cos{nx}\}_{n=0}^\infty$ and $\{\sin{nx}\}_{n=1}^\infty$ are orthogonal bases for $L^2(0,\pi)$.
+
+- Recall that these three sets of functions arose originally in our solutions to partial differential equations. In particular, the latter two sets arose during separation of variables when we attempted to solve a differential equation of the form
+$$
+u''(x) + \lambda^2 u(x)=0
+$$
+subject to either the conditions $u(0)=u(\pi)=0$ or $u'(0)=u'(\pi)=0$.
+
+- Our goal in this section is to show that second-order ordinary differential equations of particular forms lead to orthogonal bases of $L^2$-spaces.
+
+## Exercise 1: Background from linear algebra {.scrollable}
+
+::: {.callout-note icon="false" .nonincremental appearance="minimal"}
+
+A linear transformation $T: \mathbb{C}^k \to \mathbb{C}^k$ is called **self-adjoint** if
+$$
+\langle T(\mathbf{u}),\mathbf{v} \rangle = \langle \mathbf{u}, T(\mathbf{v}) \rangle
+$$
+for all $u,v \in \mathbb{C}^k$.
+
+a. Consider two linear transformations $S,T: \mathbb{C}^2 \to \mathbb{C}^2$ with matrices
+$$
+A = \begin{bmatrix} 1 & 1+i \\ 1-i & 0 \end{bmatrix} \quad \text{and} \quad B = \begin{bmatrix} 1 & 3 \\ 2 & 0 \end{bmatrix},
+$$
+respectively, with respect to the standard bases on $\mathbb{C}^2$. Which of $S$ and $T$ is self-adjoint?
+
+b. Can you formulate a condition on the matrix of a general linear transformation $T: \mathbb{C}^k \to \mathbb{C}^k$ that characterizes the self-adjoint property? Can you prove it?
+
+c. For the linear transformations in part (a) that are self-adjoint, compute their eigenvectors. What do you notice?
+
+:::
