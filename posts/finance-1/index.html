@@ -56,27 +56,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -268,14 +248,13 @@ window.Quarto = {
   <li><a href="#the-binomial-model" id="toc-the-binomial-model" class="nav-link" data-scroll-target="#the-binomial-model">The binomial model</a></li>
   <li><a href="#sigma-algebras-and-filtrations" id="toc-sigma-algebras-and-filtrations" class="nav-link" data-scroll-target="#sigma-algebras-and-filtrations"><span class="math inline">\(\sigma\)</span>-algebras and filtrations</a></li>
   <li><a href="#probability-measures" id="toc-probability-measures" class="nav-link" data-scroll-target="#probability-measures">Probability measures</a></li>
-  <li><a href="#arbitrage" id="toc-arbitrage" class="nav-link" data-scroll-target="#arbitrage">Arbitrage</a></li>
-  <li><a href="#equivalent-martingale-measures" id="toc-equivalent-martingale-measures" class="nav-link" data-scroll-target="#equivalent-martingale-measures">Equivalent martingale measures</a></li>
+  <li><a href="#l2-spaces" id="toc-l2-spaces" class="nav-link" data-scroll-target="#l2-spaces"><span class="math inline">\(L^2\)</span>-spaces</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -287,7 +266,11 @@ window.Quarto = {
     <div class="quarto-category">Probability theory</div>
     <div class="quarto-category">Measure theory</div>
     <div class="quarto-category">Stochastic processes</div>
-    <div class="quarto-category">Martingales</div>
+    <div class="quarto-category">Sigma-algebras</div>
+    <div class="quarto-category">Filtrations</div>
+    <div class="quarto-category">Conditional expectations</div>
+    <div class="quarto-category">Hilbert spaces</div>
+    <div class="quarto-category">Information theory</div>
     <div class="quarto-category">SigAlg</div>
     <div class="quarto-category">Python</div>
   </div>
@@ -383,7 +366,7 @@ S_0u = 130.00 \quad \text{or} \quad S_0d = 90.00.
 S_0u^2 = 169.00, \quad S_0ud = 117.00, \quad \text{or} \quad S_0d^2 = 81.00.
 \]</span></p>
 <p>All <span class="math inline">\(2^3=8\)</span> possible price trajectories may be displayed as paths in the following tree, with an upward sloping edge corresponding to an up move (multiplication by <span class="math inline">\(u\)</span>), and a downward sloping edge corresponding to a down move (multiplication by <span class="math inline">\(d\)</span>).</p>
-<div id="c007a7e4" class="cell" data-execution_count="2">
+<div id="65a07e66" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -397,7 +380,7 @@ S_0u^2 = 169.00, \quad S_0ud = 117.00, \quad \text{or} \quad S_0d^2 = 81.00.
 (u, u, d), \quad (u, d, u), \quad \text{and} \quad (d, u, u).
 \]</span></p>
 <p>Turning to SigAlg, a binomial model is represented as an instance of the <code>BinomialPricingModel</code> class. Such an object is built using the parameters identified above, along with a parameter called <code>risk_free_rate</code>. We shall have much more to say about this latter parameter below, but for now, we set it equal to some value and then ignore it.</p>
-<div id="1dba2f9d" class="cell" data-execution_count="3">
+<div id="58fa8173" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.finance <span class="im">import</span> BinomialPricingModel</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -423,7 +406,7 @@ S_0u^2 = 169.00, \quad S_0ud = 117.00, \quad \text{or} \quad S_0d^2 = 81.00.
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The class <code>BinomialPricingModel</code> is a subclass of SigAlg’s <code>StochasticProcess</code>, and as such, each binomial pricing model carries two methods to generate price trajectories, namely <code>from_enumeration</code> and <code>from_simulation</code>. The latter method generates Monte Carlo simulations of price trajectories, while the former exhaustively enumerates all trajectories. We invoke this first method, and use SigAlg’s interface with Matplotlib to visualize the trajectories:</p>
-<div id="0ded506f" class="cell" data-execution_count="4">
+<div id="a27f3dae" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>_, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -441,7 +424,7 @@ S_0u^2 = 169.00, \quad S_0ud = 117.00, \quad \text{or} \quad S_0d^2 = 81.00.
 </div>
 </div>
 <p>Notice that this printout is essentially the same as the binary tree displayed earlier, with four terminal prices. We can also print the price process itself:</p>
-<div id="8b96b198" class="cell" data-execution_count="5">
+<div id="db41174e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Stochastic process 'S':
@@ -458,7 +441,7 @@ trajectory
 </div>
 </div>
 <p>The printout shows the <span class="math inline">\(2^3 = 8\)</span> trajectories over the time period ending at <span class="math inline">\(T=3\)</span>, all beginning at the initial price <span class="math inline">\(S_0=100\)</span>. The trajectories are indexed by the set <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>, which serves as the domain of the process:</p>
-<div id="a67ee437" class="cell" data-execution_count="6">
+<div id="7793ab1e" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.domain)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample space 'Omega':
@@ -466,7 +449,7 @@ trajectory
 </div>
 </div>
 <p>The component random variables themselves <span class="math inline">\(S_t: \Omega \to \mathbb{R}\)</span> may be accessed via subscripting, which returns an instance of the <code>RandomVariable</code> class:</p>
-<div id="31394538" class="cell" data-execution_count="7">
+<div id="7c5c27be" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Print the random variable S_2</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].domain, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Check its domain</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(S[<span class="dv">2</span>]))  <span class="co"># Check its type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -490,7 +473,7 @@ Sample space 'Omega':
 </div>
 </div>
 <p>The cardinality of the sample space <span class="math inline">\(\Omega\)</span> is <span class="math inline">\(2^T\)</span>, which scales exponentially with the time horizon. Obviously, this means that exhaustive enumeration of price trajectories is infeasible for large <span class="math inline">\(T\)</span>. SigAlg provides two options that the user can leverage for longer time horizons. The first is to operate the <code>from_enumeration</code> method in <code>sparse</code> enumeration mode. This requires that the down-factor <span class="math inline">\(d\)</span> is equal to the reciprocal up-factor, <span class="math inline">\(d = 1/u\)</span>, so that the binary tree is <em>recombining</em>. We make this adjustment in the next code block, and plot the sparsely enumerated trajectories over the same time horizon <span class="math inline">\(T=3\)</span> as before:</p>
-<div id="7ff295b0" class="cell" data-execution_count="8">
+<div id="f56754d2" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>S.down_factor <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> u  <span class="co"># Reset the down-factor</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>S.from_enumeration(enum_mode<span class="op">=</span><span class="st">"sparse"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S)</span>
@@ -517,7 +500,7 @@ trajectory
 </div>
 <p>In <code>sparse</code> enumeration mode, the only price trajectories that are generated are those that consist first of a sequence entirely of down moves, followed by a sequence entirely of up moves. Every node/price in the binary tree is visited by one of these trajectories, and there are only <span class="math inline">\(T+1\)</span> of them, allowing one to generate all prices for large <span class="math inline">\(T\)</span>. One of the downsides—as we shall see in a later post—is that we cannot use a binomial model in <code>sparse</code> enumeration mode to price path-dependent contingent claims.</p>
 <p>The other option available to the user for longer time horizons is to use the <code>from_simulation</code> method mentioned above, which randomly samples price trajectories according to the real-world probability measure (see the next section). The following code block gives an example of its usage over a (slightly) longer time horizon <span class="math inline">\(T=10\)</span>:</p>
-<div id="2a9b186f" class="cell" data-execution_count="9">
+<div id="c54d11a1" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>S.time <span class="op">=</span> Time.discrete(length<span class="op">=</span>T)  <span class="co"># Set a longer time horizon</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>S.down_factor <span class="op">=</span> d  <span class="co"># Reset to the original down-factor</span></span>
@@ -538,9 +521,9 @@ trajectory
 </section>
 <section id="sigma-algebras-and-filtrations" class="level2">
 <h2 class="anchored" data-anchor-id="sigma-algebras-and-filtrations"><span class="math inline">\(\sigma\)</span>-algebras and filtrations</h2>
-<p>Every stochastic process <span class="math inline">\(S_t\)</span> is defined on an ambient probability space <span class="math inline">\((\Omega, \mathcal{F},P)\)</span>, where <span class="math inline">\(\mathcal{F}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra of events in the sample space <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(P\)</span> is a probability measure defined on <span class="math inline">\(\mathcal{F}\)</span>. To be clear, this means that each function <span class="math inline">\(S_t:\Omega \to \mathbb{R}\)</span> is a random variable on this probability space.</p>
+<p>Every stochastic process <span class="math inline">\(S_t\)</span> is defined on an ambient probability space <span class="math inline">\((\Omega, \mathcal{F},P)\)</span>, where <span class="math inline">\(\mathcal{F}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra of events in the sample space <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(P\)</span> is a probability measure defined on <span class="math inline">\(\mathcal{F}\)</span>. To be clear, this means that each function <span class="math inline">\(S_t:\Omega \to \mathbb{R}\)</span> is a random variable in the technical sense, i.e., each is <span class="math inline">\(\mathcal{F}\)</span>-measurable.</p>
 <p>For the binomial models <span class="math inline">\(S_t\)</span> considered in this post, SigAlg automatically constructs the underlying probability space <span class="math inline">\((\Omega,\mathcal{F},P)\)</span>. The sample space <span class="math inline">\(\Omega\)</span> was described above: It consists simply of a finite index set <span class="math inline">\(\Omega = \{0,1,\ldots,n\}\)</span> up to some non-negative integer <span class="math inline">\(n\)</span>. As an example, the sample space for our first binomial model from the previous section is displayed in the first column of the following printout:</p>
-<div id="1b395df0" class="cell" data-execution_count="10">
+<div id="14bcf41f" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>S.time <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -560,8 +543,8 @@ trajectory
 7           100   90.0   81.0   72.9</code></pre>
 </div>
 </div>
-<p>The sample space is <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> is (by default) the power set on <span class="math inline">\(\Omega\)</span>:</p>
-<div id="d310170d" class="cell" data-execution_count="12">
+<p>The sample space is <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra is the power set on <span class="math inline">\(\Omega\)</span>:</p>
+<div id="c6f31d41" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sigma algebra 'sigma(S)':
@@ -580,45 +563,167 @@ trajectory
 <p>To understand the printout, we recall that every <span class="math inline">\(\sigma\)</span>-algebra on a <em>finite</em> sample space <span class="math inline">\(\Omega\)</span> is determined by its <em>atoms</em>, which are the minimal non-empty events. The atoms <span class="math inline">\(\{A_i\}_{i\in I}\)</span> (indexed by some finite set <span class="math inline">\(I\)</span>) partition the sample space <span class="math display">\[
 \Omega = \bigcup_{i\in I} A_i.
 \]</span></p>
-<p>In SigAlg, <span class="math inline">\(\sigma\)</span>-algebras are represented by mappings <span class="math inline">\(\Omega \to I\)</span> from sample points <span class="math inline">\(\omega\)</span> to <em>atom identifiers</em> <span class="math inline">\(i\)</span>, where <span class="math inline">\(i\)</span> is the index of the unique atom <span class="math inline">\(A_i\)</span> that contains <span class="math inline">\(\omega\)</span>. In the printout above, the set <span class="math inline">\(I\)</span> of atom identifers is evidently the set of trajectories, and so the atoms of the default <span class="math inline">\(\sigma\)</span>-algebra are all eight singletons. In other words, the <span class="math inline">\(\sigma\)</span>-algebra is indeed the power set.</p>
+<p>In SigAlg, <span class="math inline">\(\sigma\)</span>-algebras are represented by mappings <span class="math inline">\(\Omega \to I\)</span> from sample points <span class="math inline">\(\omega\)</span> to <em>atom identifiers</em> <span class="math inline">\(i\)</span>, where <span class="math inline">\(i\)</span> is the index of the unique atom <span class="math inline">\(A_i\)</span> that contains <span class="math inline">\(\omega\)</span>. In the printout above, the set <span class="math inline">\(I\)</span> of atom identifers is evidently the set of trajectories themselves, and so the atoms of the default <span class="math inline">\(\sigma\)</span>-algebra are all eight singletons. In other words, the <span class="math inline">\(\sigma\)</span>-algebra is indeed the power set.</p>
 <p>Notice in the printout that the name of the default <span class="math inline">\(\sigma\)</span>-algebra is <span class="math inline">\(\sigma(S)\)</span>. The reader familiar with measure theory will recognize that this notation refers to the <span class="math inline">\(\sigma\)</span>-algebra <em>generated</em> by <span class="math inline">\(S\)</span>. In this context, we view the stochastic process as a <span class="math inline">\(4\)</span>-dimensional <em>random vector</em>:</p>
 <p><span class="math display">\[
 S: \Omega \to \mathbb{R}^4, \quad S(\omega) = (S_0(\omega),S_1(\omega), S_2(\omega), S_3(\omega)).
 \]</span></p>
-<p>Then <span class="math inline">\(S\)</span> (as a random vector) generates a <span class="math inline">\(\sigma\)</span>-algebra whose atoms are precisely its nonempty level sets:</p>
+<p>Reflecting this view as a random vector, stochastic processes in SigAlg are actually callable; for example:</p>
+<div id="52a26f34" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Feature vector of '2':
+          2
+time       
+0     100.0
+1     130.0
+2     117.0
+3     152.1</code></pre>
+</div>
+</div>
+<p>Note that this is precisely the trajectory <span class="math inline">\((S_0(2),S_1(2),S_2(2),S_3(2))\)</span> corresponding to the sample point <span class="math inline">\(2\in \Omega\)</span>.</p>
+<p>Now, <span class="math inline">\(S\)</span> (as a random vector) generates a <span class="math inline">\(\sigma\)</span>-algebra whose atoms are precisely its nonempty level sets:</p>
 <p><span class="math display">\[
 S^{-1}(s) = \{ \omega \in \Omega \mid S(\omega) = s \},
 \]</span></p>
 <p>for <span class="math inline">\(s\in \mathbb{R}^4\)</span>. Notice that these level sets are indeed naturally indexed by <span class="math inline">\(4\)</span>-tuples <span class="math inline">\(s\)</span>, i.e., trajectories of the stochastic process.</p>
-<div id="88fec4e4" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>S[<span class="dv">2</span>].sigma_algebra</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="431">
-<pre><code>Sigma algebra 'sigma(S_2)':
+<p>In a similar way, each component random variable <span class="math inline">\(S_t\)</span> of the stochastic process (and indeed <em>every</em> random variable in SigAlg) induces its own <span class="math inline">\(\sigma\)</span>-algebra, denoted <span class="math inline">\(\sigma(S_t)\)</span>. As an example, in the following code block we print the atom identifiers of the <span class="math inline">\(\sigma\)</span>-algebra generated by the terminal price <span class="math inline">\(S_3\)</span>:</p>
+<div id="95698835" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">3</span>].sigma_algebra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra 'sigma(S_3)':
             atom ID
 trajectory         
-0             169.0
-1             169.0
-2             117.0
-3             117.0
-4             117.0
-5             117.0
-6              81.0
-7              81.0</code></pre>
+0             219.7
+1             152.1
+2             152.1
+3             105.3
+4             152.1
+5             105.3
+6             105.3
+7              72.9</code></pre>
 </div>
 </div>
+<p>Notice again that the atom identifiers are the values <span class="math inline">\(S_3(\omega)\)</span> of <span class="math inline">\(S_3\)</span> itself, reflecting the fact that the atoms are the nonempty level sets:</p>
+<p><span class="math display">\[
+S_3^{-1}(s) = \{\omega \in \Omega \mid S_3(\omega) = s\},
+\]</span></p>
+<p>for <span class="math inline">\(s\in \mathbb{R}\)</span>.</p>
+<p>The power set <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(S)\)</span> shown above has the full trajectories of the stochastic process as its atom identifiers—but one can also use the “partial trajectories” as atom identifiers to construct <span class="math inline">\(\sigma\)</span>-algebras. In fact, this leads to a <em>filtration</em> of the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(S)\)</span>, which is a nested sequence of the form</p>
+<p><span class="math display">\[
+\mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3 = \sigma(S),
+\]</span></p>
+<p>indexed over the same time horizon <span class="math inline">\(T=3\)</span>. In this particular case, with the partial trajectories as atom identifiers, we obtain the so-called <em>natural filtration</em> of the stochastic process. It is accessible via the corresponding attribute:</p>
+<div id="7c498756" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> S.natural_filtration</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Filtration (Ft)
+===============
+
+* Time 'T':
+[0, 1, 2, 3]
+
+* At time 0:
+Sigma algebra '0':
+            atom ID
+trajectory         
+0               100
+1               100
+2               100
+3               100
+4               100
+5               100
+6               100
+7               100
+
+* At time 1:
+Sigma algebra '1':
+                   atom ID
+trajectory                
+0           (100.0, 130.0)
+1           (100.0, 130.0)
+2           (100.0, 130.0)
+3           (100.0, 130.0)
+4            (100.0, 90.0)
+5            (100.0, 90.0)
+6            (100.0, 90.0)
+7            (100.0, 90.0)
+
+* At time 2:
+Sigma algebra '2':
+                          atom ID
+trajectory                       
+0           (100.0, 130.0, 169.0)
+1           (100.0, 130.0, 169.0)
+2           (100.0, 130.0, 117.0)
+3           (100.0, 130.0, 117.0)
+4            (100.0, 90.0, 117.0)
+5            (100.0, 90.0, 117.0)
+6             (100.0, 90.0, 81.0)
+7             (100.0, 90.0, 81.0)
+
+* At time 3:
+Sigma algebra '3':
+                                 atom ID
+trajectory                              
+0           (100.0, 130.0, 169.0, 219.7)
+1           (100.0, 130.0, 169.0, 152.1)
+2           (100.0, 130.0, 117.0, 152.1)
+3           (100.0, 130.0, 117.0, 105.3)
+4            (100.0, 90.0, 117.0, 152.1)
+5            (100.0, 90.0, 117.0, 105.3)
+6             (100.0, 90.0, 81.0, 105.3)
+7              (100.0, 90.0, 81.0, 72.9)</code></pre>
+</div>
+</div>
+<p>The printout shows the time index and the four <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{F}_t\)</span> (for <span class="math inline">\(t=0,1,2,3\)</span>). Notice that <span class="math inline">\(\mathcal{F}_3\)</span> coincides with <span class="math inline">\(\sigma(S)\)</span>, and that <span class="math inline">\(\mathcal{F}_0\)</span> is the <em>trivial <span class="math inline">\(\sigma\)</span>-algebra</em> whose only atom is the whole sample space <span class="math inline">\(\Omega\)</span> itself. Notice also that the atom identifiers of <span class="math inline">\(\mathcal{F}_t\)</span> are the length-<span class="math inline">\(t\)</span> partial trajectories. So, two sample points <span class="math inline">\(\omega,\omega'\in\Omega\)</span> are in the same atom of <span class="math inline">\(\mathcal{F}_t\)</span> if and only if the full trajectories that they correspond to agree at all times up to (and including) time <span class="math inline">\(t\)</span>, i.e.,</p>
+<p><span id="eq-partial-traj"><span class="math display">\[
+S_r(\omega) = S_r(\omega')
+\tag{4}\]</span></span></p>
+<p>for each <span class="math inline">\(r\leq t\)</span>. In view of (<a href="#eq-partial-traj" class="quarto-xref">4</a>), the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_t\)</span> is often written as</p>
+<p><span class="math display">\[
+\mathcal{F}_t = \sigma( S_0, S_1, \ldots, S_t),
+\]</span></p>
+<p>and it is called the <span class="math inline">\(\sigma\)</span>-algebra <em>generated</em> by the random variables <span class="math inline">\(S_0,S_1,\ldots, S_t\)</span>.</p>
+<p>The natural filtration is represented in SigAlg as an instance of the <code>Filtration</code> class. As such, it is subscriptable, allowing us to access the component <span class="math inline">\(\sigma\)</span>-algebras:</p>
+<div id="81cdfb12" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(F[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra '1':
+                   atom ID
+trajectory                
+0           (100.0, 130.0)
+1           (100.0, 130.0)
+2           (100.0, 130.0)
+3           (100.0, 130.0)
+4            (100.0, 90.0)
+5            (100.0, 90.0)
+6            (100.0, 90.0)
+7            (100.0, 90.0)</code></pre>
+</div>
+</div>
+<p>Finally, note that the “information” encoded in the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_t\)</span> only allows to distinguish between trajectories based on their paths up to time <span class="math inline">\(t\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_t\)</span> cannot “see into the future” beyond time <span class="math inline">\(t\)</span>. At one end of the time interval, <span class="math inline">\(\mathcal{F}_0\)</span> has only one atom, and so it cannot be used to distinguish between <em>any</em> of the trajectories. At the other end, <span class="math inline">\(\mathcal{F}_3\)</span> corresponds to the power set <span class="math inline">\(\sigma\)</span>-algebra, and so it contains enough information to distinguish between <em>all</em> of the trajectories.</p>
 </section>
 <section id="probability-measures" class="level2">
 <h2 class="anchored" data-anchor-id="probability-measures">Probability measures</h2>
-<p>Using the real-world probability <span class="math inline">\(p=0.7\)</span>, we define a probability measure <span class="math inline">\(P\)</span> on the sample space <span class="math inline">\(\Omega = \{0,1,\ldots,7\}\)</span> by setting</p>
+<p>Having described the sample space <span class="math inline">\(\Omega\)</span> and the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> underlying our binomial model, we now turn to the probability measure <span class="math inline">\(P\)</span>. This will complete our description of the full probability space <span class="math inline">\((\Omega, \mathcal{F},P)\)</span>.</p>
+<p>Recall that our model was instantiated with a real-world probability <span class="math inline">\(p=0.7\)</span>, which was the probability that the driving process takes the value <span class="math inline">\(Z_t=u\)</span>, where <span class="math inline">\(u\)</span> is the up-factor. This probability is accessible via the <code>up_prob</code> attribute:</p>
+<div id="3bc15ce6" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.up_prob)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.7</code></pre>
+</div>
+</div>
+<p>Using the real-world probability <span class="math inline">\(p\)</span>, we define a discrete probability measure <span class="math inline">\(P\)</span> on the sample space by setting</p>
 <p><span class="math display">\[
 P(\{\omega\}) = p^k (1-p)^{T-k}
 \]</span></p>
-<p>for each <span class="math inline">\(\omega\in \Omega\)</span>, provided that <span class="math inline">\(\omega\)</span> corresponds to a trajectory with <span class="math inline">\(k\)</span> up moves and <span class="math inline">\(T-k\)</span> down moves. This probability measure is accessible using the <code>probability_measure</code> attribute of the binomial model, which returns an instance of SigAlg’s <code>ProbabilityMeasure</code> class:</p>
-<div id="c5e44172" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> S.probability_measure</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(P, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Print the measure</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(P))  <span class="co"># Check its type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>for each <span class="math inline">\(\omega\in \Omega\)</span>, provided that <span class="math inline">\(\omega\)</span> corresponds to a trajectory with <span class="math inline">\(k\)</span> up moves and <span class="math inline">\(T-k\)</span> down moves. (Recall <span class="math inline">\(T\)</span> is the time horizon.) This probability measure is accessible using the <code>probability_measure</code> attribute of the binomial model, which returns an instance of SigAlg’s <code>ProbabilityMeasure</code> class:</p>
+<div id="1200df11" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> S.probability_measure</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(P, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># Print the measure</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(P))  <span class="co"># Check its type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probability measure 'P':
             probability
@@ -636,8 +741,8 @@ trajectory
 </div>
 </div>
 <p>For easy comparison, we can print the probabilities next to the trajectories:</p>
-<div id="9da9fd64" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>S.print_trajectories_and_probabilities()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a117fda8" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>S.print_trajectories_and_probabilities()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              0      1      2      3  probability
 trajectory                                       
@@ -651,16 +756,28 @@ trajectory
 7           100   90.0   81.0   72.9        0.027</code></pre>
 </div>
 </div>
-<p>In the mathematical theory, probability measures are supposed to be defined only on the events inside a <span class="math inline">\(\sigma\)</span>-algebra on the sample space <span class="math inline">\(\Omega\)</span>; but in SigAlg, we do <em>not</em> enforce this requirement. In particular, a probability measure may be treated like a probability mass function, and evaluated on sample points <span class="math inline">\(\omega \in \Omega\)</span>:</p>
-<div id="3fd29699" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(P(<span class="dv">3</span>), <span class="dv">3</span>))  <span class="co"># Print the probability P(3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Thus, we see that the probability of the event <span class="math inline">\(A = \{0,7\}\)</span> is</p>
+<p><span class="math display">\[
+P(A) = 0.7^3 +0.3^3  = 0.37.
+\]</span></p>
+<p>We may perform the same computation in SigAlg:</p>
+<div id="c6b3fbf0" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> S.domain.get_event([<span class="dv">0</span>, <span class="dv">7</span>])  <span class="co"># A is an `Event` object</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(P(A), <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.063</code></pre>
+<pre><code>0.37</code></pre>
 </div>
 </div>
-<p>The component random variables of the process inherit the same probability measure. For example, we can check the probability measure of the random variable <span class="math inline">\(S_2:\Omega \to \mathbb{R}\)</span> by accessing its <code>probability_measure</code> attribute:</p>
-<div id="73039454" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].probability_measure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Probability measures in SigAlg may also be treated like probability mass functions and called directly on sample points:</p>
+<div id="df89dd1e" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(P(<span class="dv">0</span>) <span class="op">+</span> P(<span class="dv">7</span>), <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.37</code></pre>
+</div>
+</div>
+<p>When we extract component random variables, we inherit the probability measure. For example:</p>
+<div id="0ea1ce76" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">3</span>].probability_measure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probability measure 'P':
             probability
@@ -675,117 +792,288 @@ trajectory
 7                 0.027</code></pre>
 </div>
 </div>
-<p>As we learned in our first course on probability theory, every random variable induces a <em>pushforward</em> (or <em>image</em>) <em>probability measure</em>. In the case of the component random variable <span class="math inline">\(S_2\)</span>, this is the discrete measure <span class="math inline">\(P_{S_2}\)</span> on <span class="math inline">\(\mathbb{R}\)</span> defined by</p>
+<p>As we learned in our first course on probability theory, every random variable induces a <em>pushforward</em> (or <em>image</em>) <em>probability measure</em> on its range. In the case of the component random variable <span class="math inline">\(S_3\)</span>, this is the discrete measure <span class="math inline">\(P_{S_3}\)</span> on <span class="math inline">\(\mathbb{R}\)</span> defined by</p>
 <p><span class="math display">\[
-P_{S_2}(\{s\}) = P\left( \{\omega \in \Omega \mid S_2(\omega)=s\}\right),
+P_{S_3}(\{s\}) = P\left( \{\omega \in \Omega \mid S_3(\omega)=s\}\right),
 \]</span></p>
-<p>for each <span class="math inline">\(s\in \mathbb{R}\)</span>. The support of this measure is the range of <span class="math inline">\(S_2\)</span>, namely, the three-element set <span class="math inline">\(\{169.00, 117.00, 81.00\}\)</span>. To obtain the pushforward measure <span class="math inline">\(P_{S_2}\)</span> in SigAlg, we call the <code>pushforward</code> method:</p>
-<div id="f54cb2b0" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>S[<span class="dv">2</span>].pushforward()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="436">
-<pre><code>Probability measure 'P_S_2':
+<p>for each <span class="math inline">\(s\in \mathbb{R}\)</span>. The support of this measure is the range of <span class="math inline">\(S_3\)</span>, namely, the set of final prices <span class="math inline">\(\{72.90, 105.30, 152.10, 219.70\}\)</span>. To obtain the pushforward measure <span class="math inline">\(P_{S_3}\)</span> in SigAlg, we call the <code>pushforward</code> method:</p>
+<div id="e26e50fd" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>S[<span class="dv">3</span>].pushforward()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>Probability measure 'P_S_3':
         probability
 output             
-81.0           0.09
-117.0          0.42
-169.0          0.49</code></pre>
+72.9          0.027
+105.3         0.189
+152.1         0.441
+219.7         0.343</code></pre>
 </div>
 </div>
 </section>
-<section id="arbitrage" class="level2">
-<h2 class="anchored" data-anchor-id="arbitrage">Arbitrage</h2>
-<p>In finance, the word <em>arbitrage</em> refers to an opportunity to turn a profit with no risk of loss. (More precisely, the probability of loss is <span class="math inline">\(0\)</span>.) The types of arbitrage relevant to our discussion in this post seek to exploit the relative “mispricing” of two assets in the market. While from an investor’s point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies. In this short section, we seek conditions on binomial pricing models in order to avoid arbitrages.</p>
-<p>So, we begin with two assets. One of them is like any of the assets we have discussed so far in this post, while the other is assumed to be <em>risk-less</em>, in the sense that its price process is fully deterministic. Specifically, we suppose that there is a positive real number <span class="math inline">\(r\)</span>, called the <em>risk-free rate</em>, such that an amount <span class="math inline">\(B_t\)</span> invested in the asset at time <span class="math inline">\(t\)</span> will evolve to <span class="math inline">\((1+r)B_t\)</span> at time <span class="math inline">\(t+1\)</span>. For example, we might imagine that <span class="math inline">\(B_t\)</span> measures a cash position held in a bank that earns per-period interest at rate <span class="math inline">\(r\)</span>. (The rate <span class="math inline">\(r\)</span> is assumed constant in time.) Crucially, we assume not only that we can hold cash in the bank, but that we can also borrow from the bank at the same rate. The difference between the two is signified by positive <span class="math inline">\(B_t\)</span> (holding cash in the bank, earning interest at rate <span class="math inline">\(r\)</span>) versus negative <span class="math inline">\(B_t\)</span> (borrowing from the bank, paying interest at rate <span class="math inline">\(r\)</span>). For future convenience, we set <span class="math inline">\(R=1+r\)</span>, called the <em>risk-free gross return</em>.</p>
-<p>Now, assume that we hold a cash position in the bank, as well as either a short or long position in the other asset, which we assume has price process <span class="math inline">\(S_t\)</span>, measured in USD per unit (for example). Then at each time <span class="math inline">\(t\geq 0\)</span>, our two-asset portfolio would be valued at</p>
-<p><span id="eq-portfolio-value"><span class="math display">\[
-V_t = B_t + S_t \Delta_t,
-\tag{4}\]</span></span></p>
-<p>where <span class="math inline">\(\Delta_t\)</span> is the number of units of the asset held with price process <span class="math inline">\(S_t\)</span>. A positive value of <span class="math inline">\(\Delta_t\)</span> represents a long position, while a negative value represents a short position. One time period later, the value of our portfolio will evolve to</p>
-<p><span id="eq-evolved-portfolio"><span class="math display">\[
-R B_t + S_{t+1} \Delta_t.
+<section id="l2-spaces" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="l2-spaces"><span class="math inline">\(L^2\)</span>-spaces</h2>
+<div class="page-columns page-full"><p>The collection of all random variables on the probability space <span class="math inline">\((\Omega, \sigma(S), P)\)</span> underlying our binomial model constitute a finite-dimensional real vector space denoted <span class="math inline">\(L^2(\Omega,\sigma(S),P)\)</span>. Here, by a random variable “on the probability space,” we mean that each random variable must be <span class="math inline">\(\sigma(S)\)</span>-measurable. And, actually, in the general mathematical theory a function <span class="math inline">\(X: \Omega \to \mathbb{R}\)</span> must also be such that</p><div class="no-row-height column-margin column-container"><span class="margin-aside">If the reader recalls, <span class="math inline">\(\sigma(S)\)</span> is the power set <span class="math inline">\(\sigma\)</span>-algebra, and so <em>every</em> function on <span class="math inline">\(\Omega\)</span> is <span class="math inline">\(\sigma(S)\)</span>-measurable. But we will see examples below of <span class="math inline">\(L^2\)</span>-spaces built from coarser <span class="math inline">\(\sigma\)</span>-algebras, so we still prefer to explicitly state this condition.</span></div></div>
+<p><span id="eq-square-integrable"><span class="math display">\[
+\int_\Omega X^2 \, dP &lt; \infty
 \tag{5}\]</span></span></p>
-<p>Relative to the cash position, the second asset is assumed to be <em>risky</em> (for example, an equity asset). This “risk-less vs.&nbsp;risky” difference has ramifications if, for example, we attempt to model <span class="math inline">\(S_t\)</span> using a binomial model and avoid arbitrage. Specifically, suppose that such a binomial model has up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one, in compensation for bearing risk. Thus, we would expect at least that <span class="math inline">\(R \leq u\)</span>. But, the risk-free gross return <span class="math inline">\(R\)</span> cannot be so small that <span class="math inline">\(R&lt;d\)</span>, for otherwise an arbitrage appears. Indeed, if <span class="math inline">\(R&lt;d\)</span>, then at time <span class="math inline">\(t\)</span> we could borrow <span class="math inline">\(S_t\)</span> from the bank (so that <span class="math inline">\(B_t = -S_t\)</span>) and then purchase one unit of the risky asset (so that <span class="math inline">\(\Delta_t=1\)</span>). Then our portfolio is valued at <span class="math inline">\(V_t=0\)</span> at the time of transaction, representing no initial net outlay of capital, while the value of the portfolio will evolve to</p>
+<p>in order to be in the <span class="math inline">\(L^2\)</span>-space, in addition to measurability. However, all sample spaces in SigAlg are finite and probability measures are discrete, so the Lebesgue integral above turns into a finite sum:</p>
 <p><span class="math display">\[
-R B_t + S_{t+1} \Delta_t = -RS_t + S_{t+1} \geq S_t(d-R) &gt;0
+\int_\Omega X^2 \, dP = \sum_{\omega \in \Omega} X(\omega)^2P(\{\omega\}).
 \]</span></p>
-<p>one time period later. This is an arbitrage, and in order to avoid it, we must assume that <span class="math inline">\(R\geq d\)</span>.</p>
-<p>Similarly, while it is natural to assume that <span class="math inline">\(R\leq u\)</span> based on considerations of risk, we can confirm mathematically that if this were <em>not</em> true, then another aribtrage presents itself. For if <span class="math inline">\(R&gt;u\)</span>, then at time <span class="math inline">\(t\)</span> we could short one unit of the risky asset (so that <span class="math inline">\(\Delta_t=-1\)</span>) and invest the proceeds in the bank (so that <span class="math inline">\(B_t = S_t\)</span>). Again, our portfolio would be valued at <span class="math inline">\(V_t=0\)</span> at the time of transaction, while one time period later its value will evolve to</p>
+<p>But the right-hand side is always <span class="math inline">\(&lt;\infty\)</span> in SigAlg, and hence this extra condition (<a href="#eq-square-integrable" class="quarto-xref">5</a>) is superfluous.</p>
+<p>As the experienced reader knows, elements in an <span class="math inline">\(L^2\)</span>-space are often taken to be equivalence classes of random variables, where the equivalence relation is given by <em>almost sure equality</em>, meaning that two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are identified in the <span class="math inline">\(L^2\)</span>-space if they are equal everywhere except on an event of probability <span class="math inline">\(0\)</span>. However, in SigAlg, elements in an <span class="math inline">\(L^2\)</span>-space are actual random variables. For an example, let’s build the <span class="math inline">\(L^2\)</span>-space</p>
 <p><span class="math display">\[
-RB_t + S_{t+1} \Delta_t = RS_t - S_{t+1} \geq S_t(R- u) &gt;0.
+H = L^2(\Omega, \sigma(S),P)
 \]</span></p>
-<p>This is another arbitrage, and so we must assume <span class="math inline">\(R \leq u\)</span>.</p>
-<p>Logically speaking, our arguments above show that, if there are no arbitrages in the binomial model, then we must have</p>
-<p><span id="eq-no-arbitrage"><span class="math display">\[
-d \leq R \leq u.
-\tag{6}\]</span></span></p>
-<p>Interestingly, the converse is also true, which leads us to our first glimpse of one of the foundational results in mathematical finance:</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="thm-no-arb" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (First Fundamental Theorem of Asset Pricing — Binomial Model, v.1)</strong></span> The inequalites (<a href="#eq-no-arbitrage" class="quarto-xref">6</a>) are equivalent to the absence of arbitrages in the binomial model.</p>
-</div>
-</div>
+<p>using the probability space from our binomial pricing model:</p>
+<div id="0eeb4e88" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.l2 <span class="im">import</span> L2</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> L2(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    sample_space<span class="op">=</span>S.domain,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    sigma_algebra<span class="op">=</span>S.sigma_algebra,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    probability_measure<span class="op">=</span>S.probability_measure,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that S_3 is in H, for example</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">3</span>] <span class="kw">in</span> H)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True</code></pre>
 </div>
 </div>
-<p>With the theorem as justification, the inequalities (<a href="#eq-no-arbitrage" class="quarto-xref">6</a>) together are called the <em>no-arbitrage condition</em>. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in <span class="citation" data-cites="Bjork2020">[<a href="#ref-Bjork2020" role="doc-biblioref">1</a>]</span>).</p>
-</section>
-<section id="equivalent-martingale-measures" class="level2">
-<h2 class="anchored" data-anchor-id="equivalent-martingale-measures">Equivalent martingale measures</h2>
-<p>The statement of the Fundamental Theorem of Asset Pricing (in <a href="#thm-no-arb" class="quarto-xref">Theorem&nbsp;1</a>) is referred to as “version 1”. In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called <em>equivalent martingale measures</em>.</p>
-<p>By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount <span class="math inline">\(B_0\)</span> at time <span class="math inline">\(t=0\)</span>, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time <span class="math inline">\(t\)</span>, say <span class="math inline">\(B_t\)</span>, then we know the balance one time period later:</p>
+<p>The Lebesgue integral</p>
 <p><span class="math display">\[
-B_{t+1} = RB_t,
+\int_A X \, dP = \sum_{\omega \in A} X(\omega) P(\{\omega\})
 \]</span></p>
-<p>where <span class="math inline">\(R\)</span> is the risk-free gross return. Reciprocally, the current balance is the <em>present value</em> of the future balance, i.e.,</p>
-<p><span id="eq-pv-bank"><span class="math display">\[
-B_t = \frac{1}{R} B_{t+1}.
-\tag{7}\]</span></span></p>
-<p>So, given the current balance <span class="math inline">\(B_t\)</span> at time <span class="math inline">\(t\)</span>, <em>we know for certain what the balance will be one period into the future.</em> We ask: Is there something analogous that we could say about the price process <span class="math inline">\(S_t\)</span> of the risky asset?</p>
-<p>Working toward an answer to this question, suppose that a time <span class="math inline">\(t\)</span> is fixed, and that we observe the current price <span class="math inline">\(S_t\)</span> of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price <span class="math inline">\(S_{t+1}\)</span> with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> is the best approximation of <span class="math inline">\(S_{t+1}\)</span>, given <span class="math inline">\(S_t\)</span>, in the sense that it is the closest <span class="math inline">\(\sigma(S_t)\)</span>-measurable random variable to <span class="math inline">\(S_{t+1}\)</span> in mean squared error. So, with the expectation in place of <span class="math inline">\(S_{t+1}\)</span>, and taking the time value of money into account, we then wonder if something analogous to (<a href="#eq-pv-bank" class="quarto-xref">7</a>) holds—something like</p>
-<p><span id="eq-wrong"><span class="math display">\[
-S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
-\tag{8}\]</span></span></p>
-<p>However, this obviously cannot hold, because the expectation is discounted via <span class="math inline">\(R=1+r\)</span>, which is built from the risk-free rate <span class="math inline">\(r\)</span>. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.</p>
-<p>Now, nothing has been mentioned so far about the dynamics of the price process <span class="math inline">\(S_t\)</span>. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> carefully, in the case that we use a binomial model with up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>, respectively, and real-world probability <span class="math inline">\(p\)</span>. We suppose that <span class="math inline">\(\Omega\)</span> is the sample space underlying the random variables <span class="math inline">\(S_t\)</span>, and that <span class="math inline">\(P\)</span> is the corresponding real-world measure on <span class="math inline">\(\Omega\)</span> built from <span class="math inline">\(p\)</span>. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula</p>
+<p>of a random variable <span class="math inline">\(X\in H\)</span> over an event <span class="math inline">\(A\in \sigma(S)\)</span> is computable in SigAlg through an instance method of the <code>L2</code> class. For example, in the next code block we print out the trajectories of our binomial model along with the probability measure, and then compute <span class="math inline">\(\int_A S_3 \, dP\)</span>, where <span class="math inline">\(A = \{0,3\}\)</span>:</p>
+<div id="f0160b2f" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>S.print_trajectories_and_probabilities()</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> S.domain.get_event([<span class="dv">0</span>, <span class="dv">3</span>])</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>integral <span class="op">=</span> H.integrate(rv<span class="op">=</span>S[<span class="dv">3</span>], event<span class="op">=</span>A)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The integral is"</span>, <span class="bu">round</span>(integral, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              0      1      2      3  probability
+trajectory                                       
+0           100  130.0  169.0  219.7        0.343
+1           100  130.0  169.0  152.1        0.147
+2           100  130.0  117.0  152.1        0.147
+3           100  130.0  117.0  105.3        0.063
+4           100   90.0  117.0  152.1        0.147
+5           100   90.0  117.0  105.3        0.063
+6           100   90.0   81.0  105.3        0.063
+7           100   90.0   81.0   72.9        0.027
+The integral is 81.991</code></pre>
+</div>
+</div>
+<p>The <code>event</code> parameter of the <code>integrate</code> method is optional; if it is omitted, then the event defaults to the entire sample space <span class="math inline">\(A=\Omega\)</span>, and the Lebesgue integral is the expectation:</p>
 <p><span class="math display">\[
-P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
+E(X) = \int_\Omega X \, dP.
 \]</span></p>
-<p>for <span class="math inline">\(k=0,1,\ldots,t\)</span>. The <span class="math inline">\(\sigma\)</span>-algebra generated by <span class="math inline">\(S_t\)</span>, namely <span class="math inline">\(\sigma(S_t)\)</span>, has <span class="math inline">\(t+1\)</span> atoms given by the sets</p>
+<p>In SigAlg:</p>
+<div id="5d615ed9" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>expectation <span class="op">=</span> H.integrate(rv<span class="op">=</span>S[<span class="dv">3</span>])</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The expectation is"</span>, <span class="bu">round</span>(expectation, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The expectation is 164.303</code></pre>
+</div>
+</div>
+<p>Alternatively, the expectation may be computed via the <code>expectation</code> method on the random variable itself; however, this method returns an instance of the <code>RandomVariable</code> class, and not a number:</p>
+<div id="32eafc67" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>expectation_rv <span class="op">=</span> S[<span class="dv">3</span>].expectation()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(expectation_rv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable 'E(S_3)':
+              E(S_3)
+trajectory          
+0           164.3032
+1           164.3032
+2           164.3032
+3           164.3032
+4           164.3032
+5           164.3032
+6           164.3032
+7           164.3032</code></pre>
+</div>
+</div>
+<p>Note that this is the <em>constant</em> random variable whose unique value is equal to the expectation computed via the integral. The reason that this method yields a random variable is to make it consistent with <em>conditional</em> expectations <span class="math inline">\(E(X\mid \mathcal{F})\)</span> as random variables, where <span class="math inline">\(\mathcal{F}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra contained in <span class="math inline">\(\sigma(S)\)</span>; see below. The unconditional expectation <span class="math inline">\(E(X)\)</span> is then obtained as the unique value of the random variable <span class="math inline">\(E(X \mid \{\emptyset, \Omega\})\)</span>, where the latter expectation is conditioned on the trivial <span class="math inline">\(\sigma\)</span>-algebra.</p>
+<p>The theoretical interest in <span class="math inline">\(L^2\)</span>-spaces stems primarily from the rich mathematical structure that they carry—indeed, they are examples of <em>Hilbert spaces</em> when equipped with the inner product given by:</p>
 <p><span class="math display">\[
-A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
+\langle X, Y \rangle = \int_{\Omega} XY \, dP = \sum_{\omega \in \Omega} X(\omega)Y(\omega)P(\{\omega\}).
 \]</span></p>
-<p>The vector space <span class="math inline">\(L^2(\Omega, \sigma(S_t), P)\)</span> then has a finite orthonormal basis given by the normalized indicator functions</p>
+<p>This inner product is implemented in SigAlg as an instance method of the <code>L2</code> class:</p>
+<div id="ef507776" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the inner product of the random variables S_1 and S_2</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>inner_product <span class="op">=</span> H.inner(S[<span class="dv">1</span>], S[<span class="dv">2</span>])</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(inner_product, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>16826.8</code></pre>
+</div>
+</div>
+<p>The induced norm of a random variable is defined by the equation</p>
 <p><span class="math display">\[
-\frac{I_{A_k}}{\sqrt{P(A_k)}},
+\|X\|^2 = \langle X, X \rangle.
 \]</span></p>
-<p>one for each <span class="math inline">\(k=0,1,\ldots,t\)</span>. Thus, the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> is given by its generalized Fourier series:</p>
+<p>This too is computable in SigAlg:</p>
+<div id="8739d56a" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the norm of the random variable S_1</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> H.norm(S[<span class="dv">1</span>])</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(norm, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>119.415</code></pre>
+</div>
+</div>
+<p>A basis for the vector space <span class="math inline">\(H\)</span> is given by the set of indicator functions of the atoms of <span class="math inline">\(\sigma(S)\)</span>. But recall that <span class="math inline">\(\sigma(S)\)</span> is the power set and <span class="math inline">\(\Omega\)</span> has cardinality <span class="math inline">\(8\)</span>; therefore, the <span class="math inline">\(L^2\)</span>-space has dimension <span class="math inline">\(8\)</span>:</p>
+<div id="bc3ade2e" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(H.dim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>8</code></pre>
+</div>
+</div>
+<p>An orthogonal basis of <span class="math inline">\(H\)</span> is given by the collection of indicator functions <span class="math inline">\(I_A:\Omega \to \mathbb{R}\)</span> of the atoms <span class="math inline">\(A\)</span> of the <span class="math inline">\(\sigma\)</span>-algebra, where</p>
 <p><span class="math display">\[
-E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
+I_A(\omega) = \begin{cases}
+1 &amp; : \omega \in A, \\
+0 &amp; : \omega \notin A.
+\end{cases}
 \]</span></p>
-<p>For each <span class="math inline">\(k=0,1,\ldots,t\)</span>, write <span class="math inline">\(s_k = S_0 u^k d^{t-k}\)</span>, for brevity. Then, we have</p>
+<p>So, an orthonormal basis of <span class="math inline">\(H\)</span> is given by the normalized indicator functions:</p>
 <p><span class="math display">\[
-\begin{align*}
-\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &amp;= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
-&amp;= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
-\end{align*}
+\frac{I_A}{\|I_A\|} = \frac{1}{\sqrt{P(A)}} I_A,
 \]</span></p>
+<p>where <span class="math inline">\(A\)</span> varies over all atoms of <span class="math inline">\(\sigma(S)\)</span>.</p>
+<p>The same types of orthnormal bases exist if we change the <span class="math inline">\(\sigma\)</span>-algebra of the <span class="math inline">\(L^2\)</span>-space. For example, let’s recall the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_1\)</span> from the previous section, with two atoms:</p>
+<div id="b1f05b8f" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(F[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sigma algebra '1':
+                   atom ID
+trajectory                
+0           (100.0, 130.0)
+1           (100.0, 130.0)
+2           (100.0, 130.0)
+3           (100.0, 130.0)
+4            (100.0, 90.0)
+5            (100.0, 90.0)
+6            (100.0, 90.0)
+7            (100.0, 90.0)</code></pre>
+</div>
+</div>
+<p>We define a second <span class="math inline">\(L^2\)</span>-space</p>
+<p><span class="math display">\[
+G = L^2(\Omega, \mathcal{F}_1, P)
+\]</span></p>
+<p>using this <span class="math inline">\(\sigma\)</span>-algebra:</p>
+<div id="236e55a8" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> L2(</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    sample_space<span class="op">=</span>S.domain,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    sigma_algebra<span class="op">=</span>F[<span class="dv">1</span>],</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    probability_measure<span class="op">=</span>S.probability_measure,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Since <span class="math inline">\(\mathcal{F}_1\)</span> has only two atoms, the orthonormal basis of <span class="math inline">\(G\)</span> described above consists of only two functions; they are accessible via the <code>basis</code> attribute, which returns a dictionary whose values are the normalized indicator functions:</p>
+<div id="fde635da" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>G_basis <span class="op">=</span> <span class="bu">list</span>(G.basis.values())</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> indicator <span class="kw">in</span> G_basis:</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(indicator)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable '(100.0, 130.0)':
+            (100.0, 130.0)
+trajectory                
+0                 1.195229
+1                 1.195229
+2                 1.195229
+3                 1.195229
+4                 0.000000
+5                 0.000000
+6                 0.000000
+7                 0.000000
+Random variable '(100.0, 90.0)':
+            (100.0, 90.0)
+trajectory               
+0                0.000000
+1                0.000000
+2                0.000000
+3                0.000000
+4                1.825742
+5                1.825742
+6                1.825742
+7                1.825742</code></pre>
+</div>
+</div>
+<p>Note that the names of the random variables are the atom identifiers, i.e., the partial trajectories of length <span class="math inline">\(1\)</span>.</p>
+<p>Now, because <span class="math inline">\(\mathcal{F}_1\)</span> is a sub-<span class="math inline">\(\sigma\)</span>-algebra of <span class="math inline">\(\sigma(S)\)</span>, the vector space <span class="math inline">\(G\)</span> is a subspace of <span class="math inline">\(H\)</span>. In particular, the orthonormal basis of <span class="math inline">\(G\)</span> identified above is an orthonormal set in <span class="math inline">\(H\)</span>. Therefore, given a random variable <span class="math inline">\(X\in H\)</span>, its orthogonal projection <span class="math inline">\(\widehat{X}\)</span> onto <span class="math inline">\(G\)</span> is given by the familiar generalized Fourier expansion:</p>
+<p><span class="math display">\[
+\widehat{X} = \langle X, \phi_1 \rangle \phi_1 + \langle X, \phi_2 \rangle \phi_2,
+\]</span></p>
+<p>where <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> are the basis elements of <span class="math inline">\(G\)</span>. For example, in SigAlg we may use this <em>exact</em> formula to compute the orthogonal projection of <span class="math inline">\(S_3\)</span> onto <span class="math inline">\(G\)</span>:</p>
+<div id="2cb1035b" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>S_3_hat <span class="op">=</span> <span class="bu">sum</span>(H.inner(S[<span class="dv">3</span>], phi) <span class="op">*</span> phi <span class="cf">for</span> phi <span class="kw">in</span> G_basis)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S_3_hat.with_name(<span class="st">"S_3_hat"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable 'S_3_hat':
+            S_3_hat
+trajectory         
+0           181.012
+1           181.012
+2           181.012
+3           181.012
+4           125.316
+5           125.316
+6           125.316
+7           125.316</code></pre>
+</div>
+</div>
+<p>But the expert reader knows that orthogonal projections of random variables in <span class="math inline">\(L^2\)</span>-spaces are <em>exactly</em> conditional expectations. In fact, the random variable <span class="math inline">\(\widehat{S}_3\)</span> that we just computed is precisely <span class="math inline">\(E(S_3 \mid \mathcal{F}_1)\)</span>, the expectation of <span class="math inline">\(S_3\)</span> given <span class="math inline">\(\mathcal{F}_1\)</span>. These conditional expectations are directly computable in SigAlg by passing a value to the <code>sigma_algebra</code> parameter of the <code>expectation</code> method from above:</p>
+<div id="9b5f6aae" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">3</span>].expectation(sigma_algebra<span class="op">=</span>F[<span class="dv">1</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable 'E(S_3|1)':
+            E(S_3|1)
+trajectory          
+0            181.012
+1            181.012
+2            181.012
+3            181.012
+4            125.316
+5            125.316
+6            125.316
+7            125.316</code></pre>
+</div>
+</div>
+<p>As we know from Hilbert space theory, the orthogonal projection <span class="math inline">\(\hat{S}_3\)</span> is the solution of an optimization problem:</p>
+<p><span class="math display">\[
+\widehat{S}_3 = \underset{Y \in G}{\operatorname{argmin}} \|Y - S_3\|^2.
+\]</span></p>
+<p>But a random variable is in <span class="math inline">\(G\)</span> if and only if it is <span class="math inline">\(\mathcal{F}_1\)</span>-measurable, and the norm may be expressed in terms of an expectation—therefore, the conditional expectation <span class="math inline">\(E(S_3 \mid \mathcal{F}_1)= \widehat{S}_3\)</span> minimizes the mean squared error</p>
+<p><span class="math display">\[
+E\left[(Y - S_3)^2\right]
+\]</span></p>
+<p>over all <span class="math inline">\(\mathcal{F}_1\)</span>-measurable random variables <span class="math inline">\(Y\)</span>.</p>
+<div id="f7ec7d37" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>S.time <span class="op">=</span> Time.discrete(length<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>S.from_simulation(n_trajectories<span class="op">=</span><span class="dv">100_000</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(S.<span class="bu">range</span>.sample_space)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>68351</code></pre>
+</div>
+</div>
+<div id="239d5987" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S.<span class="bu">range</span>.probability_measure.data.values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1.0e-05 1.0e-05 1.0e-05 ... 3.8e-04 2.9e-04 6.1e-04]</code></pre>
+</div>
+</div>
 </section>
 <section id="bibliography" class="level2">
-
-
+<h2 class="anchored" data-anchor-id="bibliography">Bibliography</h2>
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-Bjork2020" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Björk, T., <em>Arbitrage theory in continuous time</em>, fourth, Oxford finance series, Oxford University Press, 2020.</div>
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

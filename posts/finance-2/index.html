@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-04-09">
 
-<title>Finance with SigAlg II: Incomplete markets and trinomial pricing models – john myers, ph.d.</title>
+<title>Finance with SigAlg II: Arbitrage and martingales – john myers, ph.d.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -114,12 +169,12 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Finance with SigAlg II: Incomplete markets and trinomial pricing models">
+<meta property="og:title" content="Finance with SigAlg II: Arbitrage and martingales">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://johnmyers-phd.com/posts/finance-2/index_files/figure-html/cell-3-output-1.png">
 <meta property="og:site_name" content="john myers, ph.d.">
-<meta property="og:image:height" content="1186">
-<meta property="og:image:width" content="1579">
+<meta property="og:image:height" content="794">
+<meta property="og:image:width" content="1187">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -209,7 +264,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing" id="toc-equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing" class="nav-link active" data-scroll-target="#equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing">Equivalent martingale measures; the Fundamental Theorem of Asset Pricing</a></li>
+  <li><a href="#arbitrage" id="toc-arbitrage" class="nav-link active" data-scroll-target="#arbitrage">Arbitrage</a></li>
+  <li><a href="#equivalent-martingale-measures" id="toc-equivalent-martingale-measures" class="nav-link" data-scroll-target="#equivalent-martingale-measures">Equivalent martingale measures</a></li>
   </ul>
 </nav>
     </div>
@@ -218,16 +274,21 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Finance with SigAlg II: Incomplete markets and trinomial pricing models</h1>
+<h1 class="title">Finance with SigAlg II: Arbitrage and martingales</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Finance</div>
     <div class="quarto-category">Pricing models</div>
-    <div class="quarto-category">Trinomial pricing models</div>
-    <div class="quarto-category">Incomplete markets</div>
+    <div class="quarto-category">Binomial pricing models</div>
+    <div class="quarto-category">Equivalent martingale measures</div>
+    <div class="quarto-category">Arbitrage</div>
+    <div class="quarto-category">Fundamental Theorem of Asset Pricing</div>
     <div class="quarto-category">Probability theory</div>
     <div class="quarto-category">Measure theory</div>
     <div class="quarto-category">Stochastic processes</div>
-    <div class="quarto-category">Martingales</div>
+    <div class="quarto-category">Sigma-algebras</div>
+    <div class="quarto-category">Filtrations</div>
+    <div class="quarto-category">Conditional expectations</div>
+    <div class="quarto-category">Information theory</div>
     <div class="quarto-category">SigAlg</div>
     <div class="quarto-category">Python</div>
   </div>
@@ -253,103 +314,244 @@ window.Quarto = {
 </header>
 
 
-<div id="1f4c86bc" class="cell" data-execution_count="2">
+<div id="b6e06909" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" width="789" height="593" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="593" height="397"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing" class="level2">
-<h2 class="anchored" data-anchor-id="equivalent-martingale-measures-the-fundamental-theorem-of-asset-pricing">Equivalent martingale measures; the Fundamental Theorem of Asset Pricing</h2>
+<div id="d53fe549" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.finance <span class="im">import</span> BinomialPricingModel</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>S_0 <span class="op">=</span> <span class="dv">100</span>  <span class="co"># initial price</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># risk-free rate</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fl">0.7</span>  <span class="co"># real-world probability</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="fl">1.3</span>  <span class="co"># up-factor</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="fl">0.9</span>  <span class="co"># down-factor</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">3</span>  <span class="co"># time horizon</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate a time index</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> Time.discrete(length<span class="op">=</span>T)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate a binomial model</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> BinomialPricingModel(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    initial_price<span class="op">=</span>S_0,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    risk_free_rate<span class="op">=</span>r,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    up_prob<span class="op">=</span>p,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    up_factor<span class="op">=</span>u,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    down_factor<span class="op">=</span>d,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>time,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"S"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>).from_enumeration()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>S._data <span class="op">=</span> S._data.<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>S.print_trajectories_and_probabilities()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              0      1      2      3  probability
+trajectory                                       
+0           100  130.0  169.0  219.7        0.343
+1           100  130.0  169.0  152.1        0.147
+2           100  130.0  117.0  152.1        0.147
+3           100  130.0  117.0  105.3        0.063
+4           100   90.0  117.0  152.1        0.147
+5           100   90.0  117.0  105.3        0.063
+6           100   90.0   81.0  105.3        0.063
+7           100   90.0   81.0   72.9        0.027</code></pre>
+</div>
+</div>
+<section id="arbitrage" class="level2">
+<h2 class="anchored" data-anchor-id="arbitrage">Arbitrage</h2>
+<p>In finance, the word <em>arbitrage</em> refers to an opportunity to turn a profit with no risk of loss. The types of arbitrage relevant to our discussion in this series of posts seek to exploit the relative “mispricing” of two assets in the market. While from an investor’s point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies.</p>
+<p>So, we begin with two assets. One of them is like any of the assets we discussed in the previous post on binomial pricing models, while the other is assumed to be <em>risk-less</em>, in the sense that its price process is fully deterministic. Specifically, we suppose that there is a positive real number <span class="math inline">\(r\)</span>, called the <em>risk-free rate</em>, such that an amount <span class="math inline">\(B_t\)</span> invested in the risk-less asset at time <span class="math inline">\(t\)</span> will evolve to <span class="math inline">\((1+r)B_t\)</span> at time <span class="math inline">\(t+1\)</span>. For example, we might imagine that <span class="math inline">\(B_t\)</span> measures a cash position held in a bank that earns per-period interest at rate <span class="math inline">\(r\)</span>. (The rate <span class="math inline">\(r\)</span> is assumed constant in time.) Crucially, we assume not only that we can hold cash in the bank, but that we can also borrow from the bank at the same rate. The difference between the two is signified by positive <span class="math inline">\(B_t\)</span> (holding cash in the bank, earning interest at rate <span class="math inline">\(r\)</span>) versus negative <span class="math inline">\(B_t\)</span> (borrowing from the bank, paying interest at rate <span class="math inline">\(r\)</span>). For future convenience, we set <span class="math inline">\(R=1+r\)</span>, called the <em>risk-free gross return</em>.</p>
+<p>In addition to the cash position in the bank, we assume the existence of a second asset in which we hold either a short or long position, and which we assume has price process <span class="math inline">\(S_t\)</span>, measured in USD per unit (for example). Then at each time <span class="math inline">\(t\geq 0\)</span>, our two-asset portfolio is valued at</p>
+<p><span id="eq-portfolio-value"><span class="math display">\[
+V_t = B_t + S_t \Delta_t,
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(\Delta_t\)</span> is the number of units of the asset held with price process <span class="math inline">\(S_t\)</span>. A positive value of <span class="math inline">\(\Delta_t\)</span> represents a long position, while a negative value represents a short position. One time period later, the value of our portfolio will evolve to</p>
+<p><span id="eq-evolved-portfolio"><span class="math display">\[
+R B_t + S_{t+1} \Delta_t.
+\tag{2}\]</span></span></p>
+<p>Relative to the cash position, the second asset is assumed to be <em>risky</em> (for example, an equity asset). This “risk-less vs.&nbsp;risky” difference between the two assets has ramifications if, for example, we model the price process <span class="math inline">\(S_t\)</span> of the risky asset using a binomial model and we want to avoid arbitrage. To explain, suppose binomial model has up- and down-factors <span class="math inline">\(u\)</span> and <span class="math inline">\(d\)</span>, respectively. As most investors are (at least mildly) risk-averse, we would expect a larger return for the risky asset versus the non-risky one in compensation for bearing risk. Thus, we would expect at least that <span class="math inline">\(R \leq u\)</span>. But, the risk-free gross return <span class="math inline">\(R\)</span> cannot be so small that <span class="math inline">\(R&lt;d\)</span>, for otherwise an arbitrage appears. Indeed, if <span class="math inline">\(R&lt;d\)</span>, then at time <span class="math inline">\(t\)</span> we could borrow <span class="math inline">\(S_t\)</span> from the bank (so that <span class="math inline">\(B_t = -S_t\)</span>) and then purchase one unit of the risky asset (so that <span class="math inline">\(\Delta_t=1\)</span>). Then our portfolio is valued at <span class="math inline">\(V_t=0\)</span> at the time of transaction, representing no initial (net) outlay of capital, while the value of the portfolio will evolve to</p>
+<p><span class="math display">\[
+R B_t + S_{t+1} \Delta_t = -RS_t + S_{t+1} \geq S_t(d-R) &gt;0
+\]</span></p>
+<p>one time period later. This is an arbitrage, and in order to avoid it, we must assume that <span class="math inline">\(R\geq d\)</span>.</p>
+<p>While we said it is natural to assume <span class="math inline">\(R\leq u\)</span> based on considerations of risk, we can confirm mathematically that if this were <em>not</em> true, then another aribtrage presents itself. For if <span class="math inline">\(R&gt;u\)</span>, then at time <span class="math inline">\(t\)</span> we could short one unit of the risky asset (so that <span class="math inline">\(\Delta_t=-1\)</span>) and invest the proceeds in the bank (so that <span class="math inline">\(B_t = S_t\)</span>). Again, our portfolio would be valued at <span class="math inline">\(V_t=0\)</span> at the time of transaction, while one time period later its value will evolve to</p>
+<p><span class="math display">\[
+RB_t + S_{t+1} \Delta_t = RS_t - S_{t+1} \geq S_t(R- u) &gt;0.
+\]</span></p>
+<p>This is another arbitrage, and so we must assume <span class="math inline">\(R \leq u\)</span>.</p>
+<p>Our arguments above show the following: <em>If</em> there are no arbitrages in the binomial model, <em>then</em> we must have</p>
+<p><span id="eq-no-arbitrage"><span class="math display">\[
+d \leq R \leq u.
+\tag{3}\]</span></span></p>
+<p>Interestingly, the converse is also true, which leads us to our first glimpse of one of the foundational results in mathematical finance:</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-ftap" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (Fundamental Theorem of Asset Pricing)</strong></span> A model is arbitrage-free if and only if there exists an equivalent martingale measure.</p>
+<div id="thm-no-arb" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (First Fundamental Theorem of Asset Pricing — Binomial Model, v.1)</strong></span> The inequalites (<a href="#eq-no-arbitrage" class="quarto-xref">3</a>) are equivalent to the absence of arbitrages in the binomial model.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<p>With the theorem as justification, the inequalities (<a href="#eq-no-arbitrage" class="quarto-xref">3</a>) are called the <em>no-arbitrage condition</em>. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in <span class="citation" data-cites="Bjork2020">[<a href="#ref-Bjork2020" role="doc-biblioref">1</a>]</span>).</p>
+</section>
+<section id="equivalent-martingale-measures" class="level2">
+<h2 class="anchored" data-anchor-id="equivalent-martingale-measures">Equivalent martingale measures</h2>
+<p>The statement of the Fundamental Theorem of Asset Pricing (in <a href="#thm-no-arb" class="quarto-xref">Theorem&nbsp;1</a>) is referred to as “version 1”. In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called <em>equivalent martingale measures</em>.</p>
+<p>By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount <span class="math inline">\(B_0\)</span> at time <span class="math inline">\(t=0\)</span>, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time <span class="math inline">\(t\)</span>, say <span class="math inline">\(B_t\)</span>, then we know the balance one time period later:</p>
+<p><span class="math display">\[
+B_{t+1} = RB_t,
+\]</span></p>
+<p>where <span class="math inline">\(R\)</span> is the risk-free gross return. Reciprocally, the current balance is the <em>present value</em> of the future balance, i.e.,</p>
+<p><span id="eq-pv-bank"><span class="math display">\[
+B_t = \frac{1}{R} B_{t+1}.
+\tag{4}\]</span></span></p>
+<p>So, given the current balance <span class="math inline">\(B_t\)</span> at time <span class="math inline">\(t\)</span>, <em>we know for certain the balance one period into the future.</em> We ask: Is there something analogous that we could say about the price process <span class="math inline">\(S_t\)</span> of the risky asset?</p>
+<p>Working toward an answer to this question, suppose that a time <span class="math inline">\(t\)</span> is fixed, and that we observe the current price <span class="math inline">\(S_t\)</span> of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price <span class="math inline">\(S_{t+1}\)</span> with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation <span class="math inline">\(E(S_{t+1} \mid S_t)\)</span> is the best approximation of <span class="math inline">\(S_{t+1}\)</span>, given <span class="math inline">\(S_t\)</span>, in the sense that it is the closest <span class="math inline">\(\sigma(S_t)\)</span>-measurable random variable to <span class="math inline">\(S_{t+1}\)</span> in mean squared error. So, with the expectation in place of <span class="math inline">\(S_{t+1}\)</span>, and taking the time value of money into account, we then wonder if something analogous to (<a href="#eq-pv-bank" class="quarto-xref">4</a>) holds—something like</p>
+<p><span id="eq-wrong"><span class="math display">\[
+S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
+\tag{5}\]</span></span></p>
+<p>However, this obviously cannot hold, because the expectation is discounted via <span class="math inline">\(R=1+r\)</span>, which is built from the risk-free rate <span class="math inline">\(r\)</span>. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof.
+<div class="callout-body-container">
+<div id="thm-prob-atom" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> Let <span class="math inline">\(A\)</span> be an atom of the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_t\)</span> corresponding to a length-<span class="math inline">\(t\)</span> partial trajectory with <span class="math inline">\(k\)</span> up moves and <span class="math inline">\(t-k\)</span> down moves. Then</p>
+<p><span class="math display">\[
+P(A) = p^k (1-p)^{t-k}.
+\]</span></p>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The proof for the binomial model was presented above, so we give a proof for the trinomial model.</p>
-<p>First, suppose that <span class="math inline">\(Q\)</span> is an EMM for the trinomial model with risk-free gross return <span class="math inline">\(R\)</span>, up-factor <span class="math inline">\(u\)</span>, middle-factor <span class="math inline">\(m\)</span>, and down-factor <span class="math inline">\(d\)</span>. Then <span class="math inline">\(Q\)</span> is determined by three probabilities <span class="math inline">\(q_u\)</span>, <span class="math inline">\(q_m\)</span>, and <span class="math inline">\(q_d\)</span> which are solutions to the system of linear equations</p>
-<p><span id="eq-system"><span class="math display">\[
+</div>
+</div>
+<p>The reader might try and prove the theorem on their own. We will settle for checking the equality in a few examples using SigAlg:</p>
+<div id="23b3ebb2" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> S.probability_measure</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> S.natural_filtration</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>atoms <span class="op">=</span> F[<span class="dv">2</span>].to_atoms()</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>expected_atom_probs <span class="op">=</span> [<span class="fl">0.7</span><span class="op">**</span><span class="dv">2</span>, <span class="fl">0.7</span> <span class="op">*</span> <span class="fl">0.3</span>, <span class="fl">0.7</span> <span class="op">*</span> <span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">**</span><span class="dv">2</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> atom, prob <span class="kw">in</span> <span class="bu">zip</span>(atoms, expected_atom_probs):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(np.allclose(P(atom), prob))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True
+True
+True
+True</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-int-atom" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3</strong></span> Let <span class="math inline">\(A\)</span> be an atom of the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}_t\)</span> corresponding to a length-<span class="math inline">\(t\)</span> partial trajectory with <span class="math inline">\(k\)</span> up moves and <span class="math inline">\(t-k\)</span> down moves. Then</p>
+<p><span class="math display">\[
+\langle S_{t+1}, I_A \rangle = uS_t(\omega)p^{k+1}(1-p)^{t-k} + dS_t(\omega)p^k(1-p)^{t-k+1},
+\]</span></p>
+<p>where <span class="math inline">\(\omega\)</span> is <em>any</em> sample point in <span class="math inline">\(A\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Thus, we have</p>
+<p><span class="math display">\[
+\frac{1}{P(A)}\langle S_{t+1}, I_A \rangle =  S_t(\omega)(up + d(1-p)).
+\]</span></p>
+<p>It then follows that</p>
+<p><span class="math display">\[
+\frac{1}{R}E(S_{t+1} \mid \mathcal{F}_t) = \frac{up+d(1-p)}{R}S_t.
+\]</span></p>
+<div id="2fd25105" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> S.risk_free_gross_return</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].expectation(sigma_algebra<span class="op">=</span>F[<span class="dv">1</span>]) <span class="op">/</span> R)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((u <span class="op">*</span> p <span class="op">+</span> d <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> p)) <span class="op">/</span> R <span class="op">*</span> S[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random variable '(E(S_2|1)/1.05)':
+            (E(S_2|1)/1.05)
+trajectory                 
+0                146.095238
+1                146.095238
+2                146.095238
+3                146.095238
+4                101.142857
+5                101.142857
+6                101.142857
+7                101.142857
+Random variable '(1.1238095238095238*S_1)':
+            (1.1238095238095238*S_1)
+trajectory                          
+0                         146.095238
+1                         146.095238
+2                         146.095238
+3                         146.095238
+4                         101.142857
+5                         101.142857
+6                         101.142857
+7                         101.142857</code></pre>
+</div>
+</div>
+<!-- Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
+
+$$
+P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
+$$
+
+for $k=0,1,\ldots,t$. The $\sigma$-algebra generated by $S_t$, namely $\sigma(S_t)$, has $t+1$ atoms given by the sets
+
+$$
+A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
+$$
+
+The vector space $L^2(\Omega, \sigma(S_t), P)$ then has a finite orthonormal basis given by the normalized indicator functions
+
+$$
+\frac{I_{A_k}}{\sqrt{P(A_k)}},
+$$
+
+one for each $k=0,1,\ldots,t$. Thus, the expectation $E(S_{t+1} \mid S_t)$ is given by its generalized Fourier series:
+
+$$
+E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
+$$
+
+For each $k=0,1,\ldots,t$, write $s_k = S_0 u^k d^{t-k}$, for brevity. Then, we have
+
+$$
 \begin{align*}
-q_u + q_m + q_d &amp;= 1 \\
-uq_u + mq_m + dq_d &amp;= R.
+\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
+&= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
 \end{align*}
-\tag{1}\]</span></span></p>
-<p>Indeed, the necessity of the first equation is obvious, while the second equation guarantees the martingale property for the discounted prices. In addition to the linear system, we also have the constraints</p>
-<p><span id="eq-constraint"><span class="math display">\[
-0 \leq q_u, q_m, q_d \leq 1.
-\tag{2}\]</span></span></p>
-<p>We solve the linear system to obtain</p>
-<p><span id="eq-system-sol"><span class="math display">\[
-\begin{align*}
-q_u &amp;= \frac{m-d}{u-m} q_d + \frac{R-m}{u-m}, \\
-q_m &amp;= \frac{d-u}{u-m} q_d + \frac{u-R}{u-m},
-\end{align*}
-\tag{3}\]</span></span></p>
-<p>expressing <span class="math inline">\(q_u\)</span> and <span class="math inline">\(q_m\)</span> in terms of the free parameter <span class="math inline">\(q_d\)</span>. Using these formulas, the reader may show that, provided</p>
-<p><span id="eq-first"><span class="math display">\[
-\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{m-d},
-\tag{4}\]</span></span></p>
-<p>we have <span class="math inline">\(0 \leq q_u \leq 1\)</span>. Likewise, provided that</p>
-<p><span id="eq-second"><span class="math display">\[
-\frac{m-R}{u-d} \leq q_d \leq \frac{u-R}{u-d},
-\tag{5}\]</span></span></p>
-<p>we have <span class="math inline">\(0 \leq q_m \leq 1\)</span>. Since <span class="math inline">\(m &lt; u\)</span>, the single set of inequalities</p>
-<p><span id="eq-third"><span class="math display">\[
-\frac{m-R}{m-d} \leq q_d \leq \frac{u-R}{u-d}
-\tag{6}\]</span></span></p>
-<p>implies both (<a href="#eq-first" class="quarto-xref">4</a>) and (<a href="#eq-second" class="quarto-xref">5</a>). But we must have <span class="math inline">\(0 \leq q_d \leq 1\)</span> as well, and so we must have both</p>
-<p><span class="math display">\[
-\frac{m-R}{m-d} \leq 1 \quad \text{and} \quad 0 \leq \frac{u-R}{u-d}.
-\]</span></p>
-<p>The first inequality implies <span class="math inline">\(R\geq d\)</span>, while the second implies <span class="math inline">\(R \leq u\)</span>. Thus, the model is arbitrage-free.</p>
-<p>Conversely, suppose that the model is arbitrage-free, so that <span class="math inline">\(d\leq R \leq u\)</span>. Then we may select a parameter <span class="math inline">\(q_d\)</span> so that</p>
-<p><span class="math display">\[
-\max \left( \frac{m-R}{m-d}, 0 \right) \leq q_d \leq \frac{u-R}{u-d}.
-\]</span></p>
-<p>The no-arbitrage condition guarantees that <span class="math inline">\(0 \leq q_d \leq 1\)</span>. Then the inequalties (<a href="#eq-third" class="quarto-xref">6</a>) are satisfied, and hence so too are the inequalities (<a href="#eq-first" class="quarto-xref">4</a>) and (<a href="#eq-second" class="quarto-xref">5</a>). If we then define <span class="math inline">\(q_u\)</span> and <span class="math inline">\(q_m\)</span> by (<a href="#eq-system-sol" class="quarto-xref">3</a>), we obtain solutions to the system (<a href="#eq-system" class="quarto-xref">1</a>) satisfying the constraints (<a href="#eq-constraint" class="quarto-xref">2</a>). Thus, we have shown that an EMM exists.</p>
-</div>
-</div>
-</div>
-<p>For the reader who did not read the proof, the gist is this. Let <span class="math inline">\(R\)</span> be the risk-free gross return of an arbitrage-free trinomial model, and let <span class="math inline">\(u\)</span>, <span class="math inline">\(m\)</span>, and <span class="math inline">\(d\)</span> be the up-, middle-, an down-factors, respectively. Then the no-arbitrage condition <span class="math inline">\(d\leq R \leq u\)</span> implies the second two inequalities in</p>
-<p><span id="eq-emm-param-int"><span class="math display">\[
-0 \leq \max \left( \frac{m-R}{m-d}, 0 \right) \leq \frac{u-R}{u-d} \leq 1.
-\tag{7}\]</span></span></p>
-<p>Then, the proof shows that there is a one-parameter family of EMMs for the trinomial model, parametrized by a number <span class="math inline">\(q\)</span> between the middle two numbers in (<a href="#eq-emm-param-int" class="quarto-xref">7</a>), namely</p>
-<p><span class="math display">\[
-\max \left( \frac{m-R}{m-d}, 0 \right) \leq q \leq \frac{u-R}{u-d}.
-\]</span></p>
-<p>If we write <span class="math inline">\(a\)</span> for the left-hand side of this interval, and <span class="math inline">\(b\)</span> for the right-hand side, then we may reparametrize using the map</p>
-<p><span class="math display">\[
-\theta \mapsto q= (b-a)\theta + a,
-\]</span></p>
-<p>and so our family of EMMs is parametrized by <span class="math inline">\(\theta\in [0,1]\)</span>.</p>
+$$ -->
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Bjork2020" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Björk, T., <em>Arbitrage theory in continuous time</em>, fourth, Oxford finance series, Oxford University Press, 2020.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
