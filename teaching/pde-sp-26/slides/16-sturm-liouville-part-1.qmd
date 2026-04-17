@@ -42,6 +42,6 @@ respectively, with respect to the standard bases on $\mathbb{C}^2$. Which of $S$
 
 b. Can you formulate a condition on the matrix of a general linear transformation $T: \mathbb{C}^k \to \mathbb{C}^k$ that characterizes the self-adjoint property? Can you prove it?
 
-c. For the linear transformation(s) in part (a) that are self-adjoint, compute their eigenvalues and eigenvectors. Any particular things that you notice?
+c. For the linear transformations in part (a), compute their eigenvalues and eigenvectors. Any particular things that you notice?
 
 :::
