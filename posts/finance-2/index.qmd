@@ -285,19 +285,6 @@ S._data = S._data.round(2)
 S.print_trajectories_and_probabilities()
 ```
 
-```{python}
-
-from sigalg.l2 import L2
-
-F = S.natural_filtration
-P = S.probability_measure
-H = L2(S.domain, S.sigma_algebra, S.probability_measure)
-
-A_1, A_2 = F[1].to_atoms()
-
-H.integrate(rv=S[2], event=A_1)
-```
-
 ## Arbitrage
 
 In finance, the word *arbitrage* refers to an opportunity to turn a profit with no risk of loss. The types of arbitrage relevant to our discussion in this series of posts seek to exploit the relative "mispricing" of two assets in the market. While from an investor's point of view an arbitrage is a shot at free money, from a modeling point of view, arbitrages are generally viewed as mathematical pathologies.
@@ -375,7 +362,66 @@ $$ {#eq-wrong}
 
 However, this obviously cannot hold, because the expectation is discounted via $R=1+r$, which is built from the risk-free rate $r$. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.
 
-Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
+::: {#thm-prob-atom}
+Let $A$ be an atom of the $\sigma$-algebra $\mathcal{F}_t$ corresponding to a length-$t$ partial trajectory with $k$ up moves and $t-k$ down moves. Then
+
+$$
+P(A) = p^k (1-p)^{t-k}.
+$$
+:::
+
+The reader might try and prove the theorem on their own. We will settle for checking the equality in a few examples using SigAlg:
+
+```{python}
+import numpy as np
+
+P = S.probability_measure
+F = S.natural_filtration
+
+atoms = F[2].to_atoms()
+expected_atom_probs = [0.7**2, 0.7 * 0.3, 0.7 * 0.3, 0.3**2]
+
+for atom, prob in zip(atoms, expected_atom_probs):
+    print(np.allclose(P(atom), prob))
+```
+
+::: {#thm-int-atom}
+Let $A$ be an atom of the $\sigma$-algebra $\mathcal{F}_t$ corresponding to a length-$t$ partial trajectory with $k$ up moves and $t-k$ down moves. Then
+
+$$
+\langle S_{t+1}, I_A \rangle = uS_t(\omega)p^{k+1}(1-p)^{t-k} + dS_t(\omega)p^k(1-p)^{t-k+1},
+$$
+
+where $\omega$ is *any* sample point in $A$.
+:::
+
+Thus, we have
+
+$$
+\frac{1}{P(A)}\langle S_{t+1}, I_A \rangle =  S_t(\omega)(up + d(1-p)).
+$$
+
+It then follows that
+
+$$
+\frac{1}{R}E(S_{t+1} \mid \mathcal{F}_t) = \frac{up+d(1-p)}{R}S_t.
+$$
+
+```{python}
+
+R = S.risk_free_gross_return
+
+print(S[2].expectation(sigma_algebra=F[1]) / R)
+print((u * p + d * (1 - p)) / R * S[1])
+```
+
+
+
+
+
+
+
+<!-- Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
 
 $$
 P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
@@ -406,4 +452,4 @@ $$
 \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
 &= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
 \end{align*}
-$$
+$$ -->
