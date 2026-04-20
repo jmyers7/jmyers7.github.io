@@ -90,7 +90,7 @@ $$
     - We suppose that $r(x)\neq 0$ for all $x\in [a,b]$.
     - We suppose that the domain of $L$ is the set of all functions on $[a,b]$ (possibly complex valued) with continuous second derivatives.
 
-- We want to compute the adjoint of $L$.
+- We want to investigate when $L$ is self-adjoint.
 
 ::: {.callout-note icon="false" .fragment}
 
