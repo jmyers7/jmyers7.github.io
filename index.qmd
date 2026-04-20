@@ -11,4 +11,4 @@ title-block-banner: false
 
 <!-- ![](img/john-myers-5.svg){fig-align='center' width=100% id=head} -->
 
-<span style="font-family: var(--bs-font-monospace); font-weight: 300; display: block; text-align: center; font-size: 4rem; color: #FFC300;">john myers, ph.d.</span>
+<span style="font-family: var(--bs-font-monospace); font-weight: 300; display: block; text-align: center; font-size: 3rem; color: #FFC300;">john myers, ph.d.</span>
