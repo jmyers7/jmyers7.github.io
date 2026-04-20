@@ -45,3 +45,96 @@ b. Can you formulate a condition on the matrix of a general linear transformatio
 c. For the linear transformations in part (a), compute their eigenvalues and eigenvectors. Any particular things that you notice?
 
 :::
+
+## The spectral theorem {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem (The spectral theorem for self-adjoint operators on $\mathbb{C}^k$)
+
+Let $T: \mathbb{C}^k \to \mathbb{C}^k$ be a self-adjoint linear operator.
+
+a. There is an orthonormal basis of $\mathbb{C}^k$ consisting of eigenvectors of $T$.
+
+b. All eigenvalues of $T$ are real.
+
+:::
+
+## Moving toward self-adjoint linear differential operators {.scrollable}
+
+- The goal now is to use our knowledge of self-adjoint linear operators on $\mathbb{C}^k$ and the spectral theorem and adapt it to intuition for linear differential operators on $L^2(a,b)$.
+
+- We begin with the following definition, which is "almost" correct. (See the comment afterwards.)
+
+::: {.callout-note icon="false" .fragment}
+
+### Definition
+
+A linear operator $T: L^2(a,b) \to L^2(a,b)$ is **self-adjoint** if
+$$
+\langle T(f), g \rangle = \langle f, T(g) \rangle
+$$
+for all $f,g\in L^2(a,b)$.
+
+:::
+
+- Technically, in order for this definition to be correct, we need to restrict the domain of $T$ to a proper subspace of the $L^2$-space. We will not be very careful about this.
+
+## A second-order linear differential operator, part 1 {.scrollable}
+
+- Consider the second-order linear differnetial operator $L$ given by
+$$
+L(f) = r f'' + r' f' + pf.
+$$
+    - We suppose that $r$ and $p$ are real functions on $[a,b]$, each with continuous second derivatives.
+    - We suppose that $r(x)\neq 0$ for all $x\in [a,b]$.
+    - We suppose that the domain of $L$ is the set of all functions on $[a,b]$ (possibly complex valued) with continuous second derivatives.
+
+- We want to compute the adjoint of $L$.
+
+::: {.callout-note icon="false" .fragment}
+
+### Lemma
+
+a. We have
+$$
+\int_a^b (rf'')\overline{g} \, dx = \int_a^b f(r\overline{g})'' \, dx + \left[ rf'\overline{g} - f(r\overline{g})'\right]_a^b.
+$$
+
+b. We have
+$$
+\int_a^b (r'f') \overline{g} \, dx = - \int_a^b f(r'\overline{g})'\, dx + r' f\overline{g}\big|_a^b.
+$$
+
+:::
+
+## A second-order linear differential operator, part 2 {.scrollable}
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem (Lagrange's Identity)
+
+We have
+
+$$
+\langle L(f), g \rangle = \langle f, L(g) \rangle + \left[ r(f' \overline{g}-f\overline{g}') \right]_a^b.
+$$
+
+:::
+
+- Now, suppose we are interested in solving the second-order linear ODE
+$$
+L(f) = r f'' + r' f' + pf = 0,
+$$
+subject to the **periodic** boundary conditions
+$$
+f(a)=f(b) \quad \text{and} \quad f'(a) = f'(b).
+$$
+Suppose also that $r(a)=r(b)$.
+
+::: {.callout-note icon="false" .fragment}
+
+### Theorem (Periodic boundary conditions $\Rightarrow$ $L$ self-adjoint)
+
+If we restrict the linear operator $L(f) = rf'' + r'f' + pf$ to the set of functions satisfying the periodic boundary conditions above, then $L$ is self-adjoint.
+:::
