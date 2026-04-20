@@ -171,6 +171,119 @@ A = \begin{bmatrix} 1 &amp; 1+i \\ 1-i &amp; 0 \end{bmatrix} \quad \text{and} \q
 </div>
 </div>
 </div>
+</section>
+<section id="the-spectral-theorem" class="slide level2 scrollable">
+<h2>The spectral theorem</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (The spectral theorem for self-adjoint operators on <span class="math inline">\(\mathbb{C}^k\)</span>)</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(T: \mathbb{C}^k \to \mathbb{C}^k\)</span> be a self-adjoint linear operator.</p>
+<ol type="a">
+<li class="fragment"><p>There is an orthonormal basis of <span class="math inline">\(\mathbb{C}^k\)</span> consisting of eigenvectors of <span class="math inline">\(T\)</span>.</p></li>
+<li class="fragment"><p>All eigenvalues of <span class="math inline">\(T\)</span> are real.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="moving-toward-self-adjoint-linear-differential-operators" class="slide level2 scrollable">
+<h2>Moving toward self-adjoint linear differential operators</h2>
+<ul>
+<li class="fragment"><p>The goal now is to use our knowledge of self-adjoint linear operators on <span class="math inline">\(\mathbb{C}^k\)</span> and the spectral theorem and adapt it to intuition for linear differential operators on <span class="math inline">\(L^2(a,b)\)</span>.</p></li>
+<li class="fragment"><p>We begin with the following definition, which is “almost” correct. (See the comment afterwards.)</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Definition</strong></p>
+</div>
+<div class="callout-content">
+<p>A linear operator <span class="math inline">\(T: L^2(a,b) \to L^2(a,b)\)</span> is <strong>self-adjoint</strong> if <span class="math display">\[
+\langle T(f), g \rangle = \langle f, T(g) \rangle
+\]</span> for all <span class="math inline">\(f,g\in L^2(a,b)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Technically, in order for this definition to be correct, we need to restrict the domain of <span class="math inline">\(T\)</span> to a proper subspace of the <span class="math inline">\(L^2\)</span>-space. We will not be very careful about this.</li>
+</ul>
+</section>
+<section id="a-second-order-linear-differential-operator-part-1" class="slide level2 scrollable">
+<h2>A second-order linear differential operator, part 1</h2>
+<ul>
+<li class="fragment">Consider the second-order linear differnetial operator <span class="math inline">\(L\)</span> given by <span class="math display">\[
+L(f) = r f'' + r' f' + pf.
+\]</span>
+<ul>
+<li class="fragment">We suppose that <span class="math inline">\(r\)</span> and <span class="math inline">\(p\)</span> are real functions on <span class="math inline">\([a,b]\)</span>, each with continuous second derivatives.</li>
+<li class="fragment">We suppose that <span class="math inline">\(r(x)\neq 0\)</span> for all <span class="math inline">\(x\in [a,b]\)</span>.</li>
+<li class="fragment">We suppose that the domain of <span class="math inline">\(L\)</span> is the set of all functions on <span class="math inline">\([a,b]\)</span> (possibly complex valued) with continuous second derivatives.</li>
+</ul></li>
+<li class="fragment">We want to compute the adjoint of <span class="math inline">\(L\)</span>.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Lemma</strong></p>
+</div>
+<div class="callout-content">
+<ol type="a">
+<li class="fragment"><p>We have <span class="math display">\[
+\int_a^b (rf'')\overline{g} \, dx = \int_a^b f(r\overline{g})'' \, dx + \left[ rf'\overline{g} - f(r\overline{g})'\right]_a^b.
+\]</span></p></li>
+<li class="fragment"><p>We have <span class="math display">\[
+\int_a^b (r'f') \overline{g} \, dx = - \int_a^b f(r'\overline{g})'\, dx + r' f\overline{g}\big|_a^b.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-second-order-linear-differential-operator-part-2" class="slide level2 scrollable">
+<h2>A second-order linear differential operator, part 2</h2>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Lagrange’s Identity)</strong></p>
+</div>
+<div class="callout-content">
+<p>We have</p>
+<p><span class="math display">\[
+\langle L(f), g \rangle = \langle f, L(g) \rangle + \left[ r(f' \overline{g}-f\overline{g}') \right]_a^b.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Now, suppose we are interested in solving the second-order linear ODE <span class="math display">\[
+L(f) = r f'' + r' f' + pf = 0,
+\]</span> subject to the <strong>periodic</strong> boundary conditions <span class="math display">\[
+f(a)=f(b) \quad \text{and} \quad f'(a) = f'(b).
+\]</span> Suppose also that <span class="math inline">\(r(a)=r(b)\)</span>.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem (Periodic boundary conditions <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(L\)</span> self-adjoint)</strong></p>
+</div>
+<div class="callout-content">
+<p>If we restrict the linear operator <span class="math inline">\(L(f) = rf'' + r'f' + pf\)</span> to the set of functions satisfying the periodic boundary conditions above, then <span class="math inline">\(L\)</span> is self-adjoint.</p>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
