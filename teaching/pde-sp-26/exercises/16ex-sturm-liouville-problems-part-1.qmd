@@ -1,0 +1,110 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 16 Sturm-Liouville problems, part 1
+
+## Exercise 1: Identifying self-adjoint linear operators
+
+Recall that a linear operator $T: \mathbb{C}^k \to \mathbb{C}^k$ is *self-adjoint* if
+
+$$
+\langle T(\mathbf{u}), \mathbf{v} \rangle = \langle \mathbf{u}, T(\mathbf{v}) \rangle
+$$
+
+for all $\mathbf{u}, \mathbf{v} \in \mathbb{C}^k$. If $A$ is the matrix representation of $T$ with respect to the standard basis, then $T$ is self-adjoint if and only if $A$ is equal to its conjugate transpose $A^*$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For the linear operators with the following matrix representations, determine whether they are self-adjoint.
+
+a. $$\begin{bmatrix} 1 & 1 \\ 0 & 2 \end{bmatrix}$$
+
+b. $$\begin{bmatrix} 2 & 1 - 2i \\ 1 + 2i & -2 \end{bmatrix}$$
+
+c. $$\begin{bmatrix} 2 & 1 & 3+2i \\ 1 & 0 & 4i \\ 3-2i & -4i & 1 \end{bmatrix}$$
+
+d. $$\begin{bmatrix} 2i & 3 & 1 \\ 3 & 0 & 4i \\ 1 & -4i & 1 \end{bmatrix}$$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Not self-adjoint.
+b. Self-adjoint.
+c. Self-adjoint.
+d. Not self-adjoint.
+:::
+
+## Exercise 2: Finding eigenvalues and eigenvectors of linear operators
+
+For a self-adjoint linear operator $T: \mathbb{C}^k \to \mathbb{C}^k$, the eigenvalues are real and the eigenvectors corresponding to distinct eigenvalues are orthogonal. In contrast, for a non-self-adjoint operator, the eigenvalues *can* be complex and the eigenvectors *may not* be orthogonal.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. For the linear operator with matrix representation
+$$
+\begin{bmatrix} 1 & 1 \\ 0 & 2 \end{bmatrix}
+$$
+from the previous exercise, find the eigenvalues and corresponding eigenvectors. Compute the inner product of the eigenvectors.
+
+b. For the linear operator with matrix representation
+$$
+\begin{bmatrix} 2 & 1 - 2i \\ 1 + 2i & -2 \end{bmatrix}
+$$
+from the previous exercise, find the eigenvalues and corresponding eigenvectors. Compute the inner product of the eigenvectors. (This operator is self-adjoint, so you already know that the eigenvectors will be orthogonal by the Spectral Theorem, but I want you to verify this by direct computation.)
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Eigenvalues are $1$ and $2$, with corresponding eigenvectors
+$$
+\begin{bmatrix} 1 \\ 0 \end{bmatrix} \quad \text{and} \quad \begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+$$
+The inner product of the eigenvectors is $1$.
+
+b. Eigenvalues are $-3$ and $3$, with corresponding eigenvectors
+$$
+\begin{bmatrix} -1+2i \\ 5 \end{bmatrix} \quad \text{and} \quad \begin{bmatrix} 1-2i \\ 1 \end{bmatrix}.
+$$
+The inner product of the eigenvectors is
+$$
+\left\langle \begin{bmatrix} -1+2i \\ 5 \end{bmatrix}, \begin{bmatrix} 1-2i \\ 1 \end{bmatrix} \right\rangle = (-1+2i)(1+2i) + 5(1) = 0.
+$$
+
+:::
+
+## Exercise 3: Proving eigenvalues of self-adjoint operators are real
+
+::: {.callout-note icon="false" appearance="minimal"}
+Recall that the Spectral Theorem says that the eigenvalues of a self-adjoint linear operator are real. Prove it.
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solution.
+
+Let $T: \mathbb{C}^k \to \mathbb{C}^k$ be a self-adjoint linear operator, and let $\lambda \in \mathbb{C}$ be an eigenvalue with corresponding (nonzero!) eigenvector $\mathbf{v} \in \mathbb{C}^k$. Then
+
+$$
+\langle T(\mathbf{v}), \mathbf{v} \rangle = \langle \lambda \mathbf{v}, \mathbf{v} \rangle = \lambda \langle \mathbf{v}, \mathbf{v} \rangle = \lambda \|\mathbf{v}\|^2,
+$$
+
+where we used linearity of the inner product in the first argument in the second equality. On the other hand, we have
+
+$$
+\langle \mathbf{v}, T(\mathbf{v}) \rangle = \langle \mathbf{v}, \lambda \mathbf{v} \rangle = \overline{\lambda} \langle \mathbf{v}, \mathbf{v} \rangle = \overline{\lambda} \|\mathbf{v}\|^2,
+$$
+
+where we used conjugate linearity of the inner product in the second argument in the second equality. But since $T$ is self-adjoint, we have $\langle T(\mathbf{v}), \mathbf{v} \rangle = \langle \mathbf{v}, T(\mathbf{v}) \rangle$, and thus
+
+$$
+\lambda \|\mathbf{v}\|^2 = \overline{\lambda} \|\mathbf{v}\|^2.
+$$
+
+But $\|\mathbf{v}\|$ is not $0$, and so we must have $\lambda = \overline{\lambda}$, which means that $\lambda$ is real.
+
+:::
