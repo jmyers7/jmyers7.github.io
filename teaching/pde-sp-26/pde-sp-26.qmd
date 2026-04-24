@@ -37,7 +37,10 @@ This course is an introduction to partial differential equations (PDEs) and Four
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-| Week 12 | 04.24 fri |
+| Week 13 | 05.01 fri | Exam 2
+|| 04.29 wed |
+|| 04.27 mon |
+| Week 12 | 04.24 fri | Continue Sec 16 | Same as below ↓ | Same as below ↓ | Quiz on Sec 16
 || 04.22 wed | No class — Quest
 || 04.20 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
 | Week 12 | 04.17 fri | Sec 16: Sturm-Liouville problems, part 1 | [Sec 16 Slides](./slides/16-sturm-liouville-part-1.qmd){target="_blank"} | [Sec 16 Exercises](./exercises/16ex-sturm-liouville-problems-part-1.qmd) | Quiz on Sec 15
