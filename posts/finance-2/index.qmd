@@ -375,7 +375,7 @@ The reader might try and prove the theorem on their own. We will settle for chec
 ```{python}
 import numpy as np
 
-P = S.probability_measure
+P = S.prob_measure
 F = S.natural_filtration
 
 atoms = F[2].to_atoms()
@@ -411,7 +411,7 @@ $$
 
 R = S.risk_free_gross_return
 
-print(S[2].expectation(sigma_algebra=F[1]) / R)
+print(S[2].expectation(sig_alg=F[1]) / R)
 print((u * p + d * (1 - p)) / R * S[1])
 ```
 

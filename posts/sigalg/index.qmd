@@ -158,7 +158,7 @@ The probabilities of each trajectory can be accessed via the `probability_measur
 
 ```{python}
 
-P_X = X.probability_measure.with_name("P_X")
+P_X = X.prob_measure.with_name("P_X")
 
 print(P_X)
 ```
