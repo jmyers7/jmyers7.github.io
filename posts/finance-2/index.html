@@ -314,7 +314,7 @@ window.Quarto = {
 </header>
 
 
-<div id="b6e06909" class="cell" data-execution_count="2">
+<div id="111862a9" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -323,7 +323,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="d53fe549" class="cell" data-execution_count="3">
+<div id="bb48590d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.core <span class="im">import</span> Time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sigalg.finance <span class="im">import</span> BinomialPricingModel</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -438,10 +438,10 @@ P(A) = p^k (1-p)^{t-k}.
 </div>
 </div>
 <p>The reader might try and prove the theorem on their own. We will settle for checking the equality in a few examples using SigAlg:</p>
-<div id="23b3ebb2" class="cell" data-execution_count="4">
+<div id="87178b1a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> S.probability_measure</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> S.prob_measure</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> S.natural_filtration</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>atoms <span class="op">=</span> F[<span class="dv">2</span>].to_atoms()</span>
@@ -480,10 +480,10 @@ True</code></pre>
 <p><span class="math display">\[
 \frac{1}{R}E(S_{t+1} \mid \mathcal{F}_t) = \frac{up+d(1-p)}{R}S_t.
 \]</span></p>
-<div id="2fd25105" class="cell" data-execution_count="5">
+<div id="08875f1b" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> S.risk_free_gross_return</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].expectation(sigma_algebra<span class="op">=</span>F[<span class="dv">1</span>]) <span class="op">/</span> R)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(S[<span class="dv">2</span>].expectation(sig_alg<span class="op">=</span>F[<span class="dv">1</span>]) <span class="op">/</span> R)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((u <span class="op">*</span> p <span class="op">+</span> d <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> p)) <span class="op">/</span> R <span class="op">*</span> S[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Random variable '(E(S_2|1)/1.05)':
