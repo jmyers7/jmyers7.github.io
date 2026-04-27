@@ -594,7 +594,8 @@ $$
 We may perform the same computation in SigAlg:
 
 ```{python}
-A = S.domain.get_event([0, 7])  # A is an `Event` object
+from sigalg.core import SigmaAlgebra
+A = SigmaAlgebra.power_set(S.domain).get_event([0, 7])  # A is an `Event` object
 print(round(P(A), 3))
 ```
 
@@ -672,7 +673,7 @@ of a random variable $X\in H$ over an event $A\in \sigma(S)$ is computable in Si
 
 S.print_trajectories_and_probabilities()
 
-A = S.domain.get_event([0, 3])
+A = SigmaAlgebra.power_set(S.domain).get_event([0, 3])
 integral = H.integrate(rv=S[3], event=A)
 print("The integral is", round(integral, 3))
 ```
