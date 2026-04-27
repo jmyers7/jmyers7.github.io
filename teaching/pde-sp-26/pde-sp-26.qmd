@@ -39,7 +39,7 @@ This course is an introduction to partial differential equations (PDEs) and Four
 |:-:|:-:|:--:|:-:|:-:|:-:|
 | Week 14 | 05.01 fri | Exam 2
 || 04.29 wed |
-|| 04.27 mon | Sec 17: Sturm-Liouville problems, part 2 | [Sec 17 Slides](./slides/17-sturm-liouville-part-2.qmd){target="_blank"} | Coming soon
+|| 04.27 mon | Sec 17: Sturm-Liouville problems, part 2 | [Sec 17 Slides](./slides/17-sturm-liouville-part-2.qmd){target="_blank"} | [Sec 17 Exercises](./exercises/17ex-sturm-liouville-problems-part-2.qmd)
 | Week 13 | 04.24 fri | Continue Sec 16 | Same as below ↓ | Same as below ↓ | Quiz on Sec 16
 || 04.22 wed | No class — Quest
 || 04.20 mon | Same as below ↓ | Same as below ↓ | Same as below ↓
