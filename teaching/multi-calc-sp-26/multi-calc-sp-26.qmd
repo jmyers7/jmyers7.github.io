@@ -35,7 +35,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
-| Week 14 | 05.01 fri |
+| Week 14 | 05.01 fri | Sec 29: Line integrals | [Sec 29 Slides](./handouts/29-line-integrals/29-line-integrals.pdf){target="_blank"} | [Sec 29 Exercises](./exercises/29ex-line-integrals.qmd)
 || 04.30 thu | Sec 28: Vector fields | [Sec 28 Slides](./handouts/28-vector-fields/28-vector-fields.pdf){target="_blank"} | [Sec 28 Exercises](./exercises/28ex-vector-fields.qmd) | Quiz on Secs 25 and 26
 || 04.29 wed | Sec 27: Motion, velocity, and acceleration | [Sec 27 Slides](./handouts/27-motion-velocity-and-acceleration/27-motion-velocity-and-acceleration.pdf){target="_blank"} | [Sec 27 Exercise](./exercises/27ex-motion-velocity-and-acceleration.qmd)
 || 04.27 mon | Sec 26: Parametrized curves | [Sec 26 Slides](./handouts/26-parametrized-curves/26-parametrized-curves.pdf){target="_blank"} | [Sec 26 Exercises](./exercises/26ex-parametrized-curves.qmd)
