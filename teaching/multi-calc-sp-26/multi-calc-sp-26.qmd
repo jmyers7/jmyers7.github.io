@@ -35,6 +35,14 @@ This course is an introduction to multivariable calculus. We will cover the foll
 
 | week | date | topics | slides | exercises | info |
 |:-:|:-:|:--:|:-:|:-:|:-:|
+| Finals week | 05.15 fri | Section 800 Final exam<br>Marano 225, 10:30-12:30pm
+|| 05.14 thu |
+|| 05.13 wed |
+|| 05.11 mon | Section 810 Final exam<br>Shineman 132, 2-4pm
+| Week 15 | 05.08 fri |
+|| 05.07 thu |
+|| 05.06 wed |
+|| 05.04 mon | Sec 30: Gradient fields, part 1 | [Sec 30 Slides](./handouts/30-gradient-fields-and-path-independent-fields-part-1/30-gradient-fields-and-path-independent-fields-part-1.pdf){target="_blank"} | [Sec 30 Exercises](./exercises/30ex-gradient-fields-and-path-independent-fields-part-1.qmd)
 | Week 14 | 05.01 fri | Sec 29: Line integrals | [Sec 29 Slides](./handouts/29-line-integrals/29-line-integrals.pdf){target="_blank"} | [Sec 29 Exercises](./exercises/29ex-line-integrals.qmd)
 || 04.30 thu | Sec 28: Vector fields | [Sec 28 Slides](./handouts/28-vector-fields/28-vector-fields.pdf){target="_blank"} | [Sec 28 Exercises](./exercises/28ex-vector-fields.qmd) | Quiz on Secs 25 and 26
 || 04.29 wed | Sec 27: Motion, velocity, and acceleration | [Sec 27 Slides](./handouts/27-motion-velocity-and-acceleration/27-motion-velocity-and-acceleration.pdf){target="_blank"} | [Sec 27 Exercise](./exercises/27ex-motion-velocity-and-acceleration.qmd)
