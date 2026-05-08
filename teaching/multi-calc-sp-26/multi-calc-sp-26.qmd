@@ -39,7 +39,7 @@ This course is an introduction to multivariable calculus. We will cover the foll
 || 05.14 thu |
 || 05.13 wed |
 || 05.11 mon | Section 810 Final exam<br>Shineman 132, 2-4pm
-| Week 15 | 05.08 fri |
+| Week 15 | 05.08 fri | Sec 32: Green's Theorem | [Sec 32 Slides](./handouts/32-greens-theorem/32-greens-theorem.pdf){target="_blank"} | [Sec 32 Exercises](./exercises/32ex-greens-theorem.qmd)
 || 05.07 thu | Sec 31: Gradient fields, part 2 | [Sec 31 Slides](./handouts/31-gradient-fields-and-path-independent-fields-part-2/31-gradient-fields-and-path-independent-fields-part-2.pdf){target="_blank"} | Same as below ↓ | Quiz on Sec 30
 || 05.06 wed | Same as below ↓ | Same as below ↓ | Same as below ↓
 || 05.04 mon | Sec 30: Gradient fields, part 1 | [Sec 30 Slides](./handouts/30-gradient-fields-and-path-independent-fields-part-1/30-gradient-fields-and-path-independent-fields-part-1.pdf){target="_blank"} | [Sec 30 Exercises](./exercises/30ex-gradient-fields-and-path-independent-fields-part-1.qmd)
