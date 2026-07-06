@@ -367,19 +367,17 @@ r = 0.05  # risk-free rate — ignore for now
 p = 0.7  # real-world probability
 u = 1.3  # up-factor
 d = 0.9  # down-factor
-T = 3  # time horizon
-
-# Instantiate a time index
-time = Time.discrete(length=T)
+T = Time.discrete(length=3)  # time index
 
 # Instantiate a binomial model
-S = BinomialPricingModel(
+S = BinomialPricingModel.generate(
+    mode="enum",
     initial_price=S_0,
     risk_free_rate=r,
     up_prob=p,
     up_factor=u,
     down_factor=d,
-    time=time,
+    index=T,
     name="S",
 )
 ```
@@ -394,7 +392,6 @@ import matplotlib.pyplot as plt
 _, ax = plt.subplots(figsize=(6, 3))
 yellow = "#FFC300"
 
-S.from_enumeration()
 S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
 plt.show()
 ```
@@ -408,14 +405,14 @@ print(S)
 The printout shows the $2^3 = 8$ trajectories over the time period ending at $T=3$, all beginning at the initial price $S_0=100$. The trajectories are indexed by the set $\Omega = \{0,1,\ldots,7\}$, which serves as the domain of the process:
 
 ```{python}
-print(S.domain)
+print(S.sample_space)
 ```
 
 The component random variables themselves $S_t: \Omega \to \mathbb{R}$ may be accessed via subscripting, which returns an instance of the `RandomVariable` class:
 
 ```{python}
 print(S[2], "\n")  # Print the random variable S_2
-print(S[2].domain, "\n")  # Check its domain
+print(S[2].sample_space, "\n")  # Check its domain
 print(type(S[2]))  # Check its type
 ```
 
@@ -425,7 +422,7 @@ The cardinality of the sample space $\Omega$ is $2^T$, which scales exponentiall
 # | fig-align: center
 
 S.down_factor = 1 / u  # Reset the down-factor
-S.from_enumeration(enum_mode="sparse")
+S.enum_mode = "sparse"
 print(S)
 
 _, ax = plt.subplots(figsize=(6, 3))
@@ -440,11 +437,11 @@ The other option available to the user for longer time horizons is to use the `f
 ```{python}
 # | fig-align: center
 
-T = 10
-S.time = Time.discrete(length=T)  # Set a longer time horizon
+S.n_trajectories = 5  # Simulate 5 trajectories
+S.random_state = 42  # Set the random state for reproducibility
+S.mode = "sim"  # Change the generation mode to 'simulation'
+S.length = 10  # Set a longer time horizon
 S.down_factor = d  # Reset to the original down-factor
-
-S.from_simulation(n_trajectories=5, random_state=42)
 
 _, ax = plt.subplots(figsize=(6, 3))
 S.plot_trajectories(ax=ax, colors=[yellow], y_label="price")
@@ -458,10 +455,9 @@ Every stochastic process $S_t$ is defined on an ambient probability space $(\Ome
 For the binomial models $S_t$ considered in this post, SigAlg automatically constructs the underlying probability space $(\Omega,\mathcal{F},P)$. The sample space $\Omega$ was described above: It consists simply of a finite index set $\Omega = \{0,1,\ldots,n\}$ up to some non-negative integer $n$. As an example, the sample space for our first binomial model from the previous section is displayed in the first column of the following printout:
 
 ```{python}
-T = 3
-S.time = Time.discrete(length=3)
-
-S.from_enumeration()
+S.length = 3  # Reset to the original trajectory length
+S.enum_mode = "dense"  # Reset to the original enumeration mode
+S.mode = "enum"  # Reset to 'enumeration' generation mode, rather than 'simulation'
 print(S)
 ```
 
@@ -470,11 +466,7 @@ The sample space is $\Omega = \{0,1,\ldots,7\}$. The $\sigma$-algebra is the pow
 ```{python}
 # | echo: false
 
-S._data = S._data.round(2)
-```
-
-```{python}
-print(S.generated_sig_alg)
+print(S.sig_alg)
 ```
 
 To understand the printout, we recall that every $\sigma$-algebra on a *finite* sample space $\Omega$ is determined by its *atoms*, which are the minimal non-empty events. The atoms $\{A_i\}_{i\in I}$ (indexed by some finite set $I$) partition the sample space
@@ -579,12 +571,6 @@ print(P, "\n")  # Print the measure
 print(type(P))  # Check its type
 ```
 
-For easy comparison, we can print the probabilities next to the trajectories:
-
-```{python}
-S.print_trajectories_and_probabilities()
-```
-
 Thus, we see that the probability of the event $A = \{0,7\}$ is
 
 $$
@@ -595,7 +581,8 @@ We may perform the same computation in SigAlg:
 
 ```{python}
 from sigalg.core import SigmaAlgebra
-A = SigmaAlgebra.power_set(S.domain).get_event([0, 7])  # A is an `Event` object
+
+A = SigmaAlgebra.power_set(S.sample_space).get_event([0, 7])  # A is an `Event` object
 print(round(P(A), 3))
 ```
 
@@ -649,13 +636,9 @@ using the probability space from our binomial pricing model:
 
 ```{python}
 
-from sigalg.l2 import L2
+from sigalg.core import L2
 
-H = L2(
-    sample_space=S.domain,
-    sig_alg=S.generated_sig_alg,
-    prob_measure=S.prob_measure,
-)
+H = L2(*S.prob_space)
 
 # Check that S_3 is in H, for example
 print(S[3] in H)
@@ -671,10 +654,8 @@ of a random variable $X\in H$ over an event $A\in \sigma(S)$ is computable in Si
 
 ```{python}
 
-S.print_trajectories_and_probabilities()
-
-A = SigmaAlgebra.power_set(S.domain).get_event([0, 3])
-integral = H.integrate(rv=S[3], event=A)
+A = SigmaAlgebra.power_set(S.sample_space).get_event([0, 3])
+integral = S[3].integrate(event=A)
 print("The integral is", round(integral, 3))
 ```
 
@@ -687,7 +668,7 @@ $$
 In SigAlg:
 
 ```{python}
-expectation = H.integrate(rv=S[3])
+expectation = S[3].integrate()
 print("The expectation is", round(expectation, 3))
 ```
 
@@ -768,9 +749,9 @@ using this $\sigma$-algebra:
 ```{python}
 
 G = L2(
-    sample_space=S.domain,
+    sample_space=S.sample_space,
     sig_alg=F[1],
-    prob_measure=S.prob_measure,
+    prob_measure=S.prob_measure | F[1],  # Restrict the probability measure to F[1]
 )
 ```
 
@@ -816,22 +797,6 @@ E\left[(Y - S_3)^2\right]
 $$
 
 over all $\mathcal{F}_1$-measurable random variables $Y$.
-
-
-```{python}
-
-S.time = Time.discrete(length=20)
-
-S.from_simulation(n_trajectories=100_000, random_state=42)
-
-len(S.range.sample_space)
-
-```
-
-```{python}
-print(S.range.prob_measure.data.values)
-
-```
 
 ## Bibliography
 
