@@ -334,122 +334,25 @@ Interestingly, the converse is also true, which leads us to our first glimpse of
 The inequalites ([-@eq-no-arbitrage]) are equivalent to the absence of arbitrages in the binomial model.
 :::
 
-With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, Proposition 2.26 in @Bjork2020).
+With the theorem as justification, the inequalities ([-@eq-no-arbitrage]) are called the *no-arbitrage condition*. A fully rigorous proof of the theorem requires a bit more precision in the definition of arbitrage; we will leave the interested reader to look up a proof in a suitable reference (for example, see Proposition 2.26 in @Bjork2020).
 
 ## Equivalent martingale measures
 
-The statement of the Fundamental Theorem of Asset Pricing (in @thm-no-arb) is referred to as "version 1". In this section we discuss a second version, which more closely aligns with the statement one would find in textbooks, and which deals with so-called *equivalent martingale measures*.
+::: {#thm-no-arb}
 
-By way of introduction, consider again the cash position held in the bank. Suppose that we deposit an initial amount $B_0$ at time $t=0$, and hold the position over a period of time with no additional cash infusions or withdrawals. Obviously, then, if we know the balance in the account at a particular time $t$, say $B_t$, then we know the balance one time period later:
+### First Fundamental Theorem of Asset Pricing — Binomial Model, v.2
 
-$$
-B_{t+1} = RB_t,
-$$
-
-where $R$ is the risk-free gross return. Reciprocally, the current balance is the *present value* of the future balance, i.e.,
+With respect to the equivalent martingale measure $Q$, the discounted price process is a martingale:
 
 $$
-B_t = \frac{1}{R} B_{t+1}.
-$$ {#eq-pv-bank}
-
-So, given the current balance $B_t$ at time $t$, *we know for certain the balance one period into the future.* We ask: Is there something analogous that we could say about the price process $S_t$ of the risky asset?
-
-Working toward an answer to this question, suppose that a time $t$ is fixed, and that we observe the current price $S_t$ of the asset. Of course, since the price process is stochastic, we would never be able to predict the future price $S_{t+1}$ with absolute certainty—this would require seeing into the future. But, as we know from basic probability theory, the expectation $E(S_{t+1} \mid S_t)$ is the best approximation of $S_{t+1}$, given $S_t$, in the sense that it is the closest $\sigma(S_t)$-measurable random variable to $S_{t+1}$ in mean squared error. So, with the expectation in place of $S_{t+1}$, and taking the time value of money into account, we then wonder if something analogous to ([-@eq-pv-bank]) holds—something like
-
+S_t = \frac{1}{R^{r-t}}E_Q \left( S_r\mid \mathcal{F}_t\right),
 $$
-S_t = \frac{1}{R} E(S_{t+1} \mid S_t)?
-$$ {#eq-wrong}
 
-However, this obviously cannot hold, because the expectation is discounted via $R=1+r$, which is built from the risk-free rate $r$. But the asset under discussion is risky, and hence we would expect that the correct discount factor (if it even exists) should include a risk premium.
+for $0 \leq t \leq r \leq T$.
 
-::: {#thm-prob-atom}
-Let $A$ be an atom of the $\sigma$-algebra $\mathcal{F}_t$ corresponding to a length-$t$ partial trajectory with $k$ up moves and $t-k$ down moves. Then
-
-$$
-P(A) = p^k (1-p)^{t-k}.
-$$
 :::
 
-The reader might try and prove the theorem on their own. We will settle for checking the equality in a few examples using SigAlg:
-
-```{python}
-import numpy as np
-
-P = S.prob_measure
-F = S.natural_filtration
-
-atoms = F[2].to_atoms()
-expected_atom_probs = [0.7**2, 0.7 * 0.3, 0.7 * 0.3, 0.3**2]
-
-for atom, prob in zip(atoms, expected_atom_probs):
-    print(np.allclose(P(atom), prob))
-```
-
-::: {#thm-int-atom}
-Let $A$ be an atom of the $\sigma$-algebra $\mathcal{F}_t$ corresponding to a length-$t$ partial trajectory with $k$ up moves and $t-k$ down moves. Then
-
-$$
-\langle S_{t+1}, I_A \rangle = uS_t(\omega)p^{k+1}(1-p)^{t-k} + dS_t(\omega)p^k(1-p)^{t-k+1},
-$$
-
-where $\omega$ is *any* sample point in $A$.
+::: {.callout-note collapse="true" icon="false"}
+## Proof.
+Yup.
 :::
-
-Thus, we have
-
-$$
-\frac{1}{P(A)}\langle S_{t+1}, I_A \rangle =  S_t(\omega)(up + d(1-p)).
-$$
-
-It then follows that
-
-$$
-\frac{1}{R}E(S_{t+1} \mid \mathcal{F}_t) = \frac{up+d(1-p)}{R}S_t.
-$$
-
-```{python}
-
-R = S.risk_free_gross_return
-
-print(S[2].expectation(sig_alg=F[1]) / R)
-print((u * p + d * (1 - p)) / R * S[1])
-```
-
-
-
-
-
-
-
-<!-- Now, nothing has been mentioned so far about the dynamics of the price process $S_t$. However, as we will show presently, if we model this price process with a binomial model, then something beautiful happens. In preparation, we first need to unwind the expectation $E(S_{t+1} \mid S_t)$ carefully, in the case that we use a binomial model with up- and down-factors $u$ and $d$, respectively, and real-world probability $p$. We suppose that $\Omega$ is the sample space underlying the random variables $S_t$, and that $P$ is the corresponding real-world measure on $\Omega$ built from $p$. Thus, the marginal probabilities of the component price random variables are given (as we saw above) by the formula
-
-$$
-P\left( S_t = S_0u^{k}d^{t-k}\right) = \binom{t}{k} p^k (1-p)^{t-k},
-$$
-
-for $k=0,1,\ldots,t$. The $\sigma$-algebra generated by $S_t$, namely $\sigma(S_t)$, has $t+1$ atoms given by the sets
-
-$$
-A_k = \{ \omega \in \Omega \mid S_t(\omega) = S_0 u^k d^{t-k}\}.
-$$
-
-The vector space $L^2(\Omega, \sigma(S_t), P)$ then has a finite orthonormal basis given by the normalized indicator functions
-
-$$
-\frac{I_{A_k}}{\sqrt{P(A_k)}},
-$$
-
-one for each $k=0,1,\ldots,t$. Thus, the expectation $E(S_{t+1} \mid S_t)$ is given by its generalized Fourier series:
-
-$$
-E(S_{t+1} \mid S_t) = \sum_{k=0}^t \left \langle S_{t+1}, \frac{I_{A_k}}{\sqrt{P(A_k)}} \right \rangle \frac{I_{A_k}}{\sqrt{P(A_k)}}  = \sum_{k=0}^t \frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) I_{A_k}.
-$$
-
-For each $k=0,1,\ldots,t$, write $s_k = S_0 u^k d^{t-k}$, for brevity. Then, we have
-
-$$
-\begin{align*}
-\frac{1}{P(A_k)} E(S_{t+1}I_{A_k}) &= \frac{1}{P(A_k)} \int_{A_k} S_{t+1} \, dP \\
-&= \frac{ us_k P\left( S_{t+1} = us_k \right) + ds_kP\left( S_{t+1} = ds_k \right)}{P\left( S_t = s_k\right)}
-\end{align*}
-$$ -->
