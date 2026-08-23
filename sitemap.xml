@@ -5,78 +5,6 @@
     <lastmod>2026-04-26T22:20:57.976Z</lastmod>
   </url>
   <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/04ex-general-pdes-and-boundary-conditions.html</loc>
-    <lastmod>2026-04-26T22:20:57.519Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/02ex-separation-of-var.html</loc>
-    <lastmod>2026-04-26T22:20:57.511Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/09ex-differentiation-and-integration-of-fourier-series.html</loc>
-    <lastmod>2026-04-26T22:20:57.504Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/03ex-the-laplacian-and-laplaces-equation.html</loc>
-    <lastmod>2026-04-26T22:20:57.496Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/07ex-convergence-of-fourier-series-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.492Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/01ex-an-introduction-to-pdes.html</loc>
-    <lastmod>2026-04-26T22:20:57.484Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/13ex-convergence-completeness.html</loc>
-    <lastmod>2026-04-26T22:20:57.477Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/18ex-more-examples-of-sturm-liouville-problems.html</loc>
-    <lastmod>2026-05-06T15:20:04.520Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/05ex-a-first-look-at-fourier-series-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.467Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/11-vectors-inner-products.html</loc>
-    <lastmod>2026-04-26T22:20:57.458Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/03-the-laplacian-and-laplaces-equation.html</loc>
-    <lastmod>2026-04-26T22:20:57.455Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/10-fourier-series-on-different-intervals.html</loc>
-    <lastmod>2026-04-26T22:20:57.446Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/16-sturm-liouville-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.439Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/14-convergence-completeness-part-2.html</loc>
-    <lastmod>2026-04-26T22:20:57.430Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/15-more-on-l-2-spaces.html</loc>
-    <lastmod>2026-04-26T22:20:57.423Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/01-an-introduction-to-pdes.html</loc>
-    <lastmod>2026-04-26T22:20:57.415Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/02-separation-of-var.html</loc>
-    <lastmod>2026-04-26T22:20:57.406Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/calc-ii-fa-25/calc-ii-fa-25.html</loc>
-    <lastmod>2026-04-26T22:20:57.397Z</lastmod>
-  </url>
-  <url>
     <loc>https://johnmyers-phd.com/teaching/multi-calc-sp-26/exercises/24ex-integrals-in-cylindrical-and-spherical-coordinates-part-1.html</loc>
     <lastmod>2026-04-26T22:20:57.392Z</lastmod>
   </url>
@@ -165,32 +93,24 @@
     <lastmod>2026-05-08T16:39:33.387Z</lastmod>
   </url>
   <url>
-    <loc>https://johnmyers-phd.com/about.html</loc>
-    <lastmod>2026-04-26T22:20:57.215Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/posts/sigalg/index.html</loc>
-    <lastmod>2026-04-26T22:20:57.197Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/posts/gmm-1/index.html</loc>
-    <lastmod>2026-04-26T22:20:57.180Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/posts/info-2/index.html</loc>
-    <lastmod>2026-04-26T22:20:57.164Z</lastmod>
+    <loc>https://johnmyers-phd.com/index.html</loc>
+    <lastmod>2026-04-26T22:20:57.211Z</lastmod>
   </url>
   <url>
     <loc>https://johnmyers-phd.com/posts/info-1/index.html</loc>
     <lastmod>2026-04-26T22:20:57.193Z</lastmod>
   </url>
   <url>
-    <loc>https://johnmyers-phd.com/index.html</loc>
-    <lastmod>2026-04-26T22:20:57.211Z</lastmod>
+    <loc>https://johnmyers-phd.com/posts/info-2/index.html</loc>
+    <lastmod>2026-04-26T22:20:57.164Z</lastmod>
   </url>
   <url>
-    <loc>https://johnmyers-phd.com/teaching/analysis-fa-25/analysis-fa-25.html</loc>
-    <lastmod>2026-04-26T22:20:57.231Z</lastmod>
+    <loc>https://johnmyers-phd.com/posts/gmm-1/index.html</loc>
+    <lastmod>2026-04-26T22:20:57.180Z</lastmod>
+  </url>
+  <url>
+    <loc>https://johnmyers-phd.com/about.html</loc>
+    <lastmod>2026-04-26T22:20:57.215Z</lastmod>
   </url>
   <url>
     <loc>https://johnmyers-phd.com/teaching/multi-calc-sp-26/slides/14-second-derivatives-part-2.html</loc>
@@ -279,77 +199,5 @@
   <url>
     <loc>https://johnmyers-phd.com/teaching/multi-calc-sp-26/exercises/26ex-parametrized-curves.html</loc>
     <lastmod>2026-04-27T15:59:10.611Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/07-convergence-of-fourier-series-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/09-differentiation-and-integration-of-fourier-series.html</loc>
-    <lastmod>2026-04-26T22:20:57.410Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/08-convergence-of-fourier-series-part-2.html</loc>
-    <lastmod>2026-04-26T22:20:57.420Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/04-general-pdes-and-boundary-conditions.html</loc>
-    <lastmod>2026-04-26T22:20:57.427Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/05-a-first-look-at-fourier-series-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.436Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/13-convergence-completeness-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.443Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/12-functions-inner-products.html</loc>
-    <lastmod>2026-04-26T22:20:57.451Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/17-sturm-liouville-part-2.html</loc>
-    <lastmod>2026-04-27T15:51:38.616Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/slides/06-a-first-look-at-fourier-series-part-2.html</loc>
-    <lastmod>2026-04-26T22:20:57.462Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/08ex-convergence-of-fourier-series-part-2.html</loc>
-    <lastmod>2026-04-26T22:20:57.470Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/11ex-vectors-inner-products.html</loc>
-    <lastmod>2026-04-26T22:20:57.473Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/06ex-a-first-look-at-fourier-series-part-2.html</loc>
-    <lastmod>2026-04-26T22:20:57.480Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/16ex-sturm-liouville-problems-part-1.html</loc>
-    <lastmod>2026-04-26T22:20:57.488Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/17ex-sturm-liouville-problems-part-2.html</loc>
-    <lastmod>2026-04-27T23:44:04.999Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/10ex-fourier-series-on-different-intervals.html</loc>
-    <lastmod>2026-04-26T22:20:57.500Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/12ex-functions-inner-products.html</loc>
-    <lastmod>2026-04-26T22:20:57.507Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/exercises/15ex-more-on-l-2-spaces.html</loc>
-    <lastmod>2026-04-26T22:20:57.514Z</lastmod>
-  </url>
-  <url>
-    <loc>https://johnmyers-phd.com/teaching/pde-sp-26/pde-sp-26.html</loc>
-    <lastmod>2026-05-06T15:32:15.424Z</lastmod>
   </url>
 </urlset>
