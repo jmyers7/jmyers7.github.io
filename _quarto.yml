@@ -18,10 +18,10 @@ website:
         href: about.qmd
       - text: "Writings"
         href: writings.qmd
-      - text: "Teaching"
-        menu:
-          - teaching/multi-calc-sp-26/multi-calc-sp-26.qmd
-          - teaching/pde-sp-26/pde-sp-26.qmd
+      # - text: "Teaching"
+      #   menu:
+      #     - teaching/multi-calc-sp-26/multi-calc-sp-26.qmd
+      #     - teaching/pde-sp-26/pde-sp-26.qmd
       - text: "Probabilistic Machine Learning"
         href: https://www.johnmyers-phd.com/book
         target: _blank
@@ -32,14 +32,14 @@ website:
         href: https://github.com/jmyers7/
         target: _blank
       # - icon: mastodon
-        # href: https://mathstodon.xyz/@jmyers7
-        # target: _blank
+      #   href: https://mathstodon.xyz/@jmyers7
+      #   target: _blank
       - icon: linkedin
         href: https://www.linkedin.com/in/john-myers-phd
         target: _blank
-      - icon: bluesky
-        href: https://bsky.app/profile/john-myers-phd.bsky.social
-        target: _blank
+      # - icon: bluesky
+      #   href: https://bsky.app/profile/john-myers-phd.bsky.social
+      #   target: _blank
       - icon: envelope-open-fill
         href: mailto:jmmyers25@gmail.com
   

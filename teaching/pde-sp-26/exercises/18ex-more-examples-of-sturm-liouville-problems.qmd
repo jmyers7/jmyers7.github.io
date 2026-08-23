@@ -1,8 +1,0 @@
----
-title: "Partial Differential Equations: Exercises"
-toc: true
----
-
-# 18 More examples of Sturm-Liouville problems
-
-Do problems 1-5 [here](./text/18ex-more-examples-of-sturm-liouville-problems.pdf){target="_blank"}. Note that this textbook uses different notation compared to our solutions in class. What we called $f(x)$ this textbook calls $X(x)$, what we called $\mu_n$ this textbook calls $\alpha_n$, and what we called $\ell$ this testbook calls $c$.
