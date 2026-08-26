@@ -1,0 +1,72 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 07 Convergence of Fourier series, part 1
+
+## Exercise 1: Piecewise continuous and piecewise smooth functions
+
+Recall the notions of piecewise continuous and piecewise smooth functions that we discussed in class. In this exercise, you will determine whether the following functions are continuous, piecewise continuous, or piecewise smooth on the interval $[-\pi, \pi]$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. $f(\theta) = \csc{\theta}$.
+
+b. $f(\theta) = \sqrt[3]{\sin{\theta}}$.
+
+c. $f(\theta) = \cos{\theta}$ if $\theta>0$, and $f(\theta) = -\cos{\theta}$ if $\theta <=0$.
+
+d. $f(\theta) = (\sin{\theta})^{4/3}$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. Not continuous: infinite discontinuity at $\theta=0$. Not piecewise continuous: left- and right-hand limits of $f$ at $\theta=0$ do not exist. Hence, also not piecewise smooth.
+
+b. Continuous. Hence, also piecewise continuous. Not piecewise smooth: derivative has an infinite discontinuity at $\theta=0$.
+
+c. Not continuous: jump discontinuity at $\theta=0$. Otherwise, piecewise smooth and hence also piecewise continuous.
+
+d. Continuous. Hence, also piecewise continuous. Also piecewise smooth.
+:::
+
+## Exercise 2: Shifting integrals of periodic functions
+
+We used the following result in class: If $f$ is $2\pi$-periodic and integrable, then
+
+$$
+\int_{-\pi + a}^{\pi + a} f(\theta) \, d\theta = \int_{-\pi}^{\pi} f(\theta) \, d\theta
+$$
+
+for all $a \in \mathbb{R}$.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Explain why (i.e., prove) the above result is true.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solution.
+
+Here's one clever way to prove this. Define a function $g$ by setting
+$$
+g(a) = \int_{-\pi + a}^{\pi + a} f(\theta) \, d\theta.
+$$
+Notice that we can rewrite this as
+$$
+g(a) = \int_0^{\pi +a} f(\theta) \, d\theta - \int_0^{-\pi + a} f(\theta) \, d\theta.
+$$
+Then, by the Fundamental Theorem of Calculus, we have
+$$
+g'(a) = f(\pi + a) - f(-\pi + a).
+$$
+However, because $f$ is $2\pi$-periodic, we have $f(\pi + a) = f(-\pi + a)$, and hence $g'(a) = 0$. This means that $g(a)$ is constant, and so
+$$
+\int_{-\pi +a}^{\pi + a} f(\theta) \, d\theta = g(a) = g(0) = \int_{-\pi}^{\pi} f(\theta) \, d\theta.
+$$
+
+:::

@@ -1,0 +1,38 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 08 Convergence of Fourier series, part 2
+
+## Exercise 1: Summing infinite series using Fourier series
+
+Recall the method used in Exercise 1 and 2 in class of using a Fourier series to sum an infinite series. This exercise is a continuation of that method, and it makes use of the [table](./img/fourier-series.pdf) of Fourier series that we've used in previous exercises.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For each of the following series, use the table linked above to find the sum of the series.
+
+a. $\displaystyle\sum_{n=1}^\infty \frac{1}{4n^2-1}$
+
+b. $\displaystyle\sum_{n=1}^\infty \frac{1}{n^2}$
+
+c. $\displaystyle\sum_{n=1}^\infty \frac{(-1)^{n+1}}{(2n-1)^3}$
+
+d. $\displaystyle\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n^2}$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. $\frac{1}{2}$
+
+b. $\frac{\pi^2}{6}$
+
+c. $\frac{\pi^3}{32}$
+
+d. $\frac{\pi^2}{12}$
+
+:::
+

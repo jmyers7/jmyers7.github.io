@@ -18,10 +18,10 @@ website:
         href: about.qmd
       - text: "Writings"
         href: writings.qmd
-      # - text: "Teaching"
-      #   menu:
-      #     - teaching/multi-calc-sp-26/multi-calc-sp-26.qmd
-      #     - teaching/pde-sp-26/pde-sp-26.qmd
+      - text: "Teaching"
+        menu:
+          # - teaching/multi-calc-sp-26/multi-calc-sp-26.qmd
+          - teaching/pde-sp-26/pde-sp-26.qmd
       - text: "Probabilistic Machine Learning"
         href: https://www.johnmyers-phd.com/book
         target: _blank

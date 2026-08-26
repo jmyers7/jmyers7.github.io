@@ -1,0 +1,68 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 06 A first look at Fourier series, part 2
+
+## Exercise 1: More practice computing Fourier series
+
+This exercise refers to the Fourier series listed in rows 1-20 of the file [here](./img/fourier-series.pdf){target="_blank"}, the same file as in Exercise 1 of the previous section.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+a. Verify, by hand, that the Fourier series for the function in **row 7** of the table in the file above is the one shown.
+
+b. Verify, by hand, that the Fourier series for the function in **row 16** of the table in the file above is the one shown.
+
+For extra fun, open up an instance of [Desmos](https://www.desmos.com/calculator){target="_blank"}, and see if you can manage to plot a few partial sums of the Fourier series.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+The solutions are given in the PDF itself! Make sure your calculations match the Fourier series shown in the table.
+:::
+
+## Exercise 2: Bessel's inequality ($ab$-version)
+
+We saw the following "$ab$-version" of Bessel's inequality in the slides: If $f:\mathbb{R} \to \mathbb{C}$ is a $2\pi$-periodic function, integrable on $[-\pi, \pi]$, and if $a_n$ and $b_n$ are its Fourier coefficients, then
+$$
+\frac{|a_0|^2}{4} + \frac{1}{2}\sum_{n=1}^\infty \left( |a_n|^2 + |b_n|^2 \right) \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+$$
+
+::: {.callout-note icon="false" appearance="minimal"}
+In this exercise, you will derive the $ab$-version of Bessel's inequality from the $c$-version of Bessel's inequality that we discussed and proved in class.
+
+a. First, show that
+$$
+|a_n|^2 + |b_n|^2 = 2\left(|c_n|^2 + |c_{-n}|^2\right), \quad n\geq 1.
+$$
+You'll need to use the conversion formulas between $a_n$, $b_n$ and $c_n$, that we discussed in class.
+
+b. Then, derive the $ab$-version from the $c$-version.
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. We know that $a_n = c_n + c_{-n}$ and $b_n = i(c_n - c_{-n})$. So
+$$
+\begin{align*}
+|a_n|^2 + |b_n|^2 &= a_n \overline{a_n} + b_n \overline{b_n} \\
+&= (c_n + c_{-n})(\overline{c_n} + \overline{c_{-n}}) + i(c_n - c_{-n})(-i)(\overline{c_n} - \overline{c_{-n}}) \\
+&= 2c_n \overline{c_n} + 2c_{-n} \overline{c_{-n}} \\
+&= 2\left(|c_n|^2 + |c_{-n}|^2\right).
+\end{align*}
+$$
+
+b. We have that
+$$
+\sum_{n=-\infty}^\infty |c_n|^2 = |c_0|^2 + \sum_{n=1}^\infty \left( |c_n|^2 + |c_{-n}|^2 \right) = \frac{|a_0|^2}{4} + \frac{1}{2}\sum_{n=1}^\infty \left( |a_n|^2 + |b_n|^2 \right),
+$$
+where we used (a) and the fact that $a_0 = 2c_0$. Now apply the $c$-version of Bessel's inequality to get the $ab$-version:
+$$
+\frac{|a_0|^2}{4} + \frac{1}{2}\sum_{n=1}^\infty \left( |a_n|^2 + |b_n|^2 \right) = \sum_{n=-\infty}^\infty |c_n|^2 \leq \frac{1}{2\pi} \int_{-\pi}^\pi |f(\theta)|^2 \, d\theta.
+$$
+:::

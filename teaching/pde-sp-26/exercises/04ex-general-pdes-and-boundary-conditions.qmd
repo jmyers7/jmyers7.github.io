@@ -1,0 +1,165 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 04 General PDEs and boundary conditions
+
+## Exercise 1: Visualizing spatial slices
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Consider the wave equation for a vibrating rectangular membrane of dimensions $a$ by $b$, where the displacement is given by $u(x,y,t)$ with $(x,y) \in [0,a] \times [0,b]$ and $t \geq 0$.
+
+a. What is the dimension of the domain $D$ for this PDE?
+
+b. Sketch or describe what a spatial slice at time $t = t_0$ looks like geometrically.
+
+c. If we track the displacement at a single point $(x_0, y_0)$ over all time, what geometric object does this trace out in the domain $D$?
+
+d. Suppose instead we consider the steady-state version where $u$ solves Laplace's equation (so $u = u(x,y)$ with no time dependence). How does the domain change?
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. The domain is
+$$
+D =\{ (x,y,t) : 0 \leq x \leq a, \, 0 \leq y \leq b, \, t \geq 0\},
+$$
+which is 3-dimensional (two spatial dimensions plus time).
+
+b. A spatial slice at time $t = t_0$ is the rectangle $[0,a] \times [0,b]$ in the $xy$-plane. Geometrically, this represents the entire membrane at a single frozen moment in time. The value $u(x,y,t_0)$ at each point gives the vertical displacement of the membrane at that location at time $t_0$.
+
+c. Tracking a single point $(x_0, y_0)$ over all time traces out a vertical line (or ray) in the $t$-direction: the set $\{(x_0, y_0, t) : t \geq 0\}$. This is a 1-dimensional curve in the 3-dimensional domain.
+
+d. For Laplace's equation, there is no time dependence, so the domain becomes
+$$
+D = \{(x,y) : 0 \leq x \leq a, \, 0 \leq y \leq b\},
+$$
+which is 2-dimensional. This is just the rectangle representing the membrane itself.
+
+:::
+
+## Exercise 2: Recognizing linear vs. nonlinear operators
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For each differential operator below, determine whether it is linear or nonlinear. If it is linear, state whether the PDE $L(u) = 0$ is homogeneous or non-homogeneous.
+
+a. $L(u) = \frac{\partial u}{\partial t} - \frac{\partial^2 u}{\partial x^2} + e^x$
+
+b. $L(u) = \frac{\partial^2 u}{\partial x^2} + \left(\frac{\partial u}{\partial x}\right)^2$
+
+c. $L(u) = x^2 \frac{\partial^2 u}{\partial x^2} + y \frac{\partial u}{\partial y} - 3u$
+
+d. $L(u) = \nabla^2 u + e^u$
+
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. This operator is not linear because it includes a term $e^x$. In particular, notice that we don't have $L(0) = 0$ due to this $e^x$ term. (Every linear transformation must map the zero function to zero.)
+
+b. This operator is not linear because of the $\left(\frac{\partial u}{\partial x}\right)^2$ term. To verify, notice, in particular, that
+$$
+L(2x^2) = \frac{\partial^2 (2x^2)}{\partial x^2} + \left(\frac{\partial (2x^2)}{\partial x}\right)^2 = 4 + 16x^2.
+$$
+However, we have
+$$
+2L(x^2) = 2\left(\frac{\partial^2 (x^2)}{\partial x^2} + \left(\frac{\partial (x^2)}{\partial x}\right)^2\right) = 2(2 + 4x^2) = 4 + 8x^2.
+$$
+Thus, $L(2x^2) \neq 2L(x^2)$, so $L$ is nonlinear.
+
+c. This operator is linear. The coefficients $x^2$, $y$, and $-3$ are all functions of the independent variables (not of $u$), and $u$ and its derivatives appear linearly (i.e., no products or nonlinear functions of $u$ or its derivatives).
+
+d. This operator is not linear because of the $e^u$ term, which depends nonlinearly on $u$ itself. To verify, notice, in particular, that
+$$
+L(0) = \nabla^2 0 + e^0 = 1 \neq 0,
+$$
+
+while for any linear operator we must have $L(0) = 0$.
+
+:::
+
+## Exercise 3: Boundary condition detective work
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For each physical scenario below, determine the appropriate type of boundary condition (Dirichlet or Neumann) and write it down mathematically. Explain your reasoning.
+
+a. A metal wire of length $L$ has its left end held at a constant temperature of $100°C$ and its right end held at $0°C$. We model the temperature as $u(x,t)$ where $x \in [0,L]$.
+
+b. A metal rod of length $L$ is perfectly insulated at both ends, so no heat can flow in or out. The temperature is $u(x,t)$ where $x \in [0,L]$.
+
+c. A vibrating guitar string of length $L$ is pinned down at both ends (displacement is zero there). The displacement is $u(x,t)$ where $x \in [0,L]$.
+
+d. A hot metal plate occupies the square $[0,1] \times [0,1]$, and you hold the temperature constant at $50°C$ along the entire boundary. The temperature is $u(x,y,t)$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. This requires Dirichlet boundary conditions because the temperature values are specified directly at the endpoints:
+$$
+u(0,t) = 100, \quad u(L,t) = 0 \quad \text{for all } t > 0.
+$$
+
+b. This requires Neumann boundary conditions. Since the rod is insulated, no heat flows through the endpoints, meaning that
+$$
+\frac{\partial u}{\partial x}(0,t) = 0, \quad \frac{\partial u}{\partial x}(L,t) = 0 \quad \text{for all } t > 0.
+$$
+
+c. This requires Dirichlet boundary conditions because the displacement is specified (as zero) at the endpoints:
+$$
+u(0,t) = 0, \quad u(L,t) = 0 \quad \text{for all } t > 0.
+$$
+
+d. This requires Dirichlet boundary conditions on the entire boundary of the square. If we denote the boundary as $\partial D$, then:
+$$
+u(x,y,t) = 50 \quad \text{for all } (x,y) \in \partial D, \, t > 0.
+$$
+More explicitly, this means:
+$$
+\begin{align*}
+u(0,y,t) &= 50 \quad \text{for } y \in [0,1], \\
+u(1,y,t) &= 50 \quad \text{for } y \in [0,1], \\
+u(x,0,t) &= 50 \quad \text{for } x \in [0,1], \\
+u(x,1,t) &= 50 \quad \text{for } x \in [0,1].
+\end{align*}
+$$
+
+:::
+
+## Exercise 4: Initial vs. boundary value problems
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Consider the wave equation $\frac{\partial^2 u}{\partial t^2} = a^2 \frac{\partial^2 u}{\partial x^2}$ on the interval $[0,L]$, modeling a string of length $L$ held fixed at both ends. At $t=0$, the string has the shape $u(x,0) = x(L-x)$ and is released from rest. Write down all the boundary and initial conditions for this problem.
+
+
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+Boundary conditions (Dirichlet, since the string is fixed at both ends):
+$$
+u(0,t) = 0, \quad u(L,t) = 0 \quad \text{for all } t > 0.
+$$
+Initial conditions:
+$$
+u(x,0) = x(L-x) \quad \text{for all } x \in [0,L],
+$$
+$$
+\frac{\partial u}{\partial t}(x,0) = 0 \quad \text{for all } x \in [0,L].
+$$
+
+
+
+::: 

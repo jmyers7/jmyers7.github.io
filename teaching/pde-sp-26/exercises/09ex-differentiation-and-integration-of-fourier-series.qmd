@@ -1,0 +1,68 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 09 Differentiation and integration of Fourier series
+
+## Exercise 1: Integrating a Fourier series {.scrollable}
+
+This exercise once again makes use of the [table](./img/fourier-series.pdf) of Fourier series.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+We saw in class that
+
+$$
+\theta = 2 \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \sin{n\theta}
+$$
+
+for all $\theta \in (-\pi, \pi)$.
+
+a. Use this equation, along with the Integration Theorem, to derive the result in entry 16 of the table.
+
+Then, starting from entry 16 of the table, make use of the Integration Theorem to show that:
+
+b. $\theta^3 - \pi^2 \theta = 12 \sum_{n=1}^{\infty} \frac{(-1)^{n}}{n^3} \sin{n\theta}$
+
+c. $\theta^4 - 2\pi^2 \theta^2 = 48 \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n^4} \cos{n\theta}$
+
+d. $\sum_{n=1}^\infty \frac{1}{n^4} = \frac{\pi^4}{90}$
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+Coming soon!
+
+:::
+
+## Exercise 2: Differentiating a Fourier series {.scrollable}
+
+When is term-by-term differentiation of a Fourier series valid? This exercise explores this question in a specific case.
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+Consider the $2\pi$-periodic extension $f$ of the function with $f(\theta) = e^\theta$ for $\theta \in (-\pi, \pi]$. This function is piecewise smooth, so we know that
+
+$$
+f(\theta) = \sum_{n=-\infty}^{\infty} c_n e^{i n \theta}
+$$
+
+at all points of continuity, where the $c_n$ are the Fourier coefficients of $f$. If we formally differentiate both sides of this equation (the right side term-by-term), we obtain
+
+$$
+e^\theta = f'(\theta) = \sum_{n=-\infty}^{\infty} i n c_n e^{i n \theta}.
+$$
+
+But by uniqueness of Fourier coefficients, this would say $c_n = i n c_n$ for all $n$, which only happens if $c_n=0$. But this is clearly false! Discuss what went wrong.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+The Differentiation Theorem only applies to the Fourier series of **continuous** functions. The function $f$ is discontinuous when $\theta$ is an odd multiple of $\pi$, so the Differentiation Theorem does not apply, and we cannot differentiate the Fourier series of $f$ term-by-term.
+
+:::

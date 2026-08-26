@@ -1,0 +1,35 @@
+---
+title: "Partial Differential Equations: Exercises"
+toc: true
+---
+
+# 17 Sturm-Liouville problems, part 2
+
+## Exercise 1: Identifying regular Sturm-Liouville problems
+
+::: {.callout-note icon="false" appearance="minimal"}
+
+For each of the boundary value problems below, identify which are regular Sturm-Liouville problems, which are singular Sturm-Liouville problems, and which are neither. For those that are Sturm-Liouville problems, identify all the relevant components.
+
+a. $xf''(x) + f'(x) + \left( -\frac{1}{x} + \lambda x\right) f(x) = 0$ on the interval $[0, 1]$ with the boundary conditions $f(0)=0$ and $f(1)=0$.
+
+b. $(1-x^2)f''(x) -2x f'(x) + \lambda f(x)=0$ on the interval $[-1,1]$ with boundary conditions $f(-1)=f(1)$ and $f'(-1)=f'(1)$.
+
+c. $x^3 f''(x) + 3x^2 f'(x) + \lambda f'(x) f(x) = 0$ on the interval $[0, 2]$ with boundary conditions $f(0)=f(2)$ and $f'(0)=f'(2)$.
+
+d. $(xf'(x))' + \frac{\lambda}{x}f(x) =0$ on the interval $[1,2]$ with boundary conditions $f(1)=0$ and $f(2)=0$.
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## Solutions.
+
+a. This is a singular Sturm-Liouville problem. We have $r(x)=x$, $p(x) = -1/x$, and $w(x)=x$ with separated boundary conditions. But notice that $r(0)=0$ and $w(0)=0$, as well as that $p(0)$ is undefined, which cannot happen for regular problems.
+
+b. This is another singular Sturm-Liouville problem. We have $r(x) = 1-x^2$, $p(x) = 0$, and $w(x)=1$ with periodic boundary conditions. But notice that $r(\pm 1)$, which cannot happen for regular problems.
+
+c. This is neither a regular nor a singular Sturm-Liouville problem. In fact, notice that it is not even a *linear* differential equation because of the product $f'(x)f(x)$.
+
+d. This is a regular Sturm-Liouville problem. We have $r(x) = x$, $p(x)=0$, and $w(x) = 1/x$. The boundary conditions are separated.
+:::
+
