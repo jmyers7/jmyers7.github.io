@@ -2,6 +2,10 @@
   {
     "listing": "/writings.html",
     "items": [
+      "/posts/brownian-1/brownian-motion-1.html",
+      "/posts/binomial-3/binomial-pricing-model-3.html",
+      "/posts/binomial-2/binomial-pricing-model-2.html",
+      "/posts/binomial-1/binomial-pricing-model-1.html",
       "/posts/info-2/index.html",
       "/posts/info-1/index.html",
       "/posts/gmm-1/index.html"
