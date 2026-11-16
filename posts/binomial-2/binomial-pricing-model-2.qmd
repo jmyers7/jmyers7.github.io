@@ -1,0 +1,182 @@
+---
+title: "Contingent claims"
+date: "2026-11-15"
+toc: true
+categories: [Risk-neutral valuation, Options, Derivatives, Binomial pricing model, Finance, SigAlg, Python]
+jupyter: python3
+---
+
+
+This is the second of three notebooks on risk-neutral valuation in SigAlg with binomial trees. It assumes the binomial model from the first notebook, which is rebuilt below so that this notebook runs on its own.
+
+We define contingent claims and construct path-independent European and American options, the path-dependent Asian option, and a custom-built exotic claim. Pricing is the subject of the third notebook.
+
+
+## The definition of a contingent claim
+
+Let $S_t$ be the price process of an asset, indexed $t\in \{0,1,\ldots,T\}$ out to some time horizon $T$. A *contingent claim* (or simply a *claim*) is a non-negative stochastic process $\Phi_t$ *adapted* to the filtration $\mathcal{F}_t$ introduced in the first notebook. This just means that each $\Phi_t$ is $\mathcal{F}_t$-measurable (for all $t$), which is equivalent to requiring that it is a function of all prices up to (and including) $S_t$:
+$$
+\Phi_t = \Phi_t(S_0,S_1,\ldots,S_t).
+$$
+The claim is called *path-independent* if each $\Phi_t$ is $S_t$-measurable (for all $t$), which means that it is a function of the current price alone:
+$$
+\Phi_t = \Phi_t(S_t).
+$$
+The time horizon $T$ is called the *maturity time* of the claim. The claim is said to be a *non-early-exercise* claim if $\Phi_t = 0$ for all non-maturity times $t<T$; otherwise, the claim is said to *allow early exercise*.
+
+## European options
+
+One of the simplest examples of a non-early-exercise claim is a *European call option* given by
+$$
+\Phi_T = \max(S_T-K,0),
+$$
+where $K$ is a positive real number called the *strike price* of the claim. We may implement this claim in SigAlg by hand using the `from_random_variables` constructor of the `Claim` class. We use a binomial model as the underlying price process $S_t$.
+
+```{python}
+import sigalg as sa
+
+S_0, u, d, p_u, R, T = 100, 1.1, 0.9, 0.7, 1.05, 3
+
+S = sa.BinomialPricingModel.generate(
+    initial_price=S_0,
+    up_factor=u,
+    down_factor=d,
+    up_prob=p_u,
+    risk_free_gross_return=R,
+    mode="enum",
+    length=T,
+    name="S",
+)
+
+K = 100
+Phi_T = (S[T] - K).max(0)
+
+euro_call = sa.Claim.from_random_variables(
+    rvs=[Phi_T], times=[T], model=S, name="euro_call"
+)
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe claim payoff at maturity:")
+print(Phi_T)
+
+print("\nThe European call option:")
+print(euro_call)
+```
+
+A *European put option* is a non-early-exercise claim with
+$$
+\Phi_T = \max(K-S_T,0).
+$$
+It may be implemented in SigAlg by hand just as easily as the call option above; however, SigAlg also includes convenient factory methods for typical contingent claims. The next code block uses one of these methods to construct a European put option in one line.
+
+```{python}
+euro_put = sa.Claim.european_option(strike=K, model=S, type="put", name="euro_put")
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe European put option:")
+print(euro_put)
+```
+
+## American options
+
+American options are the early-exercise analogues of European options. In particular, an *American call option* with strike $K$ is a claim with
+
+$$
+\Phi_t = \max(S_t-K,0)
+$$
+
+for all $t$, while an *American put option* with strike $K$ is given by
+
+$$
+\Phi_t = \max(K-S_t, 0)
+$$
+
+for all $t$. In the first of the next two code blocks, we build an American call option by hand to again illustrate the naturality of the SigAlg API, and then in the second we use a factory method to build an American put option in one line.
+
+```{python}
+Phi = (S - K).max(0)
+
+american_call = sa.Claim.from_stochastic_process(
+    process=Phi, model=S, name="american_call"
+)
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe American call option:")
+print(american_call)
+```
+
+```{python}
+american_put = sa.Claim.american_option(
+    strike=K, model=S, type="put", name="american_put"
+)
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe American put option:")
+print(american_put)
+```
+
+## Asian options
+
+European and American options are path-independent claims. An example of a path-dependent claim is an *Asian call option* with strike $K$, which is given by
+$$
+\Phi_t = \max(\overline{S}_t- K,0)
+$$
+for all $t$, where
+$$
+\overline{S}_t = \frac{1}{1+t} \sum_{k=0}^t S_k
+$$
+for each $t$. Similarly, an *Asian put option* with strike $K$ is given by
+$$
+\Phi_t = \max(K-\overline{S}_t,0).
+$$
+The next pair of code cells follows the pattern above: First constructing an Asian call option by hand, then using a factory method to construct an Asian put option.
+
+```{python}
+Phi = (S.cumavg() - K).max(0)
+
+asian_call = sa.Claim.from_stochastic_process(process=Phi, model=S, name="asian_call")
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe Asian call option:")
+print(asian_call)
+```
+
+```{python}
+asian_put = sa.Claim.asian_option(strike=K, model=S, type="put", name="asian_put")
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe Asian put option:")
+print(asian_put)
+```
+
+## Exotic claims
+
+The SigAlg API allows the user to construct claims with all different types of payoff structures. How about a claim that is a mix of an Asian call and a European put, and only allows exercise at two specified times?
+
+```{python}
+Phi_1 = (K - S[1]).max(0)
+Phi_3 = (S.cumavg()[3] - K).max(0)
+
+exotic_claim = sa.Claim.from_random_variables(
+    rvs=[Phi_1, Phi_3], times=[1, 3], model=S, name="exotic_claim"
+)
+
+print("The asset pricing model:")
+print(S)
+
+print("\nThe exotic claim:")
+print(exotic_claim)
+```
+
