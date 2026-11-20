@@ -14,8 +14,8 @@ website:
     left:  
       - text: "Home"
         href: index.qmd
-      - text: "About"
-        href: about.qmd
+      # - text: "About"
+      #   href: about.qmd
       - text: "Writings"
         href: writings.qmd
       - text: "Teaching"
